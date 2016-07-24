@@ -1,2 +1,0 @@
-cp myscheme.vim ~/.config/nvim/colors
-cp 20-intel.conf /usr/share/X11/xorg.conf.d/
