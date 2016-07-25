@@ -36,6 +36,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'ryanoasis/vim-devicons'           "cool icons
     Plug 'szw/vim-maximizer'
     Plug 'lambdalisue/vim-fullscreen'
+    " Plug 'sjl/gundo.vim'                    "visualise undo tree
     Plug 'gorodinskiy/vim-coloresque'       "show colors in css etc
     " Plug 'severin-lemaignan/vim-minimap'    "<Leader>mm/mc | pretty useless but cool
 
@@ -151,4 +152,4 @@ map <C-\> :NERDTreeToggle<CR>
 "copy/paste from system clipboard - requires xclip
     noremap YY "+y<CR>
     noremap <leader>p "+gP<CR>
-
+    " nnoremap <F5> :GundoToggle<CR>
