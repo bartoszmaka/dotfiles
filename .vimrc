@@ -1,10 +1,10 @@
 set nocompatible                "disable Vi compatibility
-filetype off
+" filetype off
     "Plugins
 call plug#begin('~/.vim/plugged')
 
         "Base
-    Plug 'VundleVim/Vundle.vim'             "Plugins manager
+    " Plug 'VundleVim/Vundle.vim'             "Plugins manager
     if has('nvim')
         Plug 'benekastah/neomake'
     endif
@@ -13,7 +13,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'xolox/vim-misc'                   "extension of some vim scripts
     Plug 'xolox/vim-easytags'               "jump to definition with ctrl ]
     Plug 'scrooloose/nerdtree'              "nerd tree
-    " Plug 'jistr/vim-nerdtree-tabs'          "Makes NERDTree more like panel
     Plug 'ctrlpvim/ctrlp.vim'               "ctrl+p search
     Plug 'JazzCore/ctrlp-cmatcher'          "ctrlp matching extension
     Plug 'tpope/vim-commentary'             "do comments with 'gc'
@@ -24,6 +23,9 @@ call plug#begin('~/.vim/plugged')
     " Plug 'Quramy/tsuquyomi'
     " Plug 'leafgarland/typescript-vim'
     " Plug 'easymotion/vim-easymotion'        "i have no idea how this works
+    " Plug 'jistr/vim-nerdtree-tabs'          "Makes NERDTree more like panel
+    " Plug 'sjl/gundo.vim'                    "visualise undo tree
+    " Plug 'severin-lemaignan/vim-minimap'    "<Leader>mm/mc | pretty useless but cool
 
         "Git
     Plug 'tpope/vim-fugitive'               "allows to use some git commands
@@ -36,9 +38,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'ryanoasis/vim-devicons'           "cool icons
     Plug 'szw/vim-maximizer'
     Plug 'lambdalisue/vim-fullscreen'
-    " Plug 'sjl/gundo.vim'                    "visualise undo tree
     Plug 'gorodinskiy/vim-coloresque'       "show colors in css etc
-    " Plug 'severin-lemaignan/vim-minimap'    "<Leader>mm/mc | pretty useless but cool
 
         "Code
     Plug 'bronson/vim-trailing-whitespace'  "mark useless whitespaces
@@ -97,7 +97,7 @@ set backspace=indent,eol,start  "allow backspacing over everything
 
 
     "some advanced stuff
-filetype plugin indent on
+" filetype plugin indent on
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 set omnifunc=syntaxcomplete#Complete
 let &t_Co=256
@@ -105,6 +105,7 @@ set fillchars+=stl:\ ,stlnc:\
 let g:airline_powerline_fonts = 1
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+autocmd! BufWritePost * Neomake
 
 " Easytags configuration -> Plug 'xolox/vim-easytags'
     let g:easytags_async = 1                        "Async easytags
@@ -113,7 +114,6 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
     let g:easytags_dynamic_files = 2                "create tag file per project
     set cpoptions+=d                                "needed for upper line to work
 
-autocmd! BufWritePost * Neomake
 
 " NERDTree configuration -> Plug 'scrooloose/nerdtree'
     let g:NERDTreeWinSize = 30
