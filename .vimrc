@@ -2,6 +2,7 @@ set nocompatible                "disable Vi compatibility
 filetype off
     "Plugins
 call plug#begin('~/.vim/plugged')
+
         "Base
     Plug 'VundleVim/Vundle.vim'             "Plugins manager
     if has('nvim')
@@ -13,41 +14,42 @@ call plug#begin('~/.vim/plugged')
     Plug 'xolox/vim-easytags'               "jump to definition with ctrl ]
     Plug 'scrooloose/nerdtree'              "nerd tree
     " Plug 'jistr/vim-nerdtree-tabs'          "Makes NERDTree more like panel
-    Plug 'Xuyuanp/nerdtree-git-plugin'      "shows some git stuff in nerd tree
-    Plug 'tpope/vim-fugitive'               "allows to use some git commands
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'JazzCore/ctrlp-cmatcher'          "ctrl+p search
-    Plug 'tpope/vim-commentary'
+    Plug 'ctrlpvim/ctrlp.vim'               "ctrl+p search
+    Plug 'JazzCore/ctrlp-cmatcher'          "ctrlp matching extension
+    Plug 'tpope/vim-commentary'             "do comments with 'gc'
     Plug 'ervandew/supertab'                "confrim autocompletion with tab
-    Plug 'tpope/vim-surround'
-    Plug 'bling/vim-airline'                "bottom status bar
-    Plug 'bronson/vim-trailing-whitespace'
-        "select region +/-
-    Plug 'terryma/vim-expand-region'
-    Plug 'terryma/vim-multiple-cursors'
-        "maximize/minimize window on f3
-    Plug 'ngmy/vim-rubocop'
-    Plug 'tpope/vim-endwise'
-    Plug 'octol/vim-cpp-enhanced-highlight'
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'slim-template/vim-slim'
-        "language specific
-    Plug 'vim-ruby/vim-ruby'
-    Plug 'tpope/vim-haml'
-    Plug 'tpope/vim-rails'
-        " Plug 'Shougo/vimproc.vim'
-        " Plug 'Quramy/tsuquyomi'
-        " CHOOSE ONE DO
-    Plug 'airblade/vim-gitgutter'
-        " Plug 'leafgarland/typescript-vim'
-        "some less usefull stuff
+    Plug 'terryma/vim-expand-region'        "select region +/_
+    Plug 'terryma/vim-multiple-cursors'     "multiple cursors, idk how to use this yet
+    " Plug 'Shougo/vimproc.vim'
+    " Plug 'Quramy/tsuquyomi'
+    " Plug 'leafgarland/typescript-vim'
     " Plug 'easymotion/vim-easymotion'        "i have no idea how this works
-    Plug 'severin-lemaignan/vim-minimap'    "<Leader>mm/mc | pretty useless but cool
+
+        "Git
+    Plug 'tpope/vim-fugitive'               "allows to use some git commands
+    Plug 'Xuyuanp/nerdtree-git-plugin'      "shows some git stuff in nerd tree
+    Plug 'airblade/vim-gitgutter'           "shows git + - ~ signs next to line numbers
+
+        "UI
+    Plug 'bling/vim-airline'                "bottom status bar
     Plug 'tomasr/molokai'                   "Color Scheme
     Plug 'ryanoasis/vim-devicons'           "cool icons
     Plug 'szw/vim-maximizer'
     Plug 'lambdalisue/vim-fullscreen'
     Plug 'gorodinskiy/vim-coloresque'       "show colors in css etc
+    " Plug 'severin-lemaignan/vim-minimap'    "<Leader>mm/mc | pretty useless but cool
+
+        "Code
+    Plug 'bronson/vim-trailing-whitespace'  "mark useless whitespaces
+    Plug 'tpope/vim-surround'               "do stuff with surrounding ( ; < etc
+    Plug 'ngmy/vim-rubocop'
+    Plug 'tpope/vim-endwise'                "automaticly close structures like 'def-end'
+    Plug 'octol/vim-cpp-enhanced-highlight'
+    Plug 'jiangmiao/auto-pairs'             "insert or delete brackets, parens, quotes in pair
+    Plug 'slim-template/vim-slim'
+    Plug 'vim-ruby/vim-ruby'
+    Plug 'tpope/vim-haml'
+    Plug 'tpope/vim-rails'
 call plug#end()
 
 
