@@ -37,8 +37,8 @@ endif
     Plug 'vim-airline/vim-airline-themes'   "themes for airline
     Plug 'tomasr/molokai'                   "Color Scheme
     Plug 'ryanoasis/vim-devicons'           "cool icons
-    Plug 'szw/vim-maximizer'
-    Plug 'lambdalisue/vim-fullscreen'
+    Plug 'szw/vim-maximizer'                "maximize current window with F3
+    " Plug 'lambdalisue/vim-fullscreen'
     Plug 'gorodinskiy/vim-coloresque'       "show colors in css etc
 
         "Code
@@ -46,12 +46,17 @@ endif
     Plug 'tpope/vim-surround'               "do stuff with surrounding ( ; < etc
     Plug 'tpope/vim-endwise'                "automaticly close structures like 'def-end'
     Plug 'jiangmiao/auto-pairs'             "insert or delete brackets, parens, quotes in pair
+        "C++
     Plug 'octol/vim-cpp-enhanced-highlight'
+        "Python
+
+        "Ruby
     Plug 'ngmy/vim-rubocop'
-    Plug 'slim-template/vim-slim'
     Plug 'vim-ruby/vim-ruby'
-    Plug 'tpope/vim-haml'
     Plug 'tpope/vim-rails'
+        "html haml slim css etc
+    Plug 'slim-template/vim-slim'
+    Plug 'tpope/vim-haml'
 call plug#end()
 
 
@@ -108,7 +113,6 @@ set omnifunc=syntaxcomplete#Complete
 autocmd! BufWritePost * Neomake
 " set fillchars+=stl:\ ,stlnc:\                       "chars in statusline
 
-
 " Airline config -> Plug 'bling/vim-airline'
     let g:airline_powerline_fonts = 1
     let g:airline_theme = 'molokai'
@@ -163,14 +167,15 @@ autocmd! BufWritePost * Neomake
       autocmd!
       autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
     augroup END
+
 " custom keymaps
     let mapleader=','
         "swap ; :
     " nnoremap : ;
     nnoremap ; :
         "move whole line up / down
-    nmap <c-k> ddkP
-    nmap <c-j> ddp
+    nnoremap <c-k> ddkP
+    nnoremap <c-j> ddp
         "delete line in insert mode
     inoremap <C-d> <esc>ddi
         "close tab
