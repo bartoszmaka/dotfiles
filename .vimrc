@@ -69,6 +69,8 @@ set updatetime=2000
 set timeoutlen=900
 set title
 " set runtimepath^=~/.vim/bundle/ctrlp.vim
+" set undofile
+" set undodir="$HOME/.VIM_UNDO_FILES"
 
     "searching
 set ignorecase                  "don't be case sensitive
@@ -87,6 +89,7 @@ set relativenumber              "show other lines relative number
 set colorcolumn=120             "120 column is colored
 set cursorline                  "cursor line is highlighted
 set showcmd                     "show currently typed command in right bottom
+" set noshowmode                  "let airline tell my status
 
     "code config
 set showbreak=/>>               "mark wrapped lines with '+>>'
@@ -97,7 +100,7 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 set backspace=indent,eol,start  "allow backspacing over everything
-
+" set noshowmatch
 
     "some advanced stuff
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
@@ -160,11 +163,20 @@ autocmd! BufWritePost * Neomake
       autocmd!
       autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
     augroup END
-
 " custom keymaps
-let mapleader=','
+    let mapleader=','
+        "swap ; :
+    " nnoremap : ;
+    nnoremap ; :
+        "move whole line up / down
+    nmap <c-k> ddkP
+    nmap <c-j> ddp
+        "delete line in insert mode
+    inoremap <C-d> <esc>ddi
+        "close tab
     nnoremap <leader>wt :tabclose<CR>
+        "copy / paste system clipboard
     noremap YY "+y<CR>
     noremap <leader>p "+gP<CR>
-" nnoremap <F5> :GundoToggle<CR>
-nmap <F8> :TagbarToggle<CR>
+    " nnoremap <F5> :GundoToggle<CR>
+    nmap <F8> :TagbarToggle<CR>
