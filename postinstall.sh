@@ -15,15 +15,13 @@ sudo apt -y update
 sudo apt -y upgrade
 clear
 echo "downloading additional packages"
-sudo apt -y install software-properties-common zsh git python-pip python3-pip python-dev python3-dev exuberant-ctags xclip silversearcher-ag synaptic psensor redshift redshift-gtk dconf-editor gparted compizconfig-settings-manager unity-tweak-tool simplescreenrecorder grub-customizer neovim numix-icon-theme numix-gtk-theme numix-icon-theme-circle fonts-hack-ttf
+sudo apt -y install software-properties-common zsh git python-pip python3-pip python-dev python3-dev exuberant-ctags xclip silversearcher-ag synaptic psensor redshift redshift-gtk dconf-editor gparted simplescreenrecorder grub-customizer neovim numix-icon-theme numix-gtk-theme numix-icon-theme-circle fonts-hack-ttf
 clear
 echo "upgrading pip and neovim"
-sudo pip2 install --upgrade pip
-sudo pip3 install --upgrade pip
-sudo pip2 install --upgrade neovim
-sudo pip3 install --upgrade neovim
-ln -s ~/.vimrc ~/.config/nvim/init.vim
-ln -s ~/.vim ~/.config/nvim/.vim
+pip2 install --upgrade pip
+pip3 install --upgrade pip
+pip2 install --upgrade neovim
+pip3 install --upgrade neovim
 clear
 echo "downloading plugins manager for vim and neovim"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -40,3 +38,5 @@ git clone https://github.com/bartoszmaka/dotfiles.git dotfiles
 cp -v ~/dotfiles/.vimrc ~/
 cp -v ~/dotfiles/.zshrc ~/
 cp -v ~/dotfiles/redshift.conf ~/.config
+ln -s ~/.vimrc ~/.config/nvim/init.vim
+ln -s ~/.vim ~/.config/nvim/.vim
