@@ -1,105 +1,81 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-    " My personal plugins
+        " My personal plugins
     Plug 'majutsushi/tagbar'                "kind of tags minimap
     Plug 'tomasr/molokai'                   "Color Scheme
     Plug 'sjl/gundo.vim'                    "visualise undo tree
+    Plug 'gko/vim-coloresque'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'haya14busa/incsearch.vim'         "incrementally highlights ALL pattern
 
-    " GENERAL ************************************
+        " GENERAL ************************************
     Plug 'xolox/vim-misc'
-    Plug 'xolox/vim-easytags'
+    Plug 'xolox/vim-easytags'               "to check"
     Plug 'scrooloose/nerdtree'
     Plug 'tpope/vim-surround'
-    " <!!!!!!!!**************!!!!!!!!>
 
-    " GIT INTEGRATION ************************************
+        " GIT INTEGRATION ************************************
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-fugitive'
     Plug 'Xuyuanp/nerdtree-git-plugin'
-    " <!!!!!!!!**************!!!!!!!!>
 
-    " SMART SEARCH ************************************
+        " SMART SEARCH ************************************
     Plug 'kien/ctrlp.vim'
     Plug 'JazzCore/ctrlp-cmatcher'
     " <!!!!!!!!**************!!!!!!!!>
 
-    " RAILS ************************************
-    " Enable 'bunle' in vim and more
-    Plug 'tpope/vim-bundler'
-    " Add rails-releated shortcuts to vim
-    Plug 'tpope/vim-rails'
-    " Vim-rails shortcuts everywhere!
-    Plug 'tpope/vim-rake'
-    " <!!!!!!!!**************!!!!!!!!>
+        " RAILS ************************************
+    Plug 'tpope/vim-bundler'    " Enable 'bunle' in vim and more
+    Plug 'tpope/vim-rails'      " Add rails-releated shortcuts to vim
+    Plug 'tpope/vim-rake'       " Vim-rails shortcuts everywhere!
 
-    " Syntax
-    Plug 'scrooloose/syntastic'
-    " Live markdown preview
+
+    Plug 'scrooloose/syntastic'    " Syntax
+        " Live markdown preview
     Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown' }
-    " Enable 'Rvm use' in vim
-    Plug 'tpope/vim-rvm'
-    " Comments
-    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-rvm'           " Enable 'Rvm use' in vim
+    Plug 'tpope/vim-commentary'    " Comments
 
     " AUTOCOMPLETE AND SNIPPETS ************************************
-    " Autocomplete
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-    " Confrim autocompletion with tab
-    Plug 'ervandew/supertab'
-    " Snippets for various languages pack
-    Plug 'honza/vim-snippets'
-    " Snippet engine
-    Plug 'SirVer/ultisnips'
-    " <!!!!!!!!**************!!!!!!!!>
+        " Autocomplete
+    Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --all' }
+    Plug 'ervandew/supertab'     " Confrim autocompletion with tab
+    Plug 'honza/vim-snippets'    " Snippets for various languages pac
+    Plug 'SirVer/ultisnips'      " Snippet engine
 
-    " Repeat plugin commands with .
-    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-repeat'      " Repeat plugin commands with .
 
     " " JS ************************************
     " Plug 'pangloss/vim-javascript'
     " Plug 'isRuslan/vim-es6'
     " Plug 'kchmck/vim-coffee-script'
     " Plug 'mxw/vim-jsx'
-    " " <!!!!!!!!**************!!!!!!!!>
 
     " " TYPESCRIPT ************************************
     " Plug 'Quramy/tsuquyomi'
     " Plug 'leafgarland/typescript-vim'
     " " Async execution library, required by tsuquyomi
     " Plug 'Shougo/vimproc.vim'
-    " " <!!!!!!!!**************!!!!!!!!>
 
-    " Airline
-    Plug 'bling/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'   "themes for airline
-    " Detect trailing whitespaces
-    Plug 'bronson/vim-trailing-whitespace'
-    " Select region +/-
-    Plug 'terryma/vim-expand-region'
-    " Multiple cursors
-    Plug 'terryma/vim-multiple-cursors'
-    " Maximize/minimize window on f3
-    Plug 'szw/vim-maximizer'
-    " Rubocop
-    Plug 'ngmy/vim-rubocop'
-    " Auto add ends, endfuncion, endif
-    Plug 'tpope/vim-endwise'
-    " Better highlighting for c++
-    Plug 'octol/vim-cpp-enhanced-highlight'
-    " Auto insert matching brackets
-    Plug 'jiangmiao/auto-pairs'
-    " Slim support
-    Plug 'slim-template/vim-slim'
-    " HTML support
-    Plug 'mattn/emmet-vim'
-    " Easy text align with regexp
-    Plug 'godlygeek/tabular'
+
+    Plug 'bling/vim-airline'                      " Airline
+    Plug 'vim-airline/vim-airline-themes'         "themes for airline
+    Plug 'bronson/vim-trailing-whitespace'        " Detect trailing whitespaces
+    Plug 'terryma/vim-expand-region'              " Select region +/-
+    Plug 'terryma/vim-multiple-cursors'           " Multiple cursors
+    Plug 'szw/vim-maximizer'                      " Maximize/minimize window on f3
+    Plug 'ngmy/vim-rubocop'                       " Rubocop
+    Plug 'tpope/vim-endwise'                      " Auto add ends, endfuncion, endif
+    Plug 'octol/vim-cpp-enhanced-highlight'       " Better highlighting for c++
+    Plug 'jiangmiao/auto-pairs'                   " Auto insert matching brackets
+    Plug 'slim-template/vim-slim'                 " Slim support
+    Plug 'mattn/emmet-vim'                        " HTML support
+    Plug 'godlygeek/tabular'                      " Easy text align with regexp
 
     " " GVIM ONLY ************************************
     " " Enabling fulscreen helper
     " Plug 'lambdalisue/vim-fullscreen'
-    " " <!!!!!!!!**************!!!!!!!!>
 
     " Ruby support
     Plug 'vim-ruby/vim-ruby'
@@ -108,7 +84,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'benekastah/neomake'
     Plug 'kassio/neoterm'
     Plug 'janko-m/vim-test'
-    " <!!!!!!!!**************!!!!!!!!>
 
     " Haml support
     Plug 'tpope/vim-haml'
@@ -135,7 +110,7 @@ set mouse=a                             " Mouse support
 set lazyredraw                          " Only redraw when it is needed
 set timeoutlen=900                      " Sequence timeout
 set number                              " Show absolute line number in current line
-set relativenumber                      " Show relative line number
+" set relativenumber                      " Show relative line number
 set showbreak=▶▶                        " Wrapped line symbol
 set textwidth=120                       " Text (e. g. comment) break point
 set noshowmatch                         " Disable jumping to matching parenthesis after typing it
@@ -187,7 +162,9 @@ syntax on                               " Enable syntax coloring
 
 " YOUCOMPLETEME CONFIG ************************************
         " Path to python interpreter for ycm
-    let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+    let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
+    let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+    " let g:ycm_server_python_interpreter = '/usr/bin/python'
         " Make YCM compatible with UltiSnips using supertab (3 lines below)
     let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
     let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
@@ -249,6 +226,7 @@ syntax on                               " Enable syntax coloring
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
         " NerdTree toggle
     nmap <leader>2 :NERDTreeToggle<CR>
+    nmap <F2> :NERDTreeToggle<CR>
 
 " GITGUTTER CONFIG ************************************
     let g:gitgutter_sign_column_always = 1
@@ -306,32 +284,93 @@ syntax on                               " Enable syntax coloring
         " let g:syntastic_typescript_checkers = ['tsuquyomi']
     autocmd FileType typescript setlocal completeopt+=menu,preview
 
-autocmd! BufWritePost * Neomake
     "Auto remove trailing whitespaces on save
-autocmd BufWritePre * FixWhitespace
-
 " PERSONAL CONFIG AND SHORTCUTS ************************************
-        " ctrl+move line (2 lines below)
+    let g:neomake_ruby_enabled_makers = ['rubocop']
+    autocmd! BufWritePost * Neomake
+    autocmd BufWritePre * FixWhitespace
+
+" Easymotion Config
+    " <Leader>f{char} to move to {char}
+    map  <Leader>f <Plug>(easymotion-bd-f)
+    nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+    " s{char}{char} to move to {char}{char}
+    nmap s <Plug>(easymotion-overwin-f2)
+
+    " Move to line
+    map <Leader>L <Plug>(easymotion-bd-jk)
+    nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+    " Move to word
+    map  <Leader>w <Plug>(easymotion-bd-w)
+    nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+" " Easymotion - Incsearch integration
+"     " You can use other keymappings like <C-l> instead of <CR> if you want to
+"     " use these mappings as default search and somtimes want to move cursor with
+"     " EasyMotion.
+"     function! s:incsearch_config(...) abort
+"       return incsearch#util#deepextend(deepcopy({
+"       \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+"       \   'keymap': {
+"       \     "\<CR>": '<Over>(easymotion)'
+"       \   },
+"       \   'is_expr': 0
+"       \ }), get(a:, 1, {}))
+"     endfunction
+
+"     noremap <expr> /  incsearch#go(<SID>incsearch_config())
+"     noremap <expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+"     noremap <expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+
+"     function! s:config_easyfuzzymotion(...) abort
+"       return extend(copy({
+"       \   'converters': [incsearch#config#fuzzyword#converter()],
+"       \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+"       \   'keymap': {"\<CR>": '<Over>(easymotion)'},
+"       \   'is_expr': 0,
+"       \   'is_stay': 1
+"       \ }), get(a:, 1, {}))
+"     endfunction
+
+" noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+" Incsearch Config
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
+    " :h g:incsearch#auto_nohlsearch
+    " set hlsearch
+    let g:incsearch#auto_nohlsearch = 1
+    map n  <Plug>(incsearch-nohl-n)
+    map N  <Plug>(incsearch-nohl-N)
+    map *  <Plug>(incsearch-nohl-*)
+    map #  <Plug>(incsearch-nohl-#)
+    map g* <Plug>(incsearch-nohl-g*)
+    map g# <Plug>(incsearch-nohl-g#)
+
 
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
-    nmap <C-k> ddkP
-    nmap <C-j> ddp
+    " ctrl+move line (2 lines below)
+        nmap <C-k> ddkP
+        nmap <C-j> ddp
     inoremap <C-d> <esc>ddi
-    nnoremap , ;
-    nnoremap ; :
-    imap <C-l> <Esc>$a
-        " Copy to system clipboard with 'YY'
-    noremap YY "+y<CR>
-        " Paste
-    noremap <leader>p "+p
-    inoremap <C-p> <Esc>pa
-    imap <C-v> <Esc>"+pa
-        " Change current line color when entering insert mode
-    autocmd InsertEnter * highlight  CursorLine ctermbg=52
-        " Revert current line color to default when leaving insert mode
-    autocmd InsertLeave * highlight  CursorLine ctermbg=233
-        " Search on , (2 lines below)
-    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap , :Ag<SPACE>
-        " check file change every 4 seconds ('CursorHold') and reload the buffer upon detecting change (2 lines below)
+    " map ; as :
+        nnoremap ; :
+    " nnoremap , ;
+    " some kind of searching
+        imap <C-l> <Esc>$a
+    " Copy to system clipboard with 'YY'
+        noremap <leader>y "+y<CR>
+    " Paste
+        noremap <leader>p "+p
+        inoremap <C-p> <Esc>pa
+        imap <C-v> <Esc>"+pa
+    " Change current line color when entering insert mode
+        autocmd InsertEnter * highlight  CursorLine ctermbg=52
+    " Revert current line color to default when leaving insert mode
+        autocmd InsertLeave * highlight  CursorLine ctermbg=233
+    " Search on , (2 lines below)
+        command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+        nnoremap , :Ag<SPACE>
