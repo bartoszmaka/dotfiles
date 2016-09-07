@@ -2,13 +2,16 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
         " My personal plugins
+    " Plug 'ryanoasis/vim-devicons'
     Plug 'majutsushi/tagbar'                "kind of tags minimap
     Plug 'tomasr/molokai'                   "Color Scheme
     Plug 'sjl/gundo.vim'                    "visualise undo tree
     Plug 'gko/vim-coloresque'
     Plug 'easymotion/vim-easymotion'
     Plug 'haya14busa/incsearch.vim'         "incrementally highlights ALL pattern
-
+    Plug 'jistr/vim-nerdtree-tabs'
+    " Plug 'alvan/vim-closetag'
+    Plug 'tpope/vim-ragtag'
         " GENERAL ************************************
     Plug 'xolox/vim-misc'
     Plug 'xolox/vim-easytags'               "to check"
@@ -25,10 +28,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'JazzCore/ctrlp-cmatcher'
     " <!!!!!!!!**************!!!!!!!!>
 
-        " RAILS ************************************
-    Plug 'tpope/vim-bundler'    " Enable 'bunle' in vim and more
-    Plug 'tpope/vim-rails'      " Add rails-releated shortcuts to vim
-    Plug 'tpope/vim-rake'       " Vim-rails shortcuts everywhere!
+        " " RAILS ************************************
+    " Plug 'tpope/vim-bundler'    " Enable 'bunle' in vim and more
+    " Plug 'tpope/vim-rails'      " Add rails-releated shortcuts to vim
+    " Plug 'tpope/vim-rake'       " Vim-rails shortcuts everywhere!
 
 
     Plug 'scrooloose/syntastic'    " Syntax
@@ -94,6 +97,8 @@ set shell=/bin/zsh
 language en_US.UTF-8
 set langmenu=en_US.UTF-8
 set fileencoding=utf-8
+set encoding=utf8
+" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete\ 12
 " <!!!!!!!!**************!!!!!!!!>
 
 " Removed in nvim, keeping for backwards compatibility
@@ -187,6 +192,7 @@ syntax on                               " Enable syntax coloring
     set fillchars+=stl:\ ,stlnc:\
     let g:airline_powerline_fonts = 1
     let g:airline_theme = 'molokai'
+    let g:airline#extensions#tabline#enabled = 1
 
 " CTRLP CONFIG ************************************
     let g:ctrlp_map = '<c-p>'
@@ -205,6 +211,8 @@ syntax on                               " Enable syntax coloring
         let g:ctrlp_use_caching = 0
     endif
 
+" Closetag config
+    let g:closetag_filenames = "*.html, *.xhtml *.phtml, *.erb"
 " EASYTAGS CONFIG ************************************
         "Async easytags
     let g:easytags_async = 1
@@ -225,8 +233,9 @@ syntax on                               " Enable syntax coloring
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
         " NerdTree toggle
-    nmap <leader>2 :NERDTreeToggle<CR>
-    nmap <F2> :NERDTreeToggle<CR>
+    " let g:nerdtree_tabs_open_on_console_startup = 1
+    nmap <leader>2 :NERDTreeTabsToggle<CR>
+    nmap <F2> :NERDTreeTabsToggle<CR>
 
 " GITGUTTER CONFIG ************************************
     let g:gitgutter_sign_column_always = 1
@@ -276,6 +285,11 @@ syntax on                               " Enable syntax coloring
     autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
     autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
 
+" RuboCop config
+    let g:vimrubocop_config = '/home/bartosz/.rubocop.yml'
+" Devicons config
+    " let g:webdevicons_conceal_nerdtree_brackets = 0
+    " let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 " TYPESCRIPT SETTINGS ************************************
     let g:neomake_javascript_enabled_makers = ['eslint']
     let g:tsuquyomi_disable_quickfix = 1
