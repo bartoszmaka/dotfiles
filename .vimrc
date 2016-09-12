@@ -364,6 +364,7 @@ syntax on                               " Enable syntax coloring
     map g# <Plug>(incsearch-nohl-g#)
 
 
+    nmap gW :tabclose<CR>
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
     " ctrl+move line (2 lines below)
