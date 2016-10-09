@@ -1,17 +1,17 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-        " My personal plugins
     " Plug 'ryanoasis/vim-devicons'
     Plug 'majutsushi/tagbar'                "kind of tags minimap
     Plug 'tomasr/molokai'                   "Color Scheme
     Plug 'sjl/gundo.vim'                    "visualise undo tree
     Plug 'gko/vim-coloresque'
-    Plug 'easymotion/vim-easymotion'
+    " Plug 'easymotion/vim-easymotion'
     Plug 'haya14busa/incsearch.vim'         "incrementally highlights ALL pattern
     Plug 'jistr/vim-nerdtree-tabs'
-    " Plug 'alvan/vim-closetag'
+    Plug 'alvan/vim-closetag'
     Plug 'tpope/vim-ragtag'
+    Plug 'ap/vim-buftabline'
         " GENERAL ************************************
     Plug 'xolox/vim-misc'
     Plug 'xolox/vim-easytags'               "to check"
@@ -42,7 +42,7 @@ call plug#begin('~/.vim/plugged')
 
     " AUTOCOMPLETE AND SNIPPETS ************************************
         " Autocomplete
-    Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --all' }
+    Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
     Plug 'ervandew/supertab'     " Confrim autocompletion with tab
     Plug 'honza/vim-snippets'    " Snippets for various languages pac
     Plug 'SirVer/ultisnips'      " Snippet engine
@@ -141,18 +141,10 @@ set undolevels=100                      " Amount of possible undos
 set cursorline                          " Highlight current line
 set backspace=indent,eol,start          " Allow backspacing over everything in insert mode
 syntax on                               " Enable syntax coloring
-
+let mapleader = "'"
 " Gundo ***********************************
     let g:gundo_prefer_python3=1
 
-" GVIM ************************************
-    if has('gui_running')
-        set guifont=Hack\ 10           " Font settings
-        set guioptions-=r              " Remove right-hand scroll bar
-        set guioptions-=L              " Remove left-hand scroll bar
-        set guioptions-=T              " Remove toolbar
-        set lines=150 columns=300      " Start maximized
-    endif
 
 " NOT SURE OR TOO LAZY TO CHECK ************************************
     filetype plugin indent on
@@ -173,7 +165,7 @@ syntax on                               " Enable syntax coloring
         " Make YCM compatible with UltiSnips using supertab (3 lines below)
     let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
     let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-    let g:SuperTabDefaultCompletionType = '<C-n>'
+    let g:SuperTabDefaultCompletionType = '<C-m>'
 
 " ULTISNIPS CONFIG ************************************
         " Better key bindings for UltiSnipsExpandTrigger (3 lines below)
@@ -213,6 +205,7 @@ syntax on                               " Enable syntax coloring
 
 " Closetag config
     let g:closetag_filenames = "*.html, *.xhtml *.phtml, *.erb"
+
 " EASYTAGS CONFIG ************************************
         "Async easytags
     let g:easytags_async = 1
@@ -251,6 +244,20 @@ syntax on                               " Enable syntax coloring
         autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
     augroup END
 
+" Incsearch Config
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
+    " :h g:incsearch#auto_nohlsearch
+    " set hlsearch
+    let g:incsearch#auto_nohlsearch = 1
+    map n  <Plug>(incsearch-nohl-n)
+    map N  <Plug>(incsearch-nohl-N)
+    map *  <Plug>(incsearch-nohl-*)
+    map #  <Plug>(incsearch-nohl-#)
+    map g* <Plug>(incsearch-nohl-g*)
+    map g# <Plug>(incsearch-nohl-g#)
+" Not Mine Thing
 " VIM-TEST CONFIG ************************************
     nmap <silent> <leader>t :TestNearest<CR>
     nmap <silent> <leader>T :TestFile<CR>
@@ -260,6 +267,7 @@ syntax on                               " Enable syntax coloring
     let test#strategy = 'neoterm'
     let g:neoterm_position = 'horizontal'
 
+" Not Mine Thing
 " TERMINAL MODE SHORTCUTS ************************************
     if has('nvim')
             " Exit terminal mode with esc
@@ -275,6 +283,7 @@ syntax on                               " Enable syntax coloring
         :nnoremap <A-l> <C-w>l
     endif
 
+" Not Mine Thing
 " TAB LENGTHS ************************************
     autocmd Filetype slim setlocal ts=2 sts=2 sw=2
     autocmd Filetype html setlocal ts=2 sts=2 sw=2
@@ -290,6 +299,8 @@ syntax on                               " Enable syntax coloring
 " Devicons config
     " let g:webdevicons_conceal_nerdtree_brackets = 0
     " let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+
+" Not Mine Thing
 " TYPESCRIPT SETTINGS ************************************
     let g:neomake_javascript_enabled_makers = ['eslint']
     let g:tsuquyomi_disable_quickfix = 1
@@ -298,27 +309,32 @@ syntax on                               " Enable syntax coloring
         " let g:syntastic_typescript_checkers = ['tsuquyomi']
     autocmd FileType typescript setlocal completeopt+=menu,preview
 
-    "Auto remove trailing whitespaces on save
+" Auto remove trailing whitespaces on save
+    autocmd BufWritePre * FixWhitespace
+
 " PERSONAL CONFIG AND SHORTCUTS ************************************
     let g:neomake_ruby_enabled_makers = ['rubocop']
     autocmd! BufWritePost * Neomake
-    autocmd BufWritePre * FixWhitespace
 
-" Easymotion Config
-    " <Leader>f{char} to move to {char}
-    map  <Leader>f <Plug>(easymotion-bd-f)
-    nmap <Leader>f <Plug>(easymotion-overwin-f)
+" Buftabline Config
+    nnoremap g5 :bnext<CR>
+    nnoremap g4 :bprev<CR>
 
-    " s{char}{char} to move to {char}{char}
-    nmap s <Plug>(easymotion-overwin-f2)
+" " Easymotion Config
+"     " <Leader>f{char} to move to {char}
+"     map  <Leader>f <Plug>(easymotion-bd-f)
+"     nmap <Leader>f <Plug>(easymotion-overwin-f)
 
-    " Move to line
-    map <Leader>L <Plug>(easymotion-bd-jk)
-    nmap <Leader>L <Plug>(easymotion-overwin-line)
+"     " s{char}{char} to move to {char}{char}
+"     nmap <Leader>s <Plug>(easymotion-overwin-f2)
 
-    " Move to word
-    map  <Leader>w <Plug>(easymotion-bd-w)
-    nmap <Leader>w <Plug>(easymotion-overwin-w)
+"     " Move to line
+"     map <Leader>L <Plug>(easymotion-bd-jk)
+"     nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+"     " Move to word
+"     map  <Leader>w <Plug>(easymotion-bd-w)
+"     nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " " Easymotion - Incsearch integration
 "     " You can use other keymappings like <C-l> instead of <CR> if you want to
@@ -349,33 +365,24 @@ syntax on                               " Enable syntax coloring
 "     endfunction
 
 " noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
-" Incsearch Config
-    map /  <Plug>(incsearch-forward)
-    map ?  <Plug>(incsearch-backward)
-    map g/ <Plug>(incsearch-stay)
-    " :h g:incsearch#auto_nohlsearch
-    " set hlsearch
-    let g:incsearch#auto_nohlsearch = 1
-    map n  <Plug>(incsearch-nohl-n)
-    map N  <Plug>(incsearch-nohl-N)
-    map *  <Plug>(incsearch-nohl-*)
-    map #  <Plug>(incsearch-nohl-#)
-    map g* <Plug>(incsearch-nohl-g*)
-    map g# <Plug>(incsearch-nohl-g#)
 
 
+"Multiple Cursors Config
+    " let g:multi_cursor_next_key='<leader>m'
+
+" Custom Shortcuts
     nmap gW :tabclose<CR>
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
     " ctrl+move line (2 lines below)
-        nmap <C-k> ddkP
-        nmap <C-j> ddp
-    inoremap <C-d> <esc>ddi
+        nmap <C-S>k ddkP
+        nmap <C-S>j ddp
+    " inoremap <C-d> <esc>ddi
     " map ; as :
         nnoremap ; :
     " nnoremap , ;
     " some kind of searching
-        imap <C-l> <Esc>$a
+        " imap <C-l> <Esc>$a
     " Copy to system clipboard with 'YY'
         noremap <leader>y "+y<CR>
     " Paste
