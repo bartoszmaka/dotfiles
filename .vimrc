@@ -375,8 +375,8 @@ let mapleader = "'"
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
     " ctrl+move line (2 lines below)
-        nmap <C-S>k ddkP
-        nmap <C-S>j ddp
+        nnoremap <C-k> ddkP
+        nnoremap <C-j> ddp
     " inoremap <C-d> <esc>ddi
     " map ; as :
         nnoremap ; :
