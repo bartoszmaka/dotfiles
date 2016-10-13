@@ -94,7 +94,6 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 set shell=/bin/zsh
-" ENCODING ************************************
 language en_US.UTF-8
 set langmenu=en_US.UTF-8
 set fileencoding=utf-8
@@ -103,7 +102,6 @@ set encoding=utf8
 set ttimeoutlen=0
 set smarttab
 set softtabstop=4
-" <!!!!!!!!**************!!!!!!!!>
 
 set updatetime=300
 set mouse=a                             " Mouse support
@@ -194,7 +192,6 @@ let mapleader = "'"
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
         " NerdTree toggle
     " let g:nerdtree_tabs_open_on_console_startup = 1
-    nmap <leader>2 :NERDTreeTabsToggle<CR>
     nmap <F2> :NERDTreeTabsToggle<CR>
 
 " Remember cursor position
@@ -224,14 +221,27 @@ let mapleader = "'"
 " Remove Whitespaces on save
     autocmd BufWritePre * FixWhitespace
 
+" RuboCop config
+    let g:vimrubocop_config = '~/.rubocop.yml'
+
+" GITGUTTER CONFIG ************************************
+    let g:gitgutter_sign_column_always = 1
+        " View diff with <leader>1
+    nnoremap <expr> <leader>1 (g:gitgutter_highlight_lines) ? ':GitGutterLineHighlightsToggle<CR>:NERDTreeToggle<CR><C-w>l:q!<CR>' : ':GitGutterLineHighlightsToggle<CR>:Gvsplit<CR>:NERDTreeToggle<CR>'
+        " uncomment 2 lines below in case of performance issues
+    " let g:gitgutter_realtime = 0
+    " let g:gitgutter_eager = 0
+
+" Colorscheme settings
+    if !exists('g:not_finish_vimplug')
+        colorscheme molokai
+    endif
+    let &t_Co=256
+
     " NOT SURE OR TOO LAZY TO CHECK ************************************
         filetype plugin indent on
         set wildignore+=*/tmp/*,*.so,*.swp,*.zipo
         set omnifunc=syntaxcomplete#Complete
-        if !exists('g:not_finish_vimplug')
-            colorscheme molokai
-        endif
-        let &t_Co=256
     " JS thing
         let g:jsx_ext_required = 0
     " LIVEDOWN CONFIG *************************************************
@@ -251,13 +261,6 @@ let mapleader = "'"
         let g:easytags_dynamic_files = 2
             "needed for upper line to work
         set cpoptions+=d
-    " GITGUTTER CONFIG ************************************
-        let g:gitgutter_sign_column_always = 1
-            " View diff with <leader>1
-        nnoremap <expr> <leader>1 (g:gitgutter_highlight_lines) ? ':GitGutterLineHighlightsToggle<CR>:NERDTreeToggle<CR><C-w>l:q!<CR>' : ':GitGutterLineHighlightsToggle<CR>:Gvsplit<CR>:NERDTreeToggle<CR>'
-            " uncomment 2 lines below in case of performance issues
-            " let g:gitgutter_realtime = 0
-            " let g:gitgutter_eager = 0
     " VIM-TEST CONFIG ************************************
         nmap <silent> <leader>t :TestNearest<CR>
         nmap <silent> <leader>T :TestFile<CR>
@@ -269,9 +272,9 @@ let mapleader = "'"
 
     " TERMINAL MODE SHORTCUTS ************************************
         if has('nvim')
-                " Exit terminal mode with esc
+            " Exit terminal mode with esc
             :tnoremap <Esc> <C-\><C-n>"
-                " Improve windows navigation by using 'alt + *' combination even when terminal window is active
+            " Improve windows navigation by using 'alt + *' combination even when terminal window is active
             :tnoremap <A-h> <C-\><C-n><C-w>h
             :tnoremap <A-j> <C-\><C-n><C-w>j
             :tnoremap <A-k> <C-\><C-n><C-w>k
@@ -292,46 +295,94 @@ let mapleader = "'"
         autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
         autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
 
-    " RuboCop config
-        let g:vimrubocop_config = '/home/bartosz/.rubocop.yml'
     " TYPESCRIPT SETTINGS ************************************
-        let g:neomake_javascript_enabled_makers = ['eslint']
-        let g:tsuquyomi_disable_quickfix = 1
-            " let g:neomake_typescript_enabled_makers = []
-            " let g:syntastic_typescript_tsc_fname = ''
-            " let g:syntastic_typescript_checkers = ['tsuquyomi']
-        autocmd FileType typescript setlocal completeopt+=menu,preview
+        " let g:neomake_javascript_enabled_makers = ['eslint']
+        " let g:tsuquyomi_disable_quickfix = 1
+        " let g:neomake_typescript_enabled_makers = []
+        " let g:syntastic_typescript_tsc_fname = ''
+        " let g:syntastic_typescript_checkers = ['tsuquyomi']
+        " autocmd FileType typescript setlocal completeopt+=menu,preview
 
-    " Buftabline Config
-nnoremap g5 :bnext<CR>
-nnoremap g4 :bprev<CR>
+" Buftabline Config
+    nnoremap g5 :bnext<CR>
+    nnoremap g4 :bprev<CR>
 
-nmap gW :tabclose<CR>
-map <F4> :TagbarToggle<CR>
-nnoremap <F5> :GundoToggle<CR>
-    " Search on , (2 lines below)
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap , :Ag<SPACE>
-    " Change current line color when entering insert mode
-autocmd InsertEnter * highlight  CursorLine ctermbg=52
-    " Revert current line color to default when leaving insert mode
-autocmd InsertLeave * highlight  CursorLine ctermbg=233
-    " switch between relative and non-relative line numbers
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <leader>n :call NumberToggle()<cr>
-    " system clipboard
-noremap <leader>y "+y<CR>
-noremap <leader>p "+p
-inoremap <C-p> <Esc>pa
-imap <C-v> <Esc>"+pa
-    " move current line
-nnoremap <C-k> ddkP
-nnoremap <C-j> ddp
+    nmap gW :tabclose<CR>
+    map <F4> :TagbarToggle<CR>
+    nnoremap <F5> :GundoToggle<CR>
+" Search on , (2 lines below)
+    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap , :Ag<SPACE>
+" Change current line color when entering insert mode
+    autocmd InsertEnter * highlight  CursorLine ctermbg=52
+" Revert current line color to default when leaving insert mode
+    autocmd InsertLeave * highlight  CursorLine ctermbg=233
+" switch between relative and non-relative line numbers
+    function! NumberToggle()
+      if(&relativenumber == 1)
+        set norelativenumber
+      else
+        set relativenumber
+      endif
+    endfunc
+    nnoremap <leader>n :call NumberToggle()<cr>
+" system clipboard
+    noremap <leader>y "+y<CR>
+    noremap <leader>p "+p
+    inoremap <C-p> <Esc>pa
+    imap <C-v> <Esc>"+pa
 " map ; as :
     nnoremap ; :
+" Move lines or blocks up and down
+    function! MoveLineUp()
+      call MoveLineOrVisualUp(".", "")
+    endfunction
+
+    function! MoveLineDown()
+      call MoveLineOrVisualDown(".", "")
+    endfunction
+
+    function! MoveVisualUp()
+      call MoveLineOrVisualUp("'<", "'<,'>")
+      normal gv
+    endfunction
+
+    function! MoveVisualDown()
+      call MoveLineOrVisualDown("'>", "'<,'>")
+      normal gv
+    endfunction
+
+    function! MoveLineOrVisualUp(line_getter, range)
+      let l_num = line(a:line_getter)
+      if l_num - v:count1 - 1 < 0
+        let move_arg = "0"
+      else
+        let move_arg = a:line_getter." -".(v:count1 + 1)
+      endif
+      call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
+    endfunction
+
+    function! MoveLineOrVisualDown(line_getter, range)
+      let l_num = line(a:line_getter)
+      if l_num + v:count1 > line("$")
+        let move_arg = "$"
+      else
+        let move_arg = a:line_getter." +".v:count1
+      endif
+      call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
+    endfunction
+
+    function! MoveLineOrVisualUpOrDown(move_arg)
+      let col_num = virtcol(".")
+      execute "silent! ".a:move_arg
+      execute "normal! ".col_num."|"
+    endfunction
+
+    nnoremap <silent> <C-k> :<C-u>call MoveLineUp()<CR>
+    nnoremap <silent> <C-j> :<C-u>call MoveLineDown()<CR>
+    inoremap <silent> <C-k> <C-o>:call MoveLineUp()<CR>
+    inoremap <silent> <C-j> <C-o>:call MoveLineDown()<CR>
+    vnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
+    vnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
+    xnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
+    xnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
