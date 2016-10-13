@@ -43,7 +43,14 @@ call plug#begin('~/.vim/plugged')
 
     " AUTOCOMPLETE AND SNIPPETS ************************************
         " Autocomplete
-    Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
+    if has('nvim')
+        Plug 'Shougo/deoplete.nvim'         "async youcompleteme
+        Plug 'benekastah/neomake'           "async make
+        Plug 'kassio/neoterm'               "terminal mode
+        Plug 'janko-m/vim-test'
+    else
+        Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
+    endif
     Plug 'ervandew/supertab'     " Confrim autocompletion with tab
     Plug 'honza/vim-snippets'    " Snippets for various languages pac
     Plug 'SirVer/ultisnips'      " Snippet engine
@@ -77,20 +84,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'mattn/emmet-vim'                        " HTML support
     Plug 'godlygeek/tabular'                      " Easy text align with regexp
 
-    " " GVIM ONLY ************************************
-    " " Enabling fulscreen helper
-    " Plug 'lambdalisue/vim-fullscreen'
-
     " Ruby support
     Plug 'vim-ruby/vim-ruby'
 
-    " NEOVIM ONLY ************************************
-    Plug 'benekastah/neomake'
-    Plug 'kassio/neoterm'
-    Plug 'janko-m/vim-test'
-
     " Haml support
     Plug 'tpope/vim-haml'
+
 call plug#end()
 
 set shell=/bin/zsh
@@ -141,15 +140,38 @@ let mapleader = "'"
 " Maximizer ********************************************************
     let g:maximizer_default_mapping_key = '<leader>m'
 
+if has('nvim')
+" Deoplete Config (async YouCompleteMe)
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#auto_complete_delay = 0
+
+" Neomake Config (async make)
+    let g:neomake_ruby_enabled_makers = ['rubocop']
+    autocmd! BufWritePost * Neomake
+
+" TERMINAL MODE SHORTCUTS ************************************
+    " Exit terminal mode with esc
+    :tnoremap <Esc> <C-\><C-n>"
+    " Improve windows navigation by using 'alt + *' combination even when terminal window is active
+    :tnoremap <A-h> <C-\><C-n><C-w>h
+    :tnoremap <A-j> <C-\><C-n><C-w>j
+    :tnoremap <A-k> <C-\><C-n><C-w>k
+    :tnoremap <A-l> <C-\><C-n><C-w>l
+    :nnoremap <A-h> <C-w>h
+    :nnoremap <A-j> <C-w>j
+    :nnoremap <A-k> <C-w>k
+    :nnoremap <A-l> <C-w>l
+else
 " YOUCOMPLETEME CONFIG *********************************************
         " Path to python interpreter for ycm
-    let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-    let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-    " let g:ycm_server_python_interpreter = '/usr/bin/python'
-        " Make YCM compatible with UltiSnips using supertab (3 lines below)
-    let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-    let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-    let g:SuperTabDefaultCompletionType = '<C-m>'
+    " let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
+    " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+    " " let g:ycm_server_python_interpreter = '/usr/bin/python'
+    "     " Make YCM compatible with UltiSnips using supertab (3 lines below)
+    " let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+    " let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+    " let g:SuperTabDefaultCompletionType = '<C-m>'
+endif
 
 " ULTISNIPS CONFIG *************************************************
         " Better key bindings for UltiSnipsExpandTrigger (3 lines below)
@@ -214,9 +236,6 @@ let mapleader = "'"
     map g* <Plug>(incsearch-nohl-g*)
     map g# <Plug>(incsearch-nohl-g#)
 
-" Neomake Config
-    let g:neomake_ruby_enabled_makers = ['rubocop']
-    autocmd! BufWritePost * Neomake
 
 " Remove Whitespaces on save
     autocmd BufWritePre * FixWhitespace
@@ -270,20 +289,6 @@ let mapleader = "'"
         let test#strategy = 'neoterm'
         let g:neoterm_position = 'horizontal'
 
-    " TERMINAL MODE SHORTCUTS ************************************
-        if has('nvim')
-            " Exit terminal mode with esc
-            :tnoremap <Esc> <C-\><C-n>"
-            " Improve windows navigation by using 'alt + *' combination even when terminal window is active
-            :tnoremap <A-h> <C-\><C-n><C-w>h
-            :tnoremap <A-j> <C-\><C-n><C-w>j
-            :tnoremap <A-k> <C-\><C-n><C-w>k
-            :tnoremap <A-l> <C-\><C-n><C-w>l
-            :nnoremap <A-h> <C-w>h
-            :nnoremap <A-j> <C-w>j
-            :nnoremap <A-k> <C-w>k
-            :nnoremap <A-l> <C-w>l
-        endif
 
     " TAB LENGTHS ************************************
         autocmd Filetype slim setlocal ts=2 sts=2 sw=2
