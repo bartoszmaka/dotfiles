@@ -306,6 +306,8 @@ endif
         " let g:syntastic_typescript_tsc_fname = ''
         " let g:syntastic_typescript_checkers = ['tsuquyomi']
         " autocmd FileType typescript setlocal completeopt+=menu,preview
+" Break current line
+    nmap <leader>o i<CR><Esc>
 
 " Buftabline Config
     nnoremap g5 :bnext<CR>
