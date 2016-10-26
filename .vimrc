@@ -311,7 +311,8 @@ endif
     nnoremap g5 :bnext<CR>
     nnoremap g4 :bprev<CR>
 
-    nmap gW :tabclose<CR>
+    nmap tt :tabnew<CR>
+    nmap TT :tabclose<CR>
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
 " Search on , (2 lines below)
