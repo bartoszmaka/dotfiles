@@ -12,13 +12,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'jistr/vim-nerdtree-tabs'
     Plug 'alvan/vim-closetag'
     Plug 'tpope/vim-ragtag'
-    Plug 'ap/vim-buftabline'
+    " Plug 'ap/vim-buftabline'
         " GENERAL ************************************
     Plug 'xolox/vim-misc'
     Plug 'xolox/vim-easytags'               "to check
     Plug 'scrooloose/nerdtree'
     Plug 'tpope/vim-surround'
-
+    Plug 'blueyed/vim-diminactive'
         " GIT INTEGRATION ************************************
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-fugitive'
@@ -44,13 +44,12 @@ call plug#begin('~/.vim/plugged')
     " AUTOCOMPLETE AND SNIPPETS ************************************
         " Autocomplete
     if has('nvim')
-        Plug 'Shougo/deoplete.nvim'         "async youcompleteme
+        " Plug 'Shougo/deoplete.nvim'         "async youcompleteme
         Plug 'benekastah/neomake'           "async make
         Plug 'kassio/neoterm'               "terminal mode
         Plug 'janko-m/vim-test'
-    else
-        Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
     endif
+    Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
     Plug 'ervandew/supertab'     " Confrim autocompletion with tab
     Plug 'honza/vim-snippets'    " Snippets for various languages pac
     Plug 'SirVer/ultisnips'      " Snippet engine
@@ -141,9 +140,9 @@ let mapleader = "'"
     let g:maximizer_default_mapping_key = '<leader>m'
 
 if has('nvim')
-" Deoplete Config (async YouCompleteMe)
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#auto_complete_delay = 0
+" " Deoplete Config (async YouCompleteMe)
+"     let g:deoplete#enable_at_startup = 1
+"     let g:deoplete#auto_complete_delay = 0
 
 " Neomake Config (async make)
     let g:neomake_ruby_enabled_makers = ['rubocop']
@@ -161,17 +160,17 @@ if has('nvim')
     :nnoremap <A-j> <C-w>j
     :nnoremap <A-k> <C-w>k
     :nnoremap <A-l> <C-w>l
-else
+endif
+
 " YOUCOMPLETEME CONFIG *********************************************
         " Path to python interpreter for ycm
-    " let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-    " let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-    " " let g:ycm_server_python_interpreter = '/usr/bin/python'
-    "     " Make YCM compatible with UltiSnips using supertab (3 lines below)
-    " let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-    " let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-    " let g:SuperTabDefaultCompletionType = '<C-m>'
-endif
+    let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
+    let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+    " let g:ycm_server_python_interpreter = '/usr/bin/python'
+        " Make YCM compatible with UltiSnips using supertab (3 lines below)
+    let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+    let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+    let g:SuperTabDefaultCompletionType = '<C-m>'
 
 " ULTISNIPS CONFIG *************************************************
         " Better key bindings for UltiSnipsExpandTrigger (3 lines below)
