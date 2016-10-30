@@ -137,7 +137,7 @@ let mapleader = "'"
     let g:gundo_prefer_python3=1
 
 " Maximizer ********************************************************
-    let g:maximizer_default_mapping_key = '<leader>m'
+    " let g:maximizer_default_mapping_key = '<leader>m'
 
 if has('nvim')
 " " Deoplete Config (async YouCompleteMe)
@@ -317,13 +317,17 @@ endif
     nmap TT :tabclose<CR>
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
+
 " Search on , (2 lines below)
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
     nnoremap , :Ag<SPACE>
+
 " Change current line color when entering insert mode
     autocmd InsertEnter * highlight  CursorLine ctermbg=52
+
 " Revert current line color to default when leaving insert mode
     autocmd InsertLeave * highlight  CursorLine ctermbg=233
+
 " switch between relative and non-relative line numbers
     function! NumberToggle()
       if(&relativenumber == 1)
@@ -333,13 +337,22 @@ endif
       endif
     endfunc
     nnoremap <leader>n :call NumberToggle()<cr>
-" system clipboard
-    noremap <leader>y "+y<CR>
-    noremap <leader>p "+p
-    inoremap <C-p> <Esc>pa
-    imap <C-v> <Esc>"+pa
+
+" " Copy to clipboard
+    vnoremap  <leader>y  "+y
+    nnoremap  <leader>Y  "+yg_
+    nnoremap  <leader>y  "+y
+    nnoremap  <leader>yy  "+yy
+
+" " Paste from clipboard
+    nnoremap <leader>p "+p
+    nnoremap <leader>P "+P
+    vnoremap <leader>p "+p
+    vnoremap <leader>P "+P
+
 " map ; as :
     nnoremap ; :
+
 " Move lines or blocks up and down
     function! MoveLineUp()
       call MoveLineOrVisualUp(".", "")
