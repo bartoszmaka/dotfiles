@@ -290,6 +290,7 @@ endif
 
 
     " TAB LENGTHS ************************************
+        autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
         autocmd Filetype slim setlocal ts=2 sts=2 sw=2
         autocmd Filetype html setlocal ts=2 sts=2 sw=2
         autocmd Filetype haml setlocal ts=2 sts=2 sw=2
@@ -315,6 +316,8 @@ endif
 
     nmap tt :tabnew<CR>
     nmap TT :tabclose<CR>
+    nmap tl :tabs<CR>
+    nmap bl :buffers<CR>
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
 
@@ -352,6 +355,10 @@ endif
 
 " map ; as :
     nnoremap ; :
+
+" Esc key mappings
+    imap jk <Esc>
+    imap ii <Esc>
 
 " Move lines or blocks up and down
     function! MoveLineUp()
