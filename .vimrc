@@ -116,7 +116,7 @@ set laststatus=2                        " Always show status line
 set showcmd                             " Show commands as they are entered
 set splitright                          " Create vsplit on right side
 set splitbelow                          " Create hsplit on bottom *
-set hidden                              " Hide buffers instead of closing them
+" set hidden                              " Hide buffers instead of closing them
 set nobackup                            " Disable creating backup files
 set hlsearch                            " Highlight search results
 set ignorecase
@@ -205,7 +205,7 @@ endif
     let g:closetag_filenames = "*.html, *.xhtml *.phtml, *.erb"
 
 " NERDTREE CONFIG ************************************
-    let g:NERDTreeWinSize = 23
+    let g:NERDTreeWinSize = 25
         "close vim if only NERDTree is opened
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
         " start with nerdtree open if no file were specified (2 lines below)
@@ -291,14 +291,16 @@ endif
 
     " TAB LENGTHS ************************************
         autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
+        autocmd Filetype scss setlocal ts=2 sts=2 sw=2
+        autocmd Filetype sass setlocal ts=2 sts=2 sw=2
         autocmd Filetype slim setlocal ts=2 sts=2 sw=2
         autocmd Filetype html setlocal ts=2 sts=2 sw=2
         autocmd Filetype haml setlocal ts=2 sts=2 sw=2
         autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
         autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
-        autocmd Filetype sass setlocal ts=4 sts=4 sw=4
         autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
         autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
+        autocmd Filetype python setlocal ts=4 sts=4 sw=4
 
     " TYPESCRIPT SETTINGS ************************************
         " let g:neomake_javascript_enabled_makers = ['eslint']
@@ -317,7 +319,7 @@ endif
     nmap tt :tabnew<CR>
     nmap TT :tabclose<CR>
     nmap tl :tabs<CR>
-    nmap bl :buffers<CR>
+    nmap Tl :buffers<CR>
     map <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
 
@@ -353,12 +355,30 @@ endif
     vnoremap <leader>p "+p
     vnoremap <leader>P "+P
 
+" Disable arrow keys
+    nnoremap <Up> <NOP>
+    nnoremap <Down> <NOP>
+    nnoremap <Left> <NOP>
+    nnoremap <Right> <NOP>
+    inoremap <Up> <NOP>
+    inoremap <Down> <NOP>
+    inoremap <Left> <NOP>
+    inoremap <Right> <NOP>
+    vnoremap <Up> <NOP>
+    vnoremap <Down> <NOP>
+    vnoremap <Left> <NOP>
+    vnoremap <Right> <NOP>
+
+" Disable esc in insert mode
+    inoremap <Esc> <NOP>
+
 " map ; as :
     nnoremap ; :
 
 " Esc key mappings
-    imap jk <Esc>
-    imap ii <Esc>
+    inoremap jk <Esc>
+    inoremap ii <Esc>
+    vnoremap ii <Esc>
 
 " Move lines or blocks up and down
     function! MoveLineUp()
