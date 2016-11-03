@@ -144,6 +144,7 @@ if has('nvim')
 "     let g:deoplete#enable_at_startup = 1
 "     let g:deoplete#auto_complete_delay = 0
 
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|': '|'}
 " Neomake Config (async make)
     let g:neomake_ruby_enabled_makers = ['rubocop']
     autocmd! BufWritePost * Neomake
