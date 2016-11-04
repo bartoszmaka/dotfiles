@@ -281,11 +281,11 @@ endif
             "needed for upper line to work
         set cpoptions+=d
     " VIM-TEST CONFIG ************************************
-        nmap <silent> <leader>t :TestNearest<CR>
-        nmap <silent> <leader>T :TestFile<CR>
-        nmap <silent> <leader>a :TestSuite<CR>
-        nmap <silent> <leader>l :TestLast<CR>
-        nmap <silent> <leader>g :TestVisit<CR>
+        nnoremap <silent> <leader>t :TestNearest<CR>
+        nnoremap <silent> <leader>T :TestFile<CR>
+        nnoremap <silent> <leader>a :TestSuite<CR>
+        nnoremap <silent> <leader>l :TestLast<CR>
+        nnoremap <silent> <leader>g :TestVisit<CR>
         let test#strategy = 'neoterm'
         let g:neoterm_position = 'horizontal'
 
@@ -311,17 +311,17 @@ endif
         " let g:syntastic_typescript_checkers = ['tsuquyomi']
         " autocmd FileType typescript setlocal completeopt+=menu,preview
 " Break current line
-    nmap <leader>o i<CR><Esc>
+    nnoremap <leader>o i<CR><Esc>
 
 " Buftabline Config
     nnoremap g5 :bnext<CR>
     nnoremap g4 :bprev<CR>
 
-    nmap tt :tabnew<CR>
-    nmap TT :tabclose<CR>
-    nmap tl :tabs<CR>
-    nmap Tl :buffers<CR>
-    map <F4> :TagbarToggle<CR>
+    nnoremap tt :tabnew<CR>
+    nnoremap TT :tabclose<CR>
+    nnoremap tl :tabs<CR>
+    nnoremap Tl :buffers<CR>
+    noremap <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
 
 " Search on , (2 lines below)
