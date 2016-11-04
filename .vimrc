@@ -335,14 +335,7 @@ endif
     autocmd InsertLeave * highlight  CursorLine ctermbg=233
 
 " switch between relative and non-relative line numbers
-    function! NumberToggle()
-      if(&relativenumber == 1)
-        set norelativenumber
-      else
-        set relativenumber
-      endif
-    endfunc
-    nnoremap <leader>n :call NumberToggle()<cr>
+    nnoremap <leader>n :set rnu!<CR>
 
 " " Copy to clipboard
     vnoremap  <leader>y  "+y
