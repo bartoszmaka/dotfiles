@@ -6,6 +6,11 @@ call plug#begin('~/.vim/plugged')
         Plug 'kassio/neoterm'               "terminal mode
         Plug 'janko-m/vim-test'
     endif
+    " New plugins to be tested
+    Plug 'rhysd/clever-f.vim'
+    Plug 'machakann/vim-highlightedyank'
+    Plug 'tpope/vim-repeat'
+    Plug 'machakann/vim-swap'
 
     Plug 'tomasr/molokai'                    "Color Scheme
     Plug 'sjl/gundo.vim'                     "Visualise undo tree
@@ -24,10 +29,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'ctrlpvim/ctrlp.vim'                "Path file finder
     Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }  "different matching algorithm for ctrlp
-    Plug 'tpope/vim-rvm'           " Enable 'Rvm use' in vim
-    Plug 'tpope/vim-commentary'    " Comments
+    Plug 'tpope/vim-rvm'                          " Enable 'Rvm use' in vim
+    Plug 'tpope/vim-commentary'                   " Comments
 
-    Plug 'scrooloose/syntastic'    " Syntax
+    Plug 'scrooloose/syntastic'                   " Syntax
     Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
     Plug 'tpope/vim-surround'                     " Auto complete matching ( | { [ ' etc
     Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
@@ -92,7 +97,7 @@ set timeoutlen=900                      " Sequence timeout
 set number                              " Show absolute line number in current line
 set relativenumber                      " Show relative line number
 set showbreak=▶▶                        " Wrapped line symbol
-set textwidth=120                       " Text (e. g. comment) break point
+" set textwidth=120                       " Text (e. g. comment) break point
 set noshowmatch                         " Disable jumping to matching parenthesis after typing it
 set noswapfile                          " Disable creating swap files
 set novisualbell                        " Turn screen blinking off
@@ -117,7 +122,18 @@ set cursorline                          " Highlight current line
 set backspace=indent,eol,start          " Allow backspacing over everything in insert mode
 syntax on                               " Enable syntax coloring
 let mapleader = "'"
-
+" TAB LENGTHS ************************************
+    autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
+    autocmd Filetype scss setlocal ts=2 sts=2 sw=2
+    autocmd Filetype sass setlocal ts=2 sts=2 sw=2
+    autocmd Filetype slim setlocal ts=2 sts=2 sw=2
+    autocmd Filetype html setlocal ts=2 sts=2 sw=2
+    autocmd Filetype haml setlocal ts=2 sts=2 sw=2
+    autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+    autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
+    autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
+    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
+    autocmd Filetype python setlocal ts=4 sts=4 sw=4
 " Ragtag config and recommended mappings
     inoremap <M-o>       <Esc>o
     " inoremap <M-j>       <Down>
@@ -285,20 +301,6 @@ let mapleader = "'"
         let test#strategy = 'neoterm'
         let g:neoterm_position = 'horizontal'
 
-
-    " TAB LENGTHS ************************************
-        autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
-        autocmd Filetype scss setlocal ts=2 sts=2 sw=2
-        autocmd Filetype sass setlocal ts=2 sts=2 sw=2
-        autocmd Filetype slim setlocal ts=2 sts=2 sw=2
-        autocmd Filetype html setlocal ts=2 sts=2 sw=2
-        autocmd Filetype haml setlocal ts=2 sts=2 sw=2
-        autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-        autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
-        autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-        autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
-        autocmd Filetype python setlocal ts=4 sts=4 sw=4
-
     " TYPESCRIPT SETTINGS ************************************
         " let g:neomake_javascript_enabled_makers = ['eslint']
         " let g:tsuquyomi_disable_quickfix = 1
@@ -426,3 +428,6 @@ let mapleader = "'"
     vnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
     xnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
     xnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
+
+" vim-repeat thing
+silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
