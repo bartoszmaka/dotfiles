@@ -105,7 +105,7 @@ set laststatus=2                        " Always show status line
 set showcmd                             " Show commands as they are entered
 set splitright                          " Create vsplit on right side
 set splitbelow                          " Create hsplit on bottom *
-" set hidden                              " Hide buffers instead of closing them
+set hidden                              " Hide buffers instead of closing them
 set nobackup                            " Disable creating backup files
 set hlsearch                            " Highlight search results
 set ignorecase
