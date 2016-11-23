@@ -7,18 +7,19 @@ call plug#begin('~/.vim/plugged')
         Plug 'janko-m/vim-test'
     endif
     " New plugins to be tested
-    Plug 'rhysd/clever-f.vim'
-    Plug 'machakann/vim-highlightedyank'
+    Plug 'Shougo/deoplete.nvim'
+    " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
     Plug 'tpope/vim-repeat'
     Plug 'machakann/vim-swap'
 
+    Plug 'machakann/vim-highlightedyank'
+    Plug 'rhysd/clever-f.vim'
     Plug 'tomasr/molokai'                    "Color Scheme
     Plug 'sjl/gundo.vim'                     "Visualise undo tree
     Plug 'gko/vim-coloresque'                "Color perview for vim
     Plug 'haya14busa/incsearch.vim'          "Incrementally highlights ALL pattern
     Plug 'Valloric/MatchTagAlways'           "Highlight current html, eruby, etc tag
     Plug 'majutsushi/tagbar'                 "Kind of tags minimap
-    Plug 'jeffkreeftmeijer/vim-numbertoggle' "Smart toggle number/relativenumber
     Plug 'xolox/vim-misc'
     Plug 'xolox/vim-easytags'                "To check
     Plug 'scrooloose/nerdtree'
@@ -35,7 +36,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/syntastic'                   " Syntax
     Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
     Plug 'tpope/vim-surround'                     " Auto complete matching ( | { [ ' etc
-    Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
     Plug 'ervandew/supertab'                      " Confrim autocompletion with tab
     Plug 'honza/vim-snippets'                     " Snippets for various languages pac
     Plug 'SirVer/ultisnips'                       " Snippet engine
@@ -120,8 +120,13 @@ set colorcolumn=120                     " Color 120th column
 set undolevels=100                      " Amount of possible undos
 set cursorline                          " Highlight current line
 set backspace=indent,eol,start          " Allow backspacing over everything in insert mode
+set scrolloff=4
+set sidescrolloff=5
 syntax on                               " Enable syntax coloring
 let mapleader = "'"
+
+" vim-diminactive
+    let g:diminactive_use_colorcolumn=0
 " TAB LENGTHS ************************************
     autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
     autocmd Filetype scss setlocal ts=2 sts=2 sw=2
@@ -154,29 +159,34 @@ let mapleader = "'"
         let g:neomake_ruby_enabled_makers = ['rubocop']
         autocmd! BufWritePost * Neomake
 
-    " TERMINAL MODE SHORTCUTS ************************************
-        " Exit terminal mode with esc
-        :tnoremap <Esc> <C-\><C-n>"
-        " Improve windows navigation by using 'alt + *' combination even when terminal window is active
-        :tnoremap <A-h> <C-\><C-n><C-w>h
-        :tnoremap <A-j> <C-\><C-n><C-w>j
-        :tnoremap <A-k> <C-\><C-n><C-w>k
-        :tnoremap <A-l> <C-\><C-n><C-w>l
-        :nnoremap <A-h> <C-w>h
-        :nnoremap <A-j> <C-w>j
-        :nnoremap <A-k> <C-w>k
-        :nnoremap <A-l> <C-w>l
+    " " TERMINAL MODE SHORTCUTS ************************************
+    "     " Exit terminal mode with esc
+    "     :tnoremap <Esc> <C-\><C-n>"
+    "     " Improve windows navigation by using 'alt + *' combination even when terminal window is active
+    "     :tnoremap <A-h> <C-\><C-n><C-w>h
+    "     :tnoremap <A-j> <C-\><C-n><C-w>j
+    "     :tnoremap <A-k> <C-\><C-n><C-w>k
+    "     :tnoremap <A-l> <C-\><C-n><C-w>l
+    "     :nnoremap <A-h> <C-w>h
+    "     :nnoremap <A-j> <C-w>j
+    "     :nnoremap <A-k> <C-w>k
+    "     :nnoremap <A-l> <C-w>l
     endif
 
-" YOUCOMPLETEME CONFIG *********************************************
-        " Path to python interpreter for ycm
-    let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-    let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-    " let g:ycm_server_python_interpreter = '/usr/bin/python'
-        " Make YCM compatible with UltiSnips using supertab (3 lines below)
-    let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-    let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-    let g:SuperTabDefaultCompletionType = '<C-m>'
+" deoplete
+    let g:deoplete#enable_at_startup = 1
+    inoremap <C-j> <C-n>
+    inoremap <C-k> <C-p>
+    " let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"}
+" " YOUCOMPLETEME CONFIG *********************************************
+"         " Path to python interpreter for ycm
+"     let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
+"     let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+"     " let g:ycm_server_python_interpreter = '/usr/bin/python'
+"         " Make YCM compatible with UltiSnips using supertab (3 lines below)
+"     let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+"     let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+"     let g:SuperTabDefaultCompletionType = '<C-m>'
 
 " ULTISNIPS CONFIG *************************************************
         " Better key bindings for UltiSnipsExpandTrigger (3 lines below)
@@ -322,17 +332,27 @@ let mapleader = "'"
     noremap <F4> :TagbarToggle<CR>
     nnoremap <F5> :GundoToggle<CR>
 
+" ^ and $ aliases
+    inoremap <M-l> $
+    nnoremap <M-l> $
+    vnoremap <M-l> $
+    inoremap <M-h> ^
+    nnoremap <M-h> ^
+    vnoremap <M-h> ^
+
+" swap relativenumber/norelativenumber or insert mode enter/leave
+    autocmd InsertEnter * set norelativenumber
+    autocmd InsertLeave * set relativenumber
+
 " Search on , (2 lines below)
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
     nnoremap , :Ag<SPACE>
 
 " Change current line color when entering insert mode
     autocmd InsertEnter * highlight  CursorLine ctermbg=52
-    " autocmd InsertEnter * highlight  CursorColumn ctermbg=52
 
 " Revert current line color to default when leaving insert mode
-    autocmd InsertLeave * highlight  CursorLine ctermbg=233
-    " autocmd InsertLeave * highlight  CursorColumn ctermbg=233
+    autocmd InsertLeave * highlight  CursorLine ctermbg=232
 
 " switch between relative and non-relative line numbers
     nnoremap <leader>n :set rnu!<CR>
@@ -420,14 +440,14 @@ let mapleader = "'"
       execute "normal! ".col_num."|"
     endfunction
 
-    nnoremap <silent> <C-k> :<C-u>call MoveLineUp()<CR>
-    nnoremap <silent> <C-j> :<C-u>call MoveLineDown()<CR>
-    inoremap <silent> <C-k> <C-o>:call MoveLineUp()<CR>
-    inoremap <silent> <C-j> <C-o>:call MoveLineDown()<CR>
-    vnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
-    vnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
-    xnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
-    xnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
+    " nnoremap <silent> <C-k> :<C-u>call MoveLineUp()<CR>
+    " nnoremap <silent> <C-j> :<C-u>call MoveLineDown()<CR>
+    " inoremap <silent> <C-k> <C-o>:call MoveLineUp()<CR>
+    " inoremap <silent> <C-j> <C-o>:call MoveLineDown()<CR>
+    " vnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
+    " vnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
+    " xnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
+    " xnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
 
 " vim-repeat thing
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
