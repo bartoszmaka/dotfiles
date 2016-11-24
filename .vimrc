@@ -179,10 +179,14 @@ let mapleader = "'"
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_refresh_always = 1
     let g:deoplete#auto_refresh_delay = 30
-    " imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
-    " imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
-    imap <C-j> <Tab>
-    imap <C-k> <S-Tab>
+    imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+    imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+    inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
+    inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
+    imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+    imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+    " imap <C-j> <Tab>
+    " imap <C-k> <S-Tab>
 " deosnipplets
     imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
     smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
