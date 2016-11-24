@@ -1,16 +1,19 @@
 filetype off
 call plug#begin('~/.vim/plugged')
-
     if has('nvim')
         Plug 'benekastah/neomake'           "async make
         Plug 'kassio/neoterm'               "terminal mode
         Plug 'janko-m/vim-test'
     endif
     " New plugins to be tested
-    Plug 'Shougo/deoplete.nvim'
-    " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
     Plug 'tpope/vim-repeat'
     Plug 'machakann/vim-swap'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/neosnippet'
+    Plug 'Shougo/neosnippet-snippets'
+    " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
+    " Plug 'honza/vim-snippets'                     " Snippets for various languages pac
+    " Plug 'SirVer/ultisnips'                       " Snippet engine
 
     Plug 'machakann/vim-highlightedyank'
     Plug 'rhysd/clever-f.vim'
@@ -37,8 +40,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
     Plug 'tpope/vim-surround'                     " Auto complete matching ( | { [ ' etc
     Plug 'ervandew/supertab'                      " Confrim autocompletion with tab
-    Plug 'honza/vim-snippets'                     " Snippets for various languages pac
-    Plug 'SirVer/ultisnips'                       " Snippet engine
     Plug 'tpope/vim-repeat'                       " Repeat plugin commands with .
     Plug 'bling/vim-airline'                      " Airline
     Plug 'vim-airline/vim-airline-themes'         " Themes for airline
@@ -174,25 +175,18 @@ let mapleader = "'"
     endif
 
 " deoplete
+    let g:SuperTabDefaultCompletionType = '<C-n>'
     let g:deoplete#enable_at_startup = 1
-    inoremap <C-j> <C-n>
-    inoremap <C-k> <C-p>
-    " let g:AutoClosePumvisible = {"ENTER": "<C-Y>", "ESC": "<ESC>"}
-" " YOUCOMPLETEME CONFIG *********************************************
-"         " Path to python interpreter for ycm
-"     let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-"     let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-"     " let g:ycm_server_python_interpreter = '/usr/bin/python'
-"         " Make YCM compatible with UltiSnips using supertab (3 lines below)
-"     let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-"     let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-"     let g:SuperTabDefaultCompletionType = '<C-m>'
-
-" ULTISNIPS CONFIG *************************************************
-        " Better key bindings for UltiSnipsExpandTrigger (3 lines below)
-    let g:UltiSnipsExpandTrigger = "<C-e>"
-    let g:UltiSnipsJumpForwardTrigger = "<tab>"
-    let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+    let g:deoplete#enable_refresh_always = 1
+    let g:deoplete#auto_refresh_delay = 30
+    " imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+    " imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+    imap <C-j> <Tab>
+    imap <C-k> <S-Tab>
+" deosnipplets
+    imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
 
 " AIRLINE CONFIG **************************************************
     set fillchars+=stl:\ ,stlnc:\
@@ -203,7 +197,7 @@ let mapleader = "'"
 " CTRLP CONFIG ************************************
     let g:ctrlp_map = '<c-p>'
     let g:ctrlp_cmd = 'CtrlPMixed'
-    map <C-l> :CtrlPMRU<CR>
+    map <C-w> :CtrlPMRU<CR>
         "show hidden files
     let g:ctrlp_show_hidden = 1
         "Speed fixes http://stackoverflow.com/questions/21346068/slow-performance-on-ctrlp-it-doesnt-work-to-ignore-some-folders
@@ -333,12 +327,13 @@ let mapleader = "'"
     nnoremap <F5> :GundoToggle<CR>
 
 " ^ and $ aliases
-    inoremap <M-l> $
-    nnoremap <M-l> $
-    vnoremap <M-l> $
-    inoremap <M-h> ^
-    nnoremap <M-h> ^
-    vnoremap <M-h> ^
+    " unmap <C-h>
+    inoremap <C-l> $
+    nnoremap <C-l> $
+    vnoremap <C-l> $
+    inoremap <C-h> ^
+    nnoremap <C-h> ^
+    vnoremap <C-h> ^
 
 " swap relativenumber/norelativenumber or insert mode enter/leave
     autocmd InsertEnter * set norelativenumber
@@ -353,9 +348,6 @@ let mapleader = "'"
 
 " Revert current line color to default when leaving insert mode
     autocmd InsertLeave * highlight  CursorLine ctermbg=232
-
-" switch between relative and non-relative line numbers
-    nnoremap <leader>n :set rnu!<CR>
 
 " " Copy to clipboard
     vnoremap  <leader>y  "+y
@@ -440,12 +432,12 @@ let mapleader = "'"
       execute "normal! ".col_num."|"
     endfunction
 
-    " nnoremap <silent> <C-k> :<C-u>call MoveLineUp()<CR>
-    " nnoremap <silent> <C-j> :<C-u>call MoveLineDown()<CR>
+    nnoremap <silent> <C-k> :<C-u>call MoveLineUp()<CR>
+    nnoremap <silent> <C-j> :<C-u>call MoveLineDown()<CR>
     " inoremap <silent> <C-k> <C-o>:call MoveLineUp()<CR>
     " inoremap <silent> <C-j> <C-o>:call MoveLineDown()<CR>
-    " vnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
-    " vnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
+    vnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
+    vnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
     " xnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
     " xnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
 
