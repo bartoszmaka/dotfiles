@@ -1,43 +1,44 @@
 filetype off
 call plug#begin('~/.vim/plugged')
-    if has('nvim')
-        Plug 'benekastah/neomake'           "async make
-        Plug 'kassio/neoterm'               "terminal mode
-        Plug 'janko-m/vim-test'
-    endif
-    " New plugins to be tested
-    Plug 'tpope/vim-repeat'
-    Plug 'machakann/vim-swap'
+    " if has('nvim')
+    Plug 'benekastah/neomake'           "async make
+    Plug 'kassio/neoterm'               "terminal mode
+    Plug 'janko-m/vim-test'
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neosnippet-snippets'
-    " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
-    " Plug 'honza/vim-snippets'                     " Snippets for various languages pac
-    " Plug 'SirVer/ultisnips'                       " Snippet engine
-
-    Plug 'machakann/vim-highlightedyank'
     Plug 'rhysd/clever-f.vim'
     Plug 'tomasr/molokai'                    "Color Scheme
+    " else
+    "     Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
+    "     Plug 'honza/vim-snippets'                     " Snippets for various languages pac
+    "     Plug 'SirVer/ultisnips'                       " Snippet engine
+    " endif
+    " New plugins to be tested
+    Plug 'tpope/vim-repeat'
+    " Plug 'machakann/vim-swap'
+
+    " Plug 'machakann/vim-highlightedyank'
     Plug 'sjl/gundo.vim'                     "Visualise undo tree
     Plug 'gko/vim-coloresque'                "Color perview for vim
-    Plug 'haya14busa/incsearch.vim'          "Incrementally highlights ALL pattern
-    Plug 'Valloric/MatchTagAlways'           "Highlight current html, eruby, etc tag
-    Plug 'majutsushi/tagbar'                 "Kind of tags minimap
+    " Plug 'haya14busa/incsearch.vim'          "Incrementally highlights ALL pattern
+    " Plug 'Valloric/MatchTagAlways'           "Highlight current html, eruby, etc tag
+    " Plug 'majutsushi/tagbar'                 "Kind of tags minimap
     Plug 'xolox/vim-misc'
     Plug 'xolox/vim-easytags'                "To check
     Plug 'scrooloose/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
-    Plug 'blueyed/vim-diminactive'           "Dim inactive windows
+    " Plug 'blueyed/vim-diminactive'           "Dim inactive windows
     Plug 'airblade/vim-gitgutter'            "Shows git signs next to line numbers
     Plug 'tpope/vim-fugitive'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'ctrlpvim/ctrlp.vim'                "Path file finder
     Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }  "different matching algorithm for ctrlp
-    Plug 'tpope/vim-rvm'                          " Enable 'Rvm use' in vim
+    " Plug 'tpope/vim-rvm'                          " Enable 'Rvm use' in vim
     Plug 'tpope/vim-commentary'                   " Comments
 
     Plug 'scrooloose/syntastic'                   " Syntax
-    Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
+    " Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
     Plug 'tpope/vim-surround'                     " Auto complete matching ( | { [ ' etc
     Plug 'ervandew/supertab'                      " Confrim autocompletion with tab
     Plug 'tpope/vim-repeat'                       " Repeat plugin commands with .
@@ -45,15 +46,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline-themes'         " Themes for airline
     Plug 'bronson/vim-trailing-whitespace'        " Detect trailing whitespaces
     Plug 'terryma/vim-expand-region'              " Select region +/-
-    Plug 'terryma/vim-multiple-cursors'           " Multiple cursors
+    " Plug 'terryma/vim-multiple-cursors'           " Multiple cursors
     Plug 'szw/vim-maximizer'                      " Maximize/minimize window on f3
     Plug 'ngmy/vim-rubocop'                       " Rubocop
     Plug 'tpope/vim-endwise'                      " Auto add ends, endfuncion, endif
-    Plug 'octol/vim-cpp-enhanced-highlight'       " Better highlighting for c++
+    " Plug 'octol/vim-cpp-enhanced-highlight'       " Better highlighting for c++
     Plug 'jiangmiao/auto-pairs'                   " Auto insert matching brackets
     Plug 'slim-template/vim-slim'                 " Slim support
-    Plug 'mattn/emmet-vim'                        " HTML support
-    Plug 'godlygeek/tabular'                      " Easy text align with regexp
+    " Plug 'mattn/emmet-vim'                        " HTML support
+    " Plug 'godlygeek/tabular'                      " Easy text align with regexp
 
     " Ruby support
     Plug 'vim-ruby/vim-ruby'
@@ -242,19 +243,19 @@ let mapleader = "'"
         autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
     augroup END
 
-" Incsearch Config
-    map /  <Plug>(incsearch-forward)
-    map ?  <Plug>(incsearch-backward)
-    map g/ <Plug>(incsearch-stay)
-    " :h g:incsearch#auto_nohlsearch
-    " set hlsearch
-    let g:incsearch#auto_nohlsearch = 1
-    map n  <Plug>(incsearch-nohl-n)
-    map N  <Plug>(incsearch-nohl-N)
-    map *  <Plug>(incsearch-nohl-*)
-    map #  <Plug>(incsearch-nohl-#)
-    map g* <Plug>(incsearch-nohl-g*)
-    map g# <Plug>(incsearch-nohl-g#)
+" " Incsearch Config
+" #map /  <Plug>(incsearch-forward)
+" #map ?  <Plug>(incsearch-backward)
+" #map g/ <Plug>(incsearch-stay)
+" #" :h g:incsearch#auto_nohlsearch
+" #" set hlsearch
+" #let g:incsearch#auto_nohlsearch = 1
+" #map n  <Plug>(incsearch-nohl-n)
+" #map N  <Plug>(incsearch-nohl-N)
+" #map *  <Plug>(incsearch-nohl-*)
+" #map #  <Plug>(incsearch-nohl-#)
+" #map g* <Plug>(incsearch-nohl-g*)
+" #map g# <Plug>(incsearch-nohl-g#)
 
 
 " Remove Whitespaces on save
