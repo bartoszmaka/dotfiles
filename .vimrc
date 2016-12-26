@@ -1,85 +1,95 @@
 filetype off
 call plug#begin('~/.vim/plugged')
-    " if has('nvim')
-    Plug 'benekastah/neomake'           "async make
-    Plug 'kassio/neoterm'               "terminal mode
-    Plug 'janko-m/vim-test'
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/neosnippet'
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'rhysd/clever-f.vim'
-    Plug 'tomasr/molokai'                    "Color Scheme
-    " else
-    "     Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
-    "     Plug 'honza/vim-snippets'                     " Snippets for various languages pac
-    "     Plug 'SirVer/ultisnips'                       " Snippet engine
-    " endif
-    " New plugins to be tested
-    Plug 'tpope/vim-repeat'
-    " Plug 'machakann/vim-swap'
+    " Syntax and autocomplete
+    Plug 'benekastah/neomake'                   "async make
+    Plug 'kassio/neoterm'                       "terminal mode
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " async autocomplete engine
+    Plug 'Shougo/neosnippet'                    " async snipplet engine
+    Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
+    Plug 'scrooloose/syntastic'                 " Syntax
 
-    " Plug 'machakann/vim-highlightedyank'
-    Plug 'sjl/gundo.vim'                     "Visualise undo tree
-    Plug 'gko/vim-coloresque'                "Color perview for vim
-    " Plug 'haya14busa/incsearch.vim'          "Incrementally highlights ALL pattern
-    " Plug 'Valloric/MatchTagAlways'           "Highlight current html, eruby, etc tag
-    " Plug 'majutsushi/tagbar'                 "Kind of tags minimap
-    Plug 'xolox/vim-misc'
-    Plug 'xolox/vim-easytags'                "To check
-    Plug 'scrooloose/nerdtree'
-    Plug 'jistr/vim-nerdtree-tabs'
-    " Plug 'blueyed/vim-diminactive'           "Dim inactive windows
-    Plug 'airblade/vim-gitgutter'            "Shows git signs next to line numbers
-    Plug 'tpope/vim-fugitive'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'ctrlpvim/ctrlp.vim'                "Path file finder
+    " Vim functions improvements and extensions
+    Plug 'rhysd/clever-f.vim'                   " better behavior for f F t T
+    Plug 'tpope/vim-commentary'                 " Comments
+    Plug 'tpope/vim-surround'                   " Surround verb
+    Plug 'janko-m/vim-test'                     " Multilanguage tests helper
+    Plug 'sjl/gundo.vim'                        " Visualise undo tree
+
+    " Code-writing related
+    Plug 'jiangmiao/auto-pairs'                 " Auto insert matching brackets and tags
+    Plug 'bronson/vim-trailing-whitespace'      " Detect trailing whitespaces
+    Plug 'gko/vim-coloresque'                   " Color perview for vim
+
+    " File finder
+    Plug 'ctrlpvim/ctrlp.vim'                   " In project file finder
     Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }  "different matching algorithm for ctrlp
-    " Plug 'tpope/vim-rvm'                          " Enable 'Rvm use' in vim
-    Plug 'tpope/vim-commentary'                   " Comments
 
-    Plug 'scrooloose/syntastic'                   " Syntax
-    " Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
-    Plug 'tpope/vim-surround'                     " Auto complete matching ( | { [ ' etc
-    Plug 'ervandew/supertab'                      " Confrim autocompletion with tab
-    Plug 'tpope/vim-repeat'                       " Repeat plugin commands with .
-    Plug 'bling/vim-airline'                      " Airline
-    Plug 'vim-airline/vim-airline-themes'         " Themes for airline
-    Plug 'bronson/vim-trailing-whitespace'        " Detect trailing whitespaces
-    Plug 'terryma/vim-expand-region'              " Select region +/-
-    " Plug 'terryma/vim-multiple-cursors'           " Multiple cursors
-    Plug 'szw/vim-maximizer'                      " Maximize/minimize window on f3
-    Plug 'ngmy/vim-rubocop'                       " Rubocop
-    Plug 'tpope/vim-endwise'                      " Auto add ends, endfuncion, endif
-    " Plug 'octol/vim-cpp-enhanced-highlight'       " Better highlighting for c++
-    Plug 'jiangmiao/auto-pairs'                   " Auto insert matching brackets
-    Plug 'slim-template/vim-slim'                 " Slim support
-    " Plug 'mattn/emmet-vim'                        " HTML support
-    " Plug 'godlygeek/tabular'                      " Easy text align with regexp
-
-    " Ruby support
+    " Language related
     Plug 'vim-ruby/vim-ruby'
+    Plug 'ngmy/vim-rubocop'                     " Rubocop
 
-    " Haml support
-    Plug 'tpope/vim-haml'
+    " Git
+    Plug 'tpope/vim-fugitive'                   " Git engine for vim
+    Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
 
-    " " JS ************************************
-    " Plug 'pangloss/vim-javascript'
-    " Plug 'isRuslan/vim-es6'
-    " Plug 'kchmck/vim-coffee-script'
-    " Plug 'mxw/vim-jsx'
+    " Project explorer
+    Plug 'scrooloose/nerdtree'                  " Project explorer
+    Plug 'jistr/vim-nerdtree-tabs'              " Better behavior for nerdtree
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 
-    " " TYPESCRIPT ************************************
-    " Plug 'Quramy/tsuquyomi'
-    " Plug 'leafgarland/typescript-vim'
-    " " Async execution library, required by tsuquyomi
-    " Plug 'Shougo/vimproc.vim'
+    " UI
+    Plug 'bling/vim-airline'                    " Airline
+    Plug 'vim-airline/vim-airline-themes'       " Themes for airline
+    Plug 'tomasr/molokai'                       " Color Scheme
 
-    " " RAILS ************************************
-    " Plug 'tpope/vim-bundler'    " Enable 'bunle' in vim and more
-    " Plug 'tpope/vim-rails'      " Add rails-releated shortcuts to vim
-    " Plug 'tpope/vim-rake'       " Vim-rails shortcuts everywhere!
+    " Too lazy to chceck
+    Plug 'xolox/vim-misc'
+    Plug 'xolox/vim-easytags'
+    Plug 'terryma/vim-expand-region'            " Select region +/-
+    Plug 'szw/vim-maximizer'                    " Maximize/minimize window on f3
+    Plug 'tpope/vim-endwise'                    " Auto add ends, endfuncion, endif
+    Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
+    Plug 'slim-template/vim-slim'               " Slim support
+    Plug 'tpope/vim-repeat'                     " better . behavior
 
-    " Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown' }
+    " In case
+        " Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
+        " Plug 'blueyed/vim-diminactive'           "Dim inactive windows
+        " Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py' }
+        " Plug 'honza/vim-snippets'                     " Snippets for various languages pac
+        " Plug 'SirVer/ultisnips'                       " Snippet engine
+        " Plug 'machakann/vim-swap'
+        " Plug 'machakann/vim-highlightedyank'
+        " Plug 'haya14busa/incsearch.vim'          "Incrementally highlights ALL pattern
+        " Plug 'Valloric/MatchTagAlways'           "Highlight current html, eruby, etc tag
+        " Plug 'majutsushi/tagbar'                 "Kind of tags minimap
+        " Plug 'tpope/vim-rvm'                          " Enable 'Rvm use' in vim
+        " Plug 'terryma/vim-multiple-cursors'           " Multiple cursors
+        " Plug 'octol/vim-cpp-enhanced-highlight'       " Better highlighting for c++
+        " Plug 'mattn/emmet-vim'                        " HTML support
+        " Plug 'godlygeek/tabular'                      " Easy text align with regexp
+
+        " Haml support
+        " Plug 'tpope/vim-haml'
+
+        " " JS ************************************
+        " Plug 'pangloss/vim-javascript'
+        " Plug 'isRuslan/vim-es6'
+        " Plug 'kchmck/vim-coffee-script'
+        " Plug 'mxw/vim-jsx'
+
+        " " TYPESCRIPT ************************************
+        " Plug 'Quramy/tsuquyomi'
+        " Plug 'leafgarland/typescript-vim'
+        " " Async execution library, required by tsuquyomi
+        " Plug 'Shougo/vimproc.vim'
+
+        " " RAILS ************************************
+        " Plug 'tpope/vim-bundler'    " Enable 'bunle' in vim and more
+        " Plug 'tpope/vim-rails'      " Add rails-releated shortcuts to vim
+        " Plug 'tpope/vim-rake'       " Vim-rails shortcuts everywhere!
+
+        " Plug 'shime/vim-livedown', { 'do': 'npm install -g livedown' }
 call plug#end()
 
 set shell=/bin/zsh
@@ -109,9 +119,9 @@ set splitright                          " Create vsplit on right side
 set splitbelow                          " Create hsplit on bottom *
 set hidden                              " Hide buffers instead of closing them
 set nobackup                            " Disable creating backup files
-set hlsearch                            " Highlight search results
 set ignorecase
 set smartcase                           " Override the 'ignorecase' option if the search pattern contains upper case characters.
+set hlsearch                            " Highlight search results
 set incsearch                           " Search as you type
 set autoindent                          " Copy indent from current line when starting new line
 set expandtab                           " Spaces instead of tabs in insert mode
@@ -127,54 +137,6 @@ set sidescrolloff=5
 syntax on                               " Enable syntax coloring
 let mapleader = "'"
 
-" vim-diminactive
-    let g:diminactive_use_colorcolumn=0
-" TAB LENGTHS ************************************
-    autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
-    autocmd Filetype scss setlocal ts=2 sts=2 sw=2
-    autocmd Filetype sass setlocal ts=2 sts=2 sw=2
-    autocmd Filetype slim setlocal ts=2 sts=2 sw=2
-    autocmd Filetype html setlocal ts=2 sts=2 sw=2
-    autocmd Filetype haml setlocal ts=2 sts=2 sw=2
-    autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-    autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
-    autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
-    autocmd Filetype python setlocal ts=4 sts=4 sw=4
-" Ragtag config and recommended mappings
-    inoremap <M-o>       <Esc>o
-    " inoremap <M-j>       <Down>
-    let g:ragtag_global_maps = 1
-
-" Gundo ************************************************************
-    let g:gundo_prefer_python3=1
-
-" AutoPairs config
-    let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
-
-    if has('nvim')
-    " " Deoplete Config (async YouCompleteMe)
-    "     let g:deoplete#enable_at_startup = 1
-    "     let g:deoplete#auto_complete_delay = 0
-
-    " Neomake Config (async make)
-        let g:neomake_ruby_enabled_makers = ['rubocop']
-        autocmd! BufWritePost * Neomake
-
-    " " TERMINAL MODE SHORTCUTS ************************************
-        " Exit terminal mode with esc
-        :tnoremap <Esc> <C-\><C-n>"
-        " Improve windows navigation by using 'alt + *' combination even when terminal window is active
-        :tnoremap <A-h> <C-\><C-n><C-w>h
-        :tnoremap <A-j> <C-\><C-n><C-w>j
-        :tnoremap <A-k> <C-\><C-n><C-w>k
-        :tnoremap <A-l> <C-\><C-n><C-w>l
-        :nnoremap <A-h> <C-w>h
-        :nnoremap <A-j> <C-w>j
-        :nnoremap <A-k> <C-w>k
-        :nnoremap <A-l> <C-w>l
-    endif
-
 " deoplete
     let g:SuperTabDefaultCompletionType = '<C-n>'
     let g:deoplete#enable_at_startup = 1
@@ -188,18 +150,41 @@ let mapleader = "'"
     imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
     " imap <C-j> <Tab>
     " imap <C-k> <S-Tab>
+
 " deosnipplets
     imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
     smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
     xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
 
-" AIRLINE CONFIG **************************************************
-    set fillchars+=stl:\ ,stlnc:\
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'molokai'
-    let g:airline#extensions#tabline#enabled = 1
+" Neomake Config (async make)
+    let g:neomake_ruby_enabled_makers = ['rubocop']
+    autocmd! BufWritePost * Neomake
 
-" CTRLP CONFIG ************************************
+" vim-diminactive
+    let g:diminactive_use_colorcolumn=0
+
+" tab lengths by filetype
+    autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
+    autocmd Filetype scss setlocal ts=2 sts=2 sw=2
+    autocmd Filetype sass setlocal ts=2 sts=2 sw=2
+    autocmd Filetype slim setlocal ts=2 sts=2 sw=2
+    autocmd Filetype html setlocal ts=2 sts=2 sw=2
+    autocmd Filetype haml setlocal ts=2 sts=2 sw=2
+    autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+    autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
+    autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
+    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
+    autocmd Filetype python setlocal ts=4 sts=4 sw=4
+
+" Gundo
+    let g:gundo_prefer_python3=1
+    nnoremap <F5> :GundoToggle<CR>
+
+" AutoPairs config
+    let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
+
+
+" ctrlp
     let g:ctrlp_map = '<c-p>'
     let g:ctrlp_cmd = 'CtrlPMixed'
     map <C-w> :CtrlPMRU<CR>
@@ -216,55 +201,37 @@ let mapleader = "'"
         let g:ctrlp_use_caching = 0
     endif
 
-" MatchTagAlways config
-    let g:mta_use_matchparen_group = 1
-    let g:mta_filetypes = {
-        \ 'html' : 1,
-        \ 'xhtml' : 1,
-        \ 'xml' : 1,
-        \ 'jinja' : 1,
-        \ 'eruby' : 1,
-        \}
-
-" NERDTREE CONFIG ************************************
-    let g:NERDTreeWinSize = 25
-        "close vim if only NERDTree is opened
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-        " start with nerdtree open if no file were specified (2 lines below)
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-        " NerdTree toggle
-    " let g:nerdtree_tabs_open_on_console_startup = 1
-    nmap <F2> :NERDTreeTabsToggle<CR>
-
-" Remember cursor position
-    augroup vimrc-remember-cursor-position
-        autocmd!
-        autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-    augroup END
-
-" " Incsearch Config
-" #map /  <Plug>(incsearch-forward)
-" #map ?  <Plug>(incsearch-backward)
-" #map g/ <Plug>(incsearch-stay)
-" #" :h g:incsearch#auto_nohlsearch
-" #" set hlsearch
-" #let g:incsearch#auto_nohlsearch = 1
-" #map n  <Plug>(incsearch-nohl-n)
-" #map N  <Plug>(incsearch-nohl-N)
-" #map *  <Plug>(incsearch-nohl-*)
-" #map #  <Plug>(incsearch-nohl-#)
-" #map g* <Plug>(incsearch-nohl-g*)
-" #map g# <Plug>(incsearch-nohl-g#)
-
-
-" Remove Whitespaces on save
-    autocmd BufWritePre * FixWhitespace
-
 " RuboCop config
     let g:vimrubocop_config = '~/.rubocop.yml'
 
-" GITGUTTER CONFIG ************************************
+" vim-test
+    nnoremap <silent> <leader>t :TestNearest<CR>
+    nnoremap <silent> <leader>T :TestFile<CR>
+    nnoremap <silent> <leader>a :TestSuite<CR>
+    nnoremap <silent> <leader>l :TestLast<CR>
+    nnoremap <silent> <leader>g :TestVisit<CR>
+    let test#strategy = 'neoterm'
+    let g:neoterm_position = 'horizontal'
+
+" **** UI ****
+" Airline
+    set fillchars+=stl:\ ,stlnc:\ ,vert:\│
+    let g:airline_powerline_fonts = 1
+    let g:airline_theme = 'molokai'
+    let g:airline#extensions#tabline#enabled = 1
+
+" Colorscheme
+    if !exists('g:not_finish_vimplug')
+        colorscheme molokai
+    endif
+    let &t_Co=256
+
+" NerdTree
+    let g:NERDTreeWinSize = 25
+    let g:nerdtree_tabs_open_on_console_startup=2
+    nmap <F2> :NERDTreeTabsToggle<CR>
+
+" Gitgutter
     let g:gitgutter_sign_column_always = 1
         " View diff with <leader>1
     nnoremap <expr> <leader>1 (g:gitgutter_highlight_lines) ? ':GitGutterLineHighlightsToggle<CR>:NERDTreeToggle<CR><C-w>l:q!<CR>' : ':GitGutterLineHighlightsToggle<CR>:Gvsplit<CR>:NERDTreeToggle<CR>'
@@ -272,55 +239,65 @@ let mapleader = "'"
     " let g:gitgutter_realtime = 0
     " let g:gitgutter_eager = 0
 
-" Colorscheme settings
-    if !exists('g:not_finish_vimplug')
-        colorscheme molokai
-    endif
-    let &t_Co=256
+" Change current line color when entering insert mode
+    autocmd InsertEnter * highlight  CursorLine ctermbg=52
 
-    " NOT SURE OR TOO LAZY TO CHECK ************************************
-        filetype plugin indent on
-        set wildignore+=*/tmp/*,*.so,*.swp,*.zipo
-        set omnifunc=syntaxcomplete#Complete
-    " JS thing
-        let g:jsx_ext_required = 0
-    " LIVEDOWN CONFIG *************************************************
-        " nmap gm :LivedownToggle<CR>
-        "     " The system command to launch a browser
-        " let g:livedown_browser = 'google-chrome'
-        "     " Should the browser window pop-up upon previewing
-        " let g:livedown_open = 1
-    " EASYTAGS CONFIG ************************************
-            "Async easytags
-        let g:easytags_async = 1
-            "Better performance
-        let g:easytags_syntax_keyword = 'always'
-            "tags filename and placement
-        set tags=./tags;
-            "create tag file per project
-        let g:easytags_dynamic_files = 2
-            "needed for upper line to work
-        set cpoptions+=d
-    " VIM-TEST CONFIG ************************************
-        nnoremap <silent> <leader>t :TestNearest<CR>
-        nnoremap <silent> <leader>T :TestFile<CR>
-        nnoremap <silent> <leader>a :TestSuite<CR>
-        nnoremap <silent> <leader>l :TestLast<CR>
-        nnoremap <silent> <leader>g :TestVisit<CR>
-        let test#strategy = 'neoterm'
-        let g:neoterm_position = 'horizontal'
+" Revert current line color to default when leaving insert mode
+    autocmd InsertLeave * highlight  CursorLine ctermbg=232
 
-    " TYPESCRIPT SETTINGS ************************************
-        " let g:neomake_javascript_enabled_makers = ['eslint']
-        " let g:tsuquyomi_disable_quickfix = 1
-        " let g:neomake_typescript_enabled_makers = []
-        " let g:syntastic_typescript_tsc_fname = ''
-        " let g:syntastic_typescript_checkers = ['tsuquyomi']
-        " autocmd FileType typescript setlocal completeopt+=menu,preview
+" **** MISC STUFF ****
+" Remember cursor position
+    augroup vimrc-remember-cursor-position
+        autocmd!
+        autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+    augroup END
+
+" Remove Whitespaces on save
+    autocmd BufWritePre * FixWhitespace
+
+" swap relativenumber/norelativenumber or insert mode enter/leave
+    autocmd InsertEnter * set norelativenumber
+    autocmd InsertLeave * set relativenumber
+
+" NOT SURE OR TOO LAZY TO CHECK ************************************
+    filetype plugin indent on
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zipo
+    set omnifunc=syntaxcomplete#Complete
+" JS thing
+    let g:jsx_ext_required = 0
+" LIVEDOWN CONFIG *************************************************
+    " nmap gm :LivedownToggle<CR>
+    "     " The system command to launch a browser
+    " let g:livedown_browser = 'google-chrome'
+    "     " Should the browser window pop-up upon previewing
+    " let g:livedown_open = 1
+" EASYTAGS CONFIG ************************************
+        "Async easytags
+    let g:easytags_async = 1
+        "Better performance
+    let g:easytags_syntax_keyword = 'always'
+        "tags filename and placement
+    set tags=./tags;
+        "create tag file per project
+    let g:easytags_dynamic_files = 2
+        "needed for upper line to work
+    set cpoptions+=d
+" TYPESCRIPT SETTINGS ************************************
+    " let g:neomake_javascript_enabled_makers = ['eslint']
+    " let g:tsuquyomi_disable_quickfix = 1
+    " let g:neomake_typescript_enabled_makers = []
+    " let g:syntastic_typescript_tsc_fname = ''
+    " let g:syntastic_typescript_checkers = ['tsuquyomi']
+    " autocmd FileType typescript setlocal completeopt+=menu,preview
+
+" **** CUSTOM KEYMAPS ****
+" Disable hls
+    nnoremap <Esc><Esc> :<C-u>nohls<CR>
+
 " Break current line
     nnoremap <leader>o i<CR><Esc>
 
-" Buftabline Config
+" buffers and tabs behavior
     nnoremap g5 :bnext<CR>
     nnoremap g4 :bprev<CR>
 
@@ -328,11 +305,8 @@ let mapleader = "'"
     nnoremap TT :tabclose<CR>
     nnoremap tl :tabs<CR>
     nnoremap Tl :buffers<CR>
-    noremap <F4> :TagbarToggle<CR>
-    nnoremap <F5> :GundoToggle<CR>
 
-" ^ and $ aliases
-    " unmap <C-h>
+" aliases for $ and ^
     inoremap <C-l> $
     nnoremap <C-l> $
     vnoremap <C-l> $
@@ -340,19 +314,9 @@ let mapleader = "'"
     nnoremap <C-h> ^
     vnoremap <C-h> ^
 
-" swap relativenumber/norelativenumber or insert mode enter/leave
-    autocmd InsertEnter * set norelativenumber
-    autocmd InsertLeave * set relativenumber
-
 " Search on , (2 lines below)
     command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
     nnoremap , :Ag<SPACE>
-
-" Change current line color when entering insert mode
-    autocmd InsertEnter * highlight  CursorLine ctermbg=52
-
-" Revert current line color to default when leaving insert mode
-    autocmd InsertLeave * highlight  CursorLine ctermbg=232
 
 " " Copy to clipboard
     vnoremap  <leader>y  "+y
@@ -383,7 +347,6 @@ let mapleader = "'"
 " Disable esc in insert mode
     " inoremap <Esc> <NOP>
 
-
 " map ; as :
     nnoremap ; :
 
@@ -391,6 +354,19 @@ let mapleader = "'"
     inoremap jk <Esc>
     inoremap ii <Esc>
     vnoremap ii <Esc>
+
+" Terminal mode keymaps
+    " Exit terminal mode with esc
+    :tnoremap <Esc> <C-\><C-n>"
+    " Improve windows navigation by using 'alt + *' combination even when terminal window is active
+    :tnoremap <A-h> <C-\><C-n><C-w>h
+    :tnoremap <A-j> <C-\><C-n><C-w>j
+    :tnoremap <A-k> <C-\><C-n><C-w>k
+    :tnoremap <A-l> <C-\><C-n><C-w>l
+    :nnoremap <A-h> <C-w>h
+    :nnoremap <A-j> <C-w>j
+    :nnoremap <A-k> <C-w>k
+    :nnoremap <A-l> <C-w>l
 
 " Move lines or blocks up and down
     function! MoveLineUp()
@@ -447,4 +423,35 @@ let mapleader = "'"
     " xnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
 
 " vim-repeat thing
-silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+" silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+"
+" in case
+" " Ragtag config and recommended mappings
+"     inoremap <M-o>       <Esc>o
+"     " inoremap <M-j>       <Down>
+"     let g:ragtag_global_maps = 1
+" in case
+" " Incsearch Config
+" #map /  <Plug>(incsearch-forward)
+" #map ?  <Plug>(incsearch-backward)
+" #map g/ <Plug>(incsearch-stay)
+" #" :h g:incsearch#auto_nohlsearch
+" #" set hlsearch
+" #let g:incsearch#auto_nohlsearch = 1
+" #map n  <Plug>(incsearch-nohl-n)
+" #map N  <Plug>(incsearch-nohl-N)
+" #map *  <Plug>(incsearch-nohl-*)
+" #map #  <Plug>(incsearch-nohl-#)
+" #map g* <Plug>(incsearch-nohl-g*)
+" #map g# <Plug>(incsearch-nohl-g#)
+" in case
+" " MatchTagAlways config
+"     let g:mta_use_matchparen_group = 1
+"     let g:mta_filetypes = {
+"         \ 'html' : 1,
+"         \ 'xhtml' : 1,
+"         \ 'xml' : 1,
+"         \ 'jinja' : 1,
+"         \ 'eruby' : 1,
+" noremap <F4> :TagbarToggle<CR>
+"         \}
