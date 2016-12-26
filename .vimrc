@@ -298,8 +298,8 @@ let mapleader = "'"
     nnoremap <leader>o i<CR><Esc>
 
 " buffers and tabs behavior
-    nnoremap g5 :bnext<CR>
-    nnoremap g4 :bprev<CR>
+    nnoremap gr :bnext<CR>
+    nnoremap gR :bprev<CR>
 
     nnoremap tt :tabnew<CR>
     nnoremap TT :tabclose<CR>
