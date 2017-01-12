@@ -1,19 +1,34 @@
 filetype off
 call plug#begin('~/.vim/plugged')
     " Syntax and autocomplete
-    Plug 'benekastah/neomake'                   "async make
+    Plug 'neomake/neomake'                      "async make
     Plug 'kassio/neoterm'                       "terminal mode
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " async autocomplete engine
-    Plug 'Shougo/neosnippet'                    " async snipplet engine
     Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
-    Plug 'scrooloose/syntastic'                 " Syntax
+    Plug 'Shougo/neoinclude.vim'                " extends deoplete
+    Plug 'sbdchd/neoformat'                     " code formatting engine
+    " Plug 'Shougo/neosnippet'                  " async snipplet engine
+    " Plug 'scrooloose/syntastic'               " Syntax, neomake alternative
+
+    " To test, taken from SpaceVim
+    " Plug 'mattn/webapi-vim'
+    " Plug 'mopp/googlesuggest-source.vim'        " google completion
+    " Plug 'mattn/googlesuggest-complete-vim'
+    Plug 'majutsushi/tagbar'
+    Plug 'cohama/agit.vim'                      " git log :Agit
+    Plug 'gregsexton/gitv'                      " another git plugin :Gitv
+    Plug 'jaxbot/github-issues.vim'             " git issues integration :Gissues
+    Plug 'Yggdroot/indentLine'                  " vertical lines for indent
+    Plug 'godlygeek/tabular'                    " Easy text align with regexp
+    Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
+    Plug 'simnalamburt/vim-mundo'               " claims to be better alternative for gundo
+    " Plug 'sjl/gundo.vim'                        " Visualise undo tree
 
     " Vim functions improvements and extensions
     Plug 'rhysd/clever-f.vim'                   " better behavior for f F t T
     Plug 'tpope/vim-commentary'                 " Comments
     Plug 'tpope/vim-surround'                   " Surround verb
     Plug 'janko-m/vim-test'                     " Multilanguage tests helper
-    Plug 'sjl/gundo.vim'                        " Visualise undo tree
 
     " Code-writing related
     Plug 'jiangmiao/auto-pairs'                 " Auto insert matching brackets and tags
@@ -45,12 +60,12 @@ call plug#begin('~/.vim/plugged')
     " Too lazy to chceck
     Plug 'xolox/vim-misc'
     Plug 'xolox/vim-easytags'
-    Plug 'terryma/vim-expand-region'            " Select region +/-
+    " Plug 'terryma/vim-expand-region'            " Select region +/-
     Plug 'szw/vim-maximizer'                    " Maximize/minimize window on f3
     Plug 'tpope/vim-endwise'                    " Auto add ends, endfuncion, endif
     Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
-    Plug 'slim-template/vim-slim'               " Slim support
-    Plug 'tpope/vim-repeat'                     " better . behavior
+    " Plug 'slim-template/vim-slim'               " Slim support
+    " Plug 'tpope/vim-repeat'                     " better . behavior
 
     " In case
         " Plug 'tpope/vim-ragtag'                       " Set of mappings for html, eruby, etc
@@ -67,7 +82,6 @@ call plug#begin('~/.vim/plugged')
         " Plug 'terryma/vim-multiple-cursors'           " Multiple cursors
         " Plug 'octol/vim-cpp-enhanced-highlight'       " Better highlighting for c++
         " Plug 'mattn/emmet-vim'                        " HTML support
-        " Plug 'godlygeek/tabular'                      " Easy text align with regexp
 
         " Haml support
         " Plug 'tpope/vim-haml'
@@ -134,239 +148,181 @@ set cursorline                          " Highlight current line
 set backspace=indent,eol,start          " Allow backspacing over everything in insert mode
 set scrolloff=4
 set sidescrolloff=5
+    " NOT SURE OR TOO LAZY TO CHECK ************************************
+set wildignore+=*/tmp/*,*.so,*.swp,*.zipo
+set omnifunc=syntaxcomplete#Complete
+filetype plugin indent on
 syntax on                               " Enable syntax coloring
 let mapleader = "'"
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#auto_refresh_delay = 30
+let g:neomake_ruby_enabled_makers = ['rubocop']
+let g:vimrubocop_config = '~/.rubocop.yml'
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_show_hidden = 1
+    "Speed fixes http://stackoverflow.com/questions/21346068/slow-performance-on-ctrlp-it-doesnt-work-to-ignore-some-folders
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
+endif
+let test#strategy = 'neoterm'
+let g:neoterm_position = 'horizontal'
+let g:easytags_async = 1
+    "Better performance
+let g:easytags_syntax_keyword = 'always'
+    "tags filename and placement
+set tags=./tags;
+    "create tag file per project
+let g:easytags_dynamic_files = 2
+    "needed for upper line to work
+set cpoptions+=d
+let g:indentLine_color_term = 239
+let g:indentLine_char = '¦'
+let g:indentLine_concealcursor = 'niv' " (default 'inc')
+let g:indentLine_conceallevel = 2  " (default 2)
+set fillchars+=stl:\ ,stlnc:\ ,vert:\│
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'molokai'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_nr_format = '%s:'
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline#extensions#tabline#fnametruncate = 0
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+    " let g:airline_symbols.readonly = ''
+    " Colorscheme
+if !exists('g:not_finish_vimplug')
+    colorscheme molokai
+endif
+let &t_Co=256
+    " NerdTree
+let g:NERDTreeWinSize = 25
+let g:nerdtree_tabs_open_on_console_startup=2
+    " Gitgutter
+let g:gitgutter_sign_column_always = 1
+" Autocmds
+    " Remember cursor position
+autocmd! BufWritePost * Neomake
+augroup vimrc-remember-cursor-position
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+    " Change current line color when entering insert mode
+autocmd InsertEnter * highlight  CursorLine ctermbg=52
+    " Revert current line color to default when leaving insert mode
+autocmd InsertLeave * highlight  CursorLine ctermbg=232
+    " Remove Whitespaces on save
+autocmd BufWritePre * FixWhitespace
+    " swap relativenumber/norelativenumber or insert mode enter/leave
+autocmd InsertEnter * set norelativenumber
+autocmd InsertLeave * set relativenumber
+    " tab lengths by filetype
+autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
+autocmd Filetype scss setlocal ts=2 sts=2 sw=2
+autocmd Filetype sass setlocal ts=2 sts=2 sw=2
+autocmd Filetype slim setlocal ts=2 sts=2 sw=2
+autocmd Filetype html setlocal ts=2 sts=2 sw=2
+autocmd Filetype haml setlocal ts=2 sts=2 sw=2
+autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
+autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
+autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
+autocmd Filetype python setlocal ts=4 sts=4 sw=4
 
-" deoplete
-    let g:SuperTabDefaultCompletionType = '<C-n>'
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_refresh_always = 1
-    let g:deoplete#auto_refresh_delay = 30
-    imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
-    imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
-    inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
-    inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
-    imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-    imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-    " imap <C-j> <Tab>
-    " imap <C-k> <S-Tab>
-
-" deosnipplets
-    imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
-
-" Neomake Config (async make)
-    let g:neomake_ruby_enabled_makers = ['rubocop']
-    autocmd! BufWritePost * Neomake
-
-" vim-diminactive
-    let g:diminactive_use_colorcolumn=0
-
-" tab lengths by filetype
-    autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
-    autocmd Filetype scss setlocal ts=2 sts=2 sw=2
-    autocmd Filetype sass setlocal ts=2 sts=2 sw=2
-    autocmd Filetype slim setlocal ts=2 sts=2 sw=2
-    autocmd Filetype html setlocal ts=2 sts=2 sw=2
-    autocmd Filetype haml setlocal ts=2 sts=2 sw=2
-    autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-    autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
-    autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
-    autocmd Filetype python setlocal ts=4 sts=4 sw=4
-
-" Gundo
-    let g:gundo_prefer_python3=1
-    nnoremap <F5> :GundoToggle<CR>
-
-" AutoPairs config
-    let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
-
-
-" ctrlp
-    let g:ctrlp_map = '<c-p>'
-    let g:ctrlp_cmd = 'CtrlPMixed'
-    map <C-w> :CtrlPMRU<CR>
-        "show hidden files
-    let g:ctrlp_show_hidden = 1
-        "Speed fixes http://stackoverflow.com/questions/21346068/slow-performance-on-ctrlp-it-doesnt-work-to-ignore-some-folders
-    let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-    " Use ag instead of grep if installed
-    if executable('ag')
-        set grepprg=ag\ --nogroup\ --nocolor
-            " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-        let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-            " ag is fast enough that CtrlP doesn't need to cache
-        let g:ctrlp_use_caching = 0
-    endif
-
-" RuboCop config
-    let g:vimrubocop_config = '~/.rubocop.yml'
-
-" vim-test
-    nnoremap <silent> <leader>t :TestNearest<CR>
-    nnoremap <silent> <leader>T :TestFile<CR>
-    nnoremap <silent> <leader>a :TestSuite<CR>
-    nnoremap <silent> <leader>l :TestLast<CR>
-    nnoremap <silent> <leader>g :TestVisit<CR>
-    let test#strategy = 'neoterm'
-    let g:neoterm_position = 'horizontal'
-
-" **** UI ****
-" Airline
-    set fillchars+=stl:\ ,stlnc:\ ,vert:\│
-    let g:airline_powerline_fonts = 1
-    let g:airline_theme = 'molokai'
-    let g:airline#extensions#tabline#enabled = 1
-
-" Colorscheme
-    if !exists('g:not_finish_vimplug')
-        colorscheme molokai
-    endif
-    let &t_Co=256
-
-" NerdTree
-    let g:NERDTreeWinSize = 25
-    let g:nerdtree_tabs_open_on_console_startup=2
-    nmap <F2> :NERDTreeTabsToggle<CR>
-
-" Gitgutter
-    let g:gitgutter_sign_column_always = 1
-        " View diff with <leader>1
-    nnoremap <expr> <leader>1 (g:gitgutter_highlight_lines) ? ':GitGutterLineHighlightsToggle<CR>:NERDTreeToggle<CR><C-w>l:q!<CR>' : ':GitGutterLineHighlightsToggle<CR>:Gvsplit<CR>:NERDTreeToggle<CR>'
-        " uncomment 2 lines below in case of performance issues
-    " let g:gitgutter_realtime = 0
-    " let g:gitgutter_eager = 0
-
-" Change current line color when entering insert mode
-    autocmd InsertEnter * highlight  CursorLine ctermbg=52
-
-" Revert current line color to default when leaving insert mode
-    autocmd InsertLeave * highlight  CursorLine ctermbg=232
-
-" **** MISC STUFF ****
-" Remember cursor position
-    augroup vimrc-remember-cursor-position
-        autocmd!
-        autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-    augroup END
-
-" Remove Whitespaces on save
-    autocmd BufWritePre * FixWhitespace
-
-" swap relativenumber/norelativenumber or insert mode enter/leave
-    autocmd InsertEnter * set norelativenumber
-    autocmd InsertLeave * set relativenumber
-
-" NOT SURE OR TOO LAZY TO CHECK ************************************
-    filetype plugin indent on
-    set wildignore+=*/tmp/*,*.so,*.swp,*.zipo
-    set omnifunc=syntaxcomplete#Complete
-" JS thing
-    let g:jsx_ext_required = 0
-" LIVEDOWN CONFIG *************************************************
-    " nmap gm :LivedownToggle<CR>
-    "     " The system command to launch a browser
-    " let g:livedown_browser = 'google-chrome'
-    "     " Should the browser window pop-up upon previewing
-    " let g:livedown_open = 1
-" EASYTAGS CONFIG ************************************
-        "Async easytags
-    let g:easytags_async = 1
-        "Better performance
-    let g:easytags_syntax_keyword = 'always'
-        "tags filename and placement
-    set tags=./tags;
-        "create tag file per project
-    let g:easytags_dynamic_files = 2
-        "needed for upper line to work
-    set cpoptions+=d
-" TYPESCRIPT SETTINGS ************************************
-    " let g:neomake_javascript_enabled_makers = ['eslint']
-    " let g:tsuquyomi_disable_quickfix = 1
-    " let g:neomake_typescript_enabled_makers = []
-    " let g:syntastic_typescript_tsc_fname = ''
-    " let g:syntastic_typescript_checkers = ['tsuquyomi']
-    " autocmd FileType typescript setlocal completeopt+=menu,preview
-
-" **** CUSTOM KEYMAPS ****
-" Disable hls
-    nnoremap <Esc><Esc> :<C-u>nohls<CR>
-
-" Break current line
-    nnoremap <leader>o i<CR><Esc>
-
-" buffers and tabs behavior
-    nnoremap gr :bnext<CR>
-    nnoremap gR :bprev<CR>
-
-    nnoremap tt :tabnew<CR>
-    nnoremap TT :tabclose<CR>
-    nnoremap tl :tabs<CR>
-    nnoremap Tl :buffers<CR>
-
-" aliases for $ and ^
-    inoremap <C-l> $
-    nnoremap <C-l> $
-    vnoremap <C-l> $
-    inoremap <C-h> ^
-    nnoremap <C-h> ^
-    vnoremap <C-h> ^
-
-" Search on , (2 lines below)
-    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-    nnoremap , :Ag<SPACE>
-
-" " Copy to clipboard
-    vnoremap  <leader>y  "+y
-    nnoremap  <leader>Y  "+yg_
-    nnoremap  <leader>y  "+y
-    nnoremap  <leader>yy  "+yy
-
-" " Paste from clipboard
-    nnoremap <leader>p "+p
-    nnoremap <leader>P "+P
-    vnoremap <leader>p "+p
-    vnoremap <leader>P "+P
-
-" Disable arrow keys
-    nnoremap <Up> <NOP>
-    nnoremap <Down> <NOP>
-    nnoremap <Left> <NOP>
-    nnoremap <Right> <NOP>
-    inoremap <Up> <NOP>
-    inoremap <Down> <NOP>
-    inoremap <Left> <NOP>
-    inoremap <Right> <NOP>
-    vnoremap <Up> <NOP>
-    vnoremap <Down> <NOP>
-    vnoremap <Left> <NOP>
-    vnoremap <Right> <NOP>
-
-" Disable esc in insert mode
-    " inoremap <Esc> <NOP>
-
-" map ; as :
-    nnoremap ; :
-
-" Esc key mappings
-    inoremap jk <Esc>
-    inoremap ii <Esc>
-    vnoremap ii <Esc>
-
-" Terminal mode keymaps
+    " deoplete
+imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
+inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
+imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+" imap <C-j> <Tab>
+" imap <C-k> <S-Tab>
+    " deosnipplets
+imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
+    " ctrlp
+map <C-l> :CtrlPMRU<CR>
+    " vim-test
+nnoremap <silent> <leader>t :TestNearest<CR>
+nnoremap <silent> <leader>T :TestFile<CR>
+nnoremap <silent> <leader>a :TestSuite<CR>
+nnoremap <silent> <leader>l :TestLast<CR>
+nnoremap <silent> <leader>g :TestVisit<CR>
+    " maximizer, nerdtree, tagbar, mundo
+let g:maximizer_default_mapping_key = '<F9>'
+nmap     <F2> :NERDTreeTabsToggle<CR>
+noremap  <F3> :TagbarToggle<CR>
+nnoremap <F4> :MundoToggle<CR>
+    " View diff with <leader>1
+nnoremap <expr> <leader>1 (g:gitgutter_highlight_lines) ?
+            \':GitGutterLineHighlightsToggle<CR>:NERDTreeToggle<CR><C-w>l:q!<CR>' :
+            \':GitGutterLineHighlightsToggle<CR>:Gvsplit<CR>:NERDTreeToggle<CR>'
+    " Disable hls
+nnoremap <Esc><Esc> :<C-u>nohls<CR>
+    " Break current line
+nnoremap <leader>o i<CR><Esc>
+    " buffers and tabs behavior
+nnoremap gr :bnext<CR>
+nnoremap gR :bprev<CR>
+nnoremap tt :tabnew<CR>
+nnoremap TT :tabclose<CR>
+nnoremap tl :tabs<CR>
+nnoremap Tl :buffers<CR>
+    " Search on , (2 lines below)
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap , :Ag<SPACE>
+    " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+    " Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+    " Disable arrow keys
+nnoremap <Up> <NOP>
+nnoremap <Down> <NOP>
+nnoremap <Left> <NOP>
+nnoremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+vnoremap <Up> <NOP>
+vnoremap <Down> <NOP>
+vnoremap <Left> <NOP>
+vnoremap <Right> <NOP>
+    " map ; as :
+nnoremap ; :
+    " Esc key mappings
+inoremap jk <Esc>
+inoremap ii <Esc>
+vnoremap ii <Esc>
+    " Terminal mode keymaps
     " Exit terminal mode with esc
-    :tnoremap <Esc> <C-\><C-n>"
+:tnoremap <Esc> <C-\><C-n>"
     " Improve windows navigation by using 'alt + *' combination even when terminal window is active
-    :tnoremap <A-h> <C-\><C-n><C-w>h
-    :tnoremap <A-j> <C-\><C-n><C-w>j
-    :tnoremap <A-k> <C-\><C-n><C-w>k
-    :tnoremap <A-l> <C-\><C-n><C-w>l
-    :nnoremap <A-h> <C-w>h
-    :nnoremap <A-j> <C-w>j
-    :nnoremap <A-k> <C-w>k
-    :nnoremap <A-l> <C-w>l
+:tnoremap <A-h> <C-\><C-n><C-w>h
+:tnoremap <A-j> <C-\><C-n><C-w>j
+:tnoremap <A-k> <C-\><C-n><C-w>k
+:tnoremap <A-l> <C-\><C-n><C-w>l
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
 
 " Move lines or blocks up and down
     function! MoveLineUp()
@@ -455,3 +411,34 @@ let mapleader = "'"
 "         \ 'eruby' : 1,
 " noremap <F4> :TagbarToggle<CR>
 "         \}
+" vim-diminactive
+    " let g:diminactive_use_colorcolumn=0
+
+" Gundo
+    " let g:gundo_prefer_python3=1
+
+" JS thing
+    " let g:jsx_ext_required = 0
+" LIVEDOWN CONFIG *************************************************
+    " nmap gm :LivedownToggle<CR>
+    "     " The system command to launch a browser
+    " let g:livedown_browser = 'google-chrome'
+    "     " Should the browser window pop-up upon previewing
+    " let g:livedown_open = 1
+" TYPESCRIPT SETTINGS ************************************
+    " let g:neomake_javascript_enabled_makers = ['eslint']
+    " let g:tsuquyomi_disable_quickfix = 1
+    " let g:neomake_typescript_enabled_makers = []
+    " let g:syntastic_typescript_tsc_fname = ''
+    " let g:syntastic_typescript_checkers = ['tsuquyomi']
+    " autocmd FileType typescript setlocal completeopt+=menu,preview
+
+" " aliases for $ and ^
+"     imap <C-l> $
+"     nmap <C-l> $
+"     vmap <C-l> $
+"     imap <C-h> ^
+"     nmap <C-h> ^
+" Disable esc in insert mode
+" inoremap <Esc> <NOP>
+"     vmap <C-h> ^
