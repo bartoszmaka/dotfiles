@@ -4,11 +4,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'kassio/neoterm'                       "terminal mode
     Plug 'neomake/neomake'                      "async make
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/neosnippet-snippets'       " snipplets for neosnipplet
-    Plug 'Shougo/neoinclude.vim'            " extends deoplete
-    Plug 'sbdchd/neoformat'                 " code formatting engine
+    Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
+    Plug 'Shougo/neoinclude.vim'                " extends deoplete
+    Plug 'sbdchd/neoformat'                     " code formatting engine
     Plug 'janko-m/vim-test'                     " test engine
-    Plug 'matze/vim-move'            " Move block of code
+    Plug 'matze/vim-move'                       " Move block of code
 
 " behavior
     Plug 'rhysd/clever-f.vim'                   " better f F t T
@@ -16,11 +16,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'                   " Surround verb
     Plug 'gko/vim-coloresque'                   " Color perview for vim
     Plug 'bronson/vim-trailing-whitespace'      " Detect trailing whitespaces
+    Plug 'jiangmiao/auto-pairs'                 " Auto insert matching brackets and tags
     Plug 'gko/vim-coloresque'                   " Color perview for vim
     Plug 'ctrlpvim/ctrlp.vim'                   " In project file finder
         Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }
     Plug 'xolox/vim-misc'
         Plug 'xolox/vim-easytags'
+    Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
 
 " git
     Plug 'tpope/vim-fugitive'                   " Git engine for vim
@@ -28,21 +30,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
 
 " ui
+    " Plug 'morhetz/gruvbox'
+    " Plug 'frankier/neovim-colors-solarized-truecolor-only'
+    " Plug 'tomasr/molokai'                       " Color Scheme
+    Plug 'joshdick/onedark.vim'
     Plug 'Yggdroot/indentLine'                  " vertical lines for indent
     Plug 'szw/vim-maximizer'                    " maximize window
     Plug 'bling/vim-airline'                    " Airline
     Plug 'vim-airline/vim-airline-themes'       " Themes for airline
-    Plug 'tomasr/molokai'                       " Color Scheme
     Plug 'majutsushi/tagbar'                    " perview file structure
     Plug 'simnalamburt/vim-mundo'               " perview undos
     Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
     Plug 'scrooloose/nerdtree'                  " Project explorer
-    Plug 'jistr/vim-nerdtree-tabs'          " Better behavior for nerdtree
+    Plug 'jistr/vim-nerdtree-tabs'              " Better behavior for nerdtree
     Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " language related
-    Plug 'vim-ruby/vim-ruby'
-    Plug 'ngmy/vim-rubocop'
+    Plug 'vim-ruby/vim-ruby',   { 'for' : 'ruby' }
+    Plug 'ngmy/vim-rubocop',    { 'for' : 'ruby' }
 call plug#end()
 " **********************************
 
@@ -109,8 +114,8 @@ endif
 if (has("termguicolors"))
     set termguicolors
 endif
-colorscheme molokai
-let g:airline_theme = 'molokai'
+colorscheme onedark
+let g:airline_theme = 'onedark'
 
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 let g:airline_powerline_fonts = 1
@@ -182,9 +187,9 @@ augroup vimrc-remember-cursor-position
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
     " Change current line color when entering insert mode
-autocmd InsertEnter * highlight  CursorLine ctermbg=52
+autocmd InsertEnter * highlight  CursorLine guibg=#181A1F
     " Revert current line color to default when leaving insert mode
-autocmd InsertLeave * highlight  CursorLine ctermbg=232
+autocmd InsertLeave * highlight  CursorLine guibg=#2C323C
     " Remove Whitespaces on save
 autocmd BufWritePre * FixWhitespace
     " swap relativenumber/norelativenumber or insert mode enter/leave
