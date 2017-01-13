@@ -1,149 +1,117 @@
 filetype off
 call plug#begin('~/.vim/plugged')
-    " Syntax and autocomplete
-    Plug 'neomake/neomake'                      "async make
+" autocompletion
     Plug 'kassio/neoterm'                       "terminal mode
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } " async autocomplete engine
-    Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
-    Plug 'Shougo/neoinclude.vim'                " extends deoplete
-    Plug 'sbdchd/neoformat'                     " code formatting engine
+    Plug 'neomake/neomake'                      "async make
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/neosnippet-snippets'       " snipplets for neosnipplet
+    Plug 'Shougo/neoinclude.vim'            " extends deoplete
+    Plug 'sbdchd/neoformat'                 " code formatting engine
+    Plug 'janko-m/vim-test'                     " test engine
+    Plug 'matze/vim-move'            " Move block of code
 
-    " To test, taken from SpaceVim
-    Plug 'sheerun/vim-polyglot'                 " collection of language packs
-    Plug 'majutsushi/tagbar'
-    Plug 'cohama/agit.vim'                      " git log :Agit
-    Plug 'gregsexton/gitv'                      " another git plugin :Gitv
-    Plug 'jaxbot/github-issues.vim'             " git issues integration :Gissues
-    Plug 'Yggdroot/indentLine'                  " vertical lines for indent
-    Plug 'godlygeek/tabular'                    " Easy text align with regexp
-    Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
-    Plug 'simnalamburt/vim-mundo'               " claims to be better alternative for gundo
-
-    " Vim functions improvements and extensions
-    Plug 'rhysd/clever-f.vim'                   " better behavior for f F t T
+" behavior
+    Plug 'rhysd/clever-f.vim'                   " better f F t T
     Plug 'tpope/vim-commentary'                 " Comments
     Plug 'tpope/vim-surround'                   " Surround verb
-    Plug 'janko-m/vim-test'                     " Multilanguage tests helper
-
-    " Code-writing related
-    Plug 'jiangmiao/auto-pairs'                 " Auto insert matching brackets and tags
+    Plug 'gko/vim-coloresque'                   " Color perview for vim
     Plug 'bronson/vim-trailing-whitespace'      " Detect trailing whitespaces
     Plug 'gko/vim-coloresque'                   " Color perview for vim
-
-    " File finder
     Plug 'ctrlpvim/ctrlp.vim'                   " In project file finder
-    Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }  "different matching algorithm for ctrlp
+        Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }
+    Plug 'xolox/vim-misc'
+        Plug 'xolox/vim-easytags'
 
-    " Language related
-    Plug 'vim-ruby/vim-ruby'
-    Plug 'ngmy/vim-rubocop'                     " Rubocop
-
-    " Git
+" git
     Plug 'tpope/vim-fugitive'                   " Git engine for vim
-    Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
+    Plug 'godlygeek/tabular'                    " Text align with regexp
+    Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
 
-    " Project explorer
-    Plug 'scrooloose/nerdtree'                  " Project explorer
-    Plug 'jistr/vim-nerdtree-tabs'              " Better behavior for nerdtree
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-
-    " UI
+" ui
+    Plug 'Yggdroot/indentLine'                  " vertical lines for indent
+    Plug 'szw/vim-maximizer'                    " maximize window
     Plug 'bling/vim-airline'                    " Airline
     Plug 'vim-airline/vim-airline-themes'       " Themes for airline
     Plug 'tomasr/molokai'                       " Color Scheme
+    Plug 'majutsushi/tagbar'                    " perview file structure
+    Plug 'simnalamburt/vim-mundo'               " perview undos
+    Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
+    Plug 'scrooloose/nerdtree'                  " Project explorer
+    Plug 'jistr/vim-nerdtree-tabs'          " Better behavior for nerdtree
+    Plug 'Xuyuanp/nerdtree-git-plugin'
 
-    " Too lazy to chceck
-    Plug 'xolox/vim-misc'
-    Plug 'xolox/vim-easytags'
-    " Plug 'terryma/vim-expand-region'            " Select region +/-
-    Plug 'szw/vim-maximizer'                    " Maximize/minimize window on f3
-    Plug 'tpope/vim-endwise'                    " Auto add ends, endfuncion, endif
-    Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
-    " Plug 'slim-template/vim-slim'               " Slim support
-    " Plug 'tpope/vim-repeat'                     " better . behavior
+" language related
+    Plug 'vim-ruby/vim-ruby'
+    Plug 'ngmy/vim-rubocop'
 call plug#end()
+" **********************************
 
-set shell=/bin/zsh
-language en_US.UTF-8
-set langmenu=en_US.UTF-8
-set fileencoding=utf-8
-set encoding=utf8
-
-set ttimeoutlen=0
-set smarttab
-set softtabstop=4
-
-set updatetime=300
-set mouse=a                             " Mouse support
-set lazyredraw                          " Only redraw when it is needed
-set timeoutlen=900                      " Sequence timeout
-set number                              " Show absolute line number in current line
-set relativenumber                      " Show relative line number
-set showbreak=▶▶                        " Wrapped line symbol
-" set textwidth=120                       " Text break point
-set noshowmatch                         " Disable jumping to matching parenthesis after typing it
-set noswapfile                          " Disable creating swap files
-set novisualbell                        " Turn screen blinking off
-set laststatus=2                        " Always show status line
-set showcmd                             " Show commands as they are entered
-set splitright                          " Create vsplit on right side
-set splitbelow                          " Create hsplit on bottom *
-set hidden                              " Hide buffers instead of closing them
-set nobackup                            " Disable creating backup files
-set ignorecase
-set smartcase                           " Override the 'ignorecase' option if the search pattern contains upper case characters.
-set hlsearch                            " Highlight search results
-set incsearch                           " Search as you type
-set autoindent                          " Copy indent from current line when starting new line
-set expandtab                           " Spaces instead of tabs in insert mode
-set shiftwidth=4                        " Default tab width
-set smartindent                         " Add extra tab when starting new line in some cases
-set ruler                               " Show column and row numbers
-set colorcolumn=120                     " Color 120th column
-set undolevels=100                      " Amount of possible undos
-set cursorline                          " Highlight current line
-set backspace=indent,eol,start          " Allow backspacing over everything in insert mode
-set scrolloff=4
-set sidescrolloff=5
-    " NOT SURE OR TOO LAZY TO CHECK ************************************
-set wildignore+=*/tmp/*,*.so,*.swp,*.zipo
-set omnifunc=syntaxcomplete#Complete
 filetype plugin indent on
 syntax on                               " Enable syntax coloring
 let mapleader = "'"
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#auto_refresh_delay = 30
-let g:neomake_ruby_enabled_makers = ['rubocop']
-let g:vimrubocop_config = '~/.rubocop.yml'
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_show_hidden = 1
-    "Speed fixes http://stackoverflow.com/questions/21346068/slow-performance-on-ctrlp-it-doesnt-work-to-ignore-some-folders
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
-        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
+
+" meta
+language en_US.UTF-8
+set shell=/bin/zsh
+set langmenu=en_US.UTF-8
+set fileencoding=utf-8
+set encoding=utf8
+set lazyredraw
+set noswapfile
+set novisualbell
+set nobackup
+
+" behavior
+set autoindent
+set smartindent
+set noshowmatch
+set splitright
+set splitbelow
+set hidden                " don't close buffers
+set autoindent
+set smartindent
+set backspace=indent,eol,start
+set omnifunc=syntaxcomplete#Complete
+set wildignore+=
+            \*/tmp/*,
+            \*.so,
+            \*.swp,
+            \*.zipo
+
+" tabulator
+set smarttab
+set softtabstop=4
+set shiftwidth=4                        " Default tab width
+set expandtab                " Spaces instead of tabs
+
+" searching
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" ui
+set scrolloff=4
+set sidescrolloff=5
+set showbreak=\/_
+set laststatus=2            " always show status line
+set showcmd
+set number
+set relativenumber
+set ruler
+set colorcolumn=120                     " Color 120th column
+set cursorline                         " Highlight current line
+
+" colorscheme
+if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-let test#strategy = 'neoterm'
-let g:neoterm_position = 'horizontal'
-let g:easytags_async = 1
-    "Better performance
-let g:easytags_syntax_keyword = 'always'
-    "tags filename and placement
-set tags=./tags;
-    "create tag file per project
-let g:easytags_dynamic_files = 2
-    "needed for upper line to work
-set cpoptions+=d
-let g:indentLine_color_term = 239
-let g:indentLine_char = '¦'
-let g:indentLine_concealcursor = 'niv' " (default 'inc')
-let g:indentLine_conceallevel = 2  " (default 2)
+if (has("termguicolors"))
+    set termguicolors
+endif
+colorscheme molokai
+let g:airline_theme = 'molokai'
+
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -155,23 +123,58 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#fnametruncate = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:indentLine_color_term = 239
+let g:indentLine_char = '¦'
+let g:indentLine_concealcursor = 'niv' " (default 'inc')
+let g:indentLine_conceallevel = 2  " (default 2)
 
-    " Colorscheme
-if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-if (has("termguicolors"))
-    set termguicolors
-endif
-colorscheme molokai
-let g:airline_theme = 'molokai'
+let g:gitgutter_sign_column_always = 1
 
-    " NerdTree
+" nerdtree
 let g:NERDTreeWinSize = 25
 let g:nerdtree_tabs_open_on_console_startup=2
-    " Gitgutter
-let g:gitgutter_sign_column_always = 1
-" Autocmds
+
+" completion
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#auto_refresh_delay = 30
+let g:neomake_ruby_enabled_makers = ['rubocop']
+let g:vimrubocop_config = '~/.rubocop.yml'
+let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
+imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
+imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
+inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
+imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+" imap <C-j> <Tab>
+" imap <C-k> <S-Tab>
+imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
+
+" ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
+endif
+map <C-l> :CtrlPMRU<CR>
+
+" tags
+let g:easytags_async = 1
+let g:easytags_syntax_keyword = 'always'
+set tags=./tags;
+let g:easytags_dynamic_files = 2
+set cpoptions+=d
+" **********************************
+
+" augroups
     " Remember cursor position
 autocmd! BufWritePost * Neomake
 augroup vimrc-remember-cursor-position
@@ -199,55 +202,30 @@ autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
 autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
 autocmd Filetype python setlocal ts=4 sts=4 sw=4
+" **********************************
 
-    " deoplete
-imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
-imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
-inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
-imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-" imap <C-j> <Tab>
-" imap <C-k> <S-Tab>
-    " deosnipplets
-imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
-    " ctrlp
-map <C-l> :CtrlPMRU<CR>
-    " vim-test
-nnoremap <silent> <leader>t :TestNearest<CR>
-nnoremap <silent> <leader>T :TestFile<CR>
-nnoremap <silent> <leader>a :TestSuite<CR>
-nnoremap <silent> <leader>l :TestLast<CR>
-nnoremap <silent> <leader>g :TestVisit<CR>
+" keymaps
     " maximizer, nerdtree, tagbar, mundo
 let g:maximizer_default_mapping_key = '<F9>'
 nmap     <F2> :NERDTreeTabsToggle<CR>
 noremap  <F3> :TagbarToggle<CR>
 nnoremap <F4> :MundoToggle<CR>
-    " View diff with <leader>1
-nnoremap <expr> <leader>1 (g:gitgutter_highlight_lines) ?
-            \':GitGutterLineHighlightsToggle<CR>:NERDTreeToggle<CR><C-w>l:q!<CR>' :
-            \':GitGutterLineHighlightsToggle<CR>:Gvsplit<CR>:NERDTreeToggle<CR>'
-    " Disable hls
-nnoremap <Esc><Esc> :<C-u>nohls<CR>
-    " Break current line
-nnoremap <leader>o i<CR><Esc>
-    " buffers and tabs behavior
-nnoremap gr :bnext<CR>
-nnoremap gR :bprev<CR>
-nnoremap tt :tabnew<CR>
-nnoremap TT :tabclose<CR>
-nnoremap tl :tabs<CR>
-nnoremap Tl :buffers<CR>
-    " Search on , (2 lines below)
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap , :Ag<SPACE>
-    " Copy to clipboard
-vnoremap  <leader>y  "+y
-nnoremap  <leader>Y  "+yg_
-nnoremap  <leader>y  "+y
+    " disable hls
+noremap <Esc><Esc> :<C-u>nohls<CR>
+    " vim test
+let test#strategy = 'neoterm'
+let g:neoterm_position = 'horizontal'
+nnoremap <leader>tt :TestNearest<CR>
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>ta :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+nnoremap <leader>tg :TestVisit<CR>
+    " vim move
+let g:move_key_modifier = 'C'
+    " copy to clipboard
+vnoremap <leader>y  "+y
+nnoremap <leader>Y  "+yg_
+nnoremap <leader>y  "+y
     " Paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
@@ -272,69 +250,19 @@ nnoremap ; :
 inoremap jk <Esc>
 inoremap ii <Esc>
 vnoremap ii <Esc>
-    " Terminal mode keymaps
-    " Exit terminal mode with esc
-:tnoremap <Esc> <C-\><C-n>"
-    " Improve windows navigation by using 'alt + *' combination even when terminal window is active
-:tnoremap <A-h> <C-\><C-n><C-w>h
-:tnoremap <A-j> <C-\><C-n><C-w>j
-:tnoremap <A-k> <C-\><C-n><C-w>k
-:tnoremap <A-l> <C-\><C-n><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
-
-" Move lines or blocks up and down
-    function! MoveLineUp()
-      call MoveLineOrVisualUp(".", "")
-    endfunction
-
-    function! MoveLineDown()
-      call MoveLineOrVisualDown(".", "")
-    endfunction
-
-    function! MoveVisualUp()
-      call MoveLineOrVisualUp("'<", "'<,'>")
-      normal gv
-    endfunction
-
-    function! MoveVisualDown()
-      call MoveLineOrVisualDown("'>", "'<,'>")
-      normal gv
-    endfunction
-
-    function! MoveLineOrVisualUp(line_getter, range)
-      let l_num = line(a:line_getter)
-      if l_num - v:count1 - 1 < 0
-        let move_arg = "0"
-      else
-        let move_arg = a:line_getter." -".(v:count1 + 1)
-      endif
-      call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
-    endfunction
-
-    function! MoveLineOrVisualDown(line_getter, range)
-      let l_num = line(a:line_getter)
-      if l_num + v:count1 > line("$")
-        let move_arg = "$"
-      else
-        let move_arg = a:line_getter." +".v:count1
-      endif
-      call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
-    endfunction
-
-    function! MoveLineOrVisualUpOrDown(move_arg)
-      let col_num = virtcol(".")
-      execute "silent! ".a:move_arg
-      execute "normal! ".col_num."|"
-    endfunction
-
-    nnoremap <silent> <C-k> :<C-u>call MoveLineUp()<CR>
-    nnoremap <silent> <C-j> :<C-u>call MoveLineDown()<CR>
-    " inoremap <silent> <C-k> <C-o>:call MoveLineUp()<CR>
-    " inoremap <silent> <C-j> <C-o>:call MoveLineDown()<CR>
-    vnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
-    vnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
-    " xnoremap <silent> <C-k> :<C-u>call MoveVisualUp()<CR>
-    " xnoremap <silent> <C-j> :<C-u>call MoveVisualDown()<CR>
+    " tabs and buffers navigation
+nnoremap gr :bnext<CR>
+nnoremap gR :bprev<CR>
+nnoremap tt :tabnew<CR>
+nnoremap TT :tabclose<CR>
+nnoremap tl :tabs<CR>
+nnoremap Tl :buffers<CR>
+    " Window navigation
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
