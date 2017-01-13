@@ -7,13 +7,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
     Plug 'Shougo/neoinclude.vim'                " extends deoplete
     Plug 'sbdchd/neoformat'                     " code formatting engine
-    " Plug 'Shougo/neosnippet'                  " async snipplet engine
-    " Plug 'scrooloose/syntastic'               " Syntax, neomake alternative
 
     " To test, taken from SpaceVim
-    " Plug 'mattn/webapi-vim'
-    " Plug 'mopp/googlesuggest-source.vim'        " google completion
-    " Plug 'mattn/googlesuggest-complete-vim'
+    Plug 'sheerun/vim-polyglot'                 " collection of language packs
     Plug 'majutsushi/tagbar'
     Plug 'cohama/agit.vim'                      " git log :Agit
     Plug 'gregsexton/gitv'                      " another git plugin :Gitv
@@ -22,7 +18,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'godlygeek/tabular'                    " Easy text align with regexp
     Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
     Plug 'simnalamburt/vim-mundo'               " claims to be better alternative for gundo
-    " Plug 'sjl/gundo.vim'                        " Visualise undo tree
 
     " Vim functions improvements and extensions
     Plug 'rhysd/clever-f.vim'                   " better behavior for f F t T
@@ -85,7 +80,7 @@ set timeoutlen=900                      " Sequence timeout
 set number                              " Show absolute line number in current line
 set relativenumber                      " Show relative line number
 set showbreak=▶▶                        " Wrapped line symbol
-" set textwidth=120                       " Text (e. g. comment) break point
+" set textwidth=120                       " Text break point
 set noshowmatch                         " Disable jumping to matching parenthesis after typing it
 set noswapfile                          " Disable creating swap files
 set novisualbell                        " Turn screen blinking off
@@ -151,7 +146,6 @@ let g:indentLine_concealcursor = 'niv' " (default 'inc')
 let g:indentLine_conceallevel = 2  " (default 2)
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -161,12 +155,17 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#fnametruncate = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-    " let g:airline_symbols.readonly = ''
+
     " Colorscheme
-if !exists('g:not_finish_vimplug')
-    colorscheme molokai
+if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
-let &t_Co=256
+if (has("termguicolors"))
+    set termguicolors
+endif
+colorscheme molokai
+let g:airline_theme = 'molokai'
+
     " NerdTree
 let g:NERDTreeWinSize = 25
 let g:nerdtree_tabs_open_on_console_startup=2
