@@ -9,3 +9,7 @@ sudo apt update
 sudo apt upgrade
 
 sudo apt install software-properties-common python-software-properties build-essential cmake gcc make exuberant-ctags python-dev python3-dev python-pip python3-pip zsh tmux git wget redshift redshift-gtk indicator-multiload indicator-cpufreq vlc bless gparted font-manager fonts-hack-ttf unity-tweak-tool compizconfig-settings-manager gimp inkscape psensor silversearcher-ag unrar xclip neovim simplescreenrecorder grub-customizer numix-icon-theme-circle numix-icon-theme yosembiance-gtk-theme
+
+touch ~/sites
+echo "enable 24 bit colors in tmux" > ~/sites
+echo "https://sunaku.github.io/tmux-24bit-color.html#usage" > ~/sites
