@@ -228,12 +228,12 @@ augroup dim-inactive-fix
 augroup END
 
 augroup reload-vimrc-on-save
+    " it breaks airline for some reason
     au!
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
-augroup vimrc-remember-cursor-position
-    " it breaks airline for some reason
+augroup remember-cursor-position
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
