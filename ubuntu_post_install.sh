@@ -1,28 +1,24 @@
 install_essential() {
     clear
     echo "installing essential packages"
-    sudo apt update
     sudo apt install -y build-essential cmake make gcc
 }
 
 install_dev() {
     clear
     echo "installing packages for development"
-    sudo apt update
     sudo apt install -y git zsh curl wget tmux bless fonts-hack-ttf
 }
 
 install_ubuntu() {
     clear
     echo "installing packages for ubuntu"
-    sudo apt update
     sudo apt install -y redshift redshift-gtk indicator-multiload gparted unity-tweak-tool compizconfig-settings-manager psensor unrar thunderbird
 }
 
 install_multimedia() {
     clear
     echo "installing multimedia packages"
-    sudo apt update
     sudo apt install -y vlc gimp inkscape
 }
 
@@ -107,6 +103,8 @@ clone_dotfiles() {
     sed -i -e 's/robbyrussell/agnoster/g' ~/.zshrc
 }
 
+sudo apt update
+sudo apt upgrade
 fill_checklist
 install_essential
 install_dev
