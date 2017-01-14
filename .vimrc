@@ -1,53 +1,53 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 " autocompletion
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete.nvim',                   { 'do': ':UpdateRemotePlugins' }
     Plug 'honza/vim-snippets'
     Plug 'Shougo/neco-syntax'
     Plug 'ujihisa/neco-look'
     Plug 'Shougo/neco-vim'
     Plug 'Shougo/context_filetype.vim'
-    Plug 'Shougo/neoinclude.vim'                " extends deoplete
-    Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
+    Plug 'Shougo/neoinclude.vim'                   " extends deoplete
+    Plug 'Shougo/neosnippet-snippets'              " snipplets for neosnipplet
     Plug 'Shougo/neopairs.vim'
-    Plug 'sbdchd/neoformat'                     " code formatting engine
-    Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
+    Plug 'sbdchd/neoformat'                        " code formatting engine
+    Plug 'ervandew/supertab'                       " Confrim autocompletion with tab
 
 " behavior
-    Plug 'neomake/neomake'                      " async make
-    Plug 'janko-m/vim-test'                     " test engine
-    Plug 'rhysd/clever-f.vim'                   " better f F t T
-    Plug 'matze/vim-move'                       " Move block of code
-    Plug 'bronson/vim-trailing-whitespace'      " Detect trailing whitespaces
+    Plug 'neomake/neomake'                         " async make
+    Plug 'janko-m/vim-test'                        " test engine
+    Plug 'rhysd/clever-f.vim'                      " better f F t T
+    Plug 'matze/vim-move'                          " Move block of code
+    Plug 'bronson/vim-trailing-whitespace'         " Detect trailing whitespaces
     Plug 'xolox/vim-misc'
         Plug 'xolox/vim-easytags'
-    Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
-    Plug 'tpope/vim-fugitive'                   " Git engine for vim
+    Plug 'benizi/vim-automkdir'                    " autocreate folder if necessary when writing
+    Plug 'tpope/vim-fugitive'                      " Git engine for vim
 
 " syntax helpers
-    Plug 'godlygeek/tabular'                    " Text align with regexp
-    Plug 'tpope/vim-commentary'                 " Comments
-    Plug 'tpope/vim-surround'                   " Surround verb
+    Plug 'godlygeek/tabular'                       " Text align with regexp
+    Plug 'tpope/vim-commentary'                    " Comments
+    Plug 'tpope/vim-surround'                      " Surround verb
 
 " extensions
-    Plug 'kassio/neoterm'                       " terminal mode
-    Plug 'ctrlpvim/ctrlp.vim'                   " In project file finder
-        Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }
+    Plug 'kassio/neoterm'                          " terminal mode
+    Plug 'ctrlpvim/ctrlp.vim'                      " In project file finder
+        Plug 'JazzCore/ctrlp-cmatcher',            { 'do': './install.sh' }
     Plug 'Shougo/unite.vim'
         Plug 'Shougo/neoyank.vim'
-    Plug 'majutsushi/tagbar'                    " perview file structure
-    Plug 'simnalamburt/vim-mundo'               " perview undos
-    Plug 'scrooloose/nerdtree'                  " Project explorer
-        Plug 'jistr/vim-nerdtree-tabs'          " Better behavior for nerdtree
+    Plug 'majutsushi/tagbar'                       " perview file structure
+    Plug 'simnalamburt/vim-mundo'                  " perview undos
+    Plug 'scrooloose/nerdtree'                     " Project explorer
+        Plug 'jistr/vim-nerdtree-tabs'             " Better behavior for nerdtree
         Plug 'Xuyuanp/nerdtree-git-plugin'
 " ui
     Plug 'joshdick/onedark.vim'
-    Plug 'gko/vim-coloresque'                   " Color perview for vim
-    Plug 'Yggdroot/indentLine'                  " vertical lines for indent
-    Plug 'szw/vim-maximizer'                    " maximize window
-    Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
-    Plug 'bling/vim-airline'                    " Airline
-        Plug 'vim-airline/vim-airline-themes'   " Themes for airline
+    Plug 'gko/vim-coloresque'                      " Color perview for vim
+    Plug 'Yggdroot/indentLine'                     " vertical lines for indent
+    Plug 'szw/vim-maximizer'                       " maximize window
+    Plug 'airblade/vim-gitgutter'                  " Shows git signs next to line numbers
+    Plug 'bling/vim-airline'                       " Airline
+        Plug 'vim-airline/vim-airline-themes'      " Themes for airline
     Plug 'blueyed/vim-diminactive'
 
 " language specific
@@ -70,8 +70,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'othree/javascript-libraries-syntax.vim', { 'for' : ['javascript','coffee','ls','typescript'] }
 call plug#end()
 " **********************************
+
 filetype plugin indent on
-syntax on                               " Enable syntax coloring
+syntax on                                          " Enable syntax coloring
 let mapleader = "'"
 
 " meta
@@ -91,7 +92,7 @@ set smartindent
 set noshowmatch
 set splitright
 set splitbelow
-set hidden                " don't close buffers
+set hidden                                         " don't close buffers
 set autoindent
 set smartindent
 set backspace=indent,eol,start
@@ -105,8 +106,8 @@ set wildignore+=
 " tabulator
 set smarttab
 set softtabstop=4
-set shiftwidth=4                        " Default tab width
-set expandtab                " Spaces instead of tabs
+set shiftwidth=4                                   " Default tab width
+set expandtab                                      " Spaces instead of tabs
 
 " searching
 set ignorecase
@@ -118,13 +119,13 @@ set incsearch
 set scrolloff=4
 set sidescrolloff=5
 set showbreak=\/_
-set laststatus=2            " always show status line
+set laststatus=2                                   " always show status line
 set showcmd
 set number
 set relativenumber
 set ruler
-set colorcolumn=120                     " Color 120th column
-set cursorline                         " Highlight current line
+set colorcolumn=120                                " Color 120th column
+set cursorline                                     " Highlight current line
 
 " colorscheme
 if (has("nvim"))
@@ -149,8 +150,8 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#717273'
 let g:indentLine_char = '¦'
-let g:indentLine_concealcursor = 'niv' " (default 'inc')
-let g:indentLine_conceallevel = 2  " (default 2)
+let g:indentLine_concealcursor = 'niv'             " (default 'inc')
+let g:indentLine_conceallevel = 2                  " (default 2)
 
 let g:gitgutter_sign_column_always = 1
 
@@ -213,8 +214,8 @@ let test#strategy = 'neoterm'
 let g:neoterm_keep_term_open = 1
 let g:neoterm_run_tests_bg = 1
 let g:neoterm_position = 'horizontal'
-nnoremap <leader><F2> :Ttoggle<CR>
-
+let g:neoterm_size = 10
+nnoremap <leader>te :Ttoggle<CR>
 " **********************************
 
 " augroups
@@ -310,6 +311,8 @@ nnoremap TT :tabclose<CR>
 nnoremap tl :tabs<CR>
 nnoremap Tl :buffers<CR>
     " Window navigation
+:tnoremap <Esc> <C-\><C-n>
+:tnoremap jk    <C-\><C-n>
 :tnoremap <A-h> <C-\><C-n><C-w>h
 :tnoremap <A-j> <C-\><C-n><C-w>j
 :tnoremap <A-k> <C-\><C-n><C-w>k
