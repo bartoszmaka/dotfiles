@@ -14,30 +14,33 @@ call plug#begin('~/.vim/plugged')
     Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
 
 " behavior
-    Plug 'tpope/vim-commentary'                 " Comments
-    Plug 'tpope/vim-surround'                   " Surround verb
-    Plug 'kassio/neoterm'                       " terminal mode
     Plug 'neomake/neomake'                      " async make
     Plug 'janko-m/vim-test'                     " test engine
     Plug 'rhysd/clever-f.vim'                   " better f F t T
     Plug 'matze/vim-move'                       " Move block of code
     Plug 'bronson/vim-trailing-whitespace'      " Detect trailing whitespaces
-    Plug 'ctrlpvim/ctrlp.vim'                   " In project file finder
-        Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }
     Plug 'xolox/vim-misc'
         Plug 'xolox/vim-easytags'
     Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
+    Plug 'tpope/vim-fugitive'                   " Git engine for vim
+
+" syntax helpers
+    Plug 'godlygeek/tabular'                    " Text align with regexp
+    Plug 'tpope/vim-commentary'                 " Comments
+    Plug 'tpope/vim-surround'                   " Surround verb
+
+" extensions
+    Plug 'kassio/neoterm'                       " terminal mode
+    Plug 'ctrlpvim/ctrlp.vim'                   " In project file finder
+        Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }
     Plug 'Shougo/unite.vim'
         Plug 'Shougo/neoyank.vim'
-
-" git
-    Plug 'tpope/vim-fugitive'                   " Git engine for vim
-    Plug 'godlygeek/tabular'                    " Text align with regexp
-
+    Plug 'majutsushi/tagbar'                    " perview file structure
+    Plug 'simnalamburt/vim-mundo'               " perview undos
+    Plug 'scrooloose/nerdtree'                  " Project explorer
+        Plug 'jistr/vim-nerdtree-tabs'          " Better behavior for nerdtree
+        Plug 'Xuyuanp/nerdtree-git-plugin'
 " ui
-    " Plug 'morhetz/gruvbox'
-    " Plug 'frankier/neovim-colors-solarized-truecolor-only'
-    " Plug 'tomasr/molokai'                       " Color Scheme
     Plug 'joshdick/onedark.vim'
     Plug 'gko/vim-coloresque'                   " Color perview for vim
     Plug 'Yggdroot/indentLine'                  " vertical lines for indent
@@ -45,11 +48,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
     Plug 'bling/vim-airline'                    " Airline
         Plug 'vim-airline/vim-airline-themes'   " Themes for airline
-    Plug 'majutsushi/tagbar'                    " perview file structure
-    Plug 'simnalamburt/vim-mundo'               " perview undos
-    Plug 'scrooloose/nerdtree'                  " Project explorer
-        Plug 'jistr/vim-nerdtree-tabs'          " Better behavior for nerdtree
-        Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'blueyed/vim-diminactive'
 
 " language specific
@@ -72,7 +70,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'othree/javascript-libraries-syntax.vim', { 'for' : ['javascript','coffee','ls','typescript'] }
 call plug#end()
 " **********************************
-
 filetype plugin indent on
 syntax on                               " Enable syntax coloring
 let mapleader = "'"
@@ -188,9 +185,9 @@ imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
 imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 " imap <C-j> <Tab>
 " imap <C-k> <S-Tab>
-imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
+inoremap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+snoremap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+xnoremap <C-e><C-e>     <Plug>(neosnippet_expand_target)
 
 " ctrlp
 let g:ctrlp_map = '<c-p>'
