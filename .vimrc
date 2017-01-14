@@ -1,49 +1,60 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 " autocompletion
-    Plug 'kassio/neoterm'                       "terminal mode
-    Plug 'neomake/neomake'                      "async make
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
+    Plug 'honza/vim-snippets'
+    Plug 'Shougo/neco-syntax'
+    Plug 'ujihisa/neco-look'
+    Plug 'Shougo/neco-vim'
+    Plug 'Shougo/context_filetype.vim'
     Plug 'Shougo/neoinclude.vim'                " extends deoplete
+    Plug 'Shougo/neosnippet-snippets'           " snipplets for neosnipplet
+    Plug 'Shougo/neopairs.vim'
     Plug 'sbdchd/neoformat'                     " code formatting engine
-    Plug 'janko-m/vim-test'                     " test engine
-    Plug 'matze/vim-move'                       " Move block of code
+    Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
+
+" syntax helpers
+    Plug 'tpope/vim-commentary'                 " Comments
+    " Plug 'tpope/vim-endwise'                    " Auto add ends, endfuncion, endif
+    " Plug 'tpope/vim-surround'                   " Surround verb
+    " Plug 'jiangmiao/auto-pairs'                 " Auto insert matching brackets and tags
 
 " behavior
+    Plug 'kassio/neoterm'                       " terminal mode
+    Plug 'neomake/neomake'                      " async make
+    Plug 'janko-m/vim-test'                     " test engine
     Plug 'rhysd/clever-f.vim'                   " better f F t T
-    Plug 'tpope/vim-commentary'                 " Comments
-    Plug 'tpope/vim-surround'                   " Surround verb
-    Plug 'gko/vim-coloresque'                   " Color perview for vim
+    Plug 'matze/vim-move'                       " Move block of code
     Plug 'bronson/vim-trailing-whitespace'      " Detect trailing whitespaces
-    Plug 'jiangmiao/auto-pairs'                 " Auto insert matching brackets and tags
-    Plug 'gko/vim-coloresque'                   " Color perview for vim
     Plug 'ctrlpvim/ctrlp.vim'                   " In project file finder
         Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }
     Plug 'xolox/vim-misc'
         Plug 'xolox/vim-easytags'
-    Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
+    Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
+    Plug 'Shougo/unite.vim'
+        Plug 'Shougo/neoyank.vim'
 
 " git
     Plug 'tpope/vim-fugitive'                   " Git engine for vim
     Plug 'godlygeek/tabular'                    " Text align with regexp
-    Plug 'benizi/vim-automkdir'                 " autocreate folder if necessary when writing
 
 " ui
     " Plug 'morhetz/gruvbox'
     " Plug 'frankier/neovim-colors-solarized-truecolor-only'
     " Plug 'tomasr/molokai'                       " Color Scheme
     Plug 'joshdick/onedark.vim'
+    Plug 'gko/vim-coloresque'                   " Color perview for vim
     Plug 'Yggdroot/indentLine'                  " vertical lines for indent
     Plug 'szw/vim-maximizer'                    " maximize window
+    Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
     Plug 'bling/vim-airline'                    " Airline
-    Plug 'vim-airline/vim-airline-themes'       " Themes for airline
+        Plug 'vim-airline/vim-airline-themes'   " Themes for airline
     Plug 'majutsushi/tagbar'                    " perview file structure
     Plug 'simnalamburt/vim-mundo'               " perview undos
-    Plug 'airblade/vim-gitgutter'               " Shows git signs next to line numbers
     Plug 'scrooloose/nerdtree'                  " Project explorer
-    Plug 'jistr/vim-nerdtree-tabs'              " Better behavior for nerdtree
-    Plug 'Xuyuanp/nerdtree-git-plugin'
+        Plug 'jistr/vim-nerdtree-tabs'          " Better behavior for nerdtree
+        Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'blueyed/vim-diminactive'
 
 " language related
     Plug 'vim-ruby/vim-ruby',   { 'for' : 'ruby' }
@@ -120,7 +131,6 @@ let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_nr_format = '%s:'
@@ -129,19 +139,31 @@ let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#fnametruncate = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#717273'
 let g:indentLine_char = '¦'
 let g:indentLine_concealcursor = 'niv' " (default 'inc')
 let g:indentLine_conceallevel = 2  " (default 2)
 
 let g:gitgutter_sign_column_always = 1
 
-" nerdtree
+let g:diminactive_buftype_blacklist = []
+let g:diminactive_enable_focus = 1
+
+" nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 25
 let g:nerdtree_tabs_open_on_console_startup=2
+let g:tagbar_autoclose = 1
+let g:maximizer_default_mapping_key = '<F9>'
+nmap     <F2> :NERDTreeTabsToggle<CR>
+noremap  <F3> :TagbarToggle<CR>
+nnoremap <F4> :MundoToggle<CR>
 
 " completion
 let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#auto_refresh_delay = 30
 let g:neomake_ruby_enabled_makers = ['rubocop']
@@ -168,8 +190,8 @@ if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     let g:ctrlp_use_caching = 0
+    map <C-l> :CtrlPMRU<CR>
 endif
-map <C-l> :CtrlPMRU<CR>
 
 " tags
 let g:easytags_async = 1
@@ -177,54 +199,71 @@ let g:easytags_syntax_keyword = 'always'
 set tags=./tags;
 let g:easytags_dynamic_files = 2
 set cpoptions+=d
+
+" neoterm
+let test#strategy = 'neoterm'
+let g:neoterm_keep_term_open = 1
+let g:neoterm_run_tests_bg = 1
+let g:neoterm_position = 'horizontal'
+nnoremap <leader><F2> :Ttoggle<CR>
+
 " **********************************
 
 " augroups
-    " Remember cursor position
 autocmd! BufWritePost * Neomake
+autocmd BufWritePre * FixWhitespace
+
+augroup dim-inactive-fix
+    autocmd!
+    autocmd BufNew * DimInactive
+augroup END
+
+augroup reload-vimrc-on-save
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+
 augroup vimrc-remember-cursor-position
+    " it breaks airline for some reason
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
-    " Change current line color when entering insert mode
-autocmd InsertEnter * highlight  CursorLine guibg=#181A1F
-    " Revert current line color to default when leaving insert mode
-autocmd InsertLeave * highlight  CursorLine guibg=#2C323C
-    " Remove Whitespaces on save
-autocmd BufWritePre * FixWhitespace
-    " swap relativenumber/norelativenumber or insert mode enter/leave
-autocmd InsertEnter * set norelativenumber
-autocmd InsertLeave * set relativenumber
-    " tab lengths by filetype
-autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
-autocmd Filetype scss setlocal ts=2 sts=2 sw=2
-autocmd Filetype sass setlocal ts=2 sts=2 sw=2
-autocmd Filetype slim setlocal ts=2 sts=2 sw=2
-autocmd Filetype html setlocal ts=2 sts=2 sw=2
-autocmd Filetype haml setlocal ts=2 sts=2 sw=2
-autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
-autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
-autocmd Filetype python setlocal ts=4 sts=4 sw=4
+
+augroup insert-mode-tweaks
+    autocmd!
+    autocmd InsertEnter * set norelativenumber
+    autocmd InsertLeave * set relativenumber
+    autocmd InsertEnter * highlight CursorLine guibg=#181A1F ctermbg=2
+    autocmd InsertLeave * highlight CursorLine guibg=#2C323C ctermbg=125
+augroup END
+
+augroup tab-lengths
+    autocmd!
+    autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
+    autocmd Filetype scss setlocal ts=2 sts=2 sw=2
+    autocmd Filetype sass setlocal ts=2 sts=2 sw=2
+    autocmd Filetype slim setlocal ts=2 sts=2 sw=2
+    autocmd Filetype html setlocal ts=2 sts=2 sw=2
+    autocmd Filetype haml setlocal ts=2 sts=2 sw=2
+    autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+    autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
+    autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
+    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
+    autocmd Filetype python setlocal ts=4 sts=4 sw=4
+augroup END
 " **********************************
 
 " keymaps
-    " maximizer, nerdtree, tagbar, mundo
-let g:maximizer_default_mapping_key = '<F9>'
-nmap     <F2> :NERDTreeTabsToggle<CR>
-noremap  <F3> :TagbarToggle<CR>
-nnoremap <F4> :MundoToggle<CR>
+nnoremap <leader>ly :Unite history/yank -default-action=append<CR>
     " disable hls
 noremap <Esc><Esc> :<C-u>nohls<CR>
     " vim test
-let test#strategy = 'neoterm'
-let g:neoterm_position = 'horizontal'
 nnoremap <leader>tt :TestNearest<CR>
 nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
+
     " vim move
 let g:move_key_modifier = 'C'
     " copy to clipboard
@@ -263,11 +302,11 @@ nnoremap TT :tabclose<CR>
 nnoremap tl :tabs<CR>
 nnoremap Tl :buffers<CR>
     " Window navigation
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+:tnoremap <A-h> <C-\><C-n><C-w>h
+:tnoremap <A-j> <C-\><C-n><C-w>j
+:tnoremap <A-k> <C-\><C-n><C-w>k
+:tnoremap <A-l> <C-\><C-n><C-w>l
+:nnoremap <A-h> <C-w>h
+:nnoremap <A-j> <C-w>j
+:nnoremap <A-k> <C-w>k
+:nnoremap <A-l> <C-w>l
