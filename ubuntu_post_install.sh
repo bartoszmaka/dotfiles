@@ -2,53 +2,53 @@ install_essential() {
     clear
     echo "installing essential packages"
     sudo apt update
-    sudo apt install build-essential cmake make gcc
+    sudo apt install -y build-essential cmake make gcc
 }
 
 install_dev() {
     clear
     echo "installing packages for development"
     sudo apt update
-    sudo apt install git zsh curl wget tmux bless fonts-hack-ttf
+    sudo apt install -y git zsh curl wget tmux bless fonts-hack-ttf
 }
 
 install_ubuntu() {
     clear
     echo "installing packages for ubuntu"
     sudo apt update
-    sudo apt install redshift redshift-gtk indicator-multiload gparted unity-tweak-tool compizconfig-settings-manager psensor unrar thunderbird
+    sudo apt install -y redshift redshift-gtk indicator-multiload gparted unity-tweak-tool compizconfig-settings-manager psensor unrar thunderbird
 }
 
 install_multimedia() {
     clear
     echo "installing multimedia packages"
     sudo apt update
-    sudo apt install vlc gimp inkscape
+    sudo apt install -y vlc gimp inkscape
 }
 
 install_simplescreenrecorder() {
     clear
     echo "installing simple screen recorder"
-    sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+    sudo add-apt-repository -y ppa:maarten-baert/simplescreenrecorder
     sudo apt update
-    sudo apt install simplescreenrecorder
+    sudo apt install -y simplescreenrecorder
 }
 
 install_grub_customizer() {
     clear
     echo "installing grub customizer"
-    sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+    sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer
     sudo apt update
-    sudo apt install grub-customzier
+    sudo apt install -y grub-customzier
 }
 
 install_neovim() {
     echo "installing neovim requirements and dependencies"
-    sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip exuberant-ctags xclip make cmake gcc silversearcher-ag
+    sudo apt install -y software-properties-common python-dev python-pip python3-dev python3-pip exuberant-ctags xclip make cmake gcc silversearcher-ag
     echo "installing neovim"
-    sudo add-apt-repository ppa:neovim-ppa/unstable
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable
     sudo apt update
-    sudo apt install neovim
+    sudo apt install -y neovim
     echo "upgrading python provider"
     sudo -H pip install --upgrade pip
     sudo -H pip3 install --upgrade pip
@@ -93,10 +93,16 @@ fill_checklist() {
 }
 clone_dotfiles() {
     # I assume, this file was downloaded from my repo to ~/dotfiles
+    clear
+    echo "redshift.conf -> ~/.config/"
     cp redshift.conf ~/.config/
+    echo ".vimrc -> ~/"
     cp .vimrc ~/
+    echo ".rubocop.yml -> ~/"
     cp .rubocop.yml ~/
+    echo ".tmux.conf -> ~/"
     cp .tmux.conf ~/
+    echo "zsh theme robbyrussell -> agnoster"
     sed -i -e 's/robbyrussell/agnoster/g' ~/.zshrc
 }
 
@@ -107,6 +113,7 @@ install_ubuntu
 install_multimedia
 install_grub_customizer
 install_simplescreenrecorder
+install_neovim
 clone_dotfiles
 
 echo "Downloading chrome..."
