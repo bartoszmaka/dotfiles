@@ -13,13 +13,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'sbdchd/neoformat'                     " code formatting engine
     Plug 'ervandew/supertab'                    " Confrim autocompletion with tab
 
-" syntax helpers
-    Plug 'tpope/vim-commentary'                 " Comments
-    " Plug 'tpope/vim-endwise'                    " Auto add ends, endfuncion, endif
-    " Plug 'tpope/vim-surround'                   " Surround verb
-    " Plug 'jiangmiao/auto-pairs'                 " Auto insert matching brackets and tags
-
 " behavior
+    Plug 'tpope/vim-commentary'                 " Comments
+    Plug 'tpope/vim-surround'                   " Surround verb
     Plug 'kassio/neoterm'                       " terminal mode
     Plug 'neomake/neomake'                      " async make
     Plug 'janko-m/vim-test'                     " test engine
@@ -56,9 +52,24 @@ call plug#begin('~/.vim/plugged')
         Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'blueyed/vim-diminactive'
 
-" language related
-    Plug 'vim-ruby/vim-ruby',   { 'for' : 'ruby' }
-    Plug 'ngmy/vim-rubocop',    { 'for' : 'ruby' }
+" language specific
+    Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
+    Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
+    Plug 'davidhalter/jedi-vim',                   { 'for' : ['python'] }
+    Plug 'zchee/deoplete-jedi',                    { 'for' : ['python'] }
+    Plug 'groenewege/vim-less',                    { 'for' : ['less'] }
+    Plug 'cakebaker/scss-syntax.vim',              { 'for' : ['scss','sass'] }
+    Plug 'hail2u/vim-css3-syntax',                 { 'for' : ['css','scss','sass'] }
+    Plug 'ap/vim-css-color',                       { 'for' : ['css','scss','sass','less','styl'] }
+    Plug 'othree/html5.vim',                       { 'for' : ['html'] }
+    Plug 'Valloric/MatchTagAlways',                { 'for' : ['html' , 'xhtml' , 'xml' , 'jinja'] }
+    Plug 'pangloss/vim-javascript',                { 'for' : ['javascript'] }
+    Plug 'maksimr/vim-jsbeautify',                 { 'for' : ['javascript'] }
+    Plug 'leafgarland/typescript-vim',             { 'for' : ['typescript'] }
+    Plug 'kchmck/vim-coffee-script',               { 'for' : ['coffee'] }
+    Plug 'mmalecki/vim-node.js',                   { 'for' : ['javascript'] }
+    Plug 'leshill/vim-json',                       { 'for' : ['javascript','json'] }
+    Plug 'othree/javascript-libraries-syntax.vim', { 'for' : ['javascript','coffee','ls','typescript'] }
 call plug#end()
 " **********************************
 
