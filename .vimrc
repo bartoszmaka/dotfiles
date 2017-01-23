@@ -51,6 +51,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'bling/vim-airline'                       " Airline
         Plug 'vim-airline/vim-airline-themes'      " Themes for airline
     Plug 'blueyed/vim-diminactive'
+    Plug 'simeji/winresizer'
 
 " language specific
     Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
@@ -168,6 +169,11 @@ let g:maximizer_default_mapping_key = '<F9>'
 nmap     <F2> :NERDTreeTabsToggle<CR>
 noremap  <F3> :TagbarToggle<CR>
 nnoremap <F4> :MundoToggle<CR>
+
+" winresizer 101 is 'e'
+let g:winresizer_vert_resize = 1
+let g:winresizer_horiz_resize = 1
+let g:winresizer_keycode_finish = 101
 
 " completion
 let g:SuperTabDefaultCompletionType = '<C-n>'
@@ -334,7 +340,7 @@ nnoremap Tl :buffers<CR>
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
     " This may require disabling system screen lock shortcut (ubuntu default)
-nnoremap <A-C-h> :vertical resize +1<CR>
-nnoremap <A-C-j> :resize -1<CR>
-nnoremap <A-C-k> :resize +1<CR>
-nnoremap <A-C-l> :vertical resize -1<CR>
+" nnoremap <A-C-h> :vertical resize +1<CR>
+" nnoremap <A-C-j> :resize -1<CR>
+" nnoremap <A-C-k> :resize +1<CR>
+" nnoremap <A-C-l> :vertical resize -1<CR>
