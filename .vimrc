@@ -137,6 +137,12 @@ endif
 if (has("termguicolors"))
     set termguicolors
 endif
+if (has("autocmd") && !has("gui"))
+    let s:monek_grey = { "gui": "#181A1F", "cterm": "16", "cterm16": "0" }
+    let s:monek_red = { "gui": "#461212", "cterm": "52", "cterm16": "1"}
+    autocmd ColorScheme * call onedark#set_highlight("CursorLine", { "bg": s:monek_grey })
+    autocmd ColorScheme * call onedark#set_highlight("CursorColumn", { "bg": s:monek_grey })
+end
 colorscheme onedark
 let g:airline_theme = 'onedark'
 
@@ -158,8 +164,10 @@ let g:indentLine_conceallevel = 2                  " (default 2)
 
 let g:gitgutter_sign_column_always = 1
 
-let g:diminactive_buftype_blacklist = []
+let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
+" let g:diminactive_buftype_blacklist = []
 let g:diminactive_enable_focus = 1
+" let g:diminactive_use_colorcolumn = 0
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 25
@@ -260,8 +268,9 @@ augroup insert-mode-tweaks
     autocmd!
     autocmd InsertEnter * set norelativenumber
     autocmd InsertLeave * set relativenumber
-    autocmd InsertEnter * highlight CursorLine guibg=#181A1F ctermbg=2
-    autocmd InsertLeave * highlight CursorLine guibg=#2C323C ctermbg=125
+    autocmd InsertEnter * highlight CursorLine guibg=#512121 ctermbg=52
+    autocmd InsertLeave * highlight CursorLine guibg=#181A1F ctermbg=16
+    " autocmd InsertLeave * highlight CursorLine guibg=#2C323C ctermbg=125
 augroup END
 
 augroup tab-lengths
