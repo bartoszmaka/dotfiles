@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/deoplete.nvim',                   { 'do': ':UpdateRemotePlugins' }
     Plug 'honza/vim-snippets'
     Plug 'Shougo/neco-syntax'
-    Plug 'ujihisa/neco-look'
+    " Plug 'ujihisa/neco-look'
     Plug 'Shougo/neco-vim'
     Plug 'Shougo/context_filetype.vim'
     Plug 'Shougo/neoinclude.vim'                   " extends deoplete
@@ -14,13 +14,15 @@ call plug#begin('~/.vim/plugged')
     Plug 'ervandew/supertab'                       " Confrim autocompletion with tab
 
 " behavior
+    Plug 'tpope/vim-endwise',
     Plug 'neomake/neomake'                         " async make
     Plug 'janko-m/vim-test'                        " test engine
     Plug 'rhysd/clever-f.vim'                      " better f F t T
     Plug 'matze/vim-move'                          " Move block of code
     Plug 'bronson/vim-trailing-whitespace'         " Detect trailing whitespaces
-    Plug 'xolox/vim-misc'
-        Plug 'xolox/vim-easytags'
+    Plug 'c0r73x/neotags.nvim'
+    " Plug 'xolox/vim-misc'
+    "     Plug 'xolox/vim-easytags'
     Plug 'benizi/vim-automkdir'                    " autocreate folder if necessary when writing
     Plug 'tpope/vim-fugitive'                      " Git engine for vim
 
@@ -203,12 +205,22 @@ if executable('ag')
 endif
 
 " tags
-let g:easytags_async = 1
-let g:easytags_syntax_keyword = 'always'
-set tags=./tags;
-let g:easytags_dynamic_files = 2
-set cpoptions+=d
-
+" let g:easytags_async = 1
+" let g:easytags_syntax_keyword = 'always'
+" set tags=./tags;
+" let g:easytags_dynamic_files = 2
+" set cpoptions+=d
+let g:neotags_appendpath = 0
+let g:neotags_recursive = 0
+let g:neotags_ctags_bin = 'ag -g "" '. getcwd() .' | ctags'
+let g:neotags_ctags_args = [
+            \ '-L -',
+            \ '--fields=+l',
+            \ '--c-kinds=+p',
+            \ '--c++-kinds=+p',
+            \ '--sort=no',
+            \ '--extra=+q'
+            \ ]
 " neoterm
 let test#strategy = 'neoterm'
 let g:neoterm_keep_term_open = 1
@@ -321,3 +333,8 @@ nnoremap Tl :buffers<CR>
 :nnoremap <A-j> <C-w>j
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
+    " This may require disabling system screen lock shortcut (ubuntu default)
+nnoremap <A-C-h> :vertical resize +1<CR>
+nnoremap <A-C-j> :resize -1<CR>
+nnoremap <A-C-k> :resize +1<CR>
+nnoremap <A-C-l> :vertical resize -1<CR>
