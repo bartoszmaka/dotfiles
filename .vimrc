@@ -4,9 +4,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/deoplete.nvim',                   { 'do': ':UpdateRemotePlugins' }
     Plug 'honza/vim-snippets'
     Plug 'Shougo/neco-syntax'
-    " Plug 'ujihisa/neco-look'
     Plug 'Shougo/neco-vim'
     Plug 'Shougo/context_filetype.vim'
+    Plug 'Shougo/neosnippet'
     Plug 'Shougo/neoinclude.vim'                   " extends deoplete
     Plug 'Shougo/neosnippet-snippets'              " snipplets for neosnipplet
     Plug 'Shougo/neopairs.vim'
@@ -21,8 +21,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'matze/vim-move'                          " Move block of code
     Plug 'bronson/vim-trailing-whitespace'         " Detect trailing whitespaces
     Plug 'c0r73x/neotags.nvim'
-    " Plug 'xolox/vim-misc'
-    "     Plug 'xolox/vim-easytags'
     Plug 'benizi/vim-automkdir'                    " autocreate folder if necessary when writing
     Plug 'tpope/vim-fugitive'                      " Git engine for vim
 
@@ -200,11 +198,15 @@ inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
 inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
 imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
 imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-" imap <C-j> <Tab>
-" imap <C-k> <S-Tab>
-inoremap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-snoremap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-xnoremap <C-e><C-e>     <Plug>(neosnippet_expand_target)
+imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
+imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " ctrlp
 let g:ctrlp_map = '<c-p>'
@@ -219,11 +221,6 @@ if executable('ag')
 endif
 
 " tags
-" let g:easytags_async = 1
-" let g:easytags_syntax_keyword = 'always'
-" set tags=./tags;
-" let g:easytags_dynamic_files = 2
-" set cpoptions+=d
 let g:neotags_appendpath = 0
 let g:neotags_recursive = 0
 let g:neotags_ctags_bin = 'ag -g "" '. getcwd() .' | ctags'
@@ -327,7 +324,7 @@ vnoremap <Right> <NOP>
     " map ; as :
 nnoremap ; :
     " Esc key mappings
-inoremap jk <Esc>
+" inoremap jk <Esc>
 inoremap ii <Esc>
 vnoremap ii <Esc>
     " tabs and buffers navigation
@@ -348,8 +345,3 @@ nnoremap Tl :buffers<CR>
 :nnoremap <A-j> <C-w>j
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
-    " This may require disabling system screen lock shortcut (ubuntu default)
-" nnoremap <A-C-h> :vertical resize +1<CR>
-" nnoremap <A-C-j> :resize -1<CR>
-" nnoremap <A-C-k> :resize +1<CR>
-" nnoremap <A-C-l> :vertical resize -1<CR>
