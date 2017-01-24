@@ -33,6 +33,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'kassio/neoterm'                          " terminal mode
     Plug 'ctrlpvim/ctrlp.vim'                      " In project file finder
         Plug 'JazzCore/ctrlp-cmatcher',            { 'do': './install.sh' }
+    " Plug 'Shougo/denite.nvim'
     Plug 'Shougo/unite.vim'
         Plug 'Shougo/neoyank.vim'
     Plug 'majutsushi/tagbar'                       " perview file structure
@@ -41,7 +42,10 @@ call plug#begin('~/.vim/plugged')
         Plug 'jistr/vim-nerdtree-tabs'             " Better behavior for nerdtree
         Plug 'Xuyuanp/nerdtree-git-plugin'
 " ui
+    " Plug 'tomasr/molokai'
+    " Plug 'mhartington/oceanic-next'
     Plug 'joshdick/onedark.vim'
+    Plug 'ryanoasis/vim-devicons'
     Plug 'gko/vim-coloresque'                      " Color perview for vim
     Plug 'Yggdroot/indentLine'                     " vertical lines for indent
     Plug 'szw/vim-maximizer'                       " maximize window
@@ -52,8 +56,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'simeji/winresizer'
 
 " language specific
-    Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
-    Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
+    Plug 'fishbullet/deoplete-ruby',               { 'for' : ['ruby'] }
+    " Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
+    " Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
     Plug 'davidhalter/jedi-vim',                   { 'for' : ['python'] }
     Plug 'zchee/deoplete-jedi',                    { 'for' : ['python'] }
     Plug 'groenewege/vim-less',                    { 'for' : ['less'] }
@@ -74,7 +79,7 @@ call plug#end()
 
 filetype plugin indent on
 syntax on                                          " Enable syntax coloring
-let mapleader = "'"
+let mapleader = "\<Space>"
 
 " meta
 language en_US.UTF-8
@@ -127,8 +132,10 @@ set relativenumber
 set ruler
 set colorcolumn=120                                " Color 120th column
 set cursorline                                     " Highlight current line
-
+set title
+set title titlestring=%<%F%=
 " colorscheme
+" set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ 11
 if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
@@ -136,16 +143,37 @@ if (has("termguicolors"))
     set termguicolors
 endif
 if (has("autocmd") && !has("gui"))
-    let s:monek_grey = { "gui": "#181A1F", "cterm": "16", "cterm16": "0" }
-    let s:monek_red = { "gui": "#461212", "cterm": "52", "cterm16": "1"}
+    let s:monek_grey = { "gui": "#343D46", "cterm": "16", "cterm16": "0" }
     autocmd ColorScheme * call onedark#set_highlight("CursorLine", { "bg": s:monek_grey })
-    autocmd ColorScheme * call onedark#set_highlight("CursorColumn", { "bg": s:monek_grey })
+    " let s:monek_grey = { "gui": "#181A1F", "cterm": "16", "cterm16": "0" }
+    " let s:monek_red = { "gui": "#461212", "cterm": "52", "cterm16": "1"}
+    " autocmd ColorScheme * call onedark#set_highlight("CursorColumn", { "bg": s:monek_grey })
 end
+set background=dark
 colorscheme onedark
 let g:airline_theme = 'onedark'
 
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:webdevicons_enable_airline_statusline = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
+
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.space = "\ua0"
 let g:airline_powerline_fonts = 1
+let g:Powerline_symbols = 'unicode'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -154,11 +182,19 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#fnametruncate = 0
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#format = 2
+let g:airline#extensions#branch#displayed_head_limit = 15
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#syntastic#enabled = 0
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#717273'
 let g:indentLine_char = '¦'
 let g:indentLine_concealcursor = 'niv'             " (default 'inc')
 let g:indentLine_conceallevel = 2                  " (default 2)
+
 
 let g:gitgutter_sign_column_always = 1
 
@@ -171,7 +207,7 @@ let g:diminactive_enable_focus = 1
 let g:NERDTreeWinSize = 25
 let g:nerdtree_tabs_open_on_console_startup=2
 let g:tagbar_autoclose = 1
-let g:maximizer_default_mapping_key = '<F9>'
+let g:maximizer_default_mapping_key = '<C-w>m'
 nmap     <F2> :NERDTreeTabsToggle<CR>
 noremap  <F3> :TagbarToggle<CR>
 nnoremap <F4> :MundoToggle<CR>
@@ -188,7 +224,6 @@ let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#enable_camel_case = 1
 let g:deoplete#enable_refresh_always = 1
-let g:deoplete#auto_refresh_delay = 30
 let g:neomake_ruby_enabled_makers = ['rubocop']
 let g:vimrubocop_config = '~/.rubocop.yml'
 let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
@@ -266,7 +301,8 @@ augroup insert-mode-tweaks
     autocmd InsertEnter * set norelativenumber
     autocmd InsertLeave * set relativenumber
     autocmd InsertEnter * highlight CursorLine guibg=#512121 ctermbg=52
-    autocmd InsertLeave * highlight CursorLine guibg=#181A1F ctermbg=16
+    autocmd InsertLeave * highlight CursorLine guibg=#343D46 ctermbg=16
+    " autocmd InsertLeave * highlight CursorLine guibg=#181A1F ctermbg=16
     " autocmd InsertLeave * highlight CursorLine guibg=#2C323C ctermbg=125
 augroup END
 
@@ -287,7 +323,7 @@ augroup END
 " **********************************
 
 " keymaps
-nnoremap <leader>ly :Unite history/yank -default-action=append<CR>
+nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
     " disable hls
 noremap <Esc><Esc> :<C-u>nohls<CR>
     " vim test
@@ -308,21 +344,19 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-    " Disable arrow keys
-nnoremap <Up> <NOP>
-nnoremap <Down> <NOP>
-nnoremap <Left> <NOP>
-nnoremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
-inoremap <Right> <NOP>
-vnoremap <Up> <NOP>
-vnoremap <Down> <NOP>
-vnoremap <Left> <NOP>
-vnoremap <Right> <NOP>
+
+    " treat multiline statement as multiple lines
+nnoremap j gj
+nnoremap k gk
+    " Insert mode mappings
+inoremap <c-h> <Esc>ha
+inoremap <c-l> <Esc>la
     " map ; as :
 nnoremap ; :
+nnoremap <C-s> :w<CR>
+nnoremap <leader>g g;
+nnoremap <leader>j J
+nnoremap <leader>k i<CR><Esc>
     " Esc key mappings
 " inoremap jk <Esc>
 inoremap ii <Esc>
@@ -336,7 +370,7 @@ nnoremap tl :tabs<CR>
 nnoremap Tl :buffers<CR>
     " Window navigation
 :tnoremap <Esc> <C-\><C-n>
-:tnoremap jk    <C-\><C-n>
+:tnoremap ii     <C-\><C-n>
 :tnoremap <A-h> <C-\><C-n><C-w>h
 :tnoremap <A-j> <C-\><C-n><C-w>j
 :tnoremap <A-k> <C-\><C-n><C-w>k
@@ -345,3 +379,16 @@ nnoremap Tl :buffers<CR>
 :nnoremap <A-j> <C-w>j
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
+    " Disable arrow keys
+nnoremap <Up> <NOP>
+nnoremap <Down> <NOP>
+nnoremap <Left> <NOP>
+nnoremap <Right> <NOP>
+inoremap <Up> <NOP>
+inoremap <Down> <NOP>
+inoremap <Left> <NOP>
+inoremap <Right> <NOP>
+vnoremap <Up> <NOP>
+vnoremap <Down> <NOP>
+vnoremap <Left> <NOP>
+vnoremap <Right> <NOP>
