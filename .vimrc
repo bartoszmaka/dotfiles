@@ -1,45 +1,46 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 " autocompletion
-    Plug 'Shougo/deoplete.nvim',                   { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
     Plug 'honza/vim-snippets'
     Plug 'Shougo/neco-syntax'
     Plug 'Shougo/neco-vim'
     Plug 'Shougo/context_filetype.vim'
     Plug 'Shougo/neosnippet'
-    Plug 'Shougo/neoinclude.vim'                   " extends deoplete
-    Plug 'Shougo/neosnippet-snippets'              " snipplets for neosnipplet
+    Plug 'Shougo/neoinclude.vim'                    " extends deoplete
+    Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
     Plug 'Shougo/neopairs.vim'
-    Plug 'sbdchd/neoformat'                        " code formatting engine
-    Plug 'ervandew/supertab'                       " Confrim autocompletion with tab
+    Plug 'sbdchd/neoformat'                         " code formatting engine
+    Plug 'ervandew/supertab'                        " Confrim autocompletion with tab
 
 " behavior
     Plug 'tpope/vim-endwise',
-    Plug 'neomake/neomake'                         " async make
-    Plug 'janko-m/vim-test'                        " test engine
-    Plug 'rhysd/clever-f.vim'                      " better f F t T
-    Plug 'matze/vim-move'                          " Move block of code
-    Plug 'bronson/vim-trailing-whitespace'         " Detect trailing whitespaces
+    Plug 'neomake/neomake'                          " async make
+    Plug 'janko-m/vim-test'                         " test engine
+    Plug 'rhysd/clever-f.vim'                       " better f F t T
+    Plug 'matze/vim-move'                           " Move block of code
+    Plug 'bronson/vim-trailing-whitespace'          " Detect trailing whitespaces
     Plug 'c0r73x/neotags.nvim'
-    Plug 'benizi/vim-automkdir'                    " autocreate folder if necessary when writing
-    Plug 'tpope/vim-fugitive'                      " Git engine for vim
+    Plug 'benizi/vim-automkdir'                     " autocreate folder if necessary when writing
+    Plug 'tpope/vim-fugitive'                       " Git engine for vim
 
 " syntax helpers
-    Plug 'godlygeek/tabular'                       " Text align with regexp
-    Plug 'tpope/vim-commentary'                    " Comments
-    Plug 'tpope/vim-surround'                      " Surround verb
+    Plug 'godlygeek/tabular'                        " Text align with regexp
+    Plug 'tpope/vim-commentary'                     " Comments
+    Plug 'tpope/vim-surround'                       " Surround verb
+    Plug 'kien/rainbow_parentheses.vim'
 
 " extensions
-    Plug 'kassio/neoterm'                          " terminal mode
-    Plug 'ctrlpvim/ctrlp.vim'                      " In project file finder
-        Plug 'JazzCore/ctrlp-cmatcher',            { 'do': './install.sh' }
+    Plug 'kassio/neoterm'                           " terminal mode
+    Plug 'ctrlpvim/ctrlp.vim'                       " In project file finder
+        Plug 'JazzCore/ctrlp-cmatcher',             { 'do': './install.sh' }
     " Plug 'Shougo/denite.nvim'
     Plug 'Shougo/unite.vim'
         Plug 'Shougo/neoyank.vim'
-    Plug 'majutsushi/tagbar'                       " perview file structure
-    Plug 'simnalamburt/vim-mundo'                  " perview undos
-    Plug 'scrooloose/nerdtree'                     " Project explorer
-        Plug 'jistr/vim-nerdtree-tabs'             " Better behavior for nerdtree
+    Plug 'majutsushi/tagbar'                        " perview file structure
+    Plug 'simnalamburt/vim-mundo'                   " perview undos
+    Plug 'scrooloose/nerdtree'                      " Project explorer
+        Plug 'jistr/vim-nerdtree-tabs'              " Better behavior for nerdtree
         Plug 'Xuyuanp/nerdtree-git-plugin'
 " ui
     " Plug 'tomasr/molokai'
@@ -56,24 +57,25 @@ call plug#begin('~/.vim/plugged')
     Plug 'simeji/winresizer'
 
 " language specific
-    Plug 'fishbullet/deoplete-ruby',               { 'for' : ['ruby'] }
-    " Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
-    " Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
-    Plug 'davidhalter/jedi-vim',                   { 'for' : ['python'] }
-    Plug 'zchee/deoplete-jedi',                    { 'for' : ['python'] }
-    Plug 'groenewege/vim-less',                    { 'for' : ['less'] }
-    Plug 'cakebaker/scss-syntax.vim',              { 'for' : ['scss','sass'] }
-    Plug 'hail2u/vim-css3-syntax',                 { 'for' : ['css','scss','sass'] }
-    Plug 'ap/vim-css-color',                       { 'for' : ['css','scss','sass','less','styl'] }
-    Plug 'othree/html5.vim',                       { 'for' : ['html'] }
-    Plug 'Valloric/MatchTagAlways',                { 'for' : ['html' , 'xhtml' , 'xml' , 'jinja'] }
-    Plug 'pangloss/vim-javascript',                { 'for' : ['javascript'] }
-    Plug 'maksimr/vim-jsbeautify',                 { 'for' : ['javascript'] }
-    Plug 'leafgarland/typescript-vim',             { 'for' : ['typescript'] }
-    Plug 'kchmck/vim-coffee-script',               { 'for' : ['coffee'] }
-    Plug 'mmalecki/vim-node.js',                   { 'for' : ['javascript'] }
-    Plug 'leshill/vim-json',                       { 'for' : ['javascript','json'] }
-    Plug 'othree/javascript-libraries-syntax.vim', { 'for' : ['javascript','coffee','ls','typescript'] }
+    Plug 'fishbullet/deoplete-ruby',                { 'for' : ['ruby'] }
+    " Plug 'vim-ruby/vim-ruby',                       { 'for' : ['ruby'] }
+    Plug 'ngmy/vim-rubocop',                        { 'for' : ['ruby'] }
+    Plug 'slim-template/vim-slim',                  { 'for' : ['slim'] }
+    Plug 'groenewege/vim-less',                     { 'for' : ['less'] }
+    Plug 'cakebaker/scss-syntax.vim',               { 'for' : ['scss','sass'] }
+    Plug 'hail2u/vim-css3-syntax',                  { 'for' : ['css','scss','sass'] }
+    Plug 'ap/vim-css-color',                        { 'for' : ['css','scss','sass','less','styl'] }
+    Plug 'othree/html5.vim',                        { 'for' : ['html'] }
+    Plug 'Valloric/MatchTagAlways',                 { 'for' : ['html' , 'xhtml' , 'xml' , 'jinja'] }
+    Plug 'pangloss/vim-javascript',                 { 'for' : ['javascript'] }
+    Plug 'maksimr/vim-jsbeautify',                  { 'for' : ['javascript'] }
+    Plug 'leafgarland/typescript-vim',              { 'for' : ['typescript'] }
+    Plug 'kchmck/vim-coffee-script',                { 'for' : ['coffee'] }
+    Plug 'mmalecki/vim-node.js',                    { 'for' : ['javascript'] }
+    Plug 'leshill/vim-json',                        { 'for' : ['javascript','json'] }
+    Plug 'othree/javascript-libraries-syntax.vim',  { 'for' : ['javascript','coffee','ls','typescript'] }
+    Plug 'davidhalter/jedi-vim',                    { 'for' : ['python'] }
+    Plug 'zchee/deoplete-jedi',                     { 'for' : ['python'] }
 call plug#end()
 " **********************************
 
@@ -91,6 +93,7 @@ set lazyredraw
 set noswapfile
 set novisualbell
 set nobackup
+set mouse=a
 
 " behavior
 set autoindent
@@ -134,6 +137,27 @@ set colorcolumn=120                                " Color 120th column
 set cursorline                                     " Highlight current line
 set title
 set title titlestring=%<%F%=
+" Rainbow Parentheses
+" let g:rbpt_colorpairs = [
+"     \ ['brown',       'RoyalBlue3'],
+"     \ ['Darkblue',    'SeaGreen3'],
+"     \ ['darkgray',    'DarkOrchid3'],
+"     \ ['darkgreen',   'firebrick3'],
+"     \ ['darkcyan',    'RoyalBlue3'],
+"     \ ['darkred',     'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['brown',       'firebrick3'],
+"     \ ['gray',        'RoyalBlue3'],
+"     \ ['black',       'SeaGreen3'],
+"     \ ['darkmagenta', 'DarkOrchid3'],
+"     \ ['Darkblue',    'firebrick3'],
+"     \ ['darkgreen',   'RoyalBlue3'],
+"     \ ['darkcyan',    'SeaGreen3'],
+"     \ ['darkred',     'DarkOrchid3'],
+"     \ ['red',         'firebrick3'],
+"     \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
 " colorscheme
 " set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ 11
 if (has("nvim"))
@@ -153,101 +177,99 @@ set background=dark
 colorscheme onedark
 let g:airline_theme = 'onedark'
 
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-let g:webdevicons_enable_airline_statusline = 1
-let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable                                       = 1
+let g:webdevicons_enable_nerdtree                              = 0
+let g:WebDevIconsNerdTreeAfterGlyphPadding                     = ''
+let g:webdevicons_enable_airline_statusline                    = 1
+let g:webdevicons_enable_airline_tabline                       = 1
 let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
 
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
+let g:airline_left_sep         = ''
+let g:airline_left_alt_sep     = ''
+let g:airline_right_sep        = ''
+let g:airline_right_alt_sep    = ''
+let g:airline_symbols.branch   = ''
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.space = "\ua0"
-let g:airline_powerline_fonts = 1
-let g:Powerline_symbols = 'unicode'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#buffer_nr_format = '%s:'
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#fnamecollapse = 1
-let g:airline#extensions#tabline#fnametruncate = 0
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#branch#format = 2
+let g:airline_symbols.linenr   = ''
+let g:airline_symbols.space    = "\ua0"
+let g:airline_powerline_fonts  = 1
+let g:Powerline_symbols        = 'unicode'
+let g:airline#extensions#tabline#enabled             = 1
+let g:airline#extensions#tabline#buffer_idx_mode     = 1
+let g:airline#extensions#tabline#buffer_nr_show      = 1
+let g:airline#extensions#tabline#buffer_nr_format    = '%s:'
+let g:airline#extensions#tabline#fnamemod            = ':t'
+let g:airline#extensions#tabline#fnamecollapse       = 1
+let g:airline#extensions#tabline#fnametruncate       = 0
+let g:airline#extensions#tabline#formatter           = 'unique_tail_improved'
+let g:airline#extensions#branch#enabled              = 1
+let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#syntastic#enabled = 0
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#717273'
-let g:indentLine_char = '¦'
+let g:airline#extensions#tagbar#enabled              = 0
+let g:airline#extensions#hunks#enabled               = 0
+let g:airline#extensions#syntastic#enabled           = 0
+let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
+let g:indentLine_color_term                          = 239
+let g:indentLine_color_gui     = '#717273'
+let g:indentLine_char          = '¦'
 let g:indentLine_concealcursor = 'niv'             " (default 'inc')
-let g:indentLine_conceallevel = 2                  " (default 2)
+let g:indentLine_conceallevel  = 2                  " (default 2)                " (default 2)
 
+if has('conceal')
+    set conceallevel=2 concealcursor=niv
+endif
 
 let g:gitgutter_sign_column_always = 1
 
 let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
-" let g:diminactive_buftype_blacklist = []
-let g:diminactive_enable_focus = 1
-" let g:diminactive_use_colorcolumn = 0
+let g:diminactive_enable_focus      = 1
 
 " nerdtree, mundo, tagbar
-let g:NERDTreeWinSize = 25
-let g:nerdtree_tabs_open_on_console_startup=2
-let g:tagbar_autoclose = 1
-let g:maximizer_default_mapping_key = '<C-w>m'
+let g:NERDTreeWinSize                 = 25
+let g:maximizer_default_mapping_key   = '<C-w>m'
 nmap     <F2> :NERDTreeTabsToggle<CR>
 noremap  <F3> :TagbarToggle<CR>
 nnoremap <F4> :MundoToggle<CR>
 
 " winresizer 101 is 'e'
-let g:winresizer_vert_resize = 1
-let g:winresizer_horiz_resize = 1
+let g:winresizer_vert_resize    = 1
+let g:winresizer_horiz_resize   = 1
 let g:winresizer_keycode_finish = 101
 
 " completion
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
+let g:SuperTabDefaultCompletionType  = '<C-n>'
+let g:deoplete#enable_at_startup     = 1
+let g:deoplete#enable_ignore_case    = 1
+let g:deoplete#enable_smart_case     = 1
+let g:deoplete#enable_camel_case     = 1
 let g:deoplete#enable_refresh_always = 1
-let g:neomake_ruby_enabled_makers = ['rubocop']
-let g:vimrubocop_config = '~/.rubocop.yml'
-let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
-imap <expr><C-j>   pumvisible() ? "\<C-n>" : "\<C-j>"
-imap <expr><C-k>   pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap <expr><C-f> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
-inoremap <expr><C-b> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
-imap     <expr><C-d> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-imap     <expr><C-u> pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-smap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-e><C-e>     <Plug>(neosnippet_expand_target)
-imap <C-e><C-e>     <Plug>(neosnippet_expand_or_jump)
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" let g:neomake_ruby_enabled_makers    = ['rubocop']
+let g:vimrubocop_config              = '~/.rubocop.yml'
+let g:neopairs#enable                = 1
+" let g:neopairs#pair                  = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
+" let g:AutoPairs                      = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
+imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
+imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
+inoremap    <expr><C-f>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
+inoremap    <expr><C-b>     pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
+imap        <expr><C-d>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+imap        <expr><C-u>     pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+imap        <C-e><C-e>      <Plug>(neosnippet_expand_or_jump)
+smap        <C-e><C-e>      <Plug>(neosnippet_expand_or_jump)
+xmap        <C-e><C-e>      <Plug>(neosnippet_expand_target)
+imap        <C-e><C-e>      <Plug>(neosnippet_expand_or_jump)
+smap        <expr><TAB>     neosnippet#expandable_or_jumpable() ?
+                            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " ctrlp
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_map         = '<c-p>'
+let g:ctrlp_cmd         = 'CtrlPMixed'
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+let g:ctrlp_cache_dir   = $HOME . '/.cache/ctrlp'
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -257,8 +279,8 @@ endif
 
 " tags
 let g:neotags_appendpath = 0
-let g:neotags_recursive = 0
-let g:neotags_ctags_bin = 'ag -g "" '. getcwd() .' | ctags'
+let g:neotags_recursive  = 0
+let g:neotags_ctags_bin  = 'ag -g "" '. getcwd() .' | ctags'
 let g:neotags_ctags_args = [
             \ '-L -',
             \ '--fields=+l',
@@ -267,18 +289,26 @@ let g:neotags_ctags_args = [
             \ '--sort=no',
             \ '--extra=+q'
             \ ]
+
 " neoterm
-let test#strategy = 'neoterm'
+let test#strategy            = 'neoterm'
 let g:neoterm_keep_term_open = 1
-let g:neoterm_run_tests_bg = 1
-let g:neoterm_position = 'horizontal'
-let g:neoterm_size = 10
+let g:neoterm_run_tests_bg   = 1
+let g:neoterm_position       = 'horizontal'
+let g:neoterm_size           = 10
 nnoremap <leader>te :Ttoggle<CR>
 " **********************************
 
 " augroups
 autocmd! BufWritePost * Neomake
 autocmd BufWritePre * FixWhitespace
+
+augroup rainbow-parentheses
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+augroup END
 
 augroup dim-inactive-fix
     autocmd!
@@ -320,12 +350,13 @@ augroup tab-lengths
     autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
     autocmd Filetype python setlocal ts=4 sts=4 sw=4
 augroup END
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 " **********************************
 
 " keymaps
 nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
     " disable hls
-noremap <Esc><Esc> :<C-u>nohls<CR>
+noremap  <Esc><Esc> :<C-u>nohls<CR>
     " vim test
 nnoremap <leader>tt :TestNearest<CR>
 nnoremap <leader>tf :TestFile<CR>
@@ -370,7 +401,7 @@ nnoremap tl :tabs<CR>
 nnoremap Tl :buffers<CR>
     " Window navigation
 :tnoremap <Esc> <C-\><C-n>
-:tnoremap ii     <C-\><C-n>
+:tnoremap ii    <C-\><C-n>
 :tnoremap <A-h> <C-\><C-n><C-w>h
 :tnoremap <A-j> <C-\><C-n><C-w>j
 :tnoremap <A-k> <C-\><C-n><C-w>k
@@ -380,15 +411,20 @@ nnoremap Tl :buffers<CR>
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
     " Disable arrow keys
-nnoremap <Up> <NOP>
-nnoremap <Down> <NOP>
-nnoremap <Left> <NOP>
+nnoremap <Up>    <NOP>
+nnoremap <Down>  <NOP>
+nnoremap <Left>  <NOP>
 nnoremap <Right> <NOP>
-inoremap <Up> <NOP>
-inoremap <Down> <NOP>
-inoremap <Left> <NOP>
+inoremap <Up>    <NOP>
+inoremap <Down>  <NOP>
+inoremap <Left>  <NOP>
 inoremap <Right> <NOP>
-vnoremap <Up> <NOP>
-vnoremap <Down> <NOP>
-vnoremap <Left> <NOP>
+vnoremap <Up>    <NOP>
+vnoremap <Down>  <NOP>
+vnoremap <Left>  <NOP>
 vnoremap <Right> <NOP>
+    " Disable ex mode
+nnoremap Q q
+    " Disable q:, use :<C-f> instead
+nnoremap q: <NOP>
+vnoremap q: <NOP>
