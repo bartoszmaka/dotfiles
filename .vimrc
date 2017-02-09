@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/neopairs.vim'
     Plug 'sbdchd/neoformat'                         " code formatting engine
     Plug 'ervandew/supertab'                        " Confrim autocompletion with tab
+    Plug 'vim-syntastic/syntastic'
 
 " behavior
     Plug 'tpope/vim-endwise',
@@ -28,7 +29,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'godlygeek/tabular'                        " Text align with regexp
     Plug 'tpope/vim-commentary'                     " Comments
     Plug 'tpope/vim-surround'                       " Surround verb
-    Plug 'kien/rainbow_parentheses.vim'
+    Plug 'luochen1990/rainbow'
 
 " extensions
     Plug 'kassio/neoterm'                           " terminal mode
@@ -76,6 +77,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'othree/javascript-libraries-syntax.vim',  { 'for' : ['javascript','coffee','ls','typescript'] }
     Plug 'davidhalter/jedi-vim',                    { 'for' : ['python'] }
     Plug 'zchee/deoplete-jedi',                     { 'for' : ['python'] }
+    Plug 'zchee/deoplete-clang',                    { 'for' : ['c', 'cpp'] }
 call plug#end()
 " **********************************
 
@@ -138,26 +140,12 @@ set cursorline                                     " Highlight current line
 set title
 set title titlestring=%<%F%=
 " Rainbow Parentheses
-" let g:rbpt_colorpairs = [
-"     \ ['brown',       'RoyalBlue3'],
-"     \ ['Darkblue',    'SeaGreen3'],
-"     \ ['darkgray',    'DarkOrchid3'],
-"     \ ['darkgreen',   'firebrick3'],
-"     \ ['darkcyan',    'RoyalBlue3'],
-"     \ ['darkred',     'SeaGreen3'],
-"     \ ['darkmagenta', 'DarkOrchid3'],
-"     \ ['brown',       'firebrick3'],
-"     \ ['gray',        'RoyalBlue3'],
-"     \ ['black',       'SeaGreen3'],
-"     \ ['darkmagenta', 'DarkOrchid3'],
-"     \ ['Darkblue',    'firebrick3'],
-"     \ ['darkgreen',   'RoyalBlue3'],
-"     \ ['darkcyan',    'SeaGreen3'],
-"     \ ['darkred',     'DarkOrchid3'],
-"     \ ['red',         'firebrick3'],
-"     \ ]
-let g:rbpt_max = 16
-let g:rbpt_loadcmd_toggle = 0
+let g:rainbow_active = 1
+    let g:rainbow_conf = {
+    \   'guifgs': ['lightcyan', 'khaki', 'lightmagenta', 'lemonchiffon'],
+    \   'operators': '_,_',
+    \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold']
+    \}
 " colorscheme
 " set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ 11
 if (has("nvim"))
@@ -240,6 +228,16 @@ let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
 let g:winresizer_keycode_finish = 101
 
+" syntastic things
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " completion
 let g:SuperTabDefaultCompletionType  = '<C-n>'
 let g:deoplete#enable_at_startup     = 1
@@ -302,13 +300,6 @@ nnoremap <leader>te :Ttoggle<CR>
 " augroups
 autocmd! BufWritePost * Neomake
 autocmd BufWritePre * FixWhitespace
-
-augroup rainbow-parentheses
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
-augroup END
 
 augroup dim-inactive-fix
     autocmd!
@@ -399,6 +390,8 @@ nnoremap tt :tabnew<CR>
 nnoremap TT :tabclose<CR>
 nnoremap tl :tabs<CR>
 nnoremap Tl :buffers<CR>
+    " Unite keymaps
+nnoremap <leader>uu :Unite<CR>
     " Window navigation
 :tnoremap <Esc> <C-\><C-n>
 :tnoremap ii    <C-\><C-n>
