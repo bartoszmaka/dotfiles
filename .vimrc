@@ -11,10 +11,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
     Plug 'Shougo/neopairs.vim'
     Plug 'sbdchd/neoformat'                         " code formatting engine
-    Plug 'ervandew/supertab'                        " Confrim autocompletion with tab
+    Plug 'ervandew/supertab'                        " Confirm autocompletion with tab
     Plug 'vim-syntastic/syntastic'
 
 " behavior
+    Plug 'easymotion/vim-easymotion'
     Plug 'tpope/vim-endwise',
     Plug 'neomake/neomake'                          " async make
     Plug 'janko-m/vim-test'                         " test engine
@@ -24,6 +25,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'c0r73x/neotags.nvim'
     Plug 'benizi/vim-automkdir'                     " autocreate folder if necessary when writing
     Plug 'tpope/vim-fugitive'                       " Git engine for vim
+    Plug 'terryma/vim-expand-region'
 
 " syntax helpers
     Plug 'godlygeek/tabular'                        " Text align with regexp
@@ -59,6 +61,7 @@ call plug#begin('~/.vim/plugged')
 
 " language specific
     Plug 'fishbullet/deoplete-ruby',                { 'for' : ['ruby'] }
+    Plug 'sunaku/vim-ruby-minitest',                { 'for' : ['ruby'] }
     " Plug 'vim-ruby/vim-ruby',                       { 'for' : ['ruby'] }
     Plug 'ngmy/vim-rubocop',                        { 'for' : ['ruby'] }
     Plug 'slim-template/vim-slim',                  { 'for' : ['slim'] }
@@ -98,6 +101,7 @@ set nobackup
 set mouse=a
 
 " behavior
+" set spell
 set autoindent
 set smartindent
 set noshowmatch
@@ -140,14 +144,15 @@ set cursorline                                     " Highlight current line
 set title
 set title titlestring=%<%F%=
 " Rainbow Parentheses
+" let g:rainbow_active = 1
+"     let g:rainbow_conf = {
+"     \   'guifgs': ['red', 'green', 'blue', 'black', 'orange', 'magenta'],
+"     \}
 let g:rainbow_active = 1
     let g:rainbow_conf = {
-    \   'guifgs': ['lightcyan', 'khaki', 'lightmagenta', 'lemonchiffon'],
-    \   'operators': '_,_',
-    \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold']
+    \   'guifgs': ['lightcyan', 'khaki', 'lightmagenta', 'lemonchiffon', 'lemonchiffon', 'lightmagenta', 'khaki', 'lightcyan' ],
     \}
 " colorscheme
-" set guifont=Knack\ Regular\ Nerd\ Font\ Complete\ 11
 if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
@@ -157,9 +162,6 @@ endif
 if (has("autocmd") && !has("gui"))
     let s:monek_grey = { "gui": "#343D46", "cterm": "16", "cterm16": "0" }
     autocmd ColorScheme * call onedark#set_highlight("CursorLine", { "bg": s:monek_grey })
-    " let s:monek_grey = { "gui": "#181A1F", "cterm": "16", "cterm16": "0" }
-    " let s:monek_red = { "gui": "#461212", "cterm": "52", "cterm16": "1"}
-    " autocmd ColorScheme * call onedark#set_highlight("CursorColumn", { "bg": s:monek_grey })
 end
 set background=dark
 colorscheme onedark
@@ -223,6 +225,9 @@ nmap     <F2> :NERDTreeTabsToggle<CR>
 noremap  <F3> :TagbarToggle<CR>
 nnoremap <F4> :MundoToggle<CR>
 
+" easymotion
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
 " winresizer 101 is 'e'
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
@@ -245,7 +250,7 @@ let g:deoplete#enable_ignore_case    = 1
 let g:deoplete#enable_smart_case     = 1
 let g:deoplete#enable_camel_case     = 1
 let g:deoplete#enable_refresh_always = 1
-" let g:neomake_ruby_enabled_makers    = ['rubocop']
+let g:neomake_ruby_enabled_makers    = ['rubocop']
 let g:vimrubocop_config              = '~/.rubocop.yml'
 let g:neopairs#enable                = 1
 " let g:neopairs#pair                  = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
@@ -323,8 +328,6 @@ augroup insert-mode-tweaks
     autocmd InsertLeave * set relativenumber
     autocmd InsertEnter * highlight CursorLine guibg=#512121 ctermbg=52
     autocmd InsertLeave * highlight CursorLine guibg=#343D46 ctermbg=16
-    " autocmd InsertLeave * highlight CursorLine guibg=#181A1F ctermbg=16
-    " autocmd InsertLeave * highlight CursorLine guibg=#2C323C ctermbg=125
 augroup END
 
 augroup tab-lengths
@@ -390,8 +393,20 @@ nnoremap tt :tabnew<CR>
 nnoremap TT :tabclose<CR>
 nnoremap tl :tabs<CR>
 nnoremap Tl :buffers<CR>
+vmap v <Plug>(expand_region_expand)
     " Unite keymaps
 nnoremap <leader>uu :Unite<CR>
+    " Easymotion
+map <leader>fi <Plug>(easymotion-sn)
+omap <leader>fi <Plug>(easymotion-tn)
+map <leader>n <Plug>(easymotion-next)
+map <leader>N <Plug>(easymotion-prev)
+map <leader><leader>/ <Plug>(easymotion-sn)
+omap <leader><leader>/ <Plug>(easymotion-tn)
+map <Leader>L <Plug>(easymotion-lineforward)
+map <Leader>H <Plug>(easymotion-linebackward)
+map <Leader>. <Plug>(easymotion-repeat)
+
     " Window navigation
 :tnoremap <Esc> <C-\><C-n>
 :tnoremap ii    <C-\><C-n>
@@ -421,3 +436,13 @@ nnoremap Q q
     " Disable q:, use :<C-f> instead
 nnoremap q: <NOP>
 vnoremap q: <NOP>
+
+" function s:spellcheckmode()
+"   if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+"   set spell!
+"   set cursorline!
+" endfunc
+
+" command! SpellCheckModeToggle call s:spellcheckmode()
+
+" nnoremap <leader>sp :SpellCheckModeToggle<CR>
