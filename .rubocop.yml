@@ -14,4 +14,4 @@ Style/Documentation:
   Enabled: false
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
