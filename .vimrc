@@ -1,6 +1,6 @@
 filetype off
 call plug#begin('~/.vim/plugged')
-" autocompletion
+" autocompletion and syntax
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
     Plug 'honza/vim-snippets'
     Plug 'Shougo/neco-syntax'
@@ -9,9 +9,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neoinclude.vim'                    " extends deoplete
     Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
-    Plug 'Shougo/neopairs.vim'
     Plug 'sbdchd/neoformat'                         " code formatting engine
     Plug 'ervandew/supertab'                        " Confirm autocompletion with tab
+    Plug 'jiangmiao/auto-pairs'
     Plug 'vim-syntastic/syntastic'
 
 " behavior
@@ -26,8 +26,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'benizi/vim-automkdir'                     " autocreate folder if necessary when writing
     Plug 'tpope/vim-fugitive'                       " Git engine for vim
     Plug 'terryma/vim-expand-region'
-
-" syntax helpers
     Plug 'godlygeek/tabular'                        " Text align with regexp
     Plug 'tpope/vim-commentary'                     " Comments
     Plug 'tpope/vim-surround'                       " Surround verb
@@ -37,7 +35,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'kassio/neoterm'                           " terminal mode
     Plug 'ctrlpvim/ctrlp.vim'                       " In project file finder
         Plug 'JazzCore/ctrlp-cmatcher',             { 'do': './install.sh' }
-    " Plug 'Shougo/denite.nvim'
     Plug 'Shougo/unite.vim'
         Plug 'Shougo/neoyank.vim'
     Plug 'majutsushi/tagbar'                        " perview file structure
@@ -80,7 +77,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'othree/javascript-libraries-syntax.vim',  { 'for' : ['javascript','coffee','ls','typescript'] }
     Plug 'davidhalter/jedi-vim',                    { 'for' : ['python'] }
     Plug 'zchee/deoplete-jedi',                     { 'for' : ['python'] }
-    Plug 'zchee/deoplete-clang',                    { 'for' : ['c', 'cpp'] }
+    Plug 'zchee/deoplete-clang',                    { 'for' : ['c', 'cpp', 'objc'] }
 call plug#end()
 " **********************************
 
@@ -252,8 +249,6 @@ let g:deoplete#enable_camel_case     = 1
 let g:deoplete#enable_refresh_always = 1
 let g:neomake_ruby_enabled_makers    = ['rubocop']
 let g:vimrubocop_config              = '~/.rubocop.yml'
-let g:neopairs#enable                = 1
-" let g:neopairs#pair                  = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
 " let g:AutoPairs                      = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
 imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
