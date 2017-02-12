@@ -83,6 +83,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias yt="youtube-dl -x --audio-format mp3 --audio-quality 0"
+alias tmux="env TERM=xterm-256color tmux"
+alias yt="youtube-dl -x --audio-format mp3 --audio-quality 0 -o '%(title)s.%(ext)s'"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
