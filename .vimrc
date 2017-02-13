@@ -97,7 +97,6 @@ set nobackup
 set mouse=a
 
 " behavior
-" set spell
 set autoindent
 set smartindent
 set noshowmatch
@@ -124,6 +123,7 @@ set expandtab                                      " Spaces instead of tabs
 set ignorecase
 set smartcase
 set hlsearch
+" set nohlsearch
 set incsearch
 
 " ui
@@ -250,6 +250,7 @@ let g:deoplete#enable_smart_case     = 1
 let g:deoplete#enable_camel_case     = 1
 let g:deoplete#enable_refresh_always = 1
 let g:neomake_ruby_enabled_makers    = ['rubocop']
+let g:neomake_python_enabled_makers  = ['flake8']
 let g:vimrubocop_config              = '~/.rubocop.yml'
 imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -328,20 +329,24 @@ augroup END
 
 augroup tab-lengths
     autocmd!
-    autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
-    autocmd Filetype scss setlocal ts=2 sts=2 sw=2
-    autocmd Filetype sass setlocal ts=2 sts=2 sw=2
-    autocmd Filetype slim setlocal ts=2 sts=2 sw=2
-    autocmd Filetype html setlocal ts=2 sts=2 sw=2
-    autocmd Filetype haml setlocal ts=2 sts=2 sw=2
-    autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-    autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
-    autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
-    autocmd Filetype python setlocal ts=4 sts=4 sw=4
-augroup END
-autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
-" **********************************
+    autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype eruby      setlocal ts=2 sts=2 sw=2
+    autocmd Filetype scss       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype sass       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype slim       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype html       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype haml       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype coffee     setlocal ts=2 sts=2 sw=2
+    autocmd Filetype yaml       setlocal ts=2 sts=2 sw=2
+    autocmd Filetype c          setlocal ts=4 sts=4 sw=4 cc=79
+    autocmd Filetype cpp        setlocal ts=4 sts=4 sw=4 cc=79
+    autocmd Filetype objc       setlocal ts=4 sts=4 sw=4 cc=79
+    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 cc=79
+    autocmd Filetype python     setlocal ts=4 sts=4 sw=4 cc=79
+ augroup END
+ autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+ " **********************************
 
 " keymaps
 nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
@@ -397,16 +402,6 @@ map <Leader>. <Plug>(easymotion-repeat)
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
 
-" function s:spellcheckmode()
-"   if exists("g:syntax_on") | syntax off | else | syntax enable | endif
-"   set spell!
-"   set cursorline!
-" endfunc
-
-" command! SpellCheckModeToggle call s:spellcheckmode()
-
-" nnoremap <leader>sp :SpellCheckModeToggle<CR>
-
 " non plugin related mappings
 " treat multiline statement as multiple lines
 nnoremap j gj
@@ -443,3 +438,15 @@ nnoremap Q q
 " Disable q:, use :<C-f> instead
 nnoremap q: <NOP>
 vnoremap q: <NOP>
+
+function s:spellcheckmode()
+  if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+  set spell!
+  set cursorline!
+endfunc
+
+command! SpellCheckModeToggle call s:spellcheckmode()
+
+nnoremap <leader>sp :SpellCheckModeToggle<CR>
+hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
