@@ -2,14 +2,12 @@ filetype off
 call plug#begin('~/.vim/plugged')
 " autocompletion and syntax
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
-    Plug 'honza/vim-snippets'
-    Plug 'Shougo/neco-syntax'
-    Plug 'Shougo/neco-vim'
-    Plug 'Shougo/context_filetype.vim'
+    " Plug 'honza/vim-snippets'
+    " Plug 'Shougo/context_filetype.vim'
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neoinclude.vim'                    " extends deoplete
     Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
-    Plug 'sbdchd/neoformat'                         " code formatting engine
+    " Plug 'sbdchd/neoformat'                         " code formatting engine
     Plug 'ervandew/supertab'                        " Confirm autocompletion with tab
     Plug 'jiangmiao/auto-pairs'
     Plug 'vim-syntastic/syntastic'
@@ -57,6 +55,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'simeji/winresizer'
 
 " language specific
+    Plug 'Shougo/neco-vim',                         { 'for' : ['vim'] }
     Plug 'fishbullet/deoplete-ruby',                { 'for' : ['ruby'] }
     Plug 'sunaku/vim-ruby-minitest',                { 'for' : ['ruby'] }
     " Plug 'vim-ruby/vim-ruby',                       { 'for' : ['ruby'] }
@@ -140,11 +139,8 @@ set colorcolumn=120                                " Color 120th column
 set cursorline                                     " Highlight current line
 set title
 set title titlestring=%<%F%=
+
 " Rainbow Parentheses
-" let g:rainbow_active = 1
-"     let g:rainbow_conf = {
-"     \   'guifgs': ['red', 'green', 'blue', 'black', 'orange', 'magenta'],
-"     \}
 let g:rainbow_active = 1
     let g:rainbow_conf = {
     \   'guifgs': ['lightcyan', 'khaki', 'lightmagenta', 'lemonchiffon', 'lemonchiffon', 'lightmagenta', 'khaki', 'lightcyan' ],
@@ -211,6 +207,7 @@ if has('conceal')
 endif
 
 let g:gitgutter_sign_column_always = 1
+let g:gitgutter_map_keys = 0
 
 let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
 let g:diminactive_enable_focus      = 1
@@ -239,6 +236,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutBackInsert = ''
+let g:AutoPairsShortcutJump = ''
+let g:AutoPairsShortcutFastWrap = ''
+let g:AutoPairsMapCh = ''
 
 " completion
 let g:SuperTabDefaultCompletionType  = '<C-n>'
@@ -249,7 +251,6 @@ let g:deoplete#enable_camel_case     = 1
 let g:deoplete#enable_refresh_always = 1
 let g:neomake_ruby_enabled_makers    = ['rubocop']
 let g:vimrubocop_config              = '~/.rubocop.yml'
-" let g:AutoPairs                      = {'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '|':'|'}
 imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap    <expr><C-f>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
@@ -352,7 +353,6 @@ nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
-
     " vim move
 let g:move_key_modifier = 'C'
     " copy to clipboard
@@ -364,23 +364,6 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-
-    " treat multiline statement as multiple lines
-nnoremap j gj
-nnoremap k gk
-    " Insert mode mappings
-inoremap <c-h> <Esc>ha
-inoremap <c-l> <Esc>la
-    " map ; as :
-nnoremap ; :
-nnoremap <C-s> :w<CR>
-nnoremap <leader>g g;
-nnoremap <leader>j J
-nnoremap <leader>k i<CR><Esc>
-    " Esc key mappings
-" inoremap jk <Esc>
-inoremap ii <Esc>
-vnoremap ii <Esc>
     " tabs and buffers navigation
 nnoremap gr :bnext<CR>
 nnoremap gR :bprev<CR>
@@ -413,7 +396,36 @@ map <Leader>. <Plug>(easymotion-repeat)
 :nnoremap <A-j> <C-w>j
 :nnoremap <A-k> <C-w>k
 :nnoremap <A-l> <C-w>l
-    " Disable arrow keys
+
+" function s:spellcheckmode()
+"   if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+"   set spell!
+"   set cursorline!
+" endfunc
+
+" command! SpellCheckModeToggle call s:spellcheckmode()
+
+" nnoremap <leader>sp :SpellCheckModeToggle<CR>
+
+" non plugin related mappings
+" treat multiline statement as multiple lines
+nnoremap j gj
+nnoremap k gk
+" allow moving cursor in insert mode
+inoremap <c-h> <Esc>ha
+inoremap <c-l> <Esc>la
+" map ; as : for faster command typing
+nnoremap ; :
+" nnoremap <leader>g g;
+nnoremap <leader>j i<CR><Esc>
+nnoremap <leader>k <esc>kJ
+" Esc key mappings
+inoremap ii <Esc>
+vnoremap ii <Esc>
+" begin and end of line
+map <leader>h ^
+map <leader>l $
+" Disable arrow keys
 nnoremap <Up>    <NOP>
 nnoremap <Down>  <NOP>
 nnoremap <Left>  <NOP>
@@ -426,18 +438,8 @@ vnoremap <Up>    <NOP>
 vnoremap <Down>  <NOP>
 vnoremap <Left>  <NOP>
 vnoremap <Right> <NOP>
-    " Disable ex mode
+" Disable ex mode
 nnoremap Q q
-    " Disable q:, use :<C-f> instead
+" Disable q:, use :<C-f> instead
 nnoremap q: <NOP>
 vnoremap q: <NOP>
-
-" function s:spellcheckmode()
-"   if exists("g:syntax_on") | syntax off | else | syntax enable | endif
-"   set spell!
-"   set cursorline!
-" endfunc
-
-" command! SpellCheckModeToggle call s:spellcheckmode()
-
-" nnoremap <leader>sp :SpellCheckModeToggle<CR>
