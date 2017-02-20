@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-syntastic/syntastic'
 
 " behavior
+    Plug 'mhinz/vim-grepper'
     Plug 'easymotion/vim-easymotion'
     Plug 'tpope/vim-endwise',
     Plug 'neomake/neomake'                          " async make
@@ -27,7 +28,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'godlygeek/tabular'                        " Text align with regexp
     Plug 'tpope/vim-commentary'                     " Comments
     Plug 'tpope/vim-surround'                       " Surround verb
-    Plug 'luochen1990/rainbow'
+    Plug 'kien/rainbow_parentheses.vim'
 
 " extensions
     Plug 'kassio/neoterm'                           " terminal mode
@@ -76,7 +77,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'othree/javascript-libraries-syntax.vim',  { 'for' : ['javascript','coffee','ls','typescript'] }
     Plug 'davidhalter/jedi-vim',                    { 'for' : ['python'] }
     Plug 'zchee/deoplete-jedi',                     { 'for' : ['python'] }
-    Plug 'zchee/deoplete-clang',                    { 'for' : ['c', 'cpp', 'objc'] }
+    " Plug 'zchee/deoplete-clang',                    { 'for' : ['c', 'cpp', 'objc'] }
 call plug#end()
 " **********************************
 
@@ -141,10 +142,25 @@ set title
 set title titlestring=%<%F%=
 
 " Rainbow Parentheses
-let g:rainbow_active = 1
-    let g:rainbow_conf = {
-    \   'guifgs': ['lightcyan', 'khaki', 'lightmagenta', 'lemonchiffon', 'lemonchiffon', 'lightmagenta', 'khaki', 'lightcyan' ],
-    \}
+let g:rbpt_colorpairs = [
+    \ ['brown',       'lightcyan'],
+    \ ['Darkblue',    'khaki'],
+    \ ['darkgray',    'lightmagenta'],
+    \ ['darkgreen',   'lemonchiffon'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'lightcyan'],
+    \ ['darkcyan',    'khaki'],
+    \ ['darkred',     'lightmagenta'],
+    \ ['red',         'lemonchiffon'],
+    \ ]
+let g:rbpt_max = 16
 " colorscheme
 if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -214,10 +230,16 @@ let g:diminactive_enable_focus      = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize                 = 25
+"close vim if only NERDTree is opened
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" start with nerdtree open if no file were specified (2 lines below)
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let g:maximizer_default_mapping_key   = '<C-w>m'
-nmap     <F2> :NERDTreeTabsToggle<CR>
-noremap  <F3> :TagbarToggle<CR>
-nnoremap <F4> :MundoToggle<CR>
+nmap     <F2>         :NERDTreeToggle<CR>
+nmap     <leader><F2> :NERDTreeFind<CR>
+noremap  <F3>         :TagbarToggle<CR>
+nnoremap <F4>         :MundoToggle<CR>
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
@@ -302,6 +324,13 @@ nnoremap <leader>te :Ttoggle<CR>
 " augroups
 autocmd! BufWritePost * Neomake
 autocmd BufWritePre * FixWhitespace
+
+augroup rainbow-parentheses
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+augroup END
 
 augroup dim-inactive-fix
     autocmd!
@@ -389,6 +418,8 @@ omap <leader><leader>/ <Plug>(easymotion-tn)
 map <Leader>L <Plug>(easymotion-lineforward)
 map <Leader>H <Plug>(easymotion-linebackward)
 map <Leader>. <Plug>(easymotion-repeat)
+    " grepper
+nnoremap <leader>F :Grepper -tool ag<CR>
 
     " Window navigation
 :tnoremap <Esc> <C-\><C-n>
