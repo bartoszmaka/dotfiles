@@ -13,6 +13,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-syntastic/syntastic'
 
 " behavior
+    Plug 'christoomey/vim-tmux-navigator'
     Plug 'mhinz/vim-grepper'
     Plug 'easymotion/vim-easymotion'
     Plug 'tpope/vim-endwise',
@@ -249,6 +250,10 @@ let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
 let g:winresizer_keycode_finish = 101
 
+" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
+
+
 " syntastic things
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -428,10 +433,15 @@ nnoremap <leader>F :Grepper -tool ag<CR>
 :tnoremap <A-j> <C-\><C-n><C-w>j
 :tnoremap <A-k> <C-\><C-n><C-w>k
 :tnoremap <A-l> <C-\><C-n><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
+" :nnoremap <A-h> <C-w>h
+" :nnoremap <A-j> <C-w>j
+" :nnoremap <A-k> <C-w>k
+" :nnoremap <A-l> <C-w>l
+nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
 
 " non plugin related mappings
 " treat multiline statement as multiple lines
