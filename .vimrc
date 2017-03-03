@@ -356,9 +356,11 @@ augroup END
 augroup insert-mode-tweaks
     autocmd!
     autocmd InsertEnter * set norelativenumber
-    autocmd InsertLeave * set relativenumber
     autocmd InsertEnter * highlight CursorLine guibg=#512121 ctermbg=52
+    autocmd InsertEnter * highlight CursorLineNR guibg=#512121
+    autocmd InsertLeave * set relativenumber
     autocmd InsertLeave * highlight CursorLine guibg=#343D46 ctermbg=16
+    autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
 augroup END
 
 augroup tab-lengths
@@ -491,3 +493,4 @@ command! SpellCheckModeToggle call s:spellcheckmode()
 nnoremap <leader>sp :SpellCheckModeToggle<CR>
 hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
 hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+" hi CursorLineNR guifg=#AAAAAA guibg=#333399 guisp=NONE gui=NONE ctermfg=232 ctermbg=184 cterm=bold
