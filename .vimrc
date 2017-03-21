@@ -1,6 +1,11 @@
 filetype off
 call plug#begin('~/.vim/plugged')
-" autocompletion and syntax
+
+" Testing
+    Plug 'tpope/vim-rails',     { 'for' : ['ruby'] }
+    Plug 'tpope/vim-cucumber',  { 'for' : ['ruby'] }
+
+" autocompletion
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
     " Plug 'honza/vim-snippets'
     " Plug 'Shougo/context_filetype.vim'
@@ -9,58 +14,80 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
     " Plug 'sbdchd/neoformat'                         " code formatting engine
     Plug 'ervandew/supertab'                        " Confirm autocompletion with tab
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'vim-syntastic/syntastic'
 
-" behavior
-    Plug 'christoomey/vim-tmux-navigator'
-    Plug 'mhinz/vim-grepper'
-    Plug 'easymotion/vim-easymotion'
-    Plug 'tpope/vim-endwise',
+" auto insert pairs
+    Plug 'jiangmiao/auto-pairs'                     " auto insert parentheses, quotes etc.
+    Plug 'tpope/vim-endwise'                        " auto insert 'end', 'endif' etc.
+
+" syntax checker
     Plug 'neomake/neomake'                          " async make
-    Plug 'janko-m/vim-test'                         " test engine
+    Plug 'vim-syntastic/syntastic'                  " syntax checking engine
+    Plug 'bronson/vim-trailing-whitespace'          " Detect trailing whitespaces
+
+" project explorer
+    Plug 'scrooloose/nerdtree'                      " Project explorer
+    Plug 'jistr/vim-nerdtree-tabs'                  " Better behavior for nerdtree
+    Plug 'Xuyuanp/nerdtree-git-plugin'              " NerdTree git integration
+
+" project finder
+    Plug 'ctrlpvim/ctrlp.vim'                       " In project file finder
+    Plug 'JazzCore/ctrlp-cmatcher',             { 'do': './install.sh' }
+
+" UI
+    Plug 'joshdick/onedark.vim'                     " ColorScheme
+    Plug 'ryanoasis/vim-devicons'                   " Fancy icons
+    Plug 'gko/vim-coloresque'                       " Color perview for vim
+    Plug 'Yggdroot/indentLine'                      " Vertical lines for indent
+    Plug 'airblade/vim-gitgutter'                   " Shows git signs next to line numbers
+    Plug 'bling/vim-airline'                        " Airline
+    Plug 'vim-airline/vim-airline-themes'           " Themes for airline
+    Plug 'blueyed/vim-diminactive'                  " Dim inactive windows
+    Plug 'kien/rainbow_parentheses.vim'             " Different parentheses colors for each depth level
+
+" window management
+    Plug 'szw/vim-maximizer'                        " maximize window
+    Plug 'simeji/winresizer'                        " window resize helper
+
+" code edit improvements
     Plug 'rhysd/clever-f.vim'                       " better f F t T
     Plug 'matze/vim-move'                           " Move block of code
-    Plug 'bronson/vim-trailing-whitespace'          " Detect trailing whitespaces
-    Plug 'c0r73x/neotags.nvim'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'tpope/vim-surround'                       " Surround verb
+    Plug 'tpope/vim-commentary'                     " Change selected code into comment
+    Plug 'godlygeek/tabular'                        " Text align with regexp
+    Plug 'mhinz/vim-grepper'                        " find in files helper
+    Plug 'terryma/vim-expand-region'                " Select helper
+
+" Behavior
+    Plug 'janko-m/vim-test'                         " Test helper
     Plug 'benizi/vim-automkdir'                     " autocreate folder if necessary when writing
     Plug 'tpope/vim-fugitive'                       " Git engine for vim
-    Plug 'terryma/vim-expand-region'
-    Plug 'godlygeek/tabular'                        " Text align with regexp
-    Plug 'tpope/vim-commentary'                     " Comments
-    Plug 'tpope/vim-surround'                       " Surround verb
-    Plug 'kien/rainbow_parentheses.vim'
 
-" extensions
+" Live perview
+    Plug 'jaxbot/browserlink.vim'
+
+" Terminal provider
     Plug 'kassio/neoterm'                           " terminal mode
-    Plug 'ctrlpvim/ctrlp.vim'                       " In project file finder
-        Plug 'JazzCore/ctrlp-cmatcher',             { 'do': './install.sh' }
+
+" Yank history
     Plug 'Shougo/unite.vim'
-        Plug 'Shougo/neoyank.vim'
+    Plug 'Shougo/neoyank.vim'
+
+" Code minimap
     Plug 'majutsushi/tagbar'                        " perview file structure
+    Plug 'c0r73x/neotags.nvim'
+
+" File history visualisation
     Plug 'simnalamburt/vim-mundo'                   " perview undos
-    Plug 'scrooloose/nerdtree'                      " Project explorer
-        Plug 'jistr/vim-nerdtree-tabs'              " Better behavior for nerdtree
-        Plug 'Xuyuanp/nerdtree-git-plugin'
-" ui
-    " Plug 'tomasr/molokai'
-    " Plug 'mhartington/oceanic-next'
-    Plug 'joshdick/onedark.vim'
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'gko/vim-coloresque'                      " Color perview for vim
-    Plug 'Yggdroot/indentLine'                     " vertical lines for indent
-    Plug 'szw/vim-maximizer'                       " maximize window
-    Plug 'airblade/vim-gitgutter'                  " Shows git signs next to line numbers
-    Plug 'bling/vim-airline'                       " Airline
-        Plug 'vim-airline/vim-airline-themes'      " Themes for airline
-    Plug 'blueyed/vim-diminactive'
-    Plug 'simeji/winresizer'
+
+" tmux integration
+    Plug 'christoomey/vim-tmux-navigator'
 
 " language specific
     Plug 'Shougo/neco-vim',                         { 'for' : ['vim'] }
     Plug 'fishbullet/deoplete-ruby',                { 'for' : ['ruby'] }
     Plug 'sunaku/vim-ruby-minitest',                { 'for' : ['ruby'] }
-    " Plug 'vim-ruby/vim-ruby',                       { 'for' : ['ruby'] }
+    Plug 'vim-ruby/vim-ruby',                       { 'for' : ['ruby'] }
     Plug 'ngmy/vim-rubocop',                        { 'for' : ['ruby'] }
     Plug 'slim-template/vim-slim',                  { 'for' : ['slim'] }
     Plug 'groenewege/vim-less',                     { 'for' : ['less'] }
@@ -99,6 +126,7 @@ set nobackup
 set mouse=a
 
 " behavior
+set completeopt=longest,menuone
 set autoindent
 set smartindent
 set noshowmatch
@@ -135,7 +163,7 @@ set showbreak=\/_
 set laststatus=2                                   " always show status line
 set showcmd
 set number
-set relativenumber
+set norelativenumber
 set ruler
 set colorcolumn=120                                " Color 120th column
 set cursorline                                     " Highlight current line
@@ -355,10 +383,10 @@ augroup END
 
 augroup insert-mode-tweaks
     autocmd!
-    autocmd InsertEnter * set norelativenumber
+    " autocmd InsertEnter * set norelativenumber
     autocmd InsertEnter * highlight CursorLine guibg=#512121 ctermbg=52
     autocmd InsertEnter * highlight CursorLineNR guibg=#512121
-    autocmd InsertLeave * set relativenumber
+    " autocmd InsertLeave * set relativenumber
     autocmd InsertLeave * highlight CursorLine guibg=#343D46 ctermbg=16
     autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
 augroup END
@@ -482,15 +510,15 @@ nnoremap Q q
 nnoremap q: <NOP>
 vnoremap q: <NOP>
 
-function s:spellcheckmode()
-  if exists("g:syntax_on") | syntax off | else | syntax enable | endif
-  set spell!
-  set cursorline!
-endfunc
+" function s:spellcheckmode()
+"   if exists("g:syntax_on") | syntax off | else | syntax enable | endif
+"   set spell!
+"   set cursorline!
+" endfunc
 
-command! SpellCheckModeToggle call s:spellcheckmode()
+" command! SpellCheckModeToggle call s:spellcheckmode()
 
-nnoremap <leader>sp :SpellCheckModeToggle<CR>
+" nnoremap <leader>sp :SpellCheckModeToggle<CR>
 hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
 hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
 " hi CursorLineNR guifg=#AAAAAA guibg=#333399 guisp=NONE gui=NONE ctermfg=232 ctermbg=184 cterm=bold
