@@ -62,5 +62,7 @@
 
 if last line returns something other than `0` it might indicate that, you have to set register `0x19a` to `0`
 
-`sudo cp 10_fix_low_cpu_frequency.sh /lib/systemd/system-sleep/`  
-`sudo echo 'msr '>> /etc/modules`
+`sudo cp 10_fix_low_cpu_frequency /lib/systemd/system-sleep/`  
+`cd /lib/systemd/system-sleep`  
+`sudo chmod +x 10_fix_low_cpu_frequency`  
+`sudo echo 'msr' >> /etc/modules`
