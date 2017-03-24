@@ -1,5 +1,8 @@
 ## Things that require manual installation
 ----
+##### Neovim dependencies
+`sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip silversearcher-ag`
+
 ### [Neovim] (https://github.com/neovim/neovim)
 
 `sudo add-apt-repository -y ppa:neovim-ppa/unstable`
@@ -8,8 +11,7 @@
 ### [Vim-Plug](https://github.com/junegunn/vim-plug)
 
 `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
-
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`  
 `curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 
@@ -44,6 +46,21 @@
 ### ppa repositories you might want to add
 
 
-`sudo add-apt-repository -y ppa:maarten-baert/simplescreenrecorder`
-
+`sudo add-apt-repository -y ppa:maarten-baert/simplescreenrecorder`  
 `sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer`
+
+----
+
+## Common bugs
+
+### Low cpu frequency after suspending laptop
+
+#### diagnosis
+
+`sudo modprobe msr`  
+`sudo rdmsr -a 0x19a`
+
+if last line returns something other than `0` it might indicate that, you have to set register `0x19a` to `0`
+
+`sudo cp 10_fix_low_cpu_frequency.sh /lib/systemd/system-sleep/`
+`sudo echo 'msr '>> /etc/modules`
