@@ -2,8 +2,11 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Testing
-    Plug 'tpope/vim-rails',     { 'for' : ['ruby'] }
-    Plug 'tpope/vim-cucumber',  { 'for' : ['ruby'] }
+    Plug 'tpope/vim-rails',             { 'for' : ['ruby'] }
+    Plug 'tpope/vim-cucumber',          { 'for' : ['ruby'] }
+    Plug 'ecomba/vim-ruby-refactoring', { 'for' : ['ruby'] }
+    Plug 'vim-scripts/greplace.vim'
+    Plug 'AndrewRadev/switch.vim'
 
 " autocompletion
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
@@ -22,9 +25,10 @@ call plug#begin('~/.vim/plugged')
 " syntax checker
     Plug 'neomake/neomake'                          " async make
     Plug 'vim-syntastic/syntastic'                  " syntax checking engine
-    Plug 'bronson/vim-trailing-whitespace'          " Detect trailing whitespaces
+    " Plug 'bronson/vim-trailing-whitespace'          " Detect trailing whitespaces
+    Plug 'ntpeters/vim-better-whitespace'           " Detect trailing whitespaces
 
-" project explorer
+" prosect explorer
     Plug 'scrooloose/nerdtree'                      " Project explorer
     Plug 'jistr/vim-nerdtree-tabs'                  " Better behavior for nerdtree
     Plug 'Xuyuanp/nerdtree-git-plugin'              " NerdTree git integration
@@ -352,11 +356,13 @@ let g:neoterm_run_tests_bg   = 1
 let g:neoterm_position       = 'horizontal'
 let g:neoterm_size           = 10
 nnoremap <leader>te :Ttoggle<CR>
+autocmd FileType javascript,c,cpp,java,html,ruby,slim,python autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
+" let g:better_whitespace_filetypes_blacklist=['markdown']
 " **********************************
 
 " augroups
 autocmd! BufWritePost * Neomake
-autocmd BufWritePre * FixWhitespace
+" autocmd BufWritePre * FixWhitespace
 
 augroup rainbow-parentheses
     au VimEnter * RainbowParenthesesToggle
@@ -414,6 +420,9 @@ augroup tab-lengths
 
 " keymaps
 nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
+" vim-switch
+nnoremap <leader>s :Switch<CR>
+nnoremap <leader>S :SwitchReverse<CR>
     " disable hls
 noremap  <Esc><Esc> :<C-u>nohls<CR>
     " vim test
@@ -521,4 +530,6 @@ vnoremap q: <NOP>
 " nnoremap <leader>sp :SpellCheckModeToggle<CR>
 hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
 hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+hi ExtraWhitespace ctermbg=160 guibg=#D70000
+" hi MatchParen guifg=#00FF00 guibg=#000000 ctermbg=NONE ctermfg=NONE cterm=underline,bold
 " hi CursorLineNR guifg=#AAAAAA guibg=#333399 guisp=NONE gui=NONE ctermfg=232 ctermbg=184 cterm=bold
