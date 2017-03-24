@@ -1,17 +1,18 @@
 ## Things that require manual installation
 ----
-##### Neovim dependencies
-`sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip silversearcher-ag`
-
 ### [Neovim](https://github.com/neovim/neovim)
 
-`sudo add-apt-repository -y ppa:neovim-ppa/unstable`
+`sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip silversearcher-ag`  
+`sudo add-apt-repository -y ppa:neovim-ppa/unstable`  
+`sudo apt update`  
+`sudo apt install neovim`
 
 
 ### [Vim-Plug](https://github.com/junegunn/vim-plug)
 
 `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`  
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+
 `curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 
@@ -62,6 +63,8 @@
 `sudo rdmsr -a 0x19a`
 
 if last line returns something other than `0` it might indicate that, you have to set register `0x19a` to `0`
+
+#### solution
 
 `sudo cp 10_fix_low_cpu_frequency /lib/systemd/system-sleep/`  
 `cd /lib/systemd/system-sleep`  
