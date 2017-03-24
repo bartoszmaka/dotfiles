@@ -54,6 +54,7 @@
 ## Common bugs
 
 ### Low cpu frequency after suspending laptop
+###### (dell latitude e6430 / i5-3220m)
 
 #### diagnosis
 
