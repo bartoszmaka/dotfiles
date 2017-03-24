@@ -67,6 +67,5 @@ if last line returns something other than `0` it might indicate that, you have t
 #### solution
 
 `sudo cp 10_fix_low_cpu_frequency /lib/systemd/system-sleep/`  
-`cd /lib/systemd/system-sleep`  
-`sudo chmod +x 10_fix_low_cpu_frequency`  
+`sudo chmod +x /lib/systemd/system-sleep/10_fix_low_cpu_frequency`  
 `sudo echo 'msr' >> /etc/modules`
