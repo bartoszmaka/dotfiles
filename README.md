@@ -58,13 +58,16 @@
 ###### (dell latitude e6430 / i5-3220m)
 
 #### diagnosis
-
+`watch -n 1 -d "cat /proc/cpuinfo | grep -i Mhz"`  
+shows too low frequency (less than 1200 for my cpu)  
 `sudo modprobe msr`  
-`sudo rdmsr -a 0x19a`
+`sudo rdmsr -a 0x19a`  
+returns something other than `0`
 
-if last line returns something other than `0` it might indicate that, you have to set register `0x19a` to `0`
+#### temporary solution
+you have to set register `0x19a` to `0` with `wrmsr -a 0x19a 0x0`
 
-#### solution
+#### permanent solution
 
 `sudo cp 10_fix_low_cpu_frequency /lib/systemd/system-sleep/`  
 `sudo chmod +x /lib/systemd/system-sleep/10_fix_low_cpu_frequency`  
