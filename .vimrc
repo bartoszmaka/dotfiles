@@ -118,34 +118,39 @@ syntax on                                          " Enable syntax coloring
 let mapleader = "\<Space>"
 
 " meta
-language en_US.UTF-8
 set shell=/bin/zsh
-set langmenu=en_US.UTF-8
-set fileencoding=utf-8
-set encoding=utf8
-set lazyredraw
 set noswapfile
 set novisualbell
 set nobackup
-set mouse=a
-
-" behavior
-set completeopt=longest,menuone
-set autoindent
-set smartindent
-set noshowmatch
-set splitright
-set splitbelow
+set lazyredraw
 set hidden                                         " don't close buffers
-set autoindent
-set smartindent
-set backspace=indent,eol,start
-set omnifunc=syntaxcomplete#Complete
 set wildignore+=
             \*/tmp/*,
             \*.so,
             \*.swp,
             \*.zipo
+
+" encoding
+language en_US.UTF-8
+set langmenu=en_US.UTF-8
+set fileencoding=utf-8
+set encoding=utf8
+
+" behavior
+set completeopt=longest,menuone
+set omnifunc=syntaxcomplete#Complete
+set noshowmatch                                     " has something to do with matching brackets
+set backspace=indent,eol,start
+
+" indent
+set autoindent
+set smartindent
+
+" window management
+set scrolloff=4
+set sidescrolloff=5
+set splitright
+set splitbelow
 
 " tabulator
 set smarttab
@@ -153,23 +158,25 @@ set softtabstop=4
 set shiftwidth=4                                   " Default tab width
 set expandtab                                      " Spaces instead of tabs
 
+" line length
+set colorcolumn=120                                " Color 120th column
+set textwidth=0                                     " do not break lines automatically
+set showbreak=\/_
+
 " searching
 set ignorecase
 set smartcase
 set hlsearch
-" set nohlsearch
 set incsearch
+" set nohlsearch
 
 " ui
-set scrolloff=4
-set sidescrolloff=5
-set showbreak=\/_
+set mouse=a
 set laststatus=2                                   " always show status line
 set showcmd
 set number
 set norelativenumber
 set ruler
-set colorcolumn=120                                " Color 120th column
 set cursorline                                     " Highlight current line
 set title
 set title titlestring=%<%F%=
@@ -245,7 +252,7 @@ let g:airline#extensions#tagbar#enabled              = 0
 let g:airline#extensions#hunks#enabled               = 0
 let g:airline#extensions#syntastic#enabled           = 0
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
-let g:indentLine_color_term                          = 239
+let g:indentLine_color_term    = 239
 let g:indentLine_color_gui     = '#717273'
 let g:indentLine_char          = '¦'
 let g:indentLine_concealcursor = 'niv'             " (default 'inc')
@@ -262,15 +269,17 @@ let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix
 let g:diminactive_enable_focus      = 1
 
 " nerdtree, mundo, tagbar
-let g:NERDTreeWinSize                 = 25
+let g:NERDTreeWinSize               = 25
 "close vim if only NERDTree is opened
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" start with nerdtree open if no file were specified (2 lines below)
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup nerdtree
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    " start with nerdtree open if no file were specified (2 lines below)
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup END
 let g:maximizer_default_mapping_key   = '<C-w>m'
 nmap     <F2>         :NERDTreeToggle<CR>
-nmap     <leader><F2> :NERDTreeFind<CR>
+nmap     <leader><F2> :NERDTreeFind<CR>zz
 noremap  <F3>         :TagbarToggle<CR>
 nnoremap <F4>         :MundoToggle<CR>
 
@@ -356,15 +365,22 @@ let g:neoterm_run_tests_bg   = 1
 let g:neoterm_position       = 'horizontal'
 let g:neoterm_size           = 10
 nnoremap <leader>te :Ttoggle<CR>
-autocmd FileType javascript,c,cpp,java,html,ruby,slim,python autocmd BufEnter <buffer> EnableStripWhitespaceOnSave
-" let g:better_whitespace_filetypes_blacklist=['markdown']
+let g:better_whitespace_filetypes_blacklist=[]
 " **********************************
 
 " augroups
 autocmd! BufWritePost * Neomake
 " autocmd BufWritePre * FixWhitespace
 
+augroup trailing-whitespaces
+    autocmd!
+" Show trailing-whitespaces in all files, but dont delete them in markdown
+    autocmd BufEnter * EnableStripWhitespaceOnSave
+    autocmd FileType markdown autocmd BufEnter <buffer> DisableStripWhitespaceOnSave
+augroup END
+
 augroup rainbow-parentheses
+    autocmd!
     au VimEnter * RainbowParenthesesToggle
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
@@ -414,8 +430,15 @@ augroup tab-lengths
     autocmd Filetype objc       setlocal ts=4 sts=4 sw=4 cc=79
     autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 cc=79
     autocmd Filetype python     setlocal ts=4 sts=4 sw=4 cc=79
- augroup END
- autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+augroup END
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+
+" colorscheme customization
+hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+hi ExtraWhitespace ctermbg=160 guibg=#D70000
+" hi MatchParen guifg=#00FF00 guibg=#000000 ctermbg=NONE ctermfg=NONE cterm=underline,bold
+" hi CursorLineNR guifg=#AAAAAA guibg=#333399 guisp=NONE gui=NONE ctermfg=232 ctermbg=184 cterm=bold
  " **********************************
 
 " keymaps
@@ -528,8 +551,3 @@ vnoremap q: <NOP>
 " command! SpellCheckModeToggle call s:spellcheckmode()
 
 " nnoremap <leader>sp :SpellCheckModeToggle<CR>
-hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-hi ExtraWhitespace ctermbg=160 guibg=#D70000
-" hi MatchParen guifg=#00FF00 guibg=#000000 ctermbg=NONE ctermfg=NONE cterm=underline,bold
-" hi CursorLineNR guifg=#AAAAAA guibg=#333399 guisp=NONE gui=NONE ctermfg=232 ctermbg=184 cterm=bold
