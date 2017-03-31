@@ -48,14 +48,15 @@
 
 
 `sudo add-apt-repository -y ppa:maarten-baert/simplescreenrecorder`  
-`sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer`
+`sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer`  
+`sudo add-apt-repository -y ppa:atareao/atareao     #touchpad-indicator`
 
 ----
 
 ## Common bugs
 
 ### Low cpu frequency after suspending laptop
-###### (dell latitude e6430 / i5-3220m)
+###### (dell latitude e6430 / i5-3320m)
 
 #### diagnosis
 `watch -n 1 -d "cat /proc/cpuinfo | grep -i Mhz"`  
@@ -72,3 +73,20 @@ you have to set register `0x19a` to `0` with `wrmsr -a 0x19a 0x0`
 `sudo cp 10_fix_low_cpu_frequency /lib/systemd/system-sleep/`  
 `sudo chmod +x /lib/systemd/system-sleep/10_fix_low_cpu_frequency`  
 `sudo echo 'msr' >> /etc/modules`
+
+
+### Fix mouse wheel scrolling speed systemwide
+install `imwheel`  
+`sudo apt-get install imwheel`
+
+add following lines to `~/.imwheelrc'` or clone from this repo  
+`".*"`  
+`None,      Up,   Button4, 3`  
+`None,      Down, Button5, 3`  
+`Control_L, Up,   Control_L|Button4`  
+`Control_L, Down, Control_L|Button5`  
+`Shift_L,   Up,   Shift_L|Button4`  
+`Shift_L,   Down, Shift_L|Button5`  
+
+execute on autostart  
+`imwheel --kill --buttons "4 5"`
