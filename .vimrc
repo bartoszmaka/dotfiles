@@ -2,15 +2,12 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Testing
-    Plug 'tpope/vim-rails',             { 'for' : ['ruby'] }
-    Plug 'tpope/vim-cucumber',          { 'for' : ['ruby'] }
-    Plug 'ecomba/vim-ruby-refactoring', { 'for' : ['ruby'] }
-    Plug 'vim-scripts/greplace.vim'
+    " Plug 'vim-scripts/greplace.vim'
     Plug 'AndrewRadev/switch.vim'
 
 " autocompletion
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
-    " Plug 'honza/vim-snippets'
+    Plug 'honza/vim-snippets'
     " Plug 'Shougo/context_filetype.vim'
     Plug 'Shougo/neosnippet'
     Plug 'Shougo/neoinclude.vim'                    " extends deoplete
@@ -23,10 +20,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-endwise'                        " auto insert 'end', 'endif' etc.
 
 " syntax checker
-    Plug 'neomake/neomake'                          " async make
-    Plug 'vim-syntastic/syntastic'                  " syntax checking engine
-    " Plug 'bronson/vim-trailing-whitespace'          " Detect trailing whitespaces
+    " Plug 'neomake/neomake'                          " async make
     Plug 'ntpeters/vim-better-whitespace'           " Detect trailing whitespaces
+    " Plug 'vim-syntastic/syntastic'                  " syntax checking engine
+    Plug 'w0rp/ale'                                 " async syntax checking
 
 " prosect explorer
     Plug 'scrooloose/nerdtree'                      " Project explorer
@@ -36,11 +33,13 @@ call plug#begin('~/.vim/plugged')
 " project finder
     Plug 'ctrlpvim/ctrlp.vim'                       " In project file finder
     Plug 'JazzCore/ctrlp-cmatcher',             { 'do': './install.sh' }
+    Plug 'rking/ag.vim'                        " find in files helper
+    " Plug 'mhinz/vim-grepper'                        " find in files helper
 
 " UI
     Plug 'joshdick/onedark.vim'                     " ColorScheme
     Plug 'ryanoasis/vim-devicons'                   " Fancy icons
-    Plug 'gko/vim-coloresque'                       " Color perview for vim
+    Plug 'ap/vim-css-color'                         " Color perview for vim
     Plug 'Yggdroot/indentLine'                      " Vertical lines for indent
     Plug 'airblade/vim-gitgutter'                   " Shows git signs next to line numbers
     Plug 'bling/vim-airline'                        " Airline
@@ -59,16 +58,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'                       " Surround verb
     Plug 'tpope/vim-commentary'                     " Change selected code into comment
     Plug 'godlygeek/tabular'                        " Text align with regexp
-    Plug 'mhinz/vim-grepper'                        " find in files helper
     Plug 'terryma/vim-expand-region'                " Select helper
 
 " Behavior
     Plug 'janko-m/vim-test'                         " Test helper
     Plug 'benizi/vim-automkdir'                     " autocreate folder if necessary when writing
     Plug 'tpope/vim-fugitive'                       " Git engine for vim
-
-" Live perview
-    Plug 'jaxbot/browserlink.vim'
 
 " Terminal provider
     Plug 'kassio/neoterm'                           " terminal mode
@@ -88,27 +83,31 @@ call plug#begin('~/.vim/plugged')
     Plug 'christoomey/vim-tmux-navigator'
 
 " language specific
-    Plug 'Shougo/neco-vim',                         { 'for' : ['vim'] }
-    Plug 'fishbullet/deoplete-ruby',                { 'for' : ['ruby'] }
-    Plug 'sunaku/vim-ruby-minitest',                { 'for' : ['ruby'] }
-    Plug 'vim-ruby/vim-ruby',                       { 'for' : ['ruby'] }
-    Plug 'ngmy/vim-rubocop',                        { 'for' : ['ruby'] }
-    Plug 'slim-template/vim-slim',                  { 'for' : ['slim'] }
-    Plug 'groenewege/vim-less',                     { 'for' : ['less'] }
-    Plug 'cakebaker/scss-syntax.vim',               { 'for' : ['scss','sass'] }
-    Plug 'hail2u/vim-css3-syntax',                  { 'for' : ['css','scss','sass'] }
-    Plug 'ap/vim-css-color',                        { 'for' : ['css','scss','sass','less','styl'] }
-    Plug 'othree/html5.vim',                        { 'for' : ['html'] }
-    Plug 'Valloric/MatchTagAlways',                 { 'for' : ['html' , 'xhtml' , 'xml' , 'jinja'] }
-    Plug 'pangloss/vim-javascript',                 { 'for' : ['javascript'] }
-    Plug 'maksimr/vim-jsbeautify',                  { 'for' : ['javascript'] }
-    Plug 'leafgarland/typescript-vim',              { 'for' : ['typescript'] }
-    Plug 'kchmck/vim-coffee-script',                { 'for' : ['coffee'] }
-    Plug 'mmalecki/vim-node.js',                    { 'for' : ['javascript'] }
-    Plug 'leshill/vim-json',                        { 'for' : ['javascript','json'] }
-    Plug 'othree/javascript-libraries-syntax.vim',  { 'for' : ['javascript','coffee','ls','typescript'] }
-    Plug 'davidhalter/jedi-vim',                    { 'for' : ['python'] }
-    Plug 'zchee/deoplete-jedi',                     { 'for' : ['python'] }
+    Plug 'lmeijvogel/vim-yaml-helper',             { 'for' : ['yaml'] }
+    Plug 'Shougo/neco-vim',                        { 'for' : ['vim'] }
+    Plug 'tpope/vim-rails',                        { 'for' : ['ruby'] }
+    Plug 'tpope/vim-cucumber',                     { 'for' : ['ruby'] }
+    Plug 'ecomba/vim-ruby-refactoring',            { 'for' : ['ruby'] }
+    Plug 'fishbullet/deoplete-ruby',               { 'for' : ['ruby'] }
+    Plug 'sunaku/vim-ruby-minitest',               { 'for' : ['ruby'] }
+    Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
+    Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
+    Plug 'slim-template/vim-slim',                 { 'for' : ['slim'] }
+    Plug 'groenewege/vim-less',                    { 'for' : ['less'] }
+    Plug 'cakebaker/scss-syntax.vim',              { 'for' : ['scss','sass'] }
+    Plug 'hail2u/vim-css3-syntax',                 { 'for' : ['css','scss','sass'] }
+    Plug 'ap/vim-css-color',                       { 'for' : ['css','scss','sass','less','styl'] }
+    Plug 'othree/html5.vim',                       { 'for' : ['html'] }
+    Plug 'Valloric/MatchTagAlways',                { 'for' : ['html' , 'xhtml' , 'xml' , 'jinja'] }
+    Plug 'davidhalter/jedi-vim',                   { 'for' : ['python'] }
+    Plug 'zchee/deoplete-jedi',                    { 'for' : ['python'] }
+    Plug 'pangloss/vim-javascript',                { 'for' : ['javascript'] }
+    Plug 'maksimr/vim-jsbeautify',                 { 'for' : ['javascript'] }
+    Plug 'leafgarland/typescript-vim',             { 'for' : ['typescript'] }
+    Plug 'kchmck/vim-coffee-script',               { 'for' : ['coffee'] }
+    Plug 'mmalecki/vim-node.js',                   { 'for' : ['javascript'] }
+    Plug 'leshill/vim-json',                       { 'for' : ['javascript','json'] }
+    Plug 'othree/javascript-libraries-syntax.vim', { 'for' : ['javascript','coffee','ls','typescript'] }
     " Plug 'zchee/deoplete-clang',                    { 'for' : ['c', 'cpp', 'objc'] }
 call plug#end()
 " **********************************
@@ -219,9 +218,9 @@ let g:airline_theme = 'onedark'
 let g:webdevicons_enable                                       = 1
 let g:webdevicons_enable_nerdtree                              = 0
 let g:WebDevIconsNerdTreeAfterGlyphPadding                     = ''
-let g:webdevicons_enable_airline_statusline                    = 1
-let g:webdevicons_enable_airline_tabline                       = 1
-let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
+" let g:webdevicons_enable_airline_statusline                    = 1
+" let g:webdevicons_enable_airline_tabline                       = 1
+" let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
 
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 if !exists('g:airline_symbols')
@@ -238,19 +237,23 @@ let g:airline_symbols.space    = "\ua0"
 let g:airline_powerline_fonts  = 1
 let g:Powerline_symbols        = 'unicode'
 let g:airline#extensions#tabline#enabled             = 1
-let g:airline#extensions#tabline#buffer_idx_mode     = 1
-let g:airline#extensions#tabline#buffer_nr_show      = 1
-let g:airline#extensions#tabline#buffer_nr_format    = '%s:'
-let g:airline#extensions#tabline#fnamemod            = ':t'
-let g:airline#extensions#tabline#fnamecollapse       = 1
-let g:airline#extensions#tabline#fnametruncate       = 0
+let g:airline#extensions#tabline#show_splits         = 1
+let g:airline#extensions#tabline#show_buffers        = 0
+
+" let g:airline#extensions#tabline#buffer_idx_mode     = 1
+" let g:airline#extensions#tabline#buffer_nr_show      = 1
+" let g:airline#extensions#tabline#buffer_nr_format    = '%s:'
+" let g:airline#extensions#tabline#fnamemod            = ':t'
+" let g:airline#extensions#tabline#fnamecollapse       = 1
+" let g:airline#extensions#tabline#fnametruncate       = 0
 let g:airline#extensions#tabline#formatter           = 'unique_tail_improved'
+
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
-let g:airline#extensions#tagbar#enabled              = 0
-let g:airline#extensions#hunks#enabled               = 0
-let g:airline#extensions#syntastic#enabled           = 0
+let g:airline#extensions#tagbar#enabled              = 1
+let g:airline#extensions#hunks#enabled               = 1
+" let g:airline#extensions#syntastic#enabled           = 1
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:indentLine_color_term    = 239
 let g:indentLine_color_gui     = '#717273'
@@ -272,6 +275,7 @@ let g:diminactive_enable_focus      = 1
 let g:NERDTreeWinSize               = 25
 "close vim if only NERDTree is opened
 augroup nerdtree
+    autocmd!
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     " start with nerdtree open if no file were specified (2 lines below)
     autocmd StdinReadPre * let s:std_in=1
@@ -295,15 +299,19 @@ let g:winresizer_keycode_finish = 101
 let g:tmux_navigator_no_mappings = 1
 
 
-" syntastic things
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{ALEGetStatusLine()}
+" set statusline+=%*
+" ale
+" let g:ale_set_highlights = 0
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_sign_error = 'X➜'
+let g:ale_sign_warning = '!➜'
+let g:ale_lint_delay = 400
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed =  1
+let g:ale_sign_column_always = 1
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutJump = ''
@@ -311,14 +319,21 @@ let g:AutoPairsShortcutFastWrap = ''
 let g:AutoPairsMapCh = ''
 
 " completion
+let deoplete#tag#cache_limit_size    = 50000000
 let g:SuperTabDefaultCompletionType  = '<C-n>'
+let g:deoplete#auto_complete_delay   = 100
+let g:deoplete#auto_refresh_delay    = 25
 let g:deoplete#enable_at_startup     = 1
-let g:deoplete#enable_ignore_case    = 1
-let g:deoplete#enable_smart_case     = 1
 let g:deoplete#enable_camel_case     = 1
+let g:deoplete#enable_ignore_case    = 1
 let g:deoplete#enable_refresh_always = 1
-let g:neomake_ruby_enabled_makers    = ['rubocop']
-let g:neomake_python_enabled_makers  = ['flake8']
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_smart_case     = 1
+" let g:deoplete#sources.rb = ['buffer', 'tag', 'tags']
+imap <c-j> <Tab>
+imap <c-k> <S-Tab>
+" let g:neomake_ruby_enabled_makers    = ['rubocop']
+" let g:neomake_python_enabled_makers  = ['flake8']
 let g:vimrubocop_config              = '~/.rubocop.yml'
 imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -346,6 +361,8 @@ if executable('ag')
 endif
 
 " tags
+let g:neotags_highlight  = 0
+let g:neotags_enabled    = 1
 let g:neotags_appendpath = 0
 let g:neotags_recursive  = 0
 let g:neotags_ctags_bin  = 'ag -g "" '. getcwd() .' | ctags'
@@ -369,8 +386,12 @@ let g:better_whitespace_filetypes_blacklist=[]
 " **********************************
 
 " augroups
-autocmd! BufWritePost * Neomake
+" autocmd! BufWritePost * Neomake
 " autocmd BufWritePre * FixWhitespace
+augroup yaml-helper
+    autocmd!
+    autocmd CursorHold *.yml YamlGetFullPath
+augroup END
 
 augroup trailing-whitespaces
     autocmd!
@@ -441,9 +462,9 @@ hi ExtraWhitespace ctermbg=160 guibg=#D70000
 " hi CursorLineNR guifg=#AAAAAA guibg=#333399 guisp=NONE gui=NONE ctermfg=232 ctermbg=184 cterm=bold
  " **********************************
 
-" keymaps
+" Plugin related keymaps
 nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
-" vim-switch
+    " vim-switch
 nnoremap <leader>s :Switch<CR>
 nnoremap <leader>S :SwitchReverse<CR>
     " disable hls
@@ -456,15 +477,6 @@ nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
     " vim move
 let g:move_key_modifier = 'C'
-    " copy to clipboard
-vnoremap <leader>y  "+y
-nnoremap <leader>Y  "+yg_
-nnoremap <leader>y  "+y
-    " Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
     " tabs and buffers navigation
 nnoremap gr :bnext<CR>
 nnoremap gR :bprev<CR>
@@ -485,9 +497,12 @@ omap <leader><leader>/ <Plug>(easymotion-tn)
 map <Leader>L <Plug>(easymotion-lineforward)
 map <Leader>H <Plug>(easymotion-linebackward)
 map <Leader>. <Plug>(easymotion-repeat)
-    " grepper
-nnoremap <leader>F :Grepper -tool ag<CR>
 
+let g:ag_highlight=1
+    " Search projectwide
+nnoremap , :Ag!<Space>-Q<Space>''<Left>
+    " Search selected text project wide (+ possibility to pass path)
+vnoremap , y:Ag!<Space>-Q<Space>'<C-r>"'<Space>
     " Window navigation
 :tnoremap <Esc> <C-\><C-n>
 :tnoremap ii    <C-\><C-n>
@@ -504,26 +519,49 @@ nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
+    " Git shortcuts
+nnoremap <leader>gst :Gstatus<CR>
+nnoremap <leader>gd  :Gdiff<CR>
 
-" non plugin related mappings
-" treat multiline statement as multiple lines
+" Non plugin related keymaps
+    " select whole file
+nnoremap <C-a> ggVG
+    " copy to clipboard
+vnoremap <leader>y  "+y
+nnoremap <leader>Y  "+yg_
+nnoremap <leader>y  "+y
+    " Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+    " Replace currenctly selected text with one from clipboard
+vmap <C-v> x"+P
+    " treat multiline statement as multiple lines
 nnoremap j gj
 nnoremap k gk
-" allow moving cursor in insert mode
+    " allow moving cursor in insert mode
 inoremap <c-h> <Esc>ha
 inoremap <c-l> <Esc>la
-" map ; as : for faster command typing
+    " map ; as : for faster command typing
 nnoremap ; :
-" nnoremap <leader>g g;
+    " nnoremap <leader>g g;
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
-" Esc key mappings
+    " Esc key mappings
 inoremap ii <Esc>
 vnoremap ii <Esc>
-" begin and end of line
+    " begin and end of line
 map <leader>h ^
 map <leader>l $
-" Disable arrow keys
+" Disable ex mode
+nnoremap Q q
+" Disable q:, use :<C-f> instead
+nnoremap q: <NOP>
+vnoremap q: <NOP>
+" open definition in vertical split
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+    " Disable arrow keys
 nnoremap <Up>    <NOP>
 nnoremap <Down>  <NOP>
 nnoremap <Left>  <NOP>
@@ -536,18 +574,4 @@ vnoremap <Up>    <NOP>
 vnoremap <Down>  <NOP>
 vnoremap <Left>  <NOP>
 vnoremap <Right> <NOP>
-" Disable ex mode
-nnoremap Q q
-" Disable q:, use :<C-f> instead
-nnoremap q: <NOP>
-vnoremap q: <NOP>
 
-" function s:spellcheckmode()
-"   if exists("g:syntax_on") | syntax off | else | syntax enable | endif
-"   set spell!
-"   set cursorline!
-" endfunc
-
-" command! SpellCheckModeToggle call s:spellcheckmode()
-
-" nnoremap <leader>sp :SpellCheckModeToggle<CR>
