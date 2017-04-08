@@ -329,7 +329,7 @@ let g:deoplete#enable_ignore_case    = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_smart_case     = 1
-" let g:deoplete#sources.rb = ['buffer', 'tag', 'tags']
+let g:deoplete#sources = ['buffer', 'tag', 'tags', 'path']
 imap <c-j> <Tab>
 imap <c-k> <S-Tab>
 " let g:neomake_ruby_enabled_makers    = ['rubocop']
@@ -575,3 +575,14 @@ vnoremap <Down>  <NOP>
 vnoremap <Left>  <NOP>
 vnoremap <Right> <NOP>
 
+hi CurrentWord ctermbg=NONE ctermbg=52 guibg=#512121
+function s:highlight_word_under_cursor()
+  let character_under_cursor = matchstr(getline('.'), '\%' . col('.') . 'c.')
+  if character_under_cursor=~#"[A-Za-z0-9\|_]"
+    exe printf('match CurrentWord /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+  else
+    match CurrentWord ''
+  endif
+endfunction
+
+autocmd CursorMoved * call s:highlight_word_under_cursor()
