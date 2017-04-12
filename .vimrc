@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 " Testing
     " Plug 'vim-scripts/greplace.vim'
     Plug 'AndrewRadev/switch.vim'
+    Plug 'dominikduda/vim_current_word'
 
 " autocompletion
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
@@ -434,6 +435,12 @@ augroup insert-mode-tweaks
     autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
 augroup END
 
+augroup color-scheme-tweaks
+    autocmd!
+    hi CurrentWordTwins ctermbg=12 guibg=#363636
+    hi CurrentWord ctermbg=14 guibg=#262020
+augroup END
+
 augroup tab-lengths
     autocmd!
     autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2
@@ -575,14 +582,14 @@ vnoremap <Down>  <NOP>
 vnoremap <Left>  <NOP>
 vnoremap <Right> <NOP>
 
-hi CurrentWord ctermbg=NONE ctermbg=52 guibg=#512121
-function s:highlight_word_under_cursor()
-  let character_under_cursor = matchstr(getline('.'), '\%' . col('.') . 'c.')
-  if character_under_cursor=~#"[A-Za-z0-9\|_]"
-    exe printf('match CurrentWord /\V\<%s\>/', escape(expand('<cword>'), '/\'))
-  else
-    match CurrentWord ''
-  endif
-endfunction
+" hi CurrentWord ctermbg=NONE ctermbg=52 guibg=#262020
+" function s:highlight_word_under_cursor()
+"   let character_under_cursor = matchstr(getline('.'), '\%' . col('.') . 'c.')
+"   if character_under_cursor=~#"[A-Za-z0-9\|_]"
+"     exe printf('match CurrentWord /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+"   else
+"     match CurrentWord ''
+"   endif
+" endfunction
 
-autocmd CursorMoved * call s:highlight_word_under_cursor()
+" autocmd CursorMoved * call s:highlight_word_under_cursor()
