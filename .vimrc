@@ -3,8 +3,10 @@ call plug#begin('~/.vim/plugged')
 
 " Testing
     " Plug 'vim-scripts/greplace.vim'
-    Plug 'AndrewRadev/switch.vim'
+    " Plug 'AndrewRadev/switch.vim'
     Plug 'dominikduda/vim_current_word'
+    Plug 'dkprice/vim-easygrep'
+    Plug 'machakann/vim-highlightedyank'
 
 " autocompletion
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
@@ -437,6 +439,7 @@ augroup END
 
 augroup color-scheme-tweaks
     autocmd!
+    hi HighlightedyankRegion cterm=reverse gui=reverse
     hi CurrentWordTwins ctermbg=12 guibg=#363636
     hi CurrentWord ctermbg=14 guibg=#262020
 augroup END
@@ -470,10 +473,8 @@ hi ExtraWhitespace ctermbg=160 guibg=#D70000
  " **********************************
 
 " Plugin related keymaps
+nnoremap <leader>uu :Unite<CR>
 nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
-    " vim-switch
-nnoremap <leader>s :Switch<CR>
-nnoremap <leader>S :SwitchReverse<CR>
     " disable hls
 noremap  <Esc><Esc> :<C-u>nohls<CR>
     " vim test
@@ -482,25 +483,15 @@ nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
-    " vim move
+    " vim move (block of code)
 let g:move_key_modifier = 'C'
-    " tabs and buffers navigation
-nnoremap gr :bnext<CR>
-nnoremap gR :bprev<CR>
-nnoremap tt :tabnew<CR>
-nnoremap TT :tabclose<CR>
-nnoremap tl :tabs<CR>
-nnoremap Tl :buffers<CR>
+    " vim expand
 vmap v <Plug>(expand_region_expand)
-    " Unite keymaps
-nnoremap <leader>uu :Unite<CR>
     " Easymotion
 map <leader>fi <Plug>(easymotion-sn)
 omap <leader>fi <Plug>(easymotion-tn)
 map <leader>n <Plug>(easymotion-next)
 map <leader>N <Plug>(easymotion-prev)
-map <leader><leader>/ <Plug>(easymotion-sn)
-omap <leader><leader>/ <Plug>(easymotion-tn)
 map <Leader>L <Plug>(easymotion-lineforward)
 map <Leader>H <Plug>(easymotion-linebackward)
 map <Leader>. <Plug>(easymotion-repeat)
@@ -531,8 +522,18 @@ nnoremap <leader>gst :Gstatus<CR>
 nnoremap <leader>gd  :Gdiff<CR>
 
 " Non plugin related keymaps
-    " select whole file
+    " replace word under cursor
+nnoremap <leader>F bye:%s/<C-r>"/
+    " replace selected word
+vnoremap <leader>F y:%s/<C-r>"/
+
+    " tabs navigation
+nnoremap tt :tabnew<CR>
+nnoremap TT :tabclose<CR>
+nnoremap tl :tabs<CR>
+    " select whole file, (map old C-a functionality to <leader>a)
 nnoremap <C-a> ggVG
+nnoremap <leader>a <C-a>
     " copy to clipboard
 vnoremap <leader>y  "+y
 nnoremap <leader>Y  "+yg_
@@ -542,7 +543,7 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-    " Replace currenctly selected text with one from clipboard
+    " Replace currenctly selected text with one from system clipboard
 vmap <C-v> x"+P
     " treat multiline statement as multiple lines
 nnoremap j gj
@@ -561,13 +562,13 @@ vnoremap ii <Esc>
     " begin and end of line
 map <leader>h ^
 map <leader>l $
-" Disable ex mode
+
+" Disabling mappings
+    " Disable ex mode
 nnoremap Q q
-" Disable q:, use :<C-f> instead
+    " Disable q:, use :<C-f> instead
 nnoremap q: <NOP>
 vnoremap q: <NOP>
-" open definition in vertical split
-map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
     " Disable arrow keys
 nnoremap <Up>    <NOP>
 nnoremap <Down>  <NOP>
@@ -581,15 +582,3 @@ vnoremap <Up>    <NOP>
 vnoremap <Down>  <NOP>
 vnoremap <Left>  <NOP>
 vnoremap <Right> <NOP>
-
-" hi CurrentWord ctermbg=NONE ctermbg=52 guibg=#262020
-" function s:highlight_word_under_cursor()
-"   let character_under_cursor = matchstr(getline('.'), '\%' . col('.') . 'c.')
-"   if character_under_cursor=~#"[A-Za-z0-9\|_]"
-"     exe printf('match CurrentWord /\V\<%s\>/', escape(expand('<cword>'), '/\'))
-"   else
-"     match CurrentWord ''
-"   endif
-" endfunction
-
-" autocmd CursorMoved * call s:highlight_word_under_cursor()
