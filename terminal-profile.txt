@@ -1,0 +1,6 @@
+# set those values in dconf-editor
+# org/gnome/terminal/legacy/profiles/*uuid*
+background-color : rgb(33,33,33)
+font             : Knack Nerd Font 12
+foreground-color : rgb(255,255,255)
+palette          : ['rgb(33,33,33)', 'rgb(213,78,83)', 'rgb(185,202,74)', 'rgb(230,197,71)', 'rgb(122,166,218)', 'rgb(195,151,216)', 'rgb(112,192,186)', 'rgb(66,66,66)', 'rgb(102,102,102)', 'rgb(255,51,52)', 'rgb(158,196,0)', 'rgb(231,197,71)', 'rgb(122,166,218)', 'rgb(183,126,224)', 'rgb(84,206,214)', 'rgb(42,42,42)']
