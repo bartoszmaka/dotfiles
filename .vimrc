@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'dominikduda/vim_current_word'
     Plug 'dkprice/vim-easygrep'
     Plug 'machakann/vim-highlightedyank'
+    Plug 'dyng/ctrlsf.vim'
 
 " autocompletion
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
