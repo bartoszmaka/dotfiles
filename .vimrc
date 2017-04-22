@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'dkprice/vim-easygrep'
     Plug 'machakann/vim-highlightedyank'
     Plug 'dyng/ctrlsf.vim'
+    Plug 'schickling/vim-bufonly'
 
 " autocompletion
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
@@ -204,6 +205,12 @@ let g:rbpt_colorpairs = [
     \ ['red',         'lemonchiffon'],
     \ ]
 let g:rbpt_max = 16
+" vim current word
+let g:vim_current_word#enabled = 1
+" let g:vim_current_word#current_word_match_id =
+" let g:vim_current_word#twins_match_id =
+let g:vim_current_word#highlight_twins = 1
+let g:vim_current_word#highlight_current_word = 1
 " colorscheme
 if (has("nvim"))
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -440,6 +447,11 @@ augroup END
 
 augroup color-scheme-tweaks
     autocmd!
+    hi CursorLineNR guibg=#343D46
+    hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+    hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+    hi ExtraWhitespace ctermbg=160 guibg=#D70000
+    hi MatchParen guifg=#00FF00 guibg=#000000 ctermbg=NONE ctermfg=NONE cterm=underline,bold
     hi HighlightedyankRegion cterm=reverse gui=reverse
     hi CurrentWordTwins ctermbg=12 guibg=#363636
     hi CurrentWord ctermbg=14 guibg=#262020
@@ -464,13 +476,6 @@ augroup tab-lengths
     autocmd Filetype python     setlocal ts=4 sts=4 sw=4 cc=79
 augroup END
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
-
-" colorscheme customization
-hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-hi ExtraWhitespace ctermbg=160 guibg=#D70000
-" hi MatchParen guifg=#00FF00 guibg=#000000 ctermbg=NONE ctermfg=NONE cterm=underline,bold
-" hi CursorLineNR guifg=#AAAAAA guibg=#333399 guisp=NONE gui=NONE ctermfg=232 ctermbg=184 cterm=bold
  " **********************************
 
 " Plugin related keymaps
