@@ -1,0 +1,7 @@
+let mapleader="\<space>"
+nmap <leader>h ^
+vmap <leader>h ^
+nmap <leader>l $
+vmap <leader>l $
+inoremap ii <Esc>
+vnoremap ii <Esc>
