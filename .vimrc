@@ -2,35 +2,27 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Testing
-    " Plug 'vim-scripts/greplace.vim'
-    " Plug 'AndrewRadev/switch.vim'
-    Plug 'dominikduda/vim_current_word'
     Plug 'dkprice/vim-easygrep'
-    Plug 'machakann/vim-highlightedyank'
     Plug 'dyng/ctrlsf.vim'
     Plug 'schickling/vim-bufonly'
 
 " autocompletion
-    Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
-    Plug 'honza/vim-snippets'
-    " Plug 'Shougo/context_filetype.vim'
-    Plug 'Shougo/neosnippet'
-    Plug 'Shougo/neoinclude.vim'                    " extends deoplete
-    Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
-    " Plug 'sbdchd/neoformat'                         " code formatting engine
     Plug 'ervandew/supertab'                        " Confirm autocompletion with tab
+    Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
+    Plug 'Shougo/neoinclude.vim'                    " extends deoplete
+    " Plug 'honza/vim-snippets'
+    " Plug 'Shougo/neosnippet'
+    " Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
 
 " auto insert pairs
     Plug 'jiangmiao/auto-pairs'                     " auto insert parentheses, quotes etc.
     Plug 'tpope/vim-endwise'                        " auto insert 'end', 'endif' etc.
 
 " syntax checker
-    " Plug 'neomake/neomake'                          " async make
     Plug 'ntpeters/vim-better-whitespace'           " Detect trailing whitespaces
-    " Plug 'vim-syntastic/syntastic'                  " syntax checking engine
     Plug 'w0rp/ale'                                 " async syntax checking
 
-" prosect explorer
+" project explorer
     Plug 'scrooloose/nerdtree'                      " Project explorer
     Plug 'jistr/vim-nerdtree-tabs'                  " Better behavior for nerdtree
     Plug 'Xuyuanp/nerdtree-git-plugin'              " NerdTree git integration
@@ -39,9 +31,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'ctrlpvim/ctrlp.vim'                       " In project file finder
     Plug 'JazzCore/ctrlp-cmatcher',             { 'do': './install.sh' }
     Plug 'rking/ag.vim'                        " find in files helper
-    " Plug 'mhinz/vim-grepper'                        " find in files helper
 
 " UI
+    Plug 'dominikduda/vim_current_word'
+    Plug 'machakann/vim-highlightedyank'
     Plug 'joshdick/onedark.vim'                     " ColorScheme
     Plug 'ryanoasis/vim-devicons'                   " Fancy icons
     Plug 'ap/vim-css-color'                         " Color perview for vim
@@ -88,32 +81,20 @@ call plug#begin('~/.vim/plugged')
     Plug 'christoomey/vim-tmux-navigator'
 
 " language specific
-    Plug 'lmeijvogel/vim-yaml-helper',             { 'for' : ['yaml'] }
-    Plug 'Shougo/neco-vim',                        { 'for' : ['vim'] }
+    Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
+    Plug 'fishbullet/deoplete-ruby',               { 'for' : ['ruby'] }
     Plug 'tpope/vim-rails',                        { 'for' : ['ruby'] }
     Plug 'tpope/vim-cucumber',                     { 'for' : ['ruby'] }
     Plug 'ecomba/vim-ruby-refactoring',            { 'for' : ['ruby'] }
-    Plug 'fishbullet/deoplete-ruby',               { 'for' : ['ruby'] }
     Plug 'sunaku/vim-ruby-minitest',               { 'for' : ['ruby'] }
-    Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
     Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
     Plug 'slim-template/vim-slim',                 { 'for' : ['slim'] }
     Plug 'groenewege/vim-less',                    { 'for' : ['less'] }
     Plug 'cakebaker/scss-syntax.vim',              { 'for' : ['scss','sass'] }
     Plug 'hail2u/vim-css3-syntax',                 { 'for' : ['css','scss','sass'] }
-    Plug 'ap/vim-css-color',                       { 'for' : ['css','scss','sass','less','styl'] }
-    Plug 'othree/html5.vim',                       { 'for' : ['html'] }
-    Plug 'Valloric/MatchTagAlways',                { 'for' : ['html' , 'xhtml' , 'xml' , 'jinja'] }
-    Plug 'davidhalter/jedi-vim',                   { 'for' : ['python'] }
-    Plug 'zchee/deoplete-jedi',                    { 'for' : ['python'] }
-    Plug 'pangloss/vim-javascript',                { 'for' : ['javascript'] }
-    Plug 'maksimr/vim-jsbeautify',                 { 'for' : ['javascript'] }
-    Plug 'leafgarland/typescript-vim',             { 'for' : ['typescript'] }
-    Plug 'kchmck/vim-coffee-script',               { 'for' : ['coffee'] }
-    Plug 'mmalecki/vim-node.js',                   { 'for' : ['javascript'] }
-    Plug 'leshill/vim-json',                       { 'for' : ['javascript','json'] }
-    Plug 'othree/javascript-libraries-syntax.vim', { 'for' : ['javascript','coffee','ls','typescript'] }
-    " Plug 'zchee/deoplete-clang',                    { 'for' : ['c', 'cpp', 'objc'] }
+    Plug 'rust-lang/rust.vim',                     { 'for' : ['rust'] }
+    Plug 'lmeijvogel/vim-yaml-helper',             { 'for' : ['yaml'] }
+    Plug 'Shougo/neco-vim',                        { 'for' : ['vim'] }
 call plug#end()
 " **********************************
 
@@ -185,6 +166,65 @@ set cursorline                                     " Highlight current line
 set title
 set title titlestring=%<%F%=
 
+" colorscheme
+if (has("nvim"))
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+if (has("termguicolors"))
+    set termguicolors
+endif
+if (has("autocmd") && !has("gui"))
+    let s:monek_grey = { "gui": "#343D46", "cterm": "16", "cterm16": "0" }
+    autocmd ColorScheme * call onedark#set_highlight("CursorLine", { "bg": s:monek_grey })
+end
+set background=dark
+colorscheme onedark
+let g:airline_theme = 'onedark'
+
+let g:webdevicons_enable                                       = 1
+let g:webdevicons_enable_nerdtree                              = 0
+let g:WebDevIconsNerdTreeAfterGlyphPadding                     = ''
+
+set fillchars+=stl:\ ,stlnc:\ ,vert:\│
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep         = ''
+let g:airline_left_alt_sep     = ''
+let g:airline_right_sep        = ''
+let g:airline_right_alt_sep    = ''
+let g:airline_symbols.branch   = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr   = ''
+let g:airline_symbols.space    = "\ua0"
+let g:airline_powerline_fonts  = 1
+let g:Powerline_symbols        = 'unicode'
+let g:airline#extensions#tabline#enabled             = 1
+let g:airline#extensions#tabline#show_splits         = 1
+let g:airline#extensions#tabline#show_buffers        = 0
+let g:airline#extensions#tabline#formatter           = 'unique_tail_improved'
+let g:airline#extensions#branch#enabled              = 1
+let g:airline#extensions#branch#format               = 2
+let g:airline#extensions#branch#displayed_head_limit = 15
+let g:airline#extensions#tagbar#enabled              = 1
+let g:airline#extensions#hunks#enabled               = 1
+let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
+let g:indentLine_color_term    = 239
+let g:indentLine_color_gui     = '#717273'
+let g:indentLine_char          = '¦'
+let g:indentLine_concealcursor = 'niv'             " (default 'inc')
+let g:indentLine_conceallevel  = 2                  " (default 2)                " (default 2)
+
+if has('conceal')
+    set conceallevel=2 concealcursor=niv
+endif
+
+let g:gitgutter_sign_column_always = 1
+let g:gitgutter_map_keys = 0
+
+let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
+let g:diminactive_enable_focus      = 1
 " Rainbow Parentheses
 let g:rbpt_colorpairs = [
     \ ['brown',       'lightcyan'],
@@ -205,94 +245,25 @@ let g:rbpt_colorpairs = [
     \ ['red',         'lemonchiffon'],
     \ ]
 let g:rbpt_max = 16
+
 " vim current word
 let g:vim_current_word#enabled = 1
-" let g:vim_current_word#current_word_match_id =
-" let g:vim_current_word#twins_match_id =
+let vim_current_word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_twins = 1
 let g:vim_current_word#highlight_current_word = 1
-" colorscheme
-if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-if (has("termguicolors"))
-    set termguicolors
-endif
-if (has("autocmd") && !has("gui"))
-    let s:monek_grey = { "gui": "#343D46", "cterm": "16", "cterm16": "0" }
-    autocmd ColorScheme * call onedark#set_highlight("CursorLine", { "bg": s:monek_grey })
-end
-set background=dark
-colorscheme onedark
-let g:airline_theme = 'onedark'
-
-let g:webdevicons_enable                                       = 1
-let g:webdevicons_enable_nerdtree                              = 0
-let g:WebDevIconsNerdTreeAfterGlyphPadding                     = ''
-" let g:webdevicons_enable_airline_statusline                    = 1
-" let g:webdevicons_enable_airline_tabline                       = 1
-" let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
-
-set fillchars+=stl:\ ,stlnc:\ ,vert:\│
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_left_sep         = ''
-let g:airline_left_alt_sep     = ''
-let g:airline_right_sep        = ''
-let g:airline_right_alt_sep    = ''
-let g:airline_symbols.branch   = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr   = ''
-let g:airline_symbols.space    = "\ua0"
-let g:airline_powerline_fonts  = 1
-let g:Powerline_symbols        = 'unicode'
-let g:airline#extensions#tabline#enabled             = 1
-let g:airline#extensions#tabline#show_splits         = 1
-let g:airline#extensions#tabline#show_buffers        = 0
-
-" let g:airline#extensions#tabline#buffer_idx_mode     = 1
-" let g:airline#extensions#tabline#buffer_nr_show      = 1
-" let g:airline#extensions#tabline#buffer_nr_format    = '%s:'
-" let g:airline#extensions#tabline#fnamemod            = ':t'
-" let g:airline#extensions#tabline#fnamecollapse       = 1
-" let g:airline#extensions#tabline#fnametruncate       = 0
-let g:airline#extensions#tabline#formatter           = 'unique_tail_improved'
-
-let g:airline#extensions#branch#enabled              = 1
-let g:airline#extensions#branch#format               = 2
-let g:airline#extensions#branch#displayed_head_limit = 15
-let g:airline#extensions#tagbar#enabled              = 1
-let g:airline#extensions#hunks#enabled               = 1
-" let g:airline#extensions#syntastic#enabled           = 1
-let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
-let g:indentLine_color_term    = 239
-let g:indentLine_color_gui     = '#717273'
-let g:indentLine_char          = '¦'
-let g:indentLine_concealcursor = 'niv'             " (default 'inc')
-let g:indentLine_conceallevel  = 2                  " (default 2)                " (default 2)
-
-if has('conceal')
-    set conceallevel=2 concealcursor=niv
-endif
-
-let g:gitgutter_sign_column_always = 1
-let g:gitgutter_map_keys = 0
-
-let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
-let g:diminactive_enable_focus      = 1
 
 " nerdtree, mundo, tagbar
-let g:NERDTreeWinSize               = 25
-"close vim if only NERDTree is opened
+let g:NERDTreeWinSize = 25
+let g:mundo_right = 1
+let g:maximizer_default_mapping_key   = '<C-w>m'
+
+" start with nerdtree open if no file were specified (2 lines below)
 augroup nerdtree
     autocmd!
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    " start with nerdtree open if no file were specified (2 lines below)
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 augroup END
-let g:maximizer_default_mapping_key   = '<C-w>m'
 nmap     <F2>         :NERDTreeToggle<CR>
 nmap     <leader><F2> :NERDTreeFind<CR>zz
 noremap  <F3>         :TagbarToggle<CR>
@@ -301,7 +272,7 @@ nnoremap <F4>         :MundoToggle<CR>
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
-" winresizer 101 is 'e'
+" winresizer code 101 is 'e'
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
 let g:winresizer_keycode_finish = 101
@@ -309,12 +280,9 @@ let g:winresizer_keycode_finish = 101
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
 
+" rust formatter on save
+let g:rustfmt_autosave = 1
 
-" set statusline+=%#warningmsg#
-" set statusline+=%{ALEGetStatusLine()}
-" set statusline+=%*
-" ale
-" let g:ale_set_highlights = 0
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_sign_error = 'X➜'
 let g:ale_sign_warning = '!➜'
@@ -343,8 +311,6 @@ let g:deoplete#enable_smart_case     = 1
 let g:deoplete#sources = ['buffer', 'tag', 'tags', 'path']
 imap <c-j> <Tab>
 imap <c-k> <S-Tab>
-" let g:neomake_ruby_enabled_makers    = ['rubocop']
-" let g:neomake_python_enabled_makers  = ['flake8']
 let g:vimrubocop_config              = '~/.rubocop.yml'
 imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -375,7 +341,7 @@ endif
 let g:neotags_highlight  = 0
 let g:neotags_enabled    = 1
 let g:neotags_appendpath = 0
-let g:neotags_recursive  = 0
+let g:neotags_recursive  = 1
 let g:neotags_ctags_bin  = 'ag -g "" '. getcwd() .' | ctags'
 let g:neotags_ctags_args = [
             \ '-L -',
@@ -396,9 +362,6 @@ nnoremap <leader>te :Ttoggle<CR>
 let g:better_whitespace_filetypes_blacklist=[]
 " **********************************
 
-" augroups
-" autocmd! BufWritePost * Neomake
-" autocmd BufWritePre * FixWhitespace
 augroup yaml-helper
     autocmd!
     autocmd CursorHold *.yml YamlGetFullPath
@@ -406,17 +369,17 @@ augroup END
 
 augroup trailing-whitespaces
     autocmd!
-" Show trailing-whitespaces in all files, but dont delete them in markdown
+    " Show trailing-whitespaces in all files, but dont delete them in markdown
     autocmd BufEnter * EnableStripWhitespaceOnSave
     autocmd FileType markdown autocmd BufEnter <buffer> DisableStripWhitespaceOnSave
 augroup END
 
 augroup rainbow-parentheses
     autocmd!
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+    autocmd VimEnter * RainbowParenthesesToggle
+    autocmd Syntax * RainbowParenthesesLoadRound
+    autocmd Syntax * RainbowParenthesesLoadSquare
+    autocmd Syntax * RainbowParenthesesLoadBraces
 augroup END
 
 augroup dim-inactive-fix
@@ -426,8 +389,8 @@ augroup END
 
 augroup reload-vimrc-on-save
     " it breaks airline for some reason
-    au!
-    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+    autocmd!
+    autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 augroup END
 
 augroup remember-cursor-position
@@ -447,18 +410,20 @@ augroup END
 
 augroup color-scheme-tweaks
     autocmd!
-    hi CursorLineNR guibg=#343D46
-    hi IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-    hi Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-    hi ExtraWhitespace ctermbg=160 guibg=#D70000
-    hi MatchParen guifg=#00FF00 guibg=#000000 ctermbg=NONE ctermfg=NONE cterm=underline,bold
-    hi HighlightedyankRegion cterm=reverse gui=reverse
-    hi CurrentWordTwins ctermbg=12 guibg=#363636
-    hi CurrentWord ctermbg=14 guibg=#262020
+    highlight Cursor gui=reverse
+    highlight iCursor guifg=white guibg=green
+    highlight CursorLineNR guibg=#343D46
+    highlight IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+    highlight Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
+    highlight ExtraWhitespace ctermbg=160 guibg=#D70000
+    highlight HighlightedyankRegion cterm=reverse gui=reverse
+    highlight CurrentWordTwins ctermbg=12 guibg=#363636
+    highlight CurrentWord ctermbg=14 guibg=#262020
 augroup END
 
 augroup tab-lengths
     autocmd!
+    autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
     autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2
     autocmd Filetype eruby      setlocal ts=2 sts=2 sw=2
     autocmd Filetype scss       setlocal ts=2 sts=2 sw=2
