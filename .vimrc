@@ -10,9 +10,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'ervandew/supertab'                        " Confirm autocompletion with tab
     Plug 'Shougo/deoplete.nvim',                    { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/neoinclude.vim'                    " extends deoplete
-    " Plug 'honza/vim-snippets'
-    " Plug 'Shougo/neosnippet'
-    " Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
+    Plug 'Shougo/neosnippet.vim'
+    Plug 'Shougo/neosnippet-snippets'               " snipplets for neosnipplet
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
 
 " auto insert pairs
     Plug 'jiangmiao/auto-pairs'                     " auto insert parentheses, quotes etc.
@@ -50,6 +51,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'simeji/winresizer'                        " window resize helper
 
 " code edit improvements
+    Plug 'tpope/vim-repeat'
+    Plug 'terryma/vim-multiple-cursors'
     Plug 'rhysd/clever-f.vim'                       " better f F t T
     Plug 'matze/vim-move'                           " Move block of code
     Plug 'easymotion/vim-easymotion'
@@ -66,6 +69,9 @@ call plug#begin('~/.vim/plugged')
 " Terminal provider
     Plug 'kassio/neoterm'                           " terminal mode
 
+" Markdown perview
+    Plug 'shime/vim-livedown'
+
 " Yank history
     Plug 'Shougo/unite.vim'
     Plug 'Shougo/neoyank.vim'
@@ -81,20 +87,27 @@ call plug#begin('~/.vim/plugged')
     Plug 'christoomey/vim-tmux-navigator'
 
 " language specific
-    Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
+    Plug 'sheerun/vim-polyglot'
     Plug 'fishbullet/deoplete-ruby',               { 'for' : ['ruby'] }
-    Plug 'tpope/vim-rails',                        { 'for' : ['ruby'] }
-    Plug 'tpope/vim-cucumber',                     { 'for' : ['ruby'] }
-    Plug 'ecomba/vim-ruby-refactoring',            { 'for' : ['ruby'] }
-    Plug 'sunaku/vim-ruby-minitest',               { 'for' : ['ruby'] }
-    Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
-    Plug 'slim-template/vim-slim',                 { 'for' : ['slim'] }
-    Plug 'groenewege/vim-less',                    { 'for' : ['less'] }
-    Plug 'cakebaker/scss-syntax.vim',              { 'for' : ['scss','sass'] }
-    Plug 'hail2u/vim-css3-syntax',                 { 'for' : ['css','scss','sass'] }
-    Plug 'rust-lang/rust.vim',                     { 'for' : ['rust'] }
-    Plug 'lmeijvogel/vim-yaml-helper',             { 'for' : ['yaml'] }
+    Plug 'carlitux/deoplete-ternjs',               { 'for' : ['javascript', 'javascript.jsx'] }
+    Plug 'othree/jspc.vim',                        { 'for' : ['javascript', 'javascript.jsx'] }
     Plug 'Shougo/neco-vim',                        { 'for' : ['vim'] }
+    " Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
+    " Plug 'tpope/vim-rails',                        { 'for' : ['ruby'] }
+    " Plug 'tpope/vim-cucumber',                     { 'for' : ['ruby'] }
+    " Plug 'ecomba/vim-ruby-refactoring',            { 'for' : ['ruby'] }
+    " Plug 'sunaku/vim-ruby-minitest',               { 'for' : ['ruby'] }
+    " Plug 'ngmy/vim-rubocop',                       { 'for' : ['ruby'] }
+
+    " Plug 'pangloss/vim-javascript',                { 'for' : ['javascript'] }
+    " Plug 'leshill/vim-json',                       { 'for' : ['json'] }
+
+    " Plug 'slim-template/vim-slim',                 { 'for' : ['slim'] }
+    " Plug 'groenewege/vim-less',                    { 'for' : ['less'] }
+    " Plug 'cakebaker/scss-syntax.vim',              { 'for' : ['scss','sass'] }
+    " Plug 'hail2u/vim-css3-syntax',                 { 'for' : ['css','scss','sass'] }
+    " Plug 'rust-lang/rust.vim',                     { 'for' : ['rust'] }
+    " Plug 'lmeijvogel/vim-yaml-helper',             { 'for' : ['yaml'] }
 call plug#end()
 " **********************************
 
@@ -122,10 +135,12 @@ set fileencoding=utf-8
 set encoding=utf8
 
 " behavior
-set completeopt=longest,menuone
+" set completeopt=longest,menuone
+set completeopt=longest,menuone,preview
 set omnifunc=syntaxcomplete#Complete
 set noshowmatch                                     " has something to do with matching brackets
 set backspace=indent,eol,start
+" set tags=./tags;
 
 " indent
 set autoindent
@@ -246,6 +261,10 @@ let g:rbpt_colorpairs = [
     \ ]
 let g:rbpt_max = 16
 
+" livedown
+let g:livedown_browser = 'google-chrome'
+let g:livedown_open = 1
+
 " vim current word
 let g:vim_current_word#enabled = 1
 let vim_current_word#highlight_only_in_focused_window = 1
@@ -283,12 +302,16 @@ let g:tmux_navigator_no_mappings = 1
 " rust formatter on save
 let g:rustfmt_autosave = 1
 
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_sign_error = 'X➜'
-let g:ale_sign_warning = '!➜'
+" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+"🌩 ⛅ <- those icons does not always show for some reason
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '!'
+let g:ale_sign_warning = '.'
 let g:ale_lint_delay = 400
 let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed =  1
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_sign_column_always = 1
 
 let g:AutoPairsShortcutToggle = ''
@@ -308,10 +331,20 @@ let g:deoplete#enable_ignore_case    = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#enable_smart_case     = 1
-let g:deoplete#sources = ['buffer', 'tag', 'tags', 'path']
+
+let g:deoplete#sources                   = get(g:, 'deoplete#sources', {})
+let g:deoplete#sources._                 = ['buffer', 'file']
+let g:deoplete#sources.javascript        = ['deoplete-ternjs', 'vim-javascript']
+let g:deoplete#sources.ruby              = ['deoplete-ruby', 'vim-ruby', 'vim-rails' ]
+let g:deoplete#omni#functions            = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+let g:vimrubocop_config              = '~/.rubocop.yml'
+
 imap <c-j> <Tab>
 imap <c-k> <S-Tab>
-let g:vimrubocop_config              = '~/.rubocop.yml'
 imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
 imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
 inoremap    <expr><C-f>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
@@ -324,6 +357,8 @@ xmap        <C-e><C-e>      <Plug>(neosnippet_expand_target)
 imap        <C-e><C-e>      <Plug>(neosnippet_expand_or_jump)
 smap        <expr><TAB>     neosnippet#expandable_or_jumpable() ?
                             \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = '0'
 
 " ctrlp
 let g:ctrlp_map         = '<c-p>'
@@ -338,19 +373,21 @@ if executable('ag')
 endif
 
 " tags
-let g:neotags_highlight  = 0
 let g:neotags_enabled    = 1
-let g:neotags_appendpath = 0
+let g:neotags_ctags_bin  = '/usr/local/bin/ctags'
+let g:neotags_file = './tags'
+" let g:neotags_appendpath = 0
+let g:neotags_highlight  = 0
 let g:neotags_recursive  = 1
-let g:neotags_ctags_bin  = 'ag -g "" '. getcwd() .' | ctags'
-let g:neotags_ctags_args = [
-            \ '-L -',
-            \ '--fields=+l',
-            \ '--c-kinds=+p',
-            \ '--c++-kinds=+p',
-            \ '--sort=no',
-            \ '--extra=+q'
-            \ ]
+let g:neotags_events_update = ['BufWritePost']
+" let g:neotags_ctags_args = [
+"             \ '-L -',
+"             \ '--fields=+l',
+"             \ '--c-kinds=+p',
+"             \ '--c++-kinds=+p',
+"             \ '--sort=no',
+"             \ '--extra=+q'
+"             \ ]
 
 " neoterm
 let test#strategy            = 'neoterm'
@@ -387,11 +424,11 @@ augroup dim-inactive-fix
     autocmd BufNew * DimInactive
 augroup END
 
-augroup reload-vimrc-on-save
-    " it breaks airline for some reason
-    autocmd!
-    autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-augroup END
+" augroup reload-vimrc-on-save
+"     " it breaks airline for some reason
+"     autocmd!
+"     autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+" augroup END
 
 augroup remember-cursor-position
     autocmd!
@@ -437,7 +474,7 @@ augroup tab-lengths
     autocmd Filetype c          setlocal ts=4 sts=4 sw=4 cc=79
     autocmd Filetype cpp        setlocal ts=4 sts=4 sw=4 cc=79
     autocmd Filetype objc       setlocal ts=4 sts=4 sw=4 cc=79
-    autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 cc=79
+    autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 cc=79
     autocmd Filetype python     setlocal ts=4 sts=4 sw=4 cc=79
 augroup END
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
