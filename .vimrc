@@ -92,6 +92,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'carlitux/deoplete-ternjs',               { 'for' : ['javascript', 'javascript.jsx'] }
     Plug 'othree/jspc.vim',                        { 'for' : ['javascript', 'javascript.jsx'] }
     Plug 'Shougo/neco-vim',                        { 'for' : ['vim'] }
+    Plug 'lmeijvogel/vim-yaml-helper',             { 'for' : ['yaml'] }
     " Plug 'vim-ruby/vim-ruby',                      { 'for' : ['ruby'] }
     " Plug 'tpope/vim-rails',                        { 'for' : ['ruby'] }
     " Plug 'tpope/vim-cucumber',                     { 'for' : ['ruby'] }
@@ -107,7 +108,6 @@ call plug#begin('~/.vim/plugged')
     " Plug 'cakebaker/scss-syntax.vim',              { 'for' : ['scss','sass'] }
     " Plug 'hail2u/vim-css3-syntax',                 { 'for' : ['css','scss','sass'] }
     " Plug 'rust-lang/rust.vim',                     { 'for' : ['rust'] }
-    " Plug 'lmeijvogel/vim-yaml-helper',             { 'for' : ['yaml'] }
 call plug#end()
 " **********************************
 
@@ -374,6 +374,7 @@ endif
 
 " tags
 let g:neotags_enabled    = 1
+let g:neotags_run_ctags  = 0
 let g:neotags_ctags_bin  = '/usr/local/bin/ctags'
 let g:neotags_file = './tags'
 " let g:neotags_appendpath = 0
