@@ -83,10 +83,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 alias update='sudo apt update && sudo apt -y upgrade'
-alias tree='exa -T'
-alias l='exa -lghHu'
-alias la='exa -lghHua'
 alias yt="youtube-dl -x --audio-format mp3 --audio-quality 0 -o '%(title)s.%(ext)s'"
 alias vimrc='nvim ~/.vimrc'
 
@@ -94,4 +92,7 @@ alias vimrc='nvim ~/.vimrc'
 export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+
+# tmux powerline
+PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+# prompt_git() {}
