@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 " Testing
     Plug 'dkprice/vim-easygrep'
     Plug 'dyng/ctrlsf.vim'
-    Plug 'schickling/vim-bufonly'
+    " Plug 'schickling/vim-bufonly'
 
 " autocompletion
     Plug 'ervandew/supertab'                        " Confirm autocompletion with tab
@@ -49,6 +49,9 @@ call plug#begin('~/.vim/plugged')
 " window management
     Plug 'szw/vim-maximizer'                        " maximize window
     Plug 'simeji/winresizer'                        " window resize helper
+
+" tabs management
+    Plug 'bagrat/vim-workspace'
 
 " code edit improvements
     Plug 'tpope/vim-repeat'
@@ -202,6 +205,10 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding                     = ''
 
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
+" let g:workspace_powerline_separators = 1
+let g:workspace_tab_icon = "\uf00a"
+let g:workspace_left_trunc_icon = "\uf0a8"
+let g:workspace_right_trunc_icon = "\uf0a9"
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -215,10 +222,10 @@ let g:airline_symbols.linenr   = ''
 let g:airline_symbols.space    = "\ua0"
 let g:airline_powerline_fonts  = 1
 let g:Powerline_symbols        = 'unicode'
-let g:airline#extensions#tabline#enabled             = 1
-let g:airline#extensions#tabline#show_splits         = 1
-let g:airline#extensions#tabline#show_buffers        = 0
-let g:airline#extensions#tabline#formatter           = 'unique_tail_improved'
+" let g:airline#extensions#tabline#enabled             = 1
+" let g:airline#extensions#tabline#show_splits         = 1
+" let g:airline#extensions#tabline#show_buffers        = 0
+" let g:airline#extensions#tabline#formatter           = 'unique_tail_improved'
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
@@ -457,6 +464,10 @@ augroup color-scheme-tweaks
     highlight HighlightedyankRegion cterm=reverse gui=reverse
     highlight CurrentWordTwins ctermbg=12 guibg=#363636
     highlight CurrentWord ctermbg=14 guibg=#262020
+
+    highlight WorkspaceBufferCurrent guibg=#E5C07B guifg=#262626 ctermbg=180 ctermfg=16
+    highlight WorkspaceTabCurrent guibg=#C678DD guifg=#262626 ctermbg=176 ctermfg=16
+
 augroup END
 
 augroup tab-lengths
@@ -482,6 +493,15 @@ autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
  " **********************************
 
 " Plugin related keymaps
+    " workspace
+noremap <Tab> :WSNext<CR>
+noremap <S-Tab> :WSPrev<CR>
+noremap <Leader><Tab> :WSClose<CR>
+noremap <Leader><S-Tab> :WSClose!<CR>
+noremap <C-t> :WSTabNew<CR>
+
+cabbrev bonly WSBufOnly
+
 nnoremap <leader>uu :Unite<CR>
 nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
     " disable hls
