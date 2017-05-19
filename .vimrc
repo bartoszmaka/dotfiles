@@ -39,7 +39,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'joshdick/onedark.vim'                     " ColorScheme
     Plug 'ryanoasis/vim-devicons'                   " Fancy icons
     Plug 'ap/vim-css-color'                         " Color perview for vim
-    Plug 'Yggdroot/indentLine'                      " Vertical lines for indent
+    Plug 'nathanaelkane/vim-indent-guides'
+    " Plug 'Yggdroot/indentLine'                      " Vertical lines for indent
     Plug 'airblade/vim-gitgutter'                   " Shows git signs next to line numbers
     Plug 'bling/vim-airline'                        " Airline
     Plug 'vim-airline/vim-airline-themes'           " Themes for airline
@@ -209,6 +210,7 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 let g:workspace_tab_icon = "\uf00a"
 let g:workspace_left_trunc_icon = "\uf0a8"
 let g:workspace_right_trunc_icon = "\uf0a9"
+let g:airline_powerline_fonts  = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -220,7 +222,6 @@ let g:airline_symbols.branch   = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr   = ''
 let g:airline_symbols.space    = "\ua0"
-let g:airline_powerline_fonts  = 1
 let g:Powerline_symbols        = 'unicode'
 " let g:airline#extensions#tabline#enabled             = 1
 " let g:airline#extensions#tabline#show_splits         = 1
@@ -231,12 +232,15 @@ let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
-let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
-let g:indentLine_color_term    = 239
-let g:indentLine_color_gui     = '#717273'
-let g:indentLine_char          = '¦'
-let g:indentLine_concealcursor = 'niv'             " (default 'inc')
-let g:indentLine_conceallevel  = 2                  " (default 2)                " (default 2)
+" let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
+" let g:indentLine_color_term    = 239
+" let g:indentLine_color_gui     = '#717273'
+" let g:indentLine_char          = '█'
+" let g:indentLine_concealcursor = 'niv'             " (default 'inc')
+" let g:indentLine_conceallevel  = 2                  " (default 2)                " (default 2)
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+
 
 if has('conceal')
     set conceallevel=2 concealcursor=niv
@@ -455,19 +459,26 @@ augroup END
 
 augroup color-scheme-tweaks
     autocmd!
-    highlight Cursor gui=reverse
-    highlight iCursor guifg=white guibg=green
-    highlight CursorLineNR guibg=#343D46
-    highlight IncSearch guifg=#FF0000 guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-    highlight Search guifg=#FFFFFF guibg=NONE guisp=NONE gui=bold ctermfg=15 ctermbg=NONE cterm=bold
-    highlight ExtraWhitespace ctermbg=160 guibg=#D70000
-    highlight HighlightedyankRegion cterm=reverse gui=reverse
-    highlight CurrentWordTwins ctermbg=12 guibg=#363636
-    highlight CurrentWord ctermbg=14 guibg=#262020
+    highlight   Cursor                   gui=reverse
+    highlight   HighlightedyankRegion    cterm=reverse   gui=reverse
+    highlight   iCursor                  guibg=green     guifg=white
+    highlight   CursorLineNR             guibg=#343D46
+    highlight   IncSearch                guifg=#FF0000   guibg=NONE      guisp=NONE      gui=bold     ctermfg=15   ctermbg=NONE   cterm=bold
+    highlight   Search                   guifg=#FFFFFF   guibg=NONE      guisp=NONE      gui=bold     ctermfg=15   ctermbg=NONE   cterm=bold
+    highlight   ExtraWhitespace          ctermbg=160     guibg=#D70000
+    highlight   CurrentWordTwins         ctermbg=12      guibg=#363636
+    highlight   CurrentWord              ctermbg=14      guibg=#262020
 
-    highlight WorkspaceBufferCurrent guibg=#E5C07B guifg=#262626 ctermbg=180 ctermfg=16
-    highlight WorkspaceTabCurrent guibg=#C678DD guifg=#262626 ctermbg=176 ctermfg=16
+    highlight   WorkspaceBufferCurrent   guibg=#E5C07B   ctermbg=180     guifg=#262626   ctermfg=16
+    highlight   WorkspaceBufferActive    guibg=#C5A05B   ctermbg=180     guifg=#262626   ctermfg=16
+    highlight   WorkspaceBufferHidden    guibg=#444444   ctermbg=16      guifg=#262626   ctermfg=16
+    highlight   WorkspaceBufferTrunc     guibg=#FF0000   ctermbg=16      guifg=#262626   ctermfg=16
+    highlight   WorkspaceTabCurrent      guibg=#C678DD   ctermbg=176     guifg=#262626   ctermfg=16
+    highlight   WorkspaceTabHidden       guibg=#9648AD   ctermbg=176     guifg=#262626   ctermfg=16
+    highlight   WorkspaceFill            guibg=#282C34   ctermbg=17      guifg=#FFFFFF   ctermfg=15
 
+    highlight   IndentGuidesOdd          guibg=#343434   ctermbg=17
+    highlight   IndentGuidesEven         guibg=#262626   ctermbg=16
 augroup END
 
 augroup tab-lengths
