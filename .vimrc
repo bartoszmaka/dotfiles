@@ -125,7 +125,10 @@ set novisualbell
 set undofile
 set undodir=$HOME/.vim/undo
 set noswapfile
+set grepprg=ag
+" set foldmethod=indent
 set nobackup
+set autoread
 set lazyredraw
 set hidden                                         " don't close buffers
 set wildignore+=
@@ -213,33 +216,11 @@ let g:workspace_tab_icon = "\uf00a"
 let g:workspace_left_trunc_icon = "\uf0a8"
 let g:workspace_right_trunc_icon = "\uf0a9"
 let g:airline_powerline_fonts  = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-    let g:airline_left_sep         = ''
-    let g:airline_left_alt_sep     = ''
-    let g:airline_right_sep        = ''
-    let g:airline_right_alt_sep    = ''
-    let g:airline_symbols.branch   = ''
-    let g:airline_symbols.readonly = ''
-    let g:airline_symbols.linenr   = ''
-    let g:airline_symbols.space    = "\ua0"
-    let g:Powerline_symbols        = 'unicode'
-endif
-" let g:airline_section_z='%{airline_symbols.linenr} %l/%L:%v (%P)'
-" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-" let g:airline_section_warning='%{ALEGetStatusLine()}'
-" let g:airline_section_error='%{ALEGetStatusLine()}'
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
-" let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
-" let g:indentLine_color_term    = 239
-" let g:indentLine_color_gui     = '#717273'
-" let g:indentLine_char          = '█'
-" let g:indentLine_concealcursor = 'niv'             " (default 'inc')
-" let g:indentLine_conceallevel  = 2                  " (default 2)                " (default 2)
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 
@@ -483,6 +464,19 @@ augroup color-scheme-tweaks
     highlight   IndentGuidesEven         guibg=#403560   ctermbg=60
 augroup END
 
+" augroup change-workspaces-colors-on-modify
+"     autocmd TextChangedI * call ChangeWorkspaceColorBasedOnModifyFlag()
+"     autocmd TextChanged * call ChangeWorkspaceColorBasedOnModifyFlag()
+" augroup END
+
+" function ChangeWorkspaceColorBasedOnModifyFlag()
+"     if &modified
+"         highlight WorkspaceBufferCurrent guibg=#98C379 ctermbg=180 guifg=#262626 ctermfg=16
+"     else
+"         highlight WorkspaceBufferCurrent guibg=#E5C07B ctermbg=180 guifg=#262626 ctermfg=16
+"     endif
+" endfunction
+
 augroup tab-lengths
     autocmd!
     autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
@@ -564,6 +558,8 @@ nnoremap <leader>gst :Gstatus<CR>
 nnoremap <leader>gd  :Gdiff<CR>
 
 " Non plugin related keymaps
+nnoremap n nzz
+nnoremap N Nzz
     " replace word under cursor
 nnoremap <leader>F bye:%s/<C-r>"/
     " replace selected word
