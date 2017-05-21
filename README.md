@@ -1,14 +1,46 @@
-## Things that require manual installation
-----
-### [Neovim](https://github.com/neovim/neovim)
+#### Config files proper location
 
-`sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip silversearcher-ag`  
+`~/.config/redshift.conf`  
+`~/.config/alacritty/alacritty.yml`  
+`~/.imwheelrc`  
+`~/.vimrc`  
+`~/.tmux.conf`  
+`~/.zshrc`  
+`~/.rubocop.yml`  
+`~/.tmux/plugins/tmux-powerline/themes/default.sh` (after installing tmux-powerline plugin)  
+
+---
+
+#### resolve neovim plugins dependencies
+
+build `universal-ctags/ctags` ctags  
+`sudo -H pip3 install psutil` ctags  
+`sudo npm install -g livedown` livedown  
+`sudo apt install silversearcher-ag` ag  
+
+---
+
+### Things that require manual installation
+
+#### ppa repositories you might want to add
+
+`sudo add-apt-repository -y ppa:maarten-baert/simplescreenrecorder`  
+`sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer`  
+
+#### [Neovim](https://github.com/neovim/neovim)
+
+`mkdir -p ~/.config/nvim`  
+`ln -s ~/.config/nvim/init.vim ~/.vimrc`  
+`ln -s ~/.config/nvim/.vim ~/.vim`  
+`sudo apt install software-properties-common python-dev python-pip python3-dev python3-pip`  
 `sudo add-apt-repository -y ppa:neovim-ppa/unstable`  
 `sudo apt update`  
-`sudo apt install neovim`
+`sudo apt install neovim`  
+`pip2 install neovim`  
+`pip3 install neovim`  
+`gem install neovim`  
 
-
-### [Vim-Plug](https://github.com/junegunn/vim-plug)
+#### [Vim-Plug](https://github.com/junegunn/vim-plug)
 
 `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
@@ -17,7 +49,7 @@
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 
 
-### [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh) plugins
+#### [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh) plugins
 
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
@@ -36,26 +68,19 @@
 
 `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
 
-### check if console supports 24bit - truecolor
+
+### Debug
+
+---
+
+#### check if console supports 24bit - truecolor
 `bash testcase-truecolors.sh`
-
-![](http://i.imgur.com/2OfD8qT.png, "Truecolor")
-
-![](http://i.imgur.com/B7npkfM.png, "Not really")
-
-
-### ppa repositories you might want to add
-
-
-`sudo add-apt-repository -y ppa:maarten-baert/simplescreenrecorder`  
-`sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer`  
-`sudo add-apt-repository -y ppa:atareao/atareao     #touchpad-indicator`
 
 ----
 
-## Common bugs
+### Common bugs
 
-### Low cpu frequency after suspending laptop
+#### Low cpu frequency after suspending laptop
 ###### (dell latitude e6430 / i5-3320m)
 
 #### diagnosis
@@ -75,7 +100,7 @@ you have to set register `0x19a` to `0` with `wrmsr -a 0x19a 0x0`
 `sudo echo 'msr' >> /etc/modules`
 
 
-### Fix mouse wheel scrolling speed systemwide
+#### Fix mouse wheel scrolling speed systemwide
 install `imwheel`  
 `sudo apt-get install imwheel`
 
