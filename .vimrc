@@ -315,26 +315,18 @@ let g:AutoPairsShortcutFastWrap = ''
 let g:AutoPairsMapCh = ''
 
 " completion
-let deoplete#tag#cache_limit_size    = 50000000
-let g:SuperTabDefaultCompletionType  = '<C-n>'
-let g:deoplete#auto_complete_delay   = 100
-let g:deoplete#auto_refresh_delay    = 25
-let g:deoplete#enable_at_startup     = 1
-let g:deoplete#enable_camel_case     = 1
-let g:deoplete#enable_ignore_case    = 1
+let deoplete#tag#cache_limit_size = 50000000
+let g:deoplete#auto_complete_delay = 2
+let g:deoplete#enable_ignore_case = 0
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_refresh_always = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#enable_smart_case     = 1
-
-let g:deoplete#sources                   = get(g:, 'deoplete#sources', {})
-let g:deoplete#sources._                 = ['buffer', 'file']
-let g:deoplete#sources.javascript        = ['deoplete-ternjs', 'vim-javascript']
-let g:deoplete#sources.ruby              = ['deoplete-ruby', 'vim-ruby', 'vim-rails' ]
-let g:deoplete#omni#functions            = {}
-let g:deoplete#omni#functions.javascript = [
-  \ 'tern#Complete',
-  \ 'jspc#omni'
-\]
+let g:deoplete#auto_refresh_delay = 2
+let g:deoplete#max_abbr_width = 0
+let g:deoplete#max_menu_width = 0
+let g:deoplete#max_list = 30
+imap <c-j> <Tab>
+imap <c-k> <S-Tab>
 let g:vimrubocop_config              = '~/.rubocop.yml'
 
 imap <c-j> <Tab>
@@ -366,23 +358,21 @@ if executable('ag')
     map <C-l> :CtrlPMRU<CR>
 endif
 
-" tags
-let g:neotags_enabled    = 1
-let g:neotags_run_ctags  = 0
-let g:neotags_ctags_bin  = '/usr/local/bin/ctags'
+let g:neotags_ctags_timeout = 5
+let g:neotags_ctags_bin = 'ctags'
+let g:neotags_ctags_args = [
+            \ '--recurse=yes',
+            \ '--sort=yes',
+            \ '--fields=+l',
+            \ '--c-kinds=+p',
+            \ '--c++-kinds=+p',
+            \ '--extras=+q'
+            \ ]
+let g:neotags_enabled = 1
+let g:neotags_highlight = 0
 let g:neotags_file = './tags'
-" let g:neotags_appendpath = 0
-let g:neotags_highlight  = 0
-let g:neotags_recursive  = 1
-let g:neotags_events_update = ['BufWritePost']
-" let g:neotags_ctags_args = [
-"             \ '-L -',
-"             \ '--fields=+l',
-"             \ '--c-kinds=+p',
-"             \ '--c++-kinds=+p',
-"             \ '--sort=no',
-"             \ '--extra=+q'
-"             \ ]
+let g:neotags_recursive = 1
+let g:neotags_events_update = ['BufReadPost']
 
 " neoterm
 let test#strategy            = 'neoterm'
