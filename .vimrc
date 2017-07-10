@@ -46,6 +46,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline-themes'           " Themes for airline
     Plug 'blueyed/vim-diminactive'                  " Dim inactive windows
     Plug 'kien/rainbow_parentheses.vim'             " Different parentheses colors for each depth level
+    Plug 'bounceme/poppy.vim'                       " Improve parentheses colorize behaviour
 
 " window management
     Plug 'szw/vim-maximizer'                        " maximize window
@@ -254,6 +255,11 @@ let g:rbpt_colorpairs = [
     \ ['red',         'lemonchiffon'],
     \ ]
 let g:rbpt_max = 16
+" Poppy
+au! cursormoved * call PoppyInit()
+let g:poppy_point_enable = 1
+let g:poppyhigh = ['MatchParen']
+let loaded_matchparen = 1
 
 " livedown
 let g:livedown_browser = 'google-chrome'
@@ -315,6 +321,7 @@ let g:AutoPairsShortcutFastWrap = ''
 let g:AutoPairsMapCh = ''
 
 " completion
+let g:SuperTabDefaultCompletionType = "<c-n>"
 let deoplete#tag#cache_limit_size = 50000000
 let g:deoplete#auto_complete_delay = 2
 let g:deoplete#enable_ignore_case = 0
@@ -325,24 +332,21 @@ let g:deoplete#auto_refresh_delay = 2
 let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_menu_width = 0
 let g:deoplete#max_list = 30
-imap <c-j> <Tab>
-imap <c-k> <S-Tab>
 let g:vimrubocop_config              = '~/.rubocop.yml'
-
-imap <c-j> <Tab>
-imap <c-k> <S-Tab>
-imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
-imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
-inoremap    <expr><C-f>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
-inoremap    <expr><C-b>     pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
-imap        <expr><C-d>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-imap        <expr><C-u>     pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+" imap        <expr><C-j>     pumvisible() ? "\<C-n>" : "\<C-j>"
+" imap        <expr><C-k>     pumvisible() ? "\<C-p>" : "\<C-k>"
+" inoremap    <expr><C-f>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<Right>"
+" inoremap    <expr><C-b>     pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<Left>"
+" imap        <expr><C-d>     pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+" imap        <expr><C-u>     pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 imap        <C-e><C-e>      <Plug>(neosnippet_expand_or_jump)
 smap        <C-e><C-e>      <Plug>(neosnippet_expand_or_jump)
 xmap        <C-e><C-e>      <Plug>(neosnippet_expand_target)
 imap        <C-e><C-e>      <Plug>(neosnippet_expand_or_jump)
 smap        <expr><TAB>     neosnippet#expandable_or_jumpable() ?
                             \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <c-j> <Tab>
+imap <c-k> <S-Tab>
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = '0'
 
