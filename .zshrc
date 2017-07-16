@@ -87,6 +87,8 @@ source $ZSH/oh-my-zsh.sh
 alias update='sudo apt update && sudo apt -y upgrade'
 alias yt="youtube-dl -x --audio-format mp3 --audio-quality 0 -o '%(title)s.%(ext)s'"
 alias vimrc='nvim ~/.vimrc'
+alias clearpath="PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++')"
+alias echopath="echo $PATH | sed 's/:/\n/g'"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
