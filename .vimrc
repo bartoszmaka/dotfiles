@@ -97,6 +97,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'Shougo/neco-vim',            { 'for' : ['vim'] }
   Plug 'lmeijvogel/vim-yaml-helper',       { 'for' : ['yaml'] }
   Plug 'ervandew/supertab'                                               " Confirm autocompletion with tab
+
+  Plug 'rlue/vim-getting-things-down'
 call plug#end()
 " **********************************
 
@@ -175,7 +177,13 @@ set cursorline                   " Highlight current line
 set title
 set title titlestring=%<%F%=
 
+let g:gtdown_cycle_states = ['TODO', 'WIP', 'DONE', 'WAIT', 'CANCELLED']
+let g:gtdown_default_fold_level = 2222
+let g:gtdown_show_progress = 1
+let g:gtdown_fold_list_items = 0
+let g:polyglot_disabled = ['markdown']
 " colorscheme
+
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
@@ -214,7 +222,8 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:gitgutter_sign_column_always = 1
+" let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
 let g:gitgutter_map_keys = 0
 
 let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
@@ -452,6 +461,20 @@ augroup color-scheme-tweaks
   highlight   IndentGuidesEven     guibg=#403560   ctermbg=60
 augroup END
 let g:mta_use_matchparen_group = 0
+
+
+command! TODO :call getting_things_down#show_todo()
+augroup gtDown
+    " Cycle through TODO keywords
+        autocmd BufReadPre TODO.md nmap <buffer> <silent> <leader>s :call getting_things_down#cycle_status()<CR>
+    " Toggle TODO tasks
+        autocmd BufReadPre TODO.md nnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
+        autocmd BufReadPre TODO.md vnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
+    " Change default task colors
+        autocmd BufReadPre TODO.md hi! markdownTodoReadyN guifg=#E5C07B
+        autocmd BufReadPre TODO.md hi! markdownTodoDoneN guifg=#C5A05B
+        autocmd BufReadPre TODO.md hi! markdownTodoWaitingN guifg=#9648AD
+augroup END
 
 augroup tab-lengths
   autocmd!
