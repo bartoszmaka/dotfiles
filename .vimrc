@@ -472,7 +472,7 @@ augroup gtDown
         autocmd BufReadPre TODO.md vnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
     " Change default task colors
         autocmd BufReadPre TODO.md hi! markdownTodoReadyN guifg=#E5C07B
-        autocmd BufReadPre TODO.md hi! markdownTodoDoneN guifg=#C5A05B
+        autocmd BufReadPre TODO.md hi! markdownTodoDoneN guifg=#999999
         autocmd BufReadPre TODO.md hi! markdownTodoWaitingN guifg=#9648AD
 augroup END
 
@@ -525,6 +525,8 @@ let g:move_key_modifier = 'C'
   " vim expand
 vmap v <Plug>(expand_region_expand)
   " Easymotion
+  " #Hack
+map <Leader>trolololo <Plug>(easymotion-prefix)
 map <leader>fi <Plug>(easymotion-sn)
 omap <leader>fi <Plug>(easymotion-tn)
 map <leader>n <Plug>(easymotion-next)
@@ -559,6 +561,8 @@ nnoremap <leader>gst :Gstatus<CR>
 nnoremap <leader>gd  :Gdiff<CR>
 
 " Non plugin related keymaps
+nnoremap <Leader><Space> /
+nnoremap <Leader>q <C-w>q
 nnoremap n nzz
 nnoremap N Nzz
   " replace word under cursor
