@@ -478,6 +478,7 @@ augroup END
 
 augroup tab-lengths
   autocmd!
+  autocmd Filetype neoterm setlocal so=0
   autocmd Filetype gitcommit  setlocal cc=72
   autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
   autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
