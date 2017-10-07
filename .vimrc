@@ -31,7 +31,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'rking/ag.vim'                                            " find in files helper
 
 " UI
-  Plug 'dominikduda/vim_current_word'
+  Plug 'dummyunit/vim_current_word'
   Plug 'machakann/vim-highlightedyank'
   Plug 'joshdick/onedark.vim'            " ColorScheme
   Plug 'ryanoasis/vim-devicons'          " Fancy icons
@@ -372,7 +372,7 @@ let test#strategy      = 'neoterm'
 let g:neoterm_keep_term_open = 1
 let g:neoterm_run_tests_bg   = 1
 let g:neoterm_position     = 'horizontal'
-let g:neoterm_size       = 10
+let g:neoterm_size       = 16
 nnoremap <leader>te :Ttoggle<CR>
 let g:better_whitespace_filetypes_blacklist=[]
 
@@ -527,7 +527,7 @@ let g:move_key_modifier = 'C'
 vmap v <Plug>(expand_region_expand)
   " Easymotion
   " #Hack
-map <Leader>trolololo <Plug>(easymotion-prefix)
+map <Leader><Leader> <Plug>(easymotion-prefix)
 map <leader>fi <Plug>(easymotion-sn)
 omap <leader>fi <Plug>(easymotion-tn)
 map <leader>n <Plug>(easymotion-next)
@@ -562,7 +562,7 @@ nnoremap <leader>gst :Gstatus<CR>
 nnoremap <leader>gd  :Gdiff<CR>
 
 " Non plugin related keymaps
-nnoremap <Leader><Space> /
+" nnoremap <Leader><Space> /
 nnoremap <Leader>q <C-w>q
 nnoremap n nzz
 nnoremap N Nzz
