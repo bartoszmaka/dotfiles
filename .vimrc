@@ -47,6 +47,7 @@ call plug#begin('~/.vim/plugged')
 " window management
   Plug 'szw/vim-maximizer'            " maximize window
   Plug 'simeji/winresizer'            " window resize helper
+  Plug 'wesQ3/vim-windowswap'
 
 " tabs management
   Plug 'bagrat/vim-workspace'
@@ -359,7 +360,8 @@ let g:neotags_ctags_args = [
       \ '--extras=+q',
       \ '--exclude=.git',
       \ '--exclude=node_modules',
-      \ '--exclude=dist'
+      \ '--exclude=dist',
+      \ '--exclude=*.js'
       \ ]
 let g:neotags_enabled = 1
 let g:neotags_highlight = 0
@@ -481,22 +483,22 @@ augroup tab-lengths
   autocmd Filetype neoterm setlocal so=0
   autocmd Filetype gitcommit  setlocal cc=72
   autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
-  autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype eruby    setlocal ts=2 sts=2 sw=2
-  autocmd Filetype scss     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype sass     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype slim     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype html     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype jsx      setlocal ts=2 sts=2 sw=2
-  autocmd Filetype haml     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype coffee   setlocal ts=2 sts=2 sw=2
-  autocmd Filetype yaml     setlocal ts=2 sts=2 sw=2
-  autocmd Filetype c      setlocal ts=4 sts=4 sw=4 cc=79
-  autocmd Filetype cpp    setlocal ts=4 sts=4 sw=4 cc=79
-  autocmd Filetype objc     setlocal ts=4 sts=4 sw=4 cc=79
-  autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 cc=79
-  autocmd Filetype python   setlocal ts=4 sts=4 sw=4 cc=79
+  " autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype eruby    setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype scss     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype sass     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype slim     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype html     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype jsx      setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype haml     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype coffee   setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype yaml     setlocal ts=2 sts=2 sw=2
+  " autocmd Filetype c      setlocal ts=4 sts=4 sw=4 cc=79
+  " autocmd Filetype cpp    setlocal ts=4 sts=4 sw=4 cc=79
+  " autocmd Filetype objc     setlocal ts=4 sts=4 sw=4 cc=79
+  " autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 cc=79
+  " autocmd Filetype python   setlocal ts=4 sts=4 sw=4 cc=79
 augroup END
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
  " **********************************
