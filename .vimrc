@@ -1,16 +1,11 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-" Testing
-  " Plug 'dkprice/vim-easygrep'
-  " Plug 'dyng/ctrlsf.vim'
-  " Plug 'schickling/vim-bufonly'
-
 " autocompletion
   Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/neoinclude.vim'                                           " extends deoplete
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
+  " Plug 'SirVer/ultisnips'
+  " Plug 'honza/vim-snippets'
 
 " auto insert pairs
   Plug 'jiangmiao/auto-pairs' " auto insert parentheses, quotes etc.
@@ -29,23 +24,20 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'pbogut/fzf-mru.vim'
-  " Plug 'ctrlpvim/ctrlp.vim'                                      " In project file finder
-  " Plug 'JazzCore/ctrlp-cmatcher',       { 'do': './install.sh' }
   Plug 'rking/ag.vim'                                            " find in files helper
 
 " UI
-  Plug 'dummyunit/vim_current_word'
+  " Plug 'dummyunit/vim_current_word'
   Plug 'machakann/vim-highlightedyank'
   Plug 'joshdick/onedark.vim'            " ColorScheme
   Plug 'ryanoasis/vim-devicons'          " Fancy icons
-  " Plug 'ap/vim-css-color'                " Color perview for vim
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'airblade/vim-gitgutter'          " Shows git signs next to line numbers
   Plug 'bling/vim-airline'               " Airline
   Plug 'vim-airline/vim-airline-themes'  " Themes for airline
   Plug 'blueyed/vim-diminactive'         " Dim inactive windows
-  Plug 'kien/rainbow_parentheses.vim'    " Different parentheses colors for each depth level
-  Plug 'bounceme/poppy.vim'              " Improve parentheses colorize behaviour
+  " Plug 'kien/rainbow_parentheses.vim'    " Different parentheses colors for each depth level
+  " Plug 'bounceme/poppy.vim'              " Improve parentheses colorize behaviour
 
 " window management
   Plug 'szw/vim-maximizer'            " maximize window
@@ -246,11 +238,11 @@ let g:rbpt_colorpairs = [
   \ ['red',     'lemonchiffon'],
   \ ]
 let g:rbpt_max = 16
-" Poppy
-au! cursormoved * call PoppyInit()
-let g:poppy_point_enable = 1
-let g:poppyhigh = ['MatchParen']
-let loaded_matchparen = 1
+" " Poppy
+" au! cursormoved * call PoppyInit()
+" let g:poppy_point_enable = 1
+" let g:poppyhigh = ['MatchParen']
+" let loaded_matchparen = 1
 
 " livedown
 let g:livedown_browser = 'google-chrome'
@@ -274,6 +266,8 @@ augroup nerdtree
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 augroup END
+nmap <C-p><C-q> :TagbarToggle<CR>
+nmap <C-p><C-u> :MundoToggle<CR>
 nmap <C-p><C-r> :NERDTreeFind<CR>zz
 nmap <C-p><C-e> :NERDTreeToggle<CR>
 nmap   <F2>     :NERDTreeToggle<CR>
@@ -383,15 +377,6 @@ inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
 
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 let g:neotags_ctags_timeout = 8
 let g:neotags_ctags_bin = 'ctags'
@@ -449,13 +434,13 @@ augroup trailing-whitespaces
   autocmd FileType markdown autocmd BufEnter <buffer> DisableStripWhitespaceOnSave
 augroup END
 
-augroup rainbow-parentheses
-  autocmd!
-  autocmd VimEnter * RainbowParenthesesToggle
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadSquare
-  autocmd Syntax * RainbowParenthesesLoadBraces
-augroup END
+" augroup rainbow-parentheses
+"   autocmd!
+"   autocmd VimEnter * RainbowParenthesesToggle
+"   autocmd Syntax * RainbowParenthesesLoadRound
+"   autocmd Syntax * RainbowParenthesesLoadSquare
+"   autocmd Syntax * RainbowParenthesesLoadBraces
+" augroup END
 
 augroup dim-inactive-fix
   autocmd!
@@ -469,10 +454,8 @@ augroup END
 
 augroup insert-mode-tweaks
   autocmd!
-  " autocmd InsertEnter * set norelativenumber
   autocmd InsertEnter * highlight CursorLine guibg=#512121 ctermbg=52
   autocmd InsertEnter * highlight CursorLineNR guibg=#512121
-  " autocmd InsertLeave * set relativenumber
   autocmd InsertLeave * highlight CursorLine guibg=#343D46 ctermbg=16
   autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
 augroup END
@@ -480,39 +463,33 @@ augroup END
 let g:mta_set_default_matchtag_color = 0
 augroup color-scheme-tweaks
   autocmd!
-  " highlight   Cursor           gui=reverse
-  highlight   HighlightedyankRegion  cterm=reverse   gui=reverse
-  " highlight   iCursor          guibg=green   guifg=white
-  highlight   CursorLineNR       guibg=#343D46
-  highlight   IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight   Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight   ExtraWhitespace      ctermbg=160   guibg=#D70000
-  highlight   CurrentWordTwins     ctermbg=12    guibg=#363636
-  highlight   CurrentWord        ctermbg=14    guibg=#262020
-  highlight   MatchTag           gui=bold    cterm=bold
+  highlight   HighlightedyankRegion cterm=reverse   gui=reverse
+  highlight   CursorLineNR          guibg=#343D46
+  highlight   IncSearch             guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight   Search                guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight   ExtraWhitespace       ctermbg=160     guibg=#D70000
+  highlight   CurrentWordTwins      ctermbg=12      guibg=#363636
+  highlight   CurrentWord           ctermbg=14      guibg=#262020
+  highlight   MatchTag              gui=bold        cterm=bold
 
-  highlight   WorkspaceBufferCurrent   guibg=#E5C07B   ctermbg=180   guifg=#262626   ctermfg=16
+  highlight   WorkspaceBufferCurrent guibg=#E5C07B   ctermbg=180   guifg=#262626   ctermfg=16
   highlight   WorkspaceBufferActive  guibg=#C5A05B   ctermbg=179   guifg=#262626   ctermfg=16
   highlight   WorkspaceBufferHidden  guibg=#444444   ctermbg=59    guifg=#262626   ctermfg=16
   highlight   WorkspaceBufferTrunc   guibg=#FF0000   ctermbg=196   guifg=#262626   ctermfg=16
   highlight   WorkspaceTabCurrent    guibg=#C678DD   ctermbg=176   guifg=#262626   ctermfg=16
   highlight   WorkspaceTabHidden     guibg=#9648AD   ctermbg=97    guifg=#262626   ctermfg=16
-  highlight   WorkspaceFill      guibg=#282C34   ctermbg=17    guifg=#FFFFFF   ctermfg=15
+  highlight   WorkspaceFill          guibg=#282C34   ctermbg=17    guifg=#FFFFFF   ctermfg=15
 
   highlight   IndentGuidesOdd      guibg=#304050   ctermbg=61
   highlight   IndentGuidesEven     guibg=#403560   ctermbg=60
 augroup END
 let g:mta_use_matchparen_group = 0
 
-
 command! TODO :call getting_things_down#show_todo()
 augroup gtDown
-    " Cycle through TODO keywords
         autocmd BufReadPre TODO.md nmap <buffer> <silent> <leader>s :call getting_things_down#cycle_status()<CR>
-    " Toggle TODO tasks
         autocmd BufReadPre TODO.md nnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
         autocmd BufReadPre TODO.md vnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
-    " Change default task colors
         autocmd BufReadPre TODO.md hi! markdownTodoReadyN guifg=#E5C07B
         autocmd BufReadPre TODO.md hi! markdownTodoDoneN guifg=#999999
         autocmd BufReadPre TODO.md hi! markdownTodoWaitingN guifg=#9648AD
@@ -520,7 +497,7 @@ augroup END
 
 augroup tab-lengths
   autocmd!
-  autocmd Filetype neoterm setlocal so=0
+  autocmd Filetype neoterm    setlocal so=0
   autocmd Filetype gitcommit  setlocal cc=72
   autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
 augroup END
