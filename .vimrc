@@ -2,8 +2,8 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 " Testing
-  Plug 'dkprice/vim-easygrep'
-  Plug 'dyng/ctrlsf.vim'
+  " Plug 'dkprice/vim-easygrep'
+  " Plug 'dyng/ctrlsf.vim'
   " Plug 'schickling/vim-bufonly'
 
 " autocompletion
@@ -26,8 +26,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'Xuyuanp/nerdtree-git-plugin' " NerdTree git integration
 
 " project finder
-  Plug 'ctrlpvim/ctrlp.vim'                                      " In project file finder
-  Plug 'JazzCore/ctrlp-cmatcher',       { 'do': './install.sh' }
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'pbogut/fzf-mru.vim'
+  " Plug 'ctrlpvim/ctrlp.vim'                                      " In project file finder
+  " Plug 'JazzCore/ctrlp-cmatcher',       { 'do': './install.sh' }
   Plug 'rking/ag.vim'                                            " find in files helper
 
 " UI
@@ -35,7 +38,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'machakann/vim-highlightedyank'
   Plug 'joshdick/onedark.vim'            " ColorScheme
   Plug 'ryanoasis/vim-devicons'          " Fancy icons
-  Plug 'ap/vim-css-color'                " Color perview for vim
+  " Plug 'ap/vim-css-color'                " Color perview for vim
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'airblade/vim-gitgutter'          " Shows git signs next to line numbers
   Plug 'bling/vim-airline'               " Airline
@@ -72,13 +75,6 @@ call plug#begin('~/.vim/plugged')
 " Terminal provider
   Plug 'kassio/neoterm'               " terminal mode
 
-" Markdown perview
-  Plug 'shime/vim-livedown'
-
-" Yank history
-  Plug 'Shougo/unite.vim'
-  Plug 'Shougo/neoyank.vim'
-
 " Code minimap
   Plug 'majutsushi/tagbar'            " perview file structure
   Plug 'c0r73x/neotags.nvim'
@@ -97,6 +93,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'fishbullet/deoplete-ruby',         { 'for' : ['ruby'] }
   Plug 'Shougo/neco-vim',            { 'for' : ['vim'] }
   Plug 'lmeijvogel/vim-yaml-helper',       { 'for' : ['yaml'] }
+  Plug 'joukevandermaas/vim-ember-hbs'
   Plug 'ervandew/supertab'                                               " Confirm autocompletion with tab
 
   Plug 'rlue/vim-getting-things-down'
@@ -277,6 +274,8 @@ augroup nerdtree
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 augroup END
+nmap <C-p><C-r> :NERDTreeFind<CR>zz
+nmap <C-p><C-e> :NERDTreeToggle<CR>
 nmap   <F2>     :NERDTreeToggle<CR>
 nmap   <leader><F2> :NERDTreeFind<CR>zz
 noremap  <F3>     :TagbarToggle<CR>
@@ -289,6 +288,7 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:winresizer_vert_resize  = 1
 let g:winresizer_horiz_resize   = 1
 let g:winresizer_keycode_finish = 101
+
 " vim-polyglot
 let g:polyglot_disabled = ['javascript', 'markdown', 'jsx']
 
@@ -298,8 +298,6 @@ let g:tmux_navigator_no_mappings = 1
 " rust formatter on save
 let g:rustfmt_autosave = 1
 
-" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-"🌩 ⛅ <- those icons does not always show for some reason
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -337,19 +335,65 @@ imap <c-k> <S-Tab>
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = '0'
 
-" ctrlp
-let g:ctrlp_map     = '<c-p>'
-let g:ctrlp_cmd     = 'CtrlPMixed'
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_cache_dir   = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-  map <C-l> :CtrlPMRU<CR>
-endif
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
-let g:neotags_ctags_timeout = 5
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+" Mapping selecting mappings
+nmap <C-k><C-s> <plug>(fzf-maps-n)
+xmap <C-k><C-s> <plug>(fzf-maps-x)
+omap <C-k><C-s> <plug>(fzf-maps-o)
+nnoremap <C-p><C-p> :FZF<CR>
+nnoremap <C-p><C-b> :Buffers<CR>
+nnoremap <C-p><C-m> :FZFMru<CR>
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+let g:neotags_ctags_timeout = 8
 let g:neotags_ctags_bin = 'ctags'
 let g:neotags_ctags_args = [
       \ '--recurse=yes',
@@ -361,10 +405,11 @@ let g:neotags_ctags_args = [
       \ '--exclude=.git',
       \ '--exclude=node_modules',
       \ '--exclude=dist',
-      \ '--exclude=*.js'
+      \ '--exclude=tmp',
+      \ '--exclude=.tmp',
       \ ]
 let g:neotags_enabled = 1
-let g:neotags_highlight = 0
+let g:neotags_highlight = 1
 let g:neotags_file = './tags'
 let g:neotags_recursive = 1
 let g:neotags_events_update = ['BufReadPost']
@@ -376,6 +421,7 @@ let g:neoterm_run_tests_bg   = 1
 let g:neoterm_position     = 'horizontal'
 let g:neoterm_size       = 16
 nnoremap <leader>te :Ttoggle<CR>
+nnoremap <C-p><C-t> :Ttoggle<CR>
 let g:better_whitespace_filetypes_blacklist=[]
 
 " matchtagalways
@@ -416,12 +462,6 @@ augroup dim-inactive-fix
   autocmd BufNew * DimInactive
 augroup END
 
-" augroup reload-vimrc-on-save
-"   " it breaks airline for some reason
-"   autocmd!
-"   autocmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
-" augroup END
-
 augroup remember-cursor-position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -440,12 +480,12 @@ augroup END
 let g:mta_set_default_matchtag_color = 0
 augroup color-scheme-tweaks
   autocmd!
-  highlight   Cursor           gui=reverse
+  " highlight   Cursor           gui=reverse
   highlight   HighlightedyankRegion  cterm=reverse   gui=reverse
-  highlight   iCursor          guibg=green   guifg=white
+  " highlight   iCursor          guibg=green   guifg=white
   highlight   CursorLineNR       guibg=#343D46
-  highlight   IncSearch        guifg=#FF0000   guibg=NONE    guisp=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight   Search           guifg=#FFFFFF   guibg=NONE    guisp=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight   IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight   Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
   highlight   ExtraWhitespace      ctermbg=160   guibg=#D70000
   highlight   CurrentWordTwins     ctermbg=12    guibg=#363636
   highlight   CurrentWord        ctermbg=14    guibg=#262020
@@ -483,33 +523,16 @@ augroup tab-lengths
   autocmd Filetype neoterm setlocal so=0
   autocmd Filetype gitcommit  setlocal cc=72
   autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype eruby    setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype scss     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype sass     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype slim     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype html     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype jsx      setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype haml     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype ruby     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype coffee   setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype yaml     setlocal ts=2 sts=2 sw=2
-  " autocmd Filetype c      setlocal ts=4 sts=4 sw=4 cc=79
-  " autocmd Filetype cpp    setlocal ts=4 sts=4 sw=4 cc=79
-  " autocmd Filetype objc     setlocal ts=4 sts=4 sw=4 cc=79
-  " autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 cc=79
-  " autocmd Filetype python   setlocal ts=4 sts=4 sw=4 cc=79
 augroup END
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
  " **********************************
 
 " Plugin related keymaps
   " workspace
-noremap <Tab> :WSNext<CR>
-noremap <S-Tab> :WSPrev<CR>
-noremap <Leader><Tab> :WSClose<CR>
-noremap <Leader><S-Tab> :WSClose!<CR>
-noremap <C-t> :WSTabNew<CR>
+noremap <leader>1 :WSNext<CR>
+noremap <leader>2 :WSPrev<CR>
+noremap <Leader>! :WSClose<CR>
+noremap <Leader><space>! :WSClose!<CR>
 
 cabbrev bonly WSBufOnly
 
@@ -528,7 +551,6 @@ let g:move_key_modifier = 'C'
   " vim expand
 vmap v <Plug>(expand_region_expand)
   " Easymotion
-  " #Hack
 map <Leader><Leader> <Plug>(easymotion-prefix)
 map <leader>fi <Plug>(easymotion-sn)
 omap <leader>fi <Plug>(easymotion-tn)
@@ -572,7 +594,6 @@ nnoremap N Nzz
 nnoremap <leader>F bye:%s/<C-r>"/
   " replace selected word
 vnoremap <leader>F y:%s/<C-r>"/
-
   " tabs navigation
 nnoremap tt :tabnew<CR>
 nnoremap TT :tabclose<CR>
@@ -595,8 +616,6 @@ vmap <C-v> x"+P
 nnoremap j gj
 nnoremap k gk
   " allow moving cursor in insert mode
-inoremap <c-h> <Esc>ha
-inoremap <c-l> <Esc>la
   " map ; as : for faster command typing
 nnoremap ; :
   " nnoremap <leader>g g;
