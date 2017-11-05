@@ -453,9 +453,9 @@ imap <c-j> <Tab>
 imap <c-k> <S-Tab>
 
 " find in project
-nmap <C-k><C-s> <plug>(fzf-maps-n)
-xmap <C-k><C-s> <plug>(fzf-maps-x)
-omap <C-k><C-s> <plug>(fzf-maps-o)
+nmap <C-k><C-s>     <plug>(fzf-maps-n)
+xmap <C-k><C-s>     <plug>(fzf-maps-x)
+omap <C-k><C-s>     <plug>(fzf-maps-o)
 nnoremap <C-p><C-p> :FZF<CR>
 nnoremap <C-p><C-b> :Buffers<CR>
 nnoremap <C-p><C-m> :FZFMru<CR>
@@ -470,19 +470,19 @@ inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 " extension windows management
-nmap <C-p><C-q> :TagbarToggle<CR>
-nmap <C-p><C-u> :MundoToggle<CR>
-nmap <C-p><C-r> :NERDTreeFind<CR>zz
-nmap <C-p><C-e> :NERDTreeToggle<CR>
-nmap   <F2>     :NERDTreeToggle<CR>
-nmap   <leader><F2> :NERDTreeFind<CR>zz
-noremap  <F3>     :TagbarToggle<CR>
-nnoremap <F4>     :MundoToggle<CR>
+nmap     <C-p><C-q>   :TagbarToggle<CR>
+nmap     <C-p><C-u>   :MundoToggle<CR>
+nmap     <C-p><C-r>   :NERDTreeFind<CR>zz
+nmap     <C-p><C-e>   :NERDTreeToggle<CR>
+nmap     <F2>         :NERDTreeToggle<CR>
+nmap     <leader><F2> :NERDTreeFind<CR>zz
+noremap  <F3>         :TagbarToggle<CR>
+nnoremap <F4>         :MundoToggle<CR>
 
 " workspace navigation
-noremap <leader>2 :WSNext<CR>
-noremap <leader>1 :WSPrev<CR>
-noremap <Leader>! :WSClose<CR>
+noremap <leader>2        :WSNext<CR>
+noremap <leader>1        :WSPrev<CR>
+noremap <Leader>!        :WSClose<CR>
 noremap <Leader><space>! :WSClose!<CR>
 cabbrev bonly WSBufOnly
 
@@ -500,14 +500,14 @@ let g:move_key_modifier = 'C'
 vmap v <Plug>(expand_region_expand)
 
 " Easymotion
-map <Leader><Leader> <Plug>(easymotion-prefix)
-map <leader>fi <Plug>(easymotion-sn)
-omap <leader>fi <Plug>(easymotion-tn)
-map <leader>n <Plug>(easymotion-next)
-map <leader>N <Plug>(easymotion-prev)
-map <Leader>L <Plug>(easymotion-lineforward)
-map <Leader>H <Plug>(easymotion-linebackward)
-map <Leader>. <Plug>(easymotion-repeat)
+map  <Leader><space> <Plug>(easymotion-prefix)
+map  <leader>fi      <Plug>(easymotion-sn)
+omap <leader>fi      <Plug>(easymotion-tn)
+map  <leader>n       <Plug>(easymotion-next)
+map  <leader>N       <Plug>(easymotion-prev)
+map  <Leader>L       <Plug>(easymotion-lineforward)
+map  <Leader>H       <Plug>(easymotion-linebackward)
+map  <Leader>.       <Plug>(easymotion-repeat)
 
 let g:ag_highlight=1
 
@@ -562,13 +562,13 @@ nnoremap TT :tabclose<CR>
 nnoremap tl :tabs<CR>
 
 " select whole file, (map old C-a functionality to <leader>a)
-nnoremap <C-a> ggVG
+nnoremap <C-a>     ggVG
 nnoremap <leader>a <C-a>
 
 " system clipboard integration
-vnoremap <leader>y  "+y
-nnoremap <leader>Y  "+yg_
-nnoremap <leader>y  "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+yg_
+nnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
@@ -594,21 +594,21 @@ map <leader>h ^
 map <leader>l $
 
 " Disabling mappings
-nnoremap Q q
-nnoremap q: <NOP>
-vnoremap q: <NOP>
-nnoremap <Up>  <NOP>
-nnoremap <Down>  <NOP>
-nnoremap <Left>  <NOP>
-nnoremap <Right> <NOP>
-inoremap <Up>  <NOP>
-inoremap <Down>  <NOP>
-inoremap <Left>  <NOP>
-inoremap <Right> <NOP>
-vnoremap <Up>  <NOP>
-vnoremap <Down>  <NOP>
-vnoremap <Left>  <NOP>
-vnoremap <Right> <NOP>
+nnoremap Q         q
+nnoremap q:        <NOP>
+vnoremap q:        <NOP>
+nnoremap <Up>      <NOP>
+nnoremap <Down>    <NOP>
+nnoremap <Left>    <NOP>
+nnoremap <Right>   <NOP>
+inoremap <Up>      <NOP>
+inoremap <Down>    <NOP>
+inoremap <Left>    <NOP>
+inoremap <Right>   <NOP>
+vnoremap <Up>      <NOP>
+vnoremap <Down>    <NOP>
+vnoremap <Left>    <NOP>
+vnoremap <Right>   <NOP>
 
 " macvim
 if has("gui_macvim")
