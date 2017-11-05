@@ -1,100 +1,87 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-" autocompletion
-  Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/neoinclude.vim'                                           " extends deoplete
-  " Plug 'SirVer/ultisnips'
-  " Plug 'honza/vim-snippets'
+  "autocompletion
+  if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'c0r73x/neotags.nvim'
+    Plug 'kassio/neoterm'                                           " terminal mode
+  else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'jsfaint/gen_tags.vim'
+  endif
 
-" auto insert pairs
-  Plug 'jiangmiao/auto-pairs' " auto insert parentheses, quotes etc.
-  Plug 'tpope/vim-endwise'    " auto insert 'end', 'endif' etc.
-
-" syntax checker
-  Plug 'ntpeters/vim-better-whitespace' " Detect trailing whitespaces
-  Plug 'w0rp/ale'                       " async syntax checking
-
-" project explorer
-  Plug 'scrooloose/nerdtree'         " Project explorer
-  Plug 'jistr/vim-nerdtree-tabs'     " Better behavior for nerdtree
-  Plug 'Xuyuanp/nerdtree-git-plugin' " NerdTree git integration
-
-" project finder
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'pbogut/fzf-mru.vim'
-  Plug 'rking/ag.vim'                                            " find in files helper
-
-" UI
-  " Plug 'dummyunit/vim_current_word'
-  Plug 'machakann/vim-highlightedyank'
-  Plug 'joshdick/onedark.vim'            " ColorScheme
-  Plug 'ryanoasis/vim-devicons'          " Fancy icons
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'airblade/vim-gitgutter'          " Shows git signs next to line numbers
-  Plug 'bling/vim-airline'               " Airline
-  Plug 'vim-airline/vim-airline-themes'  " Themes for airline
-  Plug 'blueyed/vim-diminactive'         " Dim inactive windows
-  " Plug 'kien/rainbow_parentheses.vim'    " Different parentheses colors for each depth level
-  " Plug 'bounceme/poppy.vim'              " Improve parentheses colorize behaviour
-
-" window management
-  Plug 'szw/vim-maximizer'            " maximize window
-  Plug 'simeji/winresizer'            " window resize helper
-  Plug 'wesQ3/vim-windowswap'
-
-" tabs management
-  Plug 'bagrat/vim-workspace'
-
-" code edit improvements
+  Plug 'ervandew/supertab'                                          " Confirm autocompletion with tab
+  Plug 'Shougo/neoinclude.vim'                                      " extends deoplete
+  Plug 'jiangmiao/auto-pairs'                                       " auto insert parentheses, quotes etc.
+  Plug 'tpope/vim-endwise'                                          " auto insert 'end', 'endif' etc.
+  Plug 'ntpeters/vim-better-whitespace'                             " Detect trailing whitespaces
+  Plug 'w0rp/ale'                                                   " async syntax checking
   Plug 'Valloric/MatchTagAlways'
   Plug 'tpope/vim-repeat'
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'rhysd/clever-f.vim'           " better f F t T
-  Plug 'matze/vim-move'               " Move block of code
+  Plug 'rhysd/clever-f.vim'                                         " better f F t T
+  Plug 'matze/vim-move'                                             " Move block of code
   Plug 'easymotion/vim-easymotion'
-  Plug 'tpope/vim-surround'           " Surround verb
-  Plug 'tpope/vim-commentary'         " Change selected code into comment
-  Plug 'godlygeek/tabular'            " Text align with regexp
-  Plug 'terryma/vim-expand-region'    " Select helper
+  Plug 'tpope/vim-surround'                                         " Surround verb
+  Plug 'tpope/vim-commentary'                                       " Change selected code into comment
+  Plug 'godlygeek/tabular'                                          " Text align with regexp
+  Plug 'terryma/vim-expand-region'                                  " Select helper
+  Plug 'janko-m/vim-test'                                           " Test helper
+  Plug 'benizi/vim-automkdir'                                       " autocreate folder if necessary when writing
+  Plug 'tpope/vim-fugitive'                                         " Git engine for vim
+  Plug 'rlue/vim-getting-things-down'
+  Plug 'dummyunit/vim_current_word'
 
-" Behavior
-  Plug 'janko-m/vim-test'     " Test helper
-  Plug 'benizi/vim-automkdir' " autocreate folder if necessary when writing
-  Plug 'tpope/vim-fugitive'   " Git engine for vim
+  Plug 'kien/rainbow_parentheses.vim'                               " Different parentheses colors for each depth level
+  Plug 'bounceme/poppy.vim'                                         " Improve parentheses colorize behaviour
 
-" Terminal provider
-  Plug 'kassio/neoterm'               " terminal mode
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'pbogut/fzf-mru.vim'
+  Plug 'rking/ag.vim'                                               " find in files helper
 
-" Code minimap
-  Plug 'majutsushi/tagbar'            " perview file structure
-  Plug 'c0r73x/neotags.nvim'
-
-" File history visualisation
-  Plug 'simnalamburt/vim-mundo'           " perview undos
-
-" tmux integration
-  Plug 'christoomey/vim-tmux-navigator'
+" UI extensions
+  Plug 'bagrat/vim-workspace'
+  Plug 'majutsushi/tagbar'                                          " perview file structure
+  Plug 'simnalamburt/vim-mundo'                                     " perview undos
+  Plug 'scrooloose/nerdtree'                                        " Project explorer
+  Plug 'jistr/vim-nerdtree-tabs'                                    " Better behavior for nerdtree
+  Plug 'Xuyuanp/nerdtree-git-plugin'                                " NerdTree git integration
+  Plug 'machakann/vim-highlightedyank'
+  Plug 'joshdick/onedark.vim'                                       " ColorScheme
+  Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'airblade/vim-gitgutter'                                     " Shows git signs next to line numbers
+  Plug 'bling/vim-airline'                                          " Airline
+  Plug 'vim-airline/vim-airline-themes'                             " Themes for airline
+  Plug 'blueyed/vim-diminactive'                                    " Dim inactive windows
+  Plug 'szw/vim-maximizer'                                          " maximize window
+  Plug 'simeji/winresizer'                                          " window resize helper
+  Plug 'wesQ3/vim-windowswap'
 
 " language specific
   Plug 'pangloss/vim-javascript'
   Plug 'aliou/sql-heredoc.vim'
   Plug 'mxw/vim-jsx'
-  Plug 'sheerun/vim-polyglot'
   Plug 'fishbullet/deoplete-ruby',         { 'for' : ['ruby'] }
-  Plug 'Shougo/neco-vim',            { 'for' : ['vim'] }
+  Plug 'Shougo/neco-vim',                  { 'for' : ['vim'] }
   Plug 'lmeijvogel/vim-yaml-helper',       { 'for' : ['yaml'] }
   Plug 'joukevandermaas/vim-ember-hbs'
-  Plug 'ervandew/supertab'                                               " Confirm autocompletion with tab
 
-  Plug 'rlue/vim-getting-things-down'
+  if !has('gui')
+    Plug 'christoomey/vim-tmux-navigator'
+  endif
 call plug#end()
 " **********************************
 
+" vim variables
+
 filetype plugin indent on
-syntax on                      " Enable syntax coloring
-let mapleader = "\<Space>"
+syntax on                               " Enable syntax coloring
+let mapleader =                         " \<Space>                                   "
 
 " meta
 set shell=/bin/zsh
@@ -103,11 +90,10 @@ set undofile
 set undodir=$HOME/.vim/undo
 set noswapfile
 set grepprg=ag
-" set foldmethod=indent
 set nobackup
 set autoread
 set lazyredraw
-set hidden                     " don't close buffers
+set hidden                              " don't close buffers
 set wildignore+=
       \*/tmp/*,
       \*.so,
@@ -121,12 +107,10 @@ set fileencoding=utf-8
 set encoding=utf8
 
 " behavior
-" set completeopt=longest,menuone
 set completeopt=longest,menuone,preview
 set omnifunc=syntaxcomplete#Complete
-set noshowmatch                   " has something to do with matching brackets
+set noshowmatch                         " has something to do with matching brackets
 set backspace=indent,eol,start
-" set tags=./tags;
 
 " indent
 set autoindent
@@ -141,12 +125,13 @@ set splitbelow
 " tabulator
 set smarttab
 set softtabstop=2
-set shiftwidth=2 " Default tab width
-set expandtab    " Spaces instead of tabs
+set shiftwidth=2                        " Default tab width
+set expandtab                           " Spaces instead of tabs
 
 " line length
-set colorcolumn=120 " Color 120th column
-set textwidth=0     " do not break lines automatically
+set synmaxcol=120
+set colorcolumn=120                     " Color 120th column
+set textwidth=0                         " do not break lines automatically
 set showbreak=\/_
 
 " searching
@@ -154,47 +139,47 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
-" set nohlsearch
 
 " ui
 set mouse=a
-set laststatus=2                   " always show status line
+set laststatus=2                        " always show status line
 set showcmd
 set number
 set norelativenumber
 set ruler
-set cursorline                   " Highlight current line
+set cursorline                          " Highlight current line
 set title
 set title titlestring=%<%F%=
 
-let g:gtdown_cycle_states = ['TODO', 'WIP', 'DONE', 'WAIT', 'CANCELLED']
-let g:gtdown_default_fold_level = 2222
-let g:gtdown_show_progress = 1
-let g:gtdown_fold_list_items = 0
-let g:polyglot_disabled = ['markdown']
-" colorscheme
+" set plugin variables
 
+" colorscheme tweaks
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
+
 if (has("termguicolors"))
   set termguicolors
 endif
+
 if (has("autocmd") && !has("gui"))
   let s:monek_grey = { "gui": "#343D46", "cterm": "16", "cterm16": "0" }
   autocmd ColorScheme * call onedark#set_highlight("CursorLine", { "bg": s:monek_grey })
 end
+
 set background=dark
 colorscheme onedark
-let g:airline_theme = 'onedark'
-
-let g:webdevicons_enable                     = 1
-let g:webdevicons_enable_nerdtree                = 0
-let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
-
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
-" let g:workspace_powerline_separators = 1
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+let g:airline_theme = 'onedark'
+
+let g:webdevicons_enable                   = 1
+let g:webdevicons_enable_nerdtree          = 0
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 let g:workspace_tab_icon = "\uf00a"
 let g:workspace_left_trunc_icon = "\uf0a8"
 let g:workspace_right_trunc_icon = "\uf0a9"
@@ -206,18 +191,34 @@ let g:airline#extensions#tagbar#enabled        = 1
 let g:airline#extensions#hunks#enabled         = 1
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
-
-
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-" let g:gitgutter_sign_column_always = 1
 set signcolumn=yes
 let g:gitgutter_map_keys = 0
-
 let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
 let g:diminactive_enable_focus    = 1
+
+" nerdtree, mundo, tagbar
+let g:NERDTreeWinSize = 25
+let g:mundo_right = 1
+let g:maximizer_default_mapping_key   = '<C-w>m'
+
+" start with nerdtree open if no file were specified (2 lines below)
+augroup nerdtree
+  autocmd!
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup END
+
+" winresizer code 101 is 'e'
+let g:winresizer_vert_resize  = 1
+let g:winresizer_horiz_resize   = 1
+let g:winresizer_keycode_finish = 101
+
+
+let g:gtdown_cycle_states = ['TODO', 'WIP', 'DONE', 'WAIT', 'CANCELLED']
+let g:gtdown_default_fold_level = 2222
+let g:gtdown_show_progress = 1
+let g:gtdown_fold_list_items = 0
+
 " Rainbow Parentheses
 let g:rbpt_colorpairs = [
   \ ['brown',     'lightcyan'],
@@ -238,15 +239,12 @@ let g:rbpt_colorpairs = [
   \ ['red',     'lemonchiffon'],
   \ ]
 let g:rbpt_max = 16
-" " Poppy
-" au! cursormoved * call PoppyInit()
-" let g:poppy_point_enable = 1
-" let g:poppyhigh = ['MatchParen']
-" let loaded_matchparen = 1
 
-" livedown
-let g:livedown_browser = 'google-chrome'
-let g:livedown_open = 1
+" poppy
+au! cursormoved * call PoppyInit()
+let g:poppy_point_enable = 1
+let g:poppyhigh = ['MatchParen']
+let loaded_matchparen = 1
 
 " vim current word
 let g:vim_current_word#enabled = 1
@@ -254,44 +252,15 @@ let vim_current_word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_twins = 1
 let g:vim_current_word#highlight_current_word = 1
 
-" nerdtree, mundo, tagbar
-let g:NERDTreeWinSize = 25
-let g:mundo_right = 1
-let g:maximizer_default_mapping_key   = '<C-w>m'
-
-" start with nerdtree open if no file were specified (2 lines below)
-augroup nerdtree
-  autocmd!
-  " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-augroup END
-nmap <C-p><C-q> :TagbarToggle<CR>
-nmap <C-p><C-u> :MundoToggle<CR>
-nmap <C-p><C-r> :NERDTreeFind<CR>zz
-nmap <C-p><C-e> :NERDTreeToggle<CR>
-nmap   <F2>     :NERDTreeToggle<CR>
-nmap   <leader><F2> :NERDTreeFind<CR>zz
-noremap  <F3>     :TagbarToggle<CR>
-nnoremap <F4>     :MundoToggle<CR>
-
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
-" winresizer code 101 is 'e'
-let g:winresizer_vert_resize  = 1
-let g:winresizer_horiz_resize   = 1
-let g:winresizer_keycode_finish = 101
-
-" vim-polyglot
-let g:polyglot_disabled = ['javascript', 'markdown', 'jsx']
-
 " vim-tmux-navigator
-let g:tmux_navigator_no_mappings = 1
+if !has('gui')
+  let g:tmux_navigator_no_mappings = 1
+endif
 
-" rust formatter on save
-let g:rustfmt_autosave = 1
-
+" ale syntax checker
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -302,6 +271,8 @@ let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_sign_column_always = 1
 
+let g:better_whitespace_filetypes_blacklist=['fzf', 'markdown']
+
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutJump = ''
@@ -309,10 +280,6 @@ let g:AutoPairsShortcutFastWrap = ''
 let g:AutoPairsMapCh = ''
 
 " completion
-let g:UltiSnipsExpandTrigger = "<C-e>"
-let g:UltiSnipsJumpForwardTrigger = "<C-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-let g:SuperTabDefaultCompletionType = "<c-n>"
 let deoplete#tag#cache_limit_size = 50000000
 let g:deoplete#auto_complete_delay = 2
 let g:deoplete#enable_ignore_case = 0
@@ -324,8 +291,6 @@ let g:deoplete#max_abbr_width = 0
 let g:deoplete#max_menu_width = 0
 let g:deoplete#max_list = 30
 let g:vimrubocop_config        = '~/.rubocop.yml'
-imap <c-j> <Tab>
-imap <c-k> <S-Tab>
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = '0'
 
@@ -360,87 +325,63 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 " Mapping selecting mappings
-nmap <C-k><C-s> <plug>(fzf-maps-n)
-xmap <C-k><C-s> <plug>(fzf-maps-x)
-omap <C-k><C-s> <plug>(fzf-maps-o)
-nnoremap <C-p><C-p> :FZF<CR>
-nnoremap <C-p><C-b> :Buffers<CR>
-nnoremap <C-p><C-m> :FZFMru<CR>
+if(has('nvim'))
+  let g:neotags_ctags_timeout = 8
+  let g:neotags_ctags_bin = 'ctags'
+  let g:neotags_ctags_args = [
+        \ '--recurse=yes',
+        \ '--sort=yes',
+        \ '--fields=+l',
+        \ '--c-kinds=+p',
+        \ '--c++-kinds=+p',
+        \ '--extras=+q',
+        \ '--exclude=.git',
+        \ '--exclude=node_modules',
+        \ '--exclude=dist',
+        \ '--exclude=tmp',
+        \ '--exclude=.tmp',
+        \ ]
+  let g:neotags_enabled = 1
+  let g:neotags_highlight = 0
+  let g:neotags_file = './tags'
+  let g:neotags_recursive = 1
+  let g:neotags_events_update = ['BufReadPost']
 
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
+  " neoterm
+  let test#strategy      = 'neoterm'
+  let g:neoterm_keep_term_open = 1
+  let g:neoterm_run_tests_bg   = 1
+  let g:neoterm_position     = 'horizontal'
+  let g:neoterm_size       = 16
+  nnoremap <leader>te :Ttoggle<CR>
+  nnoremap <C-p><C-t> :Ttoggle<CR>
+endif
 
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
-let g:neotags_ctags_timeout = 8
-let g:neotags_ctags_bin = 'ctags'
-let g:neotags_ctags_args = [
-      \ '--recurse=yes',
-      \ '--sort=yes',
-      \ '--fields=+l',
-      \ '--c-kinds=+p',
-      \ '--c++-kinds=+p',
-      \ '--extras=+q',
-      \ '--exclude=.git',
-      \ '--exclude=node_modules',
-      \ '--exclude=dist',
-      \ '--exclude=tmp',
-      \ '--exclude=.tmp',
-      \ ]
-let g:neotags_enabled = 1
-let g:neotags_highlight = 1
-let g:neotags_file = './tags'
-let g:neotags_recursive = 1
-let g:neotags_events_update = ['BufReadPost']
-
-" neoterm
-let test#strategy      = 'neoterm'
-let g:neoterm_keep_term_open = 1
-let g:neoterm_run_tests_bg   = 1
-let g:neoterm_position     = 'horizontal'
-let g:neoterm_size       = 16
-nnoremap <leader>te :Ttoggle<CR>
-nnoremap <C-p><C-t> :Ttoggle<CR>
-let g:better_whitespace_filetypes_blacklist=[]
-
-" matchtagalways
-let g:jsx_ext_required = 0
-let g:mta_filetypes = {
-  \ 'html' : 1,
-  \ 'xhtml' : 1,
-  \ 'xml' : 1,
-  \ 'javascript' : 1,
-  \}
 " **********************************
-augroup add-html-snippets-to-js
-  autocmd FileType javascript UltiSnipsAddFiletypes html
-augroup END
 
 augroup yaml-helper
   autocmd!
   autocmd CursorHold *.yml YamlGetFullPath
 augroup END
 
+
 augroup trailing-whitespaces
   autocmd!
   " Show trailing-whitespaces in all files, but dont delete them in markdown
   autocmd BufEnter * EnableStripWhitespaceOnSave
-  autocmd FileType markdown autocmd BufEnter <buffer> DisableStripWhitespaceOnSave
+  " autocmd FileType fzf, markdown DisableStripWhitespaceOnSave
 augroup END
 
-" augroup rainbow-parentheses
-"   autocmd!
-"   autocmd VimEnter * RainbowParenthesesToggle
-"   autocmd Syntax * RainbowParenthesesLoadRound
-"   autocmd Syntax * RainbowParenthesesLoadSquare
-"   autocmd Syntax * RainbowParenthesesLoadBraces
-" augroup END
+augroup rainbow-parentheses
+  autocmd!
+  autocmd VimEnter * RainbowParenthesesToggle
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadSquare
+  autocmd Syntax * RainbowParenthesesLoadBraces
+augroup END
 
 augroup dim-inactive-fix
   autocmd!
@@ -460,7 +401,6 @@ augroup insert-mode-tweaks
   autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
 augroup END
 
-let g:mta_set_default_matchtag_color = 0
 augroup color-scheme-tweaks
   autocmd!
   highlight   HighlightedyankRegion cterm=reverse   gui=reverse
@@ -483,16 +423,15 @@ augroup color-scheme-tweaks
   highlight   IndentGuidesOdd      guibg=#304050   ctermbg=61
   highlight   IndentGuidesEven     guibg=#403560   ctermbg=60
 augroup END
-let g:mta_use_matchparen_group = 0
 
 command! TODO :call getting_things_down#show_todo()
 augroup gtDown
-        autocmd BufReadPre TODO.md nmap <buffer> <silent> <leader>s :call getting_things_down#cycle_status()<CR>
-        autocmd BufReadPre TODO.md nnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
-        autocmd BufReadPre TODO.md vnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
-        autocmd BufReadPre TODO.md hi! markdownTodoReadyN guifg=#E5C07B
-        autocmd BufReadPre TODO.md hi! markdownTodoDoneN guifg=#999999
-        autocmd BufReadPre TODO.md hi! markdownTodoWaitingN guifg=#9648AD
+  autocmd BufReadPre TODO.md nmap <buffer> <silent> <leader>s :call getting_things_down#cycle_status()<CR>
+  autocmd BufReadPre TODO.md nnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
+  autocmd BufReadPre TODO.md vnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
+  autocmd BufReadPre TODO.md hi! markdownTodoReadyN guifg=#E5C07B
+  autocmd BufReadPre TODO.md hi! markdownTodoDoneN guifg=#999999
+  autocmd BufReadPre TODO.md hi! markdownTodoWaitingN guifg=#9648AD
 augroup END
 
 augroup tab-lengths
@@ -505,29 +444,62 @@ autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
  " **********************************
 
 " Plugin related keymaps
-  " workspace
-noremap <leader>1 :WSNext<CR>
-noremap <leader>2 :WSPrev<CR>
+" autocomplete
+let g:UltiSnipsExpandTrigger        = "<C-e>"
+let g:UltiSnipsJumpForwardTrigger   = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger  = "<C-k>"
+let g:SuperTabDefaultCompletionType = "<c-n>"
+imap <c-j> <Tab>
+imap <c-k> <S-Tab>
+
+" find in project
+nmap <C-k><C-s> <plug>(fzf-maps-n)
+xmap <C-k><C-s> <plug>(fzf-maps-x)
+omap <C-k><C-s> <plug>(fzf-maps-o)
+nnoremap <C-p><C-p> :FZF<CR>
+nnoremap <C-p><C-b> :Buffers<CR>
+nnoremap <C-p><C-m> :FZFMru<CR>
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+" extension windows management
+nmap <C-p><C-q> :TagbarToggle<CR>
+nmap <C-p><C-u> :MundoToggle<CR>
+nmap <C-p><C-r> :NERDTreeFind<CR>zz
+nmap <C-p><C-e> :NERDTreeToggle<CR>
+nmap   <F2>     :NERDTreeToggle<CR>
+nmap   <leader><F2> :NERDTreeFind<CR>zz
+noremap  <F3>     :TagbarToggle<CR>
+nnoremap <F4>     :MundoToggle<CR>
+
+" workspace navigation
+noremap <leader>2 :WSNext<CR>
+noremap <leader>1 :WSPrev<CR>
 noremap <Leader>! :WSClose<CR>
 noremap <Leader><space>! :WSClose!<CR>
-
 cabbrev bonly WSBufOnly
 
-nnoremap <leader>uu :Unite<CR>
-nnoremap <leader>ya :Unite history/yank -default-action=append<CR>
-  " disable hls
-noremap  <Esc><Esc> :<C-u>nohls<CR>
-  " vim test
+" launch test suite
 nnoremap <leader>tt :TestNearest<CR>
 nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
-  " vim move (block of code)
+
+" vim move (block of code)
 let g:move_key_modifier = 'C'
-  " vim expand
+
+" vim expand region
 vmap v <Plug>(expand_region_expand)
-  " Easymotion
+
+" Easymotion
 map <Leader><Leader> <Plug>(easymotion-prefix)
 map <leader>fi <Plug>(easymotion-sn)
 omap <leader>fi <Plug>(easymotion-tn)
@@ -538,80 +510,93 @@ map <Leader>H <Plug>(easymotion-linebackward)
 map <Leader>. <Plug>(easymotion-repeat)
 
 let g:ag_highlight=1
-  " Search projectwide
+
+" Search projectwide
 nnoremap , :Ag!<Space>-Q<Space>''<Left>
-  " Search selected text project wide (+ possibility to pass path)
+
+" Search selected text project wide (+ possibility to pass path)
 vnoremap , y:Ag!<Space>-Q<Space>'<C-r>"'<Space>
-  " Window navigation
-:tnoremap <Esc> <C-\><C-n>
-:tnoremap ii  <C-\><C-n>
-:tnoremap <A-h> <C-\><C-n><C-w>h
-:tnoremap <A-j> <C-\><C-n><C-w>j
-:tnoremap <A-k> <C-\><C-n><C-w>k
-:tnoremap <A-l> <C-\><C-n><C-w>l
-" :nnoremap <A-h> <C-w>h
-" :nnoremap <A-j> <C-w>j
-" :nnoremap <A-k> <C-w>k
-" :nnoremap <A-l> <C-w>l
-nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
-  " Git shortcuts
-nnoremap <leader>gst :Gstatus<CR>
+
+" Window navigation
+if (has('nvim'))
+  :tnoremap <Esc> <C-\><C-n>
+  :tnoremap ii  <C-\><C-n>
+  :tnoremap <A-h> <C-\><C-n><C-w>h
+  :tnoremap <A-j> <C-\><C-n><C-w>j
+  :tnoremap <A-k> <C-\><C-n><C-w>k
+  :tnoremap <A-l> <C-\><C-n><C-w>l
+endif
+
+if !has('gui')
+  nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+  nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+  nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+  nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+  nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
+endif
+
+" Git shortcuts
 nnoremap <leader>gd  :Gdiff<CR>
 
 " Non plugin related keymaps
-" nnoremap <Leader><Space> /
+
+" disable hls
+noremap  <Esc><Esc> :<C-u>nohls<CR>
+
+" close buffer
 nnoremap <Leader>q <C-w>q
+
+" focus on next search jump
 nnoremap n nzz
 nnoremap N Nzz
-  " replace word under cursor
+
+" replace word under cursor
 nnoremap <leader>F bye:%s/<C-r>"/
-  " replace selected word
+
+" replace selected word
 vnoremap <leader>F y:%s/<C-r>"/
-  " tabs navigation
+
+" tabs navigation
 nnoremap tt :tabnew<CR>
 nnoremap TT :tabclose<CR>
 nnoremap tl :tabs<CR>
-  " select whole file, (map old C-a functionality to <leader>a)
+
+" select whole file, (map old C-a functionality to <leader>a)
 nnoremap <C-a> ggVG
 nnoremap <leader>a <C-a>
-  " copy to clipboard
+
+" system clipboard integration
 vnoremap <leader>y  "+y
 nnoremap <leader>Y  "+yg_
 nnoremap <leader>y  "+y
-  " Paste from clipboard
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-  " Replace currenctly selected text with one from system clipboard
+
+" Replace currenctly selected text with one from system clipboard
 vmap <C-v> x"+P
-  " treat multiline statement as multiple lines
+
+" treat multiline statement as multiple lines
 nnoremap j gj
 nnoremap k gk
-  " allow moving cursor in insert mode
-  " map ; as : for faster command typing
-nnoremap ; :
-  " nnoremap <leader>g g;
+
+" split and merge lines
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
-  " Esc key mappings
+
+" Esc key mappings
 inoremap ii <Esc>
 vnoremap ii <Esc>
-  " begin and end of line
+
+" begin and end of line
 map <leader>h ^
 map <leader>l $
 
 " Disabling mappings
-  " Disable ex mode
 nnoremap Q q
-  " Disable q:, use :<C-f> instead
 nnoremap q: <NOP>
 vnoremap q: <NOP>
-  " Disable arrow keys
 nnoremap <Up>  <NOP>
 nnoremap <Down>  <NOP>
 nnoremap <Left>  <NOP>
@@ -625,3 +610,12 @@ vnoremap <Down>  <NOP>
 vnoremap <Left>  <NOP>
 vnoremap <Right> <NOP>
 
+" macvim
+if has("gui_macvim")
+  set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h18
+  set guioptions-=m  "remove menu bar
+  set guioptions-=T  "remove toolbar
+  set guioptions-=r  "remove right-hand scroll bar
+  set guioptions-=L  "remove left-hand scroll bar
+  set guioptions-=e  "remove left-hand scroll bar
+endif
