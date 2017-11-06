@@ -59,14 +59,13 @@ call plug#begin('~/.vim/plugged')
   Plug 'wesQ3/vim-windowswap'
 
 " language specific
-  Plug 'rlue/vim-getting-things-down'
-  Plug 'pangloss/vim-javascript'
   Plug 'aliou/sql-heredoc.vim'
-  Plug 'mxw/vim-jsx'
-  Plug 'fishbullet/deoplete-ruby',         { 'for' : ['ruby'] }
+  Plug 'rlue/vim-getting-things-down',     { 'for' : ['markdown'] }
   Plug 'Shougo/neco-vim',                  { 'for' : ['vim'] }
   Plug 'lmeijvogel/vim-yaml-helper',       { 'for' : ['yaml'] }
-  Plug 'joukevandermaas/vim-ember-hbs'
+  Plug 'pangloss/vim-javascript',          { 'for' : ['javascript, javascript.jsx'] }
+  Plug 'mxw/vim-jsx',                      { 'for' : ['javascript, javascript.jsx'] }
+  Plug 'fishbullet/deoplete-ruby',         { 'for' : ['ruby'] }
 
   if !has('gui')
     Plug 'christoomey/vim-tmux-navigator'
@@ -148,6 +147,7 @@ set cursorline                          " Highlight current line
 set title
 set title titlestring=%<%F%=
 
+set verbosefile=verboselog.log
 " set plugin variables
 
 " colorscheme tweaks
@@ -552,7 +552,6 @@ map <leader>h ^
 map <leader>l $
 
 " Disabling mappings
-nnoremap Q         q
 nnoremap q:        <NOP>
 vnoremap q:        <NOP>
 nnoremap <Up>      <NOP>
@@ -568,7 +567,6 @@ vnoremap <Down>    <NOP>
 vnoremap <Left>    <NOP>
 vnoremap <Right>   <NOP>
 
-" macvim
 if has("gui_macvim")
   set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h18
   set guioptions-=m  "remove menu bar
