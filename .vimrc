@@ -1,47 +1,43 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-  "autocompletion
+" autocompletion, tags, fuzzy search
   if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'c0r73x/neotags.nvim'
     Plug 'kassio/neoterm'                                           " terminal mode
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'pbogut/fzf-mru.vim'
   else
     Plug 'Shougo/deoplete.nvim'
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
     Plug 'jsfaint/gen_tags.vim'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'JazzCore/ctrlp-cmatcher',       { 'do': './install.sh' }
   endif
-
-  Plug 'ervandew/supertab'                                          " Confirm autocompletion with tab
   Plug 'Shougo/neoinclude.vim'                                      " extends deoplete
+  Plug 'ervandew/supertab'                                          " Confirm autocompletion with tab
+  Plug 'rking/ag.vim'                                               " find in files helper
+  Plug 'w0rp/ale'                                                   " async syntax checking
   Plug 'jiangmiao/auto-pairs'                                       " auto insert parentheses, quotes etc.
   Plug 'tpope/vim-endwise'                                          " auto insert 'end', 'endif' etc.
-  Plug 'ntpeters/vim-better-whitespace'                             " Detect trailing whitespaces
-  Plug 'w0rp/ale'                                                   " async syntax checking
-  Plug 'Valloric/MatchTagAlways'
-  Plug 'tpope/vim-repeat'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'rhysd/clever-f.vim'                                         " better f F t T
-  Plug 'matze/vim-move'                                             " Move block of code
-  Plug 'easymotion/vim-easymotion'
   Plug 'tpope/vim-surround'                                         " Surround verb
   Plug 'tpope/vim-commentary'                                       " Change selected code into comment
+  Plug 'tpope/vim-repeat'
+  Plug 'rhysd/clever-f.vim'                                         " better f F t T
+  Plug 'easymotion/vim-easymotion'
+
+  Plug 'terryma/vim-multiple-cursors'
+  Plug 'matze/vim-move'                                             " Move block of code
   Plug 'godlygeek/tabular'                                          " Text align with regexp
-  Plug 'terryma/vim-expand-region'                                  " Select helper
   Plug 'janko-m/vim-test'                                           " Test helper
   Plug 'benizi/vim-automkdir'                                       " autocreate folder if necessary when writing
+  Plug 'terryma/vim-expand-region'                                  " Select helper
   Plug 'tpope/vim-fugitive'                                         " Git engine for vim
-  Plug 'rlue/vim-getting-things-down'
-  Plug 'dummyunit/vim_current_word'
-
-  Plug 'kien/rainbow_parentheses.vim'                               " Different parentheses colors for each depth level
+  Plug 'dominikduda/vim_current_word'
+  Plug 'ntpeters/vim-better-whitespace'                             " Detect trailing whitespaces
   Plug 'bounceme/poppy.vim'                                         " Improve parentheses colorize behaviour
-
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'pbogut/fzf-mru.vim'
-  Plug 'rking/ag.vim'                                               " find in files helper
 
 " UI extensions
   Plug 'bagrat/vim-workspace'
@@ -63,6 +59,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'wesQ3/vim-windowswap'
 
 " language specific
+  Plug 'rlue/vim-getting-things-down'
   Plug 'pangloss/vim-javascript'
   Plug 'aliou/sql-heredoc.vim'
   Plug 'mxw/vim-jsx'
@@ -81,7 +78,7 @@ call plug#end()
 
 filetype plugin indent on
 syntax on                               " Enable syntax coloring
-let mapleader =                         " \<Space>                                   "
+let mapleader="\<Space>"
 
 " meta
 set shell=/bin/zsh
@@ -177,24 +174,22 @@ endif
 
 let g:airline_theme = 'onedark'
 
-let g:webdevicons_enable                   = 1
-let g:webdevicons_enable_nerdtree          = 0
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-let g:workspace_tab_icon = "\uf00a"
-let g:workspace_left_trunc_icon = "\uf0a8"
-let g:workspace_right_trunc_icon = "\uf0a9"
-let g:airline_powerline_fonts  = 1
-let g:airline#extensions#branch#enabled        = 1
-let g:airline#extensions#branch#format         = 2
+let g:webdevicons_enable                             = 1
+let g:webdevicons_enable_nerdtree                    = 0
+let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
+let g:airline_powerline_fonts                        = 1
+let g:airline#extensions#tabline#enabled             = 1
+let g:airline#extensions#branch#enabled              = 1
+let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
-let g:airline#extensions#tagbar#enabled        = 1
-let g:airline#extensions#hunks#enabled         = 1
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_enable_on_vim_startup = 1
+let g:airline#extensions#tagbar#enabled              = 1
+let g:airline#extensions#hunks#enabled               = 1
+let g:indent_guides_auto_colors                      = 1
+let g:indent_guides_enable_on_vim_startup            = 1
 set signcolumn=yes
-let g:gitgutter_map_keys = 0
-let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
-let g:diminactive_enable_focus    = 1
+let g:gitgutter_map_keys                             = 0
+let g:diminactive_buftype_blacklist                  = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
+let g:diminactive_enable_focus                       = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 25
@@ -219,29 +214,8 @@ let g:gtdown_default_fold_level = 2222
 let g:gtdown_show_progress = 1
 let g:gtdown_fold_list_items = 0
 
-" Rainbow Parentheses
-let g:rbpt_colorpairs = [
-  \ ['brown',     'lightcyan'],
-  \ ['Darkblue',  'khaki'],
-  \ ['darkgray',  'lightmagenta'],
-  \ ['darkgreen',   'lemonchiffon'],
-  \ ['darkcyan',  'RoyalBlue3'],
-  \ ['darkred',   'SeaGreen3'],
-  \ ['darkmagenta', 'DarkOrchid3'],
-  \ ['brown',     'firebrick3'],
-  \ ['gray',    'RoyalBlue3'],
-  \ ['black',     'SeaGreen3'],
-  \ ['darkmagenta', 'DarkOrchid3'],
-  \ ['Darkblue',  'firebrick3'],
-  \ ['darkgreen',   'lightcyan'],
-  \ ['darkcyan',  'khaki'],
-  \ ['darkred',   'lightmagenta'],
-  \ ['red',     'lemonchiffon'],
-  \ ]
-let g:rbpt_max = 16
-
 " poppy
-au! cursormoved * call PoppyInit()
+" au! cursormoved * call PoppyInit()
 let g:poppy_point_enable = 1
 let g:poppyhigh = ['MatchParen']
 let loaded_matchparen = 1
@@ -264,12 +238,13 @@ endif
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_sign_error = '!'
+let g:ale_sign_error = '>'
 let g:ale_sign_warning = '.'
 let g:ale_lint_delay = 400
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_sign_column_always = 1
+let g:ale_set_highlights = 0
 
 let g:better_whitespace_filetypes_blacklist=['fzf', 'markdown']
 
@@ -295,36 +270,42 @@ let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = '0'
 
 " This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-
-" In Neovim, you can set up fzf window using a Vim command
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split enew' }
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-let g:fzf_history_dir = '~/.local/share/fzf-history'
+if has('nvim')
+  let g:fzf_action = {
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit' }
+  let g:fzf_layout = { 'down': '~40%' }
+  let g:fzf_layout = { 'window': 'enew' }
+  let g:fzf_layout = { 'window': '-tabnew' }
+  let g:fzf_layout = { 'window': '10split enew' }
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+  let g:fzf_history_dir = '~/.local/share/fzf-history'
+else
+  let g:ctrlp_map     = '<c-p>'
+  let g:ctrlp_cmd     = 'CtrlPMixed'
+  let g:ctrlp_show_hidden = 1
+  let g:ctrlp_cache_dir   = $HOME . '/.cache/ctrlp'
+  if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_use_caching = 0
+    map <C-l> :CtrlPMRU<CR>
+  endif
+endif
 
 " Mapping selecting mappings
 if(has('nvim'))
@@ -375,14 +356,6 @@ augroup trailing-whitespaces
   " autocmd FileType fzf, markdown DisableStripWhitespaceOnSave
 augroup END
 
-augroup rainbow-parentheses
-  autocmd!
-  autocmd VimEnter * RainbowParenthesesToggle
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadSquare
-  autocmd Syntax * RainbowParenthesesLoadBraces
-augroup END
-
 augroup dim-inactive-fix
   autocmd!
   autocmd BufNew * DimInactive
@@ -403,30 +376,15 @@ augroup END
 
 augroup color-scheme-tweaks
   autocmd!
-  highlight   HighlightedyankRegion cterm=reverse   gui=reverse
-  highlight   CursorLineNR          guibg=#343D46
   highlight   IncSearch             guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
   highlight   Search                guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight   ExtraWhitespace       ctermbg=160     guibg=#D70000
   highlight   CurrentWordTwins      ctermbg=12      guibg=#363636
   highlight   CurrentWord           ctermbg=14      guibg=#262020
-  highlight   MatchTag              gui=bold        cterm=bold
-
-  highlight   WorkspaceBufferCurrent guibg=#E5C07B   ctermbg=180   guifg=#262626   ctermfg=16
-  highlight   WorkspaceBufferActive  guibg=#C5A05B   ctermbg=179   guifg=#262626   ctermfg=16
-  highlight   WorkspaceBufferHidden  guibg=#444444   ctermbg=59    guifg=#262626   ctermfg=16
-  highlight   WorkspaceBufferTrunc   guibg=#FF0000   ctermbg=196   guifg=#262626   ctermfg=16
-  highlight   WorkspaceTabCurrent    guibg=#C678DD   ctermbg=176   guifg=#262626   ctermfg=16
-  highlight   WorkspaceTabHidden     guibg=#9648AD   ctermbg=97    guifg=#262626   ctermfg=16
-  highlight   WorkspaceFill          guibg=#282C34   ctermbg=17    guifg=#FFFFFF   ctermfg=15
-
-  highlight   IndentGuidesOdd      guibg=#304050   ctermbg=61
-  highlight   IndentGuidesEven     guibg=#403560   ctermbg=60
 augroup END
 
 command! TODO :call getting_things_down#show_todo()
 augroup gtDown
-  autocmd BufReadPre TODO.md nmap <buffer> <silent> <leader>s :call getting_things_down#cycle_status()<CR>
+  autocmd BufReadPre TODO.md nmap     <buffer> <silent> <leader>s :call getting_things_down#cycle_status()<CR>
   autocmd BufReadPre TODO.md nnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
   autocmd BufReadPre TODO.md vnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
   autocmd BufReadPre TODO.md hi! markdownTodoReadyN guifg=#E5C07B
@@ -480,9 +438,9 @@ noremap  <F3>         :TagbarToggle<CR>
 nnoremap <F4>         :MundoToggle<CR>
 
 " workspace navigation
-noremap <leader>2        :WSNext<CR>
-noremap <leader>1        :WSPrev<CR>
-noremap <Leader>!        :WSClose<CR>
+noremap <leader>2 :WSNext<CR>
+noremap <leader>1 :WSPrev<CR>
+noremap <Leader>! :WSClose<CR>
 noremap <Leader><space>! :WSClose!<CR>
 cabbrev bonly WSBufOnly
 
