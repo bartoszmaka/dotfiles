@@ -40,6 +40,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'bounceme/poppy.vim'                                         " Improve parentheses colorize behaviour
 
 " UI extensions
+  Plug 'mhinz/vim-startify'
   Plug 'bagrat/vim-workspace'
   Plug 'majutsushi/tagbar'                                          " perview file structure
   Plug 'simnalamburt/vim-mundo'                                     " perview undos
@@ -184,30 +185,33 @@ let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
-let g:indent_guides_auto_colors                      = 1
-let g:indent_guides_enable_on_vim_startup            = 1
 set signcolumn=yes
 let g:gitgutter_map_keys                             = 0
+
 let g:diminactive_buftype_blacklist                  = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
 let g:diminactive_enable_focus                       = 1
+
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'startify']
+let g:indent_guides_auto_colors                      = 1
+let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 25
 let g:mundo_right = 1
 let g:maximizer_default_mapping_key   = '<C-w>m'
 
-" start with nerdtree open if no file were specified (2 lines below)
 augroup nerdtree
   autocmd!
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+  autocmd VimEnter *
+              \   if !argc()
+              \ |   Startify
+              \ |   NERDTree
+              \ |   wincmd w
+              \ | endif
 augroup END
 
-" winresizer code 101 is 'e'
 let g:winresizer_vert_resize  = 1
 let g:winresizer_horiz_resize   = 1
-let g:winresizer_keycode_finish = 101
-
 
 let g:gtdown_cycle_states = ['TODO', 'WIP', 'DONE', 'WAIT', 'CANCELLED']
 let g:gtdown_default_fold_level = 2222
@@ -271,10 +275,6 @@ let g:tern_show_signature_in_pum = '0'
 
 " This is the default extra key bindings
 if has('nvim')
-  let g:fzf_action = {
-    \ 'ctrl-t': 'tab split',
-    \ 'ctrl-x': 'split',
-    \ 'ctrl-v': 'vsplit' }
   let g:fzf_layout = { 'down': '~40%' }
   let g:fzf_layout = { 'window': 'enew' }
   let g:fzf_layout = { 'window': '-tabnew' }
@@ -295,7 +295,6 @@ if has('nvim')
     \ 'header':  ['fg', 'Comment'] }
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 else
-  let g:ctrlp_map     = '<c-p>'
   let g:ctrlp_cmd     = 'CtrlPMixed'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_cache_dir   = $HOME . '/.cache/ctrlp'
@@ -303,7 +302,6 @@ else
     set grepprg=ag\ --nogroup\ --nocolor
     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
     let g:ctrlp_use_caching = 0
-    map <C-l> :CtrlPMRU<CR>
   endif
 endif
 
@@ -406,27 +404,32 @@ autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 let g:UltiSnipsExpandTrigger        = "<C-e>"
 let g:UltiSnipsJumpForwardTrigger   = "<C-j>"
 let g:UltiSnipsJumpBackwardTrigger  = "<C-k>"
-let g:SuperTabDefaultCompletionType = "<c-n>"
-imap <c-j> <Tab>
-imap <c-k> <S-Tab>
+let g:SuperTabDefaultCompletionType = "<C-n>"
+imap <C-j> <Tab>
+imap <C-k> <S-Tab>
 
 " find in project
-nmap <C-k><C-s>     <plug>(fzf-maps-n)
-xmap <C-k><C-s>     <plug>(fzf-maps-x)
-omap <C-k><C-s>     <plug>(fzf-maps-o)
-nnoremap <C-p><C-p> :FZF<CR>
-nnoremap <C-p><C-b> :Buffers<CR>
-nnoremap <C-p><C-m> :FZFMru<CR>
+if has('nvim')
+  let g:fzf_action = {
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit' }
+  nnoremap <C-p><C-p> :FZF<CR>
+  nnoremap <C-p><C-b> :Buffers<CR>
+  nnoremap <C-p><C-m> :FZFMru<CR>
+  nmap     <C-k><C-s> <plug>(fzf-maps-n)
+  xmap     <C-k><C-s> <plug>(fzf-maps-x)
+  imap     <C-x><C-k> <plug>(fzf-complete-word)
+  imap     <C-x><C-f> <plug>(fzf-complete-path)
+  imap     <C-x><C-j> <plug>(fzf-complete-file-ag)
+  imap     <C-x><C-l> <plug>(fzf-complete-line)
+  inoremap <expr> <C-x><C-k> fzf#complete('cat /usr/share/dict/words')
+  inoremap <expr> <C-x><C-k> fzf#vim#complete#word({'left': '15%'})
+else
+  let g:ctrlp_map = '<C-p><C-p>'
+  map <C-p><C-m> :CtrlPMRU<CR>
+endif
 
-" Insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
-
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 " extension windows management
 nmap     <C-p><C-q>   :TagbarToggle<CR>
 nmap     <C-p><C-u>   :MundoToggle<CR>
@@ -436,12 +439,13 @@ nmap     <F2>         :NERDTreeToggle<CR>
 nmap     <leader><F2> :NERDTreeFind<CR>zz
 noremap  <F3>         :TagbarToggle<CR>
 nnoremap <F4>         :MundoToggle<CR>
+let g:winresizer_start_key = '<C-w>e'
 
 " workspace navigation
 noremap <leader>2 :WSNext<CR>
 noremap <leader>1 :WSPrev<CR>
-noremap <Leader>! :WSClose<CR>
-noremap <Leader><space>! :WSClose!<CR>
+noremap <leader>! :WSClose<CR>
+noremap <leader><space>! :WSClose!<CR>
 cabbrev bonly WSBufOnly
 
 " launch test suite
@@ -458,14 +462,14 @@ let g:move_key_modifier = 'C'
 vmap v <Plug>(expand_region_expand)
 
 " Easymotion
-map  <Leader><space> <Plug>(easymotion-prefix)
+map  <leader><space> <Plug>(easymotion-prefix)
 map  <leader>fi      <Plug>(easymotion-sn)
 omap <leader>fi      <Plug>(easymotion-tn)
 map  <leader>n       <Plug>(easymotion-next)
 map  <leader>N       <Plug>(easymotion-prev)
-map  <Leader>L       <Plug>(easymotion-lineforward)
-map  <Leader>H       <Plug>(easymotion-linebackward)
-map  <Leader>.       <Plug>(easymotion-repeat)
+map  <leader>L       <Plug>(easymotion-lineforward)
+map  <leader>H       <Plug>(easymotion-linebackward)
+map  <leader>.       <Plug>(easymotion-repeat)
 
 let g:ag_highlight=1
 
@@ -502,7 +506,7 @@ nnoremap <leader>gd  :Gdiff<CR>
 noremap  <Esc><Esc> :<C-u>nohls<CR>
 
 " close buffer
-nnoremap <Leader>q <C-w>q
+nnoremap <leader>q <C-w>q
 
 " focus on next search jump
 nnoremap n nzz
