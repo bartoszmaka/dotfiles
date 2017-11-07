@@ -49,7 +49,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'Xuyuanp/nerdtree-git-plugin'                                " NerdTree git integration
   Plug 'machakann/vim-highlightedyank'
   Plug 'joshdick/onedark.vim'                                       " ColorScheme
-  Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'airblade/vim-gitgutter'                                     " Shows git signs next to line numbers
   Plug 'bling/vim-airline'                                          " Airline
@@ -58,6 +57,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'szw/vim-maximizer'                                          " maximize window
   Plug 'simeji/winresizer'                                          " window resize helper
   Plug 'wesQ3/vim-windowswap'
+  Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 
 " language specific
   Plug 'aliou/sql-heredoc.vim'
@@ -147,8 +147,6 @@ set ruler
 set cursorline                          " Highlight current line
 set title
 set title titlestring=%<%F%=
-
-set verbosefile=verboselog.log
 " set plugin variables
 
 " colorscheme tweaks
@@ -295,7 +293,6 @@ if has('nvim')
     \ 'header':  ['fg', 'Comment'] }
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 else
-  let g:ctrlp_cmd     = 'CtrlPMixed'
   let g:ctrlp_show_hidden = 1
   let g:ctrlp_cache_dir   = $HOME . '/.cache/ctrlp'
   if executable('ag')
@@ -351,7 +348,7 @@ augroup trailing-whitespaces
   autocmd!
   " Show trailing-whitespaces in all files, but dont delete them in markdown
   autocmd BufEnter * EnableStripWhitespaceOnSave
-  " autocmd FileType fzf, markdown DisableStripWhitespaceOnSave
+  autocmd FileType fzf, markdown DisableStripWhitespaceOnSave
 augroup END
 
 augroup dim-inactive-fix
@@ -428,6 +425,7 @@ if has('nvim')
 else
   let g:ctrlp_map = '<C-p><C-p>'
   map <C-p><C-m> :CtrlPMRU<CR>
+  map <C-p><C-b> :CtrlPBuffer<CR>
 endif
 
 " extension windows management
