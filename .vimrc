@@ -7,6 +7,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'c0r73x/neotags.nvim'
     Plug 'kassio/neoterm'                                           " terminal mode
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
     Plug 'pbogut/fzf-mru.vim'
   else
     Plug 'Shougo/deoplete.nvim'
@@ -427,8 +428,10 @@ if has('nvim')
   nnoremap <C-p><C-p> :FZF<CR>
   nnoremap <C-p><C-b> :Buffers<CR>
   nnoremap <C-p><C-m> :FZFMru<CR>
+
   nmap     <C-k><C-s> <plug>(fzf-maps-n)
   xmap     <C-k><C-s> <plug>(fzf-maps-x)
+  omap     <C-k><C-s> <plug>(fzf-maps-o)
   imap     <C-x><C-k> <plug>(fzf-complete-word)
   imap     <C-x><C-f> <plug>(fzf-complete-path)
   imap     <C-x><C-j> <plug>(fzf-complete-file-ag)
