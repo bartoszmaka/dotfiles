@@ -72,8 +72,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'christoomey/vim-tmux-navigator'
   endif
 call plug#end()
-" **********************************
 
+" **********************************
 " vim variables
 
 filetype plugin indent on
@@ -147,7 +147,9 @@ set ruler
 set cursorline                          " Highlight current line
 set title
 set title titlestring=%<%F%=
-" set plugin variables
+
+" **********************************
+" plugin variables
 
 " colorscheme tweaks
 if (has("nvim"))
@@ -242,13 +244,13 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_error = '>'
 let g:ale_sign_warning = '.'
-let g:ale_lint_delay = 400
+" let g:ale_lint_delay = 400
 let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 0
 
-let g:better_whitespace_filetypes_blacklist=['fzf', 'markdown']
+let g:better_whitespace_filetypes_blacklist=['fzf', 'markdown', 'yaml']
 
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -325,30 +327,28 @@ if(has('nvim'))
   let g:neotags_recursive = 1
   let g:neotags_events_update = ['BufReadPost']
 
+  if has('gui_macvim')
+    let test#strategy          = 'iterm'
+  elseif has('nvim')
+    let test#strategy          = 'neoterm'
+  elseif v:version >= 800
+    let test#strategy          = 'basic'
+  endif
   " neoterm
-  let test#strategy      = 'neoterm'
   let g:neoterm_keep_term_open = 1
   let g:neoterm_run_tests_bg   = 1
-  let g:neoterm_position     = 'horizontal'
-  let g:neoterm_size       = 16
+  let g:neoterm_position       = 'horizontal'
+  let g:neoterm_size           = 16
   nnoremap <leader>te :Ttoggle<CR>
   nnoremap <C-p><C-t> :Ttoggle<CR>
 endif
 
-
 " **********************************
+" augroups
 
 augroup yaml-helper
   autocmd!
   autocmd CursorHold *.yml YamlGetFullPath
-augroup END
-
-
-augroup trailing-whitespaces
-  autocmd!
-  " Show trailing-whitespaces in all files, but dont delete them in markdown
-  autocmd BufEnter * EnableStripWhitespaceOnSave
-  autocmd FileType fzf, markdown DisableStripWhitespaceOnSave
 augroup END
 
 augroup dim-inactive-fix
@@ -394,9 +394,22 @@ augroup tab-lengths
   autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
 augroup END
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
- " **********************************
 
+" **********************************
+" custom functions
+
+function! AltCommand(path, vim_command)
+  let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
+  if empty(l:alternate)
+    echo "No alternate file for " . a:path . " exists!"
+  else
+    exec a:vim_command . " " . l:alternate
+  endif
+endfunction
+
+" **********************************
 " Plugin related keymaps
+
 " autocomplete
 let g:UltiSnipsExpandTrigger        = "<C-e>"
 let g:UltiSnipsJumpForwardTrigger   = "<C-j>"
@@ -438,6 +451,9 @@ nmap     <leader><F2> :NERDTreeFind<CR>zz
 noremap  <F3>         :TagbarToggle<CR>
 nnoremap <F4>         :MundoToggle<CR>
 let g:winresizer_start_key = '<C-w>e'
+
+" Find the alternate file for the current path and open it (basically go to test file)
+nnoremap <C-g><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
 noremap <leader>2 :WSNext<CR>
@@ -498,13 +514,14 @@ endif
 " Git shortcuts
 nnoremap <leader>gd  :Gdiff<CR>
 
+" **********************************
 " Non plugin related keymaps
 
 " disable hls
 noremap  <Esc><Esc> :<C-u>nohls<CR>
 
 " close buffer
-nnoremap <leader>q <C-w>q
+nnoremap <leader>q :close<CR>
 
 " focus on next search jump
 nnoremap n nzz
@@ -552,22 +569,6 @@ vnoremap ii <Esc>
 " begin and end of line
 map <leader>h ^
 map <leader>l $
-
-" Disabling mappings
-nnoremap q:        <NOP>
-vnoremap q:        <NOP>
-nnoremap <Up>      <NOP>
-nnoremap <Down>    <NOP>
-nnoremap <Left>    <NOP>
-nnoremap <Right>   <NOP>
-inoremap <Up>      <NOP>
-inoremap <Down>    <NOP>
-inoremap <Left>    <NOP>
-inoremap <Right>   <NOP>
-vnoremap <Up>      <NOP>
-vnoremap <Down>    <NOP>
-vnoremap <Left>    <NOP>
-vnoremap <Right>   <NOP>
 
 if has("gui_macvim")
   set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h18
