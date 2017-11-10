@@ -3,61 +3,62 @@ call plug#begin('~/.vim/plugged')
 
 " autocompletion, tags, fuzzy search
   if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'c0r73x/neotags.nvim'
-    Plug 'kassio/neoterm'                                           " terminal mode
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-    Plug 'pbogut/fzf-mru.vim'
+    Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
+    Plug 'c0r73x/neotags.nvim'                                      " async tags handler
+    Plug 'kassio/neoterm'                                           " terminal provider
+    Plug 'junegunn/fzf',            { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'                                         " fuzzy searcher
+    Plug 'pbogut/fzf-mru.vim'                                       " fzf extension provides most recently used
   else
-    Plug 'Shougo/deoplete.nvim'
+    Plug 'Shougo/deoplete.nvim'                                     " autocompletion engine
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
-    Plug 'jsfaint/gen_tags.vim'
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'JazzCore/ctrlp-cmatcher',       { 'do': './install.sh' }
+    Plug 'jsfaint/gen_tags.vim'                                     " tags generator
+    Plug 'ctrlpvim/ctrlp.vim'                                       " fuzzy searcher
+    Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }        " fuzzy searcher performance improvement
   endif
+
   Plug 'Shougo/neoinclude.vim'                                      " extends deoplete
-  Plug 'ervandew/supertab'                                          " Confirm autocompletion with tab
-  Plug 'rking/ag.vim'                                               " find in files helper
+  Plug 'ervandew/supertab'                                          " select autocompletion with tab
+  Plug 'rking/ag.vim'                                               " searching engine
   Plug 'w0rp/ale'                                                   " async syntax checking
   Plug 'jiangmiao/auto-pairs'                                       " auto insert parentheses, quotes etc.
   Plug 'tpope/vim-endwise'                                          " auto insert 'end', 'endif' etc.
-  Plug 'tpope/vim-surround'                                         " Surround verb
-  Plug 'tpope/vim-commentary'                                       " Change selected code into comment
-  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'                                         " vim verb for surrounding word
+  Plug 'tpope/vim-commentary'                                       " change selected code into comment
+  Plug 'tpope/vim-repeat'                                           " better .
   Plug 'rhysd/clever-f.vim'                                         " better f F t T
-  Plug 'easymotion/vim-easymotion'
+  Plug 'easymotion/vim-easymotion'                                  " adds improved w e b j k
 
   Plug 'terryma/vim-multiple-cursors'
-  Plug 'matze/vim-move'                                             " Move block of code
-  Plug 'godlygeek/tabular'                                          " Text align with regexp
-  Plug 'janko-m/vim-test'                                           " Test helper
+  Plug 'matze/vim-move'                                             " move block of code
+  Plug 'godlygeek/tabular'                                          " text align with regexp
+  Plug 'janko-m/vim-test'                                           " test launcher
   Plug 'benizi/vim-automkdir'                                       " autocreate folder if necessary when writing
-  Plug 'terryma/vim-expand-region'                                  " Select helper
-  Plug 'tpope/vim-fugitive'                                         " Git engine for vim
-  Plug 'dominikduda/vim_current_word'
-  Plug 'ntpeters/vim-better-whitespace'                             " Detect trailing whitespaces
-  Plug 'bounceme/poppy.vim'                                         " Improve parentheses colorize behaviour
+  Plug 'terryma/vim-expand-region'                                  " select helper
+  Plug 'tpope/vim-fugitive'                                         " git related commands
+  Plug 'dominikduda/vim_current_word'                               " highlight word under cursor
+  Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
+  Plug 'bounceme/poppy.vim'                                         " improve parentheses colorize behaviour
 
 " UI extensions
-  Plug 'mhinz/vim-startify'
-  Plug 'bagrat/vim-workspace'
+  Plug 'mhinz/vim-startify'                                         " fancy project manager
+  Plug 'bagrat/vim-workspace'                                       " IDE like tabs management
   Plug 'majutsushi/tagbar'                                          " perview file structure
   Plug 'simnalamburt/vim-mundo'                                     " perview undos
-  Plug 'scrooloose/nerdtree'                                        " Project explorer
-  Plug 'jistr/vim-nerdtree-tabs'                                    " Better behavior for nerdtree
-  Plug 'Xuyuanp/nerdtree-git-plugin'                                " NerdTree git integration
-  Plug 'machakann/vim-highlightedyank'
-  Plug 'joshdick/onedark.vim'                                       " ColorScheme
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'airblade/vim-gitgutter'                                     " Shows git signs next to line numbers
-  Plug 'bling/vim-airline'                                          " Airline
-  Plug 'vim-airline/vim-airline-themes'                             " Themes for airline
-  Plug 'blueyed/vim-diminactive'                                    " Dim inactive windows
+  Plug 'scrooloose/nerdtree'                                        " project explorer
+  Plug 'jistr/vim-nerdtree-tabs'                                    " better behavior for nerdtree
+  Plug 'Xuyuanp/nerdtree-git-plugin'                                " nerdTree git integration
+  Plug 'machakann/vim-highlightedyank'                              " highlight yanked code
+  Plug 'joshdick/onedark.vim'                                       " colorscheme
+  Plug 'nathanaelkane/vim-indent-guides'                            " visualize indent level
+  Plug 'airblade/vim-gitgutter'                                     " shows git signs next to line numbers
+  Plug 'bling/vim-airline'                                          " UI improvement
+  Plug 'vim-airline/vim-airline-themes'                             " themes for airline
+  Plug 'blueyed/vim-diminactive'                                    " dim inactive windows
   Plug 'szw/vim-maximizer'                                          " maximize window
   Plug 'simeji/winresizer'                                          " window resize helper
-  Plug 'wesQ3/vim-windowswap'
+  Plug 'wesQ3/vim-windowswap'                                       " windows management extension
   Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 
 " language specific
@@ -70,7 +71,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'fishbullet/deoplete-ruby',         { 'for' : ['ruby'] }
 
   if !has('gui')
-    Plug 'christoomey/vim-tmux-navigator'
+    Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
   endif
 call plug#end()
 
@@ -82,10 +83,10 @@ syntax on                               " Enable syntax coloring
 let mapleader="\<Space>"
 
 " meta
-set shell=/bin/zsh
+set shell=/bin/zsh                      " shell path
 set novisualbell
-set undofile
-set undodir=$HOME/.vim/undo
+set undofile                            " keep history in file
+set undodir=$HOME/.vim/undo             " path for this file
 set noswapfile
 set grepprg=ag
 set nobackup
@@ -115,22 +116,23 @@ set autoindent
 set smartindent
 
 " window management
-set scrolloff=4
+set scrolloff=4                         " show at least 4 lines above or under cursor
 set sidescrolloff=5
-set splitright
-set splitbelow
+set splitright                          " place new vertical split on right side of current window
+set splitbelow                          " place new horizontal split under current window
 
 " tabulator
 set smarttab
 set softtabstop=2
-set shiftwidth=2                        " Default tab width
+set shiftwidth=2                        " default tab width
 set expandtab                           " Spaces instead of tabs
 
 " line length
-set synmaxcol=120
-set colorcolumn=120                     " Color 120th column
+set synmaxcol=120                       " disable syntax colors after 120 column
+set colorcolumn=120                     " color 120th column
 set textwidth=0                         " do not break lines automatically
 set showbreak=\/_
+set nowrap                              " don't wrap lines
 
 " searching
 set ignorecase
@@ -141,18 +143,18 @@ set incsearch
 " ui
 set mouse=a
 set laststatus=2                        " always show status line
-set showcmd
-set number
+set showcmd                             " show pressed keys
+set number                              " show line numbers
 set norelativenumber
+set signcolumn=yes                      " make place for symbols next to line numbers
 set ruler
 set cursorline                          " Highlight current line
 set title
 set title titlestring=%<%F%=
 
 " **********************************
-" plugin variables
-
 " colorscheme tweaks
+
 if (has("nvim"))
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
@@ -168,13 +170,15 @@ end
 
 set background=dark
 colorscheme onedark
+let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-let g:airline_theme = 'onedark'
+" **********************************
+" plugin variables
 
 let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
@@ -186,20 +190,23 @@ let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
-set signcolumn=yes
 let g:gitgutter_map_keys                             = 0
+let g:gitgutter_sign_added                           = '.'
+let g:gitgutter_sign_modified                        = '.'
+let g:gitgutter_sign_removed                         = '.'
+let g:gitgutter_sign_removed_first_line              = '.'
+let g:gitgutter_sign_modified_removed                = '.'
 
 let g:diminactive_buftype_blacklist                  = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
 let g:diminactive_enable_focus                       = 1
 
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'startify']
+let g:indent_guides_exclude_filetypes                = ['help', 'nerdtree', 'startify', 'quickfix', 'qf']
 let g:indent_guides_auto_colors                      = 1
 let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 25
 let g:mundo_right = 1
-let g:maximizer_default_mapping_key   = '<C-w>m'
 
 augroup nerdtree
   autocmd!
@@ -340,8 +347,6 @@ if(has('nvim'))
   let g:neoterm_run_tests_bg   = 1
   let g:neoterm_position       = 'horizontal'
   let g:neoterm_size           = 16
-  nnoremap <leader>te :Ttoggle<CR>
-  nnoremap <C-p><C-t> :Ttoggle<CR>
 endif
 
 " **********************************
@@ -364,9 +369,9 @@ augroup END
 
 augroup insert-mode-tweaks
   autocmd!
-  autocmd InsertEnter * highlight CursorLine guibg=#512121 ctermbg=52
+  autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
   autocmd InsertEnter * highlight CursorLineNR guibg=#512121
-  autocmd InsertLeave * highlight CursorLine guibg=#343D46 ctermbg=16
+  autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
   autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
 augroup END
 
@@ -419,19 +424,20 @@ let g:SuperTabDefaultCompletionType = "<C-n>"
 imap <C-j> <Tab>
 imap <C-k> <S-Tab>
 
-" find in project
 if has('nvim')
   let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-x': 'split',
     \ 'ctrl-v': 'vsplit' }
   nnoremap <C-p><C-p> :FZF<CR>
+  nnoremap <C-p><C-r> :FZFMru<CR>
   nnoremap <C-p><C-b> :Buffers<CR>
-  nnoremap <C-p><C-m> :FZFMru<CR>
+  nnoremap <C-p><C-l> :Lines<CR>
 
   nmap     <C-k><C-s> <plug>(fzf-maps-n)
   xmap     <C-k><C-s> <plug>(fzf-maps-x)
   omap     <C-k><C-s> <plug>(fzf-maps-o)
+
   imap     <C-x><C-k> <plug>(fzf-complete-word)
   imap     <C-x><C-f> <plug>(fzf-complete-path)
   imap     <C-x><C-j> <plug>(fzf-complete-file-ag)
@@ -439,24 +445,33 @@ if has('nvim')
   inoremap <expr> <C-x><C-k> fzf#complete('cat /usr/share/dict/words')
   inoremap <expr> <C-x><C-k> fzf#vim#complete#word({'left': '15%'})
 else
+  map <C-p><C-r> :CtrlPMRU<CR>
   let g:ctrlp_map = '<C-p><C-p>'
-  map <C-p><C-m> :CtrlPMRU<CR>
   map <C-p><C-b> :CtrlPBuffer<CR>
 endif
 
 " extension windows management
-nmap     <C-p><C-q>   :TagbarToggle<CR>
-nmap     <C-p><C-u>   :MundoToggle<CR>
-nmap     <C-p><C-r>   :NERDTreeFind<CR>zz
-nmap     <C-p><C-e>   :NERDTreeToggle<CR>
-nmap     <F2>         :NERDTreeToggle<CR>
-nmap     <leader><F2> :NERDTreeFind<CR>zz
-noremap  <F3>         :TagbarToggle<CR>
-nnoremap <F4>         :MundoToggle<CR>
-let g:winresizer_start_key = '<C-w>e'
+if has('nvim')
+  nnoremap <C-k><C-t> :Ttoggle<CR>
+endif
+
+nnoremap <C-k><C-u> :MundoToggle<CR>
+nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
+nnoremap <C-k><C-e> :NERDTreeToggle<CR>
+
+nnoremap <C-k><C-v> :TagbarToggle<CR>
+
+nnoremap <C-g><C-d> :Gdiff<CR>
+nnoremap <C-g><C-s> :Gstatus<CR>
+nnoremap <C-g><C-b> :Gblame<CR>
+
+" vim move (block of code)
+let g:move_key_modifier             = 'C'
+let g:winresizer_start_key          = '<C-w>e'
+let g:maximizer_default_mapping_key = '<C-w>m'
 
 " Find the alternate file for the current path and open it (basically go to test file)
-nnoremap <C-g><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
+nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
 noremap <leader>2 :WSNext<CR>
@@ -472,8 +487,6 @@ nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
 
-" vim move (block of code)
-let g:move_key_modifier = 'C'
 
 " vim expand region
 vmap v <Plug>(expand_region_expand)
@@ -514,9 +527,6 @@ if !has('gui')
   nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
 endif
 
-" Git shortcuts
-nnoremap <leader>gd  :Gdiff<CR>
-
 " **********************************
 " Non plugin related keymaps
 
@@ -526,9 +536,11 @@ noremap  <Esc><Esc> :<C-u>nohls<CR>
 " close buffer
 nnoremap <leader>q :close<CR>
 
-" focus on next search jump
+" focus on next search and cursor history jump
 nnoremap n nzz
 nnoremap N Nzz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
 
 " replace word under cursor
 nnoremap <leader>F bye:%s/<C-r>"/
