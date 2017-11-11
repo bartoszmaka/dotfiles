@@ -18,6 +18,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }        " fuzzy searcher performance improvement
   endif
 
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
   Plug 'Shougo/neoinclude.vim'                                      " extends deoplete
   Plug 'ervandew/supertab'                                          " select autocompletion with tab
   Plug 'rking/ag.vim'                                               " searching engine
@@ -37,7 +39,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'benizi/vim-automkdir'                                       " autocreate folder if necessary when writing
   Plug 'terryma/vim-expand-region'                                  " select helper
   Plug 'tpope/vim-fugitive'                                         " git related commands
-  Plug 'dominikduda/vim_current_word'                               " highlight word under cursor
+  Plug 'bartoszmaka/vim_current_word'                               " highlight word under cursor
   Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
   Plug 'bounceme/poppy.vim'                                         " improve parentheses colorize behaviour
 
@@ -84,6 +86,11 @@ let mapleader="\<Space>"
 
 " meta
 set shell=/bin/zsh                      " shell path
+if has('nvim')
+  " let g:ruby_host_prog    = '~/.rvm/gems/ruby-2.4.1/bin/neovim-ruby-host'
+  let g:python_host_prog  = '/usr/local/bin/python2'
+  let g:python3_host_prog = '/usr/local/bin/python3'
+endif
 set novisualbell
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
@@ -110,6 +117,7 @@ set completeopt=longest,menuone,preview
 set omnifunc=syntaxcomplete#Complete
 set noshowmatch                         " has something to do with matching brackets
 set backspace=indent,eol,start
+set updatetime=500
 
 " indent
 set autoindent
@@ -206,37 +214,28 @@ let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 25
-let g:mundo_right = 1
+let g:mundo_right     = 1
 
-augroup nerdtree
-  autocmd!
-  autocmd VimEnter *
-              \   if !argc()
-              \ |   Startify
-              \ |   NERDTree
-              \ |   wincmd w
-              \ | endif
-augroup END
-
-let g:winresizer_vert_resize  = 1
+let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
 
-let g:gtdown_cycle_states = ['TODO', 'WIP', 'DONE', 'WAIT', 'CANCELLED']
+let g:gtdown_cycle_states       = ['TODO', 'WIP', 'DONE', 'WAIT', 'CANCELLED']
 let g:gtdown_default_fold_level = 2222
-let g:gtdown_show_progress = 1
-let g:gtdown_fold_list_items = 0
+let g:gtdown_show_progress      = 1
+let g:gtdown_fold_list_items    = 0
 
 " poppy
 " au! cursormoved * call PoppyInit()
 let g:poppy_point_enable = 1
-let g:poppyhigh = ['MatchParen']
-let loaded_matchparen = 1
+let g:poppyhigh          = ['MatchParen']
+let loaded_matchparen    = 1
 
 " vim current word
-let g:vim_current_word#enabled = 1
+let g:vim_current_word#enabled                        = 1
 let vim_current_word#highlight_only_in_focused_window = 1
-let g:vim_current_word#highlight_twins = 1
-let g:vim_current_word#highlight_current_word = 1
+let g:vim_current_word#highlight_twins                = 1
+let g:vim_current_word#highlight_current_word         = 1
+let g:vim_current_word#highlight_after_delay          = 1
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
@@ -247,39 +246,47 @@ if !has('gui')
 endif
 
 " ale syntax checker
-let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_sign_error = '>'
-let g:ale_sign_warning = '.'
-" let g:ale_lint_delay = 400
-let g:ale_lint_on_save = 1
+let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
+let g:ale_sign_error           = '>'
+let g:ale_sign_warning         = '-'
+let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 0
+let g:ale_sign_column_always   = 1
+let g:ale_set_highlights       = 0
+let g:ale_linters = {
+      \ 'ruby':       ['rubocop'],
+      \ 'javascript': ['eslint'],
+      \}
+let g:ale_fixers = {
+      \ 'ruby':       ['rubocop --auto-correct'],
+      \ 'javascript': ['eslint'],
+      \}
+nmap <C-m><C-f> <Plug>(ale_fix)
 
-let g:better_whitespace_filetypes_blacklist=['fzf', 'markdown', 'yaml']
+let g:better_whitespace_filetypes_blacklist=['fzf', 'markdown', 'yaml', 'qf']
 
-let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
-let g:AutoPairsShortcutJump = ''
-let g:AutoPairsShortcutFastWrap = ''
-let g:AutoPairsMapCh = ''
+let g:AutoPairsShortcutJump       = ''
+let g:AutoPairsShortcutFastWrap   = ''
+let g:AutoPairsMapCh              = ''
 
 " completion
-let deoplete#tag#cache_limit_size = 50000000
-let g:deoplete#auto_complete_delay = 2
-let g:deoplete#enable_ignore_case = 0
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_at_startup = 1
+let deoplete#tag#cache_limit_size    = 50000000
+let g:deoplete#auto_complete_delay   = 2
+let g:deoplete#enable_ignore_case    = 0
+let g:deoplete#enable_smart_case     = 1
+let g:deoplete#enable_at_startup     = 1
 let g:deoplete#enable_refresh_always = 1
-let g:deoplete#auto_refresh_delay = 2
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#max_list = 30
-let g:vimrubocop_config        = '~/.rubocop.yml'
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'
+let g:deoplete#auto_refresh_delay    = 2
+let g:deoplete#max_abbr_width        = 0
+let g:deoplete#max_menu_width        = 0
+let g:deoplete#max_list              = 30
+" let g:vimrubocop_config              = '~/.rubocop.yml'
+" let g:tern_request_timeout           = 1
+" let g:tern_show_signature_in_pum     = '0'
 
 " This is the default extra key bindings
 if has('nvim')
@@ -303,13 +310,10 @@ if has('nvim')
     \ 'header':  ['fg', 'Comment'] }
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 else
-  let g:ctrlp_show_hidden = 1
-  let g:ctrlp_cache_dir   = $HOME . '/.cache/ctrlp'
-  if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
-  endif
+  let g:ctrlp_show_hidden  = 1
+  let g:ctrlp_cache_dir    = $HOME . '/.cache/ctrlp'
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_use_caching  = 0
 endif
 
 " Mapping selecting mappings
@@ -351,6 +355,16 @@ endif
 
 " **********************************
 " augroups
+
+augroup nerdtree
+  autocmd!
+  autocmd VimEnter *
+              \   if !argc()
+              \ |   Startify
+              \ |   NERDTree
+              \ |   wincmd w
+              \ | endif
+augroup END
 
 augroup yaml-helper
   autocmd!
@@ -417,12 +431,12 @@ endfunction
 " Plugin related keymaps
 
 " autocomplete
-let g:UltiSnipsExpandTrigger        = "<C-e>"
-let g:UltiSnipsJumpForwardTrigger   = "<C-j>"
-let g:UltiSnipsJumpBackwardTrigger  = "<C-k>"
 let g:SuperTabDefaultCompletionType = "<C-n>"
-imap <C-j> <Tab>
-imap <C-k> <S-Tab>
+imap <C-j>     <Tab>
+imap <C-k>     <S-Tab>
+imap <C-e>     <Plug>(neosnippet_expand_or_jump)
+smap <C-e>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-e>     <Plug>(neosnippet_expand_target)
 
 if has('nvim')
   let g:fzf_action = {
@@ -512,7 +526,7 @@ vnoremap , y:Ag!<Space>-Q<Space>'<C-r>"'<Space>
 " Window navigation
 if (has('nvim'))
   :tnoremap <Esc> <C-\><C-n>
-  :tnoremap ii  <C-\><C-n>
+  :tnoremap ii    <C-\><C-n>
   :tnoremap <A-h> <C-\><C-n><C-w>h
   :tnoremap <A-j> <C-\><C-n><C-w>j
   :tnoremap <A-k> <C-\><C-n><C-w>k
@@ -530,6 +544,13 @@ endif
 " **********************************
 " Non plugin related keymaps
 
+" sometimes I just hold shift for too long
+cabbrev W   w
+cabbrev Wq  wq
+cabbrev Wqa wqa
+cabbrev Q   q
+cabbrev Qa  qa
+
 " disable hls
 noremap  <Esc><Esc> :<C-u>nohls<CR>
 
@@ -537,10 +558,13 @@ noremap  <Esc><Esc> :<C-u>nohls<CR>
 nnoremap <leader>q :close<CR>
 
 " focus on next search and cursor history jump
-nnoremap n nzz
-nnoremap N Nzz
+nnoremap n     nzz
+nnoremap N     Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
+
+vnoremap <Tab>   >gv
+vnoremap <S-Tab> <gv
 
 " replace word under cursor
 nnoremap <leader>F bye:%s/<C-r>"/
