@@ -65,12 +65,12 @@ call plug#begin('~/.vim/plugged')
 
 " language specific
   Plug 'aliou/sql-heredoc.vim'
-  Plug 'rlue/vim-getting-things-down',     { 'for' : ['markdown'] }
-  Plug 'Shougo/neco-vim',                  { 'for' : ['vim'] }
-  Plug 'lmeijvogel/vim-yaml-helper',       { 'for' : ['yaml'] }
-  Plug 'pangloss/vim-javascript',          { 'for' : ['javascript, javascript.jsx'] }
-  Plug 'mxw/vim-jsx',                      { 'for' : ['javascript, javascript.jsx'] }
-  Plug 'fishbullet/deoplete-ruby',         { 'for' : ['ruby'] }
+  Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
+  Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
+  Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
+  Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'mxw/vim-jsx',                      { 'for': ['javascript', 'javascript.jsx'] }
+  Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby'] }
 
   if !has('gui')
     Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
@@ -282,11 +282,8 @@ let g:deoplete#enable_at_startup     = 1
 let g:deoplete#enable_refresh_always = 1
 let g:deoplete#auto_refresh_delay    = 2
 let g:deoplete#max_abbr_width        = 0
-let g:deoplete#max_menu_width        = 0
+let g:deoplete#max_menu_width        = 50
 let g:deoplete#max_list              = 30
-" let g:vimrubocop_config              = '~/.rubocop.yml'
-" let g:tern_request_timeout           = 1
-" let g:tern_show_signature_in_pum     = '0'
 
 " This is the default extra key bindings
 if has('nvim')
@@ -324,9 +321,10 @@ if(has('nvim'))
         \ '--recurse=yes',
         \ '--sort=yes',
         \ '--fields=+l',
-        \ '--c-kinds=+p',
-        \ '--c++-kinds=+p',
+        \ '--kinds-c=+p',
+        \ '--kinds-c++=+p',
         \ '--extras=+q',
+        \ '--exclude=*.json',
         \ '--exclude=.git',
         \ '--exclude=node_modules',
         \ '--exclude=dist',
@@ -546,10 +544,13 @@ endif
 
 " sometimes I just hold shift for too long
 cabbrev W   w
+cabbrev Wa   w
 cabbrev Wq  wq
 cabbrev Wqa wqa
 cabbrev Q   q
 cabbrev Qa  qa
+cabbrev Q!   q
+cabbrev Qa!  qa
 
 " disable hls
 noremap  <Esc><Esc> :<C-u>nohls<CR>
