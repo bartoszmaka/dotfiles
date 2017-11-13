@@ -287,6 +287,7 @@ let g:deoplete#max_list              = 30
 
 " This is the default extra key bindings
 if has('nvim')
+  let g:fzf_mru_relative = 1
   let g:fzf_layout = { 'down': '~40%' }
   let g:fzf_layout = { 'window': 'enew' }
   let g:fzf_layout = { 'window': '-tabnew' }
