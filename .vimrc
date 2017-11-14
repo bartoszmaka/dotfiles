@@ -337,6 +337,7 @@ if(has('nvim'))
   let g:neotags_file = './tags'
   let g:neotags_recursive = 1
   let g:neotags_events_update = ['BufReadPost']
+  let g:neosnippet#snippets_directory='~/repos/dotfiles/vimsnippets'
 
   if has('gui_macvim')
     let test#strategy          = 'iterm'

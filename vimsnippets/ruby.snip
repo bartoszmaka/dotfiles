@@ -1,0 +1,63 @@
+snippet     bp
+abbr        binding.pry
+        binding.pry
+
+snippet     bl
+abbr        block
+options     word
+        do |${1:x}|
+          ${2:body}
+        end
+
+snippet     br
+abbr        brackets
+options     word
+        { |${1:x}| ${2:body} }
+
+snippet     mapbr
+abbr        map { ... }
+options     word
+        map { |${1:x}| ${2:body} } ${3}
+
+snippet     mapbl
+abbr        map { ... }
+options     word
+        map do |${1:x}|
+          ${2:body}
+        end ${3}
+
+snippet     eachbr
+abbr        each { ... }
+options     word
+        each { |${1:x}| ${2:body} } ${3}
+
+snippet     eachbl
+abbr        each { ... }
+options     word
+        each do |${1:x}|
+          ${2:body}
+        end ${3}
+
+snippet     sumbr
+abbr        sum { ... }
+options     word
+        sum { |${1:x}| ${2:body} } ${3}
+
+snippet     sumbl
+abbr        sum { ... }
+options     word
+        sum do |${1:x}|
+          ${2:body}
+        end ${3}
+
+snippet     injectbr
+abbr        inject { ... }
+options     word
+        inject(${1:0}) { |${2:x}| ${3:body} } ${4}
+
+snippet     injectbl
+abbr        inject { ... }
+options     word
+        inject(${1:0}) do |${2:x}|
+          ${3:body}
+        end ${4}
