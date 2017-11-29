@@ -136,7 +136,7 @@ set shiftwidth=2                        " default tab width
 set expandtab                           " Spaces instead of tabs
 
 " line length
-set synmaxcol=120                       " disable syntax colors after 120 column
+set synmaxcol=180                       " disable syntax colors after given column
 set colorcolumn=120                     " color 120th column
 set textwidth=0                         " do not break lines automatically
 set showbreak=\/_
@@ -256,6 +256,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 0
 let g:ale_linters = {
+      \ 'eruby':      ['rubocop'],
       \ 'ruby':       ['rubocop'],
       \ 'javascript': ['eslint'],
       \}
@@ -356,6 +357,11 @@ endif
 " **********************************
 " augroups
 
+augroup fix-filetypes
+  autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
+  autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
+augroup END
+
 augroup nerdtree
   autocmd!
   autocmd VimEnter *
@@ -413,7 +419,6 @@ augroup tab-lengths
   autocmd Filetype gitcommit  setlocal cc=72
   autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
 augroup END
-autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 
 " **********************************
 " custom functions
@@ -458,6 +463,7 @@ if has('nvim')
   imap     <C-x><C-l> <plug>(fzf-complete-line)
   inoremap <expr> <C-x><C-k> fzf#complete('cat /usr/share/dict/words')
   inoremap <expr> <C-x><C-k> fzf#vim#complete#word({'left': '15%'})
+  " autocmd FileType fzf :tmap <buffer> <esc><esc> ii<C-w>q
 else
   map <C-p><C-r> :CtrlPMRU<CR>
   let g:ctrlp_map = '<C-p><C-p>'
@@ -611,6 +617,19 @@ vnoremap ii <Esc>
 " begin and end of line
 map <leader>h ^
 map <leader>l $
+
+" window management with kind of mac workaround
+if has('mac')
+  nnoremap ķ <C-w>h
+  nnoremap ∆ <C-w>j
+  nnoremap Ż <C-w>k
+  nnoremap ł <C-w>l
+else
+  nnoremap <M-h> <C-w>h
+  nnoremap <M-j> <C-w>j
+  nnoremap <M-k> <C-w>k
+  nnoremap <M-l> <C-w>l
+endif
 
 if has("gui_macvim")
   set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h18
