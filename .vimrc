@@ -32,6 +32,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'rhysd/clever-f.vim'                                         " better f F t T
   Plug 'easymotion/vim-easymotion'                                  " adds improved w e b j k
 
+  Plug 'alvan/vim-closetag'                                         " autoclose html tag
   Plug 'terryma/vim-multiple-cursors'
   Plug 'matze/vim-move'                                             " move block of code
   Plug 'godlygeek/tabular'                                          " text align with regexp
@@ -356,7 +357,11 @@ if(has('nvim'))
   let g:neoterm_position       = 'horizontal'
   let g:neoterm_size           = 16
 endif
-
+" closetag config
+let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb'
+let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_shortcut                = '>'
 " **********************************
 " augroups
 
