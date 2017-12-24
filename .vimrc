@@ -199,10 +199,10 @@ let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
 let g:gitgutter_map_keys                             = 0
-let g:gitgutter_sign_added                           = '.'
+let g:gitgutter_sign_added                           = '+'
 let g:gitgutter_sign_modified                        = '.'
-let g:gitgutter_sign_removed                         = '.'
-let g:gitgutter_sign_removed_first_line              = '.'
+let g:gitgutter_sign_removed                         = '-'
+let g:gitgutter_sign_removed_first_line              = '-'
 let g:gitgutter_sign_modified_removed                = '.'
 
 let g:diminactive_buftype_blacklist                  = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
@@ -249,8 +249,8 @@ endif
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
-let g:ale_sign_error           = '>'
-let g:ale_sign_warning         = '-'
+let g:ale_sign_error           = '->'
+let g:ale_sign_warning         = '::'
 let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
@@ -339,6 +339,9 @@ if(has('nvim'))
   let g:neotags_recursive = 1
   let g:neotags_events_update = ['BufReadPost']
   let g:neosnippet#snippets_directory='~/repos/dotfiles/vimsnippets'
+  let g:neosnippet#scope_aliases = {}
+  let g:neosnippet#scope_aliases['javascript'] = 'html,javascript'
+  let g:neosnippet#scope_aliases['ruby'] = 'html,ruby'
 
   if has('gui_macvim')
     let test#strategy          = 'iterm'
@@ -358,6 +361,7 @@ endif
 " augroups
 
 augroup fix-filetypes
+  autocmd BufNewFile,BufRead .eslintrc  setlocal filetype=json
   autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
   autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
 augroup END
@@ -632,7 +636,7 @@ else
 endif
 
 if has("gui_macvim")
-  set guifont=Code\ New\ Roman\ Nerd\ Font\ Complete\ Mono:h18
+  set guifont=Hasklug\ Nerd\ Font\ Complete:h18
   set guioptions-=m  "remove menu bar
   set guioptions-=T  "remove toolbar
   set guioptions-=r  "remove right-hand scroll bar
