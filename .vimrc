@@ -33,16 +33,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'easymotion/vim-easymotion'                                  " adds improved w e b j k
 
   Plug 'alvan/vim-closetag'                                         " autoclose html tag
-  Plug 'terryma/vim-multiple-cursors'
   Plug 'matze/vim-move'                                             " move block of code
   Plug 'godlygeek/tabular'                                          " text align with regexp
   Plug 'janko-m/vim-test'                                           " test launcher
   Plug 'benizi/vim-automkdir'                                       " autocreate folder if necessary when writing
-  Plug 'terryma/vim-expand-region'                                  " select helper
   Plug 'tpope/vim-fugitive'                                         " git related commands
   Plug 'bartoszmaka/vim_current_word'                               " highlight word under cursor
   Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
   Plug 'bounceme/poppy.vim'                                         " improve parentheses colorize behaviour
+  Plug 'terryma/vim-multiple-cursors'
 
 " UI extensions
   Plug 'mhinz/vim-startify'                                         " fancy project manager
@@ -517,9 +516,6 @@ nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
 
 
-" vim expand region
-vmap v <Plug>(expand_region_expand)
-
 " Easymotion
 map  <leader><space> <Plug>(easymotion-prefix)
 map  <leader>fi      <Plug>(easymotion-sn)
@@ -555,6 +551,28 @@ if !has('gui')
   nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
   nnoremap <silent> <M-/> :TmuxNavigatePrevious<cr>
 endif
+
+let  g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+" Disable Deoplete when selecting multiple cursors starts
+function! Multiple_cursors_before()
+    if exists('*deoplete#disable')
+        exe 'call deoplete#disable()'
+    elseif exists(':NeoCompleteLock') == 2
+        exe 'NeoCompleteLock'
+    endif
+endfunction
+
+" Enable Deoplete when selecting multiple cursors ends
+function! Multiple_cursors_after()
+    if exists('*deoplete#enable')
+        exe 'call deoplete#enable()'
+    elseif exists(':NeoCompleteUnlock') == 2
+        exe 'NeoCompleteUnlock'
+    endif
+endfunction
 
 " **********************************
 " Non plugin related keymaps
