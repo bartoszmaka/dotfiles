@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/bartosz/.oh-my-zsh
+export ZSH=/Users/bartosz/.oh-my-zsh
+export HOMEBREW_GITHUB_API_TOKEN=""
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -51,10 +52,16 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git common-aliases command-not-found rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
+# plugins=(git common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
+source ~/repos/dotfiles/zsh_plugins.sh
 
 source $ZSH/oh-my-zsh.sh
 
+source ~/repos/dotfiles/zsh_config.sh
+# export DISABLE_SPRING=1
+# export EDITOR='nvim'
+# export FZF_DEFAULT_COMMAND='ag -g ""'
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -84,17 +91,17 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias update='sudo apt update && sudo apt -y upgrade'
-alias yt="youtube-dl -x --audio-format mp3 --audio-quality 0 -o '%(title)s.%(ext)s'"
-alias vimrc='nvim ~/.vimrc'
-alias clearpath="PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++')"
-alias echopath="echo $PATH | sed 's/:/\n/g'"
+# alias vimrc="nvim ~/.vimrc"
+# alias zshrc="nvim ~/.zshrc"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 export PATH="$PATH:$HOME/.rvm/bin"
+fpath=(/usr/local/share/zsh-completions $fpath)
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# tmux powerline
-PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
-# prompt_git() {}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
