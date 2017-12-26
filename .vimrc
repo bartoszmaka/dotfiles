@@ -558,20 +558,20 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
-    if exists('*deoplete#disable')
-        exe 'call deoplete#disable()'
-    elseif exists(':NeoCompleteLock') == 2
-        exe 'NeoCompleteLock'
-    endif
+  if exists('*deoplete#disable')
+    exe 'call deoplete#disable()'
+  elseif exists(':NeoCompleteLock') == 2
+    exe 'NeoCompleteLock'
+  endif
 endfunction
 
 " Enable Deoplete when selecting multiple cursors ends
 function! Multiple_cursors_after()
-    if exists('*deoplete#enable')
-        exe 'call deoplete#enable()'
-    elseif exists(':NeoCompleteUnlock') == 2
-        exe 'NeoCompleteUnlock'
-    endif
+  if exists('*deoplete#enable')
+    exe 'call deoplete#enable()'
+  elseif exists(':NeoCompleteUnlock') == 2
+    exe 'NeoCompleteUnlock'
+  endif
 endfunction
 
 " **********************************
