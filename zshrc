@@ -52,16 +52,14 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(git common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
-source ~/repos/dotfiles/zsh_plugins.sh
+plugins=(git common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/repos/dotfiles/zsh_config.sh
-# export DISABLE_SPRING=1
-# export EDITOR='nvim'
-# export FZF_DEFAULT_COMMAND='ag -g ""'
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export DISABLE_SPRING=1
+export EDITOR='nvim'
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -91,8 +89,9 @@ source ~/repos/dotfiles/zsh_config.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# alias vimrc="nvim ~/.vimrc"
-# alias zshrc="nvim ~/.zshrc"
+alias vi="nvim -u ~/.noplugin_vimrc"
+alias vimrc="$EDITOR ~/.vimrc"
+alias zshrc="$EDITOR ~/.zshrc"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
