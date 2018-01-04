@@ -470,12 +470,6 @@ if has('nvim')
   nnoremap <C-p><C-r> :FZFMru<CR>
   nnoremap <C-p><C-b> :Buffers<CR>
   nnoremap <C-p><C-l> :Lines<CR>
-
-  nmap     <C-k><C-s> <plug>(fzf-maps-n)
-  xmap     <C-k><C-s> <plug>(fzf-maps-x)
-  omap     <C-k><C-s> <plug>(fzf-maps-o)
-
-  imap     <C-x><C-f> <plug>(fzf-complete-path)
 else
   map <C-p><C-r> :CtrlPMRU<CR>
   let g:ctrlp_map = '<C-p><C-p>'
