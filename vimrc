@@ -4,51 +4,44 @@ call plug#begin('~/.vim/plugged')
 " autocompletion, tags, fuzzy search
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
-  Plug 'c0r73x/neotags.nvim'                                      " async tags handler
   Plug 'kassio/neoterm'                                           " terminal provider
-  Plug 'junegunn/fzf',            { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'                                         " fuzzy searcher
-  Plug 'pbogut/fzf-mru.vim'                                       " fzf extension provides most recently used
 else
   Plug 'Shougo/deoplete.nvim'                                     " autocompletion engine
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'jsfaint/gen_tags.vim'                                     " tags generator
-  Plug 'ctrlpvim/ctrlp.vim'                                       " fuzzy searcher
-  Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }        " fuzzy searcher performance improvement
 endif
+
+Plug 'ctrlpvim/ctrlp.vim'                                       " fuzzy searcher
+Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }        " fuzzy searcher performance improvement
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-fugitive'                                         " git related commands
+Plug 'rking/ag.vim'                                               " searching engine
+Plug 'w0rp/ale'                                                   " async syntax checking
+Plug 'terryma/vim-multiple-cursors'
+Plug 'mattn/emmet-vim'
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neoinclude.vim'                                      " extends deoplete
 Plug 'ervandew/supertab'                                          " select autocompletion with tab
-Plug 'rking/ag.vim'                                               " searching engine
-Plug 'w0rp/ale'                                                   " async syntax checking
 Plug 'jiangmiao/auto-pairs'                                       " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                          " auto insert 'end', 'endif' etc.
 Plug 'tpope/vim-surround'                                         " vim verb for surrounding word
 Plug 'tpope/vim-commentary'                                       " change selected code into comment
 Plug 'tpope/vim-repeat'                                           " better .
-Plug 'rhysd/clever-f.vim'                                         " better f F t T
 Plug 'easymotion/vim-easymotion'                                  " adds improved w e b j k
-
 Plug 'alvan/vim-closetag'                                         " autoclose html tag
-Plug 'matze/vim-move'                                             " move block of code
-Plug 'godlygeek/tabular'                                          " text align with regexp
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                  " text align with regexp
 Plug 'janko-m/vim-test'                                           " test launcher
-Plug 'benizi/vim-automkdir'                                       " autocreate folder if necessary when writing
-Plug 'tpope/vim-fugitive'                                         " git related commands
 Plug 'bartoszmaka/vim_current_word'                               " highlight word under cursor
 Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
-Plug 'bounceme/poppy.vim'                                         " improve parentheses colorize behavior
-Plug 'terryma/vim-multiple-cursors'
-Plug 'mattn/emmet-vim'
+Plug 'AndrewRadev/splitjoin.vim'
 
 " UI extensions
 Plug 'mhinz/vim-startify'                                         " fancy project manager
 Plug 'bagrat/vim-workspace'                                       " IDE like tabs management
-Plug 'majutsushi/tagbar'                                          " perview file structure
-Plug 'simnalamburt/vim-mundo'                                     " perview undos
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                                          " perview file structure
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }                   " perview undos
 Plug 'scrooloose/nerdtree'                                        " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                    " better behavior for nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin'                                " nerdTree git integration
@@ -61,7 +54,6 @@ Plug 'vim-airline/vim-airline-themes'                             " themes for a
 Plug 'blueyed/vim-diminactive'                                    " dim inactive windows
 Plug 'szw/vim-maximizer'                                          " maximize window
 Plug 'simeji/winresizer'                                          " window resize helper
-Plug 'wesQ3/vim-windowswap'                                       " windows management extension
 Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 
 " language specific
@@ -70,7 +62,7 @@ Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
 Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
 Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx',                      { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby'] }
 
 if !has('gui')
@@ -164,10 +156,6 @@ set title titlestring=%<%F%=
 " **********************************
 " colorscheme tweaks
 
-if (has("nvim"))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -225,12 +213,6 @@ let g:gtdown_default_fold_level = 2222
 let g:gtdown_show_progress      = 1
 let g:gtdown_fold_list_items    = 0
 
-" poppy
-" au! cursormoved * call PoppyInit()
-let g:poppy_point_enable = 1
-let g:poppyhigh          = ['MatchParen']
-let loaded_matchparen    = 1
-
 " vim current word
 let g:vim_current_word#enabled                        = 1
 let vim_current_word#highlight_only_in_focused_window = 1
@@ -265,9 +247,8 @@ let g:ale_fixers = {
       \ 'ruby':       ['rubocop --auto-correct'],
       \ 'javascript': ['eslint'],
       \}
-nmap <C-m><C-f> <Plug>(ale_fix)
 
-let g:better_whitespace_filetypes_blacklist=['fzf', 'markdown', 'yaml', 'qf']
+let g:better_whitespace_filetypes_blacklist=['markdown', 'yaml', 'qf']
 
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -290,69 +271,24 @@ let g:deoplete#max_list              = 30
 let g:user_emmet_leader_key='<C-e>'
 
 " This is the default extra key bindings
-if has('nvim')
-  let g:fzf_mru_relative = 1
-  let g:fzf_layout = { 'down': '~40%' }
-  let g:fzf_layout = { 'window': 'enew' }
-  let g:fzf_layout = { 'window': '-tabnew' }
-  let g:fzf_layout = { 'window': '10split enew' }
-  let g:fzf_colors =
-        \ { 'fg':      ['fg', 'Normal'],
-        \ 'bg':      ['bg', 'Normal'],
-        \ 'hl':      ['fg', 'Comment'],
-        \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-        \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-        \ 'hl+':     ['fg', 'Statement'],
-        \ 'info':    ['fg', 'PreProc'],
-        \ 'border':  ['fg', 'Ignore'],
-        \ 'prompt':  ['fg', 'Conditional'],
-        \ 'pointer': ['fg', 'Exception'],
-        \ 'marker':  ['fg', 'Keyword'],
-        \ 'spinner': ['fg', 'Label'],
-        \ 'header':  ['fg', 'Comment'] }
-  let g:fzf_history_dir = '~/.local/share/fzf-history'
-else
-  let g:ctrlp_show_hidden  = 1
-  let g:ctrlp_cache_dir    = $HOME . '/.cache/ctrlp'
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching  = 0
+let g:ctrlp_show_hidden  = 1
+let g:ctrlp_cache_dir    = $HOME . '/.cache/ctrlp'
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_use_caching  = 0
+let g:gutentags_ctags_exclude = ["node_modules", ".git"]
+
+if has('gui_macvim')
+  let test#strategy          = 'iterm'
+elseif has('nvim')
+  let test#strategy          = 'neoterm'
 endif
 
-" Mapping selecting mappings
 if(has('nvim'))
-  let g:neotags_ctags_timeout = 8
-  let g:neotags_ctags_bin = 'ctags'
-  let g:neotags_ctags_args = [
-        \ '--recurse=yes',
-        \ '--sort=yes',
-        \ '--fields=+l',
-        \ '--kinds-c=+p',
-        \ '--kinds-c++=+p',
-        \ '--extras=+q',
-        \ '--exclude=*.json',
-        \ '--exclude=.git',
-        \ '--exclude=node_modules',
-        \ '--exclude=dist',
-        \ '--exclude=tmp',
-        \ '--exclude=.tmp',
-        \ ]
-  let g:neotags_enabled = 1
-  let g:neotags_highlight = 0
-  let g:neotags_file = './tags'
-  let g:neotags_recursive = 1
-  let g:neotags_events_update = ['BufReadPost']
   let g:neosnippet#snippets_directory='~/repos/dotfiles/vimsnippets'
   let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] = 'html,javascript'
   let g:neosnippet#scope_aliases['ruby'] = 'html,ruby'
 
-  if has('gui_macvim')
-    let test#strategy          = 'iterm'
-  elseif has('nvim')
-    let test#strategy          = 'neoterm'
-  elseif v:version >= 800
-    let test#strategy          = 'basic'
-  endif
   " neoterm
   let g:neoterm_keep_term_open = 1
   let g:neoterm_run_tests_bg   = 1
@@ -461,20 +397,9 @@ imap <C-e>     <Plug>(neosnippet_expand_or_jump)
 smap <C-e>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-e>     <Plug>(neosnippet_expand_target)
 
-if has('nvim')
-  let g:fzf_action = {
-        \ 'ctrl-t': 'tab split',
-        \ 'ctrl-x': 'split',
-        \ 'ctrl-v': 'vsplit' }
-  nnoremap <C-p><C-p> :FZF<CR>
-  nnoremap <C-p><C-r> :FZFMru<CR>
-  nnoremap <C-p><C-b> :Buffers<CR>
-  nnoremap <C-p><C-l> :Lines<CR>
-else
-  map <C-p><C-r> :CtrlPMRU<CR>
-  let g:ctrlp_map = '<C-p><C-p>'
-  map <C-p><C-b> :CtrlPBuffer<CR>
-endif
+map <C-p><C-r> :CtrlPMRU<CR>
+let g:ctrlp_map = '<C-p><C-p>'
+map <C-p><C-b> :CtrlPBuffer<CR>
 
 " extension windows management
 if has('nvim')
@@ -490,6 +415,12 @@ nnoremap <C-k><C-v> :TagbarToggle<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 nnoremap <C-g><C-s> :Gstatus<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
+
+" splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping  = ''
+nmap <Leader>d :SplitjoinJoin<cr>
+nmap <Leader>s :SplitjoinSplit<cr>
 
 " vim move (block of code)
 let g:move_key_modifier             = 'C'
