@@ -11,8 +11,8 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-Plug 'ctrlpvim/ctrlp.vim'                                       " fuzzy searcher
-Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }        " fuzzy searcher performance improvement
+Plug 'ctrlpvim/ctrlp.vim'                                         " fuzzy searcher
+Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }          " fuzzy searcher performance improvement
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'                                         " git related commands
 Plug 'rking/ag.vim'                                               " searching engine
@@ -40,8 +40,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 " UI extensions
 Plug 'mhinz/vim-startify'                                         " fancy project manager
 Plug 'bagrat/vim-workspace'                                       " IDE like tabs management
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                                          " perview file structure
-Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }                   " perview undos
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                " perview file structure
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }            " perview undos
 Plug 'scrooloose/nerdtree'                                        " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                    " better behavior for nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin'                                " nerdTree git integration
@@ -53,7 +53,7 @@ Plug 'bling/vim-airline'                                          " UI improveme
 Plug 'vim-airline/vim-airline-themes'                             " themes for airline
 Plug 'blueyed/vim-diminactive'                                    " dim inactive windows
 Plug 'szw/vim-maximizer'                                          " maximize window
-Plug 'simeji/winresizer'                                          " window resize helper
+Plug 'simeji/winresizer', { 'on' : 'WinResizerStartResize' }      " window resize helper
 Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 
 " language specific
@@ -80,7 +80,6 @@ let mapleader="\<Space>"
 " meta
 set shell=/bin/zsh                      " shell path
 if has('nvim')
-  " let g:ruby_host_prog    = '~/.rvm/gems/ruby-2.4.1/bin/neovim-ruby-host'
   let g:python_host_prog  = '/usr/local/bin/python2'
   let g:python3_host_prog = '/usr/local/bin/python3'
 endif
@@ -95,6 +94,8 @@ set lazyredraw
 set hidden                              " don't close buffers
 set wildignore+=
       \*/tmp/*,
+      \*/node_modules/*,
+      \*/.git/*,
       \*.so,
       \*.swp,
       \*.zipo
@@ -445,10 +446,12 @@ nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
 nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
-" Easymotion
-map  <leader><space> <Plug>(easymotion-prefix)
-
 let g:ag_highlight=1
+
+" easymotion
+nmap <leader>w <Plug>(easymotion-w)
+nmap <leader>b <Plug>(easymotion-b)
+nmap <leader>e <Plug>(easymotion-e)
 
 " Search projectwide
 nnoremap , :Ag!<Space>-Q<Space>''<Left>
