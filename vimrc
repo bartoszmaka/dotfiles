@@ -249,7 +249,7 @@ let g:ale_fixers = {
       \ 'javascript': ['eslint'],
       \}
 
-let g:better_whitespace_filetypes_blacklist=['markdown', 'yaml', 'qf']
+let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'yaml']
 
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -306,7 +306,7 @@ let g:closetag_shortcut                = '>'
 
 augroup EnableStripWhitespaceOnSave
   autocmd!
-  autocmd BufEnter * EnableStripWhitespaceOnSave
+  autocmd BufEnter * EnableWhitespace
 augroup END
 
 augroup fix-filetypes
