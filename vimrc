@@ -53,7 +53,7 @@ Plug 'bling/vim-airline'                                          " UI improveme
 Plug 'vim-airline/vim-airline-themes'                             " themes for airline
 Plug 'blueyed/vim-diminactive'                                    " dim inactive windows
 Plug 'szw/vim-maximizer'                                          " maximize window
-Plug 'simeji/winresizer', { 'on' : 'WinResizerStartResize' }      " window resize helper
+Plug 'simeji/winresizer'                                          " window resize helper
 Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 
 " language specific
@@ -203,7 +203,7 @@ let g:indent_guides_auto_colors                      = 1
 let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
-let g:NERDTreeWinSize = 25
+let g:NERDTreeWinSize = 45
 let g:mundo_right     = 1
 
 let g:winresizer_vert_resize    = 1
@@ -248,8 +248,6 @@ let g:ale_fixers = {
       \ 'ruby':       ['rubocop --auto-correct'],
       \ 'javascript': ['eslint'],
       \}
-
-let g:better_whitespace_filetypes_blacklist=['diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'yaml']
 
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -304,10 +302,10 @@ let g:closetag_shortcut                = '>'
 " **********************************
 " augroups
 
-augroup EnableStripWhitespaceOnSave
-  autocmd!
-  autocmd BufEnter * EnableWhitespace
-augroup END
+" augroup EnableStripWhitespaceOnSave
+"   autocmd!
+"   autocmd BufEnter * EnableWhitespace
+" augroup END
 
 augroup fix-filetypes
   autocmd!
