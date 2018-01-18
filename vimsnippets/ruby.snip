@@ -25,3 +25,51 @@ snippet     br
 abbr        brackets
 options     word
         { |${1:x}| ${2:body} }
+
+snippet     model
+abbr        model scaffold
+options     head
+        class `substitute(bufname('%') ==#'[Command Line]' ? expand('#:t:r:r:r') : expand('%:t:r:r:r'), '\%(^\(.\)\|_\(.\)\)', '\u\1\u\2', 'g')`${0} < ActiveRecord::Base
+          ${1}
+        end
+
+snippet     controller
+abbr        controller scaffold
+options     head
+        class `substitute(bufname('%') ==#'[Command Line]' ? expand('#:t:r:r:r') : expand('%:t:r:r:r'), '\%(^\(.\)\|_\(.\)\)', '\u\1\u\2', 'g')`${0} < ApplicationController
+          ${1}
+        end
+
+snippet     spec
+abbr        spec scaffold
+options     head
+        require 'spec_helper'
+
+        describe `substitute(bufname('%') ==#'[Command Line]' ? expand('#:t:r:r:r') : expand('%:t:r:r:r'), '\%(^\(.\)\|_\(.\)\)', '\u\1\u\2', 'g')`${0} do
+          ${1}
+        end
+
+snippet     service
+abbr        service scaffold
+options     head
+        class `substitute(bufname('%') ==#'[Command Line]' ? expand('#:t:r:r:r') : expand('%:t:r:r:r'), '\%(^\(.\)\|_\(.\)\)', '\u\1\u\2', 'g')`${0} < ${1}
+          def call
+            ${2}
+          end
+        end
+snippet     rawservice
+abbr        service scaffold
+options     head
+        class `substitute(bufname('%') ==#'[Command Line]' ? expand('#:t:r:r:r') : expand('%:t:r:r:r'), '\%(^\(.\)\|_\(.\)\)', '\u\1\u\2', 'g')`${0}
+          def self.call(*args)
+            new(*args).call
+          end
+
+          def initialize(*args)
+            ${1}
+          end
+
+          def call
+            ${2}
+          end
+        end

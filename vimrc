@@ -267,7 +267,7 @@ let g:deoplete#max_abbr_width        = 0
 let g:deoplete#max_menu_width        = 50
 let g:deoplete#max_list              = 30
 
-let g:user_emmet_leader_key='<C-e>'
+let g:user_emmet_leader_key='<C-r>'
 
 " This is the default extra key bindings
 let g:ctrlp_show_hidden  = 1
