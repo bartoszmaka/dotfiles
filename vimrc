@@ -1,7 +1,6 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-" autocompletion, tags, fuzzy search
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
   Plug 'kassio/neoterm'                                           " terminal provider
@@ -13,15 +12,13 @@ endif
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
 
-Plug 'ctrlpvim/ctrlp.vim'                                         " fuzzy searcher
-Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }          " fuzzy searcher performance improvement
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'                                         " git related commands
 Plug 'rking/ag.vim'                                               " searching engine
 Plug 'w0rp/ale'                                                   " async syntax checking
 Plug 'terryma/vim-multiple-cursors'
-" Plug 'mattn/emmet-vim'
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -71,7 +68,7 @@ Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx
 Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby'] }
 
 Plug 'wsdjeg/FlyGrep.vim'
-
+Plug 'romainl/vim-cool'
 if !has('gui')
   Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
 endif
@@ -211,7 +208,7 @@ let g:indent_guides_auto_colors                      = 1
 let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
-let g:NERDTreeWinSize = 45
+let g:NERDTreeWinSize = 35
 let g:mundo_right     = 1
 
 let g:winresizer_vert_resize    = 1
@@ -247,15 +244,13 @@ let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 0
-let g:ale_linters = {
-      \ 'eruby':      ['rubocop'],
-      \ 'ruby':       ['rubocop'],
-      \ 'javascript': ['eslint'],
-      \}
 let g:ale_fixers = {
-      \ 'ruby':       ['rubocop --auto-correct'],
-      \ 'javascript': ['eslint'],
+      \ 'ruby':       ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
+      \ 'javascript': ['remove_trailing_lines', 'trim_whitespace', 'eslint'],
+      \ 'vim':        ['remove_trailing_lines', 'trim_whitespace'],
       \}
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:ale_linter_aliases = {'jsx': 'css'}
 
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -296,10 +291,6 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-let g:ctrlp_show_hidden  = 1
-let g:ctrlp_cache_dir    = $HOME . '/.cache/ctrlp'
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-let g:ctrlp_use_caching  = 0
 let g:gutentags_ctags_exclude = ["node_modules", ".git"]
 
 if has('gui_macvim')
@@ -325,13 +316,8 @@ let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.er
 let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
+let g:CoolTotalMatches = 1
 " **********************************
-" augroups
-
-" augroup EnableStripWhitespaceOnSave
-"   autocmd!
-"   autocmd BufEnter * EnableWhitespace
-" augroup END
 
 augroup fix-filetypes
   autocmd!
@@ -422,10 +408,6 @@ imap <C-e>     <Plug>(neosnippet_expand_or_jump)
 smap <C-e>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-e>     <Plug>(neosnippet_expand_target)
 
-map <C-p><C-r> :CtrlPMRU<CR>
-let g:ctrlp_map = '<C-p><C-p>'
-map <C-p><C-b> :CtrlPBuffer<CR>
-
 " extension windows management
 if has('nvim')
   nnoremap <C-k><C-t> :Ttoggle<CR>
@@ -486,14 +468,30 @@ nmap <leader>w <Plug>(easymotion-w)
 nmap <leader>b <Plug>(easymotion-b)
 nmap <leader>e <Plug>(easymotion-e)
 
-" Search projectwide
-nnoremap , :Ag!<Space>-Q<Space>''<Left>
+" list mappings
+nnoremap <C-k><C-s> :FzfMaps<CR>
+
+" popup fuzzy finders
+nnoremap <C-p><C-p> :FZF<CR>
+nnoremap <C-p><C-g> :FzfGitFiles<CR>
+nnoremap <C-p><C-r> :FZFMru<CR>
+nnoremap <C-p><C-h> :FzfHistory<CR>
+nnoremap <C-p><C-b> :FzfBuffers<CR>
 nnoremap <C-p><C-f> :FzfAg<CR>
-nnoremap <leader>F :FlyGrep<CR>
-nnoremap <C-p><C-g> :FlyGrep<CR>
+nnoremap <C-p><C-v> :FzfCommits<CR>
+nnoremap <C-p><C-w> :FzfWindows<CR>
+
+" ALE actions
+nnoremap <C-m><C-f> :ALEFix<CR>
+nnoremap <C-m><C-l> :ALELint<CR>
+
+inoremap <expr> <c-x><c-j> fzf#vim#complete#file#ag({'right': '20%'})
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path({'right': '20%'})
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'right': '20%'})
 
 " Search selected text project wide (+ possibility to pass path)
-vnoremap , y:Ag!<Space>-Q<Space>'<C-r>"'<Space>
+" nnoremap , :Ag!<Space>-Q<Space>''<Left>
+" vnoremap , y:Ag!<Space>-Q<Space>'<C-r>"'<Space>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
@@ -531,7 +529,7 @@ cabbrev Q!   q
 cabbrev Qa!  qa
 
 " disable hls
-noremap  <Esc><Esc> :<C-u>nohls<CR>
+" noremap  <Esc><Esc> :<C-u>nohls<CR>
 
 " close buffer
 nnoremap <leader>q :close<CR>
