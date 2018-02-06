@@ -11,6 +11,9 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 Plug 'ctrlpvim/ctrlp.vim'                                         " fuzzy searcher
 Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }          " fuzzy searcher performance improvement
 Plug 'ludovicchabant/vim-gutentags'
@@ -18,7 +21,7 @@ Plug 'tpope/vim-fugitive'                                         " git related 
 Plug 'rking/ag.vim'                                               " searching engine
 Plug 'w0rp/ale'                                                   " async syntax checking
 Plug 'terryma/vim-multiple-cursors'
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -36,6 +39,7 @@ Plug 'janko-m/vim-test'                                           " test launche
 Plug 'bartoszmaka/vim_current_word'                               " highlight word under cursor
 Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'rhysd/clever-f.vim'
 
 " UI extensions
 Plug 'mhinz/vim-startify'                                         " fancy project manager
@@ -57,6 +61,7 @@ Plug 'simeji/winresizer'                                          " window resiz
 Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 
 " language specific
+Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css' ] }
 Plug 'aliou/sql-heredoc.vim'
 Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
 Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
@@ -64,6 +69,8 @@ Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
 Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby'] }
+
+Plug 'wsdjeg/FlyGrep.vim'
 
 if !has('gui')
   Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
@@ -268,9 +275,27 @@ let g:deoplete#max_abbr_width        = 0
 let g:deoplete#max_menu_width        = 50
 let g:deoplete#max_list              = 30
 
-let g:user_emmet_leader_key='<C-r>'
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 
-" This is the default extra key bindings
 let g:ctrlp_show_hidden  = 1
 let g:ctrlp_cache_dir    = $HOME . '/.cache/ctrlp'
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -463,6 +488,9 @@ nmap <leader>e <Plug>(easymotion-e)
 
 " Search projectwide
 nnoremap , :Ag!<Space>-Q<Space>''<Left>
+nnoremap <C-p><C-f> :FzfAg<CR>
+nnoremap <leader>F :FlyGrep<CR>
+nnoremap <C-p><C-g> :FlyGrep<CR>
 
 " Search selected text project wide (+ possibility to pass path)
 vnoremap , y:Ag!<Space>-Q<Space>'<C-r>"'<Space>
@@ -518,10 +546,10 @@ vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
 
 " replace word under cursor
-nnoremap <leader>F bye:%s/<C-r>"/
+nnoremap <leader>r bye:%s/<C-r>"/
 
 " replace selected word
-vnoremap <leader>F y:%s/<C-r>"/
+vnoremap <leader>r y:%s/<C-r>"/
 
 " tabs navigation
 nnoremap tt :tabnew<CR>

@@ -80,6 +80,16 @@ abbr        state
 options     head
         this.state.${1:propName}
 
+snippet     unprop
+abbr        unpack props
+options     head
+        const { ${1} } = this.props;
+
+snippet     unstat
+abbr        unpack state
+options     head
+        const { ${1} } = this.state;
+
 snippet     rce
 abbr        Component scaffold
 options     head
