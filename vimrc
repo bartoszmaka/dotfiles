@@ -34,7 +34,7 @@ Plug 'alvan/vim-closetag'                                         " autoclose ht
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                  " text align with regexp
 Plug 'janko-m/vim-test'                                           " test launcher
 Plug 'bartoszmaka/vim_current_word'                               " highlight word under cursor
-Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
+" Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/clever-f.vim'
 
@@ -57,7 +57,7 @@ Plug 'szw/vim-maximizer'                                          " maximize win
 Plug 'simeji/winresizer'                                          " window resize helper
 Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 
-" language specific
+" language specific 
 Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css' ] }
 Plug 'aliou/sql-heredoc.vim'
 Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
@@ -67,7 +67,6 @@ Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx
 Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby'] }
 
-Plug 'wsdjeg/FlyGrep.vim'
 Plug 'romainl/vim-cool'
 if !has('gui')
   Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
@@ -147,6 +146,8 @@ set hlsearch
 set incsearch
 
 " ui
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " define how whitespaces will be displayed
+set list                                " show whitespaces
 set mouse=a
 set laststatus=2                        " always show status line
 set showcmd                             " show pressed keys
@@ -245,7 +246,7 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 0
 let g:ale_fixers = {
-      \ 'ruby':       ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
+      \ 'ruby':       ['remove_trailing_lines', 'trim_whitespace'],
       \ 'javascript': ['remove_trailing_lines', 'trim_whitespace', 'eslint'],
       \ 'vim':        ['remove_trailing_lines', 'trim_whitespace'],
       \}
@@ -484,14 +485,7 @@ nnoremap <C-p><C-w> :FzfWindows<CR>
 " ALE actions
 nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
-
-inoremap <expr> <c-x><c-j> fzf#vim#complete#file#ag({'right': '20%'})
-inoremap <expr> <c-x><c-f> fzf#vim#complete#path({'right': '20%'})
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'right': '20%'})
-
-" Search selected text project wide (+ possibility to pass path)
-" nnoremap , :Ag!<Space>-Q<Space>''<Left>
-" vnoremap , y:Ag!<Space>-Q<Space>'<C-r>"'<Space>
+nnoremap <C-m><C-w> :set list!<CR>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
