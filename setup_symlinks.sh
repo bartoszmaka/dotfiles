@@ -4,3 +4,5 @@ ln -s vimrc ~/.config/nvim/init.vim
 ln -s ~/.vim ~/.config/nvim/.vim
 ln -s global_gitignore ~/.gitignore
 
+ln -s kitty.conf ~/Library/Preferences/kitty/kitty.conf
+
