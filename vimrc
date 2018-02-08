@@ -147,7 +147,7 @@ set incsearch
 
 " ui
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " define how whitespaces will be displayed
-set list                                " show whitespaces
+set nolist                                " show whitespaces
 set mouse=a
 set laststatus=2                        " always show status line
 set showcmd                             " show pressed keys
@@ -335,6 +335,7 @@ augroup nerdtree
         \ |   NERDTree
         \ |   wincmd w
         \ | endif
+        \ | set list
 augroup END
 
 augroup yaml-helper
