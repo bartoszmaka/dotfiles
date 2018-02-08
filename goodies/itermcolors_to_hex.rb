@@ -41,22 +41,34 @@ class Parser
     end
 
     def parsed_line
-      "#{label}: ##{parsed_hex_values}"
+      "#{label}: \t##{parsed_hex_values}"
     end
 
     private
 
     def label
-      @label ||= label_node.text
+      @label ||= label_node
+        .text
+        .gsub('Ansi','')
+        .split
+        .reverse
+        .join
     end
 
     def relevant_node_text
-      @relevant_node_text ||= entry_node.text.lines[3..-1].join
+      @relevant_node_text ||= entry_node
+        .text
+        .lines[3..-1]
+    end
+
+    def relevant_node_values
+      @relevant_node_values ||= relevant_node_text
+        .map.with_index { |x, i| relevant_node_text[i + 1] if x.match?(/Red|Green|Blue/) }
+        .compact
     end
 
     def parsed_hex_values
-      @parsed_hex_values ||= relevant_node_text
-        .scan(/\d.\d+/)
+      @parsed_hex_values ||= relevant_node_values
         .reverse
         .map { |value| (value.to_f * 255).round.to_s(16) }
         .join
