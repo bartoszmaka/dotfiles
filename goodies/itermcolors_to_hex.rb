@@ -41,7 +41,7 @@ class Parser
     end
 
     def parsed_line
-      "#{label}: \t##{parsed_hex_values}"
+      "#{label} \t##{parsed_hex_values}"
     end
 
     private
@@ -53,6 +53,7 @@ class Parser
         .split
         .reverse
         .join
+        .downcase
     end
 
     def relevant_node_text
@@ -70,7 +71,7 @@ class Parser
     def parsed_hex_values
       @parsed_hex_values ||= relevant_node_values
         .reverse
-        .map { |value| (value.to_f * 255).round.to_s(16) }
+        .map { |value| (value.to_f * 255).round.to_s(16).rjust(2, '0') }
         .join
     end
   end
