@@ -1,39 +1,93 @@
-function download_repos {
+#! /bin/bash
+
+function build_tmux {
+  git clone https://github.com/tmux/tmux ~/.repos/tmux
+  cd ~/.repos/tmux
+  sh autogen.sh
+  ./configure
+  make
+  cd -
+}
+
+function build_ctags {
+  git clone https://github.com/universal-ctags/ctags ~/.repos/ctags
+  cd ~/.repos/ctags
+  ./autogen.sh
+  ./configure
+  make
+  cd -
+}
+
+function build_alt {
+  git clone https://github.com/uptech/alt ~/.repos/alt
+  cd ~/.repos/alt
+  cargo build --release
+  cd -
+}
+
+function build_repos {
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  git clone https://github.com/universal-ctags/ctags ~/.repos
-  git clone https://github.com/uptech/alt ~/.repos
-  git clone https://github.com/tmux/tmux ~/.repos
 
+  build_tmux
+  build_ctags
+  build_alt
+}
+
+function setup_oh_my_zsh {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+  # git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  # git clone https://github.com/djui/alias-tips.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/alias-tips
+  # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+  # sed -ie 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"'/ ~/.zshrc
+  # sed -ie 's/^plugins=\(\n\ \ git\n\)/source ~\/.repos\/dotfiles\/zsh_plugins.sh/' ~/.zshrc
 }
 
 case "$(uname -s)" in
+  Darwin)
+    md -p ~/.config/nvim
+    md -p ~/.vim
 
-   Darwin)
-     md -p ~/.config/nvim
-     md -p ~/.vim
+    build_repos
 
-     ln -s noplugin_vimrc ~/.noplugin_vimrc
-     ln -s vimrc ~/.vimrc
-     ln -s vimrc ~/.config/nvim/init.vim
-     ln -s ~/.vim ~/.config/nvim/.vim
-     ln -s global_gitignore ~/.gitignore
-     download_repos
-     ;;
+    ln -vsf ~/.repos/dotfiles/noplugin_vimrc ~/.noplugin_vimrc
+    ln -vsf ~/.repos/dotfiles/vimrc ~/.vimrc
+    ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
+    ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
+    ln -vsf ~/.vim ~/.config/nvim/.vim
+    ;;
 
-   Linux)
-     md -p ~/.config/nvim
-     md -p ~/.vim
-     md -p ~/.fonts
+  Linux)
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable
+    sudo apt update -y
+    sudo apt install -y gcc perl curl wget git zsh pkg-config autoconf libncurses5 libncurses5-dev libevent-dev xclip python-dev python-pip python3-dev python3-pip neovim
+    curl https://sh.rustup.rs -sSf | sh
+    source $HOME/.cargo/env
+    mkdir -p ~/.config/nvim
+    mkdir -p ~/.vim
+    mkdir -p ~/.fonts
 
-     ln -s ~/.config/nvim/init.vim vimrc
-     ln -s ~/.config/nvim/.vim ~/.vim
-     ln -s ~/.gitignore global_gitignore
-     ln -s ~/.rubocop.yml rubocop.yml
-     ln -s ~/.config/redshift.conf linux/redshift.conf
-     download_repos
-     ;;
+    build_repos
+
+    setup_oh_my_zsh
+
+    ln -vsf ~/.repos/dotfiles/noplugin_vimrc ~/.noplugin_vimrc
+    ln -vsf ~/.repos/dotfiles/vimrc ~/.vimrc
+    ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
+    ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
+    ln -vsf ~/.vim ~/.config/nvim/.vim
+
+    echo "type :"
+    echo "cd ~/.repos/tmux && sudo make install"
+    echo "cd ~/.repos/ctags && sudo make install"
+    echo "cd ~/.repos/alt"
+    ;;
+
+  CYGWIN*|MINGW32*|MSYS*)
+    echo "Good luck"
+    ;;
 esac
