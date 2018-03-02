@@ -43,7 +43,7 @@ function setup_oh_my_zsh {
   git clone https://github.com/djui/alias-tips.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/alias-tips
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-  # sed -ie 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"'/ ~/.zshrc
+  sed -ie 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"'/ ~/.zshrc
   # sed -ie 's/^plugins=\(\n\ \ git\n\)/source ~\/.repos\/dotfiles\/zsh_plugins.sh/' ~/.zshrc
 }
 
@@ -73,6 +73,7 @@ case "$(uname -s)" in
 
     build_repos
 
+    echo "type 'exit' after oh my zsh is installed"
     setup_oh_my_zsh
 
     ln -vsf ~/.repos/dotfiles/noplugin_vimrc ~/.noplugin_vimrc
@@ -83,8 +84,10 @@ case "$(uname -s)" in
 
     cd ~/.repos/tmux && sudo make install
     cd ~/.repos/ctags && sudo make install
-    cp ~/.repos/alt/target/release/alt /usr/local/bin
-    cp ~/.repos/alt/doc/alt.1 /usr/local/share/man/man1/
+    sudo cp -v ~/.repos/alt/target/release/alt /usr/local/bin
+    sudo cp -v ~/.repos/alt/doc/alt.1 /usr/local/share/man/man1/
+
+    nvim -c PlugInstall
     ;;
 
   CYGWIN*|MINGW32*|MSYS*)
