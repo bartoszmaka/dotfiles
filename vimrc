@@ -56,6 +56,7 @@ Plug 'blueyed/vim-diminactive'                                    " dim inactive
 Plug 'szw/vim-maximizer'                                          " maximize window
 Plug 'simeji/winresizer'                                          " window resize helper
 Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
+Plug 'junegunn/vim-peekaboo'
 
 " language specific 
 Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css' ] }
@@ -67,7 +68,7 @@ Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx
 Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby'] }
 
-Plug 'romainl/vim-cool'
+" Plug 'romainl/vim-cool'
 if !has('gui')
   Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
 endif
@@ -250,8 +251,8 @@ let g:ale_fixers = {
       \ 'javascript': ['remove_trailing_lines', 'trim_whitespace', 'eslint'],
       \ 'vim':        ['remove_trailing_lines', 'trim_whitespace'],
       \}
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-let g:ale_linter_aliases = {'jsx': 'css'}
+" let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+" let g:ale_linter_aliases = {'jsx': 'css'}
 
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -317,8 +318,13 @@ let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.er
 let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
-let g:CoolTotalMatches = 1
+" let g:CoolTotalMatches = 1
 " **********************************
+
+augroup tweak-hls
+  autocmd!
+  autocmd InsertEnter * setlocal nohls
+augroup END
 
 augroup fix-filetypes
   autocmd!
@@ -475,11 +481,12 @@ nnoremap <C-k><C-s> :FzfMaps<CR>
 
 " popup fuzzy finders
 nnoremap <C-p><C-p> :FZF<CR>
+nnoremap <C-p><C-r> :FZFFreshMru<CR>
 nnoremap <C-p><C-g> :FzfGitFiles<CR>
-nnoremap <C-p><C-r> :FZFMru<CR>
 nnoremap <C-p><C-h> :FzfHistory<CR>
 nnoremap <C-p><C-b> :FzfBuffers<CR>
 nnoremap <C-p><C-f> :FzfAg<CR>
+nnoremap <C-p><C-l> :FzfLines<CR>
 nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
 
@@ -487,6 +494,7 @@ nnoremap <C-p><C-w> :FzfWindows<CR>
 nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
+nnoremap <C-m><C-d> :FzfAg binding.pry<CR>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
@@ -530,8 +538,8 @@ cabbrev Qa!  qa
 nnoremap <leader>q :close<CR>
 
 " focus on next search and cursor history jump
-nnoremap n     nzz
-nnoremap N     Nzz
+nnoremap n     :setlocal hls<CR>nzz
+nnoremap N     :setlocal hls<CR>Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 
