@@ -39,9 +39,9 @@ function build_repos {
 function setup_oh_my_zsh {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-  # git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  # git clone https://github.com/djui/alias-tips.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/alias-tips
-  # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  git clone https://github.com/djui/alias-tips.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/alias-tips
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
   # sed -ie 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"'/ ~/.zshrc
   # sed -ie 's/^plugins=\(\n\ \ git\n\)/source ~\/.repos\/dotfiles\/zsh_plugins.sh/' ~/.zshrc
@@ -69,7 +69,7 @@ case "$(uname -s)" in
     source $HOME/.cargo/env
     mkdir -p ~/.config/nvim
     mkdir -p ~/.vim
-    mkdir -p ~/.fonts
+    cp -r ~/.repos/dotfiles/fonts ~/.fonts
 
     build_repos
 
@@ -81,10 +81,10 @@ case "$(uname -s)" in
     ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
     ln -vsf ~/.vim ~/.config/nvim/.vim
 
-    echo "type :"
-    echo "cd ~/.repos/tmux && sudo make install"
-    echo "cd ~/.repos/ctags && sudo make install"
-    echo "cd ~/.repos/alt"
+    cd ~/.repos/tmux && sudo make install
+    cd ~/.repos/ctags && sudo make install
+    cp ~/.repos/alt/target/release/alt /usr/local/bin
+    cp ~/.repos/alt/doc/alt.1 /usr/local/share/man/man1/
     ;;
 
   CYGWIN*|MINGW32*|MSYS*)
