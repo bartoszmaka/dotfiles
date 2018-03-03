@@ -1,6 +1,7 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
+"autocomplete
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
   Plug 'kassio/neoterm'                                           " terminal provider
@@ -9,10 +10,14 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'Shougo/echodoc.vim'                 " displays function signatures from completions in the command line.
 
+"fuzzy
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
+
+Plug 'mhinz/vim-grepper'
 
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'                                         " git related commands
@@ -34,12 +39,10 @@ Plug 'alvan/vim-closetag'                                         " autoclose ht
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                  " text align with regexp
 Plug 'janko-m/vim-test'                                           " test launcher
 Plug 'bartoszmaka/vim_current_word'                               " highlight word under cursor
-" Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/clever-f.vim'
 
 " UI extensions
-Plug 'mhinz/vim-startify'                                         " fancy project manager
 Plug 'bagrat/vim-workspace'                                       " IDE like tabs management
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                " perview file structure
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }            " perview undos
@@ -147,8 +150,9 @@ set hlsearch
 set incsearch
 
 " ui
+set noshowmode                          " do not display current mode in cmdline (airline already handles it)
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " define how whitespaces will be displayed
-set nolist                                " show whitespaces
+set nolist                              " show whitespaces
 set mouse=a
 set laststatus=2                        " always show status line
 set showcmd                             " show pressed keys
@@ -205,7 +209,7 @@ let g:gitgutter_sign_modified_removed                = '.'
 let g:diminactive_buftype_blacklist                  = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
 let g:diminactive_enable_focus                       = 1
 
-let g:indent_guides_exclude_filetypes                = ['help', 'nerdtree', 'startify', 'quickfix', 'qf']
+let g:indent_guides_exclude_filetypes                = ['help', 'nerdtree', 'quickfix', 'qf']
 let g:indent_guides_auto_colors                      = 1
 let g:indent_guides_enable_on_vim_startup            = 1
 
@@ -337,7 +341,6 @@ augroup nerdtree
   autocmd!
   autocmd VimEnter *
         \   if !argc()
-        \ |   Startify
         \ |   NERDTree
         \ |   wincmd w
         \ | endif
@@ -431,11 +434,6 @@ nnoremap <C-g><C-d> :Gdiff<CR>
 nnoremap <C-g><C-s> :Gstatus<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 
-" splitjoin
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping  = ''
-nmap <Leader>d :SplitjoinJoin<cr>
-nmap <Leader>s :SplitjoinSplit<cr>
 
 " vim move (block of code)
 let g:move_key_modifier             = 'C'
@@ -470,6 +468,8 @@ nnoremap <leader>tg :TestVisit<CR>
 nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 let g:ag_highlight=1
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping  = ''
 
 " easymotion
 nmap <leader>w <Plug>(easymotion-w)
@@ -491,10 +491,15 @@ nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
 
 " ALE actions
+nnoremap <C-m><C-g> :Grepper<CR>
 nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
-nnoremap <C-m><C-d> :FzfAg binding.pry<CR>
+
+nnoremap <C-m><C-d> :SplitjoinJoin<cr>
+nnoremap <C-m><C-s> :SplitjoinSplit<cr>
+
+" splitjoin
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
