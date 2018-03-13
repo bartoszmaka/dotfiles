@@ -9,6 +9,8 @@ cd ~/.repos/dotfiles
 bash postinstall.sh
 ```
 
+---
+
 #### [Vim-Plug](https://github.com/junegunn/vim-plug)
 
 ``` bash
