@@ -82,18 +82,12 @@ case "$(uname -s)" in
   Darwin)
     if ! [ -d .git ]; then
       # launching from tl;dr link
-      git clone https://gitub.com/bartoszmaka/dotfiles ~/.repos/dotfiles
+      git clone https://github.com/bartoszmaka/dotfiles ~/.repos/dotfiles
       cd ~/.repos/dotfiles
     fi
 
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-    brew install \
-      automake \                                      # build dependencies
-      libevent ncurses reattach-to-user-namespace \   # tmux dependencies
-      python3 brew-cask \                             # other dependencies
-      the_silver_searcher neovim zsh-completions tmux # tools
-
+    brew install automake libevent ncurses reattach-to-user-namespace python3 brew-cask the_silver_searcher neovim zsh-completions tmux
     brew cask install iterm2 spectacle pgadmin4
 
     setup_rust
@@ -109,18 +103,13 @@ case "$(uname -s)" in
     if ! [ -d .git ]; then
       # launching from tl;dr link
       sudo apt install -y git;
-      git clone https://gitub.com/bartoszmaka/dotfiles ~/.repos/dotfiles
+      git clone https://github.com/bartoszmaka/dotfiles ~/.repos/dotfiles
       cd ~/.repos/dotfiles
     fi
 
     sudo add-apt-repository -y ppa:neovim-ppa/unstable
     sudo apt update -y
-    sudo apt install -y \ 
-      gcc perl autoconf pkg-config \                         # build dependencies
-      curl wget zsh xclip \                                  # basic tools
-      libncurses5 libncurses5-dev libevent-dev \             # tmux dependencies
-      python-dev python-pip python3-dev python3-pip neovim \ # neovim dependencies
-      postgresql postgresql-contrib                          # postgresql
+    sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip libncurses5 libncurses5-dev libevent-dev python-dev python-pip python3-dev python3-pip neovim postgresql postgresql-contrib
 
     sudo -u postgres createuser --interactive # setup postgres account
 
