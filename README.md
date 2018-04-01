@@ -1,8 +1,8 @@
-#### TL;DR
+#### TL;DR (requires curl)
 ``` bash
-https://raw.githubusercontent.com/bartoszmaka/dotfiles/master/postinstall.sh | bash
+curl https://raw.githubusercontent.com/bartoszmaka/dotfiles/master/postinstall.sh | bash
 ```
-or
+or (requires git)
 ``` bash
 git clone https://github.com/bartoszmaka/dotfiles ~/.repos/dotfiles
 cd ~/.repos/dotfiles
