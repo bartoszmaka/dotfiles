@@ -11,6 +11,12 @@ bash postinstall.sh
 
 ---
 
+#### References
+
+[https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors](https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors)
+
+---
+
 #### [Vim-Plug](https://github.com/junegunn/vim-plug)
 
 ``` bash
