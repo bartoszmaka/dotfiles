@@ -472,9 +472,9 @@ let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping  = ''
 
 " easymotion
-nmap <leader>w <Plug>(easymotion-w)
-nmap <leader>b <Plug>(easymotion-b)
-nmap <leader>e <Plug>(easymotion-e)
+" nmap <leader>w <Plug>(easymotion-w)
+" nmap <leader>b <Plug>(easymotion-b)
+" nmap <leader>e <Plug>(easymotion-e)
 
 " list mappings
 nnoremap <C-k><C-s> :FzfMaps<CR>
@@ -582,10 +582,6 @@ nnoremap k gk
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
-
-" Esc key mappings
-inoremap ii <Esc>
-vnoremap ii <Esc>
 
 " begin and end of line
 map <leader>h ^
