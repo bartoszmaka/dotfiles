@@ -40,9 +40,17 @@ function build_alt {
 }
 
 function build_tools_from_source {
-  build_tmux
-  build_ctags
-  build_alt
+  if [ $build_tmux == 'y' ]; then
+    build_tmux
+  fi
+
+  if [ $build_ctags == 'y' ]; then
+    build_ctags
+  fi
+
+  if [ $build_alt == 'y' ]; then
+    build_alt
+  fi
 }
 
 function setup_vim_plug {
@@ -78,6 +86,29 @@ function setup_rust {
   source $HOME/.cargo/env
 }
 
+echo 'Install packages? [y/n]'
+read install_packages
+echo 'Setup postgres? [y/n]'
+read setup_postgres
+echo 'Install rust? [y/n]'
+read install_rust
+echo 'Install vim plug? [y/n]'
+read install_plug
+echo 'Copy fonts? [y/n]'
+read copy_fonts
+echo 'Install oh my zsh? [y/n]'
+read install_ohmyzsh
+echo 'Create symlinks? [y/n]'
+read create_symlinks
+echo 'Build ctags from source? [y/n]'
+read build_ctags
+echo 'Build alt from source? [y/n]'
+read build_alt
+echo 'Build tmux from source? [y/n]'
+read build_tmux
+echo 'Install vim plugins? [y/n]'
+read install_vim_plugins
+
 case "$(uname -s)" in
   Darwin)
     if ! [ -d .git ]; then
@@ -86,17 +117,35 @@ case "$(uname -s)" in
       cd ~/.repos/dotfiles
     fi
 
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install automake libevent ncurses reattach-to-user-namespace python3 brew-cask the_silver_searcher neovim zsh-completions tmux
-    brew cask install iterm2 spectacle pgadmin4
 
-    setup_rust
-    setup_vim_plug
-    copy_fonts
-    setup_oh_my_zsh
-    setup_symlinks
+    if [ $install_packages == 'y' ]; then
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      brew install automake libevent ncurses reattach-to-user-namespace python3 brew-cask the_silver_searcher neovim zsh-completions tmux
+      brew cask install iterm2 spectacle pgadmin4
+    fi
 
-    nvim -c PlugInstall
+    if [ $install_rust == 'y' ]; then
+      setup_rust
+    fi
+
+    if [ $install_plug == 'y' ]; then
+      setup_vim_plug
+    fi
+
+    if [ $copy_fonts == 'y' ]; then
+      copy_fonts
+    fi
+    if [ $install_ohmyzsh == 'y' ]; then
+      setup_oh_my_zsh
+    fi
+
+    if [ $create_symlinks == 'y' ]; then
+      setup_symlinks
+    fi
+
+    if [ $install_vim_plugins == 'y' ]; then
+      nvim -c PlugInstall
+    fi
     ;;
 
   Linux)
@@ -107,20 +156,41 @@ case "$(uname -s)" in
       cd ~/.repos/dotfiles
     fi
 
-    sudo add-apt-repository -y ppa:neovim-ppa/unstable
-    sudo apt update -y
-    sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip libncurses5 libncurses5-dev libevent-dev python-dev python-pip python3-dev python3-pip neovim postgresql postgresql-contrib
+    if [ $install_packages == 'y' ]; then
+      sudo add-apt-repository -y ppa:neovim-ppa/unstable
+      sudo apt update -y
+      sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip libncurses5 libncurses5-dev libevent-dev python-dev python-pip python3-dev python3-pip neovim postgresql postgresql-contrib silversearcher-ag
+    fi
 
-    sudo -u postgres createuser --interactive # setup postgres account
+    if [ $setup_postgres == 'y' ]; then
+      sudo -u postgres createuser --interactive # setup postgres account
+    fi
 
-    setup_rust
-    setup_vim_plug
-    copy_fonts
-    setup_oh_my_zsh
-    setup_symlinks
+    if [ $install_rust == 'y' ]; then
+      setup_rust
+    fi
+
+    if [ $install_plug == 'y' ]; then
+      setup_vim_plug
+    fi
+
+    if [ $copy_fonts == 'y' ]; then
+      copy_fonts
+    fi
+
+    if [ $install_ohmyzsh == 'y' ]; then
+      setup_oh_my_zsh
+    fi
+
+    if [ $create_symlinks == 'y' ]; then
+      setup_symlinks
+    fi
+
     build_tools_from_source
 
-    nvim -c PlugInstall
+    if [ $install_vim_plugins == 'y' ]; then
+      nvim -c PlugInstall
+    fi
     ;;
 
   CYGWIN*|MINGW32*|MSYS*)
