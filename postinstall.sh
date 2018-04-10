@@ -120,8 +120,14 @@ case "$(uname -s)" in
 
     if [ $install_packages == 'y' ]; then
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      brew install automake libevent ncurses reattach-to-user-namespace python3 brew-cask the_silver_searcher neovim zsh-completions tmux
-      brew cask install iterm2 spectacle pgadmin4
+      brew install brew-cask automake python3 the_silver_searcher zsh-completions unrar ccrypt ntfs-3g neovim
+      brew cask install iterm2 spectacle
+      if [ $build_tmux ]; then
+        brew install libevent ncurses reattach-to-user-namespace tmux
+      fi
+      if [ $setup_postgres ]; then
+        brew cask install pgadmin4
+      fi
     fi
 
     if [ $install_rust == 'y' ]; then
@@ -159,7 +165,13 @@ case "$(uname -s)" in
     if [ $install_packages == 'y' ]; then
       sudo add-apt-repository -y ppa:neovim-ppa/unstable
       sudo apt update -y
-      sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip libncurses5 libncurses5-dev libevent-dev python-dev python-pip python3-dev python3-pip neovim postgresql postgresql-contrib silversearcher-ag
+      if [ $build_tmux ]; then
+        sudo apt install -y libncurses5 libncurses5-dev libevent-dev
+      fi
+      if [ $setup_postgres ]; then
+        sudo apt install -y postgresql postgresql-contrib
+      fi
+      sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip python-dev python-pip python3-dev python3-pip neovim silversearcher-ag
     fi
 
     if [ $setup_postgres == 'y' ]; then
