@@ -1,9 +1,6 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-Plug 'ctrlpvim/ctrlp.vim'                                       " fuzzy searcher
-Plug 'JazzCore/ctrlp-cmatcher', { 'do': './install.sh' }        " fuzzy searcher performance improvement
-Plug 'c0r73x/neotags.nvim'                                      " async tags handler
 Plug 'rking/ag.vim'                                               " searching engine
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -19,18 +16,17 @@ Plug 'tpope/vim-commentary'                                       " change selec
 Plug 'tpope/vim-endwise'                                          " auto insert 'end', 'endif' etc.
 
 Plug 'AndrewRadev/splitjoin.vim'
-" Plug 'wellle/targets.vim'
-" Plug 'jgdavey/vim-blockle' seems to be the same as splitjoin
 
 Plug 'scrooloose/nerdtree'                                        " project explorer
 Plug 'nathanaelkane/vim-indent-guides'                            " visualize indent level
 Plug 'joshdick/onedark.vim'                                       " colorscheme
-Plug 'ntpeters/vim-better-whitespace'                             " detect trailing whitespaces
 Plug 'szw/vim-maximizer'                                          " maximize window
 Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 Plug 'airblade/vim-gitgutter'                                     " shows git signs next to line numbers
 Plug 'bling/vim-airline'                                          " UI improvement
 Plug 'vim-airline/vim-airline-themes'                             " themes for airline
+Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
+Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
 
 " lazy
 " Plug 'simnalamburt/vim-mundo'                                     " perview undos

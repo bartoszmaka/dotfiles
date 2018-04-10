@@ -62,6 +62,11 @@ Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 Plug 'junegunn/vim-peekaboo'
 
 " language specific 
+
+Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
+Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
+" Plug 'gasparch/vim-ide-elixir',          { 'for': ['elixir', 'eelixir'] }
+Plug 'kchmck/vim-coffee-script',         { 'for': ['javascript'] }
 Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css' ] }
 Plug 'aliou/sql-heredoc.vim'
 Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
@@ -86,7 +91,7 @@ let mapleader="\<Space>"
 
 " meta
 set shell=/bin/zsh                      " shell path
-if has('nvim')
+if has('nvim') && has('mac')
   let g:python_host_prog  = '/usr/local/bin/python2'
   let g:python3_host_prog = '/usr/local/bin/python3'
 endif
@@ -318,8 +323,8 @@ if(has('nvim'))
   let g:neoterm_size           = 16
 endif
 " closetag config
-let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb'
-let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb'
+let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex'
+let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
 " let g:CoolTotalMatches = 1
