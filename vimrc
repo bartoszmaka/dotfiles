@@ -163,7 +163,7 @@ set laststatus=2                        " always show status line
 set showcmd                             " show pressed keys
 set number                              " show line numbers
 set norelativenumber
-set signcolumn=yes                      " make place for symbols next to line numbers
+set signcolumn=auto                      " make place for symbols next to line numbers
 set ruler
 set cursorline                          " Highlight current line
 set title

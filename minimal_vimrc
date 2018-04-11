@@ -3,9 +3,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'rking/ag.vim'                                               " searching engine
 Plug 'ludovicchabant/vim-gutentags'
-
 Plug 'w0rp/ale'                                                   " async syntax checking
 Plug 'tpope/vim-fugitive'                                         " git related commands
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
+Plug 'mhinz/vim-grepper'
 
 Plug 'easymotion/vim-easymotion'                                  " adds improved w e b j k
 Plug 'jiangmiao/auto-pairs'                                       " auto insert parentheses, quotes etc.
@@ -14,7 +17,6 @@ Plug 'alvan/vim-closetag'                                         " autoclose ht
 Plug 'tpope/vim-surround'                                         " vim verb for surrounding word
 Plug 'tpope/vim-commentary'                                       " change selected code into comment
 Plug 'tpope/vim-endwise'                                          " auto insert 'end', 'endif' etc.
-
 Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'scrooloose/nerdtree'                                        " project explorer
@@ -25,6 +27,7 @@ Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
 Plug 'airblade/vim-gitgutter'                                     " shows git signs next to line numbers
 Plug 'bling/vim-airline'                                          " UI improvement
 Plug 'vim-airline/vim-airline-themes'                             " themes for airline
+
 Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
 
@@ -78,8 +81,6 @@ set termguicolors
 set background=dark
 colorscheme onedark
 
-let g:ctrlp_show_hidden  = 1
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb'
 let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb'
 let g:closetag_emptyTags_caseSensitive = 1
@@ -87,12 +88,24 @@ let g:closetag_shortcut                = '>'
 let g:indent_guides_exclude_filetypes                = ['help', 'nerdtree', 'startify', 'quickfix', 'qf']
 let g:indent_guides_auto_colors                      = 1
 let g:indent_guides_enable_on_vim_startup            = 1
+let g:ale_sign_error           = '->'
+let g:ale_sign_warning         = '::'
+let g:ale_lint_on_save         = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:webdevicons_enable_nerdtree                    = 0
+let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
+let g:fzf_command_prefix = 'Fzf'
 
 let g:gutentags_ctags_exclude = ["node_modules", ".git"]
 
 augroup remember-cursor-position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+augroup tweak-hls
+  autocmd!
+  autocmd InsertEnter * setlocal nohls
 augroup END
 
 cabbrev W   w
@@ -104,10 +117,29 @@ cabbrev Qa  qa
 cabbrev Q!   q
 cabbrev Qa!  qa
 
-nnoremap , :Ag!<Space>-Q<Space>''<Left>
-map <C-p><C-r> :CtrlPMRU<CR>
-let g:ctrlp_map = '<C-p><C-p>'
-map <C-p><C-b> :CtrlPBuffer<CR>
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-c>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+nnoremap <C-p><C-p> :FZF<CR>
+nnoremap <C-p><C-r> :FZFFreshMru<CR>
+nnoremap <C-p><C-g> :FzfGitFiles<CR>
+nnoremap <C-p><C-h> :FzfHistory<CR>
+nnoremap <C-p><C-b> :FzfBuffers<CR>
+nnoremap <C-p><C-f> :FzfAg<CR>
+nnoremap <C-p><C-l> :FzfLines<CR>
+nnoremap <C-p><C-v> :FzfCommits<CR>
+nnoremap <C-p><C-w> :FzfWindows<CR>
+nnoremap <C-m><C-g> :Grepper<CR>
+
+nnoremap <C-m><C-g> :Grepper<CR>
+nnoremap <C-m><C-f> :ALEFix<CR>
+nnoremap <C-m><C-l> :ALELint<CR>
+nnoremap <C-m><C-w> :set list!<CR>
+
+nnoremap <C-m><C-d> :SplitjoinJoin<cr>
+nnoremap <C-m><C-s> :SplitjoinSplit<cr>
+
 nnoremap <C-g><C-d> :Gdiff<CR>
 nnoremap <C-g><C-s> :Gstatus<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
