@@ -121,7 +121,7 @@ case "$(uname -s)" in
     if [ $install_packages == 'y' ]; then
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       brew install brew-cask automake python3 the_silver_searcher zsh-completions unrar ccrypt ntfs-3g neovim
-      brew cask install iterm2 spectacle
+      brew cask install iterm2 spectacle flux
       if [ $build_tmux ]; then
         brew install libevent ncurses reattach-to-user-namespace tmux
       fi
