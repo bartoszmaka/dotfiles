@@ -96,6 +96,8 @@ function setup_rust {
 
 echo 'Install packages? [y/n]'
 read install_packages
+echo 'Install nodejs9? [y/n]'
+read install_node
 echo 'Setup postgres? [y/n]'
 read setup_postgres
 echo 'Install rust? [y/n]'
@@ -125,17 +127,22 @@ case "$(uname -s)" in
       cd ~/.repos/dotfiles
     fi
 
-
     if [ $install_packages == 'y' ]; then
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       brew install brew-cask automake python3 the_silver_searcher zsh-completions unrar ccrypt ntfs-3g neovim
       brew cask install iterm2 spectacle flux
-      if [ $build_tmux ]; then
-        brew install libevent ncurses reattach-to-user-namespace tmux
-      fi
-      if [ $setup_postgres ]; then
-        brew cask install pgadmin4
-      fi
+    fi
+
+    if [ $build_tmux ]; then
+      brew install libevent ncurses reattach-to-user-namespace tmux
+    fi
+
+    if [ $setup_postgres ]; then
+      brew cask install pgadmin4
+    fi
+
+    if [ $install_node == 'y' ]; then
+      brew install node
     fi
 
     if [ $install_rust == 'y' ]; then
@@ -149,6 +156,7 @@ case "$(uname -s)" in
     if [ $copy_fonts == 'y' ]; then
       copy_fonts
     fi
+
     if [ $install_ohmyzsh == 'y' ]; then
       setup_oh_my_zsh
     fi
@@ -173,17 +181,21 @@ case "$(uname -s)" in
     if [ $install_packages == 'y' ]; then
       sudo add-apt-repository -y ppa:neovim-ppa/unstable
       sudo apt update -y
-      if [ $build_tmux ]; then
-        sudo apt install -y libncurses5 libncurses5-dev libevent-dev
-      fi
-      if [ $setup_postgres ]; then
-        sudo apt install -y postgresql postgresql-contrib libpq-dev
-      fi
       sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip python-dev python-pip python3-dev python3-pip neovim silversearcher-ag
     fi
 
-    if [ $setup_postgres == 'y' ]; then
+    if [ $build_tmux ]; then
+      sudo apt install -y libncurses5 libncurses5-dev libevent-dev
+    fi
+
+    if [ $setup_postgres ]; then
+      sudo apt install -y postgresql postgresql-contrib libpq-dev
       sudo -u postgres createuser --interactive # setup postgres account
+    fi
+
+    if [ $install_node == 'y' ]; then
+      curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+      sudo apt-get install -y nodejs
     fi
 
     if [ $install_rust == 'y' ]; then
