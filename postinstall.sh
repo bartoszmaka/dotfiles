@@ -79,6 +79,14 @@ function setup_symlinks {
   ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
   ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
   ln -vsf ~/.vim ~/.config/nvim/.vim
+  case "$(uname -s)" in
+    Darwin)
+      ln -vsf ~/osx/tmux.conf ~/.tmux.conf
+      ;;
+    Linux)
+      ln -vsf ~/linux/tmux.conf ~/.tmux.conf
+      ;;
+  esac
 }
 
 function setup_rust {
