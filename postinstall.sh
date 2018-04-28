@@ -177,7 +177,7 @@ case "$(uname -s)" in
         sudo apt install -y libncurses5 libncurses5-dev libevent-dev
       fi
       if [ $setup_postgres ]; then
-        sudo apt install -y postgresql postgresql-contrib
+        sudo apt install -y postgresql postgresql-contrib libpq-dev
       fi
       sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip python-dev python-pip python3-dev python3-pip neovim silversearcher-ag
     fi
