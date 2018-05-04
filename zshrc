@@ -3,7 +3,6 @@ export HOMEBREW_GITHUB_API_TOKEN=""
 
 ZSH_THEME="agnoster"
 
-
 plugins=(git common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
 
 source $ZSH/oh-my-zsh.sh
@@ -18,6 +17,7 @@ alias vi="nvim -u ~/.noplugin_vimrc"
 alias minivim="nvim -u ~/.minimal_vimrc"
 alias vimrc="$EDITOR ~/.vimrc"
 alias zshrc="$EDITOR ~/.zshrc"
+alias tmuxrc="$EDITOR ~/.tmux.conf"
 
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 export PATH="$PATH:$HOME/.rvm/bin"
