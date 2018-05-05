@@ -311,7 +311,7 @@ elseif has('nvim')
 endif
 
 if(has('nvim'))
-  let g:neosnippet#snippets_directory='~/repos/dotfiles/vimsnippets'
+  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vimsnippets'
   let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] = 'html,javascript'
   let g:neosnippet#scope_aliases['ruby'] = 'html,ruby'
@@ -319,7 +319,7 @@ if(has('nvim'))
   " neoterm
   let g:neoterm_keep_term_open = 1
   let g:neoterm_run_tests_bg   = 1
-  let g:neoterm_position       = 'horizontal'
+  " let g:neoterm_position       = 'horizontal'
   let g:neoterm_size           = 16
 endif
 " closetag config
@@ -420,6 +420,9 @@ endfunction
 let g:SuperTabDefaultCompletionType = "<C-n>"
 imap <C-j>     <Tab>
 imap <C-k>     <S-Tab>
+imap <C-e><C-e>    <Plug>(neosnippet_expand_or_jump)
+smap <C-e><C-e>    <Plug>(neosnippet_expand_or_jump)
+xmap <C-e><C-e>    <Plug>(neosnippet_expand_target)
 imap <C-e>     <Plug>(neosnippet_expand_or_jump)
 smap <C-e>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-e>     <Plug>(neosnippet_expand_target)
@@ -587,6 +590,9 @@ nnoremap k gk
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
+
+" copy current line
+inoremap <C-d> <esc>YpA
 
 " begin and end of line
 map <leader>h ^
