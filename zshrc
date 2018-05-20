@@ -20,6 +20,8 @@ alias minivim="nvim -u ~/.minimal_vimrc"
 alias vimrc="$EDITOR ~/.vimrc"
 alias zshrc="$EDITOR ~/.zshrc"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
+alias tnew="tmux new-session -t bartosz"
+alias tattach="tmux new-session -s bartosz2 -t bartosz"
 
 alias -g F='| fzf --exact'
 
