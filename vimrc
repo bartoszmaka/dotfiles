@@ -528,6 +528,13 @@ cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
 
+
+" windows navigation
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+
 " close buffer
 nnoremap <leader>q :close<CR>
 
