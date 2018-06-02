@@ -24,5 +24,6 @@ alias tnew="tmux new-session -t bartosz"
 alias tattach="tmux new-session -s bartosz2 -t bartosz"
 
 alias -g F='| fzf --exact'
+alias -g C='| column -t -s " "'
 
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'

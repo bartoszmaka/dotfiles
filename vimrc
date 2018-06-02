@@ -41,6 +41,7 @@ Plug 'janko-m/vim-test'                                            " test launch
 Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/clever-f.vim'
+Plug 'VincentCordobes/vim-translate'
 
 " UI extensions
 Plug 'bagrat/vim-workspace'                                        " IDE like tabs management
@@ -323,6 +324,11 @@ let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
 " let g:CoolTotalMatches = 1
+
+let g:translate#default_languages = {
+      \ 'da': 'en',
+      \ 'en': 'da'
+      \ }
 " **********************************
 
 augroup tweak-hls
@@ -490,6 +496,10 @@ nnoremap <C-m><C-w> :set list!<CR>
 " splitjoin
 nnoremap <C-m><C-d> :SplitjoinJoin<cr>
 nnoremap <C-m><C-s> :SplitjoinSplit<cr>
+
+" translate
+nnoremap <C-m><C-t> :Translate<CR>
+vnoremap <C-m><C-t> :TranslateVisual<CR>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
