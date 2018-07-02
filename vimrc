@@ -1,64 +1,65 @@
 filetype off
 call plug#begin('~/.vim/plugged')
 
-"autocomplete
+" Autocomplete
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
-  Plug 'kassio/neoterm'                                           " terminal provider
+  Plug 'kassio/neoterm'                                            " terminal provider
 else
-  Plug 'Shougo/deoplete.nvim'                                     " autocompletion engine
+  Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'Shougo/echodoc.vim'                 " displays function signatures from completions in the command line.
+Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
 
-"fuzzy
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Fuzzy
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy searcher with extensions
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
-Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper'                                           " search projectwide
 
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'tpope/vim-fugitive'                                         " git related commands
-Plug 'rking/ag.vim'                                               " searching engine
-Plug 'w0rp/ale'                                                   " async syntax checking
+Plug 'tpope/vim-fugitive'                                          " git related commands
+Plug 'rking/ag.vim'                                                " searching engine
+Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'terryma/vim-multiple-cursors'
 
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neoinclude.vim'                                      " extends deoplete
-Plug 'ervandew/supertab'                                          " select autocompletion with tab
-Plug 'jiangmiao/auto-pairs'                                       " auto insert parentheses, quotes etc.
-Plug 'tpope/vim-endwise'                                          " auto insert 'end', 'endif' etc.
-Plug 'tpope/vim-surround'                                         " vim verb for surrounding word
-Plug 'tpope/vim-commentary'                                       " change selected code into comment
-Plug 'tpope/vim-repeat'                                           " better .
-Plug 'easymotion/vim-easymotion'                                  " adds improved w e b j k
-Plug 'alvan/vim-closetag'                                         " autoclose html tag
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                  " text align with regexp
-Plug 'janko-m/vim-test'                                           " test launcher
-Plug 'bartoszmaka/vim_current_word'                               " highlight word under cursor
+Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
+Plug 'ervandew/supertab'                                           " select autocompletion with tab
+Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
+Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
+Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
+Plug 'tpope/vim-commentary'                                        " change selected code into comment
+Plug 'tpope/vim-repeat'                                            " better .
+Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
+Plug 'alvan/vim-closetag'                                          " autoclose html tag
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                   " text align with regexp
+Plug 'janko-m/vim-test'                                            " test launcher
+Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/clever-f.vim'
+Plug 'VincentCordobes/vim-translate'
 
 " UI extensions
-Plug 'bagrat/vim-workspace'                                       " IDE like tabs management
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                " perview file structure
-Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }            " perview undos
-Plug 'scrooloose/nerdtree'                                        " project explorer
-Plug 'jistr/vim-nerdtree-tabs'                                    " better behavior for nerdtree
-Plug 'Xuyuanp/nerdtree-git-plugin'                                " nerdTree git integration
-Plug 'machakann/vim-highlightedyank'                              " highlight yanked code
-Plug 'joshdick/onedark.vim'                                       " colorscheme
-Plug 'nathanaelkane/vim-indent-guides'                            " visualize indent level
-Plug 'airblade/vim-gitgutter'                                     " shows git signs next to line numbers
-Plug 'bling/vim-airline'                                          " UI improvement
-Plug 'vim-airline/vim-airline-themes'                             " themes for airline
-Plug 'blueyed/vim-diminactive'                                    " dim inactive windows
-Plug 'szw/vim-maximizer'                                          " maximize window
-Plug 'simeji/winresizer'                                          " window resize helper
-Plug 'ryanoasis/vim-devicons'                                     " Fancy icons
+Plug 'bagrat/vim-workspace'                                        " IDE like tabs management
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                 " perview file structure
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }             " perview undos
+Plug 'scrooloose/nerdtree'                                         " project explorer
+Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
+Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
+Plug 'machakann/vim-highlightedyank'                               " highlight yanked code
+Plug 'joshdick/onedark.vim'                                        " colorscheme
+Plug 'nathanaelkane/vim-indent-guides'                             " visualize indent level
+Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
+Plug 'bling/vim-airline'                                           " UI improvement
+Plug 'vim-airline/vim-airline-themes'                              " themes for airline
+Plug 'blueyed/vim-diminactive'                                     " dim inactive windows
+Plug 'szw/vim-maximizer'                                           " maximize window
+Plug 'simeji/winresizer'                                           " window resize helper
+Plug 'ryanoasis/vim-devicons'                                      " Fancy icons
 Plug 'junegunn/vim-peekaboo'
 
 " language specific 
@@ -176,18 +177,13 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-if (has("autocmd") && !has("gui"))
-  let s:monek_grey = { "gui": "#343D46", "cterm": "16", "cterm16": "0" }
-  autocmd ColorScheme * call onedark#set_highlight("CursorLine", { "bg": s:monek_grey })
-end
-
 set background=dark
 colorscheme onedark
 let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+  set conceallevel=0
 endif
 
 " **********************************
@@ -328,6 +324,11 @@ let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
 " let g:CoolTotalMatches = 1
+
+let g:translate#default_languages = {
+      \ 'da': 'en',
+      \ 'en': 'da'
+      \ }
 " **********************************
 
 augroup tweak-hls
@@ -369,6 +370,8 @@ augroup END
 
 augroup insert-mode-tweaks
   autocmd!
+  autocmd InsertEnter * set cursorcolumn
+  autocmd InsertLeave * set nocursorcolumn
   autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
   autocmd InsertEnter * highlight CursorLineNR guibg=#512121
   autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
@@ -377,27 +380,19 @@ augroup END
 
 augroup color-scheme-tweaks
   autocmd!
-  highlight   IncSearch             guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight   Search                guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight   CurrentWordTwins      ctermbg=12      guibg=#363636
-  highlight   CurrentWord           ctermbg=14      guibg=#262020
-augroup END
-
-augroup gtDown
-  autocmd!
-  autocmd BufReadPre TODO.md nmap     <buffer> <silent> <leader>s :call getting_things_down#cycle_status()<CR>
-  autocmd BufReadPre TODO.md nnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
-  autocmd BufReadPre TODO.md vnoremap <buffer> <silent> <leader>t :call getting_things_down#toggle_task()<CR>
-  autocmd BufReadPre TODO.md hi! markdownTodoReadyN guifg=#E5C07B
-  autocmd BufReadPre TODO.md hi! markdownTodoDoneN guifg=#999999
-  autocmd BufReadPre TODO.md hi! markdownTodoWaitingN guifg=#9648AD
+  highlight CursorColumn     guibg=#512121   ctermbg=52
+  highlight CursorColumnNR   guibg=#512121
+  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight CurrentWordTwins ctermbg=12      guibg=#363636
+  highlight CurrentWord      ctermbg=14      guibg=#262020
 augroup END
 
 augroup tab-lengths
   autocmd!
-  autocmd Filetype neoterm    setlocal so=0
-  autocmd Filetype gitcommit  setlocal cc=72
-  autocmd Filetype nerdtree   setlocal ts=2 sts=2 sw=2
+  autocmd Filetype neoterm    setlocal scrolloff=0
+  autocmd Filetype gitcommit  setlocal colorcolumn=72
+  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 command! TODO :call getting_things_down#show_todo()
@@ -423,9 +418,6 @@ imap <C-k>     <S-Tab>
 imap <C-e><C-e>    <Plug>(neosnippet_expand_or_jump)
 smap <C-e><C-e>    <Plug>(neosnippet_expand_or_jump)
 xmap <C-e><C-e>    <Plug>(neosnippet_expand_target)
-imap <C-e>     <Plug>(neosnippet_expand_or_jump)
-smap <C-e>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-e>     <Plug>(neosnippet_expand_target)
 
 " extension windows management
 if has('nvim')
@@ -452,8 +444,8 @@ let g:maximizer_default_mapping_key = '<C-w>m'
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
-noremap <D-]> :WSNext<CR>
-noremap <D-[> :WSPrev<CR>
+noremap <M-]> :WSNext<CR>
+noremap <M-[> :WSPrev<CR>
 noremap <leader>] :WSNext<CR>
 noremap <leader>[ :WSPrev<CR>
 noremap <leader>! :WSClose<CR>
@@ -481,11 +473,6 @@ let g:ag_highlight=1
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping  = ''
 
-" easymotion
-" nmap <leader>w <Plug>(easymotion-w)
-" nmap <leader>b <Plug>(easymotion-b)
-" nmap <leader>e <Plug>(easymotion-e)
-
 " list mappings
 nnoremap <C-k><C-s> :FzfMaps<CR>
 
@@ -506,15 +493,19 @@ nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
+" splitjoin
 nnoremap <C-m><C-d> :SplitjoinJoin<cr>
 nnoremap <C-m><C-s> :SplitjoinSplit<cr>
 
-" splitjoin
+" translate
+nnoremap <C-m><C-t> :Translate<CR>
+vnoremap <C-m><C-t> :TranslateVisual<CR>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
 " Disable Deoplete when selecting multiple cursors starts
 function! Multiple_cursors_before()
   if exists('*deoplete#disable')
@@ -538,16 +529,21 @@ endfunction
 
 " sometimes I just hold shift for too long
 cabbrev W   w
-cabbrev Wa   w
+cabbrev Wa  wa
 cabbrev Wq  wq
 cabbrev Wqa wqa
+cabbrev WQa wqa
 cabbrev Q   q
 cabbrev Qa  qa
-cabbrev Q!   q
-cabbrev Qa!  qa
+cabbrev Q!  q
+cabbrev Qa! qa
 
-" disable hls
-" noremap  <Esc><Esc> :<C-u>nohls<CR>
+
+" windows navigation
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 
 " close buffer
 nnoremap <leader>q :close<CR>

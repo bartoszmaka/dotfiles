@@ -1,4 +1,11 @@
 #! /bin/bash
+function install_postman {
+  wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+  sudo tar -xzf postman.tar.gz -C /opt
+  rm -f postman.tar.gz
+  sudo ln -s /opt/Postman/Postman /usr/bin/postman
+}
+
 function copy_fonts {
   case "$(uname -s)" in
     Darwin)
@@ -99,6 +106,8 @@ echo 'Install nodejs9? [y/n]'
 read install_node
 echo 'Setup postgres? [y/n]'
 read setup_postgres
+echo 'Setup postman? [y/n]'
+read install_postman
 echo 'Install rust? [y/n]'
 read install_rust
 echo 'Install vim plug? [y/n]'
@@ -218,6 +227,10 @@ case "$(uname -s)" in
 
     if [ $create_symlinks == 'y' ]; then
       setup_symlinks
+    fi
+
+    if [ $install_postman == 'y' ]; then
+      install_postman
     fi
 
     build_tools_from_source
