@@ -69,8 +69,6 @@ function setup_oh_my_zsh {
   git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   git clone https://github.com/djui/alias-tips.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/alias-tips
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-  sed -ie 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"'/ ~/.zshrc
 }
 
 function setup_symlinks {
@@ -78,6 +76,7 @@ function setup_symlinks {
   ln -vsf ~/.repos/dotfiles/vimrc ~/.vimrc
   ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
   ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
+  ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
   ln -vsf ~/.vim ~/.config/nvim/.vim
   case "$(uname -s)" in
     Darwin)
