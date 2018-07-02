@@ -131,7 +131,7 @@ set smartindent
 
 " window management
 set scrolloff=4                         " show at least 4 lines above or under cursor
-set sidescrolloff=5
+set sidescrolloff=15
 set splitright                          " place new vertical split on right side of current window
 set splitbelow                          " place new horizontal split under current window
 
@@ -142,7 +142,7 @@ set shiftwidth=2                        " default tab width
 set expandtab                           " Spaces instead of tabs
 
 " line length
-set synmaxcol=180                       " disable syntax colors after given column
+set synmaxcol=350                       " disable syntax colors after given column
 set colorcolumn=120                     " color 120th column
 set textwidth=0                         " do not break lines automatically
 set showbreak=\/_
@@ -452,6 +452,8 @@ let g:maximizer_default_mapping_key = '<C-w>m'
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
+noremap <D-]> :WSNext<CR>
+noremap <D-[> :WSPrev<CR>
 noremap <leader>] :WSNext<CR>
 noremap <leader>[ :WSPrev<CR>
 noremap <leader>! :WSClose<CR>
