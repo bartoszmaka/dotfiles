@@ -50,6 +50,7 @@ ZSH_THEME="agnoster"
 
 plugins=(
   git
+  tmux
   common-aliases
   rails
   zsh-autosuggestions

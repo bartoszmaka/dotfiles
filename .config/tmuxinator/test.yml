@@ -1,0 +1,15 @@
+# /Users/bartosz/.config/tmuxinator/test.yml
+
+name: test
+root: ~/
+
+windows:
+  - editor:
+      panes:
+        - nvim
+  - server:
+      layout: main-vertical
+      panes:
+        - bundle exec rails s
+        - devlog G Controller
+  - logs: tail -f log/development.log

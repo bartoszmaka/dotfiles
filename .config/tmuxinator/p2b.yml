@@ -1,0 +1,18 @@
+# /Users/bartosz/.config/tmuxinator/p2b.yml
+
+name: p2b
+root: ~/Selleo/app-core
+
+windows:
+  - editor:
+      panes:
+        - nvim
+  - server:
+      layout: main-vertical
+      panes:
+        - bundle exec rails s
+        - devlog G Controller
+        - devlog G Rendered
+  - console: berc
+  - utils: gst
+
