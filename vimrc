@@ -11,6 +11,13 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
+Plug 'ervandew/supertab'                                           " select autocompletion with tab
+Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
+Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
+Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 
 " Fuzzy
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy searcher with extensions
@@ -25,13 +32,6 @@ Plug 'rking/ag.vim'                                                " searching e
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'terryma/vim-multiple-cursors'
 
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
-Plug 'ervandew/supertab'                                           " select autocompletion with tab
-Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
-Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
-Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
@@ -41,7 +41,7 @@ Plug 'janko-m/vim-test'                                            " test launch
 Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/clever-f.vim'
-Plug 'VincentCordobes/vim-translate'
+Plug 'VincentCordobes/vim-translate', { 'on': ['Translate', 'TranslateClear', 'Translate', 'TranslateReplace', 'TranslateVisual'] }
 
 " UI extensions
 Plug 'bagrat/vim-workspace'                                        " IDE like tabs management
@@ -67,15 +67,15 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
 " Plug 'gasparch/vim-ide-elixir',          { 'for': ['elixir', 'eelixir'] }
-Plug 'kchmck/vim-coffee-script',         { 'for': ['javascript'] }
-Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css' ] }
+Plug 'kchmck/vim-coffee-script',         { 'for': ['javascript', 'coffee', 'eruby'] }
+Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'aliou/sql-heredoc.vim'
 Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
 Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
-Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby'] }
+Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx', 'coffee', 'eruby'] }
+Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx', 'coffee', 'eruby'] }
+Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby', 'eruby'] }
 
 " Plug 'romainl/vim-cool'
 if !has('gui')
@@ -96,6 +96,8 @@ if has('nvim') && has('mac')
   let g:python_host_prog  = '/usr/local/bin/python2'
   let g:python3_host_prog = '/usr/local/bin/python3'
 endif
+set autoread
+syntax sync minlines=256
 set novisualbell
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
@@ -144,7 +146,7 @@ set expandtab                           " Spaces instead of tabs
 
 " line length
 set synmaxcol=350                       " disable syntax colors after given column
-set colorcolumn=120                     " color 120th column
+set colorcolumn=80                      " color 120th column
 set textwidth=0                         " do not break lines automatically
 set showbreak=\/_
 set nowrap                              " don't wrap lines
@@ -303,7 +305,7 @@ let g:gutentags_ctags_exclude = ["node_modules", ".git"]
 if has('gui_macvim')
   let test#strategy          = 'iterm'
 elseif has('nvim')
-  let test#strategy          = 'neoterm'
+  let test#strategy          = 'vtr'
 endif
 
 if(has('nvim'))
@@ -329,6 +331,7 @@ let g:translate#default_languages = {
       \ 'da': 'en',
       \ 'en': 'da'
       \ }
+
 " **********************************
 
 augroup tweak-hls
@@ -396,6 +399,7 @@ augroup tab-lengths
 augroup END
 
 command! TODO :call getting_things_down#show_todo()
+
 " **********************************
 " custom functions
 
@@ -433,7 +437,6 @@ nnoremap <C-k><C-v> :TagbarToggle<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 nnoremap <C-g><C-s> :Gstatus<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
-
 
 " vim move (block of code)
 let g:move_key_modifier             = 'C'
@@ -538,7 +541,6 @@ cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
 
-
 " windows navigation
 nnoremap <M-h> <C-w>h
 nnoremap <M-j> <C-w>j
@@ -581,9 +583,20 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+nnoremap <leader>ts :e db/schema.rb<CR>
+
 " treat multiline statement as multiple lines
 nnoremap j gj
 nnoremap k gk
+
+nnoremap J jzz
+nnoremap K kzz
+vnoremap J jzz
+vnoremap K kzz
+nnoremap L zl
+nnoremap H zh
+vnoremap L zl
+vnoremap H zh
 
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
@@ -604,3 +617,5 @@ if has("gui_macvim")
   set guioptions-=L  "remove left-hand scroll bar
   set guioptions-=e  "remove left-hand scroll bar
 endif
+
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
