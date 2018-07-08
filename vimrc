@@ -83,8 +83,6 @@ Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'html', 'css', 
 Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 Plug 'galooshi/vim-import-js',           { 'for': ['javascript'], 'do': 'npm install -g import-js' }
-
-" Plug 'romainl/vim-cool'
 call plug#end()
 
 " **********************************
@@ -227,11 +225,6 @@ let g:mundo_right     = 1
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
 
-let g:gtdown_cycle_states       = ['TODO', 'WIP', 'DONE', 'WAIT', 'CANCELLED']
-let g:gtdown_default_fold_level = 2222
-let g:gtdown_show_progress      = 1
-let g:gtdown_fold_list_items    = 0
-
 " vim current word
 let g:vim_current_word#enabled                        = 1
 let vim_current_word#highlight_only_in_focused_window = 1
@@ -241,7 +234,6 @@ let g:vim_current_word#highlight_after_delay          = 1
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-
 
 " ale syntax checker
 let g:ale_echo_msg_error_str   = 'E'
@@ -269,6 +261,7 @@ let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutJump       = ''
 let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsMapCh              = ''
+let g:ag_highlight=1
 
 " completion
 let deoplete#tag#cache_limit_size    = 50000000
@@ -315,7 +308,7 @@ let g:gutentags_ctags_exclude = ["node_modules", ".git"]
 
 if has('gui_macvim')
   let test#strategy          = 'iterm'
-elseif has('nvim')
+elseif exists('$TMUX')
   let test#strategy          = 'vtr'
 endif
 
@@ -334,11 +327,6 @@ let g:closetag_shortcut                = '>'
 
 " **********************************
 
-augroup tweak-hls
-  autocmd!
-  autocmd InsertEnter * setlocal nohls
-augroup END
-
 augroup fix-filetypes
   autocmd!
   autocmd BufNewFile,BufRead .eslintrc  setlocal filetype=json
@@ -346,7 +334,13 @@ augroup fix-filetypes
   autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
 augroup END
 
-augroup nerdtree
+augroup tab-lengths-per-filetype
+  autocmd!
+  autocmd Filetype gitcommit  setlocal colorcolumn=72
+  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+augroup open-nerdtree-at-start
   autocmd!
   autocmd VimEnter *
         \   if !argc()
@@ -356,22 +350,17 @@ augroup nerdtree
         \ | set list
 augroup END
 
-augroup yaml-helper
-  autocmd!
-  autocmd CursorHold *.yml YamlGetFullPath
-augroup END
-
-augroup dim-inactive-fix
-  autocmd!
-  autocmd BufNew * DimInactive
-augroup END
-
 augroup remember-cursor-position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-augroup insert-mode-tweaks
+augroup disable-hls-on-insert-enter
+  autocmd!
+  autocmd InsertEnter * setlocal nohls
+augroup END
+
+augroup color-scheme-tweaks
   autocmd!
   autocmd InsertEnter * set cursorcolumn
   autocmd InsertLeave * set nocursorcolumn
@@ -379,10 +368,6 @@ augroup insert-mode-tweaks
   autocmd InsertEnter * highlight CursorLineNR guibg=#512121
   autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
   autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
-augroup END
-
-augroup color-scheme-tweaks
-  autocmd!
   highlight CursorColumn     guibg=#512121   ctermbg=52
   highlight CursorColumnNR   guibg=#512121
   highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
@@ -391,17 +376,14 @@ augroup color-scheme-tweaks
   highlight CurrentWord      ctermbg=14      guibg=#262020
 augroup END
 
-augroup tab-lengths
+augroup yaml-helper
   autocmd!
-  autocmd Filetype gitcommit  setlocal colorcolumn=72
-  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd CursorHold *.yml YamlGetFullPath
 augroup END
-
-command! TODO :call getting_things_down#show_todo()
 
 " **********************************
 " custom functions
-
+" Go to alternative file
 function! AltCommand(path, vim_command)
   let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
   if empty(l:alternate)
@@ -411,56 +393,65 @@ function! AltCommand(path, vim_command)
   endif
 endfunction
 
+" Disable Deoplete when selecting multiple cursors starts
+function! Multiple_cursors_before()
+  if exists('*deoplete#disable')
+    exe 'call deoplete#disable()'
+  elseif exists(':NeoCompleteLock') == 2
+    exe 'NeoCompleteLock'
+  endif
+endfunction
+
+" Enable Deoplete when selecting multiple cursors ends
+function! Multiple_cursors_after()
+  if exists('*deoplete#enable')
+    exe 'call deoplete#enable()'
+  elseif exists(':NeoCompleteUnlock') == 2
+    exe 'NeoCompleteUnlock'
+  endif
+endfunction
+
 " **********************************
 " Plugin related keymaps
 
 " autocomplete
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
-imap <C-e> <Plug>(neosnippet_expand_or_jump)
-smap <C-e> <Plug>(neosnippet_expand_or_jump)
-xmap <C-e> <Plug>(neosnippet_expand_target)
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+imap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+smap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+xmap     <C-e>         <Plug>(neosnippet_expand_target)
 
-" extension windows management
-if has('nvim')
-  nnoremap <C-k><C-t> :Ttoggle<CR>
-endif
-
+" tools windows management
+let g:winresizer_start_key          = '<C-w>e'
+let g:maximizer_default_mapping_key = '<C-w>m'
 nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
-
 nnoremap <C-k><C-v> :TagbarToggle<CR>
-
 nnoremap <C-g><C-d> :Gdiff<CR>
 nnoremap <C-g><C-s> :Gstatus<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
-
-" vim move (block of code)
-let g:move_key_modifier             = 'C'
-let g:winresizer_start_key          = '<C-w>e'
-let g:maximizer_default_mapping_key = '<C-w>m'
 
 " Find the alternate file for the current path and open it (basically go to test file)
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
-noremap <M-]> :WSNext<CR>
-noremap <M-[> :WSPrev<CR>
-noremap <leader>] :WSNext<CR>
-noremap <leader>[ :WSPrev<CR>
-noremap <leader>! :WSClose<CR>
+noremap <M-]>            :WSNext<CR>
+noremap <M-[>            :WSPrev<CR>
+noremap <leader>]        :WSNext<CR>
+noremap <leader>[        :WSPrev<CR>
+noremap <leader>!        :WSClose<CR>
 noremap <leader><space>! :WSClose!<CR>
 cabbrev bonly WSBufOnly
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>1           <Plug>AirlineSelectTab1
+nmap <leader>2           <Plug>AirlineSelectTab2
+nmap <leader>3           <Plug>AirlineSelectTab3
+nmap <leader>4           <Plug>AirlineSelectTab4
+nmap <leader>5           <Plug>AirlineSelectTab5
+nmap <leader>6           <Plug>AirlineSelectTab6
+nmap <leader>7           <Plug>AirlineSelectTab7
+nmap <leader>8           <Plug>AirlineSelectTab8
+nmap <leader>9           <Plug>AirlineSelectTab9
 
 " launch test suite
 nnoremap <leader>tt :TestNearest<CR>
@@ -469,10 +460,6 @@ nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
 nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
-
-let g:ag_highlight=1
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping  = ''
 
 " list mappings
 nnoremap <C-k><C-s> :FzfMaps<CR>
@@ -497,12 +484,10 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
 " splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping  = ''
 nnoremap <C-m><C-p> :SplitjoinJoin<cr>
 nnoremap <C-m><C-n> :SplitjoinSplit<cr>
-
-" translate
-nnoremap <C-m><C-t> :Translate<CR>
-vnoremap <C-m><C-t> :TranslateVisual<CR>
 
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
@@ -514,24 +499,6 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
-
-" Disable Deoplete when selecting multiple cursors starts
-function! Multiple_cursors_before()
-  if exists('*deoplete#disable')
-    exe 'call deoplete#disable()'
-  elseif exists(':NeoCompleteLock') == 2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
-
-" Enable Deoplete when selecting multiple cursors ends
-function! Multiple_cursors_after()
-  if exists('*deoplete#enable')
-    exe 'call deoplete#enable()'
-  elseif exists(':NeoCompleteUnlock') == 2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
 
 " **********************************
 " Non plugin related keymaps
@@ -553,16 +520,15 @@ map q: <NOP>
 
 " windows navigation
 " for linux
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
+nnoremap <M-h>      <C-w>h
+nnoremap <M-j>      <C-w>j
+nnoremap <M-k>      <C-w>k
+nnoremap <M-l>      <C-w>l
 " for iterm (also requires 'send hex' config)
 nnoremap <C-space>h <C-w>h
 nnoremap <C-space>j <C-w>j
 nnoremap <C-space>k <C-w>k
 nnoremap <C-space>l <C-w>l
-
 if exists('$TMUX')
   let g:tmux_navigator_no_mappings = 1
   nnoremap <C-w>h :TmuxNavigateLeft<CR>
@@ -574,11 +540,34 @@ endif
 " close buffer
 nnoremap <leader>q :close<CR>
 
-" focus on next search and cursor history jump
+" split and merge lines
+nnoremap <leader>j i<CR><Esc>
+nnoremap <leader>k <esc>kJ
+
+" copy current line
+inoremap <C-d> <esc>YpA
+
+" begin and end of line
+map <leader>h ^
+map <leader>l $
+
+" treat multiline statement as multiple lines
+nnoremap j gj
+nnoremap k gk
+
+" always focus after cursor jump
 nnoremap n     :setlocal hls<CR>nzz
 nnoremap N     :setlocal hls<CR>Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
+nnoremap J     jzz
+nnoremap K     kzz
+vnoremap J     jzz
+vnoremap K     kzz
+nnoremap L     zl
+nnoremap H     zh
+vnoremap L     zl
+vnoremap H     zh
 
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
@@ -608,30 +597,6 @@ vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
 nnoremap <leader>ts :e db/schema.rb<CR>
-
-" treat multiline statement as multiple lines
-nnoremap j gj
-nnoremap k gk
-
-nnoremap J jzz
-nnoremap K kzz
-vnoremap J jzz
-vnoremap K kzz
-nnoremap L zl
-nnoremap H zh
-vnoremap L zl
-vnoremap H zh
-
-" split and merge lines
-nnoremap <leader>j i<CR><Esc>
-nnoremap <leader>k <esc>kJ
-
-" copy current line
-inoremap <C-d> <esc>YpA
-
-" begin and end of line
-map <leader>h ^
-map <leader>l $
 
 if has("gui_macvim")
   set guifont=Hasklug\ Nerd\ Font\ Complete:h18
