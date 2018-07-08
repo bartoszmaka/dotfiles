@@ -22,6 +22,14 @@ bash postinstall.sh
   pip2 install neovim
   pip3 install neovim
   ```
+- install ruby provider
+  ``` bash
+  gem install neovim
+  ```
+- install npm plugins dependencies provider
+  ``` bash
+  npm install -g tern import-js
+  ```
 - place `vimrc` in proper location - `~/.config/nvim/init.vim`
 
 - install plugins with `:PlugInstall` (inside neovim)
