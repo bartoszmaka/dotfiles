@@ -62,19 +62,18 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 
+Plug 'aliou/sql-heredoc.vim'
 Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
-" Plug 'gasparch/vim-ide-elixir',          { 'for': ['elixir', 'eelixir'] }
-Plug 'aliou/sql-heredoc.vim'
 Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
 Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
 Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby', 'eruby'] }
-Plug 'kchmck/vim-coffee-script',         { 'for': ['javascript', 'coffee', 'eruby'] }
+Plug 'kchmck/vim-coffee-script',         { 'for': ['coffee', 'eruby'] }
+Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx', 'coffee', 'eruby'] }
-Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx', 'coffee', 'eruby'] }
-Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'javascript.jsx', 'eruby', 'coffee'], 'do': 'npm install -g tern' }
+Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 
 " Plug 'romainl/vim-cool'
 if !has('gui')
@@ -277,6 +276,8 @@ let g:deoplete#auto_refresh_delay    = 2
 let g:deoplete#max_abbr_width        = 0
 let g:deoplete#max_menu_width        = 50
 let g:deoplete#max_list              = 30
+
+let g:vim_jsx_pretty_colorful_config = 1
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_action = {
