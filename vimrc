@@ -25,21 +25,21 @@ Plug 'airblade/vim-gitgutter'                                      " shows git s
 Plug 'christoomey/vim-tmux-runner'                                 " tmux integration
 Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                   " text align with regexp
 Plug 'janko-m/vim-test'                                            " test launcher
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'bagrat/vim-workspace'                                        " IDE like tabs management
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                 " perview file structure
-Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }             " perview undos
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'junegunn/vim-peekaboo'                                       " show content of buffers
+Plug 'godlygeek/tabular',                { 'on': 'Tabularize' }    " text align with regexp
+Plug 'majutsushi/tagbar',                { 'on': 'TagbarToggle' }  " perview file structure
+Plug 'simnalamburt/vim-mundo',           { 'on': 'MundoToggle' }   " perview undos
 
-" Fuzzy
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy searcher with extensions
+" Fuzzy searcher
+Plug 'junegunn/fzf',                     { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
@@ -56,7 +56,7 @@ Plug 'alvan/vim-closetag'                                          " autoclose h
 
 " IDE like autocomplete
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim',           { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
   Plug 'roxma/nvim-yarp'
@@ -78,10 +78,11 @@ Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
 Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby', 'eruby'] }
 Plug 'kchmck/vim-coffee-script',         { 'for': ['coffee', 'eruby'] }
-Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
+Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript'] }
+Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
+Plug 'galooshi/vim-import-js',           { 'for': ['javascript'], 'do': 'npm install -g import-js' }
 
 " Plug 'romainl/vim-cool'
 call plug#end()
@@ -253,12 +254,15 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 0
 let g:ale_fixers = {
-      \ 'ruby':       ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'javascript': ['remove_trailing_lines', 'trim_whitespace', 'eslint'],
-      \ 'vim':        ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
+      \ 'javascript':     ['remove_trailing_lines', 'trim_whitespace', 'eslint', 'importjs'],
+      \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
       \}
-" let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
-" let g:ale_linter_aliases = {'jsx': 'css'}
+let g:ale_linters = {
+      \ 'ruby':           ['rubocop'],
+      \ 'javascript':     ['eslint'],
+      \}
+let g:ale_linter_aliases = {'jsx': 'css'}
 
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -484,8 +488,10 @@ nnoremap <C-p><C-l> :FzfLines<CR>
 nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
 
-" ALE actions
+" find in project => ag --vimgrep> pattern [location]
 nnoremap <C-m><C-g> :Grepper<CR>
+
+" ALE actions
 nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
@@ -500,6 +506,9 @@ vnoremap <C-m><C-t> :TranslateVisual<CR>
 
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
+
+nnoremap [e <Plug>(ale_previous_wrap)
+nnoremap ]e <Plug>(ale_next_wrap)
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
