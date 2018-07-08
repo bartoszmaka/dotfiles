@@ -24,7 +24,6 @@ Plug 'janko-m/vim-test'                                            " test launch
 Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'rhysd/clever-f.vim'
-Plug 'VincentCordobes/vim-translate', { 'on': ['Translate', 'TranslateClear', 'Translate', 'TranslateReplace', 'TranslateVisual'] }
 
 " UI extensions
 Plug 'bagrat/vim-workspace'                                        " IDE like tabs management
@@ -47,13 +46,13 @@ Plug 'junegunn/vim-peekaboo'
 
 " autocomplete
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
-  Plug 'kassio/neoterm'                                            " terminal provider
+  Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'autozimu/LanguageClient-neovim',   { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -76,7 +75,7 @@ Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx
 Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 
 " Plug 'romainl/vim-cool'
-if !has('gui')
+if exists('$TMUX')
   Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
 endif
 call plug#end()
@@ -236,10 +235,6 @@ let g:vim_current_word#highlight_after_delay          = 1
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
-" vim-tmux-navigator
-if !has('gui')
-  let g:tmux_navigator_no_mappings = 1
-endif
 
 " ale syntax checker
 let g:ale_echo_msg_error_str   = 'E'
@@ -276,6 +271,12 @@ let g:deoplete#auto_refresh_delay    = 2
 let g:deoplete#max_abbr_width        = 0
 let g:deoplete#max_menu_width        = 50
 let g:deoplete#max_list              = 30
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+"     \ 'javascript': ['javascript-typescript-stdio'],
+"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"     \ 'python': ['pyls'],
+"     \ }
 
 let g:vim_jsx_pretty_colorful_config = 1
 
@@ -311,26 +312,15 @@ endif
 if(has('nvim'))
   let g:neosnippet#snippets_directory='~/.repos/dotfiles/vimsnippets'
   let g:neosnippet#scope_aliases = {}
-  let g:neosnippet#scope_aliases['javascript'] = 'html,javascript'
-  let g:neosnippet#scope_aliases['ruby'] = 'html,ruby'
-
-  " neoterm
-  let g:neoterm_keep_term_open = 1
-  let g:neoterm_run_tests_bg   = 1
-  " let g:neoterm_position       = 'horizontal'
-  let g:neoterm_size           = 16
+  let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
+  let g:neosnippet#scope_aliases['ruby'] = 'eruby,ruby'
 endif
+
 " closetag config
 let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex'
 let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
-" let g:CoolTotalMatches = 1
-
-let g:translate#default_languages = {
-      \ 'da': 'en',
-      \ 'en': 'da'
-      \ }
 
 " **********************************
 
@@ -393,7 +383,6 @@ augroup END
 
 augroup tab-lengths
   autocmd!
-  autocmd Filetype neoterm    setlocal scrolloff=0
   autocmd Filetype gitcommit  setlocal colorcolumn=72
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
@@ -544,11 +533,24 @@ cabbrev Q!  q
 cabbrev Qa! qa
 
 " windows navigation
+" for linux
 nnoremap <M-h> <C-w>h
 nnoremap <M-j> <C-w>j
 nnoremap <M-k> <C-w>k
 nnoremap <M-l> <C-w>l
+" for iterm
+nnoremap <C-space>h <C-w>h
+nnoremap <C-space>j <C-w>j
+nnoremap <C-space>k <C-w>k
+nnoremap <C-space>l <C-w>l
 
+if exists('$TMUX')
+  let g:tmux_navigator_no_mappings = 1
+  nnoremap <C-w>h :TmuxNavigateLeft<CR>
+  nnoremap <C-w>j :TmuxNavigateDown<CR>
+  nnoremap <C-w>k :TmuxNavigateUp<CR>
+  nnoremap <C-w>l :TmuxNavigateRight<CR>
+endif
 " close buffer
 nnoremap <leader>q :close<CR>
 

@@ -82,17 +82,17 @@ neovim plugins dependencies
 
 
 #### iTerm2
-##### workaround, to get `<M-[>`, `<M-S-[` working in vim and tmux
+##### workaround, to get meta key bindings working in vim and tmux
 
 ```
 preferences > profiles > keys
 map
 cmd [	send hex 0x20 0x5b
 cmd ]	send hex 0x20 0x5d
-cmd h	send hex 0x17 0x68
-cmd j	send hex 0x17 0x6a
-cmd k	send hex 0x17 0x6b
-cmd l	send hex 0x17 0x6c
+cmd h	send hex 0x0  0x68
+cmd j	send hex 0x0  0x6a
+cmd k	send hex 0x0  0x6b
+cmd l	send hex 0x0  0x6c
 cmd {	send hex 0x0  0x70
 cmd }	send hex 0x0  0x6e
 # 0x20 - space
