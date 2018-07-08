@@ -31,6 +31,7 @@ Plug 'tpope/vim-fugitive'                                          " git related
 Plug 'rking/ag.vim'                                                " searching engine
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'terryma/vim-multiple-cursors'
+Plug 'christoomey/vim-tmux-runner'
 
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
@@ -497,12 +498,15 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
 " splitjoin
-nnoremap <C-m><C-d> :SplitjoinJoin<cr>
-nnoremap <C-m><C-s> :SplitjoinSplit<cr>
+nnoremap <C-m><C-p> :SplitjoinJoin<cr>
+nnoremap <C-m><C-n> :SplitjoinSplit<cr>
 
 " translate
 nnoremap <C-m><C-t> :Translate<CR>
 vnoremap <C-m><C-t> :TranslateVisual<CR>
+
+nnoremap [c :GitGutterPrevHunk<CR>
+nnoremap ]c :GitGutterNextHunk<CR>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
