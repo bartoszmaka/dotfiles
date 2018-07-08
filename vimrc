@@ -1,23 +1,5 @@
 filetype off
-call plug#begin('~/.vim/plugged')
-
-" Autocomplete
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
-  Plug 'kassio/neoterm'                                            " terminal provider
-else
-  Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
-Plug 'ervandew/supertab'                                           " select autocompletion with tab
-Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
-Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
-Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
+call plug#begin()
 
 " Fuzzy
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy searcher with extensions
@@ -63,20 +45,36 @@ Plug 'simeji/winresizer'                                           " window resi
 Plug 'ryanoasis/vim-devicons'                                      " Fancy icons
 Plug 'junegunn/vim-peekaboo'
 
-" language specific 
+" autocomplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim',    { 'do': ':UpdateRemotePlugins' } " autocompletion engine
+  Plug 'kassio/neoterm'                                            " terminal provider
+else
+  Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
+Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
+Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
+Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 
 Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
 " Plug 'gasparch/vim-ide-elixir',          { 'for': ['elixir', 'eelixir'] }
-Plug 'kchmck/vim-coffee-script',         { 'for': ['javascript', 'coffee', 'eruby'] }
-Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'aliou/sql-heredoc.vim'
 Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
 Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
+Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby', 'eruby'] }
+Plug 'kchmck/vim-coffee-script',         { 'for': ['javascript', 'coffee', 'eruby'] }
+Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx', 'coffee', 'eruby'] }
 Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript', 'javascript.jsx', 'coffee', 'eruby'] }
-Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby', 'eruby'] }
+Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'javascript.jsx', 'eruby', 'coffee'], 'do': 'npm install -g tern' }
 
 " Plug 'romainl/vim-cool'
 if !has('gui')
@@ -417,12 +415,11 @@ endfunction
 " Plugin related keymaps
 
 " autocomplete
-let g:SuperTabDefaultCompletionType = "<C-n>"
-imap <C-j>     <Tab>
-imap <C-k>     <S-Tab>
-imap <C-e><C-e>    <Plug>(neosnippet_expand_or_jump)
-smap <C-e><C-e>    <Plug>(neosnippet_expand_or_jump)
-xmap <C-e><C-e>    <Plug>(neosnippet_expand_target)
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
+imap <C-e> <Plug>(neosnippet_expand_or_jump)
+smap <C-e> <Plug>(neosnippet_expand_or_jump)
+xmap <C-e> <Plug>(neosnippet_expand_target)
 
 " extension windows management
 if has('nvim')
@@ -621,5 +618,3 @@ if has("gui_macvim")
   set guioptions-=L  "remove left-hand scroll bar
   set guioptions-=e  "remove left-hand scroll bar
 endif
-
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
