@@ -1,50 +1,60 @@
 filetype off
 call plug#begin()
 
-" Fuzzy
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy searcher with extensions
-Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
+" Cosmetic
+Plug 'nathanaelkane/vim-indent-guides'                             " visualize indent level
+Plug 'joshdick/onedark.vim'                                        " colorscheme
+Plug 'bling/vim-airline'                                           " UI improvement
+Plug 'vim-airline/vim-airline-themes'                              " themes for airline
+Plug 'machakann/vim-highlightedyank'                               " highlight yanked code
+Plug 'blueyed/vim-diminactive'                                     " dim inactive windows
+Plug 'ryanoasis/vim-devicons'                                      " Fancy icons
 
-Plug 'mhinz/vim-grepper'                                           " search projectwide
-
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'tpope/vim-fugitive'                                          " git related commands
-Plug 'rking/ag.vim'                                                " searching engine
-Plug 'w0rp/ale'                                                    " async syntax checking
-Plug 'terryma/vim-multiple-cursors'
-Plug 'christoomey/vim-tmux-runner'
-
+" command improvements
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
-Plug 'alvan/vim-closetag'                                          " autoclose html tag
+Plug 'rhysd/clever-f.vim'                                          " better f F
+if exists('$TMUX')
+  Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
+endif
+
+" tools
+Plug 'tpope/vim-fugitive'                                          " git related commands
+Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
+Plug 'christoomey/vim-tmux-runner'                                 " tmux integration
+Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
+Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }                   " text align with regexp
 Plug 'janko-m/vim-test'                                            " test launcher
-Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'rhysd/clever-f.vim'
-
-" UI extensions
+Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'bagrat/vim-workspace'                                        " IDE like tabs management
 Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }                 " perview file structure
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }             " perview undos
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
-Plug 'machakann/vim-highlightedyank'                               " highlight yanked code
-Plug 'joshdick/onedark.vim'                                        " colorscheme
-Plug 'nathanaelkane/vim-indent-guides'                             " visualize indent level
-Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
-Plug 'bling/vim-airline'                                           " UI improvement
-Plug 'vim-airline/vim-airline-themes'                              " themes for airline
-Plug 'blueyed/vim-diminactive'                                     " dim inactive windows
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
-Plug 'ryanoasis/vim-devicons'                                      " Fancy icons
-Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-peekaboo'                                       " show content of buffers
 
-" autocomplete
+" Fuzzy
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }  " fuzzy searcher with extensions
+Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
+
+" search in project
+Plug 'mhinz/vim-grepper'                                           " search projectwide
+Plug 'rking/ag.vim'                                                " searching engine
+
+" simple autocomplete
+Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
+Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
+Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
+Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
+Plug 'alvan/vim-closetag'                                          " autoclose html tag
+
+" IDE like autocomplete
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
 else
@@ -52,15 +62,14 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'autozimu/LanguageClient-neovim',   { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
-Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
-Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
-Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
+Plug 'autozimu/LanguageClient-neovim',   { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
+Plug 'w0rp/ale'                                                    " async syntax checking
 
+" autocomplete sources
 Plug 'aliou/sql-heredoc.vim'
 Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
@@ -75,9 +84,6 @@ Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'javascript.jsx
 Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 
 " Plug 'romainl/vim-cool'
-if exists('$TMUX')
-  Plug 'christoomey/vim-tmux-navigator'                           " tmux integration
-endif
 call plug#end()
 
 " **********************************
@@ -532,13 +538,17 @@ cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
 
+" disable entering Ex-mode with Q (accessible through :<C-f>)
+nnoremap Q <NOP>
+map q: <NOP>
+
 " windows navigation
 " for linux
 nnoremap <M-h> <C-w>h
 nnoremap <M-j> <C-w>j
 nnoremap <M-k> <C-w>k
 nnoremap <M-l> <C-w>l
-" for iterm
+" for iterm (also requires 'send hex' config)
 nnoremap <C-space>h <C-w>h
 nnoremap <C-space>j <C-w>j
 nnoremap <C-space>k <C-w>k
@@ -551,6 +561,7 @@ if exists('$TMUX')
   nnoremap <C-w>k :TmuxNavigateUp<CR>
   nnoremap <C-w>l :TmuxNavigateRight<CR>
 endif
+
 " close buffer
 nnoremap <leader>q :close<CR>
 
@@ -564,7 +575,7 @@ vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
 
 " replace word under cursor
-nnoremap <leader>r bye:%s/<C-r>"/
+nnoremap <leader>r viwy:%s/<C-r>"/
 
 " replace selected word
 vnoremap <leader>r y:%s/<C-r>"/
