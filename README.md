@@ -128,3 +128,4 @@ brew cask install spectacle slack flux iterm2
 #### References
 
 [https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors](https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors)
+[https://pilotmoon.com/scrollreverser/](https://pilotmoon.com/scrollreverser/)
