@@ -316,7 +316,6 @@ if(has('nvim'))
   let g:neosnippet#snippets_directory='~/.repos/dotfiles/vimsnippets'
   let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
-  let g:neosnippet#scope_aliases['ruby'] = 'eruby,ruby'
 endif
 
 " closetag config
