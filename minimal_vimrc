@@ -1,5 +1,5 @@
 filetype off
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 Plug 'rking/ag.vim'                                               " searching engine
 Plug 'ludovicchabant/vim-gutentags'

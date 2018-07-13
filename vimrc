@@ -34,12 +34,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree gi
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'junegunn/vim-peekaboo'                                       " show content of buffers
-Plug 'godlygeek/tabular',                { 'on': 'Tabularize' }    " text align with regexp
-Plug 'majutsushi/tagbar',                { 'on': 'TagbarToggle' }  " perview file structure
-Plug 'simnalamburt/vim-mundo',           { 'on': 'MundoToggle' }   " perview undos
+Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
+Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " perview file structure
+Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " perview undos
 
 " Fuzzy searcher
-Plug 'junegunn/fzf',                     { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
@@ -56,7 +56,7 @@ Plug 'alvan/vim-closetag'                                          " autoclose h
 
 " IDE like autocomplete
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim',           { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
 else
   Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
   Plug 'roxma/nvim-yarp'
@@ -65,24 +65,26 @@ endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
-Plug 'autozimu/LanguageClient-neovim',   { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
 
 " autocomplete sources
 Plug 'aliou/sql-heredoc.vim'
-Plug 'elixir-editors/vim-elixir',        { 'for': ['elixir', 'eelixir'] }
-Plug 'slashmili/alchemist.vim',          { 'for': ['elixir', 'eelixir'] }
-Plug 'rlue/vim-getting-things-down',     { 'for': ['markdown'] }
-Plug 'Shougo/neco-vim',                  { 'for': ['vim'] }
-Plug 'lmeijvogel/vim-yaml-helper',       { 'for': ['yaml'] }
-Plug 'fishbullet/deoplete-ruby',         { 'for': ['ruby', 'eruby'] }
-Plug 'kchmck/vim-coffee-script',         { 'for': ['coffee', 'eruby'] }
-Plug 'MaxMEllon/vim-jsx-pretty',         { 'for': ['javascript'] }
-Plug 'maksimr/vim-jsbeautify',           { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'pangloss/vim-javascript',          { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'carlitux/deoplete-ternjs',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
-Plug 'galooshi/vim-import-js',           { 'for': ['javascript'], 'do': 'npm install -g import-js' }
+Plug 'elixir-editors/vim-elixir',       { 'for': ['elixir', 'eelixir'] }
+Plug 'slashmili/alchemist.vim',         { 'for': ['elixir', 'eelixir'] }
+Plug 'rlue/vim-getting-things-down',    { 'for': ['markdown'] }
+Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
+Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
+Plug 'tpope/vim-rails',                 { 'for': ['ruby, eruby'] }
+Plug 'fishbullet/deoplete-ruby',        { 'for': ['ruby', 'eruby'] }
+Plug 'kchmck/vim-coffee-script',        { 'for': ['coffee', 'eruby'] }
+Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
+Plug 'maksimr/vim-jsbeautify',          { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
+Plug 'galooshi/vim-import-js',          { 'for': ['javascript'], 'do': 'npm install -g import-js' }
+Plug 'moll/vim-node',                   { 'for': ['javascript'] }
 call plug#end()
 
 " **********************************
@@ -473,6 +475,8 @@ nnoremap <C-p><C-f> :FzfAg<CR>
 nnoremap <C-p><C-l> :FzfLines<CR>
 nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
+nnoremap <C-p><C-o> viwy:FzfTags <C-r>"<CR>
+nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
 
 " find in project => ag --vimgrep> pattern [location]
 nnoremap <C-m><C-g> :Grepper<CR>
@@ -491,8 +495,8 @@ nnoremap <C-m><C-n> :SplitjoinSplit<cr>
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
 
-nnoremap [e <Plug>(ale_previous_wrap)
-nnoremap ]e <Plug>(ale_next_wrap)
+nnoremap [e :AlePrevWrap<CR>
+nnoremap ]e :AleNextWrap<CR>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
