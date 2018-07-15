@@ -2,7 +2,7 @@ Documentation:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 120
+  Max: 80
 
 Style/SingleLineBlockParams:
   Enabled: false
@@ -12,6 +12,10 @@ Style/FrozenStringLiteralComment:
 
 Style/Documentation:
   Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
 
 AllCops:
   TargetRubyVersion: 2.4

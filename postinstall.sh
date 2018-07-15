@@ -84,7 +84,7 @@ function setup_symlinks {
   ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
   ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
   ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
-  ln -vsf ~/.vim ~/.config/nvim/.vim
+  ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
   case "$(uname -s)" in
     Darwin)
       ln -vsf ~/osx/tmux.conf ~/.tmux.conf
