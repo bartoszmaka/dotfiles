@@ -105,9 +105,9 @@ syntax sync minlines=256
 set novisualbell
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
-set noswapfile
 set grepprg=ag
-set nobackup
+set swapfile                            " shit happens (segmentation faults also)
+set directory=/tmp
 set autoread
 set lazyredraw
 set hidden                              " don't close buffers
@@ -266,16 +266,17 @@ let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
 " completion
-let deoplete#tag#cache_limit_size    = 50000000
-let g:deoplete#auto_complete_delay   = 2
-let g:deoplete#enable_ignore_case    = 0
-let g:deoplete#enable_smart_case     = 1
-let g:deoplete#enable_at_startup     = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#auto_refresh_delay    = 2
-let g:deoplete#max_abbr_width        = 0
-let g:deoplete#max_menu_width        = 50
-let g:deoplete#max_list              = 30
+let deoplete#tag#cache_limit_size      = 50000000
+let g:deoplete#auto_complete_delay     = 2
+let g:deoplete#enable_ignore_case      = 0
+let g:deoplete#enable_smart_case       = 1
+let g:deoplete#enable_at_startup       = 1
+let g:deoplete#enable_refresh_always   = 1
+let g:deoplete#auto_refresh_delay      = 2
+let g:deoplete#max_abbr_width          = 0
+let g:deoplete#max_menu_width          = 50
+let g:deoplete#max_list                = 30
+let g:deoplete#file#enable_buffer_path = 1
 " let g:LanguageClient_serverCommands = {
 "     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
 "     \ 'javascript': ['javascript-typescript-stdio'],
@@ -495,8 +496,8 @@ nnoremap <C-m><C-n> :SplitjoinSplit<cr>
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
 
-nnoremap [e :AlePrevWrap<CR>
-nnoremap ]e :AleNextWrap<CR>
+nnoremap [e :ALEPrevWrap<CR>
+nnoremap ]e :ALENextWrap<CR>
 
 let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-c>'
