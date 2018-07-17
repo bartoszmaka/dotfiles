@@ -95,6 +95,7 @@ alias -g C='| column -t -s " "'
 alias -g G!='| grep -v'
 
 PROMPT="$PROMPT"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+RPROMPT='%D{%L:%M:%S}'
 export PATH="$PATH:$HOME/.rvm/bin"
 fpath=(/usr/local/share/zsh-completions $fpath)
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

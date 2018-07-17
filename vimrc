@@ -141,6 +141,7 @@ set scrolloff=4                         " show at least 4 lines above or under c
 set sidescrolloff=15
 set splitright                          " place new vertical split on right side of current window
 set splitbelow                          " place new horizontal split under current window
+set diffopt+=vertical
 
 " tabulator
 set smarttab
