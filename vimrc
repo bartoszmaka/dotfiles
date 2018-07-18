@@ -414,6 +414,11 @@ function! Multiple_cursors_after()
   endif
 endfunction
 
+function! TweakedDiffPut()
+  :diffput 1
+  :diffupdate
+endfunction
+
 " **********************************
 " Plugin related keymaps
 
@@ -431,9 +436,12 @@ nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k><C-v> :TagbarToggle<CR>
-nnoremap <C-g><C-d> :Gdiff<CR>
 nnoremap <C-g><C-s> :Gstatus<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
+nnoremap <C-g><C-d> :Gdiff<CR>
+nnoremap <C-g><C-p> :execute TweakedDiffPut()<CR>
+nnoremap <C-g><C-h> :diffget //2<CR>
+nnoremap <C-g><C-l> :diffget //3<CR>
 
 " Find the alternate file for the current path and open it (basically go to test file)
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
