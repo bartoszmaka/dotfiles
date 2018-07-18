@@ -77,6 +77,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+function tattach() {
+  tmux new-session -s `uuidgen` -t $1
+}
+
 source ~/.bin/tmuxinator.zsh
 
 alias vi="nvim -u ~/.noplugin_vimrc"
@@ -85,7 +89,6 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias zshrc="$EDITOR ~/.zshrc"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tnew="tmux new-session -t bartosz"
-alias tattach="tmux new-session -s bartosz2 -t bartosz"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias bers="bundle exec rails server"
 alias berc="bundle exec rails console"
