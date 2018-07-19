@@ -97,7 +97,7 @@ alias -g F='| fzf --exact'
 alias -g C='| column -t -s " "'
 alias -g G!='| grep -v'
 
-RPROMPT='%D{%L:%M:%S}'
+RPROMPT='%D{%K:%M:%S}'
 export PATH="$PATH:$HOME/.rvm/bin"
 fpath=(/usr/local/share/zsh-completions $fpath)
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
