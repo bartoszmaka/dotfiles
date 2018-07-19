@@ -552,6 +552,9 @@ if exists('$TMUX')
   nnoremap <C-w>k :TmuxNavigateUp<CR>
   nnoremap <C-w>l :TmuxNavigateRight<CR>
 endif
+" unify keymaps with tmux
+nnoremap <C-w>" <C-w>s
+nnoremap <C-w>% <C-w>v
 
 " close buffer
 nnoremap <leader>q :close<CR>
