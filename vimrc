@@ -71,6 +71,7 @@ Plug 'ludovicchabant/vim-gutentags'                                " ctags engin
 Plug 'w0rp/ale'                                                    " async syntax checking
 
 " autocomplete sources
+Plug 'deathlyfrantic/deoplete-spell'
 Plug 'aliou/sql-heredoc.vim'
 Plug 'elixir-editors/vim-elixir',       { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',         { 'for': ['elixir', 'eelixir'] }
