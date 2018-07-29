@@ -11,13 +11,14 @@ Plug 'blueyed/vim-diminactive'                                     " dim inactiv
 Plug 'ryanoasis/vim-devicons'                                      " Fancy icons
 
 " command improvements
+if exists('$TMUX')
+  Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
+endif
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
 Plug 'rhysd/clever-f.vim'                                          " better f F
-if exists('$TMUX')
-  Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
-endif
+Plug 'kmszk/CCSpellCheck.vim'                                      " CamelCase spell check
 
 " tools
 Plug 'tpope/vim-fugitive'                                          " git related commands
@@ -317,7 +318,7 @@ elseif exists('$TMUX')
 endif
 
 if(has('nvim'))
-  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vimsnippets'
+  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
   let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
 endif
@@ -334,6 +335,8 @@ augroup fix-filetypes
   autocmd!
   autocmd BufNewFile,BufRead .eslintrc  setlocal filetype=json
   autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
+  autocmd BufNewFile,BufRead *.pdf      setlocal filetype=pdf.html
+  autocmd BufNewFile,BufRead *.pdf.erb  setlocal filetype=pdf.html.eruby
   autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
 augroup END
 
@@ -351,6 +354,13 @@ augroup open-nerdtree-at-start
         \ |   wincmd w
         \ | endif
         \ | set list
+augroup END
+
+augroup csv
+  autocmd!
+  autocmd BufReadPost *.csv
+        \ NERDTreeClose
+        \ | Tabularize /,
 augroup END
 
 augroup remember-cursor-position
@@ -490,6 +500,9 @@ nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
 
 " find in project => ag --vimgrep> pattern [location]
 nnoremap <C-m><C-g> :Grepper<CR>
+vnoremap <C-m><C-g> y:GrepperAg <C-r>"<CR>
+nnoremap <leader>f :Grepper<CR>
+vnoremap <leader>f y:GrepperAg <C-r>"<CR>
 
 " ALE actions
 nnoremap <C-m><C-f> :ALEFix<CR>
