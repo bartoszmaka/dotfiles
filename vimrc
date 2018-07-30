@@ -18,7 +18,6 @@ Plug 'tpope/vim-commentary'                                        " change sele
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
 Plug 'rhysd/clever-f.vim'                                          " better f F
-Plug 'kmszk/CCSpellCheck.vim'                                      " CamelCase spell check
 
 " tools
 Plug 'tpope/vim-fugitive'                                          " git related commands
@@ -36,8 +35,8 @@ Plug 'szw/vim-maximizer'                                           " maximize wi
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'junegunn/vim-peekaboo'                                       " show content of buffers
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
-Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " perview file structure
-Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " perview undos
+Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
+Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " preview undos
 
 " Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
@@ -133,6 +132,7 @@ set omnifunc=syntaxcomplete#Complete
 set noshowmatch                         " has something to do with matching brackets
 set backspace=indent,eol,start
 set updatetime=500
+set spell
 
 " indent
 set autoindent
@@ -357,6 +357,11 @@ augroup open-nerdtree-at-start
         \ | set list
 augroup END
 
+augroup spell-tweaks
+  autocmd!
+  autocmd Filetype fugitiveblame setlocal nospell
+augroup END
+
 augroup csv
   autocmd!
   autocmd BufReadPost *.csv
@@ -549,7 +554,6 @@ nnoremap Q <NOP>
 map q: <NOP>
 
 " windows navigation
-" for linux
 nnoremap <M-h>      <C-w>h
 nnoremap <M-j>      <C-w>j
 nnoremap <M-k>      <C-w>k
