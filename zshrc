@@ -90,12 +90,15 @@ alias zshrc="$EDITOR ~/.zshrc"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tnew="tmux new-session -t bartosz"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
-alias bers="bundle exec rails server"
-alias berc="bundle exec rails console"
 
 alias -g F='| fzf --exact'
 alias -g C='| column -t -s " "'
 alias -g G!='| grep -v'
+
+alias bers="bundle exec rails server"
+alias berc="bundle exec rails console"
+alias berr="bundle exec rake routes F C"
+alias brp="echo 'pry-remote -w';pry-remote -w"
 
 RPROMPT='%D{%K:%M:%S}'
 export PATH="$PATH:$HOME/.rvm/bin"

@@ -72,20 +72,20 @@ Plug 'w0rp/ale'                                                    " async synta
 " autocomplete sources
 Plug 'deathlyfrantic/deoplete-spell'
 Plug 'aliou/sql-heredoc.vim'
-Plug 'elixir-editors/vim-elixir',       { 'for': ['elixir', 'eelixir'] }
-Plug 'slashmili/alchemist.vim',         { 'for': ['elixir', 'eelixir'] }
-Plug 'rlue/vim-getting-things-down',    { 'for': ['markdown'] }
-Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
-Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-Plug 'tpope/vim-rails',                 { 'for': ['ruby, eruby'] }
-Plug 'fishbullet/deoplete-ruby',        { 'for': ['ruby', 'eruby'] }
-Plug 'kchmck/vim-coffee-script',        { 'for': ['coffee', 'eruby'] }
-Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
-Plug 'maksimr/vim-jsbeautify',          { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
-Plug 'galooshi/vim-import-js',          { 'for': ['javascript'], 'do': 'npm install -g import-js' }
-Plug 'moll/vim-node',                   { 'for': ['javascript'] }
+Plug 'elixir-editors/vim-elixir',       "{ 'for': ['elixir', 'eelixir'] }
+Plug 'slashmili/alchemist.vim',         "{ 'for': ['elixir', 'eelixir'] }
+Plug 'rlue/vim-getting-things-down',    "{ 'for': ['markdown'] }
+Plug 'Shougo/neco-vim',                 "{ 'for': ['vim'] }
+Plug 'lmeijvogel/vim-yaml-helper',      "{ 'for': ['yaml'] }
+Plug 'tpope/vim-rails',                 "{ 'for': ['ruby, eruby'] }
+Plug 'fishbullet/deoplete-ruby',        "{ 'for': ['ruby', 'eruby'] }
+Plug 'kchmck/vim-coffee-script',        "{ 'for': ['coffee', 'eruby'] }
+Plug 'MaxMEllon/vim-jsx-pretty',        "{ 'for': ['javascript'] }
+Plug 'maksimr/vim-jsbeautify',          "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'pangloss/vim-javascript',         "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'carlitux/deoplete-ternjs',        "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
+Plug 'galooshi/vim-import-js',          "{ 'for': ['javascript'], 'do': 'npm install -g import-js' }
+Plug 'moll/vim-node',                   "{ 'for': ['javascript'] }
 call plug#end()
 
 " **********************************
@@ -359,7 +359,9 @@ augroup END
 
 augroup spell-tweaks
   autocmd!
-  autocmd Filetype fugitiveblame setlocal nospell
+  autocmd Filetype 
+        \ fugitiveblame,qf
+        \ setlocal nospell
 augroup END
 
 augroup csv
