@@ -7,6 +7,9 @@ ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
 case "$(uname -s)" in
   Darwin)
     ln -vsf ~/osx/tmux.conf ~/.tmux.conf
+    ln -vsf ~/.repos/dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+    ln -vsf ~/.repos/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+    ln -vsf ~/.repos/dotfiles/vscode/snippets ~/Library/Application\ Support/Code/User/snippets
     ;;
   Linux)
     ln -vsf ~/linux/tmux.conf ~/.tmux.conf

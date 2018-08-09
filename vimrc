@@ -280,6 +280,15 @@ let g:deoplete#max_abbr_width          = 0
 let g:deoplete#max_menu_width          = 50
 let g:deoplete#max_list                = 30
 let g:deoplete#file#enable_buffer_path = 1
+
+let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/ternjs'
+let g:deoplete#sources#ternjs#timeout = 0
+let g:deoplete#sources#ternjs#docs = 1
+let g:LanguageClient_autoStop = 0
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['tcp://localhost:7658']
+    \ }
+
 " let g:LanguageClient_serverCommands = {
 "     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
 "     \ 'javascript': ['javascript-typescript-stdio'],
@@ -439,6 +448,10 @@ endfunction
 
 " **********************************
 " Plugin related keymaps
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " autocomplete
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -645,3 +658,4 @@ if has("gui_macvim")
   set guioptions-=L  "remove left-hand scroll bar
   set guioptions-=e  "remove left-hand scroll bar
 endif
+autocmd FileType ruby setlocal omnifunc=LanguageClient#complete

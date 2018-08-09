@@ -1,0 +1,157 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/tmp": true,
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/dist": true,
+        "**/.tags": true,
+        "**/tags": true
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/tmp/**": true,
+        "**/bower_components/**": true,
+        "**/dist/**": true,
+        "**/.tags": true,
+        "**/tags": true
+    },
+    // editor / tab sizes
+    "editor.tabSize": 2,
+    // editor / workbench
+    "editor.fontSize": 16,
+    "terminal.integrated.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+    "editor.renderWhitespace": "boundary",
+    "editor.cursorStyle": "block",
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
+    "window.zoomLevel": 0,
+    // language specific
+    "ruby.lint": {
+        "rubocop": true
+    },
+    // vim
+    "vim.leader": "<space>",
+    "vim.easymotion": true,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.easymotionMarkerFontFamily": "'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+    "vim.easymotionMarkerFontSize": "16",
+    "vim.easymotionMarkerBackgroundColor": "#5f0000",
+    "vim.cmdLineInitialColon": true,
+    // "vim.enableNeovim": true,
+    "vim.statusBarColorControl": true,
+    "vim.statusBarColors": {
+        "normal": "#005f5f",
+        "insert": "#5f0000",
+        "visual": "#5f00af",
+        "visualline": "#005f87",
+        "visualblock": "#86592d",
+        "replace": "#000000"
+    },
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "h"
+            ],
+            "after": ["^"]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l"
+            ],
+            "after": ["$"]
+        },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<C-w>",
+                "m"
+            ],
+            "commands": [
+                "workbench.action.toggleMaximizedPanel"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "h"
+            ],
+            "after": ["^"]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l"
+            ],
+            "after": ["$"]
+        },
+        {
+            "before": [
+                "<leader>",
+                "j"
+            ],
+            "after": [
+                "i",
+                "<CR>",
+                "<Esc>"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "k"
+            ],
+            "after": [
+                "k",
+                "J"
+            ]
+        },
+        {
+            "before": [
+                "n"
+            ],
+            "after": [
+                "n",
+                "z",
+                "z"
+            ]
+        },
+        {
+            "before": [
+                "N"
+            ],
+            "after": [
+                "N",
+                "z",
+                "z"
+            ]
+        },
+    ],
+    "zenMode.hideTabs": false,
+    "zenMode.hideStatusBar": false,
+    "workbench.editor.enablePreview": false,
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true,
+        "suppressUpdateNotice": true,
+        "suppressWelcomeNotice": true
+    },
+    "vim.disableExtension": false,
+    "explorer.confirmDelete": false,
+    "gitlens.keymap": "alternate",
+    "workbench.colorTheme": "Atom One Dark",
+    "workbench.startupEditor": "newUntitledFile",
+}
