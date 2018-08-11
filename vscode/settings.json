@@ -29,6 +29,7 @@
     "terminal.integrated.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
     "terminal.integrated.rendererType": "dom",
     "editor.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": true,
     "editor.renderWhitespace": "boundary",
     "editor.cursorStyle": "block",
     "workbench.colorCustomizations": {
