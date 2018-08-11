@@ -13,7 +13,7 @@
     "command": "-workbench.action.showCommands"
   },
   {
-    "key": "n",
+    "key": "ctrl+n",
     "command": "explorer.newFile",
     "when": "filesExplorerFocus"
   },

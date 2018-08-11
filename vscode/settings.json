@@ -46,115 +46,70 @@
         "debride": true,
         "ruby-lint": true
     },
-    "ruby.intellisense": false,
-    "ruby.lintDebounceTime": 500,
     // vim
     "vim.leader": "<space>",
+    "vim.showcmd": true,
     "vim.easymotion": true,
     "vim.hlsearch": true,
     "vim.incsearch": true,
     "vim.easymotionMarkerFontFamily": "'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
     "vim.easymotionMarkerFontSize": "16",
     "vim.easymotionMarkerBackgroundColor": "#5f0000",
-    "vim.cmdLineInitialColon": true,
-    // "vim.enableNeovim": true,
     "vim.statusBarColorControl": true,
-    "vim.statusBarColors": {
-        "normal": "#005f5f",
-        "insert": "#5f0000",
-        "visual": "#5f00af",
-        "visualline": "#005f87",
-        "visualblock": "#86592d",
-        "replace": "#000000"
-    },
     "vim.visualModeKeyBindingsNonRecursive": [
         {
-            "before": [
-                "<leader>",
-                "h"
-            ],
-            "after": [
-                "^"
-            ]
+            "before": ["<leader>", "h"],
+            "after": ["^"]
         },
         {
-            "before": [
-                "<leader>",
-                "l"
-            ],
-            "after": [
-                "$"
-            ]
+            "before": ["<leader>", "l"],
+            "after": ["$"]
         },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
+        // {
+        //     "before": ["<cmd-l>"],
+        //     "after": ["<C-w>", "l"]
+        // },
+        // {
+        //     "before": ["<cmd-k>"],
+        //     "after": ["<C-w>", "k"]
+        // },
+        // {
+        //     "before": ["<cmd-j>"],
+        //     "after": ["<C-w>", "j"]
+        // },
+        // {
+        //     "before": ["<cmd-h>"],
+        //     "after": ["<C-w>", "h"]
+        // },
         {
-            "before": [
-                "<C-w>",
-                "m"
-            ],
-            "commands": [
-                "workbench.action.toggleMaximizedPanel"
-            ]
+            "before": ["<C-w>", "m"],
+            "commands": [ "workbench.action.toggleMaximizedPanel" ]
         },
         {
-            "before": [
-                "<leader>",
-                "h"
-            ],
-            "after": [
-                "^"
-            ]
+            "before": ["<leader>", "h"],
+            "after": ["^"]
         },
         {
-            "before": [
-                "<leader>",
-                "l"
-            ],
-            "after": [
-                "$"
-            ]
+            "before": ["<leader>", "l"],
+            "after": ["$"]
         },
         {
-            "before": [
-                "<leader>",
-                "j"
-            ],
-            "after": [
-                "i",
-                "<CR>",
-                "<Esc>"
-            ]
+            "before": ["<leader>", "j"],
+            "after": ["i", "<CR>", "<Esc>"]
         },
         {
-            "before": [
-                "<leader>",
-                "k"
-            ],
-            "after": [
-                "k",
-                "J"
-            ]
+            "before": ["<leader>", "k"],
+            "after": ["k", "J"]
         },
         {
-            "before": [
-                "n"
-            ],
-            "after": [
-                "n",
-                "z",
-                "z"
-            ]
+            "before": ["n"],
+            "after": ["n", "z", "z"]
         },
         {
-            "before": [
-                "N"
-            ],
-            "after": [
-                "N",
-                "z",
-                "z"
-            ]
+            "before": ["N"],
+            "after": ["N", "z", "z"]
         },
     ],
     "zenMode.hideTabs": false,
@@ -173,4 +128,5 @@
     "editor.minimap.enabled": false,
     "workbench.statusBar.visible": true,
     "workbench.activityBar.visible": false,
+    "ruby.useLanguageServer": true,
 }
