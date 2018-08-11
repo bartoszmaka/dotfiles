@@ -4,3 +4,6 @@ tags.temp
 
 .sass-cache
 .tern-port
+
+.idea
+.solargraph.yml

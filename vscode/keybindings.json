@@ -18,7 +18,7 @@
     "when": "filesExplorerFocus"
   },
   {
-    "key": "ctrl+k ctrl+m",
+    "key": "ctrl+m ctrl+m",
     "command": "editor.action.toggleMinimap",
     "when": "editorFocus" 
   },
@@ -48,4 +48,8 @@
     "key": "cmd+l",
     "command": "workbench.action.focusRightGroup"
   },
+  {
+    "key": "ctrl+g ctrl+b",
+    "command": "gitlens.toggleFileBlame"
+  }
 ]

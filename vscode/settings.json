@@ -38,6 +38,8 @@
         "statusBar.debuggingBackground": "#005f5f"
     },
     "window.zoomLevel": -1,
+    "ruby.codeCompletion": "rcodetools",
+    "ruby.intellisense": false,
     "ruby.lint": {
         "reek": true,
         "rubocop": true,
@@ -46,6 +48,11 @@
         "debride": true,
         "ruby-lint": true
     },
+    "solargraph.completion": true,
+    "solargraph.rename": true,
+    "solargraph.definitions": true,
+    "solargraph.symbols": true,
+    "solargraph.hover": true,
     // vim
     "vim.leader": "<space>",
     "vim.showcmd": true,
@@ -128,5 +135,4 @@
     "editor.minimap.enabled": false,
     "workbench.statusBar.visible": true,
     "workbench.activityBar.visible": false,
-    "ruby.useLanguageServer": true,
 }
