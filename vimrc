@@ -283,7 +283,7 @@ let g:deoplete#file#enable_buffer_path = 1
 
 let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/ternjs'
 let g:deoplete#sources#ternjs#timeout = 0
-let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#docs = 0
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['tcp://localhost:7658']
