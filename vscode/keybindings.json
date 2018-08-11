@@ -9,10 +9,6 @@
     "command": "workbench.files.action.collapseExplorerFolders"
   },
   {
-    "key": "cmd+m",
-    "command": "workbench.action.showCommands"
-  },
-  {
     "key": "f1",
     "command": "-workbench.action.showCommands"
   },
@@ -20,5 +16,36 @@
     "key": "n",
     "command": "explorer.newFile",
     "when": "filesExplorerFocus"
-  }
+  },
+  {
+    "key": "ctrl+k ctrl+m",
+    "command": "editor.action.toggleMinimap",
+    "when": "editorFocus" 
+  },
+  {
+    "key": "ctrl+m ctrl+f",
+    "command": "eslint.executeAutofix",
+    "when": "editorFocus" 
+  },
+  { 
+    "key": "ctrl+n",
+    "command": "editor.action.addSelectionToNextFindMatch",
+    "when": "editorFocus" 
+  },
+  {
+    "key": "cmd+h",
+    "command": "workbench.action.focusLeftGroup"
+  },
+  {
+    "key": "cmd+j",
+    "command": "workbench.action.focusBelowGroup"
+  },
+  {
+    "key": "cmd+k",
+    "command": "workbench.action.focusAboveGroup"
+  },
+  {
+    "key": "cmd+l",
+    "command": "workbench.action.focusRightGroup"
+  },
 ]

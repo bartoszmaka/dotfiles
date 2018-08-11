@@ -27,6 +27,7 @@
     // editor / workbench
     "editor.fontSize": 16,
     "terminal.integrated.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+    "terminal.integrated.rendererType": "dom",
     "editor.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
     "editor.renderWhitespace": "boundary",
     "editor.cursorStyle": "block",
@@ -35,11 +36,17 @@
         "statusBar.noFolderBackground": "#005f5f",
         "statusBar.debuggingBackground": "#005f5f"
     },
-    "window.zoomLevel": 0,
-    // language specific
+    "window.zoomLevel": -1,
     "ruby.lint": {
-        "rubocop": true
+        "reek": true,
+        "rubocop": true,
+        "ruby": true, //Runs ruby -wc
+        "fasterer": true,
+        "debride": true,
+        "ruby-lint": true
     },
+    "ruby.intellisense": false,
+    "ruby.lintDebounceTime": 500,
     // vim
     "vim.leader": "<space>",
     "vim.easymotion": true,
@@ -65,14 +72,18 @@
                 "<leader>",
                 "h"
             ],
-            "after": ["^"]
+            "after": [
+                "^"
+            ]
         },
         {
             "before": [
                 "<leader>",
                 "l"
             ],
-            "after": ["$"]
+            "after": [
+                "$"
+            ]
         },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
@@ -90,14 +101,18 @@
                 "<leader>",
                 "h"
             ],
-            "after": ["^"]
+            "after": [
+                "^"
+            ]
         },
         {
             "before": [
                 "<leader>",
                 "l"
             ],
-            "after": ["$"]
+            "after": [
+                "$"
+            ]
         },
         {
             "before": [
@@ -154,4 +169,7 @@
     "gitlens.keymap": "alternate",
     "workbench.colorTheme": "Atom One Dark",
     "workbench.startupEditor": "newUntitledFile",
+    "editor.minimap.enabled": false,
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": false,
 }
