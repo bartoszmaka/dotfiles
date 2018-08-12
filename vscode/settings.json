@@ -89,7 +89,12 @@
         // {
         //     "before": ["<cmd-h>"],
         //     "after": ["<C-w>", "h"]
+
         // },
+        { 
+            "before": ["K"],
+            "commands": ["editor.action.showHover"],
+        },
         {
             "before": ["<C-w>", "m"],
             "commands": [ "workbench.action.toggleMaximizedPanel" ]

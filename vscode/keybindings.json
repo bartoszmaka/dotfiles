@@ -59,5 +59,10 @@
   {
     "key": "ctrl+g ctrl+d",
     "command": "gitlens.diffWithRevision"
-  }
+  },
+  { 
+    "key": "ctrl+r",
+    "command": "renameFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" 
+  },
 ]
