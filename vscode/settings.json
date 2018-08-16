@@ -65,12 +65,22 @@
     "vim.statusBarColorControl": true,
     "vim.visualModeKeyBindingsNonRecursive": [
         {
-            "before": ["<leader>", "h"],
-            "after": ["^"]
+            "before": [
+                "<leader>",
+                "h"
+            ],
+            "after": [
+                "^"
+            ]
         },
         {
-            "before": ["<leader>", "l"],
-            "after": ["$"]
+            "before": [
+                "<leader>",
+                "l"
+            ],
+            "after": [
+                "$"
+            ]
         },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
@@ -89,39 +99,90 @@
         // {
         //     "before": ["<cmd-h>"],
         //     "after": ["<C-w>", "h"]
-
         // },
-        { 
-            "before": ["K"],
-            "commands": ["editor.action.showHover"],
+        {
+            "before": [
+                ":"
+            ],
+            "commands": [
+                "vim.showQuickpickCmdLine",
+            ]
         },
         {
-            "before": ["<C-w>", "m"],
-            "commands": [ "workbench.action.toggleMaximizedPanel" ]
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ],
         },
         {
-            "before": ["<leader>", "h"],
-            "after": ["^"]
+            "before": [
+                "<C-w>",
+                "m"
+            ],
+            "commands": [
+                "workbench.action.toggleMaximizedPanel"
+            ]
         },
         {
-            "before": ["<leader>", "l"],
-            "after": ["$"]
+            "before": [
+                "<leader>",
+                "h"
+            ],
+            "after": [
+                "^"
+            ]
         },
         {
-            "before": ["<leader>", "j"],
-            "after": ["i", "<CR>", "<Esc>"]
+            "before": [
+                "<leader>",
+                "l"
+            ],
+            "after": [
+                "$"
+            ]
         },
         {
-            "before": ["<leader>", "k"],
-            "after": ["k", "J"]
+            "before": [
+                "<leader>",
+                "j"
+            ],
+            "after": [
+                "i",
+                "<CR>",
+                "<Esc>"
+            ]
         },
         {
-            "before": ["n"],
-            "after": ["n", "z", "z"]
+            "before": [
+                "<leader>",
+                "k"
+            ],
+            "after": [
+                "k",
+                "J"
+            ]
         },
         {
-            "before": ["N"],
-            "after": ["N", "z", "z"]
+            "before": [
+                "n"
+            ],
+            "after": [
+                "n",
+                "z",
+                "z"
+            ]
+        },
+        {
+            "before": [
+                "N"
+            ],
+            "after": [
+                "N",
+                "z",
+                "z"
+            ]
         },
     ],
     "zenMode.hideTabs": false,
@@ -140,4 +201,5 @@
     "editor.minimap.enabled": false,
     "workbench.statusBar.visible": true,
     "workbench.activityBar.visible": false,
+    "eslint.run": "onSave",
 }

@@ -25,7 +25,17 @@
   {
     "key": "ctrl+m ctrl+f",
     "command": "eslint.executeAutofix",
-    "when": "editorFocus" 
+    "when": "editorFocus && editorLangId == 'javascript'" 
+  },
+  {
+    "key": "ctrl+m ctrl+f",
+    "command": "eslint.executeAutofix",
+    "when": "editorFocus && editorLangId == 'javascriptreact'" 
+  },
+  {
+    "key": "ctrl+m ctrl+f",
+    "command": "editor.action.firnatDocument",
+    "when": "editorFocus && editorLangId == 'ruby'" 
   },
   { 
     "key": "ctrl+n",
