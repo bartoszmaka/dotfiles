@@ -78,7 +78,7 @@ Plug 'rlue/vim-getting-things-down',    "{ 'for': ['markdown'] }
 Plug 'Shougo/neco-vim',                 "{ 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      "{ 'for': ['yaml'] }
 Plug 'tpope/vim-rails',                 "{ 'for': ['ruby, eruby'] }
-Plug 'fishbullet/deoplete-ruby',        "{ 'for': ['ruby', 'eruby'] }
+" Plug 'fishbullet/deoplete-ruby',        "{ 'for': ['ruby', 'eruby'] }
 Plug 'kchmck/vim-coffee-script',        "{ 'for': ['coffee', 'eruby'] }
 Plug 'MaxMEllon/vim-jsx-pretty',        "{ 'for': ['javascript'] }
 Plug 'maksimr/vim-jsbeautify',          "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
@@ -286,8 +286,13 @@ let g:deoplete#sources#ternjs#timeout = 0
 let g:deoplete#sources#ternjs#docs = 0
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['tcp://localhost:7658']
+    \ 'ruby': ['tcp://localhost:7658'],
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://localhost:2089'],
     \ }
+let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
+let g:LanguageClient_loggingLevel = 'INFO'
+let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
 
 " let g:LanguageClient_serverCommands = {
 "     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
@@ -340,6 +345,10 @@ let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
 
 " **********************************
+
+augroup filetype-omnifunc 
+  autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+augroup END
 
 augroup fix-filetypes
   autocmd!
@@ -448,10 +457,6 @@ endfunction
 
 " **********************************
 " Plugin related keymaps
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap K :call LanguageClient#textDocument_hover()<CR>
-nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " autocomplete
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -478,11 +483,11 @@ nnoremap <C-g><C-l> :diffget //3<CR>
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
-noremap <M-]>            :WSNext<CR>
-noremap <M-[>            :WSPrev<CR>
+noremap <M-}>            :WSNext<CR>
+noremap <M-{>            :WSPrev<CR>
 noremap <leader>]        :WSNext<CR>
 noremap <leader>[        :WSPrev<CR>
-noremap <leader>!        :WSClose<CR>
+noremap <leader>w        :WSClose<CR>
 noremap <leader><space>! :WSClose!<CR>
 cabbrev bonly WSBufOnly
 nmap <leader>1           <Plug>AirlineSelectTab1
@@ -507,6 +512,10 @@ nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 nnoremap <C-k><C-s> :FzfMaps<CR>
 
 " popup fuzzy finders
+nnoremap <C-p><C-e> :call LanguageClient_contextMenu()<CR>
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <C-p><C-p> :FZF<CR>
 nnoremap <C-p><C-r> :FZFFreshMru<CR>
 nnoremap <C-p><C-g> :FzfGitFiles<CR>
@@ -658,4 +667,3 @@ if has("gui_macvim")
   set guioptions-=L  "remove left-hand scroll bar
   set guioptions-=e  "remove left-hand scroll bar
 endif
-autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
