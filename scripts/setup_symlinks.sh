@@ -4,6 +4,7 @@ ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
 ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
 ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
+ln -vsf ~/.repos/dotfiles/pryrc ~/.pryrc
 case "$(uname -s)" in
   Darwin)
     ln -vsf ~/osx/tmux.conf ~/.tmux.conf
