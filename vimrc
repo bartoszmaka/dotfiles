@@ -1,6 +1,5 @@
 filetype off
 call plug#begin()
-
 " Cosmetic
 Plug 'nathanaelkane/vim-indent-guides'                             " visualize indent level
 Plug 'joshdick/onedark.vim'                                        " colorscheme
@@ -36,6 +35,8 @@ Plug 'junegunn/vim-peekaboo'                                       " show conten
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " preview undos
+Plug 'zefei/vim-wintabs'                                           " tabs and buffers management
+Plug 'zefei/vim-wintabs-powerline'
 
 " Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
@@ -68,27 +69,67 @@ Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
 
-" autocomplete sources
-Plug 'deathlyfrantic/deoplete-spell'
+" syntax sources
+Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'aliou/sql-heredoc.vim'
+Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
+
+" autocomplete sources
+Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
+Plug 'deathlyfrantic/deoplete-spell'
 Plug 'elixir-editors/vim-elixir',       { 'for': ['elixir', 'eelixir'] }
 Plug 'slashmili/alchemist.vim',         { 'for': ['elixir', 'eelixir'] }
-Plug 'rlue/vim-getting-things-down',    { 'for': ['markdown'] }
-Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
-Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-Plug 'tpope/vim-rails',                 { 'for': ['ruby, eruby'] }
-" Plug 'fishbullet/deoplete-ruby',        "{ 'for': ['ruby', 'eruby'] }
-Plug 'kchmck/vim-coffee-script',        "{ 'for': ['coffee', 'eruby'] }
-Plug 'MaxMEllon/vim-jsx-pretty',        "{ 'for': ['javascript'] }
-Plug 'maksimr/vim-jsbeautify',          "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'pangloss/vim-javascript',         "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'carlitux/deoplete-ternjs',        "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
-Plug 'galooshi/vim-import-js',          "{ 'for': ['javascript'], 'do': 'npm install -g import-js' }
-Plug 'moll/vim-node',                   "{ 'for': ['javascript'] }
+Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 
-Plug 'zefei/vim-wintabs'
-Plug 'zefei/vim-wintabs-powerline'
+" language scoped tools
+Plug 'tpope/vim-rails',                 { 'for': ['ruby, eruby'] }
+Plug 'moll/vim-node',                   { 'for': ['javascript'] }
+Plug 'galooshi/vim-import-js',          { 'for': ['javascript'], 'do': 'npm install -g import-js' }
+Plug 'rlue/vim-getting-things-down',    { 'for': ['markdown'] }
+Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
+Plug 'maksimr/vim-jsbeautify',          { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+
 call plug#end()
+
+" **********************************
+" custom functions
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+" Go to alternative file
+function! AltCommand(path, vim_command)
+  let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
+  if empty(l:alternate)
+    echo "No alternate file for " . a:path . " exists!"
+  else
+    exec a:vim_command . " " . l:alternate
+  endif
+endfunction
+
+" Disable Deoplete when selecting multiple cursors starts
+function! Multiple_cursors_before()
+  if exists('*deoplete#disable')
+    exe 'call deoplete#disable()'
+  elseif exists(':NeoCompleteLock') == 2
+    exe 'NeoCompleteLock'
+  endif
+endfunction
+
+" Enable Deoplete when selecting multiple cursors ends
+function! Multiple_cursors_after()
+  if exists('*deoplete#enable')
+    exe 'call deoplete#enable()'
+  elseif exists(':NeoCompleteUnlock') == 2
+    exe 'NeoCompleteUnlock'
+  endif
+endfunction
+
+function! TweakedDiffPut()
+  :diffput 1
+  :diffupdate
+endfunction
 
 " **********************************
 " vim variables
@@ -204,13 +245,34 @@ let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
 let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
 let g:airline_powerline_fonts                        = 1
-let g:airline#extensions#tabline#buffer_idx_mode     = 1
-let g:airline#extensions#tabline#enabled             = 1
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'N',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R',
+    \ 'c'  : 'C',
+    \ 'v'  : 'V',
+    \ 'V'  : 'V',
+    \ '' : 'V',
+    \ 's'  : 'S',
+    \ 'S'  : 'S',
+    \ '' : 'S',
+    \ 't'  : 'T',
+    \ }
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.readonly = '🔒'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.whitespace = 'Ξ'
 let g:gitgutter_map_keys                             = 0
 let g:gitgutter_sign_added                           = '+'
 let g:gitgutter_sign_modified                        = '.'
@@ -222,8 +284,9 @@ let g:diminactive_buftype_blacklist                  = ['nofile', 'nowrite', 'ac
 let g:diminactive_enable_focus                       = 1
 
 let g:indent_guides_exclude_filetypes                = ['help', 'nerdtree', 'quickfix', 'qf']
-let g:indent_guides_auto_colors                      = 1
 let g:indent_guides_enable_on_vim_startup            = 1
+let g:indent_guides_auto_colors                      = 0
+" let g:indent_guides_default_mapping = 0
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
@@ -247,8 +310,8 @@ let g:ale_completion_enabled   = 1
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
-let g:ale_sign_error           = '->'
-let g:ale_sign_warning         = '::'
+let g:ale_sign_error           = '💩'
+let g:ale_sign_warning         = '🤔'
 let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
@@ -295,24 +358,8 @@ let g:vim_jsx_pretty_colorful_config = 1
 
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_action = {
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit' }
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-      \ { 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
-      \ 'hl':      ['fg', 'Comment'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Statement'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
-      \ 'prompt':  ['fg', 'Conditional'],
-      \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment'] }
+      \ 'ctrl-q': function('s:build_quickfix_list')
+      \ }
 
 let g:gutentags_ctags_exclude = ["node_modules", ".git"]
 
@@ -339,6 +386,10 @@ let g:closetag_shortcut                = '>'
 " augroup filetype-omnifunc 
 "   autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
 " augroup END
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 augroup fix-filetypes
   autocmd!
@@ -391,59 +442,28 @@ augroup END
 
 augroup color-scheme-tweaks
   autocmd!
+  highlight CursorColumn     guibg=#512121
+  highlight CursorColumnNR   guibg=#512121
+  highlight Search           guifg=#CDB07A guibg=NONE gui=bold
+  highlight CurrentWordTwins guibg=#1A1A1A
+  highlight CurrentWord      guibg=#0D0D0D
+  highlight IndentGuidesEven guibg=#272C34
+  highlight IndentGuidesOdd  guibg=#373E49
+  highlight TabLineSel       guifg=#E5C07B
+  highlight SpellBad         guifg=NONE    guibg=#260F0D
+
   autocmd InsertEnter * set cursorcolumn
   autocmd InsertLeave * set nocursorcolumn
-  autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
+  autocmd InsertEnter * highlight CursorLine   guibg=#512121
   autocmd InsertEnter * highlight CursorLineNR guibg=#512121
-  autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
+  autocmd InsertLeave * highlight CursorLine   guibg=#343D46
   autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
-  highlight CursorColumn     guibg=#512121   ctermbg=52
-  highlight CursorColumnNR   guibg=#512121
-  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight CurrentWordTwins ctermbg=12      guibg=#363636
-  highlight CurrentWord      ctermbg=14      guibg=#262020
 augroup END
 
 augroup yaml-helper
   autocmd!
   autocmd CursorHold *.yml YamlGetFullPath
 augroup END
-
-" **********************************
-" custom functions
-" Go to alternative file
-function! AltCommand(path, vim_command)
-  let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
-  if empty(l:alternate)
-    echo "No alternate file for " . a:path . " exists!"
-  else
-    exec a:vim_command . " " . l:alternate
-  endif
-endfunction
-
-" Disable Deoplete when selecting multiple cursors starts
-function! Multiple_cursors_before()
-  if exists('*deoplete#disable')
-    exe 'call deoplete#disable()'
-  elseif exists(':NeoCompleteLock') == 2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
-
-" Enable Deoplete when selecting multiple cursors ends
-function! Multiple_cursors_after()
-  if exists('*deoplete#enable')
-    exe 'call deoplete#enable()'
-  elseif exists(':NeoCompleteUnlock') == 2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
-
-function! TweakedDiffPut()
-  :diffput 1
-  :diffupdate
-endfunction
 
 " **********************************
 " Plugin related keymaps
@@ -472,14 +492,6 @@ nnoremap <C-g><C-l> :diffget //3<CR>
 " Find the alternate file for the current path and open it (basically go to test file)
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
-" workspace navigation
-" noremap <M-}>            :WSNext<CR>
-" noremap <M-{>            :WSPrev<CR>
-" noremap <leader>]        :WSNext<CR>
-" noremap <leader>[        :WSPrev<CR>
-" noremap <leader>w        :WSClose<CR>
-" noremap <leader><space>! :WSClose!<CR>
-" cabbrev bonly WSBufOnly
 nmap <leader>1 :WintabsGo 1<CR>
 nmap <leader>2 :WintabsGo 2<CR>
 nmap <leader>3 :WintabsGo 3<CR>
@@ -530,6 +542,11 @@ nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
 nnoremap <C-p><C-o> viwy:FzfTags <C-r>"<CR>
 nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+imap <expr> <C-c><C-s> fzf#vim#complete#word({'right': '15%'})
 
 " find in project => ag --vimgrep> pattern [location]
 nnoremap <C-m><C-g> :Grepper<CR>
@@ -626,14 +643,10 @@ nnoremap n     :setlocal hls<CR>nzz
 nnoremap N     :setlocal hls<CR>Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
-nnoremap J     jzz
-nnoremap K     kzz
-vnoremap J     jzz
-vnoremap K     kzz
-nnoremap L     zl
-nnoremap H     zh
-vnoremap L     zl
-vnoremap H     zh
+nnoremap <C-J> jzz
+nnoremap <C-K> kzz
+nnoremap <C-L> 5zl
+nnoremap <C-H> 5zh
 
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
