@@ -23,7 +23,6 @@ Plug 'tpope/vim-fugitive'                                          " git related
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
 Plug 'christoomey/vim-tmux-runner'                                 " tmux integration
 Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
-Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'janko-m/vim-test'                                            " test launcher
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'scrooloose/nerdtree'                                         " project explorer
@@ -31,7 +30,6 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
-Plug 'junegunn/vim-peekaboo'                                       " show content of buffers
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " preview undos
@@ -53,6 +51,7 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
+" Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " IDE like autocomplete
 if has('nvim')
@@ -64,7 +63,7 @@ else
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
+" Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
 Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
@@ -155,6 +154,7 @@ set directory=/tmp
 set autoread
 set lazyredraw
 set hidden                              " don't close buffers
+set cmdheight=2
 set wildignore+=
       \*/tmp/*,
       \*/node_modules/*,
@@ -240,10 +240,9 @@ endif
 
 " **********************************
 " plugin variables
-let g:workspace_powerline_separators = 1
+let g:workspace_powerline_separators                 = 1
 let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
-let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
 let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
@@ -291,6 +290,7 @@ let g:indent_guides_auto_colors                      = 0
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
 let g:mundo_right     = 1
+let g:NERDTreeMinimalUI = 1
 
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
@@ -471,9 +471,53 @@ augroup END
 " autocomplete
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-imap     <C-e>         <Plug>(neosnippet_expand_or_jump)
-smap     <C-e>         <Plug>(neosnippet_expand_or_jump)
-xmap     <C-e>         <Plug>(neosnippet_expand_target)
+" imap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+" smap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+" xmap     <C-e>         <Plug>(neosnippet_expand_target)
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" imap <silent> <C-p> <Plug>(coc-complete-custom)
+
+" " Use `[c` and `]c` for navigate diagnostics
+" nmap <silent> [c <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" " Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
+" " Use K for show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" function! s:show_documentation()
+"   if &filetype == 'vim'
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
+
+" " Show signature help while editing
+" autocmd CursorHoldI,CursorMovedI * silent! call CocAction('showSignatureHelp')
+
+" " Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
+
+" " Remap for format selected region
+" vmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+" " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" vmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" " Remap for do codeAction of current line
+" nmap <leader>ac  <Plug>(coc-codeaction)
 
 " tools windows management
 let g:winresizer_start_key          = '<C-w>e'
@@ -526,11 +570,12 @@ nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 " list mappings
 nnoremap <C-k><C-s> :FzfMaps<CR>
 
+
 " popup fuzzy finders
-nnoremap <C-p><C-e> :call LanguageClient_contextMenu()<CR>
-nnoremap K :call LanguageClient#textDocument_hover()<CR>
-nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <C-p><C-e> :call LanguageClient_contextMenu()<CR>
+" nnoremap K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <C-p><C-p> :FZF<CR>
 nnoremap <C-p><C-r> :FZFFreshMru<CR>
 nnoremap <C-p><C-g> :FzfGitFiles<CR>
@@ -561,12 +606,6 @@ nnoremap <C-m><C-w> :set list!<CR>
 
 " Indent whole file
 nnoremap <C-m><C-i> m`gg=G``
-
-" splitjoin
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping  = ''
-nnoremap <C-m><C-p> :SplitjoinJoin<cr>
-nnoremap <C-m><C-n> :SplitjoinSplit<cr>
 
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
