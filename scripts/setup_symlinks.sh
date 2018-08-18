@@ -11,8 +11,10 @@ case "$(uname -s)" in
     ln -vsf ~/.repos/dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
     ln -vsf ~/.repos/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln -vsf ~/.repos/dotfiles/vscode/snippets ~/Library/Application\ Support/Code/User/snippets
+    ln -vsf ~/.repos/dotfiles/osx/rc.conf ~/.config/ranger/rc.conf
     ;;
   Linux)
     ln -vsf ~/linux/tmux.conf ~/.tmux.conf
+    ln -vsf ~/.repos/dotfiles/linux/rc.conf ~/.config/ranger/rc.conf
     ;;
 esac

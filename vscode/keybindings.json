@@ -1,6 +1,16 @@
 // Place your key bindings in this file to overwrite the defaults
 [
   {
+    "key": "ctrl+k ctrl+e",
+    "command": "workbench.view.explorer",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+k ctrl+e",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "explorerViewletVisible && filesExplorerFocus"
+  },
+  {
     "key": "shift+cmd+r",
     "command": "workbench.files.action.showActiveFileInExplorer"
   },

@@ -90,6 +90,7 @@ alias zshrc="$EDITOR ~/.zshrc"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tnew="tmux new-session -t bartosz"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
+alias ra="ranger"
 
 alias -g F='| fzf --exact'
 alias -g C='| column -t -s " "'

@@ -27,7 +27,6 @@ Plug 'bartoszmaka/vim_current_word'                                " highlight w
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'janko-m/vim-test'                                            " test launcher
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
-Plug 'bagrat/vim-workspace'                                        " IDE like tabs management
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
@@ -72,12 +71,12 @@ Plug 'w0rp/ale'                                                    " async synta
 " autocomplete sources
 Plug 'deathlyfrantic/deoplete-spell'
 Plug 'aliou/sql-heredoc.vim'
-Plug 'elixir-editors/vim-elixir',       "{ 'for': ['elixir', 'eelixir'] }
-Plug 'slashmili/alchemist.vim',         "{ 'for': ['elixir', 'eelixir'] }
-Plug 'rlue/vim-getting-things-down',    "{ 'for': ['markdown'] }
-Plug 'Shougo/neco-vim',                 "{ 'for': ['vim'] }
-Plug 'lmeijvogel/vim-yaml-helper',      "{ 'for': ['yaml'] }
-Plug 'tpope/vim-rails',                 "{ 'for': ['ruby, eruby'] }
+Plug 'elixir-editors/vim-elixir',       { 'for': ['elixir', 'eelixir'] }
+Plug 'slashmili/alchemist.vim',         { 'for': ['elixir', 'eelixir'] }
+Plug 'rlue/vim-getting-things-down',    { 'for': ['markdown'] }
+Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
+Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
+Plug 'tpope/vim-rails',                 { 'for': ['ruby, eruby'] }
 " Plug 'fishbullet/deoplete-ruby',        "{ 'for': ['ruby', 'eruby'] }
 Plug 'kchmck/vim-coffee-script',        "{ 'for': ['coffee', 'eruby'] }
 Plug 'MaxMEllon/vim-jsx-pretty',        "{ 'for': ['javascript'] }
@@ -86,6 +85,9 @@ Plug 'pangloss/vim-javascript',         "{ 'for': ['javascript', 'html', 'css', 
 Plug 'carlitux/deoplete-ternjs',        "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 Plug 'galooshi/vim-import-js',          "{ 'for': ['javascript'], 'do': 'npm install -g import-js' }
 Plug 'moll/vim-node',                   "{ 'for': ['javascript'] }
+
+Plug 'zefei/vim-wintabs'
+Plug 'zefei/vim-wintabs-powerline'
 call plug#end()
 
 " **********************************
@@ -241,6 +243,7 @@ let g:vim_current_word#highlight_after_delay          = 1
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 " ale syntax checker
+let g:ale_completion_enabled   = 1
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
@@ -287,20 +290,7 @@ let g:deoplete#sources#ternjs#docs = 0
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['tcp://localhost:7658'],
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['tcp://localhost:2089'],
     \ }
-let g:LanguageClient_loggingFile = '/tmp/LanguageClient.log'
-let g:LanguageClient_loggingLevel = 'INFO'
-let g:LanguageClient_serverStderr = '/tmp/LanguageServer.log'
-
-" let g:LanguageClient_serverCommands = {
-"     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-"     \ 'javascript': ['javascript-typescript-stdio'],
-"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-"     \ 'python': ['pyls'],
-"     \ }
-
 let g:vim_jsx_pretty_colorful_config = 1
 
 let g:fzf_command_prefix = 'Fzf'
@@ -346,9 +336,9 @@ let g:closetag_shortcut                = '>'
 
 " **********************************
 
-augroup filetype-omnifunc 
-  autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
-augroup END
+" augroup filetype-omnifunc 
+"   autocmd FileType ruby setlocal omnifunc=LanguageClient#complete
+" augroup END
 
 augroup fix-filetypes
   autocmd!
@@ -483,22 +473,35 @@ nnoremap <C-g><C-l> :diffget //3<CR>
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
-noremap <M-}>            :WSNext<CR>
-noremap <M-{>            :WSPrev<CR>
-noremap <leader>]        :WSNext<CR>
-noremap <leader>[        :WSPrev<CR>
-noremap <leader>w        :WSClose<CR>
-noremap <leader><space>! :WSClose!<CR>
-cabbrev bonly WSBufOnly
-nmap <leader>1           <Plug>AirlineSelectTab1
-nmap <leader>2           <Plug>AirlineSelectTab2
-nmap <leader>3           <Plug>AirlineSelectTab3
-nmap <leader>4           <Plug>AirlineSelectTab4
-nmap <leader>5           <Plug>AirlineSelectTab5
-nmap <leader>6           <Plug>AirlineSelectTab6
-nmap <leader>7           <Plug>AirlineSelectTab7
-nmap <leader>8           <Plug>AirlineSelectTab8
-nmap <leader>9           <Plug>AirlineSelectTab9
+" noremap <M-}>            :WSNext<CR>
+" noremap <M-{>            :WSPrev<CR>
+" noremap <leader>]        :WSNext<CR>
+" noremap <leader>[        :WSPrev<CR>
+" noremap <leader>w        :WSClose<CR>
+" noremap <leader><space>! :WSClose!<CR>
+" cabbrev bonly WSBufOnly
+nmap <leader>1 :WintabsGo 1<CR>
+nmap <leader>2 :WintabsGo 2<CR>
+nmap <leader>3 :WintabsGo 3<CR>
+nmap <leader>4 :WintabsGo 4<CR>
+nmap <leader>5 :WintabsGo 5<CR>
+nmap <leader>6 :WintabsGo 6<CR>
+nmap <leader>7 :WintabsGo 7<CR>
+nmap <leader>8 :WintabsGo 8<CR>
+nmap <leader>9 :WintabsGo 9<CR>
+map <M-{>      <Plug>(wintabs_previous)
+map <leader>[  <Plug>(wintabs_previous)
+map <C-H>      <Plug>(wintabs_previous)
+map <M-}>      <Plug>(wintabs_next)
+map <leader>]  <Plug>(wintabs_next)
+map <C-L>      <Plug>(wintabs_next)
+map <leader>w  <Plug>(wintabs_close)
+map <leader>W  <Plug>(wintabs_undo)
+map <C-T>o     <Plug>(wintabs_only)
+map <C-W>c     <Plug>(wintabs_close_window)
+map <C-W>o     <Plug>(wintabs_only_window)
+command! Tabc WintabsCloseVimtab
+command! Tabo WintabsOnlyVimtab
 
 " launch test suite
 nnoremap <leader>tt :TestNearest<CR>
@@ -572,6 +575,8 @@ cabbrev Q   q
 cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
+
+inoremap jk <ESC>
 
 " disable entering Ex-mode with Q (accessible through :<C-f>)
 nnoremap Q <NOP>
