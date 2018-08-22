@@ -34,7 +34,6 @@ Plug 'simeji/winresizer'                                           " window resi
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " preview undos
-
 Plug 'zefei/vim-wintabs'                                           " tabs and buffers management
 Plug 'zefei/vim-wintabs-powerline'
 
@@ -70,12 +69,12 @@ Plug 'w0rp/ale'                                                    " async synta
 
 " autocomplete sources
 Plug 'deathlyfrantic/deoplete-spell'
-Plug 'lmeijvogel/vim-yaml-helper',      "{ 'for': ['yaml'] }
-Plug 'tpope/vim-rails',                 "{ 'for': ['ruby, eruby'] }
-Plug 'MaxMEllon/vim-jsx-pretty',        "{ 'for': ['javascript'] }
-Plug 'pangloss/vim-javascript',         "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'carlitux/deoplete-ternjs',        "{ 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
-Plug 'moll/vim-node',                   "{ 'for': ['javascript'] }
+Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
+Plug 'tpope/vim-rails',                 { 'for': ['ruby, eruby'] }
+Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
+Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
+Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
+Plug 'moll/vim-node',                   { 'for': ['javascript'] }
 call plug#end()
 
 " **********************************
@@ -280,7 +279,7 @@ let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
 " completion
-let g:deoplete#enable_at_startup       = 1
+let g:deoplete#enable_at_startup       = 0
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#enable_smart_case       = 1
 
@@ -424,6 +423,10 @@ augroup color-scheme-tweaks
 augroup END
 
 " keymaps
+imap <C-e>     <Plug>(neosnippet_expand_or_jump)
+smap <C-e>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-e>     <Plug>(neosnippet_expand_target)
+
 nmap <leader>1 :WintabsGo 1<CR>
 nmap <leader>2 :WintabsGo 2<CR>
 nmap <leader>3 :WintabsGo 3<CR>
