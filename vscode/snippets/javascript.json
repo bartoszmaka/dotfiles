@@ -27,5 +27,20 @@
 			"const {$2} = $1;",
 			"$3"
 		]
+	},
+	"export const": {
+		"prefix": "ec",
+		"body": "export const",
+		"description": "export const"
+	},
+	"export default const": {
+		"prefix": "edc",
+		"body": "export default const",
+		"description": "export default const"
+	},
+	"export default": {
+		"prefix": "ed",
+		"body": "export default",
+		"description": "export default"
 	}
 }

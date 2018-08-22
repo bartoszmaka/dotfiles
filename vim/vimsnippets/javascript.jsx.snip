@@ -13,6 +13,36 @@ abbr        React, PureComponent
 options     head
         import React, { PureComponent } from "react";
 
+snippet     sst
+abbr        setState short
+options     head
+        this.setState({ ${1} })
+
+snippet     ssf
+abbr        setState full
+options     head
+        this.setState((state, props) => return { ${1} })
+
+snippet     props
+abbr        props
+options     head
+        this.props.${1:propName}
+
+snippet     state
+abbr        state
+options     head
+        this.state.${1:propName}
+
+snippet     unprop
+abbr        unpack props
+options     head
+        const { ${1} } = this.props;
+
+snippet     unstat
+abbr        unpack state
+options     head
+        const { ${1} } = this.state;
+
 snippet     cwm
 abbr        componentWillMount
 options     head
@@ -59,36 +89,6 @@ options     head
             </div>
           )
         }
-
-snippet     sst
-abbr        setState short
-options     head
-        this.setState({ ${1} })
-
-snippet     ssf
-abbr        setState full
-options     head
-        this.setState((state, props) => return { ${1} })
-
-snippet     props
-abbr        props
-options     head
-        this.props.${1:propName}
-
-snippet     state
-abbr        state
-options     head
-        this.state.${1:propName}
-
-snippet     unprop
-abbr        unpack props
-options     head
-        const { ${1} } = this.props;
-
-snippet     unstat
-abbr        unpack state
-options     head
-        const { ${1} } = this.state;
 
 snippet     rce
 abbr        Component scaffold
