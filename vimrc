@@ -237,7 +237,7 @@ let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
-let NERDTreeMinimalUI = 0
+let NERDTreeMinimalUI = 1
 let g:mundo_right     = 1
 
 let g:winresizer_vert_resize    = 1
@@ -655,3 +655,4 @@ if has("gui_macvim")
   set guioptions-=L  "remove left-hand scroll bar
   set guioptions-=e  "remove left-hand scroll bar
 endif
+

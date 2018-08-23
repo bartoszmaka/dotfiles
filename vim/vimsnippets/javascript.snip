@@ -23,26 +23,6 @@ abbr        import { module as alias} from module
 options     head
         import { ${1:moduleName} as ${2:alias} } from "${3:module}";
 
-snippet     met
-abbr        method
-options     head
-        ${1:methodName} = (${2}) => { ${3} };
-
-snippet     fre
-abbr        forEach
-options     word
-        forEach(element => ${1})
-
-snippet     fof
-abbr        for ... of
-options     head
-        for ( let ${1:item} of ${2:collection} )
-
-snippet     fin
-abbr        for ... in
-options     head
-        or ( let ${1:item} in ${2:collection} )
-
 snippet     ed
 abbr        export default
 options     head
