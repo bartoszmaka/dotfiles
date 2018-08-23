@@ -1,5 +1,6 @@
 filetype off
 call plug#begin()
+
 " Cosmetic
 Plug 'nathanaelkane/vim-indent-guides'                             " visualize indent level
 Plug 'joshdick/onedark.vim'                                        " colorscheme
@@ -10,13 +11,13 @@ Plug 'blueyed/vim-diminactive'                                     " dim inactiv
 Plug 'ryanoasis/vim-devicons'                                      " Fancy icons
 
 " command improvements
-if exists('$TMUX')
-  Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
-endif
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
 Plug 'rhysd/clever-f.vim'                                          " better f F
+if exists('$TMUX')
+  Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
+endif
 
 " tools
 Plug 'tpope/vim-fugitive'                                          " git related commands
@@ -31,9 +32,10 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
+Plug 'junegunn/vim-peekaboo'                                       " show content of buffers
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
-Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
-Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " preview undos
+Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " perview file structure
+Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " perview undos
 Plug 'zefei/vim-wintabs'                                           " tabs and buffers management
 Plug 'zefei/vim-wintabs-powerline'
 
@@ -47,6 +49,7 @@ Plug 'mhinz/vim-grepper'                                           " search proj
 Plug 'rking/ag.vim'                                                " searching engine
 
 " simple autocomplete
+Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
@@ -69,8 +72,9 @@ Plug 'w0rp/ale'                                                    " async synta
 
 " autocomplete sources
 Plug 'deathlyfrantic/deoplete-spell'
+Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-Plug 'tpope/vim-rails',                 { 'for': ['ruby, eruby'] }
+Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
 Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
@@ -121,8 +125,6 @@ set omnifunc=syntaxcomplete#Complete
 set noshowmatch                         " has something to do with matching brackets
 set backspace=indent,eol,start
 set updatetime=500
-set spell
-set spellsuggest=best,10
 
 " indent
 set autoindent
@@ -235,6 +237,7 @@ let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
+let NERDTreeMinimalUI = 0
 let g:mundo_right     = 1
 
 let g:winresizer_vert_resize    = 1
@@ -279,14 +282,16 @@ let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
 " completion
-let g:deoplete#enable_at_startup       = 0
-let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#auto_complete_delay     = 2
+let g:deoplete#enable_ignore_case      = 0
 let g:deoplete#enable_smart_case       = 1
-
-let g:deoplete#sources#ternjs#tern_bin = '/usr/local/bin/ternjs'
-let g:deoplete#sources#ternjs#timeout = 0
-let g:deoplete#sources#ternjs#docs = 0
-
+let g:deoplete#enable_at_startup       = 1
+let g:deoplete#enable_refresh_always   = 1
+let g:deoplete#auto_refresh_delay      = 2
+let g:deoplete#max_abbr_width          = 0
+let g:deoplete#max_menu_width          = 50
+let g:deoplete#max_list                = 30
+let g:deoplete#file#enable_buffer_path = 1
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['tcp://localhost:7658'],
@@ -295,8 +300,8 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 let g:vim_jsx_pretty_colorful_config = 1
-
 let g:fzf_command_prefix = 'Fzf'
+let g:fzf_layout = { 'down': '~20%' }
 let g:fzf_colors = {
       \ 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -321,7 +326,7 @@ elseif exists('$TMUX')
 endif
 
 if(has('nvim'))
-  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
+  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vimsnippets'
   let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
 endif
@@ -332,6 +337,66 @@ let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
 
+" **********************************
+
+augroup fix-filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead .eslintrc  setlocal filetype=json
+  autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
+  autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
+augroup END
+
+augroup tab-lengths-per-filetype
+  autocmd!
+  autocmd Filetype gitcommit  setlocal colorcolumn=72
+  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+augroup open-nerdtree-at-start
+  autocmd!
+  autocmd VimEnter *
+        \   if !argc()
+        \ |   NERDTree
+        \ |   wincmd w
+        \ | endif
+        \ | set list
+augroup END
+
+augroup remember-cursor-position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+augroup disable-hls-on-insert-enter
+  autocmd!
+  autocmd InsertEnter * setlocal nohls
+augroup END
+
+augroup color-scheme-tweaks
+  autocmd!
+  autocmd InsertEnter * set cursorcolumn
+  autocmd InsertLeave * set nocursorcolumn
+  autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
+  autocmd InsertEnter * highlight CursorLineNR guibg=#512121
+  autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
+  autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
+
+  highlight CursorColumn     guibg=#512121
+  highlight CursorColumnNR   guibg=#512121
+  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight CurrentWordTwins guibg=#1A1A1A
+  highlight CurrentWord      guibg=#0D0D0D
+  highlight IndentGuidesEven guibg=#2C313A
+  highlight IndentGuidesOdd  guibg=#373E49
+  highlight TabLineSel       guifg=#E5C07B
+  highlight SpellBad         guifg=NONE    guibg=#260F0D
+augroup END
+
+augroup yaml-helper
+  autocmd!
+  autocmd CursorHold *.yml YamlGetFullPath
+augroup END
 
 " **********************************
 " custom functions
@@ -368,65 +433,39 @@ function! Multiple_cursors_after()
   endif
 endfunction
 
-augroup open-nerdtree-at-start
-  autocmd!
-  autocmd VimEnter *
-        \   if !argc()
-        \ |   NERDTree
-        \ |   wincmd w
-        \ | endif
-        \ | set list
-augroup END
+function! TweakedDiffPut()
+  :diffput 1
+  :diffupdate
+endfunction
 
-augroup remember-cursor-position
-  autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
+" **********************************
+" Plugin related keymaps
 
-augroup yaml-helper
-  autocmd!
-  autocmd CursorHold *.yml YamlGetFullPath
-augroup END
+" autocomplete
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+imap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+smap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+xmap     <C-e>         <Plug>(neosnippet_expand_target)
 
-augroup filetype-tweaks
-  autocmd!
-  autocmd Filetype fugitiveblame,qf setlocal nospell
-  autocmd FileType fzf 
-        \| set laststatus=0 noshowmode noruler
-        \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
+" tools windows management
+let g:winresizer_start_key          = '<C-w>e'
+let g:maximizer_default_mapping_key = '<C-w>m'
+nnoremap <C-k><C-u> :MundoToggle<CR>
+nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
+nnoremap <C-k><C-e> :NERDTreeToggle<CR>
+nnoremap <C-k><C-v> :TagbarToggle<CR>
+nnoremap <C-g><C-s> :Gstatus<CR>
+nnoremap <C-g><C-b> :Gblame<CR>
+nnoremap <C-g><C-d> :Gdiff<CR>
+nnoremap <C-g><C-p> :execute TweakedDiffPut()<CR>
+nnoremap <C-g><C-h> :diffget //2<CR>
+nnoremap <C-g><C-l> :diffget //3<CR>
 
-augroup inset-enter-stuff
-  autocmd!
-  autocmd InsertEnter *
-        \  set cursorcolumn
-        \| setlocal nohls
-        \| highlight CursorLine   guibg=#512121
-        \| highlight CursorLineNR guibg=#512121
-  autocmd InsertLeave * 
-        \| set nocursorcolumn
-        \| highlight CursorLine   guibg=#343D46
-        \| highlight CursorLineNR guibg=#343D46
-augroup END
+" Find the alternate file for the current path and open it (basically go to test file)
+nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
-augroup color-scheme-tweaks
-  autocmd!
-  highlight CursorColumn     guibg=#512121
-  highlight CursorColumnNR   guibg=#512121
-  highlight Search           guifg=#CDB07A guibg=NONE gui=bold
-  highlight CurrentWordTwins guibg=#1A1A1A
-  highlight CurrentWord      guibg=#0D0D0D
-  highlight IndentGuidesEven guibg=#2C313A
-  highlight IndentGuidesOdd  guibg=#373E49
-  highlight TabLineSel       guifg=#E5C07B
-  highlight SpellBad         guifg=NONE    guibg=#260F0D
-augroup END
-
-" keymaps
-imap <C-e>     <Plug>(neosnippet_expand_or_jump)
-smap <C-e>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-e>     <Plug>(neosnippet_expand_target)
-
+" workspace navigation
 nmap <leader>1 :WintabsGo 1<CR>
 nmap <leader>2 :WintabsGo 2<CR>
 nmap <leader>3 :WintabsGo 3<CR>
@@ -450,22 +489,18 @@ map <C-W>o     <Plug>(wintabs_only_window)
 command! Tabc WintabsCloseVimtab
 command! Tabo WintabsOnlyVimtab
 
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-c>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-
-nnoremap [c :GitGutterPrevHunk<CR>
-nnoremap ]c :GitGutterNextHunk<CR>
-nnoremap [e :ALEPrevWrap<CR>
-nnoremap ]e :ALENextWrap<CR>
-
+" launch test suite
 nnoremap <leader>tt :TestNearest<CR>
 nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+nnoremap <leader>tg :TestVisit<CR>
 nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
+" list mappings
 nnoremap <C-k><C-s> :FzfMaps<CR>
+
+" popup fuzzy finders
 nnoremap <C-p><C-p> :FZF<CR>
 nnoremap <C-p><C-r> :FZFFreshMru<CR>
 nnoremap <C-p><C-g> :FzfGitFiles<CR>
@@ -477,92 +512,42 @@ nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
 nnoremap <C-p><C-o> viwy:FzfTags <C-r>"<CR>
 nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
-imap <expr> <C-c><C-s> fzf#vim#complete#word({'right': '15%'})
+let g:fzf_action = {
+      \ 'ctrl-q': function('s:build_quickfix_list'),
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
 
-nnoremap <C-p><C-e> :call LanguageClient_contextMenu()<CR>
-nnoremap <C-k><C-k> :call LanguageClient#textDocument_hover()<CR>
-nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
-nnoremap <C-m><C-f> :ALEFix<CR>
-
+" find in project => ag --vimgrep> pattern [location]
 nnoremap <C-m><C-g> :Grepper<CR>
-vnoremap <C-m><C-g> y:GrepperAg <C-r>"<CR>
-nnoremap <leader>f :Grepper<CR>
-vnoremap <leader>f y:GrepperAg <C-r>"<CR>
 
-let g:winresizer_start_key          = '<C-w>e'
-let g:maximizer_default_mapping_key = '<C-w>m'
-nnoremap <C-k><C-u> :MundoToggle<CR>
-nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
-nnoremap <C-k><C-e> :NERDTreeToggle<CR>
-nnoremap <C-k><C-v> :TagbarToggle<CR>
-nnoremap <C-g><C-b> :Gblame<CR>
-nnoremap <C-g><C-d> :Gdiff<CR>
+" ALE actions
+nnoremap <C-m><C-f> :ALEFix<CR>
+nnoremap <C-m><C-l> :ALELint<CR>
+nnoremap <C-m><C-w> :set list!<CR>
 
-" system clipboard integration
-vnoremap <leader>y "+y
-nnoremap <leader>Y "+yg_
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+" Indent whole file
+nnoremap <C-m><C-i> m`gg=G``
 
-" window manipulation tweaks
-" windows navigation
-nnoremap <M-h>      <C-w>h
-nnoremap <M-j>      <C-w>j
-nnoremap <M-k>      <C-w>k
-nnoremap <M-l>      <C-w>l
-nnoremap <C-space>h <C-w>h
-nnoremap <C-space>j <C-w>j
-nnoremap <C-space>k <C-w>k
-nnoremap <C-space>l <C-w>l
-if exists('$TMUX')
-  let g:tmux_navigator_no_mappings = 1
-  nnoremap <C-w>h :TmuxNavigateLeft<CR>
-  nnoremap <C-w>j :TmuxNavigateDown<CR>
-  nnoremap <C-w>k :TmuxNavigateUp<CR>
-  nnoremap <C-w>l :TmuxNavigateRight<CR>
-endif
-" tabs navigation
-nnoremap tt :tabnew<CR>
-nnoremap TT :tabclose<CR>
-nnoremap tl :tabs<CR>
+" splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping  = ''
+nnoremap <C-m><C-p> :SplitjoinJoin<cr>
+nnoremap <C-m><C-n> :SplitjoinSplit<cr>
 
-" close buffer
-nnoremap <leader>q :close<CR>
+nnoremap [c :GitGutterPrevHunk<CR>
+nnoremap ]c :GitGutterNextHunk<CR>
 
-" unify keymaps with tmux
-nnoremap <C-w>" <C-w>s
-nnoremap <C-w>% <C-w>v
+nnoremap [e :ALEPrevWrap<CR>
+nnoremap ]e :ALENextWrap<CR>
 
-" cursor behavoiur
-"
-" always focus after cursor jump
-nnoremap n     :setlocal hls<CR>nzz
-nnoremap N     :setlocal hls<CR>Nzz
-nnoremap <C-o> <C-o>zz
-nnoremap <C-i> <C-i>zz
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-c>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
 
-" treat multiline statement as multiple lines
-nnoremap j gj
-nnoremap k gk
-map <leader>h ^
-map <leader>l $
-
-" Code manipulation tweaks
-" split and merge lines
-nnoremap <leader>j i<CR><Esc>
-nnoremap <leader>k <esc>kJ
-
-" Move block of code without losing select
-vnoremap <Tab>   >gv
-vnoremap <S-Tab> <gv
-
-" disable entering Ex-mode with Q (accessible through :<C-f>)
-nnoremap Q <NOP>
-map q: <NOP>
+" **********************************
+" Non plugin related keymaps
 
 " sometimes I just hold shift for too long
 cabbrev W   w
@@ -574,3 +559,99 @@ cabbrev Q   q
 cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
+
+" disable entering Ex-mode with Q (accessible through :<C-f>)
+nnoremap Q <NOP>
+map q: <NOP>
+
+" windows navigation
+" for linux
+nnoremap <M-h>      <C-w>h
+nnoremap <M-j>      <C-w>j
+nnoremap <M-k>      <C-w>k
+nnoremap <M-l>      <C-w>l
+" for iterm (also requires 'send hex' config)
+nnoremap <C-space>h <C-w>h
+nnoremap <C-space>j <C-w>j
+nnoremap <C-space>k <C-w>k
+nnoremap <C-space>l <C-w>l
+if exists('$TMUX')
+  let g:tmux_navigator_no_mappings = 1
+  nnoremap <C-w>h :TmuxNavigateLeft<CR>
+  nnoremap <C-w>j :TmuxNavigateDown<CR>
+  nnoremap <C-w>k :TmuxNavigateUp<CR>
+  nnoremap <C-w>l :TmuxNavigateRight<CR>
+endif
+" unify keymaps with tmux
+nnoremap <C-w>" <C-w>s
+nnoremap <C-w>% <C-w>v
+
+" close buffer
+nnoremap <leader>q :close<CR>
+
+" split and merge lines
+nnoremap <leader>j i<CR><Esc>
+nnoremap <leader>k <esc>kJ
+
+" copy current line
+inoremap <C-d> <esc>YpA
+
+" begin and end of line
+map <leader>h ^
+map <leader>l $
+
+" treat multiline statement as multiple lines
+nnoremap j gj
+nnoremap k gk
+
+" always focus after cursor jump
+nnoremap n     :setlocal hls<CR>nzz
+nnoremap N     :setlocal hls<CR>Nzz
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
+nnoremap J     jzz
+nnoremap K     kzz
+vnoremap J     jzz
+vnoremap K     kzz
+nnoremap L     zl
+nnoremap H     zh
+vnoremap L     zl
+vnoremap H     zh
+
+vnoremap <Tab>   >gv
+vnoremap <S-Tab> <gv
+
+" replace word under cursor
+nnoremap <leader>r viwy:%s/<C-r>"/
+
+" replace selected word
+vnoremap <leader>r y:%s/<C-r>"/
+
+" tabs navigation
+nnoremap tt :tabnew<CR>
+nnoremap TT :tabclose<CR>
+nnoremap tl :tabs<CR>
+
+" select whole file, (map old C-a functionality to <leader>a)
+nnoremap <C-a>     ggVG
+nnoremap <leader>a <C-a>
+
+" system clipboard integration
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+yg_
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+nnoremap <leader>ts :e db/schema.rb<CR>
+
+if has("gui_macvim")
+  set guifont=Hasklug\ Nerd\ Font\ Complete:h18
+  set guioptions-=m  "remove menu bar
+  set guioptions-=T  "remove toolbar
+  set guioptions-=r  "remove right-hand scroll bar
+  set guioptions-=L  "remove left-hand scroll bar
+  set guioptions-=e  "remove left-hand scroll bar
+endif
