@@ -1,6 +1,5 @@
 filetype off
 call plug#begin()
-
 " Cosmetic
 Plug 'nathanaelkane/vim-indent-guides'                             " visualize indent level
 Plug 'joshdick/onedark.vim'                                        " colorscheme
@@ -237,6 +236,7 @@ let g:indent_guides_enable_on_vim_startup            = 1
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
 let NERDTreeMinimalUI = 1
+let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
 let g:mundo_right     = 1
 
 let g:winresizer_vert_resize    = 1
@@ -300,7 +300,7 @@ let g:LanguageClient_serverCommands = {
 
 let g:vim_jsx_pretty_colorful_config = 1
 let g:fzf_command_prefix = 'Fzf'
-let g:fzf_layout = { 'down': '~20%' }
+let g:fzf_layout = { 'down': '~25%' }
 let g:fzf_colors = {
       \ 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -325,7 +325,7 @@ elseif exists('$TMUX')
 endif
 
 if(has('nvim'))
-  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vimsnippets'
+  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
   let g:neosnippet#scope_aliases = {}
   let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
 endif
@@ -344,6 +344,10 @@ augroup fix-filetypes
   autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
   autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
 augroup END
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 augroup tab-lengths-per-filetype
   autocmd!
@@ -620,20 +624,10 @@ vnoremap H     zh
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
 
-" replace word under cursor
-nnoremap <leader>r viwy:%s/<C-r>"/
-
-" replace selected word
-vnoremap <leader>r y:%s/<C-r>"/
-
 " tabs navigation
 nnoremap tt :tabnew<CR>
 nnoremap TT :tabclose<CR>
 nnoremap tl :tabs<CR>
-
-" select whole file, (map old C-a functionality to <leader>a)
-nnoremap <C-a>     ggVG
-nnoremap <leader>a <C-a>
 
 " system clipboard integration
 vnoremap <leader>y "+y
