@@ -123,6 +123,9 @@ set omnifunc=syntaxcomplete#Complete
 set noshowmatch                         " has something to do with matching brackets
 set backspace=indent,eol,start
 set updatetime=500
+set pumheight=15
+set nospell
+" set spellsuggest=best,5               " cool improvement for z= but causes insane lags
 
 " indent
 set autoindent
@@ -281,15 +284,12 @@ let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
 " completion
-let g:deoplete#auto_complete_delay     = 2
+let g:deoplete#enable_at_startup       = 1
 let g:deoplete#enable_ignore_case      = 0
 let g:deoplete#enable_smart_case       = 1
-let g:deoplete#enable_at_startup       = 1
 let g:deoplete#enable_refresh_always   = 1
-let g:deoplete#auto_refresh_delay      = 2
-let g:deoplete#max_abbr_width          = 0
-let g:deoplete#max_menu_width          = 50
-let g:deoplete#max_list                = 30
+let g:deoplete#auto_refresh_delay      = 200
+let g:deoplete#auto_complete_delay     = 200
 let g:deoplete#file#enable_buffer_path = 1
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_serverCommands = {
@@ -345,13 +345,11 @@ augroup fix-filetypes
   autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
 augroup END
 
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-augroup tab-lengths-per-filetype
+augroup filetype-scoped-settings
   autocmd!
-  autocmd Filetype gitcommit  setlocal colorcolumn=72
+  autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
+  autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
+        \ setlocal spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
@@ -370,13 +368,18 @@ augroup remember-cursor-position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-augroup disable-hls-on-insert-enter
+augroup yaml-helper
   autocmd!
-  autocmd InsertEnter * setlocal nohls
+  autocmd CursorHold *.yml YamlGetFullPath
 augroup END
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 augroup color-scheme-tweaks
   autocmd!
+  autocmd InsertEnter * setlocal nohls
   autocmd InsertEnter * set cursorcolumn
   autocmd InsertLeave * set nocursorcolumn
   autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
@@ -394,11 +397,6 @@ augroup color-scheme-tweaks
   highlight IndentGuidesOdd  guibg=#373E49
   highlight TabLineSel       guifg=#E5C07B
   highlight SpellBad         guifg=NONE    guibg=#260F0D
-augroup END
-
-augroup yaml-helper
-  autocmd!
-  autocmd CursorHold *.yml YamlGetFullPath
 augroup END
 
 " **********************************
