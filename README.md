@@ -22,14 +22,24 @@ bash postinstall.sh
   pip2 install neovim
   pip3 install neovim
   ```
-- install ruby provider
+- install ruby provider and language server
   ``` bash
-  gem install neovim
+  gem install neovim solargraph yard
   ```
-- install npm plugins dependencies provider
+- install npm provider, language server and plugin dependencies
   ``` bash
-  npm install -g tern import-js
+  npm install -g neovim tern typescript-language-server eslint
   ```
+- install system plugins dependencies
+  ``` bash
+  brew install the_silver_searcher
+  brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+
+  sudo apt install silversearcher_ag
+  build ctags from source
+  ```
+
+- setup rust and install `alt` (see below)
 - place `vimrc` in proper location - `~/.config/nvim/init.vim`
 
 - install plugins with `:PlugInstall` (inside neovim)
