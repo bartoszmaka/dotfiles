@@ -32,7 +32,6 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
-Plug 'junegunn/vim-peekaboo'                                       " show content of buffers
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " perview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " perview undos
