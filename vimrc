@@ -67,6 +67,7 @@ Plug 'Shougo/neoinclude.vim'                                       " extends deo
 Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
+Plug 'mattn/emmet-vim'
 
 " autocomplete sources
 Plug 'deathlyfrantic/deoplete-spell'
@@ -193,6 +194,7 @@ endif
 let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
 let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
+" let g:airline_section_b                              = ''
 let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
@@ -239,7 +241,7 @@ let g:indent_guides_enable_on_vim_startup            = 1
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
 let NERDTreeMinimalUI = 1
-let NERDTreeStatusline="%{matchstr(getline('.'), '\\s\\zs\\w\\(.*\\)')}"
+let NERDTreeStatusline=""
 let g:mundo_right     = 1
 
 let g:winresizer_vert_resize    = 1
@@ -443,11 +445,23 @@ endfunction
 " Plugin related keymaps
 
 " autocomplete
+" imap <expr><Tab>
+"   \ neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" :
+"   \ emmet#isExpandable() ? "\<C-y>," :
+"     /\ this seems to always return true
+"   \ "\<tab>"
+
+imap <expr><c-e>
+  \ neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" :
+  \ "\<C-y>,"
+
+
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-imap     <C-e>         <Plug>(neosnippet_expand_or_jump)
-smap     <C-e>         <Plug>(neosnippet_expand_or_jump)
-xmap     <C-e>         <Plug>(neosnippet_expand_target)
+" imap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+" smap     <C-e>         <Plug>(neosnippet_expand_or_jump)
+" xmap     <C-e>         <Plug>(neosnippet_expand_target)
 
 " tools windows management
 let g:winresizer_start_key          = '<C-w>e'
