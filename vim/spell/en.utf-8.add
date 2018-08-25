@@ -50,7 +50,6 @@ AutoPairsShortcutBackInsert
 AutoPairsShortcutFastWrap
 AutoPairsShortcutJump
 AutoPairsShortcutToggle
-BufNewFile
 BufRead
 BufReadPost
 C
@@ -991,3 +990,4 @@ phoneNumber
 def
 keymap
 block
+plugins
