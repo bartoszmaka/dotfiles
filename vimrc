@@ -33,8 +33,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree gi
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
-Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " perview file structure
-Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " perview undos
+Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
+Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
 Plug 'zefei/vim-wintabs'                                           " tabs and buffers management
 Plug 'zefei/vim-wintabs-powerline'
 
@@ -127,7 +127,7 @@ set backspace=indent,eol,start
 set updatetime=500
 set pumheight=15
 set nospell
-" set spellsuggest=best,5               " cool improvement for z= but causes insane lags
+set spellsuggest=best,8
 
 " indent
 set autoindent

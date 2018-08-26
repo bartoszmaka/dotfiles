@@ -991,3 +991,7 @@ def
 keymap
 block
 plugins
+jumpable
+emmet
+isExpandable
+vim
