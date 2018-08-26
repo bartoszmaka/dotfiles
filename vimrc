@@ -19,6 +19,7 @@ if exists('$TMUX')
 endif
 
 " tools
+Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
 Plug 'christoomey/vim-tmux-runner'                                 " tmux integration
@@ -277,6 +278,15 @@ let g:ale_linters = {
       \ 'javascript':     ['eslint'],
       \}
 let g:ale_linter_aliases = {'jsx': 'css'}
+let g:mta_use_matchparen_group       = 0
+let g:mta_set_default_matchtag_color = 0
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'eruby' : 1,
+    \ 'javascript.jsx' : 1,
+    \}
 
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -399,6 +409,7 @@ augroup color-scheme-tweaks
   highlight IndentGuidesOdd  guibg=#373E49
   highlight TabLineSel       guifg=#E5C07B
   highlight SpellBad         guifg=NONE    guibg=#260F0D
+  highlight MatchTag         gui=reverse
 augroup END
 
 " **********************************
@@ -477,6 +488,7 @@ nnoremap <C-g><C-p> :execute TweakedDiffPut()<CR>
 nnoremap <C-g><C-h> :diffget //2<CR>
 nnoremap <C-g><C-l> :diffget //3<CR>
 
+
 " Find the alternate file for the current path and open it (basically go to test file)
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
@@ -540,6 +552,8 @@ nnoremap <C-m><C-g> :Grepper<CR>
 nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
+
+nnoremap <C-m><C-u> yiw:GrepperAg \<<C-r>"<CR>
 
 " Indent whole file
 nnoremap <C-m><C-i> m`gg=G``
