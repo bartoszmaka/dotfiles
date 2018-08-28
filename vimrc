@@ -19,6 +19,7 @@ if exists('$TMUX')
 endif
 
 " tools
+Plug 'andymass/vim-matchup'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
@@ -347,6 +348,10 @@ let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.er
 let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
+let g:matchup_matchparen_status_offscreen = 1
+let g:matchup_matchparen_deferred = 1
+let g:matchup_matchparen_hi_surround_always = 1
+let g:matchup_transmute_enabled = 1
 
 " **********************************
 
@@ -408,8 +413,9 @@ augroup color-scheme-tweaks
   highlight IndentGuidesEven guibg=#2C313A
   highlight IndentGuidesOdd  guibg=#373E49
   highlight TabLineSel       guifg=#E5C07B
-  highlight SpellBad         guifg=NONE    guibg=#260F0D
-  highlight MatchTag         gui=reverse
+  highlight SpellBad         guifg=NONE      guibg=#260F0D
+  highlight MatchTag         guibg=#424212
+  highlight MatchWord        guibg=#424212
 augroup END
 
 " **********************************
