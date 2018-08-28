@@ -101,6 +101,8 @@ alias berc="bundle exec rails console"
 alias berr="bundle exec rake routes F C"
 alias brp="echo 'pry-remote -w';pry-remote -w"
 
+alias :wq=exit
+
 RPROMPT='%D{%K:%M:%S}'
 export PATH="$PATH:$HOME/.rvm/bin"
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -112,4 +114,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval $(thefuck --alias)
