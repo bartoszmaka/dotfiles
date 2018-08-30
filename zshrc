@@ -53,6 +53,7 @@ plugins=(
   tmux
   common-aliases
   rails
+  yarn
   zsh-autosuggestions
   zsh-syntax-highlighting
   alias-tips
@@ -102,6 +103,8 @@ alias berr="bundle exec rake routes F C"
 alias brp="echo 'pry-remote -w';pry-remote -w"
 
 alias :wq=exit
+alias :qa=exit
+alias :wqa=exit
 
 RPROMPT='%D{%K:%M:%S}'
 export PATH="$PATH:$HOME/.rvm/bin"
