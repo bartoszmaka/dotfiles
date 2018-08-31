@@ -53,7 +53,6 @@ plugins=(
   tmux
   common-aliases
   rails
-  yarn
   zsh-autosuggestions
   zsh-syntax-highlighting
   alias-tips
