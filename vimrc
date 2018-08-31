@@ -73,7 +73,6 @@ Plug 'w0rp/ale'                                                    " async synta
 Plug 'mattn/emmet-vim'
 
 " syntax and autocomplete sources
-Plug 'sheerun/vim-polyglot'
 Plug 'deathlyfrantic/deoplete-spell'
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }

@@ -1,3 +1,8 @@
+snippet     cla
+abbr        component class
+options     word
+        class ${1} extends Component {${0}}
+
 snippet     msp
 abbr        mapStateToProps
 options     word
@@ -11,82 +16,82 @@ options     word
 snippet     imr
 abbr        React
 options     head
-        import React from "react";
+        import React from 'react';
 
 snippet     imrc
 abbr        React, Component
 options     head
-        import React, { Component } from "react";
+        import React, { Component } from 'react';
 
 snippet     imrpc
 abbr        React, PureComponent
 options     head
-        import React, { PureComponent } from "react";
+        import React, { PureComponent } from 'react';
 
 snippet     sst
 abbr        setState short
 options     head
-        this.setState({ ${1} })
+        this.setState({ ${0} })
 
 snippet     ssf
 abbr        setState full
 options     head
-        this.setState((state, props) => return { ${1} })
+        this.setState((prevState, prevProps) => return { ${0} })
 
-snippet     props
+snippet     tp
 abbr        props
 options     head
-        this.props.${1:propName}
+        this.props.${0:propName}
 
-snippet     state
+snippet     ts
 abbr        state
 options     head
-        this.state.${1:propName}
+        this.state.${0:propName}
 
 snippet     unprop
 abbr        unpack props
 options     head
-        const { ${1} } = this.props;
+        const { ${0} } = this.props;
 
 snippet     unstat
 abbr        unpack state
 options     head
-        const { ${1} } = this.state;
+        const { ${0} } = this.state;
 
 snippet     cwm
 abbr        componentWillMount
 options     head
-        componentWillMount = () => { ${1} }
+        componentWillMount = (${1}) => { ${0} }
 
 snippet     cdm
 abbr        componentDidMount
 options     head
-        componentDidMount = () => { ${1} }
+        componentDidMount = (${1}) => { ${0} }
 
 snippet     cwr
 abbr        componentWillReceiveProps
 options     head
-        componentWillReceiveProps = (nextProps) => { ${1} }
+        componentWillReceiveProps = (${1}) => { ${0} }
 
 snippet     scu
 abbr        shouldComponentUpdate
 options     head
-        shouldComponentUpdate = (nextProps, nextState) => { ${1} }
+        shouldComponentUpdate = (${1}) => { ${0} }
 
 snippet     cwup
 abbr        componnetWillUpdate
 options     head
-        componnetWillUpdate = (nextProps, nextState) => { ${1} }
+        componnetWillUpdate = (${1}) => { ${0} }
 
 snippet     cdup
 abbr        componentDidUpdate
 options     head
-        componentDidUpdate = (prevProps, prevState) => { ${1} }
+        componentDidUpdate = (${1}) => { ${0} }
 
 snippet     cwun
 abbr        componentWillUnmount
 options     head
-        componentWillUnmount = () => { ${1} }
+        componentWillUnmount = (${1}) => { ${0} }
 
 snippet     ren
 abbr        render
@@ -95,10 +100,15 @@ options     head
           ${1}
           return (
             <div>
-              ${2}
+              ${0}
             </div>
           )
         }
+
+snippet     pt
+abbr        PropTypes.object
+options     word
+        PropTypes.
 
 snippet     pto
 abbr        PropTypes.object
@@ -174,17 +184,17 @@ snippet     ptsh
 abbr        PropTypes.shape
 options     word
         PropTypes.shape({
-          ${1}
+          ${0}
         })
 
 snippet     ptshr
 abbr        PropTypes.shape.isRequired
 options     word
         PropTypes.shape.isRequired({
-          ${1}
+          ${0}
         })
 
 snippet     tss
 abbr        this.setState
 options     word
-        this.setState({${1}})
+        this.setState({${0}})

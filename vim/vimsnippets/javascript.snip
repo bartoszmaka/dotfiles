@@ -1,39 +1,55 @@
 snippet     imp
 abbr        import module from
 options     head
-        import ${1:moduleName} from "${2:module}";
+        import ${1:moduleName} from '${0:module}';
 
 snippet     imn
 abbr        import module
 options     head
-        import ${1:moduleName};
+        import ${0:moduleName};
 
 snippet     imd
 abbr        import { module } from
 options     head
-        import { ${1:moduleName} } from "${2:module}";
+        import { ${1:moduleName} } from '${0:module}';
 
 snippet     ime
 abbr        import * as alias from module
 options     head
-        import * as ${1:alias} from "${2:module}";
+        import * as ${1:alias} from '${0:module}';
 
 snippet     ima
 abbr        import { module as alias} from module
 options     head
-        import { ${1:moduleName} as ${2:alias} } from "${3:module}";
+        import { ${1:moduleName} as ${2:alias} } from '${0:module}';
+
+snippet     e
+abbr        export
+options     word
+        export 
+
+snippet     c
+abbr        const
+options     word
+        const 
 
 snippet     ed
 abbr        export default
-options     head
-        export default
+options     word
+        export default 
 
 snippet     ec
 abbr        export const
-options     head
-        export const
+options     word
+        export const 
 
 snippet     edc
 abbr        export default const
-options     head
-        export default const
+options     word
+        export default const 
+
+
+snippet     fun
+abbr        arrow function
+options     word
+        ${1} = ${2} => ${0}
