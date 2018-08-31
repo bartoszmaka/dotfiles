@@ -38,6 +38,7 @@ Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview fil
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
 Plug 'zefei/vim-wintabs'                                           " tabs and buffers management
 Plug 'zefei/vim-wintabs-powerline'
+" Plug 'haya14busa/vim-asterisk'
 
 " Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
@@ -64,14 +65,15 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
 Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
 
-" autocomplete sources
+" syntax and autocomplete sources
+Plug 'sheerun/vim-polyglot'
 Plug 'deathlyfrantic/deoplete-spell'
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
@@ -337,11 +339,12 @@ elseif exists('$TMUX')
   let test#strategy          = 'vtr'
 endif
 
-if(has('nvim'))
-  let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
-  let g:neosnippet#scope_aliases = {}
-  let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
-endif
+let g:neosnippet#disable_runtime_snippets = {
+      \   '_' : 1,
+      \ }
+let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
+let g:neosnippet#scope_aliases = {}
+let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
 
 " closetag config
 let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex'
@@ -414,7 +417,7 @@ augroup color-scheme-tweaks
   highlight IndentGuidesOdd  guibg=#373E49
   highlight TabLineSel       guifg=#E5C07B
   highlight SpellBad         guifg=NONE      guibg=#260F0D
-  highlight MatchTag         guibg=#424212
+  highlight MatchTag         guibg=#291240
   highlight MatchWord        guibg=#424212
 augroup END
 
@@ -460,13 +463,11 @@ endfunction
 
 " **********************************
 " Plugin related keymaps
-
-" autocomplete
-" imap <expr><Tab>
-"   \ neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" :
-"   \ emmet#isExpandable() ? "\<C-y>," :
-"     /\ this seems to always return true
-"   \ "\<tab>"
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+set statusline=%{anzu#search_status()}
 
 imap <expr><c-e>
   \ neosnippet#expandable_or_jumpable() ?
@@ -476,9 +477,6 @@ imap <expr><c-e>
 
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-" imap     <C-e>         <Plug>(neosnippet_expand_or_jump)
-" smap     <C-e>         <Plug>(neosnippet_expand_or_jump)
-" xmap     <C-e>         <Plug>(neosnippet_expand_target)
 
 " tools windows management
 let g:winresizer_start_key          = '<C-w>e'
@@ -493,7 +491,6 @@ nnoremap <C-g><C-d> :Gdiff<CR>
 nnoremap <C-g><C-p> :execute TweakedDiffPut()<CR>
 nnoremap <C-g><C-h> :diffget //2<CR>
 nnoremap <C-g><C-l> :diffget //3<CR>
-
 
 " Find the alternate file for the current path and open it (basically go to test file)
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
