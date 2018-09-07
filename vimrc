@@ -38,6 +38,8 @@ Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview fil
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
 Plug 'zefei/vim-wintabs'                                           " tabs and buffers management
 Plug 'zefei/vim-wintabs-powerline'
+Plug 'osyo-manga/vim-anzu'
+Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'haya14busa/vim-asterisk'
 
 " Fuzzy searcher
@@ -196,8 +198,13 @@ endif
 " plugin variables
 let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
+let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
 let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
-" let g:airline_section_b                              = ''
+
+let g:airline_section_z = '%2p%% %3l:%2c'
+let g:airline_section_b = ''
+let g:airline_section_c = '%t'
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
@@ -330,7 +337,19 @@ let g:fzf_colors = {
       \ 'header':  ['fg', 'Comment']
       \ }
 
-let g:gutentags_ctags_exclude = ["node_modules", ".git"]
+let g:gutentags_ctags_exclude = [
+      \ "node_modules",
+      \ ".git",
+      \ "client/node_modules",
+      \ "client/package.json",
+      \ "client/package-lock.json",
+      \ "client/coverage",
+      \ "public",
+      \ "bin",
+      \ "log",
+      \ "app/assets",
+      \ "spec/fixtures",
+      \ ]
 
 if has('gui_macvim')
   let test#strategy          = 'iterm'
@@ -416,12 +435,21 @@ augroup color-scheme-tweaks
   highlight IndentGuidesOdd  guibg=#373E49
   highlight TabLineSel       guifg=#E5C07B
   highlight SpellBad         guifg=NONE      guibg=#260F0D
-  highlight MatchTag         guibg=#291240
-  highlight MatchWord        guibg=#424212
+  highlight MatchTag         guibg=#424212
+  highlight MatchWord        guibg=#291240
 augroup END
 
 " **********************************
 " custom functions
+"" remove .tern-port on start if exists
+function! RemoveTernPortIfExists()
+  if !empty(glob(join([getcwd(), ".tern-port"], "/")))
+    echo ".tern-port exists, deleting with result:"
+    echo delete(fnameescape(join([getcwd(), ".tern-port"], "/"))) == 0 ? "Success" : "Fail"
+  endif
+endfunction
+autocmd VimEnter * :call RemoveTernPortIfExists()
+
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
