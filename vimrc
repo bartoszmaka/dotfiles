@@ -40,7 +40,10 @@ Plug 'zefei/vim-wintabs'                                           " tabs and bu
 Plug 'zefei/vim-wintabs-powerline'
 Plug 'osyo-manga/vim-anzu'
 Plug 'MattesGroeger/vim-bookmarks'
-" Plug 'haya14busa/vim-asterisk'
+Plug 'iamcco/markdown-preview.vim'
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+" Plug 'Shougo/unite.vim'
 
 " Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
@@ -67,7 +70,6 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
 Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
@@ -75,7 +77,8 @@ Plug 'w0rp/ale'                                                    " async synta
 Plug 'mattn/emmet-vim'
 
 " syntax and autocomplete sources
-Plug 'deathlyfrantic/deoplete-spell'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript',     { 'do': './install.sh' }
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
@@ -83,6 +86,7 @@ Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
 Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 Plug 'moll/vim-node',                   { 'for': ['javascript'] }
+Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 call plug#end()
 
 " **********************************
@@ -165,7 +169,12 @@ set incsearch
 
 " ui
 set noshowmode                          " do not display current mode in cmdline (airline already handles it)
-set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:< " define how whitespaces will be displayed
+set listchars=
+      \eol:$,
+      \tab:>-,
+      \trail:~,
+      \extends:>,
+      \precedes:< " define how whitespaces will be displayed
 set nolist                              " show whitespaces
 set mouse=a
 set laststatus=2                        " always show status line
@@ -199,11 +208,14 @@ endif
 let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
 let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
+" set statusline=%{anzu#search_status()}
+let g:airline#extensions#anzu#enabled = 0
+let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
 let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
 
 let g:airline_section_z = '%2p%% %3l:%2c'
 let g:airline_section_b = ''
-let g:airline_section_c = '%t'
+let g:airline_section_c = '%{expand("%:F")}'
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#branch#enabled              = 1
@@ -279,8 +291,10 @@ let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 0
 let g:ale_fixers = {
       \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
-      \ 'javascript':     ['remove_trailing_lines', 'trim_whitespace', 'eslint', 'importjs'],
+      \ 'javascript':     ['eslint', 'importjs'],
+      \ 'javascript.jsx': ['eslint', 'importjs'],
       \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'json':           ['jq']
       \}
 let g:ale_linters = {
       \ 'ruby':           ['rubocop'],
@@ -373,75 +387,35 @@ let g:matchup_matchparen_status_offscreen = 1
 let g:matchup_matchparen_deferred = 1
 let g:matchup_matchparen_hi_surround_always = 1
 let g:matchup_transmute_enabled = 1
-
-" **********************************
-
-augroup fix-filetypes
-  autocmd!
-  autocmd BufNewFile,BufRead .eslintrc  setlocal filetype=json
-  autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
-  autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
-augroup END
-
-augroup filetype-scoped-settings
-  autocmd!
-  autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
-  autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
-        \ setlocal spell
-  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
-augroup END
-
-augroup open-nerdtree-at-start
-  autocmd!
-  autocmd VimEnter *
-        \   if !argc()
-        \ |   NERDTree
-        \ |   wincmd w
-        \ | endif
-        \ | set list
-augroup END
-
-augroup remember-cursor-position
-  autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-augroup END
-
-augroup yaml-helper
-  autocmd!
-  autocmd CursorHold *.yml YamlGetFullPath
-augroup END
-
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-augroup color-scheme-tweaks
-  autocmd!
-  autocmd InsertEnter * setlocal nohls
-  autocmd InsertEnter * set cursorcolumn
-  autocmd InsertLeave * set nocursorcolumn
-  autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
-  autocmd InsertEnter * highlight CursorLineNR guibg=#512121
-  autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
-  autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
-
-  highlight CursorColumn     guibg=#512121
-  highlight CursorColumnNR   guibg=#512121
-  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  highlight CurrentWordTwins guibg=#1A1A1A
-  highlight CurrentWord      guibg=#0D0D0D
-  highlight IndentGuidesEven guibg=#2C313A
-  highlight IndentGuidesOdd  guibg=#373E49
-  highlight TabLineSel       guifg=#E5C07B
-  highlight SpellBad         guifg=NONE      guibg=#260F0D
-  highlight MatchTag         guibg=#424212
-  highlight MatchWord        guibg=#291240
-augroup END
+let g:bookmark_no_default_key_mappings = 1
 
 " **********************************
 " custom functions
-"" remove .tern-port on start if exists
+
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+
+function! BookmarkUnmapKeys()
+    unmap mm
+    unmap mi
+    unmap mn
+    unmap mp
+    unmap ma
+    unmap mc
+    unmap mx
+    unmap mkk
+    unmap mjj
+endfunction
+
 function! RemoveTernPortIfExists()
   if !empty(glob(join([getcwd(), ".tern-port"], "/")))
     echo ".tern-port exists, deleting with result:"
@@ -489,18 +463,99 @@ function! TweakedDiffPut()
 endfunction
 
 " **********************************
+
+augroup fix-filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead .eslintrc  setlocal filetype=json
+  autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
+  autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
+augroup END
+
+augroup filetype-scoped-settings
+  autocmd!
+  autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
+  autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
+        \ setlocal spell
+  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
+augroup open-nerdtree-at-start
+  autocmd!
+  autocmd VimEnter *
+        \   if !argc()
+        \ |   NERDTree
+        \ |   wincmd w
+        \ | endif
+        \ | set list
+augroup END
+
+augroup remember-cursor-position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+
+augroup yaml-helper
+  autocmd!
+  autocmd CursorHold *.yml YamlGetFullPath
+augroup END
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+augroup color-scheme-tweaks
+  autocmd!
+  if !&diff
+    autocmd InsertEnter * setlocal nohls
+    autocmd InsertEnter * set cursorcolumn
+    autocmd InsertLeave * set nocursorcolumn
+    autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
+    autocmd InsertEnter * highlight CursorLineNR guibg=#512121
+    autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
+    autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
+
+    highlight CursorColumn     guibg=#512121
+    highlight CursorColumnNR   guibg=#512121
+  endif
+  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight CurrentWordTwins guibg=#1A1A1A
+  highlight CurrentWord      guibg=#0D0D0D
+  highlight IndentGuidesEven guibg=#2C313A
+  highlight IndentGuidesOdd  guibg=#373E49
+  highlight TabLineSel       guifg=#E5C07B
+  highlight SpellBad         guifg=NONE      guibg=#260F0D
+  highlight MatchTag         guibg=#424212
+  highlight MatchWord        guibg=#291240
+augroup END
+
+" augroup vimdiff-tweaks
+"   autocmd!
+"   if &diff
+"     highlight CursorLine  gui=reverse
+"     autocmd InsertEnter * highlight CursorLine   gui=reverse
+"     autocmd InsertEnter * highlight CursorLineNR gui=reverse
+"     autocmd InsertLeave * highlight CursorLine   gui=reverse
+"     autocmd InsertLeave * highlight CursorLineNR gui=reverse
+"   endif
+" augroup END
+
+
+autocmd BufEnter * :call BookmarkMapKeys()
+autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+
+" **********************************
 " Plugin related keymaps
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
-set statusline=%{anzu#search_status()}
+"
+nmap n :set hls<CR><Plug>(anzu-n-with-echo)zz
+nmap N :set hls<CR><Plug>(anzu-N-with-echo)zz
+nmap * :set hls<CR><Plug>(anzu-star-with-echo)zz
+nmap # :set hls<CR><Plug>(anzu-sharp-with-echo)zz
 
 imap <expr><c-e>
   \ neosnippet#expandable_or_jumpable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" :
   \ "\<C-y>,"
-
 
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
@@ -569,6 +624,11 @@ nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
 nnoremap <C-p><C-o> viwy:FzfTags <C-r>"<CR>
 nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
+nnoremap <leader>/  :FzfHistory/<CR>
+nnoremap <leader>:  :FzfHistory:<CR>
+cnoremap <leader>;  :FzfCommands<CR>
+nnoremap <leader>;  :FzfCommands<CR>
+nnoremap <C-p><C-s> :FzfCommands<CR>
 let g:fzf_action = {
       \ 'ctrl-q': function('s:build_quickfix_list'),
       \ 'ctrl-t': 'tab split',
@@ -623,6 +683,17 @@ cabbrev Qa! qa
 nnoremap Q <NOP>
 map q: <NOP>
 
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
+cnoremap <C-d> <Delete>
+cnoremap <C-g> <C-c>
+
 " windows navigation
 " for linux
 nnoremap <M-h>      <C-w>h
@@ -664,8 +735,8 @@ nnoremap j gj
 nnoremap k gk
 
 " always focus after cursor jump
-nnoremap n     :setlocal hls<CR>nzz
-nnoremap N     :setlocal hls<CR>Nzz
+" nnoremap <silent> n     :setlocal hls<CR>nzz
+" nnoremap <silent> N     :setlocal hls<CR>Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 nnoremap J     jzz
