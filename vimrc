@@ -30,7 +30,10 @@ Plug 'janko-m/vim-test'                                            " test launch
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
+
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
+" Plug 'Aldlevine/nerdtree-git-plugin'                                 " nerdTree git integration
+"
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
@@ -41,9 +44,6 @@ Plug 'zefei/vim-wintabs-powerline'
 Plug 'osyo-manga/vim-anzu'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'iamcco/markdown-preview.vim'
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-
-" Plug 'Shougo/unite.vim'
 
 " Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
@@ -216,6 +216,7 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
 let g:airline_section_z = '%2p%% %3l:%2c'
 let g:airline_section_b = ''
 let g:airline_section_c = '%{expand("%:F")}'
+
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#branch#enabled              = 1
@@ -471,6 +472,10 @@ augroup fix-filetypes
   autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
 augroup END
 
+augroup per-filetype-mappings
+  autocmd FileType eruby inoremap <buffer> <% <% %><Left><Left><Left>
+augroup END
+
 augroup filetype-scoped-settings
   autocmd!
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
@@ -499,10 +504,6 @@ augroup yaml-helper
   autocmd CursorHold *.yml YamlGetFullPath
 augroup END
 
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
 augroup color-scheme-tweaks
   autocmd!
   if !&diff
@@ -529,20 +530,13 @@ augroup color-scheme-tweaks
   highlight MatchWord        guibg=#291240
 augroup END
 
-" augroup vimdiff-tweaks
-"   autocmd!
-"   if &diff
-"     highlight CursorLine  gui=reverse
-"     autocmd InsertEnter * highlight CursorLine   gui=reverse
-"     autocmd InsertEnter * highlight CursorLineNR gui=reverse
-"     autocmd InsertLeave * highlight CursorLine   gui=reverse
-"     autocmd InsertLeave * highlight CursorLineNR gui=reverse
-"   endif
-" augroup END
-
-
+autocmd QuickFixCmdPost wincmd J
 autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 
 " **********************************
 " Plugin related keymaps
@@ -615,7 +609,7 @@ nnoremap <C-k><C-s> :FzfMaps<CR>
 " popup fuzzy finders
 nnoremap <C-p><C-p> :FZF<CR>
 nnoremap <C-p><C-r> :FZFFreshMru<CR>
-nnoremap <C-p><C-g> :FzfGitFiles<CR>
+nnoremap <C-p><C-g> :FzfGitFiles?<CR>
 nnoremap <C-p><C-h> :FzfHistory<CR>
 nnoremap <C-p><C-b> :FzfBuffers<CR>
 nnoremap <C-p><C-f> :FzfAg<CR>
@@ -626,7 +620,6 @@ nnoremap <C-p><C-o> viwy:FzfTags <C-r>"<CR>
 nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
 nnoremap <leader>/  :FzfHistory/<CR>
 nnoremap <leader>:  :FzfHistory:<CR>
-cnoremap <leader>;  :FzfCommands<CR>
 nnoremap <leader>;  :FzfCommands<CR>
 nnoremap <C-p><C-s> :FzfCommands<CR>
 let g:fzf_action = {
@@ -636,14 +629,17 @@ let g:fzf_action = {
       \ 'ctrl-v': 'vsplit' }
 
 " find in project => ag --vimgrep> pattern [location]
-nnoremap <C-m><C-g> :Grepper<CR>
+" let g:grepper.ag.grepprg .= ' --'
+nnoremap <C-m><C-g>        :Grepper<CR>
+nnoremap <leader>f         :GrepperAg '\b\b'<Left><Left><Left>
+nnoremap <leader>F         :Grepper -tool ag -side<CR>
+nnoremap <leader>*         :Grepper -tool ag -highlight -cword -noprompt<CR>
+nnoremap <leader><leader>* :Grepper -tool ag -highlight -cword -noprompt -side<CR>
 
 " ALE actions
 nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
-
-nnoremap <C-m><C-u> yiw:GrepperAg \<<C-r>"<CR>
 
 " Indent whole file
 nnoremap <C-m><C-i> m`gg=G``
