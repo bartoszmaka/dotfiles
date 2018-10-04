@@ -30,10 +30,12 @@ Plug 'janko-m/vim-test'                                            " test launch
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
+Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
+Plug 'Galooshi/vim-import-js',          { 'do': 'npm install -g import-js' }
 
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 " Plug 'Aldlevine/nerdtree-git-plugin'                                 " nerdTree git integration
-"
+
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
@@ -128,7 +130,7 @@ set fileencoding=utf-8
 set encoding=utf8
 
 " behavior
-set completeopt=longest,menuone,preview
+set completeopt=longest,menuone
 set omnifunc=syntaxcomplete#Complete
 set noshowmatch                         " has something to do with matching brackets
 set backspace=indent,eol,start
@@ -284,7 +286,7 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
-let g:ale_sign_error           = '💩'
+let g:ale_sign_error           = '🚨'
 let g:ale_sign_warning         = '🤔'
 let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
@@ -328,10 +330,13 @@ let g:deoplete#auto_refresh_delay      = 200
 let g:deoplete#auto_complete_delay     = 200
 let g:deoplete#file#enable_buffer_path = 1
 let g:LanguageClient_autoStop = 0
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_hoverPreview = 'Never' 
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['tcp://localhost:7658'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+    \ 'python': ['/usr/local/bin/pyls'],
     \ }
 
 let g:vim_jsx_pretty_colorful_config = 1
@@ -551,6 +556,9 @@ imap <expr><c-e>
   \ "\<Plug>(neosnippet_expand_or_jump)" :
   \ "\<C-y>,"
 
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <C-o><C-d> :call LanguageClient#textDocument_definition()<CR>
+
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 
@@ -642,7 +650,8 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
 " Indent whole file
-nnoremap <C-m><C-i> m`gg=G``
+nnoremap <C-m><C-=> m`gg=G``
+nnoremap <C-m><C-i> :ImportJSWord<CR>
 
 " splitjoin
 let g:splitjoin_split_mapping = ''
@@ -735,14 +744,10 @@ nnoremap k gk
 " nnoremap <silent> N     :setlocal hls<CR>Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
-nnoremap J     jzz
-nnoremap K     kzz
-vnoremap J     jzz
-vnoremap K     kzz
-nnoremap L     zl
-nnoremap H     zh
-vnoremap L     zl
-vnoremap H     zh
+" nnoremap L     zl
+" nnoremap H     zh
+" vnoremap L     zl
+" vnoremap H     zh
 
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
