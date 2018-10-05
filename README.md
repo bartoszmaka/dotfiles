@@ -147,3 +147,4 @@ brew cask install spectacle slack flux iterm2
 
 [https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors](https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors)
 [https://pilotmoon.com/scrollreverser/](https://pilotmoon.com/scrollreverser/)
+[https://apple.stackexchange.com/questions/136928/using-alt-cmd-right-left-arrow-in-iterm](https://apple.stackexchange.com/questions/136928/using-alt-cmd-right-left-arrow-in-iterm)
