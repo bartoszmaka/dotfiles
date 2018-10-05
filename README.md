@@ -17,10 +17,11 @@ bash postinstall.sh
 #### [neovim](https://github.com/neovim/neovim)
 - [install vim-plug](https://github.com/junegunn/vim-plug)
 - [install neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-- install python provider (required for autocomplete)
+- install python provider and language server
   ``` bash
   pip2 install neovim
   pip3 install neovim
+  pip3 install 'python-language-server[all]'
   ```
 - install ruby provider and language server
   ``` bash
@@ -28,7 +29,7 @@ bash postinstall.sh
   ```
 - install npm provider, language server and plugin dependencies
   ``` bash
-  npm install -g neovim tern typescript-language-server eslint
+  npm install -g neovim tern typescript typescript-language-server eslint
   ```
 - install system plugins dependencies
   ``` bash
