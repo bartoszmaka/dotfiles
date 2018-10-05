@@ -89,6 +89,7 @@ Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', '
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 Plug 'moll/vim-node',                   { 'for': ['javascript'] }
 Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
+Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
 call plug#end()
 
 " **********************************
@@ -544,8 +545,11 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 
 
 " **********************************
+" iTerm2 option key map hack
+map ń <A-n>
+map Ń <A-N>
+
 " Plugin related keymaps
-"
 nmap n :set hls<CR><Plug>(anzu-n-with-echo)zz
 nmap N :set hls<CR><Plug>(anzu-N-with-echo)zz
 nmap * :set hls<CR><Plug>(anzu-star-with-echo)zz
@@ -649,6 +653,9 @@ nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
+" multiple cursors
+nnoremap <C-m><C-n> :MultipleCursorsFind
+
 " Indent whole file
 nnoremap <C-m><C-=> m`gg=G``
 nnoremap <C-m><C-i> :ImportJSWord<CR>
@@ -656,19 +663,14 @@ nnoremap <C-m><C-i> :ImportJSWord<CR>
 " splitjoin
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping  = ''
-nnoremap <C-m><C-p> :SplitjoinJoin<cr>
-nnoremap <C-m><C-n> :SplitjoinSplit<cr>
+nnoremap <C-m><C-k> :SplitjoinJoin<cr>
+nnoremap <C-m><C-j> :SplitjoinSplit<cr>
 
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
 
 nnoremap [e :ALEPrevWrap<CR>
 nnoremap ]e :ALENextWrap<CR>
-
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-c>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
 
 " **********************************
 " Non plugin related keymaps
