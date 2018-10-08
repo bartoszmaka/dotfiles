@@ -29,7 +29,7 @@ bash postinstall.sh
   ```
 - install npm provider, language server and plugin dependencies
   ``` bash
-  npm install -g neovim tern typescript typescript-language-server eslint
+  npm install -g neovim tern typescript typescript-language-server eslint importjs
   ```
 - install system plugins dependencies
   ``` bash
