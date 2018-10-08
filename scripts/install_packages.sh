@@ -1,10 +1,7 @@
 case "$(uname -s)" in
   Darwin)
-      brew install brew-cask automake python3 the_silver_searcher zsh-completions unrar ccrypt ntfs-3g neovim
-      brew install libevent ncurses reattach-to-user-namespace tmux
-      brew cask install iterm2 spectacle flux
-      brew cask install pgadmin4
-      brew install node
+      brew install python3 the_silver_searcher neovim libevent ncurses reattach-to-user-namespace tmux
+      brew cask install iterm2 spectacle flux slack pgadmin4
     ;;
 
   Linux)
