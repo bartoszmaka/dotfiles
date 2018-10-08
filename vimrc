@@ -31,7 +31,8 @@ Plug 'terryma/vim-multiple-cursors'                                " multiple cu
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
-Plug 'Galooshi/vim-import-js',          { 'do': 'npm install -g import-js' }
+Plug 'bartoszmaka/vim-import-js',          { 'do': 'npm install -g import-js' }
+" Plug 'Galooshi/vim-import-js',          { 'do': 'npm install -g import-js' }
 
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 " Plug 'Aldlevine/nerdtree-git-plugin'                                 " nerdTree git integration
@@ -102,6 +103,7 @@ let mapleader="\<Space>"
 " meta
 set shell=/bin/zsh                      " shell path
 if has('nvim') && has('mac')
+  " use python installed by brew
   let g:python_host_prog  = '/usr/local/bin/python2'
   let g:python3_host_prog = '/usr/local/bin/python3'
 endif
@@ -211,6 +213,7 @@ endif
 let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
 let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
+set statusline+=%{gutentags#statusline()}
 " set statusline=%{anzu#search_status()}
 let g:airline#extensions#anzu#enabled = 0
 let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
@@ -284,6 +287,7 @@ let g:vim_current_word#highlight_after_delay          = 1
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 " ale syntax checker
+let g:importjs_disable_default_mappings = 1
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
@@ -674,6 +678,9 @@ nnoremap ]e :ALENextWrap<CR>
 
 " **********************************
 " Non plugin related keymaps
+" replace selected word in file
+nnoremap <leader>g yiw:%s/\<<C-r>"\>//g<Left><Left>
+vnoremap <leader>g y:%s/\<<C-r>"\>//g<Left><Left>
 
 " sometimes I just hold shift for too long
 cabbrev W   w
