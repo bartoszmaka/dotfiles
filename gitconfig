@@ -1,3 +1,9 @@
 [user]
 	email = bartoszmaka95@gmail.com
-	name = bartoszmaka
+	user = Bartosz Mąka
+	username = bartoszmaka
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore
+[rerere]
+	enabled = 1
