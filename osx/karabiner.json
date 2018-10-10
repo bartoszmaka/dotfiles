@@ -92,7 +92,8 @@
                     ],
                     "optional": [
                       "caps_lock",
-                      "shift"
+                      "shift",
+                      "control"
                     ]
                   }
                 },
@@ -112,7 +113,8 @@
                     ],
                     "optional": [
                       "caps_lock",
-                      "shift"
+                      "shift",
+                      "control"
                     ]
                   }
                 },
@@ -132,7 +134,8 @@
                     ],
                     "optional": [
                       "caps_lock",
-                      "shift"
+                      "shift",
+                      "control"
                     ]
                   }
                 },
@@ -152,7 +155,8 @@
                     ],
                     "optional": [
                       "caps_lock",
-                      "shift"
+                      "shift",
+                      "control"
                     ]
                   }
                 },
