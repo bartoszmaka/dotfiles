@@ -65,6 +65,8 @@ Plug 'tpope/vim-surround'                                          " vim verb fo
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 
 " IDE like autocomplete
+" Plug 'sheerun/vim-polyglot'   " disabled due to issue with adding indent after parentheses
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
 else
@@ -74,7 +76,13 @@ else
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
+
 Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
+" js     => npm install -g typescript-language-server
+" ruby   => gem install solargraph
+" python => pip3 install 'python-language-server[all]'
+" bash   => npm install -g bash-language-server
+
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
@@ -317,6 +325,7 @@ let g:mta_filetypes = {
     \ 'xml' : 1,
     \ 'eruby' : 1,
     \ 'javascript.jsx' : 1,
+    \ 'html.handlebars' : 1,
     \}
 
 let g:AutoPairsShortcutToggle     = ''
@@ -336,12 +345,13 @@ let g:deoplete#auto_complete_delay     = 200
 let g:deoplete#file#enable_buffer_path = 1
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_hoverPreview = 'Never' 
+let g:LanguageClient_hoverPreview = 'Auto'
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['tcp://localhost:7658'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
     \ 'python': ['/usr/local/bin/pyls'],
+    \ 'sh': ['bash-language-server', 'start'],
     \ }
 
 let g:vim_jsx_pretty_colorful_config = 1
@@ -390,7 +400,7 @@ let g:neosnippet#scope_aliases = {}
 let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
 
 " closetag config
-let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex'
+let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex,*.hbs'
 let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut                = '>'
@@ -679,8 +689,8 @@ nnoremap ]e :ALENextWrap<CR>
 " **********************************
 " Non plugin related keymaps
 " replace selected word in file
-nnoremap <leader>g yiw:%s/\<<C-r>"\>//g<Left><Left>
-vnoremap <leader>g y:%s/\<<C-r>"\>//g<Left><Left>
+nnoremap <leader>g yiw:%s/<C-r>"//g<Left><Left>
+vnoremap <leader>g y:%s/<C-r>"//g<Left><Left>
 
 " sometimes I just hold shift for too long
 cabbrev W   w
