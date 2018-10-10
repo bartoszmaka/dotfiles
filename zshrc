@@ -6,21 +6,15 @@ case "$ostype" in
   Darwin*) isosx=true;;
 esac
 
-if [ "$isosx" = true ]; then
-  export ZSH=/Users/bartoszmaka/.oh-my-zsh
-fi
-if [ "$islinux" = true ]; then
-  export ZSH=/home/bartoszmaka/.oh-my-zsh
-fi
+[ "$isosx" = true ] &&
+  export ZSH=/Users/bartoszmaka/.oh-my-zsh &&
+  plugins=(git tmux common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
+
+[ "$islinux" = true ] &&
+  export ZSH=/home/bartoszmaka/.oh-my-zsh &&
+  plugins=(git tmux common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
 
 ZSH_THEME="agnoster"
-
-if [ "$isosx" = true ]; then
-  plugins=(git tmux common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
-fi
-if [ "$islinux" = true ]; then
-  plugins=(git tmux common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
-fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -30,9 +24,8 @@ export EDITOR='nvim'
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-function tattach() {
-  tmux new-session -s `uuidgen` -t $1
-}
+function tattach() { tmux new-session -s `uuidgen` -t $1 }
+function npmdo { $(npm bin)/$@ }
 
 test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 
@@ -66,4 +59,4 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-export PATH="/usr/local/bin:$PATH"
+export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
