@@ -47,6 +47,10 @@ alias bers="bundle exec rails server"
 alias berc="bundle exec rails console"
 alias berr="bundle exec rake routes F C"
 alias brp="echo 'pry-remote -w';pry-remote -w"
+alias yri="rm -rf yarn.lock node_modules/ && yarn install"
+alias yrm="rm -rf yarn.lock node_modules/"
+alias ys="yarn start"
+alias yi="yarn install"
 
 alias :wq=exit
 alias :qa=exit
@@ -56,8 +60,9 @@ RPROMPT='%D{%K:%M:%S}'
 export PATH="$PATH:$HOME/.rvm/bin"
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
