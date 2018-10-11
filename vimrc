@@ -32,12 +32,10 @@ Plug 'janko-m/vim-test'                                            " test launch
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
-Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
-Plug 'bartoszmaka/vim-import-js',          { 'do': 'npm install -g import-js' }
-" Plug 'Galooshi/vim-import-js',          { 'do': 'npm install -g import-js' }
-
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
-" Plug 'Aldlevine/nerdtree-git-plugin'                                 " nerdTree git integration
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
+Plug 'bartoszmaka/vim-import-js',       { 'do': 'npm install -g import-js' }
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -216,6 +214,26 @@ if has('conceal')
   set conceallevel=0
 endif
 
+let s:rather_gray_than_white = 'B3B3B3'
+let g:NERDTreePatternMatchHighlightColor = {
+      \ '.*mootools.*\.js$' : s:rather_gray_than_white
+      \ }
+let g:NERDTreeExtensionHighlightColor = {
+      \ 'conf'              : s:rather_gray_than_white,
+      \ 'ini'               : s:rather_gray_than_white,
+      \ 'yml'               : s:rather_gray_than_white,
+      \ 'bat'               : s:rather_gray_than_white,
+      \ 'diff'              : s:rather_gray_than_white,
+      \ }
+let g:NERDTreeExactMatchHighlightColor = {
+      \ '.ds_store'         : s:rather_gray_than_white,
+      \ '.gitconfig'        : s:rather_gray_than_white,
+      \ '.gitignore'        : s:rather_gray_than_white,
+      \ '.bashrc'           : s:rather_gray_than_white,
+      \ '.bashprofile'      : s:rather_gray_than_white,
+      \ 'license'           : s:rather_gray_than_white,
+      \ }
+
 " **********************************
 " plugin variables
 let g:webdevicons_enable                             = 1
@@ -225,6 +243,9 @@ set statusline+=%{gutentags#statusline()}
 let g:airline#extensions#anzu#enabled = 0
 let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
 let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
 
 let g:airline_section_z = '%2p%% %3l:%2c'
 let g:airline_section_b = ''
@@ -419,16 +440,7 @@ let g:bookmark_no_default_key_mappings = 1
 " custom functions
 function! s:incsearch_keymap()
   IncSearchNoreMap <C-n> <Over>(incsearch-next)
-  IncSearchNoreMap <C-p>  <Over>(incsearch-prev)
-endfunction
-
-function! s:config_fuzzyall(...) abort
-  return extend(copy({
-  \   'converters': [
-  \     incsearch#config#fuzzy#converter(),
-  \     incsearch#config#fuzzyspell#converter()
-  \   ],
-  \ }), get(a:, 1, {}))
+  IncSearchNoreMap <C-p> <Over>(incsearch-prev)
 endfunction
 
 function! BookmarkMapKeys()
@@ -516,11 +528,16 @@ augroup END
 
 augroup filetype-scoped-settings
   autocmd!
-  autocmd FileType eruby inoremap <buffer> <% <% %><Left><Left><Left>
+  autocmd FileType eruby      inoremap <buffer> <% <% %><Left><Left><Left>
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
+  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
   autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
         \ setlocal spell
-  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd FileType vim,tex
+      \ let [
+      \ b:matchup_matchparen_fallback,
+      \ b:matchup_matchparen_enabled]
+      \ = [0, 0]
 augroup END
 
 augroup open-nerdtree-at-start
@@ -548,7 +565,7 @@ augroup color-scheme-tweaks
   if !&diff
     autocmd InsertEnter * setlocal nohls
     autocmd InsertEnter * set cursorcolumn
-    autocmd InsertLeave * set nocursorcolumn
+    autocmd CursorMoved,CursorHold,InsertLeave * set nocursorcolumn
     autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
     autocmd InsertEnter * highlight CursorLineNR guibg=#512121
     autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
@@ -594,13 +611,15 @@ map ,n <Plug>(easymotion-bd-n)
 map ,N <Plug>(easymotion-bd-n)
 nmap s <Plug>(easymotion-overwin-f2)
 
+nnoremap g/ /
+nnoremap g? ?
 map /  <Plug>(incsearch-forward)
-noremap <silent><expr> z/ incsearch#go(<SID>config_fuzzyall())
+map z/ <Plug>(incsearch-fuzzy-/)
 
-nmap n :set hls<CR><Plug>(anzu-n-with-echo)zz
-nmap N :set hls<CR><Plug>(anzu-N-with-echo)zz
-nmap * :set hls<CR><Plug>(anzu-star-with-echo)zz
-nmap # :set hls<CR><Plug>(anzu-sharp-with-echo)zz
+nmap n <Plug>(anzu-n-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap N <Plug>(anzu-N-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap * <Plug>(anzu-star-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap # <Plug>(anzu-sharp-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
 
 imap <expr><c-e>
   \ neosnippet#expandable_or_jumpable() ?
@@ -786,14 +805,8 @@ nnoremap j gj
 nnoremap k gk
 
 " always focus after cursor jump
-" nnoremap <silent> n     :setlocal hls<CR>nzz
-" nnoremap <silent> N     :setlocal hls<CR>Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
-" nnoremap L     zl
-" nnoremap H     zh
-" vnoremap L     zl
-" vnoremap H     zh
 
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
