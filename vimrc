@@ -42,8 +42,6 @@ Plug 'simeji/winresizer'                                           " window resi
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
-Plug 'zefei/vim-wintabs'                                           " tabs and buffers management
-Plug 'zefei/vim-wintabs-powerline'
 Plug 'osyo-manga/vim-anzu'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'iamcco/markdown-preview.vim'
@@ -222,7 +220,6 @@ let g:webdevicons_enable                             = 1
 let g:webdevicons_enable_nerdtree                    = 0
 let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
 set statusline+=%{gutentags#statusline()}
-" set statusline=%{anzu#search_status()}
 let g:airline#extensions#anzu#enabled = 0
 let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
 let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
@@ -231,13 +228,19 @@ let g:airline_section_z = '%2p%% %3l:%2c'
 let g:airline_section_b = ''
 let g:airline_section_c = '%{expand("%:F")}'
 
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#tab_nr_type = 2
+
 let g:airline_mode_map = {
     \ '__' : '-',
     \ 'n'  : 'N',
@@ -598,29 +601,21 @@ nnoremap <C-g><C-l> :diffget //3<CR>
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
-nmap <leader>1 :WintabsGo 1<CR>
-nmap <leader>2 :WintabsGo 2<CR>
-nmap <leader>3 :WintabsGo 3<CR>
-nmap <leader>4 :WintabsGo 4<CR>
-nmap <leader>5 :WintabsGo 5<CR>
-nmap <leader>6 :WintabsGo 6<CR>
-nmap <leader>7 :WintabsGo 7<CR>
-nmap <leader>8 :WintabsGo 8<CR>
-nmap <leader>9 :WintabsGo 9<CR>
-map <M-{>      <Plug>(wintabs_previous)
-map <leader>[  <Plug>(wintabs_previous)
-map <C-H>      <Plug>(wintabs_previous)
-map <M-}>      <Plug>(wintabs_next)
-map <leader>]  <Plug>(wintabs_next)
-map <C-L>      <Plug>(wintabs_next)
-map <leader>w  <Plug>(wintabs_close)
-map <leader>W  <Plug>(wintabs_undo)
-map <C-T>o     <Plug>(wintabs_only)
-map <C-W>c     <Plug>(wintabs_close_window)
-map <C-W>o     <Plug>(wintabs_only_window)
-command! Tabc WintabsCloseVimtab
-command! Tabo WintabsOnlyVimtab
-
+noremap <M-}>            :bnext<CR>
+noremap <M-{>            :bprevious<CR>
+noremap <leader>]        :bnext<CR>
+noremap <leader>[        :bprevious<CR>
+noremap <leader>w        :bdelete<CR>
+noremap <leader><space>! :bdelete!<CR>
+nmap    <leader>1        <Plug>AirlineSelectTab1
+nmap    <leader>2        <Plug>AirlineSelectTab2
+nmap    <leader>3        <Plug>AirlineSelectTab3
+nmap    <leader>4        <Plug>AirlineSelectTab4
+nmap    <leader>5        <Plug>AirlineSelectTab5
+nmap    <leader>6        <Plug>AirlineSelectTab6
+nmap    <leader>7        <Plug>AirlineSelectTab7
+nmap    <leader>8        <Plug>AirlineSelectTab8
+nmap    <leader>9        <Plug>AirlineSelectTab9
 " launch test suite
 nnoremap <leader>tt :TestNearest<CR>
 nnoremap <leader>tf :TestFile<CR>
