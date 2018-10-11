@@ -49,7 +49,7 @@ Plug 'iamcco/markdown-preview.vim'
 " Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
+Plug 'bartoszmaka/fzf-mru.vim'
 
 " search in project
 Plug 'mhinz/vim-grepper'                                           " search projectwide
@@ -383,6 +383,7 @@ let g:LanguageClient_serverCommands = {
 let g:vim_jsx_pretty_colorful_config = 1
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'down': '~25%' }
+let g:fzf_mru_relative = 1
 let g:fzf_colors = {
       \ 'fg':      ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
@@ -528,7 +529,9 @@ augroup END
 
 augroup filetype-scoped-settings
   autocmd!
-  autocmd FileType eruby      inoremap <buffer> <% <% %><Left><Left><Left>
+  autocmd Filetype eruby      inoremap <buffer> <% <% %><Left><Left><Left>
+  autocmd Filetype fzf
+        \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
   autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
@@ -590,7 +593,8 @@ autocmd QuickFixCmdPost wincmd J
 autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
+autocmd  FileType fzf 
+      \  set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 
@@ -677,8 +681,11 @@ nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 nnoremap <C-k><C-s> :FzfMaps<CR>
 
 " popup fuzzy finders
-nnoremap <C-p><C-p> :FZF<CR>
-nnoremap <C-p><C-r> :FZFFreshMru<CR>
+command! -bang -nargs=? -complete=dir FZFFilesPreview
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+nnoremap <C-p><C-p> :FZFFilesPreview<CR>
+nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>
 nnoremap <C-p><C-g> :FzfGitFiles?<CR>
 nnoremap <C-p><C-h> :FzfHistory<CR>
 nnoremap <C-p><C-b> :FzfBuffers<CR>
@@ -696,7 +703,7 @@ let g:fzf_action = {
       \ 'ctrl-q': function('s:build_quickfix_list'),
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit' }
+      \ 'ctrl-v': 'vsplit'}
 
 " find in project => ag --vimgrep> pattern [location]
 " let g:grepper.ag.grepprg .= ' --'
@@ -733,6 +740,7 @@ nnoremap ]e :ALENextWrap<CR>
 " **********************************
 " Non plugin related keymaps
 " replace selected word in file
+
 nnoremap <leader>g yiw:%s/<C-r>"//g<Left><Left>
 vnoremap <leader>g y:%s/<C-r>"//g<Left><Left>
 
