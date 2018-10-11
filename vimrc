@@ -19,6 +19,8 @@ if exists('$TMUX')
 endif
 
 " tools
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'andymass/vim-matchup'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
@@ -415,6 +417,19 @@ let g:bookmark_no_default_key_mappings = 1
 
 " **********************************
 " custom functions
+function! s:incsearch_keymap()
+  IncSearchNoreMap <C-n> <Over>(incsearch-next)
+  IncSearchNoreMap <C-p>  <Over>(incsearch-prev)
+endfunction
+
+function! s:config_fuzzyall(...) abort
+  return extend(copy({
+  \   'converters': [
+  \     incsearch#config#fuzzy#converter(),
+  \     incsearch#config#fuzzyspell#converter()
+  \   ],
+  \ }), get(a:, 1, {}))
+endfunction
 
 function! BookmarkMapKeys()
     nmap mm :BookmarkToggle<CR>
@@ -487,6 +502,10 @@ function! TweakedDiffPut()
 endfunction
 
 " **********************************
+augroup incsearch-keymap
+  autocmd!
+  autocmd VimEnter * call s:incsearch_keymap()
+augroup END
 
 augroup fix-filetypes
   autocmd!
@@ -495,12 +514,9 @@ augroup fix-filetypes
   autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
 augroup END
 
-augroup per-filetype-mappings
-  autocmd FileType eruby inoremap <buffer> <% <% %><Left><Left><Left>
-augroup END
-
 augroup filetype-scoped-settings
   autocmd!
+  autocmd FileType eruby inoremap <buffer> <% <% %><Left><Left><Left>
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
   autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
         \ setlocal spell
@@ -567,6 +583,20 @@ map ń <A-n>
 map Ń <A-N>
 
 " Plugin related keymaps
+map ,f <Plug>(easymotion-bd-f)
+map ,w <Plug>(easymotion-bd-w)
+map ,e <Plug>(easymotion-bd-e)
+map ,b <Plug>(easymotion-bd-w)
+map ,W <Plug>(easymotion-bd-W)
+map ,E <Plug>(easymotion-bd-E)
+map ,B <Plug>(easymotion-bd-W)
+map ,n <Plug>(easymotion-bd-n)
+map ,N <Plug>(easymotion-bd-n)
+nmap s <Plug>(easymotion-overwin-f2)
+
+map /  <Plug>(incsearch-forward)
+noremap <silent><expr> z/ incsearch#go(<SID>config_fuzzyall())
+
 nmap n :set hls<CR><Plug>(anzu-n-with-echo)zz
 nmap N :set hls<CR><Plug>(anzu-N-with-echo)zz
 nmap * :set hls<CR><Plug>(anzu-star-with-echo)zz
@@ -686,6 +716,8 @@ nnoremap ]e :ALENextWrap<CR>
 " replace selected word in file
 nnoremap <leader>g yiw:%s/<C-r>"//g<Left><Left>
 vnoremap <leader>g y:%s/<C-r>"//g<Left><Left>
+
+nnoremap ? K
 
 " sometimes I just hold shift for too long
 cabbrev W   w
