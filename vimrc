@@ -585,8 +585,8 @@ augroup color-scheme-tweaks
   highlight IndentGuidesOdd  guibg=#373E49
   highlight TabLineSel       guifg=#E5C07B
   highlight SpellBad         guifg=NONE      guibg=#260F0D
-  highlight MatchTag         guibg=#424212
-  highlight MatchWord        guibg=#291240
+  highlight MatchTag         guibg=#4d4d4d gui=bold
+  highlight MatchWord        guibg=#4d4d4d gui=bold
 augroup END
 
 autocmd QuickFixCmdPost wincmd J
@@ -604,6 +604,7 @@ map ń <A-n>
 map Ń <A-N>
 
 " Plugin related keymaps
+silent! call repeat#set("\<Plug>.", v:count)
 map ,f <Plug>(easymotion-bd-f)
 map ,w <Plug>(easymotion-bd-w)
 map ,e <Plug>(easymotion-bd-e)
@@ -761,6 +762,7 @@ cabbrev Qa! qa
 nnoremap Q <NOP>
 map q: <NOP>
 
+" vim command line mappings
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-p> <Up>
@@ -815,6 +817,8 @@ nnoremap k gk
 " always focus after cursor jump
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
+nnoremap gi gi<ESC>zza
+nnoremap g; g;zz
 
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
@@ -832,15 +836,4 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-
-nnoremap <leader>ts :e db/schema.rb<CR>
-
-if has("gui_macvim")
-  set guifont=Hasklug\ Nerd\ Font\ Complete:h18
-  set guioptions-=m  "remove menu bar
-  set guioptions-=T  "remove toolbar
-  set guioptions-=r  "remove right-hand scroll bar
-  set guioptions-=L  "remove left-hand scroll bar
-  set guioptions-=e  "remove left-hand scroll bar
-endif
 
