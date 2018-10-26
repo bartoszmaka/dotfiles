@@ -19,6 +19,7 @@ if exists('$TMUX')
 endif
 
 " tools
+Plug 'arecarn/vim-crunch'                                          " calculator
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'andymass/vim-matchup'
@@ -97,6 +98,7 @@ Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', '
 Plug 'moll/vim-node',                   { 'for': ['javascript'] }
 Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
+Plug 'vim-scripts/SQLComplete.vim'
 call plug#end()
 
 " **********************************
@@ -535,7 +537,8 @@ augroup filetype-scoped-settings
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
   autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
-        \ setlocal spell
+        \ if getfsize(@%) > 1000000 | setlocal nospell | endif
+
   autocmd FileType vim,tex
       \ let [
       \ b:matchup_matchparen_fallback,
@@ -659,7 +662,8 @@ noremap <M-}>            :bnext<CR>
 noremap <M-{>            :bprevious<CR>
 noremap <leader>]        :bnext<CR>
 noremap <leader>[        :bprevious<CR>
-noremap <leader>w        :bdelete<CR>
+" noremap <leader>w        :bdelete<CR>
+nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
 noremap <leader><space>! :bdelete!<CR>
 nmap    <leader>1        <Plug>AirlineSelectTab1
 nmap    <leader>2        <Plug>AirlineSelectTab2
@@ -741,6 +745,8 @@ nnoremap ]e :ALENextWrap<CR>
 " **********************************
 " Non plugin related keymaps
 " replace selected word in file
+nnoremap <C-]> g]
+nnoremap g] <C-]>
 
 nnoremap <leader>g yiw:%s/<C-r>"//g<Left><Left>
 vnoremap <leader>g y:%s/<C-r>"//g<Left><Left>
@@ -836,4 +842,3 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-
