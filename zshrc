@@ -23,20 +23,22 @@ export DISABLE_SPRING=1
 export EDITOR='nvim'
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export DOTFILES_PATH="$HOME/.repos/dotfiles"
 
 function tattach() { tmux new-session -s `uuidgen` -t $1 }
 function npmdo { $(npm bin)/$@ }
 
 test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 
+alias spacevim="nvim -u ~/.SpaceVim/init.vim"
 alias vi="nvim -u ~/.noplugin_vimrc"
 alias minivim="nvim -u ~/.minimal_vimrc"
-alias vimrc="$EDITOR ~/.vimrc"
-alias zshrc="$EDITOR ~/.zshrc"
+alias vimrc="$EDITOR $DOTFILES_PATH/vimrc"
+alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tnew="tmux new-session -t bartosz"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
-alias dotfiles="cd ~/.repos/dotfiles"
+alias dotfiles="cd $DOTFILES_PATH"
 alias ra="ranger"
 
 alias -g F='| fzf --exact'
