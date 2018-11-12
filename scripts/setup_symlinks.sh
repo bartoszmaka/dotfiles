@@ -3,6 +3,7 @@ mkdir -p ~/.config/karabiner
 mkdir -p ~/.config/nvim
 
 ln -vsf ~/.repos/dotfiles/noplugin_vimrc ~/.noplugin_vimrc
+ln -vsf ~/.repos/dotfiles/minimal_vimrc ~/.minimal_vimrc
 ln -vsf ~/.repos/dotfiles/vimrc ~/.vimrc
 ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
 ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
