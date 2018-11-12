@@ -338,11 +338,12 @@ let g:ale_fixers = {
       \ 'javascript':     ['eslint', 'importjs'],
       \ 'javascript.jsx': ['eslint', 'importjs'],
       \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'json':           ['jq']
+      \ 'json':           ['jsonlint', 'jq']
       \}
 let g:ale_linters = {
       \ 'ruby':           ['rubocop'],
       \ 'javascript':     ['eslint'],
+      \ 'json':           ['jsonlint', 'jq']
       \}
 let g:ale_linter_aliases = {'jsx': 'css'}
 let g:mta_use_matchparen_group       = 0
@@ -493,22 +494,13 @@ function! AltCommand(path, vim_command)
   endif
 endfunction
 
-" Disable Deoplete when selecting multiple cursors starts
+" https://github.com/Shougo/deoplete.nvim/issues/162
 function! Multiple_cursors_before()
-  if exists('*deoplete#disable')
-    exe 'call deoplete#disable()'
-  elseif exists(':NeoCompleteLock') == 2
-    exe 'NeoCompleteLock'
-  endif
+  let b:deoplete_disable_auto_complete = 1
 endfunction
 
-" Enable Deoplete when selecting multiple cursors ends
 function! Multiple_cursors_after()
-  if exists('*deoplete#enable')
-    exe 'call deoplete#enable()'
-  elseif exists(':NeoCompleteUnlock') == 2
-    exe 'NeoCompleteUnlock'
-  endif
+  let b:deoplete_disable_auto_complete = 0
 endfunction
 
 function! TweakedDiffPut()
@@ -724,7 +716,7 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
 " multiple cursors
-nnoremap <C-m><C-n> :MultipleCursorsFind
+nnoremap <C-m><C-n> :MultipleCursorsFind 
 
 " Indent whole file
 nnoremap <C-m><C-=> m`gg=G``
