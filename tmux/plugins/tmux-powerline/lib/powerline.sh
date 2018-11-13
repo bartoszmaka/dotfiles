@@ -109,7 +109,7 @@ __print_left_segment() {
 	local content=${powerline_segment_contents[$1]}
 	local content_background_color=$2
 	local content_foreground_color=$3
-	local separator=$4
+	local separator=''
 	local separator_background_color=$5
 	local separator_foreground_color=$6
 
@@ -121,7 +121,7 @@ __print_right_segment() {
 	local content=${powerline_segment_contents[$1]}
 	local content_background_color=$2
 	local content_foreground_color=$3
-	local separator=$4
+	local separator=''
 	local separator_background_color=$5
 	local separator_foreground_color=$6
 
