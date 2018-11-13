@@ -1,11 +1,14 @@
 filetype off
 call plug#begin()
 " Cosmetic
+" Plug 'nathanaelkane/vim-indent-guides'                             " visualize indent level
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
 Plug 'vim-airline/vim-airline-themes'                              " themes for airline
 Plug 'machakann/vim-highlightedyank'                               " highlight yanked code
+Plug 'blueyed/vim-diminactive'                                     " dim inactive windows
+Plug 'ryanoasis/vim-devicons'                                      " Fancy icons
 
 " command improvements
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
@@ -17,6 +20,9 @@ if exists('$TMUX')
 endif
 
 " tools
+Plug 'arecarn/vim-crunch'                                          " calculator
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'andymass/vim-matchup'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
@@ -29,6 +35,7 @@ Plug 'terryma/vim-multiple-cursors'                                " multiple cu
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
 Plug 'bartoszmaka/vim-import-js',       { 'do': 'npm install -g import-js' }
 
@@ -37,6 +44,9 @@ Plug 'simeji/winresizer'                                           " window resi
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
+Plug 'osyo-manga/vim-anzu'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'iamcco/markdown-preview.vim'
 
 " Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
@@ -48,6 +58,7 @@ Plug 'mhinz/vim-grepper'                                           " search proj
 Plug 'rking/ag.vim'                                                " searching engine
 
 " simple autocomplete
+Plug 'Shougo/echodoc.vim'                                          " displays function signatures from completions in the command line.
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
@@ -67,6 +78,10 @@ Plug 'Shougo/neosnippet'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
 
 Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
+" js     => npm install -g typescript-language-server
+" ruby   => gem install solargraph
+" python => pip3 install 'python-language-server[all]'
+" bash   => npm install -g bash-language-server
 
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
@@ -84,6 +99,7 @@ Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', '
 Plug 'moll/vim-node',                   { 'for': ['javascript'] }
 Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
+Plug 'vim-scripts/SQLComplete.vim'
 call plug#end()
 
 " **********************************
@@ -106,7 +122,7 @@ set novisualbell
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
 set grepprg=ag
-set noswapfile
+set swapfile                            " shit happens (segmentation faults also)
 set directory=/tmp
 set autoread
 set lazyredraw
@@ -128,7 +144,9 @@ set encoding=utf8
 " behavior
 set completeopt=longest,menuone
 set omnifunc=syntaxcomplete#Complete
+set noshowmatch                         " has something to do with matching brackets
 set backspace=indent,eol,start
+set updatetime=500
 set pumheight=15
 set nospell
 set spellsuggest=best,8
@@ -179,7 +197,9 @@ set number                              " show line numbers
 set norelativenumber
 set signcolumn=auto                      " make place for symbols next to line numbers
 set ruler
+set cursorline                          " Highlight current line
 set title
+set title titlestring=%<%F%=
 
 " **********************************
 " colorscheme tweaks
@@ -197,14 +217,45 @@ if has('conceal')
   set conceallevel=0
 endif
 
+let s:rather_gray_than_white = 'B3B3B3'
+let g:NERDTreePatternMatchHighlightColor = {
+      \ '.*mootools.*\.js$' : s:rather_gray_than_white
+      \ }
+let g:NERDTreeExtensionHighlightColor = {
+      \ 'conf'              : s:rather_gray_than_white,
+      \ 'ini'               : s:rather_gray_than_white,
+      \ 'yml'               : s:rather_gray_than_white,
+      \ 'bat'               : s:rather_gray_than_white,
+      \ 'diff'              : s:rather_gray_than_white,
+      \ }
+let g:NERDTreeExactMatchHighlightColor = {
+      \ '.ds_store'         : s:rather_gray_than_white,
+      \ '.gitconfig'        : s:rather_gray_than_white,
+      \ '.gitignore'        : s:rather_gray_than_white,
+      \ '.bashrc'           : s:rather_gray_than_white,
+      \ '.bashprofile'      : s:rather_gray_than_white,
+      \ 'license'           : s:rather_gray_than_white,
+      \ }
+
 " **********************************
 " plugin variables
+let g:webdevicons_enable                             = 1
+let g:webdevicons_enable_nerdtree                    = 0
+let g:webdevicons_enable_airline_statusline_fileformat_symbols = 1
 set statusline+=%{gutentags#statusline()}
+let g:airline#extensions#anzu#enabled = 0
+let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
+let g:WebDevIconsNerdTreeAfterGlyphPadding           = ''
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+
 let g:airline_section_z = '%2p%% %3l:%2c'
 let g:airline_section_b = ''
 let g:airline_section_c = '%{expand("%:F")}'
 
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
+let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
@@ -230,7 +281,6 @@ let g:airline_mode_map = {
     \ '' : 'S',
     \ 't'  : 'T',
     \ }
-
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -241,6 +291,18 @@ let g:airline_symbols.readonly = '🔒'
 let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.whitespace = 'Ξ'
 let g:gitgutter_map_keys                             = 0
+let g:gitgutter_sign_added                           = '+'
+let g:gitgutter_sign_modified                        = '.'
+let g:gitgutter_sign_removed                         = '-'
+let g:gitgutter_sign_removed_first_line              = '-'
+let g:gitgutter_sign_modified_removed                = '.'
+
+let g:diminactive_buftype_blacklist                  = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help']
+let g:diminactive_enable_focus                       = 1
+
+let g:indent_guides_exclude_filetypes                = ['help', 'nerdtree', 'quickfix', 'qf']
+let g:indent_guides_auto_colors                      = 0
+let g:indent_guides_enable_on_vim_startup            = 1
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
@@ -304,8 +366,16 @@ let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
 " completion
-let g:deoplete#enable_at_startup= 1
+let g:deoplete#enable_at_startup       = 1
+let g:deoplete#enable_ignore_case      = 0
+let g:deoplete#enable_smart_case       = 1
+let g:deoplete#enable_refresh_always   = 1
+let g:deoplete#auto_refresh_delay      = 200
+let g:deoplete#auto_complete_delay     = 200
+let g:deoplete#file#enable_buffer_path = 1
 let g:LanguageClient_autoStop = 0
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_hoverPreview = 'Auto'
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['tcp://localhost:7658'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
@@ -347,7 +417,11 @@ let g:gutentags_ctags_exclude = [
       \ "spec/fixtures",
       \ ]
 
-let test#strategy          = 'vtr'
+if has('gui_macvim')
+  let test#strategy          = 'iterm'
+elseif exists('$TMUX')
+  let test#strategy          = 'vtr'
+endif
 
 let g:neosnippet#disable_runtime_snippets = {
       \   '_' : 1,
@@ -369,6 +443,35 @@ let g:bookmark_no_default_key_mappings = 1
 
 " **********************************
 " custom functions
+function! s:incsearch_keymap()
+  IncSearchNoreMap <C-n> <Over>(incsearch-next)
+  IncSearchNoreMap <C-p> <Over>(incsearch-prev)
+endfunction
+
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+
+function! BookmarkUnmapKeys()
+    unmap mm
+    unmap mi
+    unmap mn
+    unmap mp
+    unmap ma
+    unmap mc
+    unmap mx
+    unmap mkk
+    unmap mjj
+endfunction
+
 function! RemoveTernPortIfExists()
   if !empty(glob(join([getcwd(), ".tern-port"], "/")))
     echo ".tern-port exists, deleting with result:"
@@ -382,7 +485,6 @@ function! s:build_quickfix_list(lines)
   copen
   cc
 endfunction
-
 " Go to alternative file
 function! AltCommand(path, vim_command)
   let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
@@ -402,17 +504,49 @@ function! Multiple_cursors_after()
   let b:deoplete_disable_auto_complete = 0
 endfunction
 
-
 function! TweakedDiffPut()
   :diffput 1
   :diffupdate
 endfunction
 
 " **********************************
+augroup incsearch-keymap
+  autocmd!
+  autocmd VimEnter * call s:incsearch_keymap()
+augroup END
+
+augroup fix-filetypes
+  autocmd!
+  autocmd BufNewFile,BufRead .eslintrc  setlocal filetype=json
+  autocmd BufNewFile,BufRead *.slim     setlocal filetype=slim
+  autocmd BufNewFile,BufRead *.js,*.jsx setlocal filetype=javascript.jsx
+augroup END
+
 augroup filetype-scoped-settings
   autocmd!
+  autocmd Filetype eruby      inoremap <buffer> <% <% %><Left><Left><Left>
+  autocmd Filetype fzf
+        \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd Filetype TODO,txt,markdown,yaml,json,xml,csv,vim
+        \ if getfsize(@%) > 1000000 | setlocal nospell | endif
+
+  autocmd FileType vim,tex
+      \ let [
+      \ b:matchup_matchparen_fallback,
+      \ b:matchup_matchparen_enabled]
+      \ = [0, 0]
+augroup END
+
+augroup open-nerdtree-at-start
+  autocmd!
+  autocmd VimEnter *
+        \   if !argc()
+        \ |   NERDTree
+        \ |   wincmd w
+        \ | endif
+        \ | set list
 augroup END
 
 augroup remember-cursor-position
@@ -420,28 +554,40 @@ augroup remember-cursor-position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
+augroup yaml-helper
+  autocmd!
+  autocmd CursorHold *.yml YamlGetFullPath
+augroup END
+
 augroup color-scheme-tweaks
   autocmd!
   if !&diff
+    autocmd InsertEnter * setlocal nohls
+    autocmd InsertEnter * set cursorcolumn
+    autocmd CursorMoved,CursorHold,InsertLeave * set nocursorcolumn
+    autocmd InsertEnter * highlight CursorLine   guibg=#512121 ctermbg=52
+    autocmd InsertEnter * highlight CursorLineNR guibg=#512121
+    autocmd InsertLeave * highlight CursorLine   guibg=#343D46 ctermbg=16
+    autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
+
+    highlight CursorColumn     guibg=#512121
+    highlight CursorColumnNR   guibg=#512121
   endif
-  " highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  " highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  " highlight CurrentWordTwins guibg=#1A1A1A
-  " highlight CurrentWord      guibg=#0D0D0D
+  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
+  highlight CurrentWordTwins guibg=#1A1A1A
+  highlight CurrentWord      guibg=#0D0D0D
   " highlight IndentGuidesEven guibg=#2C313A
   " highlight IndentGuidesOdd  guibg=#373E49
-  " highlight TabLineSel       guifg=#E5C07B
-  " highlight SpellBad         guifg=NONE      guibg=#260F0D
-  " highlight MatchTag         guibg=#4d4d4d gui=bold
-  " highlight MatchWord        guibg=#4d4d4d gui=bold
+  highlight TabLineSel       guifg=#E5C07B
+  highlight SpellBad         guifg=NONE      guibg=#260F0D
+  highlight MatchTag         guibg=#4d4d4d gui=bold
+  highlight MatchWord        guibg=#4d4d4d gui=bold
 augroup END
 
-autocmd FileType vim,tex
-      \ let [
-      \ b:matchup_matchparen_fallback,
-      \ b:matchup_matchparen_enabled]
-      \ = [0, 0]
 autocmd QuickFixCmdPost wincmd J
+autocmd BufEnter * :call BookmarkMapKeys()
+autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 autocmd! FileType fzf
 autocmd  FileType fzf 
       \  set laststatus=0 noshowmode noruler
@@ -466,6 +612,16 @@ map ,n <Plug>(easymotion-bd-n)
 map ,N <Plug>(easymotion-bd-n)
 nmap s <Plug>(easymotion-overwin-f2)
 
+nnoremap g/ /
+nnoremap g? ?
+map /  <Plug>(incsearch-forward)
+map z/ <Plug>(incsearch-fuzzy-/)
+
+nmap n <Plug>(anzu-n-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap N <Plug>(anzu-N-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap * <Plug>(anzu-star-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap # <Plug>(anzu-sharp-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+
 imap <expr><c-e>
   \ neosnippet#expandable_or_jumpable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" :
@@ -484,8 +640,12 @@ nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k><C-v> :TagbarToggle<CR>
+nnoremap <C-g><C-s> :Gstatus<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
+nnoremap <C-g><C-p> :execute TweakedDiffPut()<CR>
+nnoremap <C-g><C-h> :diffget //2<CR>
+nnoremap <C-g><C-l> :diffget //3<CR>
 
 " Find the alternate file for the current path and open it (basically go to test file)
 nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
@@ -495,6 +655,7 @@ noremap <M-}>            :bnext<CR>
 noremap <M-{>            :bprevious<CR>
 noremap <leader>]        :bnext<CR>
 noremap <leader>[        :bprevious<CR>
+" noremap <leader>w        :bdelete<CR>
 nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
 noremap <leader><space>! :bdelete!<CR>
 nmap    <leader>1        <Plug>AirlineSelectTab1
@@ -653,8 +814,6 @@ nnoremap j gj
 nnoremap k gk
 
 " always focus after cursor jump
-nmap n nzz
-nmap N Nzz
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 nnoremap gi gi<ESC>zza
