@@ -4,7 +4,7 @@ prefix_pressed_text="Prefix"
 insert_mode_text="Insert"
 copy_mode_text=" Copy "
 normal_mode_text="Normal"
-separator=""
+separator="|"
 
 prefix_mode_fg="#ff0000"
 normal_mode_fg="#000000"
