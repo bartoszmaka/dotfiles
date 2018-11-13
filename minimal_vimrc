@@ -1,6 +1,7 @@
 filetype off
 call plug#begin()
 " Cosmetic
+Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
 Plug 'vim-airline/vim-airline-themes'                              " themes for airline
