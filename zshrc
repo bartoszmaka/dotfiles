@@ -7,18 +7,19 @@ case "$ostype" in
 esac
 
 [ "$isosx" = true ] &&
+export DEFAULT_USER='bartoszmaka'
   export ZSH=/Users/bartoszmaka/.oh-my-zsh &&
   plugins=(git tmux common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
 
 [ "$islinux" = true ] &&
-  export ZSH=/home/bartoszmaka/.oh-my-zsh &&
-  plugins=(git tmux common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
+  export DEFAULT_USER='bartosz'
+  export ZSH=/home/bartosz/.oh-my-zsh &&
+  plugins=(git tmux common-aliases rails command-not-found zsh-autosuggestions zsh-syntax-highlighting alias-tips)
 
 ZSH_THEME="agnoster"
 
 source $ZSH/oh-my-zsh.sh
 
-export DEFAULT_USER='bartoszmaka'
 export DISABLE_SPRING=1
 export EDITOR='nvim'
 export FZF_DEFAULT_COMMAND='ag -g ""'
