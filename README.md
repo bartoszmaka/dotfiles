@@ -1,14 +1,10 @@
 #### TL;DR (requires curl)
 ###### set up most of required development software (not tested on osx yet)
-``` bash
-curl https://raw.githubusercontent.com/bartoszmaka/dotfiles/master/postinstall.sh >> postinstall.sh
-bash postinstall.sh
-```
 or (requires git)
 ``` bash
 git clone https://github.com/bartoszmaka/dotfiles ~/.repos/dotfiles
-cd ~/.repos/dotfiles
-bash postinstall.sh
+cd ~/.repos/dotfiles/scripts
+bash install.sh
 ```
 
 ---

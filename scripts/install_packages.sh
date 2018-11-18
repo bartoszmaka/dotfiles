@@ -7,8 +7,8 @@ case "$(uname -s)" in
   Linux)
       sudo add-apt-repository -y ppa:neovim-ppa/unstable
       sudo apt update -y
-      sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip python-dev python-pip python3-dev python3-pip neovim silversearcher-ag
-      sudo apt install -y libncurses5 libncurses5-dev libevent-dev
-      sudo apt install -y postgresql postgresql-contrib libpq-dev
+      sudo apt install -y gcc perl autoconf pkg-config curl wget zsh xclip \
+        python-dev python-pip python3-dev python3-pip neovim \
+        silversearcher-ag scrot tmux
     ;;
 esac
