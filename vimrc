@@ -28,7 +28,8 @@ Plug 'janko-m/vim-test'                                            " test launch
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
-Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
+" Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
+Plug 'tsony-tsonev/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
 Plug 'bartoszmaka/vim-import-js',       { 'do': 'npm install -g import-js' }
 
@@ -63,6 +64,7 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
 
@@ -171,7 +173,7 @@ set listchars=
       \trail:~,
       \extends:>,
       \precedes:< " define how whitespaces will be displayed
-set nolist                              " show whitespaces
+set list                              " show whitespaces
 set mouse=a
 set laststatus=2                        " always show status line
 set showcmd                             " show pressed keys
@@ -246,6 +248,17 @@ let g:gitgutter_map_keys                             = 0
 let g:NERDTreeWinSize = 35
 let NERDTreeMinimalUI = 1
 let NERDTreeStatusline=""
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:NERDTreeGitStatusWithFlags = 0
+
+let g:NERDTreeColorMapCustom = {
+    \ "Modified"  : "#FF0000",
+    \ "Staged"    : "#00FF00",
+    \ "Untracked" : "#0000FF",
+    \ "Dirty"     : "#299999",
+    \ "Clean"     : "#87939A"
+    \ }
+
 let g:mundo_right     = 1
 
 let g:winresizer_vert_resize    = 1
@@ -304,15 +317,22 @@ let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
 " completion
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 5,
+      \ 'min_pattern_length': 1,
+      \ })
 let g:deoplete#enable_at_startup= 1
 let g:LanguageClient_autoStop = 0
+let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['tcp://localhost:7658'],
+    \ 'ruby': ['solargraph', 'stdio'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ 'sh': ['bash-language-server', 'start'],
     \ }
+call deoplete#custom#source('LanguageClient', 'rank', 1200)
+call deoplete#custom#source('tabnine', 'rank', 1100)
 
 let g:vim_jsx_pretty_colorful_config = 1
 let g:fzf_command_prefix = 'Fzf'
@@ -443,7 +463,7 @@ autocmd FileType vim,tex
       \ = [0, 0]
 autocmd QuickFixCmdPost wincmd J
 autocmd! FileType fzf
-autocmd  FileType fzf 
+autocmd  FileType fzf
       \  set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
@@ -556,7 +576,7 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
 " multiple cursors
-nnoremap <C-m><C-n> :MultipleCursorsFind 
+nnoremap <C-m><C-n> :MultipleCursorsFind
 
 " Indent whole file
 nnoremap <C-m><C-=> m`gg=G``
@@ -565,8 +585,8 @@ nnoremap <C-m><C-i> :ImportJSWord<CR>
 " splitjoin
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping  = ''
-nnoremap <C-m><C-k> :SplitjoinJoin<cr>
-nnoremap <C-m><C-j> :SplitjoinSplit<cr>
+nnoremap <C-m><C-c> :SplitjoinJoin<cr>
+nnoremap <C-m><C-s> :SplitjoinSplit<cr>
 
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
@@ -577,13 +597,14 @@ nnoremap ]e :ALENextWrap<CR>
 " **********************************
 " Non plugin related keymaps
 " replace selected word in file
+nnoremap <Bs> :noh<CR>
 nnoremap <C-]> g]
 nnoremap g] <C-]>
 
-nnoremap <leader>g yiw:%s/<C-r>"//g<Left><Left>
-vnoremap <leader>g y:%s/<C-r>"//g<Left><Left>
+nnoremap <leader>r yiw:%s/<C-r>"//g<Left><Left>
+vnoremap <leader>r y:%s/<C-r>"//g<Left><Left>
 
-nnoremap ? K
+nnoremap <leader>? K
 
 " sometimes I just hold shift for too long
 cabbrev W   w
