@@ -9,20 +9,19 @@ esac
 [ "$isosx" = true ] &&
 export DEFAULT_USER='bartoszmaka'
   export ZSH=/Users/bartoszmaka/.oh-my-zsh &&
-  plugins=(git tmux common-aliases rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
+  plugins=(git tmux common-aliases z rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
 
 [ "$islinux" = true ] &&
   export DEFAULT_USER='bartosz'
-  export ZSH=/home/bartosz/.oh-my-zsh &&
-  plugins=(git tmux common-aliases rails command-not-found zsh-autosuggestions zsh-syntax-highlighting alias-tips)
-
+  export ZSH=/home/bartoszmaka/.oh-my-zsh &&
+  plugins=(git tmux common-aliases z command-not-found rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
 ZSH_THEME="agnoster"
 
 source $ZSH/oh-my-zsh.sh
 
 export DISABLE_SPRING=1
 export EDITOR='nvim'
-export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export DOTFILES_PATH="$HOME/.repos/dotfiles"
 
@@ -40,7 +39,6 @@ alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tnew="tmux new-session -t bartosz"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
-alias ra="ranger"
 
 alias -g F='| fzf --exact'
 alias -g C='| column -t -s " "'
@@ -58,6 +56,8 @@ alias yi="yarn install"
 alias :wq=exit
 alias :qa=exit
 alias :wqa=exit
+
+unalias gsd
 
 RPROMPT='%D{%K:%M:%S}'
 export PATH="$PATH:$HOME/.rvm/bin"
