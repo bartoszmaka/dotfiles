@@ -1,13 +1,12 @@
 filetype off
 call plug#begin()
-" Cosmetic
+Plug 'sheerun/vim-polyglot'
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
 Plug 'vim-airline/vim-airline-themes'                              " themes for airline
 Plug 'machakann/vim-highlightedyank'                               " highlight yanked code
 
-" command improvements
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
@@ -16,7 +15,6 @@ if exists('$TMUX')
   Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
 endif
 
-" tools
 Plug 'andymass/vim-matchup'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
@@ -38,24 +36,22 @@ Plug 'simeji/winresizer'                                           " window resi
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
+Plug 'tpope/vim-abolish'
+Plug 'kamykn/spelunker.vim'
+Plug 'osyo-manga/vim-anzu'
 
-" Fuzzy searcher
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bartoszmaka/fzf-mru.vim'
 
-" search in project
+Plug 'dyng/ctrlsf.vim'                                             " search projectwide but with different plugin :D
 Plug 'mhinz/vim-grepper'                                           " search projectwide
 Plug 'rking/ag.vim'                                                " searching engine
 
-" simple autocomplete
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
-
-" IDE like autocomplete
-" Plug 'sheerun/vim-polyglot'   " disabled due to issue with adding indent after parentheses
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
@@ -74,7 +70,6 @@ Plug 'ludovicchabant/vim-gutentags'                                " ctags engin
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
 
-" syntax and autocomplete sources
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript',     { 'do': './install.sh' }
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
@@ -182,10 +177,9 @@ set norelativenumber
 set signcolumn=auto                      " make place for symbols next to line numbers
 set ruler
 set title
+set conceallevel=0
 
 " **********************************
-" colorscheme tweaks
-
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -195,12 +189,9 @@ colorscheme onedark
 let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
-if has('conceal')
-  set conceallevel=0
-endif
-
 " **********************************
 " plugin variables
+let g:loaded_matchit = 1
 set statusline+=%{gutentags#statusline()}
 let g:airline_section_z = '%2p%% %3l:%2c'
 let g:airline_section_b = ''
@@ -242,7 +233,13 @@ let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.readonly = '🔒'
 let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.whitespace = 'Ξ'
-let g:gitgutter_map_keys                             = 0
+
+let g:airline#extensions#anzu#enabled = 0
+let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
+
+let g:gitgutter_map_keys = 0
+
+let g:spelunker_max_suggest_words = 6
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
@@ -252,11 +249,12 @@ let g:NERDTreeGitStatusNodeColorization = 1
 let g:NERDTreeGitStatusWithFlags = 0
 
 let g:NERDTreeColorMapCustom = {
-    \ "Modified"  : "#FF0000",
-    \ "Staged"    : "#00FF00",
-    \ "Untracked" : "#0000FF",
     \ "Dirty"     : "#299999",
-    \ "Clean"     : "#87939A"
+    \ "Modified"  : "#CC6666",
+    \ "Untracked" : "#CC6666",
+    \ "Staged"    : "#29DD29",
+    \ "Clean"     : "#00FF00",
+    \ "Ignored"   : "#AAAAAA"
     \ }
 
 let g:mundo_right     = 1
@@ -316,6 +314,7 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
+let g:polyglot_disabled = ['js', 'jsx', 'html', 'csv']
 " completion
 call deoplete#custom#option({
       \ 'auto_complete_delay': 5,
@@ -329,7 +328,6 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
     \ 'python': ['/usr/local/bin/pyls'],
-    \ 'sh': ['bash-language-server', 'start'],
     \ }
 call deoplete#custom#source('LanguageClient', 'rank', 1200)
 call deoplete#custom#source('tabnine', 'rank', 1100)
@@ -384,8 +382,7 @@ let g:closetag_shortcut                = '>'
 let g:matchup_matchparen_status_offscreen = 1
 let g:matchup_matchparen_deferred = 1
 let g:matchup_matchparen_hi_surround_always = 1
-let g:matchup_transmute_enabled = 1
-let g:bookmark_no_default_key_mappings = 1
+let g:matchup_transmute_enabled = 0
 
 " **********************************
 " custom functions
@@ -415,13 +412,14 @@ endfunction
 
 " https://github.com/Shougo/deoplete.nvim/issues/162
 function! Multiple_cursors_before()
+  call deoplete#disable()
   let b:deoplete_disable_auto_complete = 1
 endfunction
 
 function! Multiple_cursors_after()
+  call deoplete#enable()
   let b:deoplete_disable_auto_complete = 0
 endfunction
-
 
 function! TweakedDiffPut()
   :diffput 1
@@ -433,6 +431,11 @@ augroup filetype-scoped-settings
   autocmd!
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd BufEnter,BufReadPre,BufNewFile *.md
+        \ setlocal conceallevel=0
+  autocmd Filetype fzf
+        \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
+  autocmd CursorHold *.yml YamlGetFullPath
 augroup END
 
 augroup remember-cursor-position
@@ -442,18 +445,20 @@ augroup END
 
 augroup color-scheme-tweaks
   autocmd!
-  if !&diff
-  endif
-  " highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  " highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold   ctermfg=15   ctermbg=NONE   cterm=bold
-  " highlight CurrentWordTwins guibg=#1A1A1A
-  " highlight CurrentWord      guibg=#0D0D0D
-  " highlight IndentGuidesEven guibg=#2C313A
-  " highlight IndentGuidesOdd  guibg=#373E49
-  " highlight TabLineSel       guifg=#E5C07B
-  " highlight SpellBad         guifg=NONE      guibg=#260F0D
-  " highlight MatchTag         guibg=#4d4d4d gui=bold
-  " highlight MatchWord        guibg=#4d4d4d gui=bold
+  autocmd InsertEnter * set cursorcolumn
+  autocmd CursorMoved,CursorHold,InsertLeave * set nocursorcolumn
+  autocmd InsertEnter * highlight CursorLine   guibg=#512121
+  autocmd InsertEnter * highlight CursorLineNR guibg=#512121
+  autocmd InsertLeave * highlight CursorLine   guibg=#343D46
+  autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
+
+  highlight CursorColumn     guibg=#512121
+  highlight CursorColumnNR   guibg=#512121
+  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold
+  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold
+  highlight TabLineSel       guifg=#E5C07B
+  highlight MatchTag         guibg=#4d4d4d gui=bold
+  highlight MatchWord        guibg=#4d4d4d gui=bold
 augroup END
 
 autocmd FileType vim,tex
@@ -474,6 +479,8 @@ map ń <A-n>
 map Ń <A-N>
 
 " Plugin related keymaps
+nnoremap <leader>% :MtaJumpToOtherTag<CR>
+
 silent! call repeat#set("\<Plug>.", v:count)
 map ,f <Plug>(easymotion-bd-f)
 map ,w <Plug>(easymotion-bd-w)
@@ -492,7 +499,12 @@ imap <expr><c-e>
   \ "\<C-y>,"
 
 nnoremap K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <C-o><C-d> :call LanguageClient#textDocument_definition()<CR>
+nnoremap <C-m><C-m> :call LanguageClient_contextMenu()<CR>
+nnoremap <C-m><C-d> :call LanguageClient#textDocument_definition()<CR>
+nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
+vnoremap <C-m><C-s> :s/\s//g<CR> :noh<CR>
+vnoremap <C-m><C-t> :Tabularize /
+vnoremap <C-m><C-s> :sort<CR>
 
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
@@ -503,12 +515,13 @@ let g:maximizer_default_mapping_key = '<C-w>m'
 nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
+nnoremap <C-k><C-s> :CtrlSFToggle<CR>
 nnoremap <C-k><C-v> :TagbarToggle<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 
 " Find the alternate file for the current path and open it (basically go to test file)
-nnoremap <C-o><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
+nnoremap <C-g><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
 noremap <M-}>            :bnext<CR>
@@ -534,9 +547,6 @@ nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
 nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
-" list mappings
-nnoremap <C-k><C-s> :FzfMaps<CR>
-
 " popup fuzzy finders
 command! -bang -nargs=? -complete=dir FZFFilesPreview
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
@@ -552,6 +562,7 @@ nnoremap <C-p><C-v> :FzfCommits<CR>
 nnoremap <C-p><C-w> :FzfWindows<CR>
 nnoremap <C-p><C-o> viwy:FzfTags <C-r>"<CR>
 nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
+nnoremap <C-p><C-m> :FzfMarks<CR>
 nnoremap <leader>/  :FzfHistory/<CR>
 nnoremap <leader>:  :FzfHistory:<CR>
 nnoremap <leader>;  :FzfCommands<CR>
@@ -564,9 +575,8 @@ let g:fzf_action = {
 
 " find in project => ag --vimgrep> pattern [location]
 " let g:grepper.ag.grepprg .= ' --'
-nnoremap <C-m><C-g>        :Grepper<CR>
-nnoremap <leader>f         :GrepperAg '\b\b'<Left><Left><Left>
-nnoremap <leader>F         :Grepper -tool ag -side<CR>
+nnoremap <leader>f         :Grepper<CR>
+nnoremap <leader>F         :CtrlSF
 nnoremap <leader>*         :Grepper -tool ag -highlight -cword -noprompt<CR>
 nnoremap <leader><leader>* :Grepper -tool ag -highlight -cword -noprompt -side<CR>
 
@@ -610,6 +620,7 @@ nnoremap <leader>? K
 cabbrev W   w
 cabbrev Wa  wa
 cabbrev Wq  wq
+cabbrev WQ  wq
 cabbrev Wqa wqa
 cabbrev WQa wqa
 cabbrev Q   q
@@ -662,9 +673,6 @@ nnoremap <leader>q :close<CR>
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
 
-" copy current line
-inoremap <C-d> <esc>YpA
-
 " begin and end of line
 map <leader>h ^
 map <leader>l $
@@ -674,20 +682,18 @@ nnoremap j gj
 nnoremap k gk
 
 " always focus after cursor jump
-nmap n nzz
-nmap N Nzz
+nmap n <Plug>(anzu-n-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap N <Plug>(anzu-N-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap * <Plug>(anzu-star-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap # <Plug>(anzu-sharp-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 nnoremap gi gi<ESC>zza
 nnoremap g; g;zz
 
-vnoremap <Tab>   >gv
-vnoremap <S-Tab> <gv
-
-" tabs navigation
-nnoremap tt :tabnew<CR>
-nnoremap TT :tabclose<CR>
-nnoremap tl :tabs<CR>
+" move block of code without losing selection
+vnoremap > >gv
+vnoremap < <gv
 
 " system clipboard integration
 vnoremap <leader>y "+y
@@ -697,3 +703,11 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+
+" IDE like shortcuts in case of pair programming with jetbrains normies
+inoremap <C-d> <esc>YpA
+nnoremap <C-x> dd
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+nnoremap <C-s> :w<CR>
+

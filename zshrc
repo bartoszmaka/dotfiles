@@ -7,14 +7,15 @@ case "$ostype" in
 esac
 
 [ "$isosx" = true ] &&
-export DEFAULT_USER='bartoszmaka'
+  export DEFAULT_USER='bartoszmaka' &&
   export ZSH=/Users/bartoszmaka/.oh-my-zsh &&
   plugins=(git tmux common-aliases z rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
 
 [ "$islinux" = true ] &&
-  export DEFAULT_USER='bartosz'
+  export DEFAULT_USER='bartosz' &&
   export ZSH=/home/bartoszmaka/.oh-my-zsh &&
   plugins=(git tmux common-aliases z command-not-found rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
+
 ZSH_THEME="agnoster"
 
 source $ZSH/oh-my-zsh.sh
