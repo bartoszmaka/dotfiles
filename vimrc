@@ -575,6 +575,7 @@ let g:fzf_action = {
 
 " find in project => ag --vimgrep> pattern [location]
 " let g:grepper.ag.grepprg .= ' --'
+vmap <leader>F         <Plug>CtrlSFVwordPath
 nnoremap <leader>f         :Grepper<CR>
 nnoremap <leader>F         :CtrlSF
 nnoremap <leader>*         :Grepper -tool ag -highlight -cword -noprompt<CR>
