@@ -13,7 +13,7 @@ esac
 
 [ "$islinux" = true ] &&
   export DEFAULT_USER='bartosz' &&
-  export ZSH=/home/bartoszmaka/.oh-my-zsh &&
+  export ZSH=/home/bartosz/.oh-my-zsh &&
   plugins=(git tmux common-aliases z command-not-found rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
 
 ZSH_THEME="agnoster"
