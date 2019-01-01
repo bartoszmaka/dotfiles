@@ -40,6 +40,8 @@ alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tnew="tmux new-session -t bartosz"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
+alias svim='vim -u ~/.SpaceVim/vimrc'
+alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 
 alias -g F='| fzf --exact'
 alias -g C='| column -t -s " "'
