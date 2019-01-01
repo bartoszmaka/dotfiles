@@ -75,6 +75,7 @@ Plug 'mhartington/nvim-typescript',     { 'do': './install.sh' }
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
+Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
 Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
@@ -85,9 +86,10 @@ call plug#end()
 
 " **********************************
 " vim variables
-
-filetype plugin indent on
-syntax on                               " Enable syntax coloring
+syntax on             " Enable syntax highlighting
+filetype on           " Enable filetype detection
+filetype indent on    " Enable filetype-specific indenting
+filetype plugin on    " Enable filetype-specific plugins
 let mapleader="\<Space>"
 
 " meta
@@ -124,7 +126,6 @@ set encoding=utf8
 
 " behavior
 set completeopt=longest,menuone
-set omnifunc=syntaxcomplete#Complete
 set backspace=indent,eol,start
 set pumheight=15
 set nospell
@@ -178,6 +179,7 @@ set signcolumn=auto                      " make place for symbols next to line n
 set ruler
 set title
 set conceallevel=0
+set cursorline
 
 " **********************************
 if (has("termguicolors"))
@@ -259,6 +261,22 @@ let g:NERDTreeColorMapCustom = {
 
 let g:mundo_right     = 1
 
+autocmd BufWritePost *.rb silent exec "!ripper-tags -R --exclude=vendor --tag-file=./ripper-tags"
+autocmd FileType ruby,eruby setlocal tags+=./ripper-tags
+let g:tagbar_type_ruby = {
+    \ 'kinds'      : ['m:modules',
+                    \ 'c:classes',
+                    \ 'C:constants',
+                    \ 'F:singleton methods',
+                    \ 'f:methods',
+                    \ 'a:aliases'],
+    \ 'kind2scope' : { 'c' : 'class',
+                     \ 'm' : 'class' },
+    \ 'scope2kind' : { 'class' : 'c' },
+    \ 'ctagsbin'   : 'ripper-tags',
+    \ 'ctagsargs'  : ['-f', '-']
+    \ }
+
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
 
@@ -315,6 +333,12 @@ let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
 let g:polyglot_disabled = ['js', 'jsx', 'html', 'csv']
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
+let g:rubycomplete_load_gemfile = 1
+let g:rubycomplete_use_bundler = 1
+
 " completion
 call deoplete#custom#option({
       \ 'auto_complete_delay': 5,
@@ -351,6 +375,11 @@ let g:fzf_colors = {
       \ 'header':  ['fg', 'Comment']
       \ }
 
+" let g:gutentags_ctags_extra_args = [
+"       \ "--regex-ruby="/^[ \t]*describe [\'\"](.*)[\'\"] do/\1/d,rspec describe/",
+"       \ "--regex-ruby="/^[ \t]*context [\'\"](.*)[\'\"] do/\1/C,rspec context/",
+"       \ "--regex-ruby="/^[ \t]*it [\'\"](.*)[\'\"] do/\1/i,rspec tests/",
+"       \ ]
 let g:gutentags_ctags_exclude = [
       \ "node_modules",
       \ ".git",
@@ -429,6 +458,10 @@ endfunction
 " **********************************
 augroup filetype-scoped-settings
   autocmd!
+  autocmd FileType ruby,eruby compiler ruby
+  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
   autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
   autocmd BufEnter,BufReadPre,BufNewFile *.md
