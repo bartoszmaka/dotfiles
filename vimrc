@@ -80,6 +80,7 @@ Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
 Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
 Plug 'moll/vim-node',                   { 'for': ['javascript'] }
+Plug 'pangloss/vim-javascript',         { 'for': ['javascript'] }
 Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
 call plug#end()
@@ -355,6 +356,7 @@ let g:LanguageClient_serverCommands = {
     \ }
 call deoplete#custom#source('LanguageClient', 'rank', 1200)
 call deoplete#custom#source('tabnine', 'rank', 1100)
+call deoplete#custom#option('ignore_sources', {'_': ['tag']})
 
 let g:vim_jsx_pretty_colorful_config = 1
 let g:fzf_command_prefix = 'Fzf'
