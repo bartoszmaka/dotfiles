@@ -15,8 +15,8 @@ if exists('$TMUX')
   Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
 endif
 
-Plug 'andymass/vim-matchup'
-Plug 'Valloric/MatchTagAlways'
+Plug 'andymass/vim-matchup', { 'commit': 'afd7a6b' }
+Plug 'Valloric/MatchTagAlways', { 'commit': '352eb47' }
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
 Plug 'christoomey/vim-tmux-runner'                                 " tmux integration
@@ -350,8 +350,8 @@ let g:LanguageClient_autoStop = 0
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['solargraph', 'stdio'],
-    \ 'javascript': ['typescript-language-server', '--stdio'],
-    \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ }
 call deoplete#custom#source('LanguageClient', 'rank', 1200)
@@ -602,6 +602,7 @@ nnoremap <leader>/  :FzfHistory/<CR>
 nnoremap <leader>:  :FzfHistory:<CR>
 nnoremap <leader>;  :FzfCommands<CR>
 nnoremap <C-p><C-s> :FzfCommands<CR>
+nnoremap <C-p><C-\> :FzfFiletypes<CR>
 let g:fzf_action = {
       \ 'ctrl-q': function('s:build_quickfix_list'),
       \ 'ctrl-t': 'tab split',
@@ -746,4 +747,3 @@ nnoremap <C-x> dd
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <C-s> :w<CR>
-
