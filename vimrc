@@ -70,6 +70,7 @@ Plug 'ludovicchabant/vim-gutentags'                                " ctags engin
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
 
+Plug 'ekalinin/dockerfile.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript',     { 'do': './install.sh' }
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
@@ -243,6 +244,7 @@ let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
 let g:gitgutter_map_keys = 0
 
 let g:spelunker_max_suggest_words = 6
+let g:enable_spelunker_vim = 0
 
 " nerdtree, mundo, tagbar
 let g:NERDTreeWinSize = 35
@@ -307,12 +309,12 @@ let g:ale_fixers = {
       \ 'javascript':     ['eslint', 'importjs'],
       \ 'javascript.jsx': ['eslint', 'importjs'],
       \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'json':           ['jsonlint', 'jq']
+      \ 'json':           ['jq']
       \}
 let g:ale_linters = {
       \ 'ruby':           ['rubocop'],
       \ 'javascript':     ['eslint'],
-      \ 'json':           ['jsonlint', 'jq']
+      \ 'json':           ['jq']
       \}
 let g:ale_linter_aliases = {'jsx': 'css'}
 let g:mta_use_matchparen_group       = 0
