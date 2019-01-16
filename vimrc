@@ -541,7 +541,7 @@ nnoremap K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <C-m><C-m> :call LanguageClient_contextMenu()<CR>
 nnoremap <C-m><C-d> :call LanguageClient#textDocument_definition()<CR>
 nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
-vnoremap <C-m><C-s> :s/\s//g<CR> :noh<CR>
+" vnoremap <C-m><C-s> :s/\s//g<CR> :noh<CR>
 vnoremap <C-m><C-t> :Tabularize /
 vnoremap <C-m><C-s> :sort<CR>
 

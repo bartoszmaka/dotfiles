@@ -1,13 +1,32 @@
-#### TL;DR (requires curl)
-###### set up most of required development software (not tested on osx yet)
-or (requires git)
-``` bash
-git clone https://github.com/bartoszmaka/dotfiles ~/.repos/dotfiles
-cd ~/.repos/dotfiles/scripts
-bash install.sh
+#### basic custom vim shortcuts
 ```
+  mapping      mode        description
 
----
+  C-p C-p      [NORMAL] => fuzzy search file
+  C-p C-r      [NORMAL] => fuzzy search recent file
+  C-p C-l      [NORMAL] => fuzzy search line in file
+  C-p C-f      [NORMAL] => fuzzy search string in project
+
+  C-k C-e      [NORMAL] => toggle NERDTree
+  C-k C-f      [NORMAL] => find current file in NERDTree
+
+  C-m C-s      [VISUAL] => sort selected lines
+  C-m C-t      [VISUAL] => align by pattern
+  C-m C-f      [NORMAL] => fix file with ALE fixer (e.g. eslint for js)
+  C-m C-s      [NORMAL] => break statement into multiple lines
+  <leader> j   [NORMAL] => break line
+  <leader> k   [NORMAL] => join to previous line
+
+  C-g C-b      [NORMAL] => toggle git blame buffer
+  C-g C-d      [NORMAL] => toggle git diff buffer
+
+  C-n          [NORMAL] => add cursor in next word occurrence
+  C-n          [VISUAL] => add cursor in next selected pattern occurrence
+
+  <leader> r   [NORMAL] => replace current word
+  <leader> r   [VISUAL] => replace selected pattern
+  <leader> t o [VISUAL] => go to test file
+```
 
 #### Manual setup
 #### [neovim](https://github.com/neovim/neovim)
@@ -22,6 +41,7 @@ bash install.sh
 - install ruby provider and language server
   ``` bash
   gem install neovim solargraph yard
+  # index project with `yard gems`
   ```
 - install npm provider, language server and plugin dependencies
   ``` bash
@@ -35,7 +55,11 @@ bash install.sh
   sudo apt install silversearcher_ag
   build ctags from source
   ```
-
+- install json formatter
+  ```
+  brew install jq
+  sudo apt install jq
+  ```
 - setup rust and install `alt` (see below)
 - place `vimrc` in proper location - `~/.config/nvim/init.vim`
 
