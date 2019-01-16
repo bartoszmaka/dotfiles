@@ -27,7 +27,7 @@ Plug 'terryma/vim-multiple-cursors'                                " multiple cu
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
-Plug 'tsony-tsonev/nerdtree-git-plugin'                                 " nerdTree git integration
+Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
 Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
 Plug 'bartoszmaka/vim-import-js',       { 'do': 'npm install -g import-js' }
 
@@ -447,11 +447,13 @@ endfunction
 function! Multiple_cursors_before()
   call deoplete#disable()
   let b:deoplete_disable_auto_complete = 1
+  let g:matchup_matchparen_enabled = 0
 endfunction
 
 function! Multiple_cursors_after()
   call deoplete#enable()
   let b:deoplete_disable_auto_complete = 0
+  let g:matchup_matchparen_enabled = 1
 endfunction
 
 function! TweakedDiffPut()
