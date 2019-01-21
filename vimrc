@@ -20,7 +20,7 @@ Plug 'Valloric/MatchTagAlways', { 'commit': '352eb47' }
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
 Plug 'christoomey/vim-tmux-runner'                                 " tmux integration
-Plug 'bartoszmaka/vim_current_word'                                " highlight word under cursor
+Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'janko-m/vim-test'                                            " test launcher
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
@@ -28,8 +28,6 @@ Plug 'scrooloose/nerdtree'                                         " project exp
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
-Plug 'yardnsm/vim-import-cost',         { 'do': 'npm install' }
-Plug 'bartoszmaka/vim-import-js',       { 'do': 'npm install -g import-js' }
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -39,6 +37,7 @@ Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview und
 Plug 'tpope/vim-abolish'
 Plug 'kamykn/spelunker.vim'
 Plug 'osyo-manga/vim-anzu'
+Plug 'ap/vim-css-color'
 
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -70,18 +69,24 @@ Plug 'ludovicchabant/vim-gutentags'                                " ctags engin
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
 
-Plug 'ekalinin/dockerfile.vim'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript',     { 'do': './install.sh' }
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
+
 Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
+Plug 'tpope/vim-rake',                  { 'for': ['ruby', 'eruby'] }
 Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
-Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript'] }
-Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'] }
-Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'html', 'css', 'coffee', 'eruby'], 'do': 'npm install -g tern' }
-Plug 'moll/vim-node',                   { 'for': ['javascript'] }
-Plug 'pangloss/vim-javascript',         { 'for': ['javascript'] }
+
+Plug 'mhartington/nvim-typescript',     { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
+Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
+Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install' }
+Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
+Plug 'dunckr/js_alternate.vim',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+
 Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
 call plug#end()
@@ -239,6 +244,7 @@ let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline#extensions#anzu#enabled = 0
+let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
 
 let g:gitgutter_map_keys = 0
@@ -461,6 +467,36 @@ function! TweakedDiffPut()
   :diffupdate
 endfunction
 
+function! GoToOrCreateRightWindow()
+  execute "only"
+  execute "normal! \<C-w>v"
+  " let currentWindowNumber = winnr()
+  " execute "normal! \<C-w>l"
+  " let rightWindowNumber = winnr()
+  " if currentWindowNumber == rightWindowNumber
+  "   execute "normal! \<C-w>v"
+  " endif
+endfunction
+
+function! ToggleScrollBind()
+  if exists("g:scroll_bind_endabled") && g:scroll_bind_endabled
+    let g:scroll_bind_endabled = 0
+    :set noscrollbind
+    :wincmd w
+    :set noscrollbind
+    :q!
+    :wincmd w
+  else
+    let g:scroll_bind_endabled = 1
+    :vs
+    call feedkeys("\<C-f>\<C-e>\<C-e>", 'tx')
+    :set scrollbind
+    :wincmd w
+    :set scrollbind
+  endif
+endfunction
+
+nmap <leader>b :call ToggleScrollBind()<CR>
 " **********************************
 augroup filetype-scoped-settings
   autocmd!
@@ -475,6 +511,11 @@ augroup filetype-scoped-settings
   autocmd Filetype fzf
         \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
   autocmd CursorHold *.yml YamlGetFullPath
+augroup END
+
+augroup disable-syntax-for-huge-files
+  autocmd!
+  autocmd BufReadPre * if getfsize(@%) > 1000000 | setlocal syntax off | endif
 augroup END
 
 augroup remember-cursor-position
@@ -498,6 +539,7 @@ augroup color-scheme-tweaks
   highlight TabLineSel       guifg=#E5C07B
   highlight MatchTag         guibg=#4d4d4d gui=bold
   highlight MatchWord        guibg=#4d4d4d gui=bold
+  highlight CurrentWordTwins guibg=#4d4d4d
 augroup END
 
 autocmd FileType vim,tex
@@ -511,14 +553,20 @@ autocmd  FileType fzf
       \  set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-
 " **********************************
 " iTerm2 option key map hack
 map ń <A-n>
 map Ń <A-N>
 
 " Plugin related keymaps
+nnoremap <leader>a :A<CR>
+nnoremap <leader>A :call GoToOrCreateRightWindow()<CR>:A<CR>
+nnoremap <leader>S :call ToggleScrollBind()<CR>
+" nnoremap <leader>A <C-w>v:A<CR>
+
 nnoremap <leader>% :MtaJumpToOtherTag<CR>
+
+nnoremap <leader>` :e#<CR>
 
 silent! call repeat#set("\<Plug>.", v:count)
 map ,f <Plug>(easymotion-bd-f)
@@ -647,11 +695,14 @@ nnoremap ]e :ALENextWrap<CR>
 
 " **********************************
 " Non plugin related keymaps
-" replace selected word in file
+" search exact match by default
+nnoremap / /\V
 nnoremap <Bs> :noh<CR>
+
 nnoremap <C-]> g]
 nnoremap g] <C-]>
 
+" replace selected word in file
 nnoremap <leader>r yiw:%s/<C-r>"//g<Left><Left>
 vnoremap <leader>r y:%s/<C-r>"//g<Left><Left>
 
