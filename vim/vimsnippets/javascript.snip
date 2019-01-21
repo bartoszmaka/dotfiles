@@ -1,4 +1,26 @@
+snippet it
+abbr    jest it
+options word
+        it('${1}', () => {
+          ${0}
+        });
+
 snippet de
+alias   desc
+abbr    jest describe
+options word
+        describe('${1}', () => {
+          ${0}
+        });
+
+snippet cla
+abbr    class
+options word
+        class ${1} {
+          ${0}
+        }
+
+snippet con
 abbr    desctucture object
 options word
         const { ${1} } = ${0}
