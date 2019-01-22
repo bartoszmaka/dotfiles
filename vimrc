@@ -12,14 +12,15 @@ Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
 Plug 'rhysd/clever-f.vim'                                          " better f F
 if exists('$TMUX')
-  Plug 'christoomey/vim-tmux-navigator'                            " tmux integration
+  Plug 'christoomey/vim-tmux-navigator'                            " move between vim windows and tmux panes with the same mapping
+  Plug 'christoomey/vim-tmux-runner'                               " run tests in other tmux pane
+  Plug 'roxma/vim-tmux-clipboard'                                  " sync with tmux clipboard
 endif
 
 Plug 'andymass/vim-matchup', { 'commit': 'afd7a6b' }
 Plug 'Valloric/MatchTagAlways', { 'commit': '352eb47' }
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
-Plug 'christoomey/vim-tmux-runner'                                 " tmux integration
 Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'janko-m/vim-test'                                            " test launcher
