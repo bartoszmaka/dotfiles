@@ -10,3 +10,4 @@
 	autoupdate = 1
 [pull]
 	rebase = true
+	autoStash = true
