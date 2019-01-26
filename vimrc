@@ -39,6 +39,7 @@ Plug 'tpope/vim-abolish'
 Plug 'kamykn/spelunker.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'ap/vim-css-color'
+Plug 'vim-scripts/copypath.vim'
 
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -73,6 +74,9 @@ Plug 'mattn/emmet-vim'
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
+Plug 'tpope/vim-projectionist'
+
+Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rake',                  { 'for': ['ruby', 'eruby'] }
 Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
