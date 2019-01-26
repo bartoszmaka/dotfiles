@@ -104,13 +104,16 @@ filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 let mapleader="\<Space>"
 
-" meta
-set shell=/bin/zsh                      " shell path
+" Use brew/apt installed python instead of venv or osx default
 if has('nvim') && has('mac')
-  " use python installed by brew
   let g:python_host_prog  = '/usr/local/bin/python2'
   let g:python3_host_prog = '/usr/local/bin/python3'
+else
+  let g:python_host_prog  = '/usr/bin/python2'
+  let g:python3_host_prog = '/usr/bin/python3'
 endif
+" meta
+set shell=/bin/zsh                      " shell path
 set autoread
 syntax sync minlines=256
 set novisualbell
@@ -314,18 +317,24 @@ let g:ale_sign_warning         = '🤔'
 let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
-let g:ale_set_highlights       = 0
+let g:ale_set_highlights       = 1
+" let g:ale_pattern_options = {
+"       \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+"       \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+"       \}
 let g:ale_fixers = {
       \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
       \ 'javascript':     ['eslint', 'importjs'],
       \ 'javascript.jsx': ['eslint', 'importjs'],
       \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'json':           ['jq']
+      \ 'json':           ['jq'],
+      \ 'python':         ['yapf'],
       \}
 let g:ale_linters = {
       \ 'ruby':           ['rubocop'],
       \ 'javascript':     ['eslint'],
-      \ 'json':           ['jq']
+      \ 'json':           ['jq'],
+      \ 'python':         ['pyls', 'autopep8', 'yapf'],
       \}
 let g:ale_linter_aliases = {'jsx': 'css'}
 let g:mta_use_matchparen_group       = 0
@@ -368,8 +377,10 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['/usr/local/bin/pyls'],
     \ }
 call deoplete#custom#source('LanguageClient', 'rank', 1200)
-call deoplete#custom#source('tabnine', 'rank', 1100)
-call deoplete#custom#option('ignore_sources', {'_': ['tag']})
+call deoplete#custom#source('LanguageClient', 'max_abbr_width', 40)
+call deoplete#custom#source('file', 'rank', 1100)
+call deoplete#custom#source('tabnine', 'rank', 1000)
+call deoplete#custom#option('max_list', 80)
 
 let g:vim_jsx_pretty_colorful_config = 1
 let g:fzf_command_prefix = 'Fzf'
@@ -501,6 +512,13 @@ function! ToggleScrollBind()
   endif
 endfunction
 
+function! DisableAllHeavyStuff()
+  setlocal syntax off
+  setlocal nospell
+  call AleDisable()
+  let b:deoplete_disable_auto_complete = 1
+endfunction
+
 nmap <leader>b :call ToggleScrollBind()<CR>
 " **********************************
 augroup filetype-scoped-settings
@@ -520,7 +538,7 @@ augroup END
 
 augroup disable-syntax-for-huge-files
   autocmd!
-  autocmd BufReadPre * if getfsize(@%) > 1000000 | setlocal syntax off | endif
+  autocmd BufReadPre * if getfsize(@%) > 1000000 | call DisableAllHeavyStuff() | endif
 augroup END
 
 augroup remember-cursor-position
@@ -545,6 +563,8 @@ augroup color-scheme-tweaks
   highlight MatchTag         guibg=#4d4d4d gui=bold
   highlight MatchWord        guibg=#4d4d4d gui=bold
   highlight CurrentWordTwins guibg=#4d4d4d
+
+  highlight ALEWarning       guibg=#512121
 augroup END
 
 autocmd FileType vim,tex
