@@ -1,21 +1,151 @@
-Documentation:
-  Enabled: false
+# To make it easier to find descriptions and add exceptions
+AllCops:
+  TargetRubyVersion: 2.6
+  DisplayCopNames: true
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
 
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Layout/IndentHash
+# To make reasonable use of whitespace
+# Layout/IndentHash:
+#   EnforcedStyle: 'consistent'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Layout/AlignHash
+# Layout/AlignHash:
+#   EnforcedColonStyle: table
+#   EnforcedHashRocketStyle: table
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Layout/IndentArray
+# To make reasonable use of whitespace
+# Layout/IndentArray:
+#   EnforcedStyle: 'consistent'
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Layout/DotPosition
+# To match this rule for JS
+Layout/DotPosition:
+  EnforcedStyle: 'leading'
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Lint/AmbiguousBlockAssociation
+# It looks perfectly fine for asserting change
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - '**/*_spec.rb'
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/AbcSize
+# Lets be reasonable about it
+# It is common to exceed AbcSize in migrations
+Metrics/AbcSize:
+  Max: 17
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'spec/support/**/*'
+
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/BlockLength
+# It is common to have long blocks in routes, specs, matchers,
+# factories and configuration files
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'db/migrate/*.rb'
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/LineLength
+# To fit Github review window
+# Migration names tend to be long
 Metrics/LineLength:
-  Max: 80
+  Max: 120
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'spec/**/*_spec.rb'
 
-Style/SingleLineBlockParams:
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/MethodLength
+# 12 does not seem too restrictive
+# Long methods are common to migrations and seeds
+Metrics/MethodLength:
+  Max: 12
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'db/seeds/**/*'
+    - 'spec/**/*.rb'
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/ModuleLength
+# Large modules are totally fine in rspec
+Metrics/ModuleLength:
+  Exclude:
+    - '**/*_spec.rb'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Naming/AccessorMethodName
+# It is common to expose `get_` like interface in wrappers
+Naming/AccessorMethodName:
+  Exclude:
+    - 'app/wrappers/**/*.rb'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Naming/VariableNumber
+# More readable
+Naming/VariableNumber:
+  EnforcedStyle: 'snake_case'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/Alias
+# To keep it consistent. `alias` does not work for all cases (i.e. aliasing at runtime)
+Style/Alias:
+  EnforcedStyle: 'prefer_alias_method'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/BlockDelimiters
+# It is common to use {} blocks for `expect`
+Style/BlockDelimiters:
+  Exclude:
+    - '**/*_spec.rb'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/BracesAroundHashParameters
+Style/BracesAroundHashParameters:
+  Exclude:
+    - '**/*_spec.rb'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/DateTime
+# We do not care about it that much, and sometimes we need it
+Style/DateTime:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/Documentation
+# We prefer everything to be self-explanatory
 Style/Documentation:
   Enabled: false
 
-Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/FormatString
+# The shortest syntax
+Style/FormatString:
+  EnforcedStyle: 'percent'
 
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/FrozenStringLiteralComment
+# We do not care
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
-AllCops:
-  TargetRubyVersion: 2.4
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/GuardClause
+# Sometimes using explicit condition is more readable
+Style/GuardClause:
+  Enabled: false
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/MutableConstant
+# Seriously this has never been a problem and it looks weird
+Style/MutableConstant:
+  Enabled: false
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/NumericLiterals
+# It looks awkward for custom ids
+Style/NumericLiterals:
+  Exclude:
+    - '**/*_spec.rb'
+    - '**/*_factory.rb'
+
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/SymbolArray
+# Common way to describe indices
+Style/SymbolArray:
+  Exclude:
+    - 'db/migrate/**/*'
+
+Lint/HandleExceptions:
+  Exclude:
+    - 'spec/support/matchers/**/*'
