@@ -1,6 +1,6 @@
 filetype off
 call plug#begin()
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
@@ -11,13 +11,14 @@ Plug 'tpope/vim-commentary'                                        " change sele
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
 Plug 'rhysd/clever-f.vim'                                          " better f F
+
 if exists('$TMUX')
   Plug 'christoomey/vim-tmux-navigator'                            " move between vim windows and tmux panes with the same mapping
   Plug 'christoomey/vim-tmux-runner'                               " run tests in other tmux pane
   Plug 'roxma/vim-tmux-clipboard'                                  " sync with tmux clipboard
 endif
 
-Plug 'andymass/vim-matchup', { 'commit': 'afd7a6b' }
+Plug 'andymass/vim-matchup',    { 'commit': 'afd7a6b' }
 Plug 'Valloric/MatchTagAlways', { 'commit': '352eb47' }
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
@@ -61,7 +62,6 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
 
@@ -71,6 +71,7 @@ Plug 'ludovicchabant/vim-gutentags'                                " ctags engin
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
 
+Plug 'tbodt/deoplete-tabnine',          { 'do': './install.sh' }
 Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
@@ -81,15 +82,14 @@ Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rake',                  { 'for': ['ruby', 'eruby'] }
 Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
 
-Plug 'mhartington/nvim-typescript',     { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
-Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+" Plug 'mhartington/nvim-typescript',     { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
+" Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
-Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install' }
 Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
+Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'dunckr/js_alternate.vim',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 
 Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
@@ -165,7 +165,7 @@ set expandtab                           " Spaces instead of tabs
 
 " line length
 set synmaxcol=350                       " disable syntax colors after given column
-set colorcolumn=80                      " color 120th column
+set colorcolumn=81                      " color 120th column
 set textwidth=0                         " do not break lines automatically
 set showbreak=\/_
 set nowrap                              " don't wrap lines
@@ -197,6 +197,8 @@ set conceallevel=0
 set cursorline
 
 " **********************************
+let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -314,6 +316,7 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
 let g:ale_sign_error           = '🚨'
 let g:ale_sign_warning         = '🤔'
+let g:ale_sign_warning         = '!➜'
 let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
@@ -355,7 +358,7 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
-let g:polyglot_disabled = ['js', 'jsx', 'html', 'csv']
+let g:polyglot_disabled = ['javascript', 'jsx', 'html', 'csv']
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
@@ -527,7 +530,7 @@ augroup filetype-scoped-settings
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-  autocmd Filetype gitcommit  setlocal colorcolumn=72 spell
+  autocmd Filetype gitcommit  setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
   autocmd BufEnter,BufReadPre,BufNewFile *.md
         \ setlocal conceallevel=0
@@ -560,13 +563,14 @@ augroup color-scheme-tweaks
   highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold
   highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold
   highlight TabLineSel       guifg=#E5C07B
-  highlight MatchTag         guibg=#4d4d4d gui=bold
-  highlight MatchWord        guibg=#4d4d4d gui=bold
-  highlight CurrentWordTwins guibg=#4d4d4d
+  highlight MatchTag         guibg=#4d4d4d   gui=bold
+  highlight MatchWord        guibg=#4d4d4d   gui=bold
+  highlight CurrentWordTwins guibg=#363636
+  highlight CurrentWord      guibg=#222200
 
   highlight ALEWarning       guibg=#512121
 
-  highlight Comment          gui=italic cterm=italic
+  highlight Comment          gui=italic,bold
 augroup END
 
 autocmd FileType vim,tex
@@ -709,9 +713,11 @@ nnoremap <C-m><C-=> m`gg=G``
 nnoremap <C-m><C-i> :ImportJSWord<CR>
 
 " splitjoin
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping  = ''
-nnoremap <C-m><C-c> :SplitjoinJoin<cr>
+let g:splitjoin_split_mapping     = ''
+let g:splitjoin_join_mapping      = ''
+let g:splitjoin_ruby_curly_braces = 0
+let g:splitjoin_ruby_hanging_args = 0
+nnoremap <C-m><C-j> :SplitjoinJoin<cr>
 nnoremap <C-m><C-s> :SplitjoinSplit<cr>
 
 nnoremap [c :GitGutterPrevHunk<CR>
