@@ -565,6 +565,8 @@ augroup color-scheme-tweaks
   highlight CurrentWordTwins guibg=#4d4d4d
 
   highlight ALEWarning       guibg=#512121
+
+  highlight Comment          gui=italic cterm=italic
 augroup END
 
 autocmd FileType vim,tex
