@@ -113,16 +113,13 @@ else
   let g:python3_host_prog = '/usr/bin/python3'
 endif
 " meta
-set shell=/bin/zsh                      " shell path
 set autoread
 syntax sync minlines=256
-set novisualbell
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
 set grepprg=ag
 set noswapfile
 set directory=/tmp
-set autoread
 set lazyredraw
 set hidden                              " don't close buffers
 set wildignore+=
@@ -143,11 +140,9 @@ set encoding=utf8
 set completeopt=longest,menuone
 set backspace=indent,eol,start
 set pumheight=15
-set nospell
 set spellsuggest=best,8
 
 " indent
-set autoindent
 set smartindent
 
 " window management
@@ -158,7 +153,6 @@ set splitbelow                          " place new horizontal split under curre
 set diffopt+=vertical
 
 " tabulator
-set smarttab
 set softtabstop=2
 set shiftwidth=2                        " default tab width
 set expandtab                           " Spaces instead of tabs
@@ -166,15 +160,12 @@ set expandtab                           " Spaces instead of tabs
 " line length
 set synmaxcol=350                       " disable syntax colors after given column
 set colorcolumn=81                      " color 120th column
-set textwidth=0                         " do not break lines automatically
 set showbreak=\/_
 set nowrap                              " don't wrap lines
 
 " searching
 set ignorecase
 set smartcase
-set hlsearch
-set incsearch
 
 " ui
 set noshowmode                          " do not display current mode in cmdline (airline already handles it)
@@ -184,26 +175,22 @@ set listchars=
       \trail:~,
       \extends:>,
       \precedes:< " define how whitespaces will be displayed
-set list                              " show whitespaces
+set list                                " show whitespaces
 set mouse=a
-set laststatus=2                        " always show status line
 set showcmd                             " show pressed keys
 set number                              " show line numbers
-set norelativenumber
-set signcolumn=auto                      " make place for symbols next to line numbers
-set ruler
 set title
-set conceallevel=0
 set cursorline
 
 " **********************************
+" related with enabling italic text
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+
 if (has("termguicolors"))
   set termguicolors
 endif
 
-set background=dark
 colorscheme onedark
 let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
@@ -263,7 +250,7 @@ let g:spelunker_max_suggest_words = 6
 let g:enable_spelunker_vim = 0
 
 " nerdtree, mundo, tagbar
-let g:NERDTreeWinSize = 35
+let g:NERDTreeWinSize = 45
 let NERDTreeMinimalUI = 1
 let NERDTreeStatusline=""
 let g:NERDTreeGitStatusNodeColorization = 1
@@ -316,7 +303,6 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
 let g:ale_sign_error           = '🚨'
 let g:ale_sign_warning         = '🤔'
-let g:ale_sign_warning         = '!➜'
 let g:ale_lint_on_save         = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_column_always   = 1
@@ -358,7 +344,7 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
-let g:polyglot_disabled = ['javascript', 'jsx', 'html', 'csv']
+" let g:polyglot_disabled = ['javascript', 'jsx', 'html', 'csv']
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
@@ -462,7 +448,8 @@ endfunction
 function! AltCommand(path, vim_command)
   let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
   if empty(l:alternate)
-    echo "No alternate file for " . a:path . " exists!"
+    call A
+    " echo "No alternate file for " . a:path . " exists!"
   else
     exec a:vim_command . " " . l:alternate
   endif
@@ -521,11 +508,10 @@ function! DisableAllHeavyStuff()
   call AleDisable()
   let b:deoplete_disable_auto_complete = 1
 endfunction
-
-nmap <leader>b :call ToggleScrollBind()<CR>
 " **********************************
 augroup filetype-scoped-settings
   autocmd!
+  autocmd FileType json set conceallevel=1
   autocmd FileType ruby,eruby compiler ruby
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -538,6 +524,19 @@ augroup filetype-scoped-settings
         \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
   autocmd CursorHold *.yml YamlGetFullPath
 augroup END
+
+" for some reason, those have to be outside the group
+autocmd FileType vim,tex
+      \ let [
+      \ b:matchup_matchparen_fallback,
+      \ b:matchup_matchparen_enabled]
+      \ = [0, 0]
+autocmd QuickFixCmdPost wincmd J
+autocmd! FileType fzf
+autocmd  FileType fzf
+      \  set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
 
 augroup disable-syntax-for-huge-files
   autocmd!
@@ -565,30 +564,16 @@ augroup color-scheme-tweaks
   highlight TabLineSel       guifg=#E5C07B
   highlight MatchTag         guibg=#4d4d4d   gui=bold
   highlight MatchWord        guibg=#4d4d4d   gui=bold
-  highlight CurrentWordTwins guibg=#363636
-  highlight CurrentWord      guibg=#222200
+  highlight CurrentWordTwins guibg=#363636   gui=bold
+  highlight CurrentWord      guibg=#222200   gui=bold
 
-  highlight ALEWarning       guibg=#512121
+  highlight ALEWarning            guibg=#512121
+  highlight ALEError              guibg=#512121
 
   highlight Comment          gui=italic,bold
 augroup END
 
-autocmd FileType vim,tex
-      \ let [
-      \ b:matchup_matchparen_fallback,
-      \ b:matchup_matchparen_enabled]
-      \ = [0, 0]
-autocmd QuickFixCmdPost wincmd J
-autocmd! FileType fzf
-autocmd  FileType fzf
-      \  set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
 " **********************************
-" iTerm2 option key map hack
-map ń <A-n>
-map Ń <A-N>
-
 " Plugin related keymaps
 nnoremap <leader>a :A<CR>
 nnoremap <leader>A :call GoToOrCreateRightWindow()<CR>:A<CR>
@@ -600,16 +585,16 @@ nnoremap <leader>% :MtaJumpToOtherTag<CR>
 nnoremap <leader>` :e#<CR>
 
 silent! call repeat#set("\<Plug>.", v:count)
-map ,f <Plug>(easymotion-bd-f)
-map ,w <Plug>(easymotion-bd-w)
-map ,e <Plug>(easymotion-bd-e)
-map ,b <Plug>(easymotion-bd-w)
-map ,W <Plug>(easymotion-bd-W)
-map ,E <Plug>(easymotion-bd-E)
-map ,B <Plug>(easymotion-bd-W)
-map ,n <Plug>(easymotion-bd-n)
-map ,N <Plug>(easymotion-bd-n)
-nmap s <Plug>(easymotion-overwin-f2)
+map ,f        <Plug>(easymotion-bd-f)
+map ,w        <Plug>(easymotion-bd-w)
+map ,e        <Plug>(easymotion-bd-e)
+map ,b        <Plug>(easymotion-bd-w)
+map ,W        <Plug>(easymotion-bd-W)
+map ,E        <Plug>(easymotion-bd-E)
+map ,B        <Plug>(easymotion-bd-W)
+map <leader>n <Plug>(easymotion-bd-n)
+map <leader>N <Plug>(easymotion-bd-n)
+nmap s        <Plug>(easymotion-overwin-f2)
 
 imap <expr><c-e>
   \ neosnippet#expandable_or_jumpable() ?
@@ -640,6 +625,7 @@ nnoremap <C-g><C-d> :Gdiff<CR>
 
 " Find the alternate file for the current path and open it (basically go to test file)
 nnoremap <C-g><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
+nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
 noremap <M-}>            :bnext<CR>
@@ -663,7 +649,6 @@ nnoremap <leader>tf :TestFile<CR>
 nnoremap <leader>ta :TestSuite<CR>
 nnoremap <leader>tl :TestLast<CR>
 nnoremap <leader>tg :TestVisit<CR>
-nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " popup fuzzy finders
 command! -bang -nargs=? -complete=dir FZFFilesPreview
@@ -677,15 +662,7 @@ nnoremap <C-p><C-b> :FzfBuffers<CR>
 nnoremap <C-p><C-f> :FzfAg<CR>
 nnoremap <C-p><C-l> :FzfLines<CR>
 nnoremap <C-p><C-v> :FzfCommits<CR>
-nnoremap <C-p><C-w> :FzfWindows<CR>
-nnoremap <C-p><C-o> viwy:FzfTags <C-r>"<CR>
-nnoremap <C-p><C-t> viwy:FzfBTags <C-r>"<CR>
 nnoremap <C-p><C-m> :FzfMarks<CR>
-nnoremap <leader>/  :FzfHistory/<CR>
-nnoremap <leader>:  :FzfHistory:<CR>
-nnoremap <leader>;  :FzfCommands<CR>
-nnoremap <C-p><C-s> :FzfCommands<CR>
-nnoremap <C-p><C-\> :FzfFiletypes<CR>
 let g:fzf_action = {
       \ 'ctrl-q': function('s:build_quickfix_list'),
       \ 'ctrl-t': 'tab split',
@@ -696,7 +673,7 @@ let g:fzf_action = {
 " let g:grepper.ag.grepprg .= ' --'
 vmap <leader>F         <Plug>CtrlSFVwordPath
 nnoremap <leader>f         :Grepper<CR>
-nnoremap <leader>F         :CtrlSF
+nnoremap <leader>F         :CtrlSF 
 nnoremap <leader>*         :Grepper -tool ag -highlight -cword -noprompt<CR>
 nnoremap <leader><leader>* :Grepper -tool ag -highlight -cword -noprompt -side<CR>
 
@@ -707,10 +684,6 @@ nnoremap <C-m><C-w> :set list!<CR>
 
 " multiple cursors
 nnoremap <C-m><C-n> :MultipleCursorsFind
-
-" Indent whole file
-nnoremap <C-m><C-=> m`gg=G``
-nnoremap <C-m><C-i> :ImportJSWord<CR>
 
 " splitjoin
 let g:splitjoin_split_mapping     = ''
@@ -736,8 +709,8 @@ nnoremap <C-]> g]
 nnoremap g] <C-]>
 
 " replace selected word in file
-nnoremap <leader>r yiw:%s/<C-r>"//g<Left><Left>
-vnoremap <leader>r y:%s/<C-r>"//g<Left><Left>
+nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
+vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
 
 nnoremap <leader>? K
 
@@ -815,6 +788,7 @@ nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 nnoremap gi gi<ESC>zza
 nnoremap g; g;zz
+nnoremap `` ``zz
 
 " move block of code without losing selection
 vnoremap > >gv
