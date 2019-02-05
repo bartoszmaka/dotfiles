@@ -1,6 +1,6 @@
 filetype off
 call plug#begin()
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
@@ -82,8 +82,8 @@ Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rake',                  { 'for': ['ruby', 'eruby'] }
 Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
 
-" Plug 'mhartington/nvim-typescript',     { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
-" Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'mhartington/nvim-typescript',     { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
+Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
 Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
@@ -511,7 +511,8 @@ endfunction
 " **********************************
 augroup filetype-scoped-settings
   autocmd!
-  autocmd FileType json set conceallevel=1
+  autocmd FileType json syn region  jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
+  autocmd FileType json syn region  jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
   autocmd FileType ruby,eruby compiler ruby
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -564,6 +565,7 @@ augroup color-scheme-tweaks
   highlight TabLineSel       guifg=#E5C07B
   highlight MatchTag         guibg=#4d4d4d   gui=bold
   highlight MatchWord        guibg=#4d4d4d   gui=bold
+
   highlight CurrentWordTwins guibg=#363636   gui=bold
   highlight CurrentWord      guibg=#222200   gui=bold
 
