@@ -16,7 +16,7 @@ options word
 snippet cla
 abbr    class
 options word
-        class ${1} {
+        class `substitute(bufname('%') ==#'[Command Line]' ? expand('#:t:r:r:r') : expand('%:t:r:r:r'), '\%(^\(.\)\|_\(.\)\)', '\u\1\u\2', 'g')`${1} {
           ${0}
         }
 
@@ -95,3 +95,22 @@ abbr        console.log
 options     word
         console.log(${0})
 
+snippet     ct
+abbr        constructor
+options     word
+        constructor(${1}) {
+          ${0}
+        }
+
+snippet     ctr
+abbr        component constructor
+options     word
+        constructor(props) {
+          super(props);
+          ${0}
+        }
+
+snippet     jstr
+abbr        JSON.stringify
+options     word
+        JSON.stringify(${1}, null, 2)${0}
