@@ -1,3 +1,10 @@
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_NO_STORE
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+
 ostype="$(uname -s)"
 isosx=false
 islinux=false
@@ -19,6 +26,7 @@ esac
 ZSH_THEME="agnoster"
 
 source $ZSH/oh-my-zsh.sh
+source $DOTFILES_PATH/secrets.sh
 
 export DISABLE_SPRING=1
 export EDITOR='nvim'
@@ -39,6 +47,7 @@ alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
 alias svim='vim -u ~/.SpaceVim/vimrc'
 alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
+alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
 
 alias -g F='| fzf --exact'
 alias -g C='| column -t -s " "'
@@ -71,12 +80,8 @@ function startWithTmux() {
 unalias gsd
 
 RPROMPT='%D{%K:%M:%S}'
-export PATH="$PATH:$HOME/.rvm/bin"
-fpath=(/usr/local/share/zsh-completions $fpath)
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
-
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fpath=(/usr/local/share/zsh-completions $fpath)
+export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
