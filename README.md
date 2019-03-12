@@ -45,7 +45,7 @@
   ```
 - install npm provider, language server and plugin dependencies
   ``` bash
-  npm install -g neovim tern typescript typescript-language-server javascript-typescript-langserver eslint importjs
+  npm install -g neovim tern typescript typescript-language-server javascript-typescript-langserver eslint import-js
   ```
 - install system plugins dependencies
   ``` bash
