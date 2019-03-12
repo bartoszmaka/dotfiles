@@ -41,6 +41,7 @@ Plug 'kamykn/spelunker.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'ap/vim-css-color'
 Plug 'vim-scripts/copypath.vim'
+Plug 'liuchengxu/vista.vim'
 
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -87,7 +88,7 @@ Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['typescript', 'html', 'coffee'
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
 Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install' }
+Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-cost' }
 Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
 Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'dunckr/js_alternate.vim',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
@@ -137,7 +138,7 @@ set fileencoding=utf-8
 set encoding=utf8
 
 " behavior
-set completeopt=longest,menuone
+set completeopt=longest,menuone,noinsert,noselect
 set backspace=indent,eol,start
 set pumheight=15
 set spellsuggest=best,8
@@ -250,7 +251,7 @@ let g:spelunker_max_suggest_words = 6
 let g:enable_spelunker_vim = 0
 
 " nerdtree, mundo, tagbar
-let g:NERDTreeWinSize = 45
+let g:NERDTreeWinSize = 36
 let NERDTreeMinimalUI = 1
 let NERDTreeStatusline=""
 let g:NERDTreeGitStatusNodeColorization = 1
@@ -344,7 +345,7 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
-" let g:polyglot_disabled = ['javascript', 'jsx', 'html', 'csv']
+let g:polyglot_disabled = ['jsx']
 let g:rubycomplete_buffer_loading = 1
 let g:rubycomplete_classes_in_global = 1
 let g:rubycomplete_rails = 1
@@ -428,6 +429,21 @@ let g:matchup_matchparen_deferred = 1
 let g:matchup_matchparen_hi_surround_always = 1
 let g:matchup_transmute_enabled = 0
 
+let g:multi_cursor_exit_from_insert_mode = 0
+
+let g:vista_sidebar_position = 'vertical botright'
+let g:vista_sidebar_width = 30
+let g:vista_echo_cursor = 1
+let g:vista_cursor_delay = 400
+let g:vista_close_on_jump = 0
+let g:vista_stay_on_open = 1
+let g:vista_blink = [2, 100]
+" e.g., more compact: ["▸ ", ""]
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" Avaliable: 'coc', 'ctags'. 'ctags' by default.
+let g:vista_default_executive = 'ctags'
+let g:vista_fzf_preview = ['right:50%']
+
 " **********************************
 " custom functions
 function! RemoveTernPortIfExists()
@@ -508,7 +524,21 @@ function! DisableAllHeavyStuff()
   call AleDisable()
   let b:deoplete_disable_auto_complete = 1
 endfunction
+
+" function! IsActualReactFile()
+"   let n = 1
+"   while n < 10 && n < line("$")
+"     echomsg(getline(n))
+"     if getline(n) =~ '^import React*'
+"   endwhile
+" endfunction
 " **********************************
+augroup custom-detect-filetypes
+  autocmd!
+  " autocmd BufNewFile,BufRead *.js,*.jsx if call IsActualReactFile() | filetype=javascript.jsx | endif
+  " autocmd Filetype *.js echomsg 'FileType: '
+augroup END
+
 augroup filetype-scoped-settings
   autocmd!
   autocmd FileType json syn region  jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
@@ -698,7 +728,7 @@ nnoremap <C-m><C-s> :SplitjoinSplit<cr>
 nnoremap [c :GitGutterPrevHunk<CR>
 nnoremap ]c :GitGutterNextHunk<CR>
 
-nnoremap [e :ALEPrevWrap<CR>
+nnoremap [e :ALEPreviousWrap<CR>
 nnoremap ]e :ALENextWrap<CR>
 
 " **********************************
