@@ -1,6 +1,17 @@
 ### Debug
 
 ---
+#### set default audio device on ubuntu 18.04
+[https://askubuntu.com/questions/1038490/how-do-you-set-a-default-audio-output-device-in-ubuntu-18-04/1038492](https://askubuntu.com/questions/1038490/how-do-you-set-a-default-audio-output-device-in-ubuntu-18-04/1038492)
+
+``` bash
+pactl list short sinks                                             # get list of devices
+pactl set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo  # set default device
+# append `set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo` to /etc/pulse/default.pa
+
+```
+
+---
 
 #### check if console supports 24bit - truecolor
 `bash testcase-truecolors.sh`  
