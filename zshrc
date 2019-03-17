@@ -26,7 +26,7 @@ esac
 ZSH_THEME="agnoster"
 
 source $ZSH/oh-my-zsh.sh
-source $DOTFILES_PATH/secrets.sh
+test -e "$DOTFILES_PATH/secrets.sh" && source $DOTFILES_PATH/secrets.sh
 
 export DISABLE_SPRING=1
 export EDITOR='nvim'
