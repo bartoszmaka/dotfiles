@@ -22,7 +22,7 @@ Plug 'andymass/vim-matchup',    { 'commit': 'afd7a6b' }
 Plug 'Valloric/MatchTagAlways', { 'commit': '352eb47' }
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
-Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
+Plug 'dominikduda/vim_current_word', { 'branch': 'development' }   " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'janko-m/vim-test'                                            " test launcher
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
@@ -735,7 +735,8 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 
 " multiple cursors
-nnoremap <C-m><C-n> :MultipleCursorsFind
+nnoremap <C-m><C-n> :MultipleCursorsFind 
+vnoremap <C-m><C-n> :MultipleCursorsFind 
 
 " splitjoin
 let g:splitjoin_split_mapping     = ''
@@ -755,6 +756,7 @@ nnoremap ]e :ALENextWrap<CR>
 " Non plugin related keymaps
 " search exact match by default
 nnoremap / /\V
+nnoremap ? /
 nnoremap <Bs> :noh<CR>
 
 nnoremap <C-]> g]
