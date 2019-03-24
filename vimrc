@@ -587,7 +587,8 @@ autocmd  FileType fzf
       \  set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-autocmd BufReadPost * EnableBlameLine
+let blamelineFiletypesBlacklist = ['fugitiveblame', 'help', 'qf']
+autocmd BufReadPost * if index(blamelineFiletypesBlacklist, &ft) < 0 | EnableBlameLine
 
 augroup disable-syntax-for-huge-files
   autocmd!
