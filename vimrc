@@ -30,6 +30,8 @@ Plug 'scrooloose/nerdtree'                                         " project exp
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
+Plug 'tveskag/nvim-blame-line'
+Plug 'terryma/vim-smooth-scroll'
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -257,6 +259,11 @@ let NERDTreeStatusline=""
 let g:NERDTreeGitStatusNodeColorization = 1
 let g:NERDTreeGitStatusWithFlags = 0
 
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
+highlight! NERDTreeOpenable ctermfg=132 guifg=#D19A66
+highlight! def link NERDTreeClosable NERDTreeOpenable
+
 let g:NERDTreeColorMapCustom = {
     \ "Dirty"     : "#299999",
     \ "Modified"  : "#CC6666",
@@ -299,6 +306,7 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 " ale syntax checker
 let g:importjs_disable_default_mappings = 1
+let g:ale_virtualtext_cursor   = 1
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
@@ -327,6 +335,17 @@ let g:ale_linters = {
       \ 'python':         ['pyls', 'autopep8', 'yapf'],
       \}
 let g:ale_linter_aliases = {'jsx': 'css'}
+
+
+"   ALE will use the following highlight groups for problems:
+
+"   |ALEVirtualTextError|        - Items with `'type': 'E'`
+"   |ALEVirtualTextWarning|      - Items with `'type': 'W'`
+"   |ALEVirtualTextInfo|         - Items with `'type': 'I'`
+"   |ALEVirtualTextStyleError|   - Items with `'type': 'E'` and `'sub_type': 'style'`
+"   |ALEVirtualTextStyleWarning| - Items with `'type': 'W'` and `'sub_type': 'style'`
+
+
 let g:mta_use_matchparen_group       = 0
 let g:mta_set_default_matchtag_color = 0
 let g:mta_filetypes = {
@@ -568,6 +587,7 @@ autocmd  FileType fzf
       \  set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
+autocmd BufReadPost * EnableBlameLine
 
 augroup disable-syntax-for-huge-files
   autocmd!
@@ -810,6 +830,12 @@ map <leader>l $
 " treat multiline statement as multiple lines
 nnoremap j gj
 nnoremap k gk
+
+" smooth scroll
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " always focus after cursor jump
 nmap n <Plug>(anzu-n-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
