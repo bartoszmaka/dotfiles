@@ -24,7 +24,6 @@ Plug 'tpope/vim-fugitive'                                          " git related
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
 Plug 'dominikduda/vim_current_word', { 'branch': 'development' }   " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
-Plug 'janko-m/vim-test'                                            " test launcher
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
@@ -38,11 +37,10 @@ Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align 
 Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
 Plug 'tpope/vim-abolish'
-Plug 'kamykn/spelunker.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'ap/vim-css-color'
 Plug 'vim-scripts/copypath.vim'
-Plug 'liuchengxu/vista.vim'
+Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -50,11 +48,9 @@ Plug 'bartoszmaka/fzf-mru.vim'
 
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide but with different plugin :D
 Plug 'mhinz/vim-grepper'                                           " search projectwide
-Plug 'rking/ag.vim'                                                " searching engine
 
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
-Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 
 " completion engine
@@ -204,23 +200,33 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 " **********************************
 " plugin variables
 let g:loaded_matchit = 1
-set statusline+=%{gutentags#statusline()}
-let g:airline_section_z = '%2p%% %3l:%2c'
-let g:airline_section_b = ''
-let g:airline_section_c = '%{expand("%:F")}'
 
+" airline
+set statusline+=%{gutentags#statusline()}
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_section_z                              = '%2p%% %3l:%2c'
+let g:airline_section_b                              = ''
+let g:airline_section_c                              = '%{expand("%:F")}'
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
 let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tabs = 0
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#tab_nr_type = 2
-
+let g:airline#extensions#tabline#enabled             = 1
+let g:airline#extensions#tabline#show_tabs           = 0
+let g:airline#extensions#tabline#show_close_button   = 0
+let g:airline#extensions#tabline#tab_nr_type         = 2
+let g:airline_symbols.linenr                         = ''
+let g:airline_symbols.maxlinenr                      = ''
+let g:airline_symbols.readonly                       = '🔒'
+let g:airline_symbols.spell                          = 'Ꞩ'
+let g:airline_symbols.whitespace                     = 'Ξ'
+let g:airline#extensions#anzu#enabled                = 0
+let g:airline#extensions#tabline#buffer_idx_mode     = 1
+let g:anzu_status_format                             = "%#Search#▶%p◀ (%i/%l)"
 let g:airline_mode_map = {
     \ '__' : '-',
     \ 'n'  : 'N',
@@ -236,40 +242,26 @@ let g:airline_mode_map = {
     \ 't'  : 'T',
     \ }
 
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.readonly = '🔒'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.whitespace = 'Ξ'
-
-let g:airline#extensions#anzu#enabled = 0
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
-
+" vimade
 let g:vimade = {}
 let g:vimade.fadelevel = 0.7
 
+" gitgutter
 let g:gitgutter_map_keys = 0
 
-let g:spelunker_max_suggest_words = 6
-let g:enable_spelunker_vim = 0
+" jsxpretty
+let g:vim_jsx_pretty_colorful_config = 1
 
-" nerdtree, mundo, tagbar
-let g:NERDTreeWinSize = 36
-let NERDTreeMinimalUI = 1
-let NERDTreeStatusline=""
-let g:NERDTreeGitStatusNodeColorization = 1
-let g:NERDTreeGitStatusWithFlags = 0
-
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
+" nerdtree
 highlight! NERDTreeOpenable ctermfg=132 guifg=#D19A66
 highlight! def link NERDTreeClosable NERDTreeOpenable
-
+let g:NERDTreeWinSize                   = 36
+let g:NERDTreeMinimalUI                 = 1
+let g:NERDTreeStatusline                = ""
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:NERDTreeGitStatusWithFlags        = 0
+let g:NERDTreeDirArrowExpandable        = ''
+let g:NERDTreeDirArrowCollapsible       = ''
 let g:NERDTreeColorMapCustom = {
     \ "Dirty"     : "#299999",
     \ "Modified"  : "#CC6666",
@@ -279,10 +271,10 @@ let g:NERDTreeColorMapCustom = {
     \ "Ignored"   : "#AAAAAA"
     \ }
 
-let g:mundo_right     = 1
+" mundo
+let g:mundo_right = 1
 
-autocmd BufWritePost *.rb silent exec "!ripper-tags -R --exclude=vendor --tag-file=./ripper-tags"
-autocmd FileType ruby,eruby setlocal tags+=./ripper-tags
+" tagbar
 let g:tagbar_type_ruby = {
     \ 'kinds'      : ['m:modules',
                     \ 'c:classes',
@@ -297,12 +289,30 @@ let g:tagbar_type_ruby = {
     \ 'ctagsargs'  : ['-f', '-']
     \ }
 
+" guntentags
+autocmd BufWritePost *.rb silent exec "!ripper-tags -R --exclude=vendor --tag-file=./ripper-tags"
+autocmd FileType ruby,eruby setlocal tags+=./ripper-tags
+let g:gutentags_ctags_exclude = [
+      \ "node_modules",
+      \ ".git",
+      \ "client/node_modules",
+      \ "client/package.json",
+      \ "client/package-lock.json",
+      \ "client/coverage",
+      \ "public",
+      \ "bin",
+      \ "log",
+      \ "app/assets",
+      \ "spec/fixtures",
+      \ ]
+
+" winresizer
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
 
-" vim current word
+" vimcurrentword
 let g:vim_current_word#enabled                        = 1
-let vim_current_word#highlight_only_in_focused_window = 1
+let g:vim_current_word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_twins                = 1
 let g:vim_current_word#highlight_current_word         = 1
 let g:vim_current_word#highlight_after_delay          = 1
@@ -310,49 +320,7 @@ let g:vim_current_word#highlight_after_delay          = 1
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
-" ale syntax checker
-let g:importjs_disable_default_mappings = 1
-let g:ale_virtualtext_cursor   = 1
-let g:ale_virtualtext_delay    = 100
-let g:ale_echo_msg_error_str   = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
-let g:ale_sign_error           = '🚨'
-let g:ale_sign_warning         = '🤔'
-let g:ale_lint_on_save         = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_sign_column_always   = 1
-let g:ale_set_highlights       = 1
-" let g:ale_pattern_options = {
-"       \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
-"       \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
-"       \}
-let g:ale_fixers = {
-      \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
-      \ 'javascript':     ['eslint', 'importjs'],
-      \ 'javascript.jsx': ['eslint', 'importjs'],
-      \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'json':           ['jq'],
-      \ 'python':         ['yapf'],
-      \}
-let g:ale_linters = {
-      \ 'ruby':           ['rubocop'],
-      \ 'javascript':     ['eslint'],
-      \ 'json':           ['jq'],
-      \ 'python':         ['pyls', 'autopep8', 'yapf'],
-      \}
-let g:ale_linter_aliases = {'jsx': 'css'}
-
-
-"   ALE will use the following highlight groups for problems:
-
-"   |ALEVirtualTextError|        - Items with `'type': 'E'`
-"   |ALEVirtualTextWarning|      - Items with `'type': 'W'`
-"   |ALEVirtualTextInfo|         - Items with `'type': 'I'`
-"   |ALEVirtualTextStyleError|   - Items with `'type': 'E'` and `'sub_type': 'style'`
-"   |ALEVirtualTextStyleWarning| - Items with `'type': 'W'` and `'sub_type': 'style'`
-
-
+" MatchTagAlways
 let g:mta_use_matchparen_group       = 0
 let g:mta_set_default_matchtag_color = 0
 let g:mta_filetypes = {
@@ -364,6 +332,7 @@ let g:mta_filetypes = {
     \ 'html.handlebars' : 1,
     \}
 
+" autopairs
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutJump       = ''
@@ -371,14 +340,38 @@ let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsMapCh              = ''
 let g:ag_highlight=1
 
-let g:polyglot_disabled = ['jsx']
-let g:rubycomplete_buffer_loading = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails = 1
-let g:rubycomplete_load_gemfile = 1
-let g:rubycomplete_use_bundler = 1
+" closetag
+let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex,*.hbs'
+let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_shortcut                = '>'
 
-" language client
+" matchup
+let g:matchup_matchparen_status_offscreen   = 1
+let g:matchup_matchparen_deferred           = 1
+let g:matchup_matchparen_hi_surround_always = 1
+let g:matchup_transmute_enabled             = 0
+
+" polyglot
+let g:polyglot_disabled = ['jsx']
+
+" ruby
+let g:rubycomplete_buffer_loading    = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails             = 1
+let g:rubycomplete_load_gemfile      = 1
+let g:rubycomplete_use_bundler       = 1
+
+" splitjoin
+let g:splitjoin_split_mapping     = ''
+let g:splitjoin_join_mapping      = ''
+let g:splitjoin_ruby_curly_braces = 0
+let g:splitjoin_ruby_hanging_args = 0
+
+" multiplecursors
+let g:multi_cursor_exit_from_insert_mode = 0
+
+" languageclient
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
@@ -401,7 +394,41 @@ call deoplete#custom#source('file', 'rank', 1100)
 call deoplete#custom#source('tabnine', 'rank', 1000)
 call deoplete#custom#option('max_list', 80)
 
-let g:vim_jsx_pretty_colorful_config = 1
+" neosnippet
+let g:neosnippet#disable_runtime_snippets = {
+      \   '_' : 1,
+      \ }
+let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
+let g:neosnippet#scope_aliases = {}
+let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
+
+" ale
+let g:ale_virtualtext_cursor   = 1
+let g:ale_virtualtext_delay    = 100
+let g:ale_echo_msg_error_str   = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
+let g:ale_sign_error           = '🚨'
+let g:ale_sign_warning         = '🤔'
+let g:ale_lint_on_save         = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_sign_column_always   = 1
+let g:ale_set_highlights       = 1
+let g:ale_fixers = {
+      \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
+      \ 'javascript':     ['eslint', 'importjs'],
+      \ 'javascript.jsx': ['eslint', 'importjs'],
+      \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
+      \ 'json':           ['jq'],
+      \ 'python':         ['yapf'],
+      \}
+let g:ale_linters = {
+      \ 'ruby':           ['rubocop'],
+      \ 'javascript':     ['eslint'],
+      \ 'json':           ['jq'],
+      \ 'python':         ['pyls', 'autopep8', 'yapf'],
+      \}
+let g:ale_linter_aliases = {'jsx': 'css'}
 
 " fzf
 let g:fzf_command_prefix = 'Fzf'
@@ -421,61 +448,8 @@ let g:fzf_colors = {
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment']
       \ }
-
-" let g:gutentags_ctags_extra_args = [
-"       \ "--regex-ruby="/^[ \t]*describe [\'\"](.*)[\'\"] do/\1/d,rspec describe/",
-"       \ "--regex-ruby="/^[ \t]*context [\'\"](.*)[\'\"] do/\1/C,rspec context/",
-"       \ "--regex-ruby="/^[ \t]*it [\'\"](.*)[\'\"] do/\1/i,rspec tests/",
-"       \ ]
-let g:gutentags_ctags_exclude = [
-      \ "node_modules",
-      \ ".git",
-      \ "client/node_modules",
-      \ "client/package.json",
-      \ "client/package-lock.json",
-      \ "client/coverage",
-      \ "public",
-      \ "bin",
-      \ "log",
-      \ "app/assets",
-      \ "spec/fixtures",
-      \ ]
-
-let test#strategy          = 'vtr'
-
-let g:neosnippet#disable_runtime_snippets = {
-      \   '_' : 1,
-      \ }
-let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
-let g:neosnippet#scope_aliases = {}
-let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
-
-" closetag config
-let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex,*.hbs'
-let g:closetag_xhtml_filenames         = '*.xhtml,*.jsx,*.js,*.erb,*.eex'
-let g:closetag_emptyTags_caseSensitive = 1
-let g:closetag_shortcut                = '>'
-let g:matchup_matchparen_status_offscreen = 1
-let g:matchup_matchparen_deferred = 1
-let g:matchup_matchparen_hi_surround_always = 1
-let g:matchup_transmute_enabled = 0
-
-let g:multi_cursor_exit_from_insert_mode = 0
-
-let g:vista_sidebar_position = 'vertical botright'
-let g:vista_sidebar_width = 30
-let g:vista_echo_cursor = 1
-let g:vista_cursor_delay = 400
-let g:vista_close_on_jump = 0
-let g:vista_stay_on_open = 1
-let g:vista_blink = [2, 100]
-" e.g., more compact: ["▸ ", ""]
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-" Avaliable: 'coc', 'ctags'. 'ctags' by default.
-let g:vista_default_executive = 'ctags'
-let g:vista_fzf_preview = ['right:50%']
-
 " **********************************
+
 " custom functions
 function! RemoveTernPortIfExists()
   if !empty(glob(join([getcwd(), ".tern-port"], "/")))
@@ -523,12 +497,6 @@ endfunction
 function! GoToOrCreateRightWindow()
   execute "only"
   execute "normal! \<C-w>v"
-  " let currentWindowNumber = winnr()
-  " execute "normal! \<C-w>l"
-  " let rightWindowNumber = winnr()
-  " if currentWindowNumber == rightWindowNumber
-  "   execute "normal! \<C-w>v"
-  " endif
 endfunction
 
 function! ToggleScrollBind()
@@ -555,25 +523,13 @@ function! DisableAllHeavyStuff()
   call AleDisable()
   let b:deoplete_disable_auto_complete = 1
 endfunction
-
-" function! IsActualReactFile()
-"   let n = 1
-"   while n < 10 && n < line("$")
-"     echomsg(getline(n))
-"     if getline(n) =~ '^import React*'
-"   endwhile
-" endfunction
 " **********************************
-augroup custom-detect-filetypes
-  autocmd!
-  " autocmd BufNewFile,BufRead *.js,*.jsx if call IsActualReactFile() | filetype=javascript.jsx | endif
-  " autocmd Filetype *.js echomsg 'FileType: '
-augroup END
 
+" augroups
 augroup filetype-scoped-settings
   autocmd!
-  autocmd FileType json syn region  jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
-  autocmd FileType json syn region  jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
+  autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
+  autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
   autocmd FileType json setlocal conceallevel=2
   autocmd FileType ruby,eruby compiler ruby
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -639,19 +595,20 @@ augroup color-scheme-tweaks
 
   highlight Comment          gui=italic,bold
 augroup END
-
 " **********************************
+
 " Plugin related keymaps
 nnoremap <leader>a :A<CR>
 nnoremap <leader>A :call GoToOrCreateRightWindow()<CR>:A<CR>
 nnoremap <leader>S :call ToggleScrollBind()<CR>
-" nnoremap <leader>A <C-w>v:A<CR>
 
+" MatchTagAlways
 nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
-nnoremap <leader>` :e#<CR>
-
+" vim-repeat
 silent! call repeat#set("\<Plug>.", v:count)
+
+" easymotion
 map ,f        <Plug>(easymotion-bd-f)
 map ,w        <Plug>(easymotion-bd-w)
 map ,e        <Plug>(easymotion-bd-e)
@@ -663,21 +620,25 @@ map <leader>n <Plug>(easymotion-bd-n)
 map <leader>N <Plug>(easymotion-bd-n)
 nmap s        <Plug>(easymotion-overwin-f2)
 
+" neosnippet
 imap <expr><c-e>
   \ neosnippet#expandable_or_jumpable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)" :
   \ "\<C-y>,"
 
+" languageclient
 nnoremap K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <C-m><C-m> :call LanguageClient_contextMenu()<CR>
 nnoremap <C-m><C-d> :call LanguageClient#textDocument_definition()<CR>
 nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
-" vnoremap <C-m><C-s> :s/\s//g<CR> :noh<CR>
-vnoremap <C-m><C-t> :Tabularize /
-vnoremap <C-m><C-s> :sort<CR>
 
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+
+" tabular
+vnoremap <C-m><C-t> :Tabularize /
+
+vnoremap <C-m><C-s> :sort<CR>
 
 " tools windows management
 let g:winresizer_start_key          = '<C-w>e'
@@ -695,32 +656,27 @@ nnoremap <C-g><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
 
 " workspace navigation
-noremap <M-}>            :bnext<CR>
-noremap <M-{>            :bprevious<CR>
-noremap <leader>]        :bnext<CR>
-noremap <leader>[        :bprevious<CR>
+noremap <M-}>               :bnext<CR>
+noremap <M-{>               :bprevious<CR>
+noremap <leader>]           :bnext<CR>
+noremap <leader>[           :bprevious<CR>
 nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
-noremap <leader><space>! :bdelete!<CR>
-nmap    <leader>1        <Plug>AirlineSelectTab1
-nmap    <leader>2        <Plug>AirlineSelectTab2
-nmap    <leader>3        <Plug>AirlineSelectTab3
-nmap    <leader>4        <Plug>AirlineSelectTab4
-nmap    <leader>5        <Plug>AirlineSelectTab5
-nmap    <leader>6        <Plug>AirlineSelectTab6
-nmap    <leader>7        <Plug>AirlineSelectTab7
-nmap    <leader>8        <Plug>AirlineSelectTab8
-nmap    <leader>9        <Plug>AirlineSelectTab9
-" launch test suite
-nnoremap <leader>tt :TestNearest<CR>
-nnoremap <leader>tf :TestFile<CR>
-nnoremap <leader>ta :TestSuite<CR>
-nnoremap <leader>tl :TestLast<CR>
-nnoremap <leader>tg :TestVisit<CR>
+noremap <leader><space>!    :bdelete!<CR>
 
-" popup fuzzy finders
+" airline
+nmap    <leader>1           <Plug>AirlineSelectTab1
+nmap    <leader>2           <Plug>AirlineSelectTab2
+nmap    <leader>3           <Plug>AirlineSelectTab3
+nmap    <leader>4           <Plug>AirlineSelectTab4
+nmap    <leader>5           <Plug>AirlineSelectTab5
+nmap    <leader>6           <Plug>AirlineSelectTab6
+nmap    <leader>7           <Plug>AirlineSelectTab7
+nmap    <leader>8           <Plug>AirlineSelectTab8
+nmap    <leader>9           <Plug>AirlineSelectTab9
+
+" fzf
 command! -bang -nargs=? -complete=dir FZFFilesPreview
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
 nnoremap <C-p><C-p> :FZFFilesPreview<CR>
 nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>
 nnoremap <C-p><C-g> :FzfGitFiles?<CR>
@@ -736,42 +692,42 @@ let g:fzf_action = {
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'}
 
-" find in project => ag --vimgrep> pattern [location]
-" let g:grepper.ag.grepprg .= ' --'
+" grepper, ctrlsf
 vmap <leader>F         <Plug>CtrlSFVwordPath
 nnoremap <leader>f         :Grepper<CR>
 nnoremap <leader>F         :CtrlSF 
 nnoremap <leader>*         :Grepper -tool ag -highlight -cword -noprompt<CR>
 nnoremap <leader><leader>* :Grepper -tool ag -highlight -cword -noprompt -side<CR>
 
-" ALE actions
+" ale
 nnoremap <C-m><C-f> :ALEFix<CR>
 nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
+nnoremap [e :ALEPreviousWrap<CR>
+nnoremap ]e :ALENextWrap<CR>
 
-" multiple cursors
+" multiplecursors
 nnoremap <C-m><C-n> :MultipleCursorsFind 
 vnoremap <C-m><C-n> :MultipleCursorsFind 
 
 " splitjoin
-let g:splitjoin_split_mapping     = ''
-let g:splitjoin_join_mapping      = ''
-let g:splitjoin_ruby_curly_braces = 0
-let g:splitjoin_ruby_hanging_args = 0
 nnoremap <C-m><C-j> :SplitjoinJoin<cr>
 nnoremap <C-m><C-s> :SplitjoinSplit<cr>
 
-nnoremap [c :GitGutterPrevHunk<CR>
-nnoremap ]c :GitGutterNextHunk<CR>
-
-nnoremap [e :ALEPreviousWrap<CR>
-nnoremap ]e :ALENextWrap<CR>
-
+" gitgutter
+nnoremap [g :GitGutterPrevHunk<CR>
+nnoremap ]g :GitGutterNextHunk<CR>
 " **********************************
+
 " Non plugin related keymaps
+
+" jump to last opened file
+nnoremap <leader>` :e#<CR>
+
 " search exact match by default
 nnoremap / /\V
 nnoremap ? /
+" disable highlight on del
 nnoremap <Bs> :noh<CR>
 
 nnoremap <C-]> g]
@@ -781,6 +737,7 @@ nnoremap g] <C-]>
 nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
 vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
 
+" move manual lookup to leader?
 nnoremap <leader>? K
 
 " sometimes I just hold shift for too long
@@ -829,6 +786,7 @@ if exists('$TMUX')
   nnoremap <C-w>k :TmuxNavigateUp<CR>
   nnoremap <C-w>l :TmuxNavigateRight<CR>
 endif
+
 " unify keymaps with tmux
 nnoremap <C-w>" <C-w>s
 nnoremap <C-w>% <C-w>v
