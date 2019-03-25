@@ -31,7 +31,6 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
 Plug 'tveskag/nvim-blame-line'
-Plug 'terryma/vim-smooth-scroll'
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -58,6 +57,7 @@ Plug 'tpope/vim-endwise'                                           " auto insert
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 
+" completion engine
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
 else
@@ -65,38 +65,40 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
 
+" completion sources
+Plug 'Shougo/neosnippet'
+Plug 'wellle/tmux-complete.vim'
+Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
+Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
+Plug 'tbodt/deoplete-tabnine',          { 'do': './install.sh' }
 Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 
 Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
 
-Plug 'tbodt/deoplete-tabnine',          { 'do': './install.sh' }
-Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-
-Plug 'tpope/vim-projectionist'
 
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rake',                  { 'for': ['ruby', 'eruby'] }
 Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
-
-Plug 'mhartington/nvim-typescript',     { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
-Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
-Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-cost' }
-Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
+Plug 'tpope/vim-projectionist'
 Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'dunckr/js_alternate.vim',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 
-Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
+" Plug 'mhartington/nvim-typescript',     { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
+" Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+" Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+" Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-cost' }
+" Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
+" Plug 'dunckr/js_alternate.vim',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+
+" Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
+Plug 'TaDaa/vimade'
 call plug#end()
 
 " **********************************
@@ -144,6 +146,7 @@ set completeopt=longest,menuone,noinsert,noselect
 set backspace=indent,eol,start
 set pumheight=15
 set spellsuggest=best,8
+set signcolumn=yes
 
 " indent
 set smartindent
@@ -247,6 +250,9 @@ let g:airline#extensions#anzu#enabled = 0
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
 
+let g:vimade = {}
+let g:vimade.fadelevel = 0.7
+
 let g:gitgutter_map_keys = 0
 
 let g:spelunker_max_suggest_words = 6
@@ -307,6 +313,7 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 " ale syntax checker
 let g:importjs_disable_default_mappings = 1
 let g:ale_virtualtext_cursor   = 1
+let g:ale_virtualtext_delay    = 100
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
@@ -371,12 +378,7 @@ let g:rubycomplete_rails = 1
 let g:rubycomplete_load_gemfile = 1
 let g:rubycomplete_use_bundler = 1
 
-" completion
-call deoplete#custom#option({
-      \ 'auto_complete_delay': 5,
-      \ 'min_pattern_length': 1,
-      \ })
-let g:deoplete#enable_at_startup= 1
+" language client
 let g:LanguageClient_autoStop = 0
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
@@ -385,6 +387,14 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ }
+let g:LanguageClient_loadSettings = 1
+
+" deoplete
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 5,
+      \ 'min_pattern_length': 1,
+      \ })
+let g:deoplete#enable_at_startup= 1
 call deoplete#custom#source('LanguageClient', 'rank', 1200)
 call deoplete#custom#source('LanguageClient', 'max_abbr_width', 40)
 call deoplete#custom#source('file', 'rank', 1100)
@@ -392,6 +402,8 @@ call deoplete#custom#source('tabnine', 'rank', 1000)
 call deoplete#custom#option('max_list', 80)
 
 let g:vim_jsx_pretty_colorful_config = 1
+
+" fzf
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'down': '~25%' }
 let g:fzf_mru_relative = 1
@@ -562,12 +574,14 @@ augroup filetype-scoped-settings
   autocmd!
   autocmd FileType json syn region  jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syn region  jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
+  autocmd FileType json setlocal conceallevel=2
   autocmd FileType ruby,eruby compiler ruby
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
   autocmd Filetype gitcommit  setlocal colorcolumn=73 spell
-  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2
+  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
+  autocmd Filetype nerdtree   VimadeBufDisable
   autocmd BufEnter,BufReadPre,BufNewFile *.md
         \ setlocal conceallevel=0
   autocmd Filetype fzf
@@ -584,11 +598,11 @@ autocmd FileType vim,tex
 autocmd QuickFixCmdPost wincmd J
 autocmd! FileType fzf
 autocmd  FileType fzf
-      \  set laststatus=0 noshowmode noruler
+      \  set laststatus=0 noshowmode noruler signcolumn=no
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-let blamelineFiletypesBlacklist = ['fugitiveblame', 'help', 'qf']
-autocmd BufReadPost * if index(blamelineFiletypesBlacklist, &ft) < 0 | EnableBlameLine
+" let blamelineFiletypesBlacklist = ['fugitiveblame', 'help', 'qf']
+" autocmd BufReadPost * if index(blamelineFiletypesBlacklist, &ft) < 0 | EnableBlameLine
 
 augroup disable-syntax-for-huge-files
   autocmd!
@@ -833,12 +847,6 @@ map <leader>l $
 " treat multiline statement as multiple lines
 nnoremap j gj
 nnoremap k gk
-
-" smooth scroll
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " always focus after cursor jump
 nmap n <Plug>(anzu-n-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
