@@ -1,10 +1,10 @@
 mkdir -p ~/.config/ranger
-mkdir -p ~/.config/karabiner
 mkdir -p ~/.config/nvim
+mkdir -p ~/.config/coc
 
-ln -vsf ~/.repos/dotfiles/noplugin_vimrc ~/.noplugin_vimrc
-ln -vsf ~/.repos/dotfiles/minimal_vimrc ~/.minimal_vimrc
-ln -vsf ~/.repos/dotfiles/vimrc ~/.vimrc
+# ln -vsf ~/.repos/dotfiles/noplugin_vimrc ~/.noplugin_vimrc
+# ln -vsf ~/.repos/dotfiles/minimal_vimrc ~/.minimal_vimrc
+# ln -vsf ~/.repos/dotfiles/vimrc ~/.vimrc
 ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
 ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
 ln -vsf ~/.repos/dotfiles/gitconfig ~/.gitconfig
@@ -12,10 +12,12 @@ ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
 ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
 ln -vsf ~/.repos/dotfiles/pryrc ~/.pryrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
+ln -vsf ~/.repos/dotfiles/vim/cocSnippets ~/.config/coc/ultisnips
 
 case "$(uname -s)" in
   Darwin)
     mkdir -p ~/Library/Application\ Support/Code/User
+    mkdir -p ~/.config/karabiner
 
     ln -vsf ~/.repos/dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
     ln -vsf ~/.repos/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
@@ -27,5 +29,6 @@ case "$(uname -s)" in
   Linux)
     ln -vsf ~/.repos/dotfiles/linux/tmux.conf ~/.tmux.conf
     ln -vsf ~/.repos/dotfiles/linux/rc.conf ~/.config/ranger/rc.conf
+    ln -vsf ~/.repos/dotfiles/linux/redshift.conf ~/.config/redshift.conf
     ;;
 esac
