@@ -13,6 +13,7 @@ ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
 ln -vsf ~/.repos/dotfiles/pryrc ~/.pryrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/vim/cocSnippets ~/.config/coc/ultisnips
+ln -vsf ~/.repos/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 case "$(uname -s)" in
   Darwin)
