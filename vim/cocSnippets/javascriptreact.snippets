@@ -24,6 +24,16 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
+snippet rcla "component class" w
+class ${1} extends Component {
+  render() {
+    return (
+      ${2}
+    );
+  }
+}
+endsnippet
+
 snippet msp "mapStateToProps" w
 mapStateToProps
 endsnippet
@@ -32,18 +42,141 @@ snippet mdp "mapDispatchToProps" w
 mapDispatchToProps
 endsnippet
 
-snippet cwu "componentWillUnmount" b
-componentWillUnmount(${1}) {${2}}
+snippet cwm "componentWillMount" w
+componentWillMount(${1}) {${1}}
 endsnippet
 
-snippet cdm "componentDidMount" b
-componentDidMount(${1}) {${2}}
+snippet cdm "componentDidMount" w
+componentDidMount(${1}) {${1}}
 endsnippet
 
-snippet cdu "componentDidUpdate" b
-componentDidUpdate(${1}) {${2}}
+snippet cwr "componentWillReceiveProps" w
+componentWillReceiveProps(${1}) {${1}}
 endsnippet
 
-snippet spt "static propTypes" b
-static propTypes = {${1}}
+snippet scu "shouldComponentUpdate" w
+shouldComponentUpdate(${1}) {${1}}
+endsnippet
+
+snippet cwup "componnetWillUpdate" w
+componnetWillUpdate(${1}) {${1}}
+endsnippet
+
+snippet cdup "componentDidUpdate" w
+componentDidUpdate(${1}) {${1}}
+endsnippet
+
+snippet cwun "componentWillUnmount" w
+componentWillUnmount(${1}) {${1}}
+endsnippet
+
+snippet ren "render" w
+render() {
+  ${1}
+  return (
+    <div>
+      ${2}
+    </div>
+  )
+}
+endsnippet
+
+snippet spt "static propTypes" w
+static propTypes = {
+  ${1}
+}
+endsnippet
+
+snippet sdp "static defaultProps" w
+static defaultProps = {
+  ${1}
+}
+endsnippet
+
+snippet pt "PropTypes" w
+PropTypes.
+endsnippet
+
+snippet pto "PropTypes.shape({})" w
+PropTypes.shape({})
+endsnippet
+
+snippet ptor "PropTypes.shape({}).isRequired" w
+PropTypes.shape({}).isRequired,
+endsnippet
+
+snippet pta "PropTypes.arrayOf({})" w
+PropTypes.arrayOf({${1}})${2}
+endsnippet
+
+snippet ptar "PropTypes.arrayOr({}).isRequired" w
+PropTypes.arrayOf({${1}}).isRequired,${2}
+endsnippet
+
+snippet ptf "PropTypes.func" w
+PropTypes.func
+endsnippet
+
+snippet ptfr "PropTypes.func.isRequired" w
+PropTypes.func.isRequired,
+endsnippet
+
+snippet ptst "PropTypes.string" w
+PropTypes.string
+endsnippet
+
+snippet ptstr "PropTypes.string.isRequired" w
+PropTypes.string.isRequired,
+endsnippet
+
+snippet ptb "PropTypes.bool" w
+PropTypes.bool
+endsnippet
+
+snippet ptbr "PropTypes.bool.isRequired" w
+PropTypes.bool.isRequired,
+endsnippet
+
+snippet ptn "PropTypes.number" w
+PropTypes.number
+endsnippet
+
+snippet ptnr "PropTypes.number.isRequired" w
+PropTypes.number.isRequired,
+endsnippet
+
+snippet ptsy "PropTypes.symbol" w
+PropTypes.symbol
+endsnippet
+
+snippet ptsyr "PropTypes.symbol.isRequired" w
+PropTypes.symbol.isRequired,
+endsnippet
+
+snippet ptsh "PropTypes.shape" w
+PropTypes.shape({${1}})${2}
+endsnippet
+
+snippet ptshr "PropTypes.shape.isRequired" w
+PropTypes.shape({${1}}).isRequired,${2}
+endsnippet
+
+snippet ptc "PropTypes.node" w
+PropTypes.node
+endsnippet
+
+snippet ptcr "PropTypes.node.isRequired" w
+PropTypes.node.isRequired
+endsnippet
+
+snippet tss "this.setState" w
+this.setState({${1}})
+endsnippet
+
+snippet tssp "setState prevState" w
+this.setState((prevState) => ${1})
+endsnippet
+
+snippet tsspp "setState full" w
+this.setState((prevState, prevProps) => ${1})
 endsnippet
