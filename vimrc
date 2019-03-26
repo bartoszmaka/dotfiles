@@ -30,6 +30,7 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
 Plug 'tveskag/nvim-blame-line'
+Plug 'RRethy/vim-hexokinase'
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -310,10 +311,9 @@ let g:mta_filetypes = {
     \}
 
 let g:AutoClosePreserveDotReg = 0
-" endwise
-" let g:endwise_no_mappings = 1
-" imap <expr> <silent> <CR> pumvisible() ? "<C-y>" : "<C-g>u<CR><Plug>DiscretionaryEnd"
-" imap <CR> <C-R>=pumvisible() ? deoplete#mappings#close_popup() : "\n"<CR>
+
+" hexokinase
+let g:Hexokinase_ftAutoload = ['*']
 
 " autopairs
 let g:AutoPairsShortcutToggle     = ''
@@ -367,17 +367,7 @@ inoremap <expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 let g:coc_snippet_next = '<tab>'
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 inoremap <expr> <c-space> coc#refresh()
 
@@ -394,14 +384,6 @@ nmap gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
 nnoremap K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -447,40 +429,6 @@ vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
 imap <C-e> <Plug>(coc-snippets-expand-jump)
-
-
-
-
-" " languageclient
-" let g:LanguageClient_autoStop = 0
-" let g:LanguageClient_diagnosticsEnable = 0
-" let g:LanguageClient_serverCommands = {
-"     \ 'ruby': ['solargraph', 'stdio'],
-"     \ 'javascript': ['javascript-typescript-stdio'],
-"     \ 'javascript.jsx': ['javascript-typescript-stdio'],
-"     \ 'python': ['/usr/local/bin/pyls'],
-"     \ }
-" let g:LanguageClient_loadSettings = 1
-
-" " deoplete
-" call deoplete#custom#option({
-"       \ 'auto_complete_delay': 5,
-"       \ 'min_pattern_length': 1,
-"       \ })
-" let g:deoplete#enable_at_startup= 1
-" call deoplete#custom#source('LanguageClient', 'rank', 1200)
-" call deoplete#custom#source('LanguageClient', 'max_abbr_width', 40)
-" call deoplete#custom#source('file', 'rank', 1100)
-" call deoplete#custom#source('tabnine', 'rank', 1000)
-" call deoplete#custom#option('max_list', 80)
-
-" neosnippet
-" let g:neosnippet#disable_runtime_snippets = {
-"       \   '_' : 1,
-"       \ }
-" let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
-" let g:neosnippet#scope_aliases = {}
-" let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
 
 " ale
 let g:ale_virtualtext_cursor   = 1
@@ -531,6 +479,19 @@ let g:fzf_colors = {
 " **********************************
 
 " custom functions
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 function! RemoveTernPortIfExists()
   if !empty(glob(join([getcwd(), ".tern-port"], "/")))
     echo ".tern-port exists, deleting with result:"
@@ -550,22 +511,16 @@ function! AltCommand(path, vim_command)
   let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
   if empty(l:alternate)
     call A
-    " echo "No alternate file for " . a:path . " exists!"
   else
     exec a:vim_command . " " . l:alternate
   endif
 endfunction
 
-" https://github.com/Shougo/deoplete.nvim/issues/162
 function! Multiple_cursors_before()
-  " call deoplete#disable()
-  " let b:deoplete_disable_auto_complete = 1
   let g:matchup_matchparen_enabled = 0
 endfunction
 
 function! Multiple_cursors_after()
-  " call deoplete#enable()
-  " let b:deoplete_disable_auto_complete = 0
   let g:matchup_matchparen_enabled = 1
 endfunction
 
