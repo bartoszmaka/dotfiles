@@ -1,3 +1,7 @@
 {
-  "diagnostic.displayByAle": true
+  "diagnostic.displayByAle": true,
+  "snippets.extends": {
+    "javascriptreact": ["javascript", "html"],
+    "typescript": ["javascript"]
+  }
 }
