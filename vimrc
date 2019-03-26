@@ -55,7 +55,7 @@ Plug 'tpope/vim-endwise'                                           " auto insert
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 
 Plug 'w0rp/ale'                                                    " async syntax checking
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
@@ -121,6 +121,9 @@ set backspace=indent,eol,start
 set pumheight=15
 set spellsuggest=best,8
 set signcolumn=yes
+set cmdheight=1
+set updatetime=300
+set shortmess+=c
 
 " indent
 set smartindent
@@ -355,23 +358,18 @@ let g:splitjoin_ruby_hanging_args = 0
 let g:multi_cursor_exit_from_insert_mode = 0
 
 " coc
-set hidden
-set cmdheight=1
-set updatetime=300
-set shortmess+=c
-set signcolumn=yes
-inoremap <expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-let g:coc_snippet_next = '<tab>'
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-e> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <expr><C-e>
+      \ coc#expandableOrJumpable() ?
+      \ "\<Plug>(coc-snippets-expand-jump)" :
+      \ "\<C-y>,"
 
 inoremap <expr> <c-space> coc#refresh()
-
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 nmap [c <Plug>(coc-diagnostic-prev)
 nmap ]c <Plug>(coc-diagnostic-next)
@@ -423,12 +421,6 @@ nnoremap <C-l>s  :<C-u>CocList -I symbols<cr>
 nnoremap <C-l>j  :<C-u>CocNext<CR>
 nnoremap <C-l>k  :<C-u>CocPrev<CR>
 nnoremap <C-l>p  :<C-u>CocListResume<CR>
-"
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-e> <Plug>(coc-snippets-select)
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-imap <C-e> <Plug>(coc-snippets-expand-jump)
 
 " ale
 let g:ale_virtualtext_cursor   = 1
