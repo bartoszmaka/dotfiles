@@ -53,25 +53,6 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 
-" " completion engine
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-
-" " completion sources
-" Plug 'Shougo/neosnippet'
-" Plug 'wellle/tmux-complete.vim'
-" Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
-" Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
-" Plug 'tbodt/deoplete-tabnine',          { 'do': './install.sh' }
-" Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
-" Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
-
-" Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
 " Plug 'mattn/emmet-vim'
 
@@ -85,19 +66,12 @@ Plug 'tpope/vim-projectionist'
 Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-" Plug 'mhartington/nvim-typescript',     { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
-" Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'] }
-" Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-" Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-cost' }
-" Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
-" Plug 'dunckr/js_alternate.vim',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-
-" Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
 Plug 'TaDaa/vimade'
 
 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'Shougo/neosnippet'
 call plug#end()
 
 " **********************************
@@ -459,25 +433,20 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Using CocList
-nnoremap <c-l>a  :<C-u>CocList diagnostics<cr>
-nnoremap <c-l>e  :<C-u>CocList extensions<cr>
-nnoremap <c-l>c  :<C-u>CocList commands<cr>
-nnoremap <c-l>o  :<C-u>CocList outline<cr>
-nnoremap <c-l>s  :<C-u>CocList -I symbols<cr>
-nnoremap <c-l>j  :<C-u>CocNext<CR>
-nnoremap <c-l>k  :<C-u>CocPrev<CR>
-nnoremap <c-l>p  :<C-u>CocListResume<CR>
+nnoremap <C-l>a  :<C-u>CocList diagnostics<cr>
+nnoremap <C-l>e  :<C-u>CocList extensions<cr>
+nnoremap <C-l>c  :<C-u>CocList commands<cr>
+nnoremap <C-l>o  :<C-u>CocList outline<cr>
+nnoremap <C-l>s  :<C-u>CocList -I symbols<cr>
+nnoremap <C-l>j  :<C-u>CocNext<CR>
+nnoremap <C-l>k  :<C-u>CocPrev<CR>
+nnoremap <C-l>p  :<C-u>CocListResume<CR>
 "
-" Use <C-l> for trigger snippet expand.
 imap <C-l> <Plug>(coc-snippets-expand)
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-j>'
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+imap <C-e> <Plug>(coc-snippets-expand-jump)
 
 
 
@@ -505,7 +474,7 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " call deoplete#custom#source('tabnine', 'rank', 1000)
 " call deoplete#custom#option('max_list', 80)
 
-" " neosnippet
+" neosnippet
 " let g:neosnippet#disable_runtime_snippets = {
 "       \   '_' : 1,
 "       \ }
@@ -862,6 +831,7 @@ cabbrev Q   q
 cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
+" command snippets CocCommand snippets.editSnippets
 
 " disable entering Ex-mode with Q (accessible through :<C-f>)
 nnoremap Q <NOP>

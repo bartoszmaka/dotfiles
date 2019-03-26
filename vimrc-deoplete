@@ -53,8 +53,27 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 
+" completion engine
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim',          { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'                                      " autocompletion engine
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+" completion sources
+Plug 'Shougo/neosnippet'
+Plug 'wellle/tmux-complete.vim'
+Plug 'Shougo/neoinclude.vim'                                       " extends deoplete
+Plug 'carlitux/deoplete-ternjs',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g tern' }
+Plug 'tbodt/deoplete-tabnine',          { 'do': './install.sh' }
+Plug 'autozimu/LanguageClient-neovim',  { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'Shougo/neco-vim',                 { 'for': ['vim'] }
+
+Plug 'ludovicchabant/vim-gutentags'                                " ctags engine
 Plug 'w0rp/ale'                                                    " async syntax checking
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
@@ -65,13 +84,17 @@ Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-projectionist'
 Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 
+" Plug 'mhartington/nvim-typescript',     { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'], 'do': './install.sh' }
+" Plug 'HerringtonDarkholme/yats.vim',    { 'for': ['typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+" Plug 'pangloss/vim-javascript',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+" Plug 'yardnsm/vim-import-cost',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-cost' }
+" Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
+" Plug 'dunckr/js_alternate.vim',         { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+
+" Plug 'rhysd/vim-crystal',               { 'for': ['crystal'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
 Plug 'TaDaa/vimade'
-
-
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-" Plug 'Shougo/neosnippet'
 call plug#end()
 
 " **********************************
@@ -309,12 +332,6 @@ let g:mta_filetypes = {
     \ 'html.handlebars' : 1,
     \}
 
-let g:AutoClosePreserveDotReg = 0
-" endwise
-" let g:endwise_no_mappings = 1
-" imap <expr> <silent> <CR> pumvisible() ? "<C-y>" : "<C-g>u<CR><Plug>DiscretionaryEnd"
-" imap <CR> <C-R>=pumvisible() ? deoplete#mappings#close_popup() : "\n"<CR>
-
 " autopairs
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -354,133 +371,36 @@ let g:splitjoin_ruby_hanging_args = 0
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
 
-" coc
-set hidden
-set cmdheight=1
-set updatetime=300
-set shortmess+=c
-set signcolumn=yes
-inoremap <expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? coc#rpc#request('doKeymap', ['snippets-expand-jump','']) :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" languageclient
+let g:LanguageClient_autoStop = 0
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['solargraph', 'stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+let g:LanguageClient_loadSettings = 1
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <expr> <c-space> coc#refresh()
-
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-nmap [c <Plug>(coc-diagnostic-prev)
-nmap ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap gd <Plug>(coc-definition)
-nmap gy <Plug>(coc-type-definition)
-nmap gi <Plug>(coc-implementation)
-nmap gr <Plug>(coc-references)
-
-" Use K for show documentation in preview window
-nnoremap K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Using CocList
-nnoremap <C-l>a  :<C-u>CocList diagnostics<cr>
-nnoremap <C-l>e  :<C-u>CocList extensions<cr>
-nnoremap <C-l>c  :<C-u>CocList commands<cr>
-nnoremap <C-l>o  :<C-u>CocList outline<cr>
-nnoremap <C-l>s  :<C-u>CocList -I symbols<cr>
-nnoremap <C-l>j  :<C-u>CocNext<CR>
-nnoremap <C-l>k  :<C-u>CocPrev<CR>
-nnoremap <C-l>p  :<C-u>CocListResume<CR>
-"
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-e> <Plug>(coc-snippets-select)
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-imap <C-e> <Plug>(coc-snippets-expand-jump)
-
-
-
-
-" " languageclient
-" let g:LanguageClient_autoStop = 0
-" let g:LanguageClient_diagnosticsEnable = 0
-" let g:LanguageClient_serverCommands = {
-"     \ 'ruby': ['solargraph', 'stdio'],
-"     \ 'javascript': ['javascript-typescript-stdio'],
-"     \ 'javascript.jsx': ['javascript-typescript-stdio'],
-"     \ 'python': ['/usr/local/bin/pyls'],
-"     \ }
-" let g:LanguageClient_loadSettings = 1
-
-" " deoplete
-" call deoplete#custom#option({
-"       \ 'auto_complete_delay': 5,
-"       \ 'min_pattern_length': 1,
-"       \ })
-" let g:deoplete#enable_at_startup= 1
-" call deoplete#custom#source('LanguageClient', 'rank', 1200)
-" call deoplete#custom#source('LanguageClient', 'max_abbr_width', 40)
-" call deoplete#custom#source('file', 'rank', 1100)
-" call deoplete#custom#source('tabnine', 'rank', 1000)
-" call deoplete#custom#option('max_list', 80)
+" deoplete
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 5,
+      \ 'min_pattern_length': 1,
+      \ })
+let g:deoplete#enable_at_startup= 1
+call deoplete#custom#source('LanguageClient', 'rank', 1200)
+call deoplete#custom#source('LanguageClient', 'max_abbr_width', 40)
+call deoplete#custom#source('file', 'rank', 1100)
+call deoplete#custom#source('tabnine', 'rank', 1000)
+call deoplete#custom#option('max_list', 80)
 
 " neosnippet
-" let g:neosnippet#disable_runtime_snippets = {
-"       \   '_' : 1,
-"       \ }
-" let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
-" let g:neosnippet#scope_aliases = {}
-" let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
+let g:neosnippet#disable_runtime_snippets = {
+      \   '_' : 1,
+      \ }
+let g:neosnippet#snippets_directory='~/.repos/dotfiles/vim/vimsnippets'
+let g:neosnippet#scope_aliases = {}
+let g:neosnippet#scope_aliases['javascript'] = 'html,javascript,javascript.jsx'
 
 " ale
 let g:ale_virtualtext_cursor   = 1
@@ -558,14 +478,14 @@ endfunction
 
 " https://github.com/Shougo/deoplete.nvim/issues/162
 function! Multiple_cursors_before()
-  " call deoplete#disable()
-  " let b:deoplete_disable_auto_complete = 1
+  call deoplete#disable()
+  let b:deoplete_disable_auto_complete = 1
   let g:matchup_matchparen_enabled = 0
 endfunction
 
 function! Multiple_cursors_after()
-  " call deoplete#enable()
-  " let b:deoplete_disable_auto_complete = 0
+  call deoplete#enable()
+  let b:deoplete_disable_auto_complete = 0
   let g:matchup_matchparen_enabled = 1
 endfunction
 
@@ -620,8 +540,8 @@ augroup filetype-scoped-settings
   autocmd Filetype nerdtree   VimadeBufDisable
   autocmd BufEnter,BufReadPre,BufNewFile *.md
         \ setlocal conceallevel=0
-  " autocmd Filetype fzf
-  "       \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
+  autocmd Filetype fzf
+        \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
   autocmd CursorHold *.yml YamlGetFullPath
 augroup END
 
@@ -700,20 +620,20 @@ map <leader>n <Plug>(easymotion-bd-n)
 map <leader>N <Plug>(easymotion-bd-n)
 nmap s        <Plug>(easymotion-overwin-f2)
 
-" " neosnippet
-" imap <expr><c-e>
-"   \ neosnippet#expandable_or_jumpable() ?
-"   \ "\<Plug>(neosnippet_expand_or_jump)" :
-"   \ "\<C-y>,"
+" neosnippet
+imap <expr><c-e>
+  \ neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)" :
+  \ "\<C-y>,"
 
-" " languageclient
-" nnoremap K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <C-m><C-m> :call LanguageClient_contextMenu()<CR>
-" nnoremap <C-m><C-d> :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
+" languageclient
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <C-m><C-m> :call LanguageClient_contextMenu()<CR>
+nnoremap <C-m><C-d> :call LanguageClient#textDocument_definition()<CR>
+nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
 
-" inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 
 " tabular
 vnoremap <C-m><C-t> :Tabularize /
@@ -831,7 +751,6 @@ cabbrev Q   q
 cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
-" command snippets CocCommand snippets.editSnippets
 
 " disable entering Ex-mode with Q (accessible through :<C-f>)
 nnoremap Q <NOP>
