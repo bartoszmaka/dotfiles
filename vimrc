@@ -63,8 +63,8 @@ Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rake',                  { 'for': ['ruby', 'eruby'] }
 Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
-Plug 'tpope/vim-projectionist'
 Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
+Plug 'tpope/vim-projectionist'
 
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
@@ -357,6 +357,22 @@ let g:splitjoin_ruby_hanging_args = 0
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
 
+" projectionist
+let g:projectionist_heuristics = {
+      \   '*': {
+      \     '*.js': {
+      \       'alternate': [
+      \         '{dirname}/__tests__/{basename}.test.js',
+      \       ],
+      \       'type': 'source'
+      \     },
+      \     '**/__tests__/*.test.js': {
+      \       'alternate': '{dirname}/{basename}.js',
+      \       'type': 'test'
+      \     },
+      \   }
+      \ }
+
 " coc
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
@@ -377,7 +393,7 @@ nmap ]c <Plug>(coc-diagnostic-next)
 " Remap keys for gotos
 nmap gd <Plug>(coc-definition)
 nmap gy <Plug>(coc-type-definition)
-nmap gi <Plug>(coc-implementation)
+nmap gj <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
@@ -387,7 +403,7 @@ nnoremap K :call <SID>show_documentation()<CR>
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+" nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
 vmap <leader>f  <Plug>(coc-format-selected)
@@ -484,22 +500,13 @@ function! s:show_documentation()
   endif
 endfunction
 
-function! RemoveTernPortIfExists()
-  if !empty(glob(join([getcwd(), ".tern-port"], "/")))
-    echo ".tern-port exists, deleting with result:"
-    echo delete(fnameescape(join([getcwd(), ".tern-port"], "/"))) == 0 ? "Success" : "Fail"
-  endif
-endfunction
-autocmd VimEnter * :call RemoveTernPortIfExists()
-
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
   copen
   cc
 endfunction
 
-" Go to alternative file
-function! AltCommand(path, vim_command)
+function! GoToAlternativeFile(path, vim_command)
   let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
   if empty(l:alternate)
     call A
@@ -514,34 +521,6 @@ endfunction
 
 function! Multiple_cursors_after()
   let g:matchup_matchparen_enabled = 1
-endfunction
-
-function! TweakedDiffPut()
-  :diffput 1
-  :diffupdate
-endfunction
-
-function! GoToOrCreateRightWindow()
-  execute "only"
-  execute "normal! \<C-w>v"
-endfunction
-
-function! ToggleScrollBind()
-  if exists("g:scroll_bind_endabled") && g:scroll_bind_endabled
-    let g:scroll_bind_endabled = 0
-    :set noscrollbind
-    :wincmd w
-    :set noscrollbind
-    :q!
-    :wincmd w
-  else
-    let g:scroll_bind_endabled = 1
-    :vs
-    call feedkeys("\<C-f>\<C-e>\<C-e>", 'tx')
-    :set scrollbind
-    :wincmd w
-    :set scrollbind
-  endif
 endfunction
 
 function! DisableAllHeavyStuff()
@@ -567,8 +546,8 @@ augroup filetype-scoped-settings
   autocmd Filetype nerdtree   VimadeBufDisable
   autocmd BufEnter,BufReadPre,BufNewFile *.md
         \ setlocal conceallevel=0
-  " autocmd Filetype fzf
-  "       \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
+  autocmd Filetype fzf
+        \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
   autocmd CursorHold *.yml YamlGetFullPath
 augroup END
 
@@ -647,21 +626,6 @@ map <leader>n <Plug>(easymotion-bd-n)
 map <leader>N <Plug>(easymotion-bd-n)
 nmap s        <Plug>(easymotion-overwin-f2)
 
-" " neosnippet
-" imap <expr><c-e>
-"   \ neosnippet#expandable_or_jumpable() ?
-"   \ "\<Plug>(neosnippet_expand_or_jump)" :
-"   \ "\<C-y>,"
-
-" " languageclient
-" nnoremap K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <C-m><C-m> :call LanguageClient_contextMenu()<CR>
-" nnoremap <C-m><C-d> :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <C-m><C-r> :call LanguageClient#textDocument_rename()<CR>
-
-" inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-
 " tabular
 vnoremap <C-m><C-t> :Tabularize /
 
@@ -679,8 +643,8 @@ nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 
 " Find the alternate file for the current path and open it (basically go to test file)
-nnoremap <C-g><C-t> :w<cr>:call AltCommand(expand('%'), ':e')<cr>
-nnoremap <leader>to :w<cr>:call AltCommand(expand('%'), ':e')<cr>
+nnoremap <C-g><C-t> :w<cr>:call GoToAlternativeFile(expand('%'), ':e')<cr>
+nnoremap <leader>to :w<cr>:call GoToAlternativeFile(expand('%'), ':e')<cr>
 
 " workspace navigation
 noremap <M-}>               :bnext<CR>
@@ -778,7 +742,10 @@ cabbrev Q   q
 cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
-" command snippets CocCommand snippets.editSnippets
+" cabbrev E   e
+" " command snippets CocCommand snippets.editSnippets
+" command! -nargs=0 Snippets CocCommand snippets.editSnippets
+" cabbrev snippets Snippets
 
 " disable entering Ex-mode with Q (accessible through :<C-f>)
 nnoremap Q <NOP>
