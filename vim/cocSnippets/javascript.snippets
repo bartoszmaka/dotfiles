@@ -36,15 +36,21 @@ describe('${1}', () => {
 });
 endsnippet
 
+snippet desc  "jest describe" w
+describe('${1}', () => {
+  ${2}
+});
+endsnippet
+
 snippet con "desctucture object" w
 const { ${1} } = ${2}
 endsnippet
 
-snippet re "require()" head
+snippet re "require()" w
 const ${1} = require('${2}');
 endsnippet
 
-snippet imp "import module from " head
+snippet imp "import module from " w
 import ${1:moduleName} from '${0:module}';
 endsnippet
 
