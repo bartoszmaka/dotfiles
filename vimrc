@@ -25,54 +25,46 @@ Plug 'airblade/vim-gitgutter'                                      " shows git s
 Plug 'dominikduda/vim_current_word', { 'branch': 'development' }   " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
+
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
-Plug 'tveskag/nvim-blame-line'
-Plug 'RRethy/vim-hexokinase'
+Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
+Plug 'liuchengxu/vista.vim'
 
+Plug 'tveskag/nvim-blame-line'                                     " display blame as virtualtext
+Plug 'RRethy/vim-hexokinase'                                       " display colors as virtualtext rectangle
+Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
+Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
+Plug 'alvan/vim-closetag'                                          " autoclose html tag
+
+Plug 'TaDaa/vimade'                                                " dim unfocused windows
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
-Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
-Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
-Plug 'tpope/vim-abolish'
-Plug 'osyo-manga/vim-anzu'
-Plug 'ap/vim-css-color'
-Plug 'vim-scripts/copypath.vim'
+" Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
+Plug 'tpope/vim-abolish'                                           " toggle camelcase, snakecase, etc
+Plug 'osyo-manga/vim-anzu'                                         " display amount of search matches
+Plug 'vim-scripts/copypath.vim'                                    " copy path command
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bartoszmaka/fzf-mru.vim'
+Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 
-Plug 'dyng/ctrlsf.vim'                                             " search projectwide but with different plugin :D
-Plug 'mhinz/vim-grepper'                                           " search projectwide
-
-Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
-Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
-Plug 'alvan/vim-closetag'                                          " autoclose html tag
+Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
+Plug 'tpope/vim-projectionist'
 
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
 
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-
-Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
-Plug 'tpope/vim-rails',                 { 'for': ['ruby', 'eruby'] }
-Plug 'tpope/vim-rake',                  { 'for': ['ruby', 'eruby'] }
-Plug 'vim-ruby/vim-ruby',               { 'for': ['ruby', 'eruby'] }
-Plug 'moll/vim-node',                   { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'tpope/vim-projectionist'
-
 Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
 Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
-Plug 'TaDaa/vimade'
 
-
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-" Plug 'Shougo/neosnippet'
+Plug 'neoclide/coc.nvim',               { 'tag': '*', 'do': { -> coc#util#install() } }
 call plug#end()
 
 " **********************************
@@ -174,6 +166,10 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+augroup overrideColorscheme
+  autocmd!
+  autocmd ColorScheme * call onedark#extend_highlight("DiffChange", { "gui": "none" })
+augroup END
 colorscheme onedark
 let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
@@ -183,7 +179,8 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 let g:loaded_matchit = 1
 
 " airline
-set statusline+=%{gutentags#statusline()}
+" set statusline+=%{gutentags#statusline()}
+set statusline+=%{NearestMethodOrFunction()}
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -194,7 +191,7 @@ let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
 let g:airline#extensions#branch#displayed_head_limit = 15
-let g:airline#extensions#tagbar#enabled              = 1
+" let g:airline#extensions#tagbar#enabled              = 1
 let g:airline#extensions#hunks#enabled               = 1
 let g:airline#extensions#tabline#enabled             = 1
 let g:airline#extensions#tabline#show_tabs           = 0
@@ -225,7 +222,7 @@ let g:airline_mode_map = {
 
 " vimade
 let g:vimade = {}
-let g:vimade.fadelevel = 0.7
+let g:vimade.fadelevel = 0.8
 
 " gitgutter
 let g:gitgutter_map_keys = 0
@@ -254,21 +251,6 @@ let g:NERDTreeColorMapCustom = {
 
 " mundo
 let g:mundo_right = 1
-
-" tagbar
-let g:tagbar_type_ruby = {
-    \ 'kinds'      : ['m:modules',
-                    \ 'c:classes',
-                    \ 'C:constants',
-                    \ 'F:singleton methods',
-                    \ 'f:methods',
-                    \ 'a:aliases'],
-    \ 'kind2scope' : { 'c' : 'class',
-                     \ 'm' : 'class' },
-    \ 'scope2kind' : { 'class' : 'c' },
-    \ 'ctagsbin'   : 'ripper-tags',
-    \ 'ctagsargs'  : ['-f', '-']
-    \ }
 
 " guntentags
 autocmd BufWritePost *.rb silent exec "!ripper-tags -R --exclude=vendor --tag-file=./ripper-tags"
@@ -341,13 +323,6 @@ let g:matchup_transmute_enabled             = 0
 " polyglot
 let g:polyglot_disabled = ['jsx']
 
-" ruby
-let g:rubycomplete_buffer_loading    = 1
-let g:rubycomplete_classes_in_global = 1
-let g:rubycomplete_rails             = 1
-let g:rubycomplete_load_gemfile      = 1
-let g:rubycomplete_use_bundler       = 1
-
 " splitjoin
 let g:splitjoin_split_mapping     = ''
 let g:splitjoin_join_mapping      = ''
@@ -357,6 +332,9 @@ let g:splitjoin_ruby_hanging_args = 0
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
 
+" ctrlsf
+let g:ctrlsf_context = '-B 2 -A 2'
+"
 " projectionist
 let g:projectionist_heuristics = {
       \   '*': {
@@ -373,70 +351,18 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
-" coc
-inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-e> <Plug>(coc-snippets-select)
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-imap <expr><C-e>
-      \ coc#expandableOrJumpable() ?
-      \ "\<Plug>(coc-snippets-expand-jump)" :
-      \ "\<C-y>,"
-
-inoremap <expr> <c-space> coc#refresh()
-
-nmap [c <Plug>(coc-diagnostic-prev)
-nmap ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap gd <Plug>(coc-definition)
-nmap gy <Plug>(coc-type-definition)
-nmap gj <Plug>(coc-implementation)
-nmap gr <Plug>(coc-references)
-
-" Use K for show documentation in preview window
-nnoremap K :call <SID>show_documentation()<CR>
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-" nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Using CocList
-nnoremap <C-l>a  :<C-u>CocList diagnostics<cr>
-nnoremap <C-l>e  :<C-u>CocList extensions<cr>
-nnoremap <C-l>c  :<C-u>CocList commands<cr>
-nnoremap <C-l>o  :<C-u>CocList outline<cr>
-nnoremap <C-l>s  :<C-u>CocList -I symbols<cr>
-nnoremap <C-l>j  :<C-u>CocNext<CR>
-nnoremap <C-l>k  :<C-u>CocPrev<CR>
-nnoremap <C-l>p  :<C-u>CocListResume<CR>
+" vista
+let g:vista_sidebar_position              = 'vertical botright'
+let g:vista_sidebar_width                 = 40
+let g:vista_echo_cursor                   = 1
+let g:vista_cursor_delay                  = 400
+let g:vista_close_on_jump                 = 0
+let g:vista_stay_on_open                  = 1
+let g:vista_blink                         = [1, 200]
+let g:vista_icon_indent                   = ["▸ ", ""]
+let g:vista_default_executive             = 'coc'
+let g:vista_finder_alternative_executives = ['ctags']
+let g:vista_fzf_preview                   = ['right:50%']
 
 " ale
 let g:ale_virtualtext_cursor   = 1
@@ -487,6 +413,10 @@ let g:fzf_colors = {
 " **********************************
 
 " custom functions
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -537,10 +467,6 @@ augroup filetype-scoped-settings
   autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
   autocmd FileType json setlocal conceallevel=2
-  autocmd FileType ruby,eruby compiler ruby
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
   autocmd Filetype gitcommit  setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
   autocmd Filetype nerdtree   VimadeBufDisable
@@ -601,9 +527,41 @@ augroup color-scheme-tweaks
 
   highlight Comment          gui=italic,bold
 augroup END
+
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 " **********************************
 
 " Plugin related keymaps
+" coc
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+vmap <C-e> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <expr><C-e>
+      \ coc#expandableOrJumpable() ?
+      \ "\<Plug>(coc-snippets-expand-jump)" :
+      \ "\<C-y>,"
+inoremap <expr> <c-space> coc#refresh()
+
+nnoremap K :call <SID>show_documentation()<CR>
+
+nmap gd <Plug>(coc-definition)
+nmap gy <Plug>(coc-type-definition)
+nmap gj <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
+
+nmap <C-l><C-r> <Plug>(coc-rename)
+vmap <C-l><C-f> <Plug>(coc-format-selected)
+nmap <C-l><C-f> <Plug>(coc-format-selected)
+
 nnoremap <leader>a :A<CR>
 nnoremap <leader>A :call GoToOrCreateRightWindow()<CR>:A<CR>
 nnoremap <leader>S :call ToggleScrollBind()<CR>
@@ -626,7 +584,6 @@ map <leader>n <Plug>(easymotion-bd-n)
 map <leader>N <Plug>(easymotion-bd-n)
 nmap s        <Plug>(easymotion-overwin-f2)
 
-" tabular
 vnoremap <C-m><C-t> :Tabularize /
 
 vnoremap <C-m><C-s> :sort<CR>
@@ -635,10 +592,10 @@ vnoremap <C-m><C-s> :sort<CR>
 let g:winresizer_start_key          = '<C-w>e'
 let g:maximizer_default_mapping_key = '<C-w>m'
 nnoremap <C-k><C-u> :MundoToggle<CR>
-nnoremap <C-k><C-f> :NERDTreeFind<CR>zz
+nnoremap <C-k><C-d> :NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
-nnoremap <C-k><C-s> :CtrlSFToggle<CR>
-nnoremap <C-k><C-v> :TagbarToggle<CR>
+nnoremap <C-k><C-f> :CtrlSFToggle<CR>
+nnoremap <C-k><C-v> :Vista!!<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 
@@ -652,6 +609,7 @@ noremap <M-{>               :bprevious<CR>
 noremap <leader>]           :bnext<CR>
 noremap <leader>[           :bprevious<CR>
 nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>
 noremap <leader><space>!    :bdelete!<CR>
 
 " airline
@@ -683,12 +641,12 @@ let g:fzf_action = {
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'}
 
-" grepper, ctrlsf
-vmap <leader>F         <Plug>CtrlSFVwordPath
-nnoremap <leader>f         :Grepper<CR>
-nnoremap <leader>F         :CtrlSF 
-nnoremap <leader>*         :Grepper -tool ag -highlight -cword -noprompt<CR>
-nnoremap <leader><leader>* :Grepper -tool ag -highlight -cword -noprompt -side<CR>
+" ctrlsf
+nmap <leader>f <Plug>CtrlSFPrompt
+vmap <leader>f <Plug>CtrlSFVwordPath
+vmap <leader>F <Plug>CtrlSFVwordExec
+nmap <leader>F <Plug>CtrlSFCwordPath
+nmap <leader>G <Plug>CtrlSFPwordPath
 
 " ale
 nnoremap <C-m><C-f> :ALEFix<CR>
