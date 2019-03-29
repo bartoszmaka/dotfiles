@@ -56,6 +56,7 @@ Plug 'dyng/ctrlsf.vim'                                             " search proj
 
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-projectionist'
+Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
 
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'mattn/emmet-vim'
@@ -364,6 +365,9 @@ let g:vista_default_executive             = 'coc'
 let g:vista_finder_alternative_executives = ['ctags']
 let g:vista_fzf_preview                   = ['right:50%']
 
+" importjs
+let g:importjs_disable_default_mappings = 1
+
 " ale
 let g:ale_virtualtext_cursor   = 1
 let g:ale_virtualtext_delay    = 100
@@ -464,6 +468,7 @@ endfunction
 " augroups
 augroup filetype-scoped-settings
   autocmd!
+  autocmd BufNewFile,BufRead .eslintrc set filetype=json
   autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
   autocmd FileType json setlocal conceallevel=2
@@ -561,6 +566,7 @@ nmap gr <Plug>(coc-references)
 nmap <C-l><C-r> <Plug>(coc-rename)
 vmap <C-l><C-f> <Plug>(coc-format-selected)
 nmap <C-l><C-f> <Plug>(coc-format-selected)
+nmap <C-l><C-a> :CocCommand<CR>
 
 nnoremap <leader>a :A<CR>
 nnoremap <leader>A :call GoToOrCreateRightWindow()<CR>:A<CR>
