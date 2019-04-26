@@ -50,8 +50,10 @@ alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
 
 alias -g F='| fzf --exact'
-alias -g C='| column -t -s " "'
+alias -g C='| cat'
+alias -g H='| head'
 alias -g G!='| grep -v'
+alias -g COL='| column -t -s " "'
 
 alias bers="bundle exec rails server"
 alias berc="bundle exec rails console"
