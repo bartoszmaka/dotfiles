@@ -23,6 +23,23 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet switch "switch statement" w
+switch (${1}) {
+  case ${2}:
+}
+endsnippet
+
+snippet if "if statement" w
+if (${1}) {
+  ${2}
+}
+endsnippet
+
+snippet ita "jest it async" w
+it('${1}', async () => {
+  ${2}
+});
+endsnippet
 
 snippet it "jest it" w
 it('${1}', () => {
