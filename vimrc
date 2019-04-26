@@ -31,7 +31,9 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
-Plug 'liuchengxu/vista.vim'
+Plug 'luochen1990/rainbow'
+Plug 'vim-scripts/loremipsum'
+Plug 'meain/vim-package-info', { 'do': 'npm install' }
 
 Plug 'tveskag/nvim-blame-line'                                     " display blame as virtualtext
 Plug 'RRethy/vim-hexokinase'                                       " display colors as virtualtext rectangle
@@ -39,11 +41,10 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 
-Plug 'TaDaa/vimade'                                                " dim unfocused windows
+" Plug 'TaDaa/vimade'                                                " dim unfocused windows
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
-" Plug 'majutsushi/tagbar',               { 'on': 'TagbarToggle' }   " preview file structure
 Plug 'tpope/vim-abolish'                                           " toggle camelcase, snakecase, etc
 Plug 'osyo-manga/vim-anzu'                                         " display amount of search matches
 Plug 'vim-scripts/copypath.vim'                                    " copy path command
@@ -222,8 +223,8 @@ let g:airline_mode_map = {
     \ }
 
 " vimade
-let g:vimade = {}
-let g:vimade.fadelevel = 0.8
+" let g:vimade = {}
+" let g:vimade.fadelevel = 0.8
 
 " gitgutter
 let g:gitgutter_map_keys = 0
@@ -298,6 +299,9 @@ let g:mta_filetypes = {
 
 let g:AutoClosePreserveDotReg = 0
 
+" rainbow parentheses
+let g:rainbow_active = 0
+
 " hexokinase
 let g:Hexokinase_ftAutoload = ['*']
 
@@ -335,6 +339,8 @@ let g:multi_cursor_exit_from_insert_mode = 0
 
 " ctrlsf
 let g:ctrlsf_context = '-B 2 -A 2'
+let g:ctrlsf_indent = 2
+let g:ctrlsf_winsize = '80'
 "
 " projectionist
 let g:projectionist_heuristics = {
@@ -352,18 +358,18 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
-" vista
-let g:vista_sidebar_position              = 'vertical botright'
-let g:vista_sidebar_width                 = 40
-let g:vista_echo_cursor                   = 1
-let g:vista_cursor_delay                  = 400
-let g:vista_close_on_jump                 = 0
-let g:vista_stay_on_open                  = 1
-let g:vista_blink                         = [1, 200]
-let g:vista_icon_indent                   = ["▸ ", ""]
-let g:vista_default_executive             = 'coc'
-let g:vista_finder_alternative_executives = ['ctags']
-let g:vista_fzf_preview                   = ['right:50%']
+" " vista
+" let g:vista_sidebar_position              = 'vertical botright'
+" let g:vista_sidebar_width                 = 40
+" let g:vista_echo_cursor                   = 1
+" let g:vista_cursor_delay                  = 400
+" let g:vista_close_on_jump                 = 0
+" let g:vista_stay_on_open                  = 1
+" let g:vista_blink                         = [1, 200]
+" let g:vista_icon_indent                   = ["▸ ", ""]
+" let g:vista_default_executive             = 'coc'
+" let g:vista_finder_alternative_executives = ['ctags']
+" let g:vista_fzf_preview                   = ['right:50%']
 
 " importjs
 let g:importjs_disable_default_mappings = 1
@@ -417,9 +423,9 @@ let g:fzf_colors = {
 " **********************************
 
 " custom functions
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
+" function! NearestMethodOrFunction() abort
+"   return get(b:, 'vista_nearest_method_or_function', '')
+" endfunction
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -474,7 +480,7 @@ augroup filetype-scoped-settings
   autocmd FileType json setlocal conceallevel=2
   autocmd Filetype gitcommit  setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
-  autocmd Filetype nerdtree   VimadeBufDisable
+  " autocmd Filetype nerdtree,qf   VimadeBufDisable
   autocmd BufEnter,BufReadPre,BufNewFile *.md
         \ setlocal conceallevel=0
   autocmd Filetype fzf
@@ -482,12 +488,12 @@ augroup filetype-scoped-settings
   autocmd CursorHold *.yml YamlGetFullPath
 augroup END
 
-" for some reason, those have to be outside the group
 autocmd FileType vim,tex
       \ let [
       \ b:matchup_matchparen_fallback,
       \ b:matchup_matchparen_enabled]
       \ = [0, 0]
+" for some reason, those have to be outside the group
 autocmd QuickFixCmdPost wincmd J
 autocmd! FileType fzf
 autocmd  FileType fzf
@@ -547,6 +553,9 @@ command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 " coc
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
+
 vmap <C-e> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
@@ -601,7 +610,7 @@ nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <C-k><C-d> :NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k><C-f> :CtrlSFToggle<CR>
-nnoremap <C-k><C-v> :Vista!!<CR>
+" nnoremap <C-k><C-v> :Vista!!<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 
@@ -632,15 +641,17 @@ nmap    <leader>9           <Plug>AirlineSelectTab9
 " fzf
 command! -bang -nargs=? -complete=dir FZFFilesPreview
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-nnoremap <C-p><C-p> :FZFFilesPreview<CR>
-nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>
-nnoremap <C-p><C-g> :FzfGitFiles?<CR>
-nnoremap <C-p><C-h> :FzfHistory<CR>
-nnoremap <C-p><C-b> :FzfBuffers<CR>
-nnoremap <C-p><C-f> :FzfAg<CR>
-nnoremap <C-p><C-l> :FzfLines<CR>
-nnoremap <C-p><C-v> :FzfCommits<CR>
-nnoremap <C-p><C-m> :FzfMarks<CR>
+
+" fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
+nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
+nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
+nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
+nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
+nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
+nnoremap <C-p><C-f> :FzfAg<CR>a<Bs>
+nnoremap <C-p><C-l> :FzfLines<CR>a<Bs>
+nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
+nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
 let g:fzf_action = {
       \ 'ctrl-q': function('s:build_quickfix_list'),
       \ 'ctrl-t': 'tab split',
@@ -675,6 +686,9 @@ nnoremap ]g :GitGutterNextHunk<CR>
 " **********************************
 
 " Non plugin related keymaps
+
+" exit terminal mode
+tnoremap <leader><esc> <C-\><C-n>
 
 " jump to last opened file
 nnoremap <leader>` :e#<CR>
