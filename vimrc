@@ -228,6 +228,12 @@ let g:airline_mode_map = {
 
 " gitgutter
 let g:gitgutter_map_keys = 0
+let g:gitgutter_sign_added='┃'
+let g:gitgutter_sign_modified='┃'
+let g:gitgutter_sign_removed='┃'
+let g:gitgutter_sign_removed_first_line='◥'
+let g:gitgutter_sign_modified_removed='┃'
+let g:gitgutter_override_sign_column_highlight = 0
 
 " jsxpretty
 let g:vim_jsx_pretty_colorful_config = 1
@@ -686,6 +692,7 @@ nnoremap ]g :GitGutterNextHunk<CR>
 " **********************************
 
 " Non plugin related keymaps
+inoremap jk <esc>
 
 " exit terminal mode
 tnoremap <leader><esc> <C-\><C-n>
