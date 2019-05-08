@@ -36,17 +36,17 @@ export DOTFILES_PATH="$HOME/.repos/dotfiles"
 
 test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 
-alias spacevim="nvim -u ~/.SpaceVim/init.vim"
-alias vi="nvim -u ~/.noplugin_vimrc"
+alias tnew="tmux new-session -t main"
+alias spacevim="vim -u ~/.SpaceVim/init.vim"
+alias spacenvim="nvim -u ~/.SpaceVim/init.vim"
+alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias minivim="nvim -u ~/.minimal_vimrc"
+alias minivimrc="$EDITOR $DOTFILES_PATH/minimal_vimrc"
 alias vimrc="$EDITOR $DOTFILES_PATH/vimrc"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
-alias tnew="tmux new-session -t main"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
-alias svim='vim -u ~/.SpaceVim/vimrc'
-alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
 
 alias -g F='| fzf --exact'
