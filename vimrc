@@ -22,7 +22,7 @@ Plug 'andymass/vim-matchup',    { 'commit': 'afd7a6b' }
 Plug 'Valloric/MatchTagAlways', { 'commit': '352eb47' }
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
-Plug 'dominikduda/vim_current_word', { 'branch': 'development' }   " highlight word under cursor
+Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 
@@ -40,8 +40,10 @@ Plug 'RRethy/vim-hexokinase'                                       " display col
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
+Plug 'Shougo/denite.nvim'
+Plug 'Shougo/neoyank.vim'
+Plug 'justinhoward/fzf-neoyank'
 
-" Plug 'TaDaa/vimade'                                                " dim unfocused windows
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
@@ -181,8 +183,6 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 let g:loaded_matchit = 1
 
 " airline
-" set statusline+=%{gutentags#statusline()}
-set statusline+=%{NearestMethodOrFunction()}
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -260,23 +260,6 @@ let g:NERDTreeColorMapCustom = {
 " mundo
 let g:mundo_right = 1
 
-" guntentags
-autocmd BufWritePost *.rb silent exec "!ripper-tags -R --exclude=vendor --tag-file=./ripper-tags"
-autocmd FileType ruby,eruby setlocal tags+=./ripper-tags
-let g:gutentags_ctags_exclude = [
-      \ "node_modules",
-      \ ".git",
-      \ "client/node_modules",
-      \ "client/package.json",
-      \ "client/package-lock.json",
-      \ "client/coverage",
-      \ "public",
-      \ "bin",
-      \ "log",
-      \ "app/assets",
-      \ "spec/fixtures",
-      \ ]
-
 " winresizer
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
@@ -286,7 +269,7 @@ let g:vim_current_word#enabled                        = 1
 let g:vim_current_word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_twins                = 1
 let g:vim_current_word#highlight_current_word         = 1
-let g:vim_current_word#highlight_after_delay          = 1
+let g:vim_current_word#delay_highlight = 1
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
@@ -363,19 +346,6 @@ let g:projectionist_heuristics = {
       \     },
       \   }
       \ }
-
-" " vista
-" let g:vista_sidebar_position              = 'vertical botright'
-" let g:vista_sidebar_width                 = 40
-" let g:vista_echo_cursor                   = 1
-" let g:vista_cursor_delay                  = 400
-" let g:vista_close_on_jump                 = 0
-" let g:vista_stay_on_open                  = 1
-" let g:vista_blink                         = [1, 200]
-" let g:vista_icon_indent                   = ["▸ ", ""]
-" let g:vista_default_executive             = 'coc'
-" let g:vista_finder_alternative_executives = ['ctags']
-" let g:vista_fzf_preview                   = ['right:50%']
 
 " importjs
 let g:importjs_disable_default_mappings = 1
@@ -481,12 +451,12 @@ endfunction
 augroup filetype-scoped-settings
   autocmd!
   autocmd BufNewFile,BufRead .eslintrc set filetype=json
+  " don't hide quotes in JSON keys
   autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
   autocmd FileType json setlocal conceallevel=2
   autocmd Filetype gitcommit  setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
-  " autocmd Filetype nerdtree,qf   VimadeBufDisable
   autocmd BufEnter,BufReadPre,BufNewFile *.md
         \ setlocal conceallevel=0
   autocmd Filetype fzf
@@ -621,7 +591,6 @@ nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 
 " Find the alternate file for the current path and open it (basically go to test file)
-nnoremap <C-g><C-t> :w<cr>:call GoToAlternativeFile(expand('%'), ':e')<cr>
 nnoremap <leader>to :w<cr>:call GoToAlternativeFile(expand('%'), ':e')<cr>
 
 " workspace navigation
@@ -632,6 +601,7 @@ noremap <leader>[           :bprevious<CR>
 nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
 nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>
 noremap <leader><space>!    :bdelete!<CR>
+nnoremap <leader>q          :close<CR>
 
 " airline
 nmap    <leader>1           <Plug>AirlineSelectTab1
@@ -732,7 +702,7 @@ cabbrev Qa! qa
 " command! -nargs=0 Snippets CocCommand snippets.editSnippets
 " cabbrev snippets Snippets
 
-" disable entering Ex-mode with Q (accessible through :<C-f>)
+" disable entering Ex-mode with Q 
 nnoremap Q <NOP>
 map q: <NOP>
 
@@ -741,10 +711,8 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <M-b> <S-Left>
-cnoremap <M-f> <S-Right>
+cnoremap <C-b> <S-Left>
+cnoremap <C-f> <S-Right>
 cnoremap <C-d> <Delete>
 cnoremap <C-g> <C-c>
 
@@ -766,13 +734,6 @@ if exists('$TMUX')
   nnoremap <C-w>k :TmuxNavigateUp<CR>
   nnoremap <C-w>l :TmuxNavigateRight<CR>
 endif
-
-" unify keymaps with tmux
-nnoremap <C-w>" <C-w>s
-nnoremap <C-w>% <C-w>v
-
-" close buffer
-nnoremap <leader>q :close<CR>
 
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
@@ -800,19 +761,13 @@ nnoremap `` ``zz
 " move block of code without losing selection
 vnoremap > >gv
 vnoremap < <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 " system clipboard integration
 vnoremap <leader>y "+y
-nnoremap <leader>Y "+yg_
 nnoremap <leader>y "+y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
-
-" IDE like shortcuts in case of pair programming with jetbrains normies
-inoremap <C-d> <esc>YpA
-nnoremap <C-x> dd
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-nnoremap <C-s> :w<CR>

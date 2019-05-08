@@ -1,5 +1,7 @@
 {
-  "diagnostic.displayByAle": true,
+  "solargraph.checkGemVersion": true,
+  "solargraph.hover": true,
+  "diagnostic.enable": false,
   "snippets.extends": {
     "javascriptreact": ["javascript", "html"],
     "typescript": ["javascript"]
