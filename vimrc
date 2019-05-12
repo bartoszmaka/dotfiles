@@ -399,9 +399,6 @@ let g:fzf_colors = {
 " **********************************
 
 " custom functions
-" function! NearestMethodOrFunction() abort
-"   return get(b:, 'vista_nearest_method_or_function', '')
-" endfunction
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -515,11 +512,11 @@ augroup color-scheme-tweaks
   highlight Comment          gui=italic,bold
 augroup END
 
-augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+" augroup mygroup
+"   autocmd!
+"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold   :call CocAction('fold', <f-args>)
@@ -563,18 +560,6 @@ nnoremap <leader>% :MtaJumpToOtherTag<CR>
 " vim-repeat
 silent! call repeat#set("\<Plug>.", v:count)
 
-" easymotion
-map ,f        <Plug>(easymotion-bd-f)
-map ,w        <Plug>(easymotion-bd-w)
-map ,e        <Plug>(easymotion-bd-e)
-map ,b        <Plug>(easymotion-bd-w)
-map ,W        <Plug>(easymotion-bd-W)
-map ,E        <Plug>(easymotion-bd-E)
-map ,B        <Plug>(easymotion-bd-W)
-map <leader>n <Plug>(easymotion-bd-n)
-map <leader>N <Plug>(easymotion-bd-n)
-nmap s        <Plug>(easymotion-overwin-f2)
-
 vnoremap <C-m><C-t> :Tabularize /
 
 vnoremap <C-m><C-s> :sort<CR>
@@ -586,7 +571,6 @@ nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <C-k><C-d> :NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k><C-f> :CtrlSFToggle<CR>
-" nnoremap <C-k><C-v> :Vista!!<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 
