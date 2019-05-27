@@ -1,6 +1,12 @@
 {
   "solargraph.checkGemVersion": true,
   "solargraph.hover": true,
+  "solargraph.formatting": true,
+  "solargraph.references": true,
+  "solargraph.diagnostics": false,
+  "solargraph.definitions": true,
+  "solargraph.completion": true,
+
   "diagnostic.displayByAle": true,
   "diagnostic.enable": false,
   "snippets.extends": {
