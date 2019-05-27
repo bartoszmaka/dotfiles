@@ -33,7 +33,6 @@ Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree 
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
 Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/loremipsum'
-Plug 'meain/vim-package-info', { 'do': 'npm install' }
 
 Plug 'tveskag/nvim-blame-line'                                     " display blame as virtualtext
 Plug 'RRethy/vim-hexokinase'                                       " display colors as virtualtext rectangle
@@ -43,6 +42,8 @@ Plug 'alvan/vim-closetag'                                          " autoclose h
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neoyank.vim'
 Plug 'justinhoward/fzf-neoyank'
+Plug 'blueyed/vim-diminactive'
+Plug 'rhysd/conflict-marker.vim'
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -57,17 +58,25 @@ Plug 'junegunn/fzf.vim'
 Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 
+" syntax
+Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'othree/jsdoc-syntax.vim'
+Plug 'joker1007/vim-ruby-heredoc-syntax'
+Plug 'chrisbra/csv.vim'
+Plug 'tpope/vim-rails'
+
+" fancy tools
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-projectionist'
 Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'], 'do': 'npm install -g import-js' }
+Plug 'meain/vim-package-info',          { 'do': 'npm install' }
+Plug 'mattn/emmet-vim'
+Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
 Plug 'w0rp/ale'                                                    " async syntax checking
-Plug 'mattn/emmet-vim'
-
-Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx', 'typescript', 'html', 'coffee', 'eruby', 'css'] }
-Plug 'chrisbra/csv.vim',                { 'for': ['csv'] }
-
 Plug 'neoclide/coc.nvim',               { 'tag': '*', 'do': { -> coc#util#install() } }
 call plug#end()
 
@@ -260,6 +269,9 @@ let g:NERDTreeColorMapCustom = {
 " mundo
 let g:mundo_right = 1
 
+" conflict marker
+let g:conflict_marker_enable_mappings = 0
+
 " winresizer
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
@@ -300,7 +312,21 @@ let g:AutoPairsShortcutBackInsert = ''
 let g:AutoPairsShortcutJump       = ''
 let g:AutoPairsShortcutFastWrap   = ''
 let g:AutoPairsMapCh              = ''
-let g:ag_highlight=1
+let g:AutoPairs = {
+      \ '(':')',
+      \ '[':']',
+      \ '{':'}',
+      \ "'":"'",
+      \ '"':'"',
+      \ "`":"`",
+      \ '```':'```',
+      \ '"""':'"""',
+      \ "'''":"'''",
+      \ "|":"|",
+      \ "<%#":"%>",
+      \ "<%=":"%>",
+      \ "<%":"%>"
+      \ }
 
 " closetag
 let g:closetag_filenames               = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.erb,*.eex,*.hbs'
@@ -315,7 +341,7 @@ let g:matchup_matchparen_hi_surround_always = 1
 let g:matchup_transmute_enabled             = 0
 
 " polyglot
-let g:polyglot_disabled = ['jsx']
+let g:polyglot_disabled = ['jsx', 'tsx']
 
 " splitjoin
 let g:splitjoin_split_mapping     = ''
@@ -335,17 +361,26 @@ let g:ctrlsf_winsize = '80'
 let g:projectionist_heuristics = {
       \   '*': {
       \     '*.js': {
-      \       'alternate': [
-      \         '{dirname}/__tests__/{basename}.test.js',
-      \       ],
+      \       'alternate': '{dirname}/__tests__/{basename}.test.js',
       \       'type': 'source'
       \     },
       \     '**/__tests__/*.test.js': {
       \       'alternate': '{dirname}/{basename}.js',
       \       'type': 'test'
       \     },
+      \     'app/*.rb': {
+      \       'alternate': 'spec/{}_spec.rb',
+      \       'type': 'source'
+      \     },
+      \     'spec/*_spec.rb': {
+      \       'alternate': 'app/{}.rb',
+      \       'type': 'test'
+      \     }
       \   }
       \ }
+command! -buffer -bar -bang -nargs=* -range=-1 -complete=customlist,s:edit_complete
+      \ A
+      \ :execute s:edit_command("<mods>", "edit<bang>", <count>, <f-args>)
 
 " importjs
 let g:importjs_disable_default_mappings = 1
@@ -444,6 +479,11 @@ function! DisableAllHeavyStuff()
 endfunction
 " **********************************
 
+augroup filetype-fixes
+  autocmd!
+  autocmd BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
+augroup END
+
 " augroups
 augroup filetype-scoped-settings
   autocmd!
@@ -510,6 +550,7 @@ augroup color-scheme-tweaks
   highlight ALEError              guibg=#512121
 
   highlight Comment          gui=italic,bold
+  highlight link typescriptStorageClass typescriptReserved
 augroup END
 
 " augroup mygroup
@@ -653,6 +694,8 @@ tnoremap <leader><esc> <C-\><C-n>
 
 " jump to last opened file
 nnoremap <leader>` :e#<CR>
+" keep functionality after ` to ESC karabiner remap
+nnoremap <leader><esc> :e#<CR>
 
 " search exact match by default
 nnoremap / /\V
@@ -755,3 +798,10 @@ nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
+
+function! DebugHighlight()
+    let l:s = synID(line('.'), col('.'), 1)
+    echomsg "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfun
