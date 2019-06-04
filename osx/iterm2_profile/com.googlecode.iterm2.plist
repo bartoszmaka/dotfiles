@@ -18,6 +18,10 @@
 	<false/>
 	<key>Coprocess MRU</key>
 	<array>
+		<string>echo nvim /Users/bartoszmaka/.asdf/installs/ruby/2.6.2/lib/ruby/gems/2.6.0/gems/actionpack-6.0.0.rc1/lib/action_controller/test_case.rb + </string>
+		<string>echo nvim /Users/bartoszmaka/.asdf/installs/ruby/2.6.2/lib/ruby/gems/2.6.0/gems/activemodel-6.0.0.rc1/lib/active_model/attribute_methods.rb + </string>
+		<string>echo nvim /Users/bartoszmaka/projects/Formcall/tmp/capybara/screenshot_2019-05-14-16-25-20.878.html + </string>
+		<string>echo nvim /Users/bartoszmaka/projects/Formcall/spec/features/admin/form_tests_controller_spec.rb + 7</string>
 		<string>echo nvim /var/folders/q6/2nd0q7d55mz10gh3z9bgtk400000gn/T/python-build.20190508162821.3912.log + </string>
 		<string>echo nvim /Users/bartoszmaka/.rvm/gems/ruby-2.5.1/gems/activerecord-5.2.2/lib/active_record/log_subscriber.rb + 98</string>
 		<string>echo nvim /Users/bartoszmaka/projects/parkero/spec/helpers/booking_helper_spec.rb + 92</string>
@@ -448,11 +452,11 @@
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>2585 571 918 423 1920 0 1920 1177 </string>
+	<string>2585 571 796 486 1920 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>1920 0 1920 1177 1920 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>44 0 1876 1177 0 0 1920 1177 </string>
+	<string>1920 0 1920 1177 1920 0 1920 1177 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>761 222 650 502 0 0 1680 1027 </string>
 	<key>NeverWarnAboutOverrides</key>
@@ -1887,6 +1891,8 @@
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>579008221.12465405</real>
 	<key>OpenArrangementAtStartup</key>
@@ -1959,7 +1965,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-05-10T11:37:04Z</date>
+	<date>2019-06-04T06:19:51Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowBookmarkName</key>
