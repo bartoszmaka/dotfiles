@@ -236,6 +236,19 @@ let g:airline_mode_map = {
 " let g:vimade = {}
 " let g:vimade.fadelevel = 0.8
 
+" coc
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-snippets',
+      \ 'coc-solargraph',
+      \ 'coc-css',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-syntax',
+      \ 'coc-yaml',
+      \ 'coc-pyls',
+      \ ]
+
 " gitgutter
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_added='┃'
