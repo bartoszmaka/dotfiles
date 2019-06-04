@@ -42,8 +42,9 @@ Plug 'alvan/vim-closetag'                                          " autoclose h
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neoyank.vim'
 Plug 'justinhoward/fzf-neoyank'
-Plug 'blueyed/vim-diminactive'
+" Plug 'blueyed/vim-diminactive'
 Plug 'rhysd/conflict-marker.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -348,6 +349,10 @@ let g:splitjoin_split_mapping     = ''
 let g:splitjoin_join_mapping      = ''
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
+
+" diminactive
+" let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help', 'Pmenu']
+" let g:diminactive_filetype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help', 'Pmenu']
 
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0

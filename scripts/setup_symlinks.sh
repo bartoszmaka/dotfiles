@@ -2,10 +2,7 @@ mkdir -p ~/.config/ranger
 mkdir -p ~/.config/nvim
 mkdir -p ~/.config/coc
 
-# ln -vsf ~/.repos/dotfiles/noplugin_vimrc ~/.noplugin_vimrc
-# ln -vsf ~/.repos/dotfiles/minimal_vimrc ~/.minimal_vimrc
-# ln -vsf ~/.repos/dotfiles/vimrc ~/.vimrc
-ln -vsf ~/.repos/dotfiles/vimrc ~/.config/nvim/init.vim
+ln -vsf ~/.repos/dotfiles/vim/vimrc ~/.config/nvim/init.vim
 ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
 ln -vsf ~/.repos/dotfiles/gitconfig ~/.gitconfig
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
