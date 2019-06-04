@@ -25,54 +25,47 @@
 
   <leader> r   [NORMAL] => replace current word
   <leader> r   [VISUAL] => replace selected pattern
-  <leader> t o [VISUAL] => go to test file
+  <leader> a   [VISUAL] => go to test file (based on projectionist config)
 ```
 
 #### Manual setup
 #### [neovim](https://github.com/neovim/neovim)
+- copy fonts with `bash scripts/copy_fonts.sh`
+- setup symlinks with `bash scripts/setup_symlinks.sh`
 - [install vim-plug](https://github.com/junegunn/vim-plug)
 - [install neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-- install python provider and language server
+- install python provider
   ``` bash
   pip2 install neovim
   pip3 install neovim
-  pip3 install 'python-language-server[all]'
   ```
-- install ruby provider and language server
+- install ruby provider and documentation / LS indexing tool
   ``` bash
-  gem install neovim solargraph yard
+  gem install neovim yard
   # index project with `yard gems`
   ```
-- install npm provider, language server and plugin dependencies
+- install npm provider and plugin dependencies
   ``` bash
-  npm install -g neovim tern typescript typescript-language-server javascript-typescript-langserver eslint import-js
+  npm install -g neovim eslint import-js
   ```
 - install system plugins dependencies
   ``` bash
   brew install the_silver_searcher
-  brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
   sudo apt install silversearcher_ag
-  build ctags from source
   ```
 - install json formatter
   ```
   brew install jq
   sudo apt install jq
   ```
-- setup rust and install `alt` (see below)
-- place `vimrc` in proper location - `~/.config/nvim/init.vim`
-
 - install plugins with `:PlugInstall` (inside neovim)
 
+- all Language Servers are installed by CoC
 
-neovim plugins dependencies
 
-[https://github.com/junegunn/vim-plug](https://github.com/junegunn/vim-plug)  
+
 [https://github.com/ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)  
-[https://github.com/universal-ctags/ctags](https://github.com/universal-ctags/ctags)  
-[https://github.com/uptech/alt](https://github.com/uptech/alt)  
-
 
 
 #### [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh)
@@ -102,10 +95,6 @@ neovim plugins dependencies
   ```
   
 #### [tmux](https://github.com/tmux/tmux/wiki)
-- install ncurses and libevent
-  ```
-  brew install ncurses libevent
-  ```
 - install tmux
   ```
   brew install tmux
@@ -139,27 +128,9 @@ cmd }	send hex 0x0  0x6e
 # 0x0  - <C-space>
 ```
 
-##### colorscheme
-
-TODO
-
 #### Other apps
 ```
 brew cask install spectacle slack flux iterm2 
-```
----
-
-#### Config files proper location
-
-``` bash
-~/.config/redshift.conf  
-~/.config/alacritty/alacritty.yml  
-~/.imwheelrc  
-~/.vimrc  
-~/.tmux.conf  
-~/.zshrc  
-~/.rubocop.yml  
-~/.tmux/plugins/tmux-powerline/themes/default.sh
 ```
 
 ---
