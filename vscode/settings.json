@@ -25,45 +25,54 @@
     // editor / tab sizes
     "editor.tabSize": 2,
     // editor / workbench
-    "editor.fontSize": 16,
-    "terminal.integrated.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontSize": 15,
+    "editor.rulers": [80, 120],
+    "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
     "terminal.integrated.rendererType": "dom",
-    "editor.fontFamily": "'Hasklug Nerd Font', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontLigatures": true,
     "editor.renderWhitespace": "boundary",
     "editor.cursorStyle": "block",
     "workbench.colorCustomizations": {
+        "editor.lineHighlightBackground": "#343D46",
         "statusBar.background": "#005f5f",
         "statusBar.noFolderBackground": "#005f5f",
         "statusBar.debuggingBackground": "#005f5f"
     },
-    "window.zoomLevel": -1,
-    "ruby.codeCompletion": "rcodetools",
-    "ruby.intellisense": false,
-    "ruby.lint": {
-        "reek": true,
-        "rubocop": true,
-        "ruby": true, //Runs ruby -wc
-        "fasterer": true,
-        "debride": true,
-        "ruby-lint": true
-    },
-    "solargraph.completion": true,
-    "solargraph.rename": true,
-    "solargraph.definitions": true,
-    "solargraph.symbols": true,
-    "solargraph.hover": true,
+    "window.zoomLevel": 0,
     // vim
+    "vim.hlsearch": true,
     "vim.leader": "<space>",
     "vim.showcmd": true,
     "vim.easymotion": true,
-    "vim.hlsearch": true,
     "vim.incsearch": true,
+    "vim.highlightedyank.enable": true,
+    "vim.useSystemClipboard": true,
     "vim.easymotionMarkerFontFamily": "'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
     "vim.easymotionMarkerFontSize": "16",
     "vim.easymotionMarkerBackgroundColor": "#5f0000",
     "vim.statusBarColorControl": true,
     "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "v",
+                "<leader>",
+                "h"
+            ],
+            "after": [
+                "^"
+            ]
+        },
+        {
+            "before": [
+                "v",
+                "<leader>",
+                "l"
+            ],
+            "after": [
+                "$"
+            ]
+        },
         {
             "before": [
                 "<leader>",
@@ -83,23 +92,133 @@
             ]
         },
     ],
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<esc>"
+            ]
+        }
+    ],
     "vim.normalModeKeyBindingsNonRecursive": [
         // {
-        //     "before": ["<cmd-l>"],
-        //     "after": ["<C-w>", "l"]
+        //     "before": [
+        //         "<leader>",
+        //         "r"
+        //     ],
+        //     "after": [
+        //         "y",
+        //         "i",
+        //         "w",
+        //         "/",
+        //         "<C-r>",
+        //         "\"",
+        //     ]
         // },
+        {
+            "before": [
+                "<leader>",
+                "a"
+            ],
+            "commands": [
+                "extension.jumpToTest"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "%"
+            ],
+            "commands": [
+                "editor.emmet.action.matchTag"
+            ]
+        },
         // {
-        //     "before": ["<cmd-k>"],
-        //     "after": ["<C-w>", "k"]
+        //     "before": [
+        //         "/"
+        //     ],
+        //     "commands": [
+        //         "actions.find"
+        //     ]
         // },
-        // {
-        //     "before": ["<cmd-j>"],
-        //     "after": ["<C-w>", "j"]
-        // },
-        // {
-        //     "before": ["<cmd-h>"],
-        //     "after": ["<C-w>", "h"]
-        // },
+        {
+            "before": [
+                "n"
+            ],
+            "commands": [
+                "search.action.focusNextSearchResult"
+            ]
+        },
+        {
+            "before": [
+                "<C-k>",
+                "<C-e>"
+            ],
+            "commands": [
+                "filesExplorer.findInWorkspace"
+            ]
+        },
+        {
+            "before": [
+                "v",
+                "<space>",
+                "h"
+            ],
+            "after": [
+                "v",
+                "^"
+            ],
+        },
+        {
+            "before": [
+                "v",
+                "<space>",
+                "l"
+            ],
+            "after": [
+                "v",
+                "$"
+            ],
+        },
+        {
+            "before": [
+                "[",
+                "e"
+            ],
+            "commands": [
+                "editor.action.marker.prev"
+            ],
+        },
+        {
+            "before": [
+                "]",
+                "e"
+            ],
+            "commands": [
+                "editor.action.marker.next"
+            ],
+        },
+        {
+            "before": [
+                "[",
+                "g"
+            ],
+            "commands": [
+                "workbench.action.compareEditor.previousChange"
+            ],
+        },
+        {
+            "before": [
+                "]",
+                "g"
+            ],
+            "commands": [
+                "workbench.action.compareEditor.nextChange"
+            ],
+        },
         {
             "before": [
                 ":"
@@ -188,18 +307,13 @@
     "zenMode.hideTabs": false,
     "zenMode.hideStatusBar": false,
     "workbench.editor.enablePreview": false,
-    "gitlens.advanced.messages": {
-        "suppressShowKeyBindingsNotice": true,
-        "suppressUpdateNotice": true,
-        "suppressWelcomeNotice": true
-    },
     "vim.disableExtension": false,
     "explorer.confirmDelete": false,
-    "gitlens.keymap": "alternate",
     "workbench.colorTheme": "Atom One Dark",
     "workbench.startupEditor": "newUntitledFile",
     "editor.minimap.enabled": false,
     "workbench.statusBar.visible": true,
     "workbench.activityBar.visible": false,
-    "eslint.run": "onSave",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.snippetSuggestions": "top",
 }

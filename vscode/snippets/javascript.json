@@ -42,5 +42,23 @@
 		"prefix": "ed",
 		"body": "export default",
 		"description": "export default"
+	},
+	"jest describe": {
+		"prefix": "desc",
+		"description": "jest describe block",
+		"body": [
+			"describe('$1', () => {",
+			"  $2",
+			"});"
+		]
+	},
+	"jest it": {
+		"prefix": "it",
+		"description": "jest it block",
+		"body": [
+			"it('$1', () => {",
+			"  $2",
+			"});"
+		]
 	}
 }
