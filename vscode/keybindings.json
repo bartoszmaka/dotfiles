@@ -6,11 +6,6 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+k ctrl+e",
-    "command": "workbench.action.toggleSidebarVisibility",
-    "when": "explorerViewletVisible && filesExplorerFocus"
-  },
-  {
     "key": "shift+cmd+r",
     "command": "workbench.files.action.showActiveFileInExplorer"
   },
@@ -85,4 +80,86 @@
     "command": "renameFile",
     "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" 
   },
+  {
+    "key": "cmd+1",
+    "command": "workbench.action.openEditorAtIndex1"
+  },
+  {
+    "key": "cmd+2",
+    "command": "workbench.action.openEditorAtIndex2"
+  },
+  {
+    "key": "cmd+3",
+    "command": "workbench.action.openEditorAtIndex3"
+  },
+  {
+    "key": "cmd+4",
+    "command": "workbench.action.openEditorAtIndex4"
+  },
+  {
+    "key": "cmd+5",
+    "command": "workbench.action.openEditorAtIndex5"
+  },
+  {
+    "key": "cmd+6",
+    "command": "workbench.action.openEditorAtIndex6"
+  },
+  {
+    "key": "cmd+7",
+    "command": "workbench.action.openEditorAtIndex7"
+  },
+  {
+    "key": "cmd+8",
+    "command": "workbench.action.openEditorAtIndex8"
+  },
+  {
+    "key": "cmd+9",
+    "command": "workbench.action.openEditorAtIndex9"
+  },
+  {
+    "key": "ctrl+p ctrl+l",
+    "command": "fuzzySearch.activeTextEditor"
+  },
+  {
+    "key": "ctrl+p ctrl+p",
+    "command": "workbench.action.quickOpen"
+  },
+  {
+    "key": "ctrl+p ctrl+r",
+    "command": "extension.openRecentFiles"
+  },
+  // {
+  //   "key": "tab",
+  //   "command": "selectNextSuggestion",
+  //   "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  // },
+  // {
+  //   "key": "shift+tab",
+  //   "command": "selectPrevSuggestion",
+  //   "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+  // },
+  // {
+  //   "key": "tab",
+  //   "command": "-acceptSelectedSuggestion"
+  // },
+  // {
+  //   "key": "ctrl+e",
+  //   "command": "editor.emmet.action.expandAbbreviation",
+  //   "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+  // },
+  // {
+  //   "key": "ctrl+e",
+  //   "command": "jumpToNextSnippetPlaceholder",
+  //   "when": "editorTextFocus && hasNextTabstop && inSnippetMode"
+  // },
+  // {
+  //   "key": "ctrl+e",
+  //   "command": "insertSnippet",
+  //   "when": "editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus && !inSnippetMode"
+  // },
+  // {
+  //   "key": "ctrl+e",
+  //   "command": "insertBestCompletion",
+  //   "when": "atEndOfWord && !hasOtherSuggestions && !inSnippetMode && !suggestWidgetVisible && config.editor.tabCompletion == 'on'"
+  // }
 ]
