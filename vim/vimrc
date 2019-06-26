@@ -66,7 +66,7 @@ Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
 Plug 'chrisbra/csv.vim'
-Plug 'tpope/vim-rails'
+Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 
 " fancy tools
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
@@ -413,9 +413,6 @@ let g:projectionist_heuristics = {
       \     }
       \   }
       \ }
-command! -buffer -bar -bang -nargs=* -range=-1 -complete=customlist,s:edit_complete
-      \ A
-      \ :execute s:edit_command("<mods>", "edit<bang>", <count>, <f-args>)
 
 " importjs
 let g:importjs_disable_default_mappings = 1
@@ -466,6 +463,9 @@ let g:fzf_colors = {
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment']
       \ }
+
+" vim-rails
+let vim_rails_map_buf_nav_commands = 0
 
 " rainbow => conflicts with polyglot in js/jsx files
 " let g:rainbow_active = 1
