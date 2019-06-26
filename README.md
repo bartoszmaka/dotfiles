@@ -83,6 +83,12 @@
   ``` bash
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   ```
+
+  [zsh-z](https://github.com/agkozak/zsh-z)
+
+  ``` bash
+  https://github.com/agkozak/zsh-z
+  ```
   
 #### [tmux](https://github.com/tmux/tmux/wiki)
 - install tmux
