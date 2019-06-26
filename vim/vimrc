@@ -1,6 +1,6 @@
 filetype off
 call plug#begin()
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', { 'commit': '17ecfbdabcfdf294dae27c506fb68b58175199b5' }
 Plug 'Yggdroot/indentLine'
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
@@ -94,7 +94,6 @@ else
   let g:python3_host_prog = '/usr/bin/python3'
 endif
 " meta
-set autoread
 syntax sync minlines=256
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
@@ -123,9 +122,8 @@ set backspace=indent,eol,start
 set pumheight=15
 set spellsuggest=best,8
 set signcolumn=yes
-set cmdheight=1
 set updatetime=300
-set shortmess+=c
+set shortmess+=crn
 
 " indent
 set smartindent
@@ -135,7 +133,7 @@ set scrolloff=4                         " show at least 4 lines above or under c
 set sidescrolloff=15
 set splitright                          " place new vertical split on right side of current window
 set splitbelow                          " place new horizontal split under current window
-set diffopt+=vertical
+set diffopt+=vertical,iwhiteall
 
 " tabulator
 set softtabstop=2
@@ -159,12 +157,11 @@ set listchars=
       \tab:>-,
       \trail:~,
       \extends:>,
-      \precedes:< " define how whitespaces will be displayed
+      \precedes:<
 set list                                " show whitespaces
 set mouse=a
 set showcmd                             " show pressed keys
 set number                              " show line numbers
-set title
 set cursorline
 
 " **********************************
@@ -451,6 +448,9 @@ let g:fzf_colors = {
 " vim-rails
 let vim_rails_map_buf_nav_commands = 0
 
+" indentLine
+let g:indentLine_fileTypeExclude = ['markdown', 'help']
+
 " rainbow => conflicts with polyglot in js/jsx files
 " let g:rainbow_active = 1
 " let g:rainbow_conf = {
@@ -510,7 +510,7 @@ function! DisableAllHeavyStuff()
   setlocal syntax off
   setlocal nospell
   call AleDisable()
-  let b:deoplete_disable_auto_complete = 1
+  call CocDisable()
 endfunction
 " **********************************
 
@@ -527,7 +527,6 @@ augroup filetype-scoped-settings
   autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
   autocmd FileType json          setlocal conceallevel=2
-  autocmd FileType help,markdown setlocal conceallevel=0
   autocmd Filetype gitcommit     setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
   autocmd BufEnter,BufReadPre,BufNewFile *.md
