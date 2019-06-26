@@ -31,11 +31,10 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
-Plug 'luochen1990/rainbow'
 Plug 'vim-scripts/loremipsum'
 
 Plug 'tveskag/nvim-blame-line'                                     " display blame as virtualtext
-Plug 'RRethy/vim-hexokinase'                                       " display colors as virtualtext rectangle
+" Plug 'RRethy/vim-hexokinase'                                       " display colors as virtualtext rectangle
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
@@ -79,6 +78,13 @@ Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'neoclide/coc.nvim',               { 'tag': '*', 'do': { -> coc#util#install() } }
+
+" new plugins to test
+Plug 'ruanyl/vim-gh-line'
+" Plug 'luochen1990/rainbow'
+Plug 'osyo-manga/vim-over'
+" Plug 'liuchengxu/vista.vim'
+" Plug 'actionshrimp/vim-xpath'
 call plug#end()
 
 " **********************************
@@ -196,9 +202,18 @@ let g:loaded_matchit = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
-let g:airline_section_z                              = '%2p%% %3l:%2c'
+
+" 
+let g:airline#extensions#tabline#left_sep            = ''
+let g:airline#extensions#tabline#left_alt_sep        = ''
+let g:airline#extensions#tabline#right_sep           = ''
+let g:airline#extensions#tabline#right_alt_sep       = ''
+let g:airline_left_sep                               = ''
+let g:airline_right_sep                              = ''
+" let g:airline_section_z                              = '%2p%% %3l:%2c'
 let g:airline_section_b                              = ''
-let g:airline_section_c                              = '%{expand("%:F")}'
+" let g:airline_section_c                              = '%{expand("%:F")} %{coc#status()}'
+let g:airline_section_c                              = '%{expand("%:F")} %{NearestMethodOrFunction()} %{coc#status()}'
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
@@ -247,6 +262,8 @@ let g:coc_global_extensions = [
       \ 'coc-syntax',
       \ 'coc-yaml',
       \ 'coc-pyls',
+      \ 'coc-highlight',
+      \ 'coc-yank',
       \ ]
 
 " gitgutter
@@ -314,11 +331,8 @@ let g:mta_filetypes = {
 
 let g:AutoClosePreserveDotReg = 0
 
-" rainbow parentheses
-let g:rainbow_active = 0
-
 " hexokinase
-let g:Hexokinase_ftAutoload = ['*']
+" let g:Hexokinase_ftAutoload = ['*']
 
 " autopairs
 let g:AutoPairsShortcutToggle     = ''
@@ -374,6 +388,9 @@ let g:multi_cursor_exit_from_insert_mode = 0
 let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_indent = 2
 let g:ctrlsf_winsize = '80'
+
+" spec/javascript/form_discovery/FormDiscovery.spec.tsx
+" app/javascript/components/form_discovery/FormDiscovery.tsx
 "
 " projectionist
 let g:projectionist_heuristics = {
@@ -449,9 +466,27 @@ let g:fzf_colors = {
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment']
       \ }
+
+" rainbow => conflicts with polyglot in js/jsx files
+" let g:rainbow_active = 1
+" let g:rainbow_conf = {
+"       \ 'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+"       \ }
+" vista
+" let g:vista_default_executive = 'coc'
 " **********************************
 
 " custom functions
+function! NearestMethodOrFunction() abort
+  let l:method_name = get(b:, 'coc_current_function', '')
+  if len(method_name) > 0 
+    return ' ' . l:method_name
+  else
+    return ''
+  endif
+endfunction
+
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -725,8 +760,13 @@ nnoremap <C-]> g]
 nnoremap g] <C-]>
 
 " replace selected word in file
-nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
-vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
+nnoremap <leader>r yiw:OverCommandLine<cr>%s/\V<C-r>"//g<Left><Left>
+vnoremap <leader>r y:OverCommandLine<cr>%s/\V<C-r>"//g<Left><Left>
+
+" nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
+" vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
+nnoremap <leader>R yiw:%s/\V<C-r>"/<C-r>"/g<Left><Left>
+vnoremap <leader>R y:%s/\V<C-r>"/<C-r>"/g<Left><Left>
 
 " move manual lookup to leader?
 nnoremap <leader>? K
