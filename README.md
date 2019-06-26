@@ -1,31 +1,36 @@
 #### basic custom vim shortcuts
 ```
-  mapping      mode        description
+  mapping       mode       description
 
-  C-p C-p      [NORMAL] => fuzzy search file
-  C-p C-r      [NORMAL] => fuzzy search recent file
-  C-p C-l      [NORMAL] => fuzzy search line in file
-  C-p C-f      [NORMAL] => fuzzy search string in project
+  C-p C-p      [NORMAL]    fuzzy search file
+  C-p C-r      [NORMAL]    fuzzy search recent file
+  C-p C-l      [NORMAL]    fuzzy search line in file
+  C-p C-f      [NORMAL]    fuzzy search string in project
+  C-p C-g      [NORMAL]    fuzzy search git dirty files
 
-  C-k C-e      [NORMAL] => toggle NERDTree
-  C-k C-f      [NORMAL] => find current file in NERDTree
+  C-k C-e      [NORMAL]    toggle NERDTree
+  C-k C-u      [NORMAL]    toggle Mundo window
+  C-k C-f      [NORMAL]    toggle CtrlSF window
+  C-k C-d      [NORMAL]    find current file in NERDTree
 
-  C-m C-s      [VISUAL] => sort selected lines
-  C-m C-t      [VISUAL] => align by pattern
-  C-m C-f      [NORMAL] => fix file with ALE fixer (e.g. eslint for js)
-  C-m C-s      [NORMAL] => break statement into multiple lines
-  <leader> j   [NORMAL] => break line
-  <leader> k   [NORMAL] => join to previous line
+  C-m C-s      [VISUAL]    sort selected lines
+  C-m C-t      [VISUAL]    align by pattern
+  C-m C-f      [NORMAL]    fix file with ALE fixer (e.g. eslint for js)
+  C-m C-s      [NORMAL]    break statement into multiple lines
+  C-m C-j      [NORMAL]    join statement into one line
+  <leader> j   [NORMAL]    break line
+  <leader> k   [NORMAL]    join to previous line
 
-  C-g C-b      [NORMAL] => toggle git blame buffer
-  C-g C-d      [NORMAL] => toggle git diff buffer
+  C-g C-b      [NORMAL]    toggle git blame buffer
+  C-g C-d      [NORMAL]    toggle git diff buffer
 
-  C-n          [NORMAL] => add cursor in next word occurrence
-  C-n          [VISUAL] => add cursor in next selected pattern occurrence
+  C-n          [NORMAL]    add cursor in next word occurrence
+  C-n          [VISUAL]    add cursor in next selected pattern occurrence
 
-  <leader> r   [NORMAL] => replace current word
-  <leader> r   [VISUAL] => replace selected pattern
-  <leader> a   [VISUAL] => go to test file (based on projectionist config)
+  <leader> f   [NORMAL]    open CtrlSF prompt
+  <leader> r   [NORMAL]    replace current word
+  <leader> r   [VISUAL]    replace selected pattern
+  <leader> a   [VISUAL]    go to test file (based on projectionist config)
 ```
 
 #### Manual setup
@@ -34,39 +39,24 @@
 - setup symlinks with `bash scripts/setup_symlinks.sh`
 - [install vim-plug](https://github.com/junegunn/vim-plug)
 - [install neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
-- install python provider
+- install neovim providers and dependencies
   ``` bash
   pip2 install neovim
   pip3 install neovim
-  ```
-- install ruby provider and documentation / LS indexing tool
-  ``` bash
   gem install neovim yard
-  # index project with `yard gems`
-  ```
-- install npm provider and plugin dependencies
-  ``` bash
   npm install -g neovim eslint import-js
-  ```
-- install system plugins dependencies
-  ``` bash
-  brew install the_silver_searcher
 
-  sudo apt install silversearcher_ag
-  ```
-- install json formatter
-  ```
-  brew install jq
-  sudo apt install jq
-  ```
-- install plugins with `:PlugInstall` (inside neovim)
+  brew install the_silver_searcher jq
+  # or
+  sudo apt install silversearcher_ag jq
 
+  # index ruby project with `yard gems`
+  ```
+- install plugins with `:PlugInstall` (neovim will log errors for the first time)
+  ```
+    nvim -c PlugInstall
+  ```
 - all Language Servers are installed by CoC
-
-
-
-[https://github.com/ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)  
-
 
 #### [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh)
 - install oh my zsh
@@ -130,13 +120,14 @@ cmd }	send hex 0x0  0x6e
 
 #### Other apps
 ```
-brew cask install spectacle slack flux iterm2 
+brew cask install spectacle slack flux iterm2
 ```
 
 ---
 
 #### References
 
+[https://github.com/ggreer/the_silver_searcher](https://github.com/ggreer/the_silver_searcher)  
 [https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors](https://askubuntu.com/questions/141752/keyboard-shortcut-to-move-windows-between-monitors)  
 [https://pilotmoon.com/scrollreverser/](https://pilotmoon.com/scrollreverser/)  
 [alt left / right behavior for iterm2](https://apple.stackexchange.com/questions/136928/using-alt-cmd-right-left-arrow-in-iterm)  
