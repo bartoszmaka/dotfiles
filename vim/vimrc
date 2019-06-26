@@ -31,17 +31,10 @@ Plug 'jistr/vim-nerdtree-tabs'                                     " better beha
 " Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
 Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
-Plug 'vim-scripts/loremipsum'
 
-Plug 'tveskag/nvim-blame-line'                                     " display blame as virtualtext
-" Plug 'RRethy/vim-hexokinase'                                       " display colors as virtualtext rectangle
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
-Plug 'Shougo/denite.nvim'
-Plug 'Shougo/neoyank.vim'
-Plug 'justinhoward/fzf-neoyank'
-" Plug 'blueyed/vim-diminactive'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
@@ -81,10 +74,7 @@ Plug 'neoclide/coc.nvim',               { 'tag': '*', 'do': { -> coc#util#instal
 
 " new plugins to test
 Plug 'ruanyl/vim-gh-line'
-" Plug 'luochen1990/rainbow'
 Plug 'osyo-manga/vim-over'
-" Plug 'liuchengxu/vista.vim'
-" Plug 'actionshrimp/vim-xpath'
 call plug#end()
 
 " **********************************
@@ -377,9 +367,6 @@ let g:splitjoin_join_mapping      = ''
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
 
-" diminactive
-" let g:diminactive_buftype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help', 'Pmenu']
-" let g:diminactive_filetype_blacklist = ['nofile', 'nowrite', 'acwrite', 'quickfix', 'help', 'Pmenu']
 
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
@@ -389,9 +376,6 @@ let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_indent = 2
 let g:ctrlsf_winsize = '80'
 
-" spec/javascript/form_discovery/FormDiscovery.spec.tsx
-" app/javascript/components/form_discovery/FormDiscovery.tsx
-"
 " projectionist
 let g:projectionist_heuristics = {
       \   '*': {
@@ -486,8 +470,6 @@ function! NearestMethodOrFunction() abort
   endif
 endfunction
 
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -544,9 +526,10 @@ augroup filetype-scoped-settings
   " don't hide quotes in JSON keys
   autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
-  autocmd FileType json setlocal conceallevel=2
-  autocmd Filetype gitcommit  setlocal colorcolumn=73 spell
-  autocmd Filetype nerdtree   setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
+  autocmd FileType json          setlocal conceallevel=2
+  autocmd FileType help,markdown setlocal conceallevel=0
+  autocmd Filetype gitcommit     setlocal colorcolumn=73 spell
+  autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
   autocmd BufEnter,BufReadPre,BufNewFile *.md
         \ setlocal conceallevel=0
   autocmd Filetype fzf
@@ -565,9 +548,6 @@ autocmd! FileType fzf
 autocmd  FileType fzf
       \  set laststatus=0 noshowmode noruler signcolumn=no
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-" let blamelineFiletypesBlacklist = ['fugitiveblame', 'help', 'qf']
-" autocmd BufReadPost * if index(blamelineFiletypesBlacklist, &ft) < 0 | EnableBlameLine
 
 augroup disable-syntax-for-huge-files
   autocmd!
@@ -606,14 +586,6 @@ augroup color-scheme-tweaks
   highlight link typescriptStorageClass typescriptReserved
 augroup END
 
-" augroup mygroup
-"   autocmd!
-"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-" augroup end
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold   :call CocAction('fold', <f-args>)
 " **********************************
 
 " Plugin related keymaps
@@ -667,9 +639,6 @@ nnoremap <C-k><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k><C-f> :CtrlSFToggle<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
-
-" Find the alternate file for the current path and open it (basically go to test file)
-nnoremap <leader>to :w<cr>:call GoToAlternativeFile(expand('%'), ':e')<cr>
 
 " workspace navigation
 noremap <M-}>               :bnext<CR>
