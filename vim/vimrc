@@ -18,8 +18,8 @@ if exists('$TMUX')
   Plug 'roxma/vim-tmux-clipboard'                                  " sync with tmux clipboard
 endif
 
-Plug 'andymass/vim-matchup',    { 'commit': 'afd7a6b' }
-Plug 'Valloric/MatchTagAlways', { 'commit': '352eb47' }
+Plug 'andymass/vim-matchup'                                        " 6b9ab7b5386289d57cf3785fc8bad73fa097c030
+Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
 Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
@@ -604,7 +604,7 @@ augroup END
 augroup color-scheme-tweaks
   autocmd!
   autocmd InsertEnter * set cursorcolumn
-  autocmd CursorMoved,CursorHold,InsertLeave * set nocursorcolumn
+  autocmd InsertLeave * set nocursorcolumn
   autocmd InsertEnter * highlight CursorLine   guibg=#512121
   autocmd InsertEnter * highlight CursorLineNR guibg=#512121
   autocmd InsertLeave * highlight CursorLine   guibg=#343D46
@@ -617,7 +617,7 @@ augroup color-scheme-tweaks
   highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold
   highlight TabLineSel       guifg=#E5C07B
   highlight MatchTag         guibg=#4d4d4d   gui=bold
-  highlight MatchWord        guibg=#4d4d4d   gui=bold
+  highlight MatchWord        guibg=#343D46   gui=italic,bold
 
   highlight CurrentWordTwins guibg=#363636   gui=bold
   highlight CurrentWord      guibg=#222200   gui=bold
