@@ -1,7 +1,7 @@
 filetype off
 call plug#begin()
 Plug 'sheerun/vim-polyglot', { 'commit': '17ecfbdabcfdf294dae27c506fb68b58175199b5' }
-Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
 Plug 'vim-airline/vim-airline-themes'                              " themes for airline
@@ -73,8 +73,10 @@ Plug 'w0rp/ale'                                                    " async synta
 Plug 'neoclide/coc.nvim',               { 'tag': '*', 'do': { -> coc#util#install() } }
 
 " new plugins to test
-Plug 'ruanyl/vim-gh-line'
-Plug 'osyo-manga/vim-over'
+Plug 'ruanyl/vim-gh-line'                                          " open current line on github
+Plug 'osyo-manga/vim-over'                                         " preview on type for replace commands (:%s//)
+Plug 'whatyouhide/vim-lengthmatters'                               " highlight every column after nth
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " **********************************
@@ -142,7 +144,7 @@ set expandtab                           " Spaces instead of tabs
 
 " line length
 set synmaxcol=350                       " disable syntax colors after given column
-set colorcolumn=81                      " color 120th column
+set colorcolumn=81                      " color nth column
 set showbreak=\/_
 set nowrap                              " don't wrap lines
 
@@ -191,16 +193,17 @@ if !exists('g:airline_symbols')
 endif
 
 " 
+let g:webdevicons_enable_nerdtree = 0
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#left_sep            = ''
 let g:airline#extensions#tabline#left_alt_sep        = ''
 let g:airline#extensions#tabline#right_sep           = ''
 let g:airline#extensions#tabline#right_alt_sep       = ''
 let g:airline_left_sep                               = ''
 let g:airline_right_sep                              = ''
-" let g:airline_section_z                              = '%2p%% %3l:%2c'
 let g:airline_section_b                              = ''
-" let g:airline_section_c                              = '%{expand("%:F")} %{coc#status()}'
-let g:airline_section_c                              = '%{expand("%:F")} %{NearestMethodOrFunction()} %{coc#status()}'
+let g:airline_section_x                              = '%{CocGitInfo()} %{airline#parts#filetype()}'
+let g:airline_section_c                              = '%{expand("%:F")} %{NearestMethodOrFunction()}%{coc#status()}'
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
@@ -234,23 +237,24 @@ let g:airline_mode_map = {
     \ 't'  : 'T',
     \ }
 
-" vimade
-" let g:vimade = {}
-" let g:vimade.fadelevel = 0.8
-
 " coc
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
-      \ 'coc-snippets',
       \ 'coc-solargraph',
+      \ 'coc-snippets',
       \ 'coc-css',
+      \ 'coc-tailwindcss',
+      \ 'coc-pyls',
+      \ 'coc-elixir',
       \ 'coc-html',
       \ 'coc-json',
       \ 'coc-syntax',
       \ 'coc-yaml',
-      \ 'coc-pyls',
+      \ 'coc-emmet',
+      \ 'coc-word',
       \ 'coc-highlight',
       \ 'coc-yank',
+      \ 'coc-git',
       \ ]
 
 " gitgutter
@@ -318,9 +322,6 @@ let g:mta_filetypes = {
 
 let g:AutoClosePreserveDotReg = 0
 
-" hexokinase
-" let g:Hexokinase_ftAutoload = ['*']
-
 " autopairs
 let g:AutoPairsShortcutToggle     = ''
 let g:AutoPairsShortcutBackInsert = ''
@@ -363,7 +364,6 @@ let g:splitjoin_split_mapping     = ''
 let g:splitjoin_join_mapping      = ''
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
-
 
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
@@ -427,12 +427,36 @@ let g:ale_linters = {
 let g:ale_linter_aliases = {'jsx': 'css'}
 
 " fzf
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, 'number', 'no')
+
+  let height = float2nr(&lines/2)
+  let width = float2nr(&columns * 0.8)
+  "let width = &columns
+  let row = float2nr(&lines / 5)
+  let col = float2nr((&columns - width) / 3)
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': row,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height':height,
+        \ }
+  let win =  nvim_open_win(buf, v:true, opts)
+  call setwinvar(win, '&number', 0)
+  call setwinvar(win, '&relativenumber', 0)
+endfunction
+ let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
 let g:fzf_command_prefix = 'Fzf'
-let g:fzf_layout = { 'down': '~25%' }
+" let g:fzf_layout = { 'down': '~25%' }
 let g:fzf_mru_relative = 1
 let g:fzf_colors = {
       \ 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
+      \ 'bg':      ['bg', 'FZFNormal'],
       \ 'hl':      ['fg', 'Typedef'],
       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
       \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
@@ -451,20 +475,39 @@ let vim_rails_map_buf_nav_commands = 0
 " indentLine
 let g:indentLine_fileTypeExclude = ['markdown', 'help']
 
+" vim-lengthmatters
+let g:lengthmatters_use_textwidth   = 0
+let g:lengthmatters_start_at_column = 121
+call lengthmatters#highlight_link_to('ColorColumn')
+
 " rainbow => conflicts with polyglot in js/jsx files
 " let g:rainbow_active = 1
 " let g:rainbow_conf = {
 "       \ 'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 "       \ }
-" vista
-" let g:vista_default_executive = 'coc'
 " **********************************
 
 " custom functions
+function! CocGitInfo() abort
+  let l:blame_details = get(b:, 'coc_git_blame', '')
+  let l:status_details = get(b:, 'coc_git_status', '')
+  let l:result = ''
+
+  if len(blame_details) > 0 
+    let l:result = l:blame_details . ' '
+  endif
+
+  if len(status_details) > 0 
+    let l:result = l:result . l:status_details . ' '
+  endif
+
+  return result
+endfunction
+
 function! NearestMethodOrFunction() abort
   let l:method_name = get(b:, 'coc_current_function', '')
   if len(method_name) > 0 
-    return ' ' . l:method_name
+    return ' ' . l:method_name . ' '
   else
     return ''
   endif
@@ -543,10 +586,10 @@ autocmd FileType vim,tex
       \ = [0, 0]
 " for some reason, those have to be outside the group
 autocmd QuickFixCmdPost wincmd J
-autocmd! FileType fzf
-autocmd  FileType fzf
-      \  set laststatus=0 noshowmode noruler signcolumn=no
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" autocmd! FileType fzf
+" autocmd  FileType fzf
+"       \  set laststatus=0 noshowmode noruler signcolumn=no
+"       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 augroup disable-syntax-for-huge-files
   autocmd!
@@ -567,6 +610,7 @@ augroup color-scheme-tweaks
   autocmd InsertLeave * highlight CursorLine   guibg=#343D46
   autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
 
+  highlight FZFNormal        guibg=#222222
   highlight CursorColumn     guibg=#512121
   highlight CursorColumnNR   guibg=#512121
   highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold
@@ -606,18 +650,19 @@ inoremap <expr> <c-space> coc#refresh()
 nnoremap K :call <SID>show_documentation()<CR>
 
 nmap gd <Plug>(coc-definition)
-nmap gy <Plug>(coc-type-definition)
-nmap gj <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
 
 nmap <C-l><C-r> <Plug>(coc-rename)
 vmap <C-l><C-f> <Plug>(coc-format-selected)
 nmap <C-l><C-f> <Plug>(coc-format-selected)
-nmap <C-l><C-a> :CocCommand<CR>
+xmap <C-l><C-a> <Plug>(coc-codeaction-selected)
+vmap <C-l><C-a> <Plug>(coc-codeaction-selected)
+nmap <C-l><C-a> <Plug>(coc-codeaction)
+nmap <C-p><C-s> :CocList symbols<CR>
+nmap <C-l><C-l> :CocList<CR>
+nmap <C-l><C-m> :CocCommand<CR>
 
 nnoremap <leader>a :A<CR>
-nnoremap <leader>A :call GoToOrCreateRightWindow()<CR>:A<CR>
-nnoremap <leader>S :call ToggleScrollBind()<CR>
 
 " MatchTagAlways
 nnoremap <leader>% :MtaJumpToOtherTag<CR>
@@ -727,6 +772,8 @@ nnoremap <Bs> :noh<CR>
 nnoremap <C-]> g]
 nnoremap g] <C-]>
 
+vnoremap * y<Esc>/<C-r>"<CR>``
+
 " replace selected word in file
 nnoremap <leader>r yiw:OverCommandLine<cr>%s/\V<C-r>"//g<Left><Left>
 vnoremap <leader>r y:OverCommandLine<cr>%s/\V<C-r>"//g<Left><Left>
@@ -831,3 +878,4 @@ function! DebugHighlight()
     \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfun
+nnoremap <F10> :call DebugHighlight()<CR>
