@@ -1,8 +1,12 @@
 {
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
+  "coc.source.around.priority": 3,
+  "coc.source.syntax.priority": 2,
+
   "diagnostic.displayByAle": true,
   "diagnostic.enable": false,
+
   "snippets.extends": {
     "javascriptreact": ["javascript", "html"],
     "typescript": ["javascript"]
@@ -14,5 +18,8 @@
   "solargraph.diagnostics": false,
   "solargraph.definitions": true,
   "solargraph.completion": true,
-  "solargraph.checkGemVersion": false
+  "solargraph.checkGemVersion": false,
+
+  "git.addGlameToBufferVar": true,
+  "git.enableGutters": false
 }
