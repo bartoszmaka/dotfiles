@@ -1,6 +1,8 @@
 {
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
 
+  "tabnine.priority": 100,
+
   "coc.source.around.priority": 3,
   "coc.source.syntax.priority": 2,
 
@@ -21,5 +23,6 @@
   "solargraph.checkGemVersion": false,
 
   "git.addGlameToBufferVar": true,
-  "git.enableGutters": false
+  "git.enableGutters": false,
+  "coc.preferences.extensionUpdateCheck": "daily"
 }
