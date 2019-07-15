@@ -1,6 +1,6 @@
 filetype off
 call plug#begin()
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', { 'commit': '17ecfbdabcfdf294dae27c506fb68b58175199b5' }
 Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
@@ -18,7 +18,7 @@ if exists('$TMUX')
   Plug 'roxma/vim-tmux-clipboard'                                  " sync with tmux clipboard
 endif
 
-Plug 'andymass/vim-matchup'                                        " 6b9ab7b5386289d57cf3785fc8bad73fa097c030
+Plug 'andymass/vim-matchup'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
@@ -200,6 +200,16 @@ if !exists('g:airline_symbols')
 endif
 
 " 
+call airline#parts#define_function('gitStatus', 'CocGitStatus')
+call airline#parts#define_minwidth('gitStatus', 50)
+call airline#parts#define_accent('gitStatus', 'none')
+call airline#parts#define_function('gitBlame', 'CocGitBlame')
+call airline#parts#define_minwidth('gitBlame', 120)
+call airline#parts#define_accent('gitBlame', 'italic')
+call airline#parts#define_function('nearestFunction', 'NearestMethodOrFunction')
+call airline#parts#define_minwidth('nearestFunction', 50)
+call airline#parts#define_function('cocStatus', 'GetCocStatus')
+call airline#parts#define_minwidth('cocStatus', 120)
 let g:webdevicons_enable_nerdtree = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#left_sep            = ''
@@ -209,8 +219,9 @@ let g:airline#extensions#tabline#right_alt_sep       = ''
 let g:airline_left_sep                               = ''
 let g:airline_right_sep                              = ''
 let g:airline_section_b                              = ''
-" let g:airline_section_x                              = '%{CocGitInfo()} %{airline#parts#filetype()}'
-let g:airline_section_c                              = '%{expand("%:F")} %{NearestMethodOrFunction()}%{coc#status()}'
+let g:airline_section_x                              = airline#section#create_right(['gitBlame', 'gitStatus', 'filetype'])
+let g:airline_section_c                              = airline#section#create_left(['file', 'nearestFunction', 'cocStatus'])
+" let g:airline_section_c                              = '%{expand("%:F")} %{NearestMethodOrFunction()}%{coc#status()}'
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:airline#extensions#branch#enabled              = 1
 let g:airline#extensions#branch#format               = 2
@@ -245,25 +256,25 @@ let g:airline_mode_map = {
     \ }
 
 " coc
-" let g:coc_global_extensions = [
-"       \ 'coc-tsserver',
-"       \ 'coc-solargraph',
-"       \ 'coc-tabnine',
-"       \ 'coc-snippets',
-"       \ 'coc-css',
-"       \ 'coc-tailwindcss',
-"       \ 'coc-pyls',
-"       \ 'coc-elixir',
-"       \ 'coc-html',
-"       \ 'coc-json',
-"       \ 'coc-syntax',
-"       \ 'coc-yaml',
-"       \ 'coc-emmet',
-"       \ 'coc-word',
-"       \ 'coc-highlight',
-"       \ 'coc-yank',
-"       \ 'coc-git',
-"       \ ]
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-solargraph',
+      \ 'coc-tabnine',
+      \ 'coc-snippets',
+      \ 'coc-css',
+      \ 'coc-tailwindcss',
+      \ 'coc-pyls',
+      \ 'coc-elixir',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-syntax',
+      \ 'coc-yaml',
+      \ 'coc-emmet',
+      \ 'coc-word',
+      \ 'coc-highlight',
+      \ 'coc-yank',
+      \ 'coc-git',
+      \ ]
 
 " gitgutter
 let g:gitgutter_map_keys = 0
@@ -494,29 +505,24 @@ call lengthmatters#highlight_link_to('ColorColumn')
 " **********************************
 
 " custom functions
-function! CocGitInfo() abort
-  let l:blame_details = get(b:, 'coc_git_blame', '')
-  let l:status_details = get(b:, 'coc_git_status', '')
-  let l:result = ''
+function! CocGitBlame() abort
+  let l:blame = get(b:, 'coc_git_blame', '')
+  if l:blame == '' | return '' | endif
 
-  if len(blame_details) > 0 
-    let l:result = l:blame_details . ' '
-  endif
+  let l:result = get(split(l:blame, ')'), '')
+  return trim(l:result, '()')
+endfunction
 
-  if len(status_details) > 0 
-    let l:result = l:result . l:status_details . ' '
-  endif
-
-  return result
+function! CocGitStatus() abort
+  return get(b:, 'coc_git_status', '')
 endfunction
 
 function! NearestMethodOrFunction() abort
-  let l:method_name = get(b:, 'coc_current_function', '')
-  if len(method_name) > 0 
-    return ' ' . l:method_name . ' '
-  else
-    return ''
-  endif
+  return get(b:, 'coc_current_function', '')
+endfunction
+
+function! GetCocStatus() abort
+  return coc#status()
 endfunction
 
 function! s:check_back_space() abort
@@ -538,15 +544,6 @@ function! s:build_quickfix_list(lines)
   cc
 endfunction
 
-function! GoToAlternativeFile(path, vim_command)
-  let l:alternate = system("find . -path ./_site -prune -or -path ./target -prune -or -path ./.DS_Store -prune -or -path ./build -prune -or -path ./Carthage -prune -or -path tags -prune -or -path ./tmp -prune -or -path ./log -prune -or -path ./.git -prune -or -type f -print | alt -f - " . a:path)
-  if empty(l:alternate)
-    call A
-  else
-    exec a:vim_command . " " . l:alternate
-  endif
-endfunction
-
 function! Multiple_cursors_before()
   let g:matchup_matchparen_enabled = 0
 endfunction
@@ -556,16 +553,16 @@ function! Multiple_cursors_after()
 endfunction
 
 function! DisableAllHeavyStuff()
-  setlocal syntax off
+  setlocal syntax=off
   setlocal nospell
-  call AleDisable()
-  call CocDisable()
+  ALEDisable
+  CocDisable
 endfunction
 " **********************************
 
 augroup filetype-fixes
   autocmd!
-  autocmd BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
+  autocmd BufNewFile,BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
 augroup END
 
 " augroups
