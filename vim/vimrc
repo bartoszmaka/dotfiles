@@ -1,6 +1,6 @@
 filetype off
 call plug#begin()
-Plug 'sheerun/vim-polyglot', { 'commit': '17ecfbdabcfdf294dae27c506fb68b58175199b5' }
+Plug 'sheerun/vim-polyglot'
 Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
@@ -70,7 +70,8 @@ Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
 Plug 'w0rp/ale'                                                    " async syntax checking
-Plug 'neoclide/coc.nvim',               { 'tag': '*', 'do': { -> coc#util#install() } }
+Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
+" Plug 'zxqfl/tabnine-vim'
 
 " new plugins to test
 Plug 'ruanyl/vim-gh-line'                                          " open current line on github
@@ -177,7 +178,13 @@ endif
 
 augroup overrideColorscheme
   autocmd!
+  " let s:diff_green  = { "gui": "#006600" }
+  " let s:diff_red    = { "gui": "#660000" }
+  " let s:diff_yellow = { "gui": "#664d00" }
   autocmd ColorScheme * call onedark#extend_highlight("DiffChange", { "gui": "none" })
+  " autocmd ColorScheme * call onedark#extend_highlight("DiffText",   { "bg": s:diff_yellow, "gui": "none" })
+  " autocmd ColorScheme * call onedark#extend_highlight("DiffAdd",    { "bg": s:diff_green, "gui": "none" })
+  " autocmd ColorScheme * call onedark#extend_highlight("DiffDelete", { "bg": s:diff_red, "gui": "none" })
 augroup END
 colorscheme onedark
 let g:airline_theme = 'onedark'
@@ -202,7 +209,7 @@ let g:airline#extensions#tabline#right_alt_sep       = ''
 let g:airline_left_sep                               = ''
 let g:airline_right_sep                              = ''
 let g:airline_section_b                              = ''
-let g:airline_section_x                              = '%{CocGitInfo()} %{airline#parts#filetype()}'
+" let g:airline_section_x                              = '%{CocGitInfo()} %{airline#parts#filetype()}'
 let g:airline_section_c                              = '%{expand("%:F")} %{NearestMethodOrFunction()}%{coc#status()}'
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
 let g:airline#extensions#branch#enabled              = 1
@@ -238,24 +245,25 @@ let g:airline_mode_map = {
     \ }
 
 " coc
-let g:coc_global_extensions = [
-      \ 'coc-tsserver',
-      \ 'coc-solargraph',
-      \ 'coc-snippets',
-      \ 'coc-css',
-      \ 'coc-tailwindcss',
-      \ 'coc-pyls',
-      \ 'coc-elixir',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-syntax',
-      \ 'coc-yaml',
-      \ 'coc-emmet',
-      \ 'coc-word',
-      \ 'coc-highlight',
-      \ 'coc-yank',
-      \ 'coc-git',
-      \ ]
+" let g:coc_global_extensions = [
+"       \ 'coc-tsserver',
+"       \ 'coc-solargraph',
+"       \ 'coc-tabnine',
+"       \ 'coc-snippets',
+"       \ 'coc-css',
+"       \ 'coc-tailwindcss',
+"       \ 'coc-pyls',
+"       \ 'coc-elixir',
+"       \ 'coc-html',
+"       \ 'coc-json',
+"       \ 'coc-syntax',
+"       \ 'coc-yaml',
+"       \ 'coc-emmet',
+"       \ 'coc-word',
+"       \ 'coc-highlight',
+"       \ 'coc-yank',
+"       \ 'coc-git',
+"       \ ]
 
 " gitgutter
 let g:gitgutter_map_keys = 0
@@ -427,14 +435,12 @@ let g:ale_linters = {
 let g:ale_linter_aliases = {'jsx': 'css'}
 
 " fzf
-
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, 'number', 'no')
 
   let height = float2nr(&lines/2)
   let width = float2nr(&columns * 0.8)
-  "let width = &columns
   let row = float2nr(&lines / 5)
   let col = float2nr((&columns - width) / 3)
 
@@ -449,7 +455,7 @@ function! FloatingFZF()
   call setwinvar(win, '&number', 0)
   call setwinvar(win, '&relativenumber', 0)
 endfunction
- let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 let g:fzf_command_prefix = 'Fzf'
 " let g:fzf_layout = { 'down': '~25%' }
@@ -652,7 +658,9 @@ nnoremap K :call <SID>show_documentation()<CR>
 nmap gd <Plug>(coc-definition)
 nmap gr <Plug>(coc-references)
 
-nmap <C-l><C-r> <Plug>(coc-rename)
+nmap <C-l><C-d> <Plug>(coc-definition)
+nmap <C-l><C-r> <Plug>(coc-references)
+nmap <C-l><C-n> <Plug>(coc-rename)
 vmap <C-l><C-f> <Plug>(coc-format-selected)
 nmap <C-l><C-f> <Plug>(coc-format-selected)
 xmap <C-l><C-a> <Plug>(coc-codeaction-selected)
@@ -715,7 +723,7 @@ nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
 nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
 nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
 nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
-nnoremap <C-p><C-f> :FzfAg<CR>a<Bs>
+nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
 nnoremap <C-p><C-l> :FzfLines<CR>a<Bs>
 nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
 nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
@@ -848,10 +856,10 @@ nnoremap j gj
 nnoremap k gk
 
 " always focus after cursor jump
-nmap n <Plug>(anzu-n-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
-nmap N <Plug>(anzu-N-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
-nmap * <Plug>(anzu-star-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
-nmap # <Plug>(anzu-sharp-with-echo)zz:set cuc<CR><Plug>(anzu-echo-search-status)
+nmap n <Plug>(anzu-n-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap N <Plug>(anzu-N-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap * <Plug>(anzu-star-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 nnoremap <C-o> <C-o>zz
 nnoremap <C-i> <C-i>zz
 nnoremap gi gi<ESC>zza
