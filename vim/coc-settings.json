@@ -1,18 +1,17 @@
 {
-  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-
-  "tabnine.priority": 100,
-
-  "coc.source.around.priority": 3,
-  "coc.source.syntax.priority": 2,
-
-  "diagnostic.displayByAle": true,
-  "diagnostic.enable": false,
-
   "snippets.extends": {
     "javascriptreact": ["javascript", "html"],
     "typescript": ["javascript"]
   },
+
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "tabnine.priority": 100,
+  "coc.source.around.priority": 3,
+  "coc.source.syntax.priority": 2,
+  "coc.preferences.bracketEnterImprove": false,
+
+  "diagnostic.displayByAle": true,
+  "diagnostic.enable": true,
 
   "solargraph.hover": true,
   "solargraph.formatting": true,
@@ -22,7 +21,18 @@
   "solargraph.completion": true,
   "solargraph.checkGemVersion": false,
 
+  "git.enableGutters": true,
   "git.addGlameToBufferVar": true,
-  "git.enableGutters": false,
+  "git.changedSign.text": "┃",
+  "git.addedSign.text": "┃",
+  "git.removedSign.text": "┃",
+  "git.topRemovedSign.text": "┃",
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  // "git.addGlameToVirtualText": true,
+
   "coc.preferences.extensionUpdateCheck": "daily"
 }
