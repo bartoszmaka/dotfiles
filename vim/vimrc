@@ -5,7 +5,6 @@ Plug 'Yggdroot/indentLine'                                         " display ind
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
 Plug 'vim-airline/vim-airline-themes'                              " themes for airline
-Plug 'machakann/vim-highlightedyank'                               " highlight yanked code
 
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
@@ -21,7 +20,7 @@ endif
 Plug 'andymass/vim-matchup'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
-Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
+" Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
 Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
@@ -43,7 +42,6 @@ Plug 'simeji/winresizer'                                           " window resi
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'tpope/vim-abolish'                                           " toggle camelcase, snakecase, etc
 Plug 'osyo-manga/vim-anzu'                                         " display amount of search matches
-Plug 'vim-scripts/copypath.vim'                                    " copy path command
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
 
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
@@ -60,6 +58,7 @@ Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
 Plug 'chrisbra/csv.vim'
 Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
+" Plug 'tpope/vim-rails'
 
 " fancy tools
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
@@ -75,7 +74,6 @@ Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
 
 " new plugins to test
 Plug 'ruanyl/vim-gh-line'                                          " open current line on github
-Plug 'osyo-manga/vim-over'                                         " preview on type for replace commands (:%s//)
 Plug 'whatyouhide/vim-lengthmatters'                               " highlight every column after nth
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
@@ -166,8 +164,71 @@ set mouse=a
 set showcmd                             " show pressed keys
 set number                              " show line numbers
 set cursorline
-
+set cmdheight=1
+set inccommand=nosplit                  " Preview replace
 " **********************************
+
+" custom functions
+function! CocGitBlame() abort
+  let l:blame = get(b:, 'coc_git_blame', '')
+  if l:blame == '' | return '' | endif
+
+  let l:result = get(split(l:blame, ')'), '')
+  return trim(l:result, '()')
+endfunction
+
+function! CocGitStatus() abort
+  if len(get(b:, 'coc_git_status', '')) > 0
+    return ''. b:coc_git_status
+  else
+    return ''. ' clean'
+  endif
+endfunction
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'coc_current_function', '')
+endfunction
+
+function! GetCocStatus() abort
+  return coc#status()
+endfunction
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+function! Multiple_cursors_before()
+  let g:matchup_matchparen_enabled = 0
+endfunction
+
+function! Multiple_cursors_after()
+  let g:matchup_matchparen_enabled = 1
+endfunction
+
+function! DisableAllHeavyStuff()
+  setlocal syntax=off
+  setlocal nospell
+  ALEDisable
+  CocDisable
+endfunction
+" **********************************
+
+" Plugin variables
 " related with enabling italic text
 let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
@@ -192,6 +253,7 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
 " **********************************
 " plugin variables
+
 let g:loaded_matchit = 1
 
 " airline
@@ -209,7 +271,7 @@ call airline#parts#define_accent('gitBlame', 'italic')
 call airline#parts#define_function('nearestFunction', 'NearestMethodOrFunction')
 call airline#parts#define_minwidth('nearestFunction', 50)
 call airline#parts#define_function('cocStatus', 'GetCocStatus')
-call airline#parts#define_minwidth('cocStatus', 120)
+call airline#parts#define_minwidth('cocStatus', 150)
 let g:webdevicons_enable_nerdtree = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#left_sep            = ''
@@ -221,13 +283,8 @@ let g:airline_right_sep                              = ''
 let g:airline_section_b                              = ''
 let g:airline_section_x                              = airline#section#create_right(['gitBlame', 'gitStatus', 'filetype'])
 let g:airline_section_c                              = airline#section#create_left(['file', 'nearestFunction', 'cocStatus'])
-" let g:airline_section_c                              = '%{expand("%:F")} %{NearestMethodOrFunction()}%{coc#status()}'
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
-let g:airline#extensions#branch#enabled              = 1
-let g:airline#extensions#branch#format               = 2
-let g:airline#extensions#branch#displayed_head_limit = 15
-" let g:airline#extensions#tagbar#enabled              = 1
-let g:airline#extensions#hunks#enabled               = 1
+let g:airline#extensions#branch#enabled              = 0
 let g:airline#extensions#tabline#enabled             = 1
 let g:airline#extensions#tabline#show_tabs           = 0
 let g:airline#extensions#tabline#show_close_button   = 0
@@ -274,16 +331,18 @@ let g:coc_global_extensions = [
       \ 'coc-highlight',
       \ 'coc-yank',
       \ 'coc-git',
+      \ 'coc-marketplace',
+      \ 'coc-diagnostic',
       \ ]
 
 " gitgutter
-let g:gitgutter_map_keys = 0
-let g:gitgutter_sign_added='┃'
-let g:gitgutter_sign_modified='┃'
-let g:gitgutter_sign_removed='┃'
-let g:gitgutter_sign_removed_first_line='◥'
-let g:gitgutter_sign_modified_removed='┃'
-let g:gitgutter_override_sign_column_highlight = 0
+" let g:gitgutter_map_keys = 0
+" let g:gitgutter_sign_added='┃'
+" let g:gitgutter_sign_modified='┃'
+" let g:gitgutter_sign_removed='┃'
+" let g:gitgutter_sign_removed_first_line='◥'
+" let g:gitgutter_sign_modified_removed='┃'
+" let g:gitgutter_override_sign_column_highlight = 0
 
 " jsxpretty
 let g:vim_jsx_pretty_colorful_config = 1
@@ -439,6 +498,7 @@ let g:ale_fixers = {
       \}
 let g:ale_linters = {
       \ 'ruby':           ['rubocop'],
+      \ 'eruby':          ['rubocop'],
       \ 'javascript':     ['eslint'],
       \ 'json':           ['jq'],
       \ 'python':         ['pyls', 'autopep8', 'yapf'],
@@ -446,14 +506,15 @@ let g:ale_linters = {
 let g:ale_linter_aliases = {'jsx': 'css'}
 
 " fzf
+let $FZF_DEFAULT_OPTS='--layout=reverse'
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, 'number', 'no')
 
-  let height = float2nr(&lines/2)
-  let width = float2nr(&columns * 0.8)
-  let row = float2nr(&lines / 5)
-  let col = float2nr((&columns - width) / 3)
+  let height = float2nr(&lines * 0.7)
+  let width = float2nr(&columns * 0.9)
+  let row = float2nr(&lines * 0.2)
+  let col = float2nr((&columns - width) / 2)
 
   let opts = {
         \ 'relative': 'editor',
@@ -485,12 +546,18 @@ let g:fzf_colors = {
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment']
       \ }
+let g:fzf_action = {
+      \ 'ctrl-q': function('s:build_quickfix_list'),
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit'}
 
 " vim-rails
 let vim_rails_map_buf_nav_commands = 0
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['markdown', 'help']
+
 
 " vim-lengthmatters
 let g:lengthmatters_use_textwidth   = 0
@@ -502,62 +569,6 @@ call lengthmatters#highlight_link_to('ColorColumn')
 " let g:rainbow_conf = {
 "       \ 'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 "       \ }
-" **********************************
-
-" custom functions
-function! CocGitBlame() abort
-  let l:blame = get(b:, 'coc_git_blame', '')
-  if l:blame == '' | return '' | endif
-
-  let l:result = get(split(l:blame, ')'), '')
-  return trim(l:result, '()')
-endfunction
-
-function! CocGitStatus() abort
-  return get(b:, 'coc_git_status', '')
-endfunction
-
-function! NearestMethodOrFunction() abort
-  return get(b:, 'coc_current_function', '')
-endfunction
-
-function! GetCocStatus() abort
-  return coc#status()
-endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-function! Multiple_cursors_before()
-  let g:matchup_matchparen_enabled = 0
-endfunction
-
-function! Multiple_cursors_after()
-  let g:matchup_matchparen_enabled = 1
-endfunction
-
-function! DisableAllHeavyStuff()
-  setlocal syntax=off
-  setlocal nospell
-  ALEDisable
-  CocDisable
-endfunction
 " **********************************
 
 augroup filetype-fixes
@@ -575,11 +586,11 @@ augroup filetype-scoped-settings
   autocmd FileType json          setlocal conceallevel=2
   autocmd Filetype gitcommit     setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
-  autocmd BufEnter,BufReadPre,BufNewFile *.md
-        \ setlocal conceallevel=0
-  autocmd Filetype fzf
-        \ tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
-  autocmd CursorHold *.yml YamlGetFullPath
+  autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
+  autocmd Filetype fzf tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
+  " autocmd CursorHold *.yml YamlGetFullPath
+  " autocmd CursorHold *.rb,*.erb,*.js,*.ts,*.tsx,*.jsx,*yml,*py,*.html,*.json,*.xml MatchupWhereAmI
+  autocmd Filetype ruby nnoremap <buffer> <leader>t :Eview<CR>
 augroup END
 
 autocmd FileType vim,tex
@@ -668,6 +679,7 @@ nmap <C-l><C-l> :CocList<CR>
 nmap <C-l><C-m> :CocCommand<CR>
 
 nnoremap <leader>a :A<CR>
+nnoremap <leader>e :R<CR>
 
 " MatchTagAlways
 nnoremap <leader>% :MtaJumpToOtherTag<CR>
@@ -724,12 +736,6 @@ nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
 nnoremap <C-p><C-l> :FzfLines<CR>a<Bs>
 nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
 nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
-let g:fzf_action = {
-      \ 'ctrl-q': function('s:build_quickfix_list'),
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit'}
-
 " ctrlsf
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordPath
@@ -753,8 +759,10 @@ nnoremap <C-m><C-j> :SplitjoinJoin<cr>
 nnoremap <C-m><C-s> :SplitjoinSplit<cr>
 
 " gitgutter
-nnoremap [g :GitGutterPrevHunk<CR>
-nnoremap ]g :GitGutterNextHunk<CR>
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+nmap gs <Plug>(coc-git-chunkinfo)
+" nmap gc <Plug>(coc-git-commit)
 " **********************************
 
 " Non plugin related keymaps
@@ -780,13 +788,16 @@ nnoremap g] <C-]>
 vnoremap * y<Esc>/<C-r>"<CR>``
 
 " replace selected word in file
-nnoremap <leader>r yiw:OverCommandLine<cr>%s/\V<C-r>"//g<Left><Left>
-vnoremap <leader>r y:OverCommandLine<cr>%s/\V<C-r>"//g<Left><Left>
-
-" nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
-" vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
+nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
+vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
 nnoremap <leader>R yiw:%s/\V<C-r>"/<C-r>"/g<Left><Left>
 vnoremap <leader>R y:%s/\V<C-r>"/<C-r>"/g<Left><Left>
+
+" mappings below cause memory leak lol
+" " change to rocket hash
+" nmap <C-m><C-r> ysiw':s/:/ =>/
+" " change to symbol hash
+" nmap <C-m><C-e> ds':s/ =>/:/
 
 " move manual lookup to leader?
 nnoremap <leader>? K
@@ -807,7 +818,7 @@ cabbrev Qa! qa
 " command! -nargs=0 Snippets CocCommand snippets.editSnippets
 " cabbrev snippets Snippets
 
-" disable entering Ex-mode with Q 
+" disable entering Ex-mode with Q
 nnoremap Q <NOP>
 map q: <NOP>
 
