@@ -56,11 +56,13 @@ alias -g COL='| column -t -s " "'
 alias bers="bundle exec rails server"
 alias berc="bundle exec rails console"
 alias berr="bundle exec rake routes F C"
+alias bert="bundle exec rspec"
 alias brp="echo 'pry-remote -w';pry-remote -w"
 alias yri="rm -rf yarn.lock node_modules/ && yarn install"
 alias yrm="rm -rf yarn.lock node_modules/"
 alias ys="yarn start"
 alias yi="yarn install"
+alias n='nvim'
 
 alias :wq=exit
 alias :qa=exit
@@ -85,3 +87,9 @@ RPROMPT='%D{%K:%M:%S}'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bartoszmaka/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartoszmaka/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bartoszmaka/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszmaka/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
