@@ -16,76 +16,6 @@
                 },
                 "rules": [
                     {
-                        "description": "Vim-like behavior for Fn+w/b/d",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "caps_lock"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "delete_or_backspace"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "w",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "right_arrow",
-                                        "modifiers": [
-                                            "option"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
-                                    "key_code": "b",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "fn"
-                                        ],
-                                        "optional": [
-                                            "caps_lock",
-                                            "shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "left_arrow",
-                                        "modifiers": [
-                                            "option"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Change Fn + h/j/k/l to Arrows",
                         "manipulators": [
                             {
@@ -192,9 +122,9 @@
                                 "from": {
                                     "key_code": "grave_accent_and_tilde",
                                     "modifiers": {
-                                      "mandatory": [
-                                        "fn"
-                                      ]
+                                        "mandatory": [
+                                            "fn"
+                                        ]
                                     }
                                 },
                                 "to": [
@@ -208,18 +138,142 @@
                                 "from": {
                                     "key_code": "grave_accent_and_tilde",
                                     "modifiers": {
-                                      "mandatory": [
-                                        "fn",
-                                        "shift"
-                                      ]
+                                        "mandatory": [
+                                            "fn",
+                                            "shift"
+                                        ]
                                     }
                                 },
                                 "to": [
                                     {
                                         "key_code": "grave_accent_and_tilde",
                                         "modifiers": [
-                                          "shift"
+                                            "shift"
                                         ]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Pok3r Volume Controls (fn + sdf to Volume down/up/mute)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "volume_decrement"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "volume_increment"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "mute"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Pok3r Media Keys (fn + qwe to Previous Title/Play-Pause/Next)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "q",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "rewind"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "w",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "play_or_pause"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "e",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn"
+                                        ],
+                                        "optional": [
+                                            "caps_lock"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "fastforward"
                                     }
                                 ],
                                 "type": "basic"
@@ -342,6 +396,9 @@
                 }
             ],
             "name": "Default profile",
+            "parameters": {
+                "delay_milliseconds_before_open_device": 1000
+            },
             "selected": true,
             "simple_modifications": [
                 {
@@ -356,7 +413,8 @@
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
                 "country_code": 0,
-                "keyboard_type": "ansi"
+                "keyboard_type": "ansi",
+                "mouse_key_xy_scale": 100
             }
         }
     ]
