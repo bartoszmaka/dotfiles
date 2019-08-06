@@ -28,6 +28,7 @@ ZSH_THEME="agnoster"
 source $ZSH/oh-my-zsh.sh
 test -e "$DOTFILES_PATH/secrets.sh" && source $DOTFILES_PATH/secrets.sh
 
+export BAT_THEME='TwoDark'
 export DISABLE_SPRING=1
 export EDITOR='nvim'
 export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
@@ -89,7 +90,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/bartoszmaka/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartoszmaka/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/bartoszmaka/Applications/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartoszmaka/Applications/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/bartoszmaka/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszmaka/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/bartoszmaka/Applications/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszmaka/Applications/google-cloud-sdk/completion.zsh.inc'; fi
