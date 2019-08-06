@@ -21,7 +21,7 @@ Plug 'andymass/vim-matchup'
 Plug 'Valloric/MatchTagAlways'
 Plug 'tpope/vim-fugitive'                                          " git related commands
 " Plug 'airblade/vim-gitgutter'                                      " shows git signs next to line numbers
-Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
+Plug 'dominikduda/vim_current_word', { 'branch': 'implement_17' }                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 
@@ -169,6 +169,15 @@ set inccommand=nosplit                  " Preview replace
 " **********************************
 
 " custom functions
+
+function! DebugHighlight()
+    let l:s = synID(line('.'), col('.'), 1)
+    echomsg "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+endfun
+nnoremap <F10> :call DebugHighlight()<CR>
+
 function! CocGitBlame() abort
   let l:blame = get(b:, 'coc_git_blame', '')
   if l:blame == '' | return '' | endif
@@ -296,7 +305,6 @@ let g:airline_symbols.spell                          = 'Ꞩ'
 let g:airline_symbols.whitespace                     = 'Ξ'
 let g:airline#extensions#anzu#enabled                = 0
 let g:airline#extensions#tabline#buffer_idx_mode     = 1
-let g:anzu_status_format                             = "%#Search#▶%p◀ (%i/%l)"
 let g:airline_mode_map = {
     \ '__' : '-',
     \ 'n'  : 'N',
@@ -311,6 +319,30 @@ let g:airline_mode_map = {
     \ '' : 'S',
     \ 't'  : 'T',
     \ }
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+noremap <M-}>               :bnext<CR>
+noremap <M-{>               :bprevious<CR>
+noremap <leader>]           :bnext<CR>
+noremap <leader>[           :bprevious<CR>
+nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>
+noremap <leader><space>!    :bdelete!<CR>
+nnoremap <leader>q          :close<CR>
+
+" anzu
+let g:anzu_status_format                             = "%#Search#▶%p◀ (%i/%l)"
+nmap n <Plug>(anzu-n-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap N <Plug>(anzu-N-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap * <Plug>(anzu-star-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 
 " coc
 let g:coc_global_extensions = [
@@ -334,15 +366,41 @@ let g:coc_global_extensions = [
       \ 'coc-marketplace',
       \ 'coc-diagnostic',
       \ ]
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
 
-" gitgutter
-" let g:gitgutter_map_keys = 0
-" let g:gitgutter_sign_added='┃'
-" let g:gitgutter_sign_modified='┃'
-" let g:gitgutter_sign_removed='┃'
-" let g:gitgutter_sign_removed_first_line='◥'
-" let g:gitgutter_sign_modified_removed='┃'
-" let g:gitgutter_override_sign_column_highlight = 0
+vmap <C-e> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+imap <expr><C-e>
+      \ coc#expandableOrJumpable() ?
+      \ "\<Plug>(coc-snippets-expand-jump)" :
+      \ "\<C-y>,"
+inoremap <expr> <c-space> coc#refresh()
+
+nnoremap <leader>K :call <SID>show_documentation()<CR>
+
+nmap gd <Plug>(coc-definition)
+nmap gr <Plug>(coc-references)
+
+nmap <C-l><C-d> <Plug>(coc-definition)
+nmap <C-l><C-r> <Plug>(coc-references)
+nmap <C-l><C-n> <Plug>(coc-rename)
+vmap <C-l><C-f> <Plug>(coc-format-selected)
+nmap <C-l><C-f> <Plug>(coc-format-selected)
+xmap <C-l><C-a> <Plug>(coc-codeaction-selected)
+vmap <C-l><C-a> <Plug>(coc-codeaction-selected)
+nmap <C-l><C-a> <Plug>(coc-codeaction)
+nmap <C-p><C-s> :CocList symbols<CR>
+nmap <C-l><C-l> :CocList<CR>
+nmap <C-l><C-m> :CocCommand<CR>
+
+" coc-git
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+nmap gs <Plug>(coc-git-chunkinfo)
 
 " jsxpretty
 let g:vim_jsx_pretty_colorful_config = 1
@@ -375,13 +433,18 @@ let g:conflict_marker_enable_mappings = 0
 " winresizer
 let g:winresizer_vert_resize    = 1
 let g:winresizer_horiz_resize   = 1
+let g:winresizer_start_key      = '<C-w>e'
+
+" maximizer
+let g:maximizer_default_mapping_key = '<C-w>m'
 
 " vimcurrentword
-let g:vim_current_word#enabled                        = 1
+let g:vim_current_word#enabled                          = 1
 let g:vim_current_word#highlight_only_in_focused_window = 1
-let g:vim_current_word#highlight_twins                = 1
-let g:vim_current_word#highlight_current_word         = 1
-let g:vim_current_word#delay_highlight = 1
+let g:vim_current_word#highlight_twins                  = 1
+let g:vim_current_word#highlight_current_word           = 1
+" let g:vim_current_word#delay_highlight                  = 1
+let g:vim_current_word#highlight_delay                  = 200
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
@@ -397,6 +460,7 @@ let g:mta_filetypes = {
     \ 'javascript.jsx' : 1,
     \ 'html.handlebars' : 1,
     \}
+nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 let g:AutoClosePreserveDotReg = 0
 
@@ -442,14 +506,23 @@ let g:splitjoin_split_mapping     = ''
 let g:splitjoin_join_mapping      = ''
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
+nnoremap <C-m><C-j> :SplitjoinJoin<cr>
+nnoremap <C-m><C-s> :SplitjoinSplit<cr>
 
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
+nnoremap <C-m><C-n> :MultipleCursorsFind 
+vnoremap <C-m><C-n> :MultipleCursorsFind 
 
 " ctrlsf
 let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_indent = 2
 let g:ctrlsf_winsize = '80'
+nmap <leader>f <Plug>CtrlSFPrompt
+vmap <leader>f <Plug>CtrlSFVwordPath
+vmap <leader>F <Plug>CtrlSFVwordExec
+nmap <leader>F <Plug>CtrlSFCwordPath
+nmap <leader>G <Plug>CtrlSFPwordPath
 
 " projectionist
 let g:projectionist_heuristics = {
@@ -472,6 +545,10 @@ let g:projectionist_heuristics = {
       \     }
       \   }
       \ }
+nnoremap <leader>a :A<CR>
+" nnoremap <leader>e :R<CR>
+nnoremap <leader>ev :Eview<CR>
+nnoremap <leader>ec :Econtroller<CR>
 
 " importjs
 let g:importjs_disable_default_mappings = 1
@@ -504,6 +581,11 @@ let g:ale_linters = {
       \ 'python':         ['pyls', 'autopep8', 'yapf'],
       \}
 let g:ale_linter_aliases = {'jsx': 'css'}
+nnoremap <C-m><C-f> :ALEFix<CR>
+nnoremap <C-m><C-l> :ALELint<CR>
+nnoremap <C-m><C-w> :set list!<CR>
+nnoremap [e :ALEPreviousWrap<CR>
+nnoremap ]e :ALENextWrap<CR>
 
 " fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse'
@@ -551,6 +633,19 @@ let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'}
+command! -bang -nargs=? -complete=dir FZFFilesPreview
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
+nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
+nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
+nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
+nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
+nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
+nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
+nnoremap <C-p><C-l> :FzfLines<CR>a<Bs>
+nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
+nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
 
 " vim-rails
 let vim_rails_map_buf_nav_commands = 0
@@ -558,23 +653,129 @@ let vim_rails_map_buf_nav_commands = 0
 " indentLine
 let g:indentLine_fileTypeExclude = ['markdown', 'help']
 
-
 " vim-lengthmatters
 let g:lengthmatters_use_textwidth   = 0
 let g:lengthmatters_start_at_column = 121
 call lengthmatters#highlight_link_to('ColorColumn')
 
-" rainbow => conflicts with polyglot in js/jsx files
-" let g:rainbow_active = 1
-" let g:rainbow_conf = {
-"       \ 'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-"       \ }
+" vim-repeat
+silent! call repeat#set("\<Plug>.", v:count)
+
+" tabular
+vnoremap <C-m><C-t> :Tabularize /
+
+nnoremap <C-k><C-u> :MundoToggle<CR>
+nnoremap <C-k><C-d> :NERDTreeFind<CR>zz
+nnoremap <C-k><C-e> :NERDTreeToggle<CR>
+nnoremap <C-k><C-f> :CtrlSFToggle<CR>
+nnoremap <C-g><C-b> :Gblame<CR>
+nnoremap <C-g><C-d> :Gdiff<CR>
+vnoremap <C-m><C-s> :sort<CR>
+inoremap jk <esc>
+nnoremap K 5kzz
+nnoremap J 5jzz
+" exit terminal mode
+tnoremap <leader><esc> <C-\><C-n>
+" jump to last opened file (map to ` as well, since new macbooks do not have physical escape key)
+nnoremap <leader>` :e#<CR>
+nnoremap <leader><esc> :e#<CR>
+" search exact match by default
+nnoremap / /\V
+nnoremap ? /
+" disable highlight on del
+nnoremap <Bs> :noh<CR>
+nnoremap <C-]> g]
+nnoremap g] <C-]>
+vnoremap * y<Esc>/<C-r>"<CR>``
+" replace selected word in file
+nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
+vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
+nnoremap <leader>R yiw:%s/\V<C-r>"/<C-r>"/g<Left><Left>
+vnoremap <leader>R y:%s/\V<C-r>"/<C-r>"/g<Left><Left>
+" disable entering Ex-mode with Q
+nnoremap Q <NOP>
+map q: <NOP>
+
+" vim command line mappings
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <S-Left>
+cnoremap <C-f> <S-Right>
+cnoremap <C-d> <Delete>
+cnoremap <C-g> <C-c>
+
+" split and merge lines
+nnoremap <leader>j i<CR><Esc>
+nnoremap <leader>k <esc>kJ
+
+" begin and end of line
+map <leader>h ^
+map <leader>l $
+
+" treat multiline statement as multiple lines
+nnoremap j gj
+nnoremap k gk
+
+" windows navigation
+" for linux
+nnoremap <M-h>      <C-w>h
+nnoremap <M-j>      <C-w>j
+nnoremap <M-k>      <C-w>k
+nnoremap <M-l>      <C-w>l
+" for iterm (requires 'send hex' config)
+nnoremap <C-space>h <C-w>h
+nnoremap <C-space>j <C-w>j
+nnoremap <C-space>k <C-w>k
+nnoremap <C-space>l <C-w>l
+if exists('$TMUX')
+  let g:tmux_navigator_no_mappings = 1
+  nnoremap <C-w>h :TmuxNavigateLeft<CR>
+  nnoremap <C-w>j :TmuxNavigateDown<CR>
+  nnoremap <C-w>k :TmuxNavigateUp<CR>
+  nnoremap <C-w>l :TmuxNavigateRight<CR>
+endif
+
+" always focus after cursor jump
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
+nnoremap gi gi<ESC>zza
+nnoremap g; g;zz
+nnoremap `` ``zz
+
+" move block of code without losing selection
+vnoremap > >gv
+vnoremap < <gv
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" system clipboard integration
+vnoremap <leader>y "+y
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+" sometimes I just hold shift for too long
+cabbrev W   w
+cabbrev Wa  wa
+cabbrev Wq  wq
+cabbrev WQ  wq
+cabbrev Wqa wqa
+cabbrev WQa wqa
+cabbrev Q   q
+cabbrev Qa  qa
+cabbrev Q!  q
+cabbrev Qa! qa
+
 " **********************************
 
 augroup filetype-fixes
   autocmd!
   autocmd BufNewFile,BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
-augroup END
+augrou END
 
 " augroups
 augroup filetype-scoped-settings
@@ -587,9 +788,6 @@ augroup filetype-scoped-settings
   autocmd Filetype gitcommit     setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
   autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
-  autocmd Filetype fzf tnoremap <silent> <C-f> <C-\><C-n>:MaximizerToggle<CR>a
-  " autocmd CursorHold *.yml YamlGetFullPath
-  " autocmd CursorHold *.rb,*.erb,*.js,*.ts,*.tsx,*.jsx,*yml,*py,*.html,*.json,*.xml MatchupWhereAmI
   autocmd Filetype ruby nnoremap <buffer> <leader>t :Eview<CR>
 augroup END
 
@@ -598,12 +796,7 @@ autocmd FileType vim,tex
       \ b:matchup_matchparen_fallback,
       \ b:matchup_matchparen_enabled]
       \ = [0, 0]
-" for some reason, those have to be outside the group
 autocmd QuickFixCmdPost wincmd J
-" autocmd! FileType fzf
-" autocmd  FileType fzf
-"       \  set laststatus=0 noshowmode noruler signcolumn=no
-"       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 augroup disable-syntax-for-huge-files
   autocmd!
@@ -636,257 +829,14 @@ augroup color-scheme-tweaks
   highlight CurrentWordTwins guibg=#363636   gui=bold
   highlight CurrentWord      guibg=#222200   gui=bold
 
-  highlight ALEWarning            guibg=#512121
-  highlight ALEError              guibg=#512121
+  highlight ALEWarning       guibg=#512121
+  highlight ALEError         guibg=#512121
 
   highlight Comment          gui=italic,bold
   highlight link typescriptStorageClass typescriptReserved
 augroup END
 
 " **********************************
-
-" Plugin related keymaps
-" coc
-inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
-inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
-
-vmap <C-e> <Plug>(coc-snippets-select)
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-imap <expr><C-e>
-      \ coc#expandableOrJumpable() ?
-      \ "\<Plug>(coc-snippets-expand-jump)" :
-      \ "\<C-y>,"
-inoremap <expr> <c-space> coc#refresh()
-
-nnoremap K :call <SID>show_documentation()<CR>
-
-nmap gd <Plug>(coc-definition)
-nmap gr <Plug>(coc-references)
-
-nmap <C-l><C-d> <Plug>(coc-definition)
-nmap <C-l><C-r> <Plug>(coc-references)
-nmap <C-l><C-n> <Plug>(coc-rename)
-vmap <C-l><C-f> <Plug>(coc-format-selected)
-nmap <C-l><C-f> <Plug>(coc-format-selected)
-xmap <C-l><C-a> <Plug>(coc-codeaction-selected)
-vmap <C-l><C-a> <Plug>(coc-codeaction-selected)
-nmap <C-l><C-a> <Plug>(coc-codeaction)
-nmap <C-p><C-s> :CocList symbols<CR>
-nmap <C-l><C-l> :CocList<CR>
-nmap <C-l><C-m> :CocCommand<CR>
-
-nnoremap <leader>a :A<CR>
-nnoremap <leader>e :R<CR>
-
-" MatchTagAlways
-nnoremap <leader>% :MtaJumpToOtherTag<CR>
-
-" vim-repeat
-silent! call repeat#set("\<Plug>.", v:count)
-
-vnoremap <C-m><C-t> :Tabularize /
-
-vnoremap <C-m><C-s> :sort<CR>
-
-" tools windows management
-let g:winresizer_start_key          = '<C-w>e'
-let g:maximizer_default_mapping_key = '<C-w>m'
-nnoremap <C-k><C-u> :MundoToggle<CR>
-nnoremap <C-k><C-d> :NERDTreeFind<CR>zz
-nnoremap <C-k><C-e> :NERDTreeToggle<CR>
-nnoremap <C-k><C-f> :CtrlSFToggle<CR>
-nnoremap <C-g><C-b> :Gblame<CR>
-nnoremap <C-g><C-d> :Gdiff<CR>
-
-" workspace navigation
-noremap <M-}>               :bnext<CR>
-noremap <M-{>               :bprevious<CR>
-noremap <leader>]           :bnext<CR>
-noremap <leader>[           :bprevious<CR>
-nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
-nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>
-noremap <leader><space>!    :bdelete!<CR>
-nnoremap <leader>q          :close<CR>
-
-" airline
-nmap    <leader>1           <Plug>AirlineSelectTab1
-nmap    <leader>2           <Plug>AirlineSelectTab2
-nmap    <leader>3           <Plug>AirlineSelectTab3
-nmap    <leader>4           <Plug>AirlineSelectTab4
-nmap    <leader>5           <Plug>AirlineSelectTab5
-nmap    <leader>6           <Plug>AirlineSelectTab6
-nmap    <leader>7           <Plug>AirlineSelectTab7
-nmap    <leader>8           <Plug>AirlineSelectTab8
-nmap    <leader>9           <Plug>AirlineSelectTab9
-
-" fzf
-command! -bang -nargs=? -complete=dir FZFFilesPreview
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
-nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
-nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
-nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
-nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
-nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
-nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
-nnoremap <C-p><C-l> :FzfLines<CR>a<Bs>
-nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
-nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
-" ctrlsf
-nmap <leader>f <Plug>CtrlSFPrompt
-vmap <leader>f <Plug>CtrlSFVwordPath
-vmap <leader>F <Plug>CtrlSFVwordExec
-nmap <leader>F <Plug>CtrlSFCwordPath
-nmap <leader>G <Plug>CtrlSFPwordPath
-
-" ale
-nnoremap <C-m><C-f> :ALEFix<CR>
-nnoremap <C-m><C-l> :ALELint<CR>
-nnoremap <C-m><C-w> :set list!<CR>
-nnoremap [e :ALEPreviousWrap<CR>
-nnoremap ]e :ALENextWrap<CR>
-
-" multiplecursors
-nnoremap <C-m><C-n> :MultipleCursorsFind 
-vnoremap <C-m><C-n> :MultipleCursorsFind 
-
-" splitjoin
-nnoremap <C-m><C-j> :SplitjoinJoin<cr>
-nnoremap <C-m><C-s> :SplitjoinSplit<cr>
-
-" gitgutter
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-nmap gs <Plug>(coc-git-chunkinfo)
-" nmap gc <Plug>(coc-git-commit)
-" **********************************
-
-" Non plugin related keymaps
-inoremap jk <esc>
-
-" exit terminal mode
-tnoremap <leader><esc> <C-\><C-n>
-
-" jump to last opened file
-nnoremap <leader>` :e#<CR>
-" keep functionality after ` to ESC karabiner remap
-nnoremap <leader><esc> :e#<CR>
-
-" search exact match by default
-nnoremap / /\V
-nnoremap ? /
-" disable highlight on del
-nnoremap <Bs> :noh<CR>
-
-nnoremap <C-]> g]
-nnoremap g] <C-]>
-
-vnoremap * y<Esc>/<C-r>"<CR>``
-
-" replace selected word in file
-nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
-vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
-nnoremap <leader>R yiw:%s/\V<C-r>"/<C-r>"/g<Left><Left>
-vnoremap <leader>R y:%s/\V<C-r>"/<C-r>"/g<Left><Left>
-
-" mappings below cause memory leak lol
-" " change to rocket hash
-" nmap <C-m><C-r> ysiw':s/:/ =>/
-" " change to symbol hash
-" nmap <C-m><C-e> ds':s/ =>/:/
-
-" move manual lookup to leader?
-nnoremap <leader>? K
-
-" sometimes I just hold shift for too long
-cabbrev W   w
-cabbrev Wa  wa
-cabbrev Wq  wq
-cabbrev WQ  wq
-cabbrev Wqa wqa
-cabbrev WQa wqa
-cabbrev Q   q
-cabbrev Qa  qa
-cabbrev Q!  q
-cabbrev Qa! qa
-" cabbrev E   e
-" " command snippets CocCommand snippets.editSnippets
-" command! -nargs=0 Snippets CocCommand snippets.editSnippets
-" cabbrev snippets Snippets
-
-" disable entering Ex-mode with Q
-nnoremap Q <NOP>
-map q: <NOP>
-
-" vim command line mappings
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-cnoremap <C-b> <S-Left>
-cnoremap <C-f> <S-Right>
-cnoremap <C-d> <Delete>
-cnoremap <C-g> <C-c>
-
-" windows navigation
-" for linux
-nnoremap <M-h>      <C-w>h
-nnoremap <M-j>      <C-w>j
-nnoremap <M-k>      <C-w>k
-nnoremap <M-l>      <C-w>l
-" for iterm (also requires 'send hex' config)
-nnoremap <C-space>h <C-w>h
-nnoremap <C-space>j <C-w>j
-nnoremap <C-space>k <C-w>k
-nnoremap <C-space>l <C-w>l
-if exists('$TMUX')
-  let g:tmux_navigator_no_mappings = 1
-  nnoremap <C-w>h :TmuxNavigateLeft<CR>
-  nnoremap <C-w>j :TmuxNavigateDown<CR>
-  nnoremap <C-w>k :TmuxNavigateUp<CR>
-  nnoremap <C-w>l :TmuxNavigateRight<CR>
-endif
-
-" split and merge lines
-nnoremap <leader>j i<CR><Esc>
-nnoremap <leader>k <esc>kJ
-
-" begin and end of line
-map <leader>h ^
-map <leader>l $
-
-" treat multiline statement as multiple lines
-nnoremap j gj
-nnoremap k gk
-
-" always focus after cursor jump
-nmap n <Plug>(anzu-n-with-echo)zz<Plug>(anzu-echo-search-status)
-nmap N <Plug>(anzu-N-with-echo)zz<Plug>(anzu-echo-search-status)
-nmap * <Plug>(anzu-star-with-echo)zz<Plug>(anzu-echo-search-status)
-nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
-nnoremap <C-o> <C-o>zz
-nnoremap <C-i> <C-i>zz
-nnoremap gi gi<ESC>zza
-nnoremap g; g;zz
-nnoremap `` ``zz
-
-" move block of code without losing selection
-vnoremap > >gv
-vnoremap < <gv
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-
-" system clipboard integration
-vnoremap <leader>y "+y
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
 
 function! DebugHighlight()
     let l:s = synID(line('.'), col('.'), 1)
@@ -895,3 +845,25 @@ function! DebugHighlight()
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfun
 nnoremap <F10> :call DebugHighlight()<CR>
+
+ " Flash window if changed from another vim one
+highlight FlashBuffer gui=bold
+let g:timer = 0
+function NaraFlash(timerr)
+  2match none
+  call timer_stop(g:timer)
+endfunction
+
+function! SiemanoFlash()
+  if expand('%:t') == "CtrlSF"
+    return
+  endif
+  2match FlashBuffer /./
+  redraw
+  let g:timer = timer_start(50, 'NaraFlash')
+endfunction
+
+autocmd WinEnter * call SiemanoFlash()
+autocmd FocusGained * call SiemanoFlash()
+autocmd WinLeave * call NaraFlash(g:timer)
+autocmd FocusLost * call NaraFlash(g:timer)
