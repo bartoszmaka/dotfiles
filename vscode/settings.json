@@ -26,9 +26,9 @@
     "editor.tabSize": 2,
     // editor / workbench
     "editor.fontSize": 15,
-    "editor.rulers": [80, 120],
+    "editor.rulers": [79, 99, 119],
     "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-    "terminal.integrated.rendererType": "dom",
+    "terminal.integrated.rendererType": "canvas",
     "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
     "editor.fontLigatures": true,
     "editor.renderWhitespace": "boundary",
@@ -101,23 +101,23 @@
             "after": [
                 "<esc>"
             ]
-        }
+        },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
-        // {
-        //     "before": [
-        //         "<leader>",
-        //         "r"
-        //     ],
-        //     "after": [
-        //         "y",
-        //         "i",
-        //         "w",
-        //         "/",
-        //         "<C-r>",
-        //         "\"",
-        //     ]
-        // },
+        {
+            "before": [
+                "leader",
+                "r"
+            ],
+            "commands": ["editor.action.rename"]
+        },
+        {
+            "before": [
+                "leader",
+                "y"
+            ],
+            "commands": ["editor.action.clipboardCopyAction"]
+        },
         {
             "before": [
                 "<leader>",
@@ -144,14 +144,14 @@
         //         "actions.find"
         //     ]
         // },
-        {
-            "before": [
-                "n"
-            ],
-            "commands": [
-                "search.action.focusNextSearchResult"
-            ]
-        },
+        // {
+        //     "before": [
+        //         "n"
+        //     ],
+        //     "commands": [
+        //         "search.action.focusNextSearchResult"
+        //     ]
+        // },
         {
             "before": [
                 "<C-k>",
@@ -306,7 +306,7 @@
     ],
     "zenMode.hideTabs": false,
     "zenMode.hideStatusBar": false,
-    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreview": true,
     "vim.disableExtension": false,
     "explorer.confirmDelete": false,
     "workbench.colorTheme": "Atom One Dark",
@@ -316,4 +316,13 @@
     "workbench.activityBar.visible": false,
     "workbench.iconTheme": "material-icon-theme",
     "editor.snippetSuggestions": "top",
+    "editor.cursorSurroundingLines": 4,
+    "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
+    "files.hotExit": "off",
+    "workbench.panel.defaultLocation": "right",
+    "editor.acceptSuggestionOnEnter": "off",
+    "tabnine.disable_file_regex": ["settings.json"],
+    // "rubyTestExplorer.logpanel": false,
+    // "rubyTestExplorer.rspecCommand": "bundle exec rspec",
+    // "testExplorer.codeLens": false
 }
