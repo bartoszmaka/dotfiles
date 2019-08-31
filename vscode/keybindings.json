@@ -39,7 +39,7 @@
   },
   {
     "key": "ctrl+m ctrl+f",
-    "command": "editor.action.firnatDocument",
+    "command": "editor.action.formatDocument",
     "when": "editorFocus && editorLangId == 'ruby'" 
   },
   { 
@@ -128,38 +128,31 @@
     "key": "ctrl+p ctrl+r",
     "command": "extension.openRecentFiles"
   },
-  // {
-  //   "key": "tab",
-  //   "command": "selectNextSuggestion",
-  //   "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
-  // },
-  // {
-  //   "key": "shift+tab",
-  //   "command": "selectPrevSuggestion",
-  //   "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
-  // },
-  // {
-  //   "key": "tab",
-  //   "command": "-acceptSelectedSuggestion"
-  // },
-  // {
-  //   "key": "ctrl+e",
-  //   "command": "editor.emmet.action.expandAbbreviation",
-  //   "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !editorReadonly && !editorTabMovesFocus"
-  // },
-  // {
-  //   "key": "ctrl+e",
-  //   "command": "jumpToNextSnippetPlaceholder",
-  //   "when": "editorTextFocus && hasNextTabstop && inSnippetMode"
-  // },
-  // {
-  //   "key": "ctrl+e",
-  //   "command": "insertSnippet",
-  //   "when": "editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus && !inSnippetMode"
-  // },
-  // {
-  //   "key": "ctrl+e",
-  //   "command": "insertBestCompletion",
-  //   "when": "atEndOfWord && !hasOtherSuggestions && !inSnippetMode && !suggestWidgetVisible && config.editor.tabCompletion == 'on'"
-  // }
+  {
+    "key": "ctrl+p ctrl+g",
+    "command": "gitlens.showQuickRepoStatus"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "insertSnippet"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "editor.action.insertSnippet",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "jumpToNextSnippetPlaceholder",
+    "when": "editorTextFocus && inSnippetMode"
+  },
+  {
+    "key": "shift+ctrl+e",
+    "command": "jumpToPrevSnippetPlaceholder",
+    "when": "editorTextFocus && inSnippetMode"
+  },
+  { 
+    "key": "cmd+\\",
+    "command": "workbench.action.terminal.toggleTerminal"
+  }
 ]
