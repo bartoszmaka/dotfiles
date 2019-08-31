@@ -49,6 +49,7 @@ alias dotfiles="cd $DOTFILES_PATH"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
 
 alias -g F='| fzf --exact'
+alias -g N='| nvim -'
 alias -g C='| cat'
 alias -g H='| head'
 alias -g G!='| grep -v'
