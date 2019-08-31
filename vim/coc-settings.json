@@ -1,17 +1,26 @@
 {
   "snippets.extends": {
-    "javascriptreact": ["javascript", "html"],
-    "typescript": ["javascript"]
+    "javascriptreact": ["javascript", "html", "typescript", "typescriptreact"],
+    "typescriptreact": ["javascript", "html", "typescript", "javascriptreact"],
+    "typescript": ["javascript"],
+    "eruby": ["javascript", "typescript", "html"]
   },
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "tabnine.priority": 100,
+  // "tabnine.priority": 100,
   "coc.source.around.priority": 3,
   "coc.source.syntax.priority": 2,
   "coc.preferences.bracketEnterImprove": false,
 
-  "diagnostic.displayByAle": true,
+  "diagnostic.displayByAle": false,
   "diagnostic.enable": true,
+  "diagnostic.warningSign": "🚨",
+  "diagnostic.infoSign": "🤔",
+  "diagnostic.errorSign": "🤔",
+  "diagnostic.hintSign": "🤔",
+  "diagnostic.refreshAfterSave": true,
+  "diagnostic.refreshOnInsertMode": true,
+
 
   "solargraph.hover": true,
   "solargraph.formatting": true,
