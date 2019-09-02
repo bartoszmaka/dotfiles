@@ -50,8 +50,7 @@ Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 
 " syntax
-" Plug 'peitalin/vim-jsx-typescript'
-Plug 'MaxMEllon/vim-jsx-pretty',        { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/jsdoc-syntax.vim'
@@ -781,6 +780,7 @@ cabbrev Qa! qa
 augroup filetype-fixes
   autocmd!
   autocmd BufNewFile,BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
+  autocmd BufNewFile,BufReadPost *.js,*.jsx set syntax=typescript.tsx " use YATS for js and ts
 augrou END
 
 " augroups
@@ -837,7 +837,7 @@ augroup color-scheme-tweaks
 
   highlight ALEWarning       guibg=#443333
   highlight ALEError         guibg=#512121
-  
+
   highlight link CocErrorHighlight AleError
   highlight link CocWarningHighlight AleWarning
 
@@ -859,37 +859,3 @@ function! DebugHighlight()
     \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfun
 nnoremap <F10> :call DebugHighlight()<CR>
-
- " " Flash window if changed from another vim one
-" highlight FlashBuffer gui=bold
-" let g:timer = 0
-" function NaraFlash(timerr)
- "  2match none
- "  call timer_stop(g:timer)
-" endfunction
-
-" function! SiemanoFlash()
- "  if expand('%:t') == "CtrlSF"
- "    return
- "  endif
- "  2match FlashBuffer /./
- "  redraw
- "  let g:timer = timer_start(50, 'NaraFlash')
-" endfunction
-
-" autocmd WinEnter * call SiemanoFlash()
-" autocmd FocusGained * call SiemanoFlash()
-" autocmd WinLeave * call NaraFlash(g:timer)
-" autocmd FocusLost * call NaraFlash(g:timer)
-"
-" hi ReactState guifg=#C176A7
-" hi ReactProps guifg=#D19A66
-" hi Events ctermfg=204 guifg=#56B6C2
-" hi ReduxKeywords ctermfg=204 guifg=#C678DD
-" hi WebBrowser ctermfg=204 guifg=#56B6C2
-" hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
-" hi tsxTagName guifg=#E06C75
-" hi tsxTag guifg=#666666 gui=bold
-" hi tsxCloseTag guifg=#666666 gui=bold
-" hi tsxEqual guifg=#F99575
-" hi tsxAttrib guifg=#E5C07B cterm=italic
