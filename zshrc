@@ -66,6 +66,8 @@ alias ys="yarn start"
 alias yi="yarn install"
 alias n='nvim'
 
+alias gcof="git checkout \$(git branch -a | fzf)"
+
 alias :wq=exit
 alias :qa=exit
 alias :wqa=exit
