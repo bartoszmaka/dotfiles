@@ -7,3 +7,9 @@ end
 def exit1
   exit!
 end
+
+def test_exception
+  yield
+rescue e =>
+  binding.pry
+end
