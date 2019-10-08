@@ -6,6 +6,7 @@ AllCops:
     - 'bin/**/*'
     - 'vendor/**/*'
     - 'tmp/**/*'
+    - 'db/schema.rb'
 
 # https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Layout/IndentHash
 # To make reasonable use of whitespace
