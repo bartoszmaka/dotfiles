@@ -51,6 +51,7 @@ Plug 'dyng/ctrlsf.vim'                                             " search proj
 
 " syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'othree/yajs.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/jsdoc-syntax.vim'
@@ -77,7 +78,7 @@ Plug 'whatyouhide/vim-lengthmatters'                               " highlight e
 Plug 'ryanoasis/vim-devicons'
 Plug 'dominikduda/vim_yank_with_context'
 Plug 'AndrewRadev/quickpeek.vim'
-Plug 'vim-scripts/TeTrIs.vim'
+Plug 'liuchengxu/vista.vim'
 " Plug 'vkolev/gappscript-vim'
 call plug#end()
 
@@ -172,12 +173,16 @@ set inccommand=nosplit                  " Preview replace
 " **********************************
 
 " custom functions
+function! GenerateRubyTags()
+  call system('ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths) -f .tags')
+endfunction
+command! GenerateRubyTags call GenerateRubyTags()
 
 function! DebugHighlight()
-    let l:s = synID(line('.'), col('.'), 1)
-    echomsg "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+  let l:s = synID(line('.'), col('.'), 1)
+  echomsg "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
 endfun
 nnoremap <F10> :call DebugHighlight()<CR>
 
@@ -238,6 +243,11 @@ function! DisableAllHeavyStuff()
   ALEDisable
   CocDisable
 endfunction
+
+function! NearestMethodOrFunctionVista() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
 " **********************************
 
 " Plugin variables
@@ -309,19 +319,19 @@ let g:airline_symbols.whitespace                     = 'Ξ'
 let g:airline#extensions#anzu#enabled                = 0
 let g:airline#extensions#tabline#buffer_idx_mode     = 1
 let g:airline_mode_map = {
-    \ '__' : '-',
-    \ 'n'  : 'N',
-    \ 'i'  : 'I',
-    \ 'R'  : 'R',
-    \ 'c'  : 'C',
-    \ 'v'  : 'V',
-    \ 'V'  : 'V',
-    \ '' : 'V',
-    \ 's'  : 'S',
-    \ 'S'  : 'S',
-    \ '' : 'S',
-    \ 't'  : 'T',
-    \ }
+      \ '__' : '-',
+      \ 'n'  : 'N',
+      \ 'i'  : 'I',
+      \ 'R'  : 'R',
+      \ 'c'  : 'C',
+      \ 'v'  : 'V',
+      \ 'V'  : 'V',
+      \ '' : 'V',
+      \ 's'  : 'S',
+      \ 'S'  : 'S',
+      \ '' : 'S',
+      \ 't'  : 'T',
+      \ }
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -387,19 +397,27 @@ inoremap <expr> <c-space> coc#refresh()
 
 nnoremap <leader>K :call <SID>show_documentation()<CR>
 
-nmap gd <Plug>(coc-definition)
+function! UnifiedJumpToDefinition()
+  if CocAction('jumpDefinition') == v:true
+    echomsg 'coc'
+  else
+    echomsg 'find'
+    execute "normal gf"
+  endif
+endfunction
+
+nmap gd :call UnifiedJumpToDefinition()<CR>
+" nmap gd <Plug>(coc-definition)
 nmap gr <Plug>(coc-references)
 
-nmap <C-l><C-d> <Plug>(coc-definition)
 nmap <C-l><C-r> <Plug>(coc-references)
-nmap <C-l><C-n> <Plug>(coc-rename)
 vmap <C-l><C-f> <Plug>(coc-format-selected)
 nmap <C-l><C-f> <Plug>(coc-format-selected)
 xmap <C-l><C-a> <Plug>(coc-codeaction-selected)
 vmap <C-l><C-a> <Plug>(coc-codeaction-selected)
 nmap <C-l><C-a> <Plug>(coc-codeaction)
-nmap <C-p><C-s> :CocList symbols<CR>
 nmap <C-l><C-l> :CocList<CR>
+nmap <C-l><C-e> :CocList diagnostics<CR>
 nmap <C-l><C-m> :CocCommand<CR>
 
 " coc-git
@@ -421,13 +439,13 @@ let g:NERDTreeGitStatusWithFlags        = 0
 let g:NERDTreeDirArrowExpandable        = ''
 let g:NERDTreeDirArrowCollapsible       = ''
 let g:NERDTreeColorMapCustom = {
-    \ "Dirty"     : "#299999",
-    \ "Modified"  : "#CC6666",
-    \ "Untracked" : "#CC6666",
-    \ "Staged"    : "#29DD29",
-    \ "Clean"     : "#00FF00",
-    \ "Ignored"   : "#AAAAAA"
-    \ }
+      \ "Dirty"     : "#299999",
+      \ "Modified"  : "#CC6666",
+      \ "Untracked" : "#CC6666",
+      \ "Staged"    : "#29DD29",
+      \ "Clean"     : "#00FF00",
+      \ "Ignored"   : "#AAAAAA"
+      \ }
 
 " mundo
 let g:mundo_right = 1
@@ -454,17 +472,22 @@ let g:vim_current_word#highlight_delay                  = 200
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
+map ; <Plug>(easymotion-prefix)
+" nmap ;w <Plug>(easymotion-w)
+" nmap ;e <Plug>(easymotion-e)
+" nmap ;b <Plug>(easymotion-b)
+
 " MatchTagAlways
 let g:mta_use_matchparen_group       = 0
 let g:mta_set_default_matchtag_color = 0
 let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'eruby' : 1,
-    \ 'javascript.jsx' : 1,
-    \ 'html.handlebars' : 1,
-    \}
+      \ 'html' : 1,
+      \ 'xhtml' : 1,
+      \ 'xml' : 1,
+      \ 'eruby' : 1,
+      \ 'javascript.jsx' : 1,
+      \ 'html.handlebars' : 1,
+      \}
 nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 let g:AutoClosePreserveDotReg = 0
@@ -540,6 +563,30 @@ let g:projectionist_heuristics = {
       \       'alternate': '{dirname}/{basename}.js',
       \       'type': 'test'
       \     },
+      \     '*.ts': {
+      \       'alternate': '{dirname}/__tests__/{basename}.test.ts',
+      \       'type': 'source'
+      \     },
+      \     '**/__tests__/*.test.ts': {
+      \       'alternate': '{dirname}/{basename}.ts',
+      \       'type': 'test'
+      \     },
+      \     'app/javascript/components/*.tsx': {
+      \       'alternate': 'spec/javascript/{dirname}/{basename}.spec.tsx',
+      \       'type': 'source'
+      \     },
+      \     'spec/javascript/*.spec.tsx': {
+      \       'alternate': 'app/javascript/components/{dirname}/{basename}.tsx',
+      \       'type': 'test'
+      \     },
+      \     '*.tsx': {
+      \       'alternate': '{dirname}/__tests__/{basename}.spec.tsx',
+      \       'type': 'source'
+      \     },
+      \     '**/__tests__/*.test.tsx': {
+      \       'alternate': '{dirname}/{basename}.tsx',
+      \       'type': 'test'
+      \     },
       \     'app/*.rb': {
       \       'alternate': 'spec/{}_spec.rb',
       \       'type': 'source'
@@ -567,10 +614,11 @@ let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
 let g:ale_sign_error           = '🚨'
 let g:ale_sign_warning         = '🤔'
 let g:ale_lint_on_save         = 1
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 1
 let g:ale_fixers = {
+      \ 'eruby':          ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
       \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
       \ 'javascript':     ['eslint', 'importjs'],
       \ 'javascript.jsx': ['eslint', 'importjs'],
@@ -639,7 +687,7 @@ let g:fzf_action = {
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'}
 command! -bang -nargs=? -complete=dir FZFFilesPreview
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
 nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
@@ -665,6 +713,52 @@ call lengthmatters#highlight_link_to('ColorColumn')
 
 " vim-repeat
 silent! call repeat#set("\<Plug>.", v:count)
+
+" vista
+let g:vista_echo_cursor_strategy = 'both'
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+      \    'func': "λ",
+      \    'function': "λ",
+      \    'functions': "λ",
+      \    'var': "",
+      \    'variable': "",
+      \    'variables': "",
+      \    'const': "",
+      \    'constant': "",
+      \    'method': "λ",
+      \    'package': "\ue612",
+      \    'packages': "\ue612",
+      \    'enum': "",
+      \    'enumerator': "",
+      \    'module': "\uf136",
+      \    'modules': "\uf136",
+      \    'type': "\uf7fd",
+      \    'typedef': "\uf7fd",
+      \    'types': "\uf7fd",
+      \    'field': "\uf30b",
+      \    'fields': "\uf30b",
+      \    'macro': "\uf8a3",
+      \    'macros': "\uf8a3",
+      \    'map': "\ufb44",
+      \    'class': "",
+      \    'augroup': "\ufb44",
+      \    'struct': "\uf318",
+      \    'union': "\ufacd",
+      \    'member': "\uf02b",
+      \    'target': "\uf893",
+      \    'property': "",
+      \    'interface': "",
+      \    'namespace': "::",
+      \    'subroutine': "\uf9af",
+      \    'implementation': "\uf776",
+      \    'typeParameter': "\uf278",
+      \    'default': "\uf29c"
+      \}
+let g:vista_default_executive = 'coc'
+let g:vista_finder_alternative_executive = 'ctags'
+nnoremap <C-k><C-v> :Vista!!<CR>
+nnoremap <C-p><C-s> :Vista finder coc<CR>
 
 " tabular
 vnoremap <C-m><C-t> :Tabularize /
@@ -780,7 +874,7 @@ cabbrev Qa! qa
 augroup filetype-fixes
   autocmd!
   autocmd BufNewFile,BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
-  autocmd BufNewFile,BufReadPost *.js,*.jsx set syntax=typescript.tsx " use YATS for js and ts
+  " autocmd BufNewFile,BufReadPost *.js,*.jsx set syntax=typescript.tsx " use YATS for js and ts
 augrou END
 
 " augroups
@@ -850,12 +944,48 @@ augroup color-scheme-tweaks
   highlight link typescriptStorageClass typescriptReserved
 augroup END
 
-" **********************************
 
-function! DebugHighlight()
-    let l:s = synID(line('.'), col('.'), 1)
-    echomsg "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-    \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-    \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
-endfun
-nnoremap <F10> :call DebugHighlight()<CR>
+" " In minutes
+" let g:pomodoro_focus_time = 30
+" function! PomodoroStart()
+"   let s:unix_focus_time_end = localtime() + g:pomodoro_focus_time * 60
+"   call system('rm /tmp/vim_pomodoro_end_timestamp')
+"   call system('touch /tmp/vim_pomodoro_end_timestamp')
+"   call system('echo "' . s:unix_focus_time_end . '" >> /tmp/vim_pomodoro_end_timestamp')
+" endfunction
+" function! PomodoroMinutesLeft()
+"   if (!filereadable('/tmp/vim_pomodoro_end_timestamp'))
+"     return('')
+"   endif
+"   let s:seconds_left = (system('tail -n 1 /tmp/vim_pomodoro_end_timestamp') - localtime())
+"   if (s:seconds_left < 0)
+"     return('Break available! ✺')
+"   endif
+"   let s:full_seconds_left = s:seconds_left % 60
+"   let s:full_minutes_left = s:seconds_left / 60
+"   let s:counter = "Focus " . s:full_minutes_left . " min " . s:full_seconds_left . " sec ☑"
+"   return(s:counter)
+" endfunction
+" function! PomodoroDisable()
+"   call system('rm /tmp/vim_pomodoro_end_timestamp')
+" endfunction
+" command! PomodoroFocus call PomodoroStart()
+" command! PomodoroDisable call PomodoroDisable()
+
+" let g:airline_section_x = "%{PomodoroMinutesLeft()}"
+
+" call timer_start(300, {-> execute(':AirlineRefresh')}, { 'repeat': -1 })
+"
+
+func EatWhiteSpace()
+  let c = nr2char(getchar(0))
+  return (c =~ '\s') ? '' : c
+endfunc
+autocmd BufNew *.test.js iab ex expect(<c-r>=EatWhiteSpace()<cr>
+autocmd BufNew *.test.js iab thbc toHaveBeenCalled()<c-r>=EatWhiteSpace()<cr>
+autocmd BufNew *.test.js iab thbcw toHaveBeenCalledWith(<c-r>=EatWhiteSpace()<cr>
+autocmd BufNew *.test.js iab jso jest.spyOn(<c-r>=EatWhiteSpace()<cr>
+autocmd BufNew *.test.js iab jfn jest.fn()<c-r>=EatWhiteSpace()<cr>
+autocmd BufNew *.js,*.jsx iab dbg debugger<c-r>=EatWhiteSpace()<cr>
+autocmd BufNew *.rb iab bp binding.pry<c-r>=EatWhiteSpace()<cr>
+autocmd BufNew *.rb iab org organization<c-r>=EatWhiteSpace()<cr>
