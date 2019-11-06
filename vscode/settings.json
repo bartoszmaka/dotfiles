@@ -35,9 +35,9 @@
     "editor.cursorStyle": "block",
     "workbench.colorCustomizations": {
         "editor.lineHighlightBackground": "#343D46",
-        "statusBar.background": "#005f5f",
-        "statusBar.noFolderBackground": "#005f5f",
-        "statusBar.debuggingBackground": "#005f5f"
+        "statusBar.background": "#5f0000",
+        "statusBar.noFolderBackground": "#5f0000",
+        "statusBar.debuggingBackground": "#5f0000"
     },
     "window.zoomLevel": 0,
     // vim
@@ -104,6 +104,26 @@
         },
     ],
     "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "K"
+            ],
+            "after": [
+                "5",
+                "k",
+                "zz"
+            ]
+        },
+        {
+            "before": [
+                "J"
+            ],
+            "after": [
+                "5",
+                "j",
+                "zz"
+            ]
+        },
         {
             "before": [
                 "leader",
@@ -229,7 +249,7 @@
         },
         {
             "before": [
-                "K"
+                "?"
             ],
             "commands": [
                 "editor.action.showHover"
@@ -321,7 +341,10 @@
     "files.hotExit": "off",
     "workbench.panel.defaultLocation": "right",
     "editor.acceptSuggestionOnEnter": "off",
-    "tabnine.disable_file_regex": ["settings.json"],
+    "tabnine.disable_file_regex": [
+        "settings.json"
+    ],
+    "markdown-preview-enhanced.liveUpdate": false,
     // "rubyTestExplorer.logpanel": false,
     // "rubyTestExplorer.rspecCommand": "bundle exec rspec",
     // "testExplorer.codeLens": false
