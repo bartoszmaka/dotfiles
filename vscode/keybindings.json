@@ -1,10 +1,60 @@
 // Place your key bindings in this file to overwrite the defaults
 [
+  // Jump on test results
+  {
+    "key": "ctrl+n",
+    "command": "goToNextReferenceFromEmbeddedEditor",
+    "when": "inReferenceSearchEditor"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "goToPreviousReferenceFromEmbeddedEditor",
+    "when": "inReferenceSearchEditor"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "search.action.focusNextSearchResult",
+    "when": "hasSearchResult"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "search.action.focusPreviousSearchResult",
+    "when": "hasSearchResult"
+  },
+
+  // Explorer tree
   {
     "key": "ctrl+k ctrl+e",
     "command": "workbench.view.explorer",
     "when": "editorTextFocus"
   },
+  {
+    "key": "ctrl+k ctrl+e",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "!editorTextFocus && explorerViewletVisible"
+  },
+  {
+    "key": "m m",
+    "command": "renameFile",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "m p",
+    "command": "copyFilePath",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "m d",
+    "command": "deleteFile",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
+    "key": "m a",
+    "command": "explorer.newFile",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+
+  // Other
   {
     "key": "shift+cmd+r",
     "command": "workbench.files.action.showActiveFileInExplorer"
@@ -116,10 +166,16 @@
     "key": "cmd+9",
     "command": "workbench.action.openEditorAtIndex9"
   },
+
+  // fuzzy search
   {
-    "key": "ctrl+p ctrl+l",
-    "command": "fuzzySearch.activeTextEditor"
+    "key": "ctrl+p ctrl+s",
+    "command": "workbench.action.gotoSymbol"
   },
+  // {
+  //   "key": "ctrl+p ctrl+l",
+  //   "command": "fuzzySearch.activeTextEditor"
+  // },
   {
     "key": "ctrl+p ctrl+p",
     "command": "workbench.action.quickOpen"
@@ -132,6 +188,7 @@
     "key": "ctrl+p ctrl+g",
     "command": "gitlens.showQuickRepoStatus"
   },
+
   {
     "key": "ctrl+e",
     "command": "insertSnippet"
@@ -151,8 +208,28 @@
     "command": "jumpToPrevSnippetPlaceholder",
     "when": "editorTextFocus && inSnippetMode"
   },
-  { 
+  {
     "key": "cmd+\\",
     "command": "workbench.action.terminal.toggleTerminal"
-  }
+  },
+  {
+    "key": "o",
+    "command": "list.toggleExpand",
+    "when": "listFocus && !inputFocus && explorerResourceIsFolder"
+  },
+  {
+    "key": "o",
+    "command": "list.select",
+    "when": "listFocus && !inputFocus && !explorerResourceIsFolder"
+  },
+  // {
+  //   "key": "n",
+  //   "command": "workbench.action.terminal.findNext",
+  //   "when": "terminalFindWidgetFocused"
+  // },
+  // {
+  //   "key": "N",
+  //   "command": "workbench.action.terminal.findPrevious",
+  //   "when": "terminalFindWidgetFocused"
+  // }
 ]
