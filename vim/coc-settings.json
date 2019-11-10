@@ -6,11 +6,17 @@
     "eruby": ["javascript", "typescript", "html"]
   },
 
-  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  // "tabnine.priority": 100,
+  "suggest.languageSourcePriority": 99,
+  "snippets.priority": 90,
+  "yank.priority": 85,
+  "tabnine.priority": 80,
+  "coc.source.file.priority": 10,
+  "coc.source.syntax.priority": 4,
   "coc.source.around.priority": 3,
-  "coc.source.syntax.priority": 2,
-  "coc.preferences.bracketEnterImprove": false,
+  "coc.source.buffer.priority": 1,
+
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.bracketEnterImprove": true,
 
   "diagnostic.displayByAle": false,
   "diagnostic.enable": true,
@@ -18,9 +24,6 @@
   "diagnostic.infoSign": "🤔",
   "diagnostic.errorSign": "🤔",
   "diagnostic.hintSign": "🤔",
-  "diagnostic.refreshAfterSave": true,
-  "diagnostic.refreshOnInsertMode": true,
-
 
   "solargraph.hover": true,
   "solargraph.formatting": true,
@@ -31,7 +34,8 @@
   "solargraph.checkGemVersion": false,
 
   "git.enableGutters": true,
-  "git.addGlameToBufferVar": true,
+  "git.addGBlameToBufferVar": true,
+  "git.addGBlameToVirtualText": true,
   "git.changedSign.text": "┃",
   "git.addedSign.text": "┃",
   "git.removedSign.text": "┃",
