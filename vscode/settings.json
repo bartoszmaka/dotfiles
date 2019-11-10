@@ -1,20 +1,45 @@
 {
+  // Meta
+  "terminal.integrated.rendererType": "canvas",
+  "files.hotExit": "off",
+
   // Editor
   "editor.tabSize": 2,
   "editor.fontSize": 16,
   "editor.rulers": [79, 99, 119],
   "editor.lineHeight": 20,
   "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-  "terminal.integrated.rendererType": "canvas",
   "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-  "editor.fontLigatures": true,
+  "editor.fontLigatures": false,
   "editor.renderWhitespace": "all",
   "editor.cursorStyle": "block",
-  "editor.snippetSuggestions": "top",
   "editor.minimap.enabled": false,
   "editor.cursorSurroundingLines": 4,
-  "editor.multiCursorModifier": "alt",
   "window.zoomLevel": -1,
+  "editor.multiCursorModifier": "alt",
+  "zenMode.hideTabs": false,
+  "zenMode.hideStatusBar": false,
+  "workbench.editor.enablePreview": true,
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.statusBar.visible": true,
+  "workbench.activityBar.visible": false,
+  "workbench.panel.defaultLocation": "bottom",
+  "breadcrumbs.enabled": true,
+  "extensions.showRecommendationsOnlyOnDemand": true,
+
+  // Colorscheme
+  "workbench.colorTheme": "Atom One Dark",
+  "editor.tokenColorCustomizations": {
+    "[Atom One Dark]": {
+      "comments": "#818897"
+    }
+  },
+  "workbench.iconTheme": "material-icon-theme",
+
+  // Autocomplete
+  "editor.snippetSuggestions": "top",
+  "editor.acceptSuggestionOnEnter": "off",
   "emmet.triggerExpansionOnTab": true,
   "emmet.showSuggestionsAsSnippets": true,
   "emmet.includeLanguages": {
@@ -23,7 +48,26 @@
     "razor": "html",
     "plaintext": "jade"
   },
+  "tabnine.disable_file_regex": [
+    "settings.json"
+  ],
 
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+
+  // Syntax highlighting
+  "files.associations": {
+    "*rc": "shellscript"
+  },
+
+  // Fuzzy files list
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -37,6 +81,7 @@
     "**/.tags": true,
     "**/tags": true
   },
+
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
@@ -47,28 +92,21 @@
     "**/.tags": true,
     "**/tags": true
   },
-  "zenMode.hideTabs": false,
-  "zenMode.hideStatusBar": false,
-  "workbench.editor.enablePreview": true,
-  "explorer.confirmDelete": false,
-  "workbench.colorTheme": "Atom One Dark",
-  "workbench.startupEditor": "newUntitledFile",
-  "workbench.statusBar.visible": true,
-  "workbench.activityBar.visible": false,
-  "workbench.iconTheme": "material-icon-theme",
+
+  // Extensions
+
   "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
-  "files.hotExit": "off",
-  "workbench.panel.defaultLocation": "bottom",
-  "tabnine.disable_file_regex": [
-    "settings.json"
-  ],
   "markdown-preview-enhanced.liveUpdate": false,
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  // "rubyTestExplorer.logpanel": false,
-  // "rubyTestExplorer.rspecCommand": "bundle exec rspec",
-  // "testExplorer.codeLens": false
+
+  // https://marketplace.studio.com/items?itemName=geddski.macros/ 
+  // "macros": {
+  //   "startReplaceWo rdUnderCursor": [
+  //     "editor.action.startFindReplaceAction",
+  //     "tab"
+  //   ]
+  // },
+
+
   // vim
   "workbench.colorCustomizations": {
     "editor.lineHighlightBackground": "#343D46",
@@ -76,6 +114,8 @@
     "statusBar.noFolderBackground": "#005f5f",
     "statusBar.debuggingBackground": "#005f5f"
   },
+  "vim.enableNeovim": true,
+  "vim.neovimPath": "/usr/local/bin/nvim",
   "vim.disableExtension": false,
   "vim.hlsearch": true,
   "vim.leader": "<space>",
@@ -86,104 +126,112 @@
   "vim.useSystemClipboard": true,
   "vim.easymotionMarkerFontFamily": "'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
   "vim.easymotionMarkerFontSize": "16",
-  "vim.easymotionMarkerBackgroundColor": "#5f0000",
+  "vim.easymotionMarkerBackgroundColor": "#5f0000", 
+  "vim.history": 1000,
   "vim.statusBarColorControl": true,
+  "vim.handleKeys": {
+    "<C-d>": false
+  },
+
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": [ "v", "<leader>", "h" ],
-      "after": [ "^" ]
+      "before": ["v", "<leader>", "h"],
+      "after": ["^"]
     },
     {
-      "before": [ "v", "<leader>", "l" ],
-      "after": [ "$" ]
+      "before": ["v", "<leader>", "l"],
+      "after": ["$"]
     },
     {
-      "before": [ "<leader>", "h" ],
-      "after": [ "^" ]
+      "before": ["<leader>", "h"],
+      "after": ["^"]
     },
     {
-      "before": [ "<leader>", "l" ],
-      "after": [ "$" ]
+      "before": ["<leader>", "l"],
+      "after": ["$"]
     },
+    {
+      "before": ["<tab>"],
+      "after": [">", "g", "v"]
+    },
+    // default vscode behavior
+    // {
+    //   "before": ["<S-tab>"],
+    //   "after": ["<", "g", "v"]
+    // }
+    {
+      "before": ["<leader>", "r"],
+      "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "/", "g", "<left>", "<left>"]
+    },
+    {
+      "before": ["<leader>", "R"],
+      "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
+    }
   ],
+
   "vim.insertModeKeyBindings": [
     {
-      "before": [ "j", "k" ],
-      "after": [ "<esc>" ]
+      "before": ["j", "k"],
+      "after": ["<esc>"]
     },
   ],
+
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [ "g", "r" ],
-      "commands": [ "editor.action.referenceSearch.trigger" ]
+      "before": ["g", "r"],
+      "commands": ["editor.action.referenceSearch.trigger"]
     },
     {
-      "before": [ "K" ],
-      "after": [ "5", "k" ]
+      "before": ["K"],
+      "after": ["5", "k"]
     },
     {
-      "before": [ "J" ],
-      "after": [ "5", "j" ]
+      "before": ["J"],
+      "after": ["5", "j"]
     },
     {
-      "before": [ "leader", "r" ],
-      "commands": [ "editor.action.rename" ]
+      "before": ["leader", "r"],
+      "commands": ["editor.action.rename"]
     },
     {
-      "before": [ "leader", "y" ],
-      "commands": [ "editor.action.clipboardCopyAction" ]
+      "before": ["leader", "y"],
+      "commands": ["editor.action.clipboardCopyAction"]
     },
     {
-      "before": [ "<leader>", "a" ],
-      "commands": [ "extension.jumpToTest" ]
+      "before": ["<leader>", "a"],
+      "commands": ["extension.jumpToTest"]
     },
     {
-      "before": [ "<leader>", "%" ],
-      "commands": [ "editor.emmet.action.matchTag" ]
-    },
-    // {
-    //     "before": [
-    //         "/"
-    //     ],
-    //     "commands": [
-    //         "actions.find"
-    //     ]
-    // },
-    // {
-    //     "before": [
-    //         "n"
-    //     ],
-    //     "commands": [
-    //         "search.action.focusNextSearchResult"
-    //     ]
-    // },
-    {
-      "before": [ "v", "<space>", "h" ],
-      "after": [ "v", "^" ],
+      "before": ["<leader>", "%"],
+      "commands": ["editor.emmet.action.matchTag"]
     },
     {
-      "before": [ "v", "<space>", "l" ],
-      "after": [ "v", "$" ],
+      "before": ["v", "<space>", "h"],
+      "after": ["v", "^"],
     },
     {
-      "before": [ "[", "e" ],
+      "before": ["v", "<space>", "l"],
+      "after": ["v", "$"],
+    },
+    {
+      "before": ["[", "e" ],
       "commands": [ "editor.action.marker.prev" ],
     },
     {
-      "before": [ "]", "e" ],
-      "commands": [ "editor.action.marker.next" ],
+      "before": ["]", "e"],
+      "commands": ["editor.action.marker.next"],
     },
     {
-      "before": [ "[", "g" ],
-      "commands": [ "workbench.action.compareEditor.previousChange" ],
+      "before": ["[", "g"],
+      "commands": ["workbench.action.compareEditor.previousChange"],
     },
     {
-      "before": [ "]", "g" ],
+      "before": ["]", "g" ],
       "commands": [ "workbench.action.compareEditor.nextChange" ],
     },
     {
-      "before": [ ":" ],
-      "commands": [ "vim.showQuickpickCmdLine", ]
+      "before": [":"],
+      "commands": [ "vim.showQuickpickCmdLine" ]
     },
     {
       "before": ["<leader>", "K"],
@@ -210,14 +258,20 @@
       "after": ["k", "J"]
     },
     {
-      "before": ["n" ],
+      "before": ["n"],
       "after": ["n", "z", "z"]
     },
     {
       "before": ["N"],
       "after": ["N", "z", "z"]
     },
+    {
+      "before": ["<leader>", "r"],
+      "after": ["\"", "*", "y", "i", "w", ":", "%", "s", "/", "<c-v>", "/", "/", "g", "<left>", "<left>"]
+    },
+    {
+      "before": ["<leader>", "R"],
+      "after": ["\"", "*", "y", "i", "w", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
+    }
   ],
-  "editor.acceptSuggestionOnEnter": "off",
-  "breadcrumbs.enabled": true,
 }
