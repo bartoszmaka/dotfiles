@@ -1,6 +1,6 @@
 filetype off
 call plug#begin()
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'bling/vim-airline'                                           " UI improvement
@@ -52,6 +52,7 @@ Plug 'dyng/ctrlsf.vim'                                             " search proj
 " syntax
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'othree/yajs.vim'
+Plug 'jelera/vim-javascript-syntax'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/jsdoc-syntax.vim'
@@ -77,8 +78,9 @@ Plug 'ruanyl/vim-gh-line'                                          " open curren
 Plug 'whatyouhide/vim-lengthmatters'                               " highlight every column after nth
 Plug 'ryanoasis/vim-devicons'
 Plug 'dominikduda/vim_yank_with_context'
-Plug 'AndrewRadev/quickpeek.vim'
+" Plug 'AndrewRadev/quickpeek.vim'
 Plug 'liuchengxu/vista.vim'
+Plug 'tpope/vim-dadbod'
 " Plug 'vkolev/gappscript-vim'
 call plug#end()
 
@@ -527,7 +529,7 @@ let g:matchup_matchparen_hi_surround_always = 1
 let g:matchup_transmute_enabled             = 0
 
 " polyglot
-" let g:polyglot_disabled = ['typescript', 'typescript.tsx']
+let g:polyglot_disabled = ['typescript', 'typescript.tsx']
 
 " splitjoin
 let g:splitjoin_split_mapping     = ''
@@ -665,7 +667,6 @@ endfunction
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 let g:fzf_command_prefix = 'Fzf'
-" let g:fzf_layout = { 'down': '~25%' }
 let g:fzf_mru_relative = 1
 let g:fzf_colors = {
       \ 'fg':      ['fg', 'Normal'],
@@ -771,8 +772,8 @@ nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiff<CR>
 vnoremap <C-m><C-s> :sort<CR>
 inoremap jk <esc>
-nnoremap K 5kzz
-nnoremap J 5jzz
+nnoremap K 5k
+nnoremap J 5j
 " exit terminal mode
 tnoremap <leader><esc> <C-\><C-n>
 " jump to last opened file (map to ` as well, since new macbooks do not have physical escape key)
@@ -943,49 +944,3 @@ augroup color-scheme-tweaks
   highlight Comment          gui=italic,bold
   highlight link typescriptStorageClass typescriptReserved
 augroup END
-
-
-" " In minutes
-" let g:pomodoro_focus_time = 30
-" function! PomodoroStart()
-"   let s:unix_focus_time_end = localtime() + g:pomodoro_focus_time * 60
-"   call system('rm /tmp/vim_pomodoro_end_timestamp')
-"   call system('touch /tmp/vim_pomodoro_end_timestamp')
-"   call system('echo "' . s:unix_focus_time_end . '" >> /tmp/vim_pomodoro_end_timestamp')
-" endfunction
-" function! PomodoroMinutesLeft()
-"   if (!filereadable('/tmp/vim_pomodoro_end_timestamp'))
-"     return('')
-"   endif
-"   let s:seconds_left = (system('tail -n 1 /tmp/vim_pomodoro_end_timestamp') - localtime())
-"   if (s:seconds_left < 0)
-"     return('Break available! ✺')
-"   endif
-"   let s:full_seconds_left = s:seconds_left % 60
-"   let s:full_minutes_left = s:seconds_left / 60
-"   let s:counter = "Focus " . s:full_minutes_left . " min " . s:full_seconds_left . " sec ☑"
-"   return(s:counter)
-" endfunction
-" function! PomodoroDisable()
-"   call system('rm /tmp/vim_pomodoro_end_timestamp')
-" endfunction
-" command! PomodoroFocus call PomodoroStart()
-" command! PomodoroDisable call PomodoroDisable()
-
-" let g:airline_section_x = "%{PomodoroMinutesLeft()}"
-
-" call timer_start(300, {-> execute(':AirlineRefresh')}, { 'repeat': -1 })
-"
-
-func EatWhiteSpace()
-  let c = nr2char(getchar(0))
-  return (c =~ '\s') ? '' : c
-endfunc
-autocmd BufNew *.test.js iab ex expect(<c-r>=EatWhiteSpace()<cr>
-autocmd BufNew *.test.js iab thbc toHaveBeenCalled()<c-r>=EatWhiteSpace()<cr>
-autocmd BufNew *.test.js iab thbcw toHaveBeenCalledWith(<c-r>=EatWhiteSpace()<cr>
-autocmd BufNew *.test.js iab jso jest.spyOn(<c-r>=EatWhiteSpace()<cr>
-autocmd BufNew *.test.js iab jfn jest.fn()<c-r>=EatWhiteSpace()<cr>
-autocmd BufNew *.js,*.jsx iab dbg debugger<c-r>=EatWhiteSpace()<cr>
-autocmd BufNew *.rb iab bp binding.pry<c-r>=EatWhiteSpace()<cr>
-autocmd BufNew *.rb iab org organization<c-r>=EatWhiteSpace()<cr>
