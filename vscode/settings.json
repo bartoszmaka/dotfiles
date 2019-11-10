@@ -94,18 +94,10 @@
   },
 
   // Extensions
-
   "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
   "markdown-preview-enhanced.liveUpdate": false,
-
-  // https://marketplace.studio.com/items?itemName=geddski.macros/ 
-  // "macros": {
-  //   "startReplaceWo rdUnderCursor": [
-  //     "editor.action.startFindReplaceAction",
-  //     "tab"
-  //   ]
-  // },
-
+  // "vscode_custom_css.policy": true,
+  // "vscode_custom_css.imports": ["file:///Users/bartoszmaka/.repos/dotfiles/vscode/custom_layout.css"],
 
   // vim
   "workbench.colorCustomizations": {
@@ -130,7 +122,8 @@
   "vim.history": 1000,
   "vim.statusBarColorControl": true,
   "vim.handleKeys": {
-    "<C-d>": false
+    "<C-d>": false,
+    "<C-e>": false,
   },
 
   "vim.visualModeKeyBindingsNonRecursive": [
@@ -178,8 +171,23 @@
 
   "vim.normalModeKeyBindingsNonRecursive":[
     {
+      "before": ["/"],
+      "commands": ["actions.find"]
+    },
+    {
+      "before": ["n"],
+      "commands": ["editor.action.nextMatchFindAction"]
+    },
+    {
+      "before": ["N"],
+      "commands": ["editor.action.previousMatchFindAction"]
+    },
+    {
       "before": ["<BS>"],
-      "commands": [":nohl"]
+      "commands": [
+        ":nohl",
+        "closeFindWidget"
+      ]
     },
     {
       "before": ["g", "r"],
@@ -261,14 +269,14 @@
       "before": ["<leader>", "k"],
       "after": ["k", "J"]
     },
-    {
-      "before": ["n"],
-      "after": ["n", "z", "z"]
-    },
-    {
-      "before": ["N"],
-      "after": ["N", "z", "z"]
-    },
+    // {
+    //   "before": ["n"],
+    //   "after": ["n", "z", "z"]
+    // },
+    // {
+    //   "before": ["N"],
+    //   "after": ["N", "z", "z"]
+    // },
     {
       "before": ["<leader>", "r"],
       "after": ["\"", "*", "y", "i", "w", ":", "%", "s", "/", "<c-v>", "/", "/", "g", "<left>", "<left>"]

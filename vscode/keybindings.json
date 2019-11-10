@@ -19,7 +19,26 @@
     "command": "-workbench.action.openRecent"
   },
 
-  // Jump on test results
+  // Shell like shortcuts
+  // {
+  //   "key": "ctrl+u",
+  //   "command": "deleteAllLeft",
+  //   "when": "textInputFocus && !editorReadonly"
+  // },
+  // {
+  //   "key": "ctrl+e",
+  //   "command": "cursorLineEnd",
+  //   "when": "textInputFocus"
+  // },
+
+  // vim like find
+  {
+    "key": "enter",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "editorFocus && findWidgetVisible"
+  },
+
+  // Jump on global search results
   {
     "key": "ctrl+n",
     "command": "goToNextReferenceFromEmbeddedEditor",
