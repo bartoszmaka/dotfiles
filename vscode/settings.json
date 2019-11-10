@@ -176,7 +176,11 @@
     },
   ],
 
-  "vim.normalModeKeyBindingsNonRecursive": [
+  "vim.normalModeKeyBindingsNonRecursive":[
+    {
+      "before": ["<BS>"],
+      "commands": [":nohl"]
+    },
     {
       "before": ["g", "r"],
       "commands": ["editor.action.referenceSearch.trigger"]
