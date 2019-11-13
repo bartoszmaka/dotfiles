@@ -50,10 +50,10 @@ Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 
 " syntax
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'othree/yajs.vim'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'MaxMEllon/vim-jsx-pretty'
+" Plug 'othree/yajs.vim'
+" Plug 'jelera/vim-javascript-syntax'
+" " Plug 'HerringtonDarkholme/yats.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
@@ -74,14 +74,8 @@ Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
 " Plug 'zxqfl/tabnine-vim'
 
 " new plugins to test
-Plug 'ruanyl/vim-gh-line'                                          " open current line on github
-Plug 'whatyouhide/vim-lengthmatters'                               " highlight every column after nth
-Plug 'ryanoasis/vim-devicons'
 Plug 'dominikduda/vim_yank_with_context'
-" Plug 'AndrewRadev/quickpeek.vim'
-Plug 'liuchengxu/vista.vim'
-Plug 'tpope/vim-dadbod'
-" Plug 'vkolev/gappscript-vim'
+" Plug 'liuchengxu/vista.vim'
 call plug#end()
 
 " **********************************
@@ -100,8 +94,10 @@ else
   let g:python_host_prog  = '/usr/bin/python2'
   let g:python3_host_prog = '/usr/bin/python3'
 endif
+
 " meta
-syntax sync minlines=256
+" syntax sync minlines=500
+syntax sync fromstart
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
 set grepprg=ag
@@ -182,9 +178,13 @@ command! GenerateRubyTags call GenerateRubyTags()
 
 function! DebugHighlight()
   let l:s = synID(line('.'), col('.'), 1)
-  echomsg "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"
+  echomsg "hi<"
+        \ . synIDattr(synID(line("."),col("."),1),"name")
+        \ . '> trans<'
+        \ . synIDattr(synID(line("."),col("."),0),"name")
+        \ . "> lo<"
+        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+        \ . ">"
 endfun
 nnoremap <F10> :call DebugHighlight()<CR>
 
@@ -363,7 +363,6 @@ nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
       \ 'coc-solargraph',
-      \ 'coc-tabnine',
       \ 'coc-snippets',
       \ 'coc-css',
       \ 'coc-tailwindcss',
@@ -381,7 +380,6 @@ let g:coc_global_extensions = [
       \ 'coc-yank',
       \ 'coc-git',
       \ 'coc-marketplace',
-      \ 'coc-diagnostic',
       \ ]
 inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
@@ -529,7 +527,6 @@ let g:matchup_matchparen_hi_surround_always = 1
 let g:matchup_transmute_enabled             = 0
 
 " polyglot
-let g:polyglot_disabled = ['typescript', 'typescript.tsx']
 
 " splitjoin
 let g:splitjoin_split_mapping     = ''
@@ -706,11 +703,6 @@ let vim_rails_map_buf_nav_commands = 0
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['markdown', 'help']
-
-" vim-lengthmatters
-let g:lengthmatters_use_textwidth   = 0
-let g:lengthmatters_start_at_column = 121
-call lengthmatters#highlight_link_to('ColorColumn')
 
 " vim-repeat
 silent! call repeat#set("\<Plug>.", v:count)
