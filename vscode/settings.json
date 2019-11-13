@@ -27,6 +27,7 @@
   "workbench.panel.defaultLocation": "bottom",
   "breadcrumbs.enabled": true,
   "extensions.showRecommendationsOnlyOnDemand": true,
+  "window.title": "${activeEditorMedium}${separator}${rootPath}${separator}${dirty}",
 
   // Colorscheme
   "workbench.colorTheme": "Atom One Dark",
@@ -35,7 +36,6 @@
       "comments": "#818897"
     }
   },
-  "workbench.iconTheme": "material-icon-theme",
 
   // Autocomplete
   "editor.snippetSuggestions": "top",
@@ -159,7 +159,15 @@
     {
       "before": ["<leader>", "R"],
       "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
-    }
+    },
+    // {
+    //   "before": ["<leader>", "y"],
+    //   "commands": ["execCopy"]
+    // },
+    // {
+    //   "before": ["<leader>", "p"],
+    //   "commands": ["execPaste"]
+    // }
   ],
 
   "vim.insertModeKeyBindings": [
@@ -202,11 +210,7 @@
       "after": ["5", "j"]
     },
     {
-      "before": ["leader", "r"],
-      "commands": ["editor.action.rename"]
-    },
-    {
-      "before": ["leader", "y"],
+      "before": ["<leader>", "y"],
       "commands": ["editor.action.clipboardCopyAction"]
     },
     {
@@ -217,17 +221,17 @@
       "before": ["<leader>", "%"],
       "commands": ["editor.emmet.action.matchTag"]
     },
-    {
-      "before": ["v", "<space>", "h"],
-      "after": ["v", "^"],
-    },
-    {
-      "before": ["v", "<space>", "l"],
-      "after": ["v", "$"],
-    },
+    // {
+    //   "before": ["v", "<space>", "h"],
+    //   "after": ["v", "^"],
+    // },
+    // {
+    //   "before": ["v", "<space>", "l"],
+    //   "after": ["v", "$"],
+    // },
     {
       "before": ["[", "e" ],
-      "commands": [ "editor.action.marker.prev" ],
+      "commands": ["editor.action.marker.prev"],
     },
     {
       "before": ["]", "e"],
@@ -284,6 +288,18 @@
     {
       "before": ["<leader>", "R"],
       "after": ["\"", "*", "y", "i", "w", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
-    }
+    },
+    // {
+    //   "before": ["<leader>", "y"],
+    //   "after": ["<C-c>"]
+    // },
+    // {
+    //   "before": ["<leader>", "p"],
+    //   "after": ["<C-v>"]
+    // }
+    // {
+    //   "before": ["<C-p>", "<C-m>"],
+    //   "commands": [":marks"]
+    // }
   ],
 }

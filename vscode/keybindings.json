@@ -30,6 +30,11 @@
   //   "command": "cursorLineEnd",
   //   "when": "textInputFocus"
   // },
+  // {
+  //   "key": "ctrl+e",
+  //   "command": "cursorEnd",
+  //   "when": "textInputFocus"
+  // },
 
   // vim like find
   {
