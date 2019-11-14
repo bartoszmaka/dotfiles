@@ -47,6 +47,12 @@ it('${1}', () => {
 });
 endsnippet
 
+snippet test "jest test" w
+test('${1}', () => {
+  ${2}
+});
+endsnippet
+
 snippet de  "jest describe" w
 describe('${1}', () => {
   ${2}
@@ -102,4 +108,30 @@ constructor(props) {
   super(props);
   ${1}
 }
+endsnippet
+
+snippet teao "to eq array containing obj matching" w
+toEqual(
+  expect.arrayContaining([
+    expect.objectContaining({
+      ${1}
+    })
+  ])
+)
+endsnippet
+
+snippet tea "to eq array containing" w
+toEqual(
+  expect.arrayContaining([
+    ${1}
+  ])
+)
+endsnippet
+
+snippet teo "to eq object containing" w
+toEqual(
+  expect.objectContaining({
+    ${1}
+  })
+)
 endsnippet
