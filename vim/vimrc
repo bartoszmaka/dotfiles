@@ -593,6 +593,14 @@ let g:projectionist_heuristics = {
       \     'spec/*_spec.rb': {
       \       'alternate': 'app/{}.rb',
       \       'type': 'test'
+      \     },
+      \     'app/controllers/*_controller.rb': {
+      \       'alternate': 'spec/requests/{}_spec.rb',
+      \       'type': 'test'
+      \     },
+      \     'spec/requests/*_spec.rb': {
+      \       'alternate': 'app/controllers/{}_controller.rb',
+      \       'type': 'test'
       \     }
       \   }
       \ }
