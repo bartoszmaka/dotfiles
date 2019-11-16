@@ -50,9 +50,6 @@ Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 
 " syntax
-" Plug 'MaxMEllon/vim-jsx-pretty'
-" Plug 'othree/yajs.vim'
-" Plug 'jelera/vim-javascript-syntax'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/jsdoc-syntax.vim'
@@ -889,12 +886,12 @@ augroup filetype-fixes
   autocmd!
   autocmd BufNewFile,BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
   autocmd BufNewFile,BufReadPost *.ts,*.tsx set syntax=typescriptreact
+  autocmd BufNewFile,BufReadPost .eslintrc set filetype=json
 augrou END
 
 " augroups
 augroup filetype-scoped-settings
   autocmd!
-  autocmd BufNewFile,BufRead .eslintrc set filetype=json
   " don't hide quotes in JSON keys
   autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
@@ -962,6 +959,12 @@ augroup color-scheme-tweaks
   highlight DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
   highlight DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
 
-  " yats tweak
-  highlight htmlTag     ctermfg=59 gui=italic guifg=#5C6370
+  " typesctipt / yats tweak
+  " highlight htmlTag     ctermfg=59 gui=italic guifg=#5C6370
+  autocmd FileType typescript highlight! link htmlTag Comment
+
+  " javascript tweaks
+  autocmd FileType javascript highlight! link jsStorageClass jsThis
+  autocmd FileType javascript highlight! link jsClassKeyword jsThis
+
 augroup END
