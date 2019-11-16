@@ -254,23 +254,13 @@ endfunction
 
 " Plugin variables
 " related with enabling italic text
-let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+" let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
 
 if (has("termguicolors"))
   set termguicolors
 endif
 
-augroup overrideColorscheme
-  autocmd!
-  " let s:diff_green  = { "gui": "#006600" }
-  " let s:diff_red    = { "gui": "#660000" }
-  " let s:diff_yellow = { "gui": "#664d00" }
-  autocmd ColorScheme * call onedark#extend_highlight("DiffChange", { "gui": "none" })
-  " autocmd ColorScheme * call onedark#extend_highlight("DiffText",   { "bg": s:diff_yellow, "gui": "none" })
-  " autocmd ColorScheme * call onedark#extend_highlight("DiffAdd",    { "bg": s:diff_green, "gui": "none" })
-  " autocmd ColorScheme * call onedark#extend_highlight("DiffDelete", { "bg": s:diff_red, "gui": "none" })
-augroup END
 colorscheme onedark
 let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
@@ -941,6 +931,18 @@ augroup color-scheme-tweaks
   highlight! CocInfoFloat guifg=#bbbbbb
   highlight! CocHintFloat guifg=#bbbbbb
 
-  highlight Comment          gui=italic,bold
+  highlight Comment          gui=italic
   highlight link typescriptStorageClass typescriptReserved
+
+  highlight DiffChange  guibg=#3c3c34 guifg=NONE gui=NONE
+  highlight DiffText    guibg=#525200 guifg=NONE gui=NONE
+  highlight DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
+  highlight DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
+  " let s:diff_green  = { "gui": "#006600" }
+  " let s:diff_red    = { "gui": "#660000" }
+  " let s:diff_yellow = { "gui": "#664d00" }
+  " autocmd ColorScheme * call onedark#extend_highlight("DiffChange", { "gui": "none" })
+  " autocmd ColorScheme * call onedark#extend_highlight("DiffText",   { "bg": s:diff_yellow, "gui": "none" })
+  " autocmd ColorScheme * call onedark#extend_highlight("DiffAdd",    { "bg": s:diff_green, "gui": "none" })
+  " autocmd ColorScheme * call onedark#extend_highlight("DiffDelete", { "bg": s:diff_red, "gui": "none" })
 augroup END
