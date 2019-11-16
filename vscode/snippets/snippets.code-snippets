@@ -1,93 +1,117 @@
 {
-	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
-	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
-	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
-	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
-	// Placeholders with the same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"scope": "javascript,typescript",
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
+  // Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
 
-	"console.log": {
-		"scope": "javascript,typescript",
-		"prefix": "cl",
-		"description": "Log output to console",
-		"body": [
-			"console.log($1)",
-			"$2"
-		]
-	},
-	"export const": {
-		"scope": "javascript,typescript",
-		"prefix": "ec",
-		"body": "export const",
-		"description": "export const"
-	},
-	"export default": {
-		"scope": "javascript,typescript",
-		"prefix": "ed",
-		"body": "export default",
-		"description": "export default"
-	},
-	"jest describe": {
-		"scope": "javascript,typescript",
-		"prefix": "desc",
-		"description": "jest describe block",
-		"body": [
-			"describe('$1', () => {",
-			"  $2",
-			"});"
-		]
-	},
-	"jest it": {
-		"scope": "javascript,typescript",
-		"prefix": "it",
-		"description": "jest it block",
-		"body": [
-			"it('$1', () => {",
-			"  $2",
-			"});"
-		]
-	},
-	"jest test": {
-		"scope": "javascript,typescript",
-		"prefix": "test",
-		"description": "jest test block",
-		"body": [
-			"test('$1', () => {",
-			"  $2",
-			"});"
-		]
-	},
-	"jest array containing object": {
-		"scope": "javascript,typescript",
-		"prefix": "teao",
-		"description": "to equal array containing object matching",
-		"body": [
-			".toEqual(",
-			"  expect.arrayContaining([",
-			"    expect.objectContaining({",
-			"      $1",
-			"    })",
-			"  ])",
-			")"
-		]
-	},
-	"arrow function": {
-		"scope": "javascript,typescript",
-		"prefix": "fn",
-		"description": "arrow function",
-		"body": [
-			"($1) => {",
-			"  $2",
-			"}"
-		]
-}
+  "console.log": {
+    "scope": "javascript,typescript",
+    "prefix": "cl",
+    "description": "Log output to console",
+    "body": [
+      "console.log($1)",
+      "$2"
+    ]
+  },
+  "export const": {
+    "scope": "javascript,typescript",
+    "prefix": "ec",
+    "body": "export const",
+    "description": "export const"
+  },
+  "export default": {
+    "scope": "javascript,typescript",
+    "prefix": "ed",
+    "body": "export default",
+    "description": "export default"
+  },
+  "jest describe": {
+    "scope": "javascript,typescript",
+    "prefix": "desc",
+    "description": "jest describe block",
+    "body": [
+      "describe('$1', () => {",
+      "  $2",
+      "});"
+    ]
+  },
+  "jest it": {
+    "scope": "javascript,typescript",
+    "prefix": "it",
+    "description": "jest it block",
+    "body": [
+      "it('$1', () => {",
+      "  $2",
+      "});"
+    ]
+  },
+  "arrow function": {
+    "scope": "javascript,typescript",
+    "prefix": "fn",
+    "description": "arrow function",
+    "body": [
+      "($1) => {",
+      "  $2",
+      "}"
+    ]
+  },
+  "jest test": {
+    "scope": "javascript,typescript",
+    "prefix": "test",
+    "description": "jest test block",
+    "body": [
+      "test('$1', () => {",
+      "  $2",
+      "});"
+    ]
+  },
+  "to eq array containing obj containing": {
+    "scope": "javascript,typescript",
+    "prefix": "teao",
+    "description": "array containing obj containing",
+    "body": [
+      "toEqual(",
+      "  expect.arrayContaining([",
+      "    expect.objectContaining({",
+      "      ${1}",
+      "    })",
+      "  ])",
+      ")"
+    ]
+  },
+  "to eq array containing": {
+    "scope": "javascript,typescript",
+    "prefix": "tea",
+    "description": "array containing",
+    "body": [
+      "toEqual(",
+      "  expect.arrayContaining([",
+      "    ${1}",
+      "  ])",
+      ")"
+    ]
+  },
+  "to eq object containing": {
+    "scope": "javascript,typescript",
+    "prefix": "teo",
+    "description": "obj containing",
+    "body": [
+      "toEqual(",
+      "  expect.objectContaining({",
+      "    ${1}",
+      "  )",
+      ")"
+    ]
+  }
