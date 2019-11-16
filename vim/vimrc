@@ -945,6 +945,8 @@ augroup color-scheme-tweaks
 
   highlight link CocErrorHighlight AleError
   highlight link CocWarningHighlight AleWarning
+  highlight link CocInfoHighlight AleWarning
+  highlight link CocHintHighlight AleWarning
 
   highlight! CocErrorFloat guifg=#bbbbbb
   highlight! CocWarningFloat guifg=#bbbbbb
@@ -960,7 +962,6 @@ augroup color-scheme-tweaks
   highlight DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
 
   " typesctipt / yats tweak
-  " highlight htmlTag     ctermfg=59 gui=italic guifg=#5C6370
   autocmd FileType typescript highlight! link htmlTag Comment
 
   " javascript tweaks
