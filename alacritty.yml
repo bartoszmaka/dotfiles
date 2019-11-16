@@ -109,7 +109,7 @@ font:
   italic:
     family: Hasklug Nerd Font Mono
     style: ExtraLight Italic
-  size: 13.0
+  size: 15.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -295,8 +295,8 @@ mouse:
     #   - (macOS) open
     #   - (Linux) xdg-open
     #   - (Windows) explorer
-    #launcher:
-    #  program: xdg-open
+    launcher:
+      program: open
     #  args: []
 
     # URL modifiers
@@ -340,11 +340,11 @@ live_config_reload: true
 #   - (Linux) user login shell
 #   - (Windows) powershell
 shell:
- program: /bin/zsh
- args:
+  program: /bin/zsh
+  args:
    - --login
-   - -c
-   - tmux -u new-session -t main
+# - -c
+# - tmux -u new-session -t main
 
 # Startup directory
 #
