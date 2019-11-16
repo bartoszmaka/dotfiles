@@ -75,7 +75,7 @@ Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
 
 " new plugins to test
 Plug 'dominikduda/vim_yank_with_context'
-" Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vista.vim'
 call plug#end()
 
 " **********************************
@@ -377,13 +377,33 @@ inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
 
 vmap <C-e> <Plug>(coc-snippets-select)
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
+" let g:coc_snippet_next = '<c-j>'
+" let g:coc_snippet_prev = '<c-k>'
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
 imap <expr><C-e>
       \ coc#expandableOrJumpable() ?
       \ "\<Plug>(coc-snippets-expand-jump)" :
       \ "\<C-y>,"
 inoremap <expr> <c-space> coc#refresh()
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 
 nnoremap <leader>K :call <SID>show_documentation()<CR>
 
@@ -409,6 +429,9 @@ nmap <C-l><C-a> <Plug>(coc-codeaction)
 nmap <C-l><C-l> :CocList<CR>
 nmap <C-l><C-e> :CocList diagnostics<CR>
 nmap <C-l><C-m> :CocCommand<CR>
+nmap <leader>E  <Plug>(coc-diagnostic-info)
+nmap <leader>H  <Plug>(coc-float-hide)
+nmap <leader>J  <Plug>(coc-float-jump)
 
 " coc-git
 nmap [g <Plug>(coc-git-prevchunk)
