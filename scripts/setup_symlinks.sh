@@ -11,6 +11,7 @@ ln -vsf ~/.repos/dotfiles/pryrc ~/.pryrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/vim/cocSnippets ~/.config/coc/ultisnips
 ln -vsf ~/.repos/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
+ln -vsf ~/.repos/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 
 case "$(uname -s)" in
   Darwin)
