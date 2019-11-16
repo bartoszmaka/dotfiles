@@ -66,7 +66,7 @@ Plug 'meain/vim-package-info',          { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 
-Plug 'w0rp/ale'                                                    " async syntax checking
+" Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
 " Plug 'zxqfl/tabnine-vim'
 
@@ -651,11 +651,14 @@ let g:ale_linters = {
       \ 'python':         ['pyls', 'autopep8', 'yapf'],
       \}
 let g:ale_linter_aliases = {'jsx': 'css'}
-nnoremap <C-m><C-f> :ALEFix<CR>
-nnoremap <C-m><C-l> :ALELint<CR>
-nnoremap <C-m><C-w> :set list!<CR>
-nnoremap [e :ALEPreviousWrap<CR>
-nnoremap ]e :ALENextWrap<CR>
+" nnoremap <C-m><C-f> :ALEFix<CR>
+" nnoremap <C-m><C-l> :ALELint<CR>
+" nnoremap <C-m><C-w> :set list!<CR>
+" nnoremap [e :ALEPreviousWrap<CR>
+" nnoremap ]e :ALENextWrap<CR>
+nmap <C-m><C-f> <Plug>(coc-format)
+nmap [e <Plug>(coc-diagnostic-prev)
+nmap ]e <Plug>(coc-diagnostic-next)
 
 " fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse'
