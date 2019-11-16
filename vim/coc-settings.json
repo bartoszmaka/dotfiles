@@ -19,24 +19,28 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.bracketEnterImprove": true,
 
-  "diagnostic.displayByAle": false,
+  "diagnostic.displayByAle": true,
   "diagnostic.enable": true,
   "diagnostic.warningSign": "🚨",
   "diagnostic.infoSign": "🤔",
   "diagnostic.errorSign": "🤔",
   "diagnostic.hintSign": "🤔",
+  // "diagnostic-languageserver.formatFiletypes": {
+  //   "javascript": "eslint",
+  //   "javascript.jsx": "eslint"
+  // },
 
   "solargraph.hover": true,
   "solargraph.formatting": true,
   "solargraph.references": true,
-  "solargraph.diagnostics": false,
+  "solargraph.diagnostics": true,
   "solargraph.definitions": true,
   "solargraph.completion": true,
   "solargraph.checkGemVersion": false,
 
   "git.enableGutters": true,
   "git.addGBlameToBufferVar": true,
-  "git.addGBlameToVirtualText": true,
+  "git.addGBlameToVirtualText": false,
   "git.changedSign.text": "┃",
   "git.addedSign.text": "┃",
   "git.removedSign.text": "┃",

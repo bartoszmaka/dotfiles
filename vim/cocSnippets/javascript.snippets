@@ -74,7 +74,7 @@ const ${1} = require('${2}');
 endsnippet
 
 snippet imp "import module from " w
-import ${1:moduleName} from '${0:module}';
+import ${2:moduleName} from '${1:module}';
 endsnippet
 
 snippet e "export" w
@@ -134,4 +134,28 @@ toEqual(
     ${1}
   })
 )
+endsnippet
+
+snippet sctr "Scaffold test react component" w
+import React from 'react';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
+
+import { ${1} } from '../${1}';
+
+const setup = (newProps = {}, rendering = shallow) => {
+  const props = {
+    ${2}
+    ...newProps,
+  };
+
+  const wrapper = rendering(<${1} {...props} />);
+
+  return { wrapper, props };
+};
+${3}
+endsnippet
+
+snippet etms "expect to match snapshot" w
+expect(${1:toJson(wrapper)}).toMatchSnapshot()
 endsnippet

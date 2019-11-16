@@ -350,6 +350,7 @@ nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
       \ 'coc-solargraph',
+      \ 'coc-diagnostic',
       \ 'coc-snippets',
       \ 'coc-css',
       \ 'coc-tailwindcss',
@@ -543,8 +544,8 @@ let g:splitjoin_split_mapping     = ''
 let g:splitjoin_join_mapping      = ''
 let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
-nnoremap <C-m><C-j> :SplitjoinJoin<cr>
-nnoremap <C-m><C-s> :SplitjoinSplit<cr>
+nmap <C-m><C-j> :SplitjoinJoin<cr>
+nmap <C-m><C-s> :SplitjoinSplit<cr>
 
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
@@ -624,14 +625,14 @@ let g:importjs_disable_default_mappings = 1
 
 " ale
 let g:ale_virtualtext_cursor   = 1
-let g:ale_virtualtext_delay    = 100
+let g:ale_virtualtext_delay    = 1000
 let g:ale_echo_msg_error_str   = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
 let g:ale_sign_error           = '🚨'
 let g:ale_sign_warning         = '🤔'
-let g:ale_lint_on_save         = 1
-let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
 let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 1
 let g:ale_fixers = {
@@ -656,6 +657,9 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 nnoremap [e :ALEPreviousWrap<CR>
 nnoremap ]e :ALENextWrap<CR>
+" nmap <C-m><C-f> <Plug>(coc-format)
+" nmap [e <Plug>(coc-diagnostic-prev)
+" nmap ]e <Plug>(coc-diagnostic-next)
 
 " fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse'
@@ -775,7 +779,7 @@ nnoremap <C-p><C-s> :Vista finder coc<CR>
 vnoremap <C-m><C-t> :Tabularize /
 
 nnoremap <C-k><C-u> :MundoToggle<CR>
-nnoremap <C-k><C-d> :NERDTreeFind<CR>zz
+nnoremap <C-k><C-d> :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k><C-f> :CtrlSFToggle<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
@@ -967,5 +971,7 @@ augroup color-scheme-tweaks
   " javascript tweaks
   autocmd FileType javascript highlight! link jsStorageClass jsThis
   autocmd FileType javascript highlight! link jsClassKeyword jsThis
+  autocmd FileType javascript highlight! link jsModuleKeyword jsThis
+  autocmd FileType javascript highlight! link jsVariableDef Type
 
 augroup END

@@ -31,7 +31,7 @@ test -e "$DOTFILES_PATH/secrets.sh" && source $DOTFILES_PATH/secrets.sh
 export BAT_THEME='TwoDark'
 export DISABLE_SPRING=1
 export EDITOR='nvim'
-export FZF_DEFAULT_COMMAND='ag --hidden -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden -g "" --ignore-dir .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export DOTFILES_PATH="$HOME/.repos/dotfiles"
 
