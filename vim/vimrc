@@ -53,7 +53,7 @@ Plug 'dyng/ctrlsf.vim'                                             " search proj
 " Plug 'MaxMEllon/vim-jsx-pretty'
 " Plug 'othree/yajs.vim'
 " Plug 'jelera/vim-javascript-syntax'
-" " Plug 'HerringtonDarkholme/yats.vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
