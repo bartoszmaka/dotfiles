@@ -888,7 +888,7 @@ cabbrev Qa! qa
 augroup filetype-fixes
   autocmd!
   autocmd BufNewFile,BufReadPost *.rb set filetype=ruby "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
-  " autocmd BufNewFile,BufReadPost *.js,*.jsx set syntax=typescript.tsx " use YATS for js and ts
+  autocmd BufNewFile,BufReadPost *.ts,*.tsx set syntax=typescriptreact
 augrou END
 
 " augroups
@@ -961,11 +961,7 @@ augroup color-scheme-tweaks
   highlight DiffText    guibg=#525200 guifg=NONE gui=NONE
   highlight DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
   highlight DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
-  " let s:diff_green  = { "gui": "#006600" }
-  " let s:diff_red    = { "gui": "#660000" }
-  " let s:diff_yellow = { "gui": "#664d00" }
-  " autocmd ColorScheme * call onedark#extend_highlight("DiffChange", { "gui": "none" })
-  " autocmd ColorScheme * call onedark#extend_highlight("DiffText",   { "bg": s:diff_yellow, "gui": "none" })
-  " autocmd ColorScheme * call onedark#extend_highlight("DiffAdd",    { "bg": s:diff_green, "gui": "none" })
-  " autocmd ColorScheme * call onedark#extend_highlight("DiffDelete", { "bg": s:diff_red, "gui": "none" })
+
+  " yats tweak
+  highlight htmlTag     ctermfg=59 gui=italic guifg=#5C6370
 augroup END
