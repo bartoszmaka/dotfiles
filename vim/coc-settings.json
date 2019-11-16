@@ -7,9 +7,10 @@
   },
 
   "suggest.languageSourcePriority": 99,
+  "suggest.noselect": false,
   "snippets.priority": 90,
   "yank.priority": 85,
-  "tabnine.priority": 80,
+  // "tabnine.priority": 80,
   "coc.source.file.priority": 10,
   "coc.source.syntax.priority": 4,
   "coc.source.around.priority": 3,
