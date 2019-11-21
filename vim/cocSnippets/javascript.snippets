@@ -159,3 +159,27 @@ endsnippet
 snippet etms "expect to match snapshot" w
 expect(${1:toJson(wrapper)}).toMatchSnapshot()
 endsnippet
+
+snippet jfn "jest.fn()" w
+jest.fn()
+endsnippet
+
+snippet scsnap "Description" b
+import React from 'react'
+import { shallow } from 'enzyme'
+import toJson from 'enzyme-to-json'
+
+import { ${1} } from '${2}'
+
+describe('${1}', () => {
+  it('should match the snapshot', () => {
+    const props = {
+      ${3}
+    }
+
+    const wrapper = shallow(<${1} {...props} />)
+
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
+})
+endsnippet

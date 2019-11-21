@@ -2,7 +2,8 @@
   "snippets.extends": {
     "javascriptreact": ["javascript", "html", "typescript", "typescriptreact"],
     "typescriptreact": ["javascript", "html", "typescript", "javascriptreact"],
-    "typescript": ["javascript"],
+    "javascript": ["javascriptreact", "html", "typescript", "typescriptreact"],
+    "typescript": ["javascript", "html", "typescriptreact", "javascriptreact"],
     "eruby": ["javascript", "typescript", "html"]
   },
 
