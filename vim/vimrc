@@ -73,6 +73,7 @@ Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
 " new plugins to test
 Plug 'dominikduda/vim_yank_with_context'
 Plug 'liuchengxu/vista.vim'
+Plug 'Asheq/close-buffers.vim'
 call plug#end()
 
 " **********************************
@@ -277,36 +278,40 @@ call airline#parts#define_function('gitStatus', 'CocGitStatus')
 call airline#parts#define_minwidth('gitStatus', 50)
 call airline#parts#define_accent('gitStatus', 'none')
 call airline#parts#define_function('gitBlame', 'CocGitBlame')
-call airline#parts#define_minwidth('gitBlame', 120)
+call airline#parts#define_minwidth('gitBlame', 90)
 call airline#parts#define_accent('gitBlame', 'italic')
 call airline#parts#define_function('nearestFunction', 'NearestMethodOrFunction')
 call airline#parts#define_minwidth('nearestFunction', 50)
 call airline#parts#define_function('cocStatus', 'GetCocStatus')
 call airline#parts#define_minwidth('cocStatus', 150)
-let g:webdevicons_enable_nerdtree = 0
-let g:airline_powerline_fonts = 1
+
+let g:webdevicons_enable_nerdtree                    = 0
+let g:airline_powerline_fonts                        = 1
+let g:airline#extensions#whitespace#enabled          = 0
+let g:airline#extensions#branch#enabled              = 0
+let g:airline#extensions#tabline#enabled             = 1
+let g:airline#extensions#anzu#enabled                = 0
+let airline#extensions#ale#show_line_numbers         = 0
 let g:airline#extensions#tabline#left_sep            = ''
 let g:airline#extensions#tabline#left_alt_sep        = ''
 let g:airline#extensions#tabline#right_sep           = ''
 let g:airline#extensions#tabline#right_alt_sep       = ''
+let g:airline#extensions#tabline#show_tabs           = 0
+let g:airline#extensions#tabline#show_close_button   = 0
+let g:airline#extensions#tabline#tab_nr_type         = 2
+let g:airline#extensions#tabline#buffer_idx_mode     = 1
 let g:airline_left_sep                               = ''
 let g:airline_right_sep                              = ''
 let g:airline_section_b                              = ''
 let g:airline_section_x                              = airline#section#create_right(['gitBlame', 'gitStatus', 'filetype'])
 let g:airline_section_c                              = airline#section#create_left(['file', 'nearestFunction', 'cocStatus'])
+let g:airline_section_z                              = '%3l/%L:%3v'
 let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
-let g:airline#extensions#branch#enabled              = 0
-let g:airline#extensions#tabline#enabled             = 1
-let g:airline#extensions#tabline#show_tabs           = 0
-let g:airline#extensions#tabline#show_close_button   = 0
-let g:airline#extensions#tabline#tab_nr_type         = 2
 let g:airline_symbols.linenr                         = ''
 let g:airline_symbols.maxlinenr                      = ''
 let g:airline_symbols.readonly                       = '🔒'
-let g:airline_symbols.spell                          = 'Ꞩ'
+let g:airline_symbols.spell                          = 'S'
 let g:airline_symbols.whitespace                     = 'Ξ'
-let g:airline#extensions#anzu#enabled                = 0
-let g:airline#extensions#tabline#buffer_idx_mode     = 1
 let g:airline_mode_map = {
       \ '__' : '-',
       \ 'n'  : 'N',
