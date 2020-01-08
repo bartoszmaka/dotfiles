@@ -21,8 +21,7 @@
     "prefix": "cl",
     "description": "Log output to console",
     "body": [
-      "console.log($1)",
-      "$2"
+      "console.log($1)"
     ]
   },
   "export const": {

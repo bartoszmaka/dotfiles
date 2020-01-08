@@ -16,7 +16,7 @@
   "editor.cursorStyle": "block",
   "editor.minimap.enabled": false,
   "editor.cursorSurroundingLines": 4,
-  "window.zoomLevel": -1,
+  "window.zoomLevel": 0,
   "editor.multiCursorModifier": "alt",
   "zenMode.hideTabs": false,
   "zenMode.hideStatusBar": false,
@@ -24,11 +24,13 @@
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.statusBar.visible": true,
-  "workbench.activityBar.visible": false,
+  "workbench.activityBar.visible": true,
   "workbench.panel.defaultLocation": "bottom",
   "breadcrumbs.enabled": true,
   "extensions.showRecommendationsOnlyOnDemand": true,
   "window.title": "${activeEditorMedium}${separator}${rootPath}${separator}${dirty}",
+  "local-history.path": "/Users/bartoszmaka/.vscodehistory",
+  "local-history.absolute": true,
 
   // Colorscheme
   "workbench.colorTheme": "Atom One Dark",
@@ -161,14 +163,10 @@
       "before": ["<leader>", "R"],
       "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
     },
-    // {
-    //   "before": ["<leader>", "y"],
-    //   "commands": ["execCopy"]
-    // },
-    // {
-    //   "before": ["<leader>", "p"],
-    //   "commands": ["execPaste"]
-    // }
+    {
+      "before": ["<leader>", "y"],
+      "commands": ["editor.action.clipboardCopyAction"]
+    },
   ],
 
   "vim.insertModeKeyBindings": [
@@ -301,6 +299,11 @@
     // {
     //   "before": ["<C-p>", "<C-m>"],
     //   "commands": [":marks"]
+    // }
+    // raises TaskQueue Cannot read property getTIme of undefined
+    // {
+    //   "before": ["<leader>", "p"],
+    //   "commands": ["editor.action.clipboardPasteAction"]
     // }
   ],
 }

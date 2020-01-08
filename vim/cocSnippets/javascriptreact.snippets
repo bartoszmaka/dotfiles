@@ -188,3 +188,12 @@ endsnippet
 snippet tsspp "setState full" w
 this.setState((prevState, prevProps) => ${1})
 endsnippet
+
+snippet ue "useEffect" b
+useEffect(() => {
+  ${1:effect}
+  return () => {
+    ${2:cleanup}
+  };
+}, [${3:input}])
+endsnippet
