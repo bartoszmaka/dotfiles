@@ -12,3 +12,4 @@ node_modules
 .solargraph.yml
 .DS_Store
 .personal_notes
+.history/
