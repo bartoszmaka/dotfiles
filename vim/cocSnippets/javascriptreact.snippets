@@ -197,3 +197,73 @@ useEffect(() => {
   };
 }, [${3:input}])
 endsnippet
+
+snippet scfnc b
+import React from 'react'
+
+const ${1} = (${2}) => {
+  return (
+    ${3}
+  )
+}
+
+export default ${1}
+endsnippet
+
+snippet scclc b
+import React, { Component } from 'react'
+
+export class ${1} extends Component {
+  render() {
+    return (
+      ${2}
+    )
+  }
+}
+
+export default ${1}
+endsnippet
+
+snippet scrfnc b
+import React from 'react'
+import { connect } from 'react-redux'
+
+const ${1} = (${2}) => {
+  return (
+    ${3}
+  )
+}
+
+const mapStateToProps = state => ({
+
+})
+const mapDispatchToProps = {}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(${1})
+endsnippet
+
+snippet scrclc b
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+export class ${1} extends Component {
+  render() {
+    return (
+      ${2}
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+
+})
+const mapDispatchToProps = {}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(${1})
+endsnippet
