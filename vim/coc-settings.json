@@ -53,5 +53,5 @@
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
   // "git.addGlameToVirtualText": true,
 
-  "coc.preferences.extensionUpdateCheck": "daily"
+  "coc.preferences.extensionUpdateCheck": "never"
 }
