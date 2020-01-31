@@ -16,7 +16,7 @@ if exists('$TMUX')
   Plug 'roxma/vim-tmux-clipboard'                                  " sync with tmux clipboard
 endif
 
-Plug 'andymass/vim-matchup'
+Plug 'andymass/vim-matchup'                                        " jump to matching tag/parentheses; first suspect in case of performance issues
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
@@ -45,21 +45,22 @@ Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --al
 Plug 'junegunn/fzf.vim'
 Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
+Plug 'blueyed/vim-diminactive'
 
 " syntax
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
 
-
 Plug 'chrisbra/csv.vim'
 Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'sheerun/vim-polyglot'
 " Plug 'tpope/vim-rails'
+Plug 'sheerun/vim-polyglot'
 
 " fancy tools
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
+Plug 'tpope/vim-rbenv'
+Plug 'tpope/gem-ctags'
 Plug 'tpope/vim-projectionist'
 Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'], 'do': 'npm install -g import-js' }
 Plug 'meain/vim-package-info',          { 'do': 'npm install' }
@@ -170,7 +171,7 @@ set inccommand=nosplit                  " Preview replace
 
 " custom functions
 function! GenerateRubyTags()
-  call system('ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths) -f .tags')
+  call system('ctags -f tags -R --output-format=u-ctags --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)')
 endfunction
 command! GenerateRubyTags call GenerateRubyTags()
 
@@ -275,7 +276,7 @@ call airline#parts#define_function('gitStatus', 'CocGitStatus')
 call airline#parts#define_minwidth('gitStatus', 50)
 call airline#parts#define_accent('gitStatus', 'none')
 call airline#parts#define_function('gitBlame', 'CocGitBlame')
-call airline#parts#define_minwidth('gitBlame', 90)
+call airline#parts#define_minwidth('gitBlame', 120)
 call airline#parts#define_accent('gitBlame', 'italic')
 call airline#parts#define_function('nearestFunction', 'NearestMethodOrFunction')
 call airline#parts#define_minwidth('nearestFunction', 50)
@@ -353,7 +354,6 @@ nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
       \ 'coc-solargraph',
-      \ 'coc-diagnostic',
       \ 'coc-snippets',
       \ 'coc-css',
       \ 'coc-tailwindcss',
@@ -525,13 +525,14 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js"
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb,*.js'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut = '>'
-let g:closetag_close_shortcut = '<leader>>'
+" let g:closetag_close_shortcut = '<leader>>'
 
 " matchup
-let g:matchup_matchparen_status_offscreen   = 1
+let g:matchup_matchparen_offscreen          = {'method': 'popup'}
 let g:matchup_matchparen_deferred           = 1
 let g:matchup_matchparen_hi_surround_always = 1
-let g:matchup_transmute_enabled             = 0
+let g:matchup_matchparen_timeout            = 100
+let g:matchup_matchparen_deferred           = 1
 
 " polyglot
 
@@ -801,8 +802,8 @@ nnoremap / /\V
 nnoremap ? /
 " disable highlight on del
 nnoremap <Bs> :noh<CR>
-nnoremap <C-]> g]
-nnoremap g] <C-]>
+" nnoremap <C-]> g]
+" nnoremap g] <C-]>
 vnoremap * y<Esc>/<C-r>"<CR>``
 " replace selected word in file
 nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
@@ -822,6 +823,8 @@ cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
 " cnoremap <C-d> <Delete>
 cnoremap <C-g> <C-c>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
 
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
@@ -909,6 +912,7 @@ augroup filetype_scoped_settings
   autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
   autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
   autocmd FileType scss set iskeyword+=-
+  autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
 augroup END
 
 augroup callbacks
@@ -916,7 +920,7 @@ augroup callbacks
   autocmd BufReadPost * syntax sync fromstart
 augroup END
 
-autocmd FileType vim,tex
+autocmd FileType vim,tex,log
       \ let [
       \ b:matchup_matchparen_fallback,
       \ b:matchup_matchparen_enabled]
@@ -1014,3 +1018,4 @@ function! BookmarkUnmapKeys()
 endfunction
 autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+
