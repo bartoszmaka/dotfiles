@@ -32,7 +32,7 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim',    { 'do': 'cd app & yarn install'  }
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -371,7 +371,7 @@ let g:coc_global_extensions = [
       \ 'coc-git',
       \ 'coc-marketplace',
       \ ]
-inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
@@ -390,8 +390,7 @@ imap <expr><C-e>
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+      \ <SID>check_back_space() ? "\<TAB>" : '<C-r>=emmet#expandAbbr(0,"")<CR>'
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -825,6 +824,10 @@ cnoremap <C-f> <S-Right>
 cnoremap <C-g> <C-c>
 inoremap <C-a> <Home>
 inoremap <C-e> <End>
+nnoremap <C-a> <Home>
+nnoremap <C-e> <End>
+vnoremap <C-a> <Home>
+vnoremap <C-e> <End>
 
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
