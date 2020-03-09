@@ -5,6 +5,7 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.gitignore
+	pager = diff-so-fancy | less --tabs=2 -RFX
 [rerere]
 	enabled = 1
 	autoupdate = 1
