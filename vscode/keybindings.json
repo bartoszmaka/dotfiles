@@ -18,7 +18,19 @@
     "key": "ctrl+r",
     "command": "-workbench.action.openRecent"
   },
-
+  {
+    "key": "ctrl+w",
+    "command": "-workbench.action.switchWindow"
+  },
+  {
+    "key": "cmd+q",
+    "command": "-workbench.action.quit"
+  },
+  { 
+    "key": "cmd+q",
+    "command": "workbench.action.closeEditorsInGroup",
+    "when": "editorFocus && vim.mode == 'Normal'"
+  },
   // Shell like shortcuts
   // {
   //   "key": "ctrl+u",
@@ -35,14 +47,12 @@
   //   "command": "cursorEnd",
   //   "when": "textInputFocus"
   // },
-
   // vim like find
   {
     "key": "enter",
     "command": "workbench.action.focusActiveEditorGroup",
-    "when": "editorFocus && findWidgetVisible"
+    "when": "editorFocus && findWidgetVisible && vim.mode != 'Insert'"
   },
-
   // Jump on global search results
   {
     "key": "ctrl+n",
@@ -65,7 +75,24 @@
     "when": "hasSearchResult"
   },
 
-  // Explorer tree
+  // Search
+  {
+    "key": "shift+cmd+f",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "searchViewletVisible"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "search.action.focusNextSearchResult",
+    "when": "searchViewletVisible"
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "search.action.focusPreviousSearchResult",
+    "when": "searchViewletVisible"
+  },
+
+  // Explorer
   {
     "key": "ctrl+k ctrl+d",
     "command": "workbench.files.action.showActiveFileInExplorer",
@@ -121,13 +148,6 @@
     "command": "workbench.files.action.collapseExplorerFolders",
     "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
   },
-
-  // Fuzzy
-  {
-    "key": "ctrl+p ctrl+l",
-    "command": "fuzzySearch.activeTextEditor"
-  },
-
   // Make
   {
     "key": "ctrl+m ctrl+d",
@@ -140,7 +160,7 @@
     "when": "inDebugMode"
   },
   {
-  "key": "ctrl+m ctrl+s",
+    "key": "ctrl+m ctrl+s",
     "command": "workbench.action.debug.stop",
     "when": "inDebugMode"
   },
@@ -149,7 +169,6 @@
     "command": "workbench.action.debug.restart",
     "when": "inDebugMode"
   },
-
   // Other
   {
     "key": "shift+cmd+r",
@@ -163,27 +182,27 @@
   {
     "key": "ctrl+m ctrl+m",
     "command": "editor.action.toggleMinimap",
-    "when": "editorFocus" 
+    "when": "editorFocus"
   },
   {
     "key": "ctrl+m ctrl+f",
     "command": "eslint.executeAutofix",
-    "when": "editorFocus && editorLangId == 'javascript'" 
+    "when": "editorFocus && editorLangId == 'javascript'"
   },
   {
     "key": "ctrl+m ctrl+f",
     "command": "eslint.executeAutofix",
-    "when": "editorFocus && editorLangId == 'javascriptreact'" 
+    "when": "editorFocus && editorLangId == 'javascriptreact'"
   },
   {
     "key": "ctrl+m ctrl+f",
     "command": "editor.action.formatDocument",
-    "when": "editorFocus && editorLangId == 'ruby'" 
+    "when": "editorFocus && editorLangId == 'ruby'"
   },
-  { 
+  {
     "key": "ctrl+n",
     "command": "editor.action.addSelectionToNextFindMatch",
-    "when": "editorFocus" 
+    "when": "editorFocus"
   },
   {
     "key": "cmd+h",
@@ -206,17 +225,13 @@
     "command": "gitlens.toggleFileBlame"
   },
   {
-    "key": "ctrl+g ctrl+f",
-    "command": "gitlens.diffWithBranch"
-  },
-  {
     "key": "ctrl+g ctrl+d",
     "command": "gitlens.diffWithRevision"
   },
-  { 
+  {
     "key": "ctrl+r",
     "command": "renameFile",
-    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus" 
+    "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
     "key": "cmd+1",
@@ -254,29 +269,19 @@
     "key": "cmd+9",
     "command": "workbench.action.openEditorAtIndex9"
   },
-
   // fuzzy search
   {
     "key": "ctrl+p ctrl+s",
     "command": "workbench.action.gotoSymbol"
   },
-  // {
-  //   "key": "ctrl+p ctrl+l",
-  //   "command": "fuzzySearch.activeTextEditor"
-  // },
   {
     "key": "ctrl+p ctrl+p",
     "command": "workbench.action.quickOpen"
   },
   {
-    "key": "ctrl+p ctrl+r",
-    "command": "extension.openRecentFiles"
-  },
-  {
     "key": "ctrl+p ctrl+g",
     "command": "gitlens.showQuickRepoStatus"
   },
-
   {
     "key": "ctrl+e",
     "command": "insertSnippet"

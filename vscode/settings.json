@@ -3,74 +3,10 @@
   "terminal.integrated.rendererType": "canvas",
   "files.hotExit": "off",
   "cSpell.enabled": false,
-
-  // Editor
-  "editor.tabSize": 2,
-  "editor.fontSize": 16,
-  "editor.rulers": [79, 99, 119],
-  "editor.lineHeight": 20,
-  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-  "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-  "editor.fontLigatures": false,
-  "editor.renderWhitespace": "all",
-  "editor.cursorStyle": "block",
-  "editor.minimap.enabled": false,
-  "editor.cursorSurroundingLines": 4,
-  "window.zoomLevel": 0,
-  "editor.multiCursorModifier": "alt",
-  "zenMode.hideTabs": false,
-  "zenMode.hideStatusBar": false,
-  "workbench.editor.enablePreview": true,
-  "explorer.confirmDelete": false,
-  "workbench.startupEditor": "newUntitledFile",
-  "workbench.statusBar.visible": true,
-  "workbench.activityBar.visible": true,
-  "workbench.panel.defaultLocation": "bottom",
-  "breadcrumbs.enabled": true,
+  "files.insertFinalNewline": true,
+  "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
+  "markdown-preview-enhanced.liveUpdate": false,
   "extensions.showRecommendationsOnlyOnDemand": true,
-  "window.title": "${activeEditorMedium}${separator}${rootPath}${separator}${dirty}",
-  "local-history.path": "/Users/bartoszmaka/.vscodehistory",
-  "local-history.absolute": true,
-
-  // Colorscheme
-  "workbench.colorTheme": "Atom One Dark",
-  "editor.tokenColorCustomizations": {
-    "[Atom One Dark]": {
-      "comments": "#818897"
-    }
-  },
-
-  // Autocomplete
-  "editor.snippetSuggestions": "top",
-  "editor.acceptSuggestionOnEnter": "off",
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.showSuggestionsAsSnippets": true,
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact",
-    "vue-html": "html",
-    "razor": "html",
-    "plaintext": "jade"
-  },
-  "tabnine.disable_file_regex": [
-    "settings.json"
-  ],
-
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-
-  // Syntax highlighting
-  "files.associations": {
-    "*rc": "shellscript"
-  },
-
-  // Fuzzy files list
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -84,7 +20,6 @@
     "**/.tags": true,
     "**/tags": true
   },
-
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
@@ -96,19 +31,93 @@
     "**/tags": true
   },
 
-  // Extensions
-  "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
-  "markdown-preview-enhanced.liveUpdate": false,
-  // "vscode_custom_css.policy": true,
-  // "vscode_custom_css.imports": ["file:///Users/bartoszmaka/.repos/dotfiles/vscode/custom_layout.css"],
+  // UI
+  "editor.tabSize": 2,
+  "editor.fontSize": 16,
+  "editor.rulers": [79, 99, 119],
+  "editor.lineHeight": 20,
+  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": false,
+  "editor.renderWhitespace": "all",
+  "editor.cursorStyle": "block",
+  "editor.minimap.enabled": false,
+  "window.zoomLevel": 0,
+  "zenMode.hideTabs": false,
+  "zenMode.hideStatusBar": false,
+  "workbench.editor.enablePreview": true,
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.statusBar.visible": true,
+  "workbench.activityBar.visible": true,
+  "workbench.panel.defaultLocation": "bottom",
+  "breadcrumbs.enabled": true,
+  "window.title": "${activeEditorMedium}${separator}${rootPath}${separator}${dirty}",
+  "material-icon-theme.hidesExplorerArrows": true,
 
-  // vim
+  // Behavior
+  "editor.cursorSurroundingLines": 4,
+  "editor.multiCursorModifier": "alt",
+
+  // Colorscheme
+  "workbench.colorTheme": "Atom One Dark",
+  "editor.tokenColorCustomizations": {
+    "[Atom One Dark]": {
+      "comments": "#818897"
+    }
+  },
   "workbench.colorCustomizations": {
+    "editorCursor.foreground": "#ffffff",
+    "editorCursor.background": "#000000",
     "editor.lineHighlightBackground": "#343D46",
     "statusBar.background": "#005f5f",
     "statusBar.noFolderBackground": "#005f5f",
     "statusBar.debuggingBackground": "#005f5f"
   },
+
+  // Syntax highlighting
+  "files.associations": {
+    "*rc": "shellscript"
+  },
+
+  // Autocomplete
+  "editor.snippetSuggestions": "top",
+  "editor.acceptSuggestionOnEnter": "off",
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue-html": "html",
+    "razor": "html",
+    "plaintext": "jade"
+  },
+  "AllAutocomplete.minWordLength": 3,
+  "AllAutocomplete.cycleOpenDocumentsOnLaunch": true,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
+
+  // Language integration
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true
+    }
+  },
+  "ruby.format": "rubocop",
+
   "vim.enableNeovim": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
   "vim.disableExtension": false,
@@ -150,22 +159,21 @@
       "before": ["<tab>"],
       "after": [">", "g", "v"]
     },
-    // default vscode behavior
-    // {
-    //   "before": ["<S-tab>"],
-    //   "after": ["<", "g", "v"]
-    // }
-    {
-      "before": ["<leader>", "r"],
-      "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "/", "g", "<left>", "<left>"]
-    },
-    {
-      "before": ["<leader>", "R"],
-      "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
-    },
     {
       "before": ["<leader>", "y"],
       "commands": ["editor.action.clipboardCopyAction"]
+    },
+    {
+      "before": ["<leader>", "p"],
+      "commands": ["editor.action.clipboardPasteAction"]
+    },
+    {
+      "before": ["K"],
+      "after": ["5", "k"]
+    },
+    {
+      "before": ["J"],
+      "after": ["5", "j"]
     },
   ],
 
@@ -175,8 +183,16 @@
       "after": ["<esc>"]
     },
   ],
-
+  
   "vim.normalModeKeyBindingsNonRecursive":[
+    {
+      "before": ["*"],
+      "commands": ["actions.find", "workbench.action.focusActiveEditorGroup"]
+    },
+    { 
+      "before": ["<leader>", "q"],
+      "commands": ["workbench.action.closeEditorsInGroup"]
+    },
     {
       "before": ["/"],
       "commands": ["actions.find"]
@@ -209,10 +225,6 @@
       "after": ["5", "j"]
     },
     {
-      "before": ["<leader>", "y"],
-      "commands": ["editor.action.clipboardCopyAction"]
-    },
-    {
       "before": ["<leader>", "a"],
       "commands": ["extension.jumpToTest"]
     },
@@ -220,14 +232,6 @@
       "before": ["<leader>", "%"],
       "commands": ["editor.emmet.action.matchTag"]
     },
-    // {
-    //   "before": ["v", "<space>", "h"],
-    //   "after": ["v", "^"],
-    // },
-    // {
-    //   "before": ["v", "<space>", "l"],
-    //   "after": ["v", "$"],
-    // },
     {
       "before": ["[", "e" ],
       "commands": ["editor.action.marker.prev"],
@@ -242,11 +246,11 @@
     },
     {
       "before": ["]", "g" ],
-      "commands": [ "workbench.action.compareEditor.nextChange" ],
+      "commands": ["workbench.action.compareEditor.nextChange"],
     },
     {
       "before": [":"],
-      "commands": [ "vim.showQuickpickCmdLine" ]
+      "commands": ["vim.showQuickpickCmdLine"]
     },
     {
       "before": ["<leader>", "K"],
@@ -273,37 +277,12 @@
       "after": ["k", "J"]
     },
     // {
-    //   "before": ["n"],
-    //   "after": ["n", "z", "z"]
+    //   "before": ["<leader>", "r"],
+    //   "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "/", "g", "<left>", "<left>"]
     // },
     // {
-    //   "before": ["N"],
-    //   "after": ["N", "z", "z"]
+    //   "before": ["<leader>", "R"],
+    //   "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
     // },
-    {
-      "before": ["<leader>", "r"],
-      "after": ["\"", "*", "y", "i", "w", ":", "%", "s", "/", "<c-v>", "/", "/", "g", "<left>", "<left>"]
-    },
-    {
-      "before": ["<leader>", "R"],
-      "after": ["\"", "*", "y", "i", "w", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
-    },
-    // {
-    //   "before": ["<leader>", "y"],
-    //   "after": ["<C-c>"]
-    // },
-    // {
-    //   "before": ["<leader>", "p"],
-    //   "after": ["<C-v>"]
-    // }
-    // {
-    //   "before": ["<C-p>", "<C-m>"],
-    //   "commands": [":marks"]
-    // }
-    // raises TaskQueue Cannot read property getTIme of undefined
-    // {
-    //   "before": ["<leader>", "p"],
-    //   "commands": ["editor.action.clipboardPasteAction"]
-    // }
   ],
 }
