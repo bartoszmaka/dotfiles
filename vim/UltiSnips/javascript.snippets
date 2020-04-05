@@ -1,28 +1,167 @@
-# A valid snippet should starts with:
-#
-#		snippet trigger_word [ "description" [ options ] ]
-#
-# and end with:
-#
-#		endsnippet
-#
-# Snippet options:
-#
-#		b - Beginning of line.
-#		i - In-word expansion.
-#		w - Word boundary.
-#		r - Regular expression
-#		e - Custom context snippet
-#		A - Snippet will be triggered automatically, when condition matches.
-#
-# Basic example:
-#
-#		snippet emitter "emitter properties" b
-#		private readonly ${1} = new Emitter<$2>()
-#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
-#		endsnippet
-#
-# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet switch "switch statement" w
+switch (${1}) {
+  case ${2}:
+}
+endsnippet
+
+snippet if "if statement" w
+if (${1}) {
+  ${2}
+}
+endsnippet
+
+snippet ita "jest it async" w
+it('${1}', async () => {
+  ${2}
+});
+endsnippet
+
+snippet it "jest it" w
+it('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet test "jest test" w
+test('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet de  "jest describe" w
+describe('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet desc  "jest describe" w
+describe('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet con "desctucture object" w
+const { ${1} } = ${2}
+endsnippet
+
+snippet re "require()" w
+const ${1} = require('${2}');
+endsnippet
+
+snippet imp "import module from " w
+import ${2:moduleName} from '${1:module}';
+endsnippet
+
+snippet e "export" w
+export ${1}
+endsnippet
+
+snippet c "const" w
+const ${1}
+endsnippet
+
+snippet ed "export default" w
+export default ${1}
+endsnippet
+
+snippet ec "export const" w
+export const ${1}
+endsnippet
+
+snippet cl "console.log" w
+console.log(${1})
+endsnippet
+
+snippet ct "constructor" w
+constructor(${1}) {
+  ${2}
+}
+endsnippet
+
+snippet ctr "component constructor" w
+constructor(props) {
+  super(props);
+  ${1}
+}
+endsnippet
+
+snippet teao "to eq array containing obj matching" w
+toEqual(
+  expect.arrayContaining([
+    expect.objectContaining({
+      ${1}
+    })
+  ])
+)
+endsnippet
+
+snippet tea "to eq array containing" w
+toEqual(
+  expect.arrayContaining([
+    ${1}
+  ])
+)
+endsnippet
+
+snippet teo "to eq object containing" w
+toEqual(
+  expect.objectContaining({
+    ${1}
+  })
+)
+endsnippet
+
+snippet sctr "Scaffold test react component" w
+import React from 'react';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
+
+import { ${1} } from '../${1}';
+
+const setup = (newProps = {}, rendering = shallow) => {
+  const props = {
+    ${2}
+    ...newProps,
+  };
+
+  const wrapper = rendering(<${1} {...props} />);
+
+  return { wrapper, props };
+};
+${3}
+endsnippet
+
+snippet etms "expect to match snapshot" w
+expect(${1:toJson(wrapper)}).toMatchSnapshot()
+endsnippet
+
+snippet jfn "jest.fn()" w
+jest.fn()
+endsnippet
+
+snippet scsnap "Description" b
+import React from 'react'
+import { shallow } from 'enzyme'
+import toJson from 'enzyme-to-json'
+
+import { ${1} } from '${2}'
+
+describe('${1}', () => {
+  it('should match the snapshot', () => {
+    const props = {
+      ${3}
+    }
+
+    const wrapper = shallow(<${1} {...props} />)
+
+    expect(toJson(wrapper)).toMatchSnapshot()
+  })
+})
+endsnippet
+
+snippet jstr "JSON.stringify" w
+JSON.stringify(${1}, null, 2)
+endsnippet
 
 snippet imr "import React" w
 import React from 'react';
@@ -113,14 +252,6 @@ snippet ptor "PropTypes.shape({}).isRequired" w
 PropTypes.shape({}).isRequired,
 endsnippet
 
-snippet ptobj "PropTypes.object" w
-PropTypes.object
-endsnippet
-
-snippet ptobjr "PropTypes.object.isRequired" w
-PropTypes.object.isRequired,
-endsnippet
-
 snippet pta "PropTypes.arrayOf()" w
 PropTypes.arrayOf(${1})${2}
 endsnippet
@@ -207,10 +338,13 @@ useEffect(() => {
 endsnippet
 
 snippet us "useState" b
-const [${1}, ${2:`!p snip.rv = 'set' + t[1].capitalize()`}] = useState(${3:null})
+const [$1, `!p
+withUpcasedLetter = (t[1][0]).upper() + t[1][1:] if len(t[1]) > 0 else ''
+snip.rv = 'set' + withUpcasedLetter
+`] = useState(${2:null})
 endsnippet
 
-snippet scfnc b
+snippet scfnc "Scaffold functional component" b
 import React from 'react'
 
 const ${1} = (${2}) => {
@@ -222,7 +356,7 @@ const ${1} = (${2}) => {
 export default ${1}
 endsnippet
 
-snippet scclc b
+snippet scclc "Scaffold class component" b
 import React, { Component } from 'react'
 
 export class ${1} extends Component {
@@ -236,7 +370,7 @@ export class ${1} extends Component {
 export default ${1}
 endsnippet
 
-snippet scrfnc b
+snippet scrfnc "Scaffold redux connected functional component" b
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -249,7 +383,6 @@ const ${1} = (${2}) => {
 const mapStateToProps = state => ({
 
 })
-
 const mapDispatchToProps = {}
 
 export default connect(
@@ -258,7 +391,7 @@ export default connect(
 )(${1})
 endsnippet
 
-snippet scrclc b
+snippet scrclc "Scaffold redux connected class component" b
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -273,7 +406,6 @@ export class ${1} extends Component {
 const mapStateToProps = state => ({
 
 })
-
 const mapDispatchToProps = {}
 
 export default connect(

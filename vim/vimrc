@@ -2,6 +2,7 @@ filetype off
 call plug#begin()
 Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
+Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-airline'                                           " UI improvement
 Plug 'vim-airline/vim-airline-themes'                              " themes for airline
 
@@ -46,9 +47,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 Plug 'blueyed/vim-diminactive'
+Plug 'terryma/vim-expand-region'
 
 " syntax
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'tpope/vim-cucumber'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
 
@@ -58,6 +61,9 @@ Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 Plug 'sheerun/vim-polyglot'
 
 " fancy tools
+Plug 'dominikduda/vim_yank_with_context'
+Plug 'liuchengxu/vista.vim'
+Plug 'janko/vim-test'
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rbenv'
 Plug 'tpope/gem-ctags'
@@ -66,15 +72,23 @@ Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx'
 Plug 'meain/vim-package-info',          { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
+Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'camspiers/lens.vim'
+" Plug 'camspiers/animate.vim'
+" Plug 'wellle/context.vim'
 
+" Plug 'mg979/vim-xtabline'
+Plug 'vim-scripts/TagHighlight'
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
-
+" Plug 'SirVer/ultisnips'
+Plug 'junegunn/vader.vim'                                          " vimscript testing lib
 " new plugins to test
-Plug 'dominikduda/vim_yank_with_context'
-Plug 'liuchengxu/vista.vim'
 Plug 'Asheq/close-buffers.vim'
-Plug 'MattesGroeger/vim-bookmarks'
+Plug 'dunckr/js_alternate.vim'
+Plug 'luochen1990/rainbow'
+Plug 'jparise/vim-graphql'
 call plug#end()
 
 " **********************************
@@ -119,7 +133,7 @@ set fileencoding=utf-8
 set encoding=utf8
 
 " behavior
-set completeopt=longest,menuone,noinsert,noselect
+set completeopt=menuone,noinsert,noselect
 set backspace=indent,eol,start
 set pumheight=15
 set spellsuggest=best,8
@@ -188,6 +202,7 @@ endfun
 nnoremap <F10> :call DebugHighlight()<CR>
 nnoremap <F9> :syntax sync fromstart<CR>
 nnoremap <F5> :CocCommand snippets.openSnippetFiles<CR>
+" nnoremap <F5> :UltiSnipsEdit<CR>
 
 function! CocGitBlame() abort
   let l:blame = get(b:, 'coc_git_blame', '')
@@ -216,14 +231,6 @@ endfunction
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
 endfunction
 
 function! s:build_quickfix_list(lines)
@@ -264,6 +271,7 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 " **********************************
 " plugin variables
 
+" let g:gutentags_trace = 1
 let g:loaded_matchit = 1
 
 " airline
@@ -311,20 +319,7 @@ let g:airline_symbols.maxlinenr                      = ''
 let g:airline_symbols.readonly                       = '🔒'
 let g:airline_symbols.spell                          = 'S'
 let g:airline_symbols.whitespace                     = 'Ξ'
-let g:airline_mode_map = {
-      \ '__' : '-',
-      \ 'n'  : 'N',
-      \ 'i'  : 'I',
-      \ 'R'  : 'R',
-      \ 'c'  : 'C',
-      \ 'v'  : 'V',
-      \ 'V'  : 'V',
-      \ '' : 'V',
-      \ 's'  : 'S',
-      \ 'S'  : 'S',
-      \ '' : 'S',
-      \ 't'  : 'T',
-      \ }
+
 nmap <leader>1 <Plug>AirlineSelectTab1
 nmap <leader>2 <Plug>AirlineSelectTab2
 nmap <leader>3 <Plug>AirlineSelectTab3
@@ -338,8 +333,11 @@ noremap <M-}>               :bnext<CR>
 noremap <M-{>               :bprevious<CR>
 noremap <leader>]           :bnext<CR>
 noremap <leader>[           :bprevious<CR>
-nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>
-nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>
+noremap <m-]>               :bnext<CR>
+noremap <m-[>               :bprevious<CR>
+nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>:Bdelete nameless<CR>
+nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>:Bdelete nameless<CR>
+nnoremap <silent> <leader><leader>W :Bdelete hidden<CR>
 noremap <leader><space>!    :bdelete!<CR>
 nnoremap <leader>q          :close<CR>
 
@@ -353,8 +351,10 @@ nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 " coc
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
+      \ 'coc-tag',
       \ 'coc-solargraph',
       \ 'coc-snippets',
+      \ 'coc-emmet',
       \ 'coc-css',
       \ 'coc-tailwindcss',
       \ 'coc-pyls',
@@ -362,7 +362,6 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-json',
       \ 'coc-vimlsp',
-      \ 'coc-sql',
       \ 'coc-syntax',
       \ 'coc-yaml',
       \ 'coc-word',
@@ -371,35 +370,8 @@ let g:coc_global_extensions = [
       \ 'coc-git',
       \ 'coc-marketplace',
       \ ]
-" inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
-inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
 
-vmap <C-e> <Plug>(coc-snippets-select)
-" let g:coc_snippet_next = '<c-j>'
-" let g:coc_snippet_prev = '<c-k>'
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<s-tab>'
-imap <expr><C-e>
-      \ coc#expandableOrJumpable() ?
-      \ "\<Plug>(coc-snippets-expand-jump)" :
-      \ "\<C-y>,"
-" inoremap <expr> <c-space> coc#refresh()
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" : '<C-r>=emmet#expandAbbr(0,"")<CR>'
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
-nnoremap <leader>K :call <SID>show_documentation()<CR>
-
+" autocomplete
 function! UnifiedJumpToDefinition()
   if CocAction('jumpDefinition') == v:true
     echomsg 'coc'
@@ -408,6 +380,38 @@ function! UnifiedJumpToDefinition()
     execute "normal gf"
   endif
 endfunction
+
+function! s:isWhitespaceOrNothingBeforeCursor() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
+vmap <C-e> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
+imap <expr><C-e>
+      \ coc#expandableOrJumpable() ?
+      \ "\<Plug>(coc-snippets-expand-jump)" :
+      \ "\<Plug>(emmet-expand-abbr)"
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>isWhitespaceOrNothingBeforeCursor() ? "\<TAB>" : '\<C-n>'
+
+nnoremap <leader>K :call <SID>show_documentation()<CR>
 
 nmap gd :call UnifiedJumpToDefinition()<CR>
 nmap gr <Plug>(coc-references)
@@ -425,6 +429,14 @@ nmap <leader>E  <Plug>(coc-diagnostic-info)
 nmap <leader>H  <Plug>(coc-float-hide)
 nmap <leader>J  <Plug>(coc-float-jump)
 
+" vim test
+let test#strategy = "neovim"
+let test#neovim#term_position = "vertical"
+let test#ruby#cucumber#executable = 'bundle exec cucumber'
+let test#ruby#rspec#executable = 'bundle exec rspec'
+nmap TT :TestNearest<CR>
+nmap TF :TestFile<CR>
+
 " coc-git
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
@@ -436,6 +448,7 @@ let g:vim_jsx_pretty_colorful_config = 1
 " nerdtree
 highlight! NERDTreeOpenable ctermfg=132 guifg=#D19A66
 highlight! def link NERDTreeClosable NERDTreeOpenable
+let g:nerdtree_tabs_autoclose=0
 let g:NERDTreeWinSize                   = 36
 let g:NERDTreeMinimalUI                 = 1
 let g:NERDTreeStatusline                = ""
@@ -471,16 +484,12 @@ let g:vim_current_word#enabled                          = 1
 let g:vim_current_word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_twins                  = 1
 let g:vim_current_word#highlight_current_word           = 1
-" let g:vim_current_word#delay_highlight                  = 1
 let g:vim_current_word#highlight_delay                  = 200
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 map ; <Plug>(easymotion-prefix)
-" nmap ;w <Plug>(easymotion-w)
-" nmap ;e <Plug>(easymotion-e)
-" nmap ;b <Plug>(easymotion-b)
 
 " MatchTagAlways
 let g:mta_use_matchparen_group       = 0
@@ -524,7 +533,6 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js"
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb,*.js'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut = '>'
-" let g:closetag_close_shortcut = '<leader>>'
 
 " matchup
 let g:matchup_matchparen_offscreen          = {'method': 'popup'}
@@ -532,8 +540,6 @@ let g:matchup_matchparen_deferred           = 1
 let g:matchup_matchparen_hi_surround_always = 1
 let g:matchup_matchparen_timeout            = 100
 let g:matchup_matchparen_deferred           = 1
-
-" polyglot
 
 " splitjoin
 let g:splitjoin_split_mapping     = ''
@@ -612,7 +618,6 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 nnoremap <leader>a :A<CR>
-" nnoremap <leader>e :R<CR>
 nnoremap <leader>ev :Eview<CR>
 nnoremap <leader>ec :Econtroller<CR>
 
@@ -629,7 +634,7 @@ let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
 let g:ale_sign_error           = '🚨'
 let g:ale_sign_warning         = '🤔'
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_insert_leave = 1
 let g:ale_sign_column_always   = 1
 let g:ale_set_highlights       = 1
 let g:ale_fixers = {
@@ -637,6 +642,8 @@ let g:ale_fixers = {
       \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
       \ 'javascript':     ['eslint', 'importjs'],
       \ 'javascript.jsx': ['eslint', 'importjs'],
+      \ 'typescript':     ['eslint', 'importjs'],
+      \ 'typescript.tsx': ['eslint', 'importjs'],
       \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
       \ 'json':           ['jq'],
       \ 'python':         ['yapf'],
@@ -648,6 +655,7 @@ let g:ale_linters = {
       \ 'ruby':           ['rubocop'],
       \ 'eruby':          ['rubocop'],
       \ 'javascript':     ['eslint'],
+      \ 'typescript':     ['eslint'],
       \ 'json':           ['jq'],
       \ 'python':         ['pyls', 'autopep8', 'yapf'],
       \ 'css':            ['stylelint'],
@@ -660,9 +668,6 @@ nnoremap <C-m><C-l> :ALELint<CR>
 nnoremap <C-m><C-w> :set list!<CR>
 nnoremap [e :ALEPreviousWrap<CR>
 nnoremap ]e :ALENextWrap<CR>
-" nmap <C-m><C-f> <Plug>(coc-format)
-" nmap [e <Plug>(coc-diagnostic-prev)
-" nmap ]e <Plug>(coc-diagnostic-next)
 
 " fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse'
@@ -714,17 +719,27 @@ command! -bang -nargs=? -complete=dir FZFFilesPreview
 
 " fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
 nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
+" nnoremap mm         :FZFFilesPreview<CR>a<Bs>
 nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
+" nnoremap mr         :FZFFreshMruPreview<CR>a<Bs>
 nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
 nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
 nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
+" nnoremap mb         :FzfBuffers<CR>a<Bs>
 nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
+" nnoremap mn         :FzfRg<CR>a<Bs>
 nnoremap <C-p><C-l> :FzfLines<CR>a<Bs>
+" nnoremap ml         :FzfLines<CR>a<Bs>
 nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
+" nnoremap mc         :FzfCommits<CR>a<Bs>
 nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
 
 " vim-rails
 let vim_rails_map_buf_nav_commands = 0
+
+" vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap V <Plug>(expand_region_shrink)
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['markdown', 'help']
@@ -791,6 +806,9 @@ vnoremap <C-m><C-s> :sort<CR>
 inoremap jk <esc>
 nnoremap K 5k
 nnoremap J 5j
+vnoremap K 5k
+vnoremap J 5j
+
 " exit terminal mode
 tnoremap <leader><esc> <C-\><C-n>
 " jump to last opened file (map to ` as well, since new macbooks do not have physical escape key)
@@ -823,11 +841,11 @@ cnoremap <C-f> <S-Right>
 " cnoremap <C-d> <Delete>
 cnoremap <C-g> <C-c>
 inoremap <C-a> <Home>
-inoremap <C-e> <End>
+" inoremap <C-e> <End>
 nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
-vnoremap <C-a> <Home>
-vnoremap <C-e> <End>
+" vnoremap <C-a> <Home>
+" vnoremap <C-e> <End>
 
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
@@ -847,6 +865,11 @@ nnoremap <M-h>      <C-w>h
 nnoremap <M-j>      <C-w>j
 nnoremap <M-k>      <C-w>k
 nnoremap <M-l>      <C-w>l
+" for vimr
+nnoremap <D-h>      <C-w>h
+nnoremap <D-j>      <C-w>j
+nnoremap <D-k>      <C-w>k
+nnoremap <D-l>      <C-w>l
 " for iterm (requires 'send hex' config)
 nnoremap <C-space>h <C-w>h
 nnoremap <C-space>j <C-w>j
@@ -896,6 +919,20 @@ cabbrev Q!  q
 cabbrev Qa! qa
 
 " **********************************
+function! DetectReactFiletype()
+  let n = 1
+  while n < 10 && n < line("$")
+    if getline(n) =~ "'react'"
+      if expand('%:e') == 'js'
+        set filetype=javascript.jsx
+      elseif expand('%:e') == 'ts'
+        set filetype=typescript.tsx
+      endif
+      return
+    endif
+    let n = n + 1
+  endwhile
+endfunction
 
 augroup filetype_fixes
   autocmd!
@@ -903,6 +940,7 @@ augroup filetype_fixes
   autocmd BufNewFile,BufReadPost *.rb set filetype=ruby
   autocmd BufNewFile,BufReadPost *.ts,*.tsx set syntax=typescriptreact
   autocmd BufNewFile,BufReadPost .eslintrc set filetype=json
+  autocmd BufNewFile,BufReadPost,BufWritePost *.js,*.ts call DetectReactFiletype()
 augrou END
 
 augroup filetype_scoped_settings
@@ -910,12 +948,14 @@ augroup filetype_scoped_settings
   " don't hide quotes in JSON keys
   autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
   autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
+  autocmd FileType sass syntax match sassMixinName "@keyframes"
   autocmd FileType json          setlocal conceallevel=2
   autocmd Filetype gitcommit     setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
   autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
   autocmd FileType scss set iskeyword+=-
   autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
+  autocmd FileType javascript,typescript,javascript.jsx,typescript.tsx iabbrev <buffer> cosnt const
 augroup END
 
 augroup callbacks
@@ -942,8 +982,8 @@ augroup END
 
 augroup color_scheme_tweaks
   autocmd!
-  autocmd InsertEnter * set cursorcolumn
-  autocmd InsertLeave * set nocursorcolumn
+  autocmd InsertEnter * setlocal cursorcolumn
+  autocmd InsertLeave * setlocal nocursorcolumn
   autocmd InsertEnter * highlight CursorLine   guibg=#512121
   autocmd InsertEnter * highlight CursorLineNR guibg=#512121
   autocmd InsertLeave * highlight CursorLine   guibg=#343D46
@@ -983,17 +1023,49 @@ augroup color_scheme_tweaks
   highlight DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
 
   " typesctipt / yats tweak
-  autocmd FileType typescript highlight! link htmlTag Comment
+  " autocmd FileType typescript highlight! link htmlTag Comment
+  autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
+  autocmd FileType typescript highlight! link typescriptClassName typescriptPredefinedType
+  autocmd FileType typescript highlight! link typescriptClassHeritage typescriptPredefinedType
+  autocmd FileType typescript highlight! link typescriptClassExtends Label
+  autocmd FileType typescript highlight! link typescriptClassKeyword Label
+  autocmd FileType typescript highlight! link typescriptFuncKeyword Label
+  autocmd FileType typescript highlight! link typescriptAmbientDeclaration Label
+  autocmd FileType typescript highlight! link typescriptExport Label
+  autocmd FileType typescript highlight! link typescriptImport Label
+  autocmd FileType typescript highlight! link typescriptArrowFunc Label
+  autocmd FileType typescript highlight! link typescriptTypeParameter Type
+  autocmd FileType typescript highlight! link typescriptTypeReference Type
+  autocmd FileType typescript highlight! link typescriptCall Label
+  " autocmd FileType typescript highlight! link typescriptDecorator typescriptString
 
   " javascript tweaks
-  autocmd FileType javascript highlight! link jsStorageClass jsThis
-  autocmd FileType javascript highlight! link javasClassKeyword jsThis
-  autocmd FileType javascript highlight! link jsClassMethodType jsThis
-  autocmd FileType javascript highlight! link jsVariableDef Type
+  autocmd FileType javascript highlight! link jsStorageClass Keyword
+  autocmd FileType javascript highlight! link jsClassDefinition Type
+  autocmd FileType javascript highlight! link javasClassKeyword Keyword
+  autocmd FileType javascript highlight! link jsClassMethodType Keyword
+  autocmd FileType javascript highlight! link jsClassMethodType Keyword
+  autocmd FileType javascript highlight! link jsModuleKeyword Keyword
+  autocmd FileType javascript highlight! link jsBlockLabel Label
+  " autocmd FileType javascript highlight! link jsVariableDef Type
   autocmd FileType javascript highlight! link jsxAttrib jsUndefined
+  autocmd FileType javascript highlight! link jsxCloseString Cleared
+  autocmd FileType javascript highlight! link jsxClosePunct Cleared
+  autocmd FileType javascript highlight! link jsxOpenPunct Cleared
   autocmd FileType javascript highlight! link jsDestructuringBlock Type
+  autocmd FileType javascript highlight! link jsDestructuringPropertyValue Type
+  autocmd FileType javascript highlight! link jsDestructuringAssignment Label
   autocmd FileType javascript highlight! link javascriptMethod Function
   autocmd FileType javascript highlight! link javascriptMethodName Function
+  autocmd FileType javascript highlight! link graphqlStructure Constant
+  autocmd FileType javascript highlight! link graphqlVariable Type
+  autocmd FileType javascript highlight! link graphqlName String
+  autocmd FileType javascript highlight! link graphqlType Constant
+  autocmd FileType javascript highlight! link graphqlStructure Label
+
+  autocmd FileType sass highlight! link cssProp Constant
+  autocmd FileType sass highlight! link cssAttr Type
+  " autocmd FileType sass highlight! link sassVariable Keyword
 augroup END
 
 let g:bookmark_no_default_key_mappings = 1
@@ -1022,3 +1094,9 @@ endfunction
 autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+      \  'guifgs': ['#d19a66', '#c678dd', '#61afef'],
+      \  'operators': '_,_',
+      \  'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+      \}
