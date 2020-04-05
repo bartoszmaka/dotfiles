@@ -70,9 +70,9 @@
     "editorCursor.foreground": "#ffffff",
     "editorCursor.background": "#000000",
     "editor.lineHighlightBackground": "#343D46",
-    "statusBar.background": "#005f5f",
-    "statusBar.noFolderBackground": "#005f5f",
-    "statusBar.debuggingBackground": "#005f5f"
+    "statusBar.background": "#5f0000",
+    "statusBar.noFolderBackground": "#5f0000",
+    "statusBar.debuggingBackground": "#5f0000"
   },
 
   // Syntax highlighting
@@ -139,6 +139,50 @@
   },
   "vim.debug.loggingLevelForConsole": "debug",
 
+  // Macros
+  "multiCommand.commands": [
+    {
+      "command": "multiCommand.replaceWordUnderCursor",
+      "sequence": [
+        "actions.find",
+        "editor.action.startFindReplaceAction"
+      ]
+    },
+    {
+      "command": "multiCommand.resetAndGoUp",
+      "sequence": [
+        "closeFindWidget",
+        // { "command": "type", "args": { "text": "escape" }},
+        "workbench.action.focusAboveGroup"
+      ]
+    },
+    {
+      "command": "multiCommand.resetAndGoRight",
+      "sequence": [
+        "closeFindWidget",
+        // { "command": "type", "args": { "text": "escape" }},
+        "workbench.action.focusRightGroup"
+      ]
+    },
+    {
+      "command": "multiCommand.resetAndGoDown",
+      "sequence": [
+        "closeFindWidget",
+        // { "command": "type", "args": { "text": "escape" }},
+        "workbench.action.focusBelowGroup"
+      ]
+    },
+    {
+      "command": "multiCommand.resetAndGoLeft",
+      "sequence": [
+        "closeFindWidget",
+        // { "command": "type", "args": { "text": "escape" }},
+        "workbench.action.focusLeftGroup"
+      ]
+    }
+  ],
+
+  // Vim mappings
   "vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": ["v"],
@@ -201,13 +245,6 @@
     {
         "before": ["<C-r>"],
         "commands": ["redo"]
-    },
-    {
-      "before": ["<Cmd-r>"],
-      "commands": [
-        "actions.find",
-        "editor.action.startFindReplaceAction"
-      ]
     },
     {
       "before": ["<leader>", "r"],
@@ -311,9 +348,9 @@
       "before": ["<leader>", "k"],
       "after": ["k", "J"]
     },
-    {
-      "before": ["<leader>", "<esc>"],
-      "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]
-    },
+    // {
+    //   "before": ["<leader>", "<esc>"],
+    //   "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]
+    // },
   ],
 }
