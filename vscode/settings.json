@@ -70,9 +70,9 @@
     "editorCursor.foreground": "#ffffff",
     "editorCursor.background": "#000000",
     "editor.lineHighlightBackground": "#343D46",
-    "statusBar.background": "#5f0000",
-    "statusBar.noFolderBackground": "#5f0000",
-    "statusBar.debuggingBackground": "#5f0000"
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f"
   },
 
   // Syntax highlighting
@@ -152,7 +152,7 @@
       "command": "multiCommand.resetAndGoUp",
       "sequence": [
         "closeFindWidget",
-        // { "command": "type", "args": { "text": "escape" }},
+        "extension.vim_escape",
         "workbench.action.focusAboveGroup"
       ]
     },
@@ -160,7 +160,7 @@
       "command": "multiCommand.resetAndGoRight",
       "sequence": [
         "closeFindWidget",
-        // { "command": "type", "args": { "text": "escape" }},
+        "extension.vim_escape",
         "workbench.action.focusRightGroup"
       ]
     },
@@ -168,7 +168,7 @@
       "command": "multiCommand.resetAndGoDown",
       "sequence": [
         "closeFindWidget",
-        // { "command": "type", "args": { "text": "escape" }},
+        "extension.vim_escape",
         "workbench.action.focusBelowGroup"
       ]
     },
@@ -176,7 +176,7 @@
       "command": "multiCommand.resetAndGoLeft",
       "sequence": [
         "closeFindWidget",
-        // { "command": "type", "args": { "text": "escape" }},
+        "extension.vim_escape",
         "workbench.action.focusLeftGroup"
       ]
     }
