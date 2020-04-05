@@ -1,11 +1,11 @@
 // Place your key bindings in this file to overwrite the defaults
 [
   // Disable default mapping
-  {
-    "key": "shift+tab",
-    "command": "-extension.vim_shift+tab",
-    "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
-  },
+  // {
+  //   "key": "shift+tab",
+  //   "command": "-extension.vim_shift+tab",
+  //   "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
+  // },
   {
     "key": "shift+cmd+w",
     "command": "-workbench.action.closeWindow"
@@ -79,7 +79,7 @@
   {
     "key": "shift+cmd+f",
     "command": "workbench.action.toggleSidebarVisibility",
-    "when": "searchViewletVisible"
+    "when": "searchViewletVisible && sideBarFocus"
   },
   {
     "key": "ctrl+shift+j",
@@ -305,14 +305,25 @@
     "key": "cmd+\\",
     "command": "workbench.action.terminal.toggleTerminal"
   },
+
   // {
-  //   "key": "n",
-  //   "command": "workbench.action.terminal.findNext",
-  //   "when": "terminalFindWidgetFocused"
+  //   "key": "cmd+q",
+  //   "command": "workbench.action.closeEditorsInGroup",
+  //   "when": "groupEditorsCount != 1"
   // },
-  // {
-  //   "key": "N",
-  //   "command": "workbench.action.terminal.findPrevious",
-  //   "when": "terminalFindWidgetFocused"
-  // }
+  {
+    "key": "[F12]",
+    "command": "workbench.action.toggleDevTools",
+    "when": "isDevelopment"
+  },
+  {
+    "key": "cmd+x",
+    "command": "editor.action.moveSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "editor.action.moveSelectionToNextFindMatch",
+    "when": "editorFocus"
+  },
 ]
