@@ -36,3 +36,5 @@ const SampleComponent = ({
 }
 
 export default SampleClass
+
+

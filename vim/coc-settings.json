@@ -1,4 +1,15 @@
 {
+  "suggest.numberSelect": false,
+  "suggest.languageSourcePriority": 99,
+  "suggest.noselect": true,
+  "yank.priority": 85,
+  "coc.source.file.priority": 10,
+  "coc.source.syntax.priority": 4,
+  "coc.source.around.priority": 3,
+  "coc.source.buffer.priority": 1,
+  "suggest.lowPrioritySourceLimit": 5,
+
+
   "snippets.extends": {
     "javascriptreact": ["javascript", "html", "typescript", "typescriptreact"],
     "typescriptreact": ["javascript", "html", "typescript", "javascriptreact"],
@@ -6,16 +17,6 @@
     "typescript": ["javascript", "html", "typescriptreact", "javascriptreact"],
     "eruby": ["javascript", "typescript", "html"]
   },
-
-  "suggest.languageSourcePriority": 99,
-  "suggest.noselect": false,
-  "snippets.priority": 90,
-  "yank.priority": 85,
-  // "tabnine.priority": 80,
-  "coc.source.file.priority": 10,
-  "coc.source.syntax.priority": 4,
-  "coc.source.around.priority": 3,
-  "coc.source.buffer.priority": 1,
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.bracketEnterImprove": true,
@@ -51,7 +52,16 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "yank.enableCompletion": false,
   // "git.addGlameToVirtualText": true,
 
-  "coc.preferences.extensionUpdateCheck": "never"
+  "coc.preferences.extensionUpdateCheck": "never",
+  // switch to coc-emmet once coc-snippets supports t variable
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  }
 }

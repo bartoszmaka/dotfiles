@@ -23,6 +23,10 @@
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet afn "arrow function" b
+($1) => {$2}
+endsnippet
+
 snippet switch "switch statement" w
 switch (${1}) {
   case ${2}:
@@ -186,4 +190,8 @@ endsnippet
 
 snippet jstr "JSON.stringify" w
 JSON.stringify(${1}, null, 2)
+endsnippet
+
+snippet idb "inline debugger" w
+(() => { debugger })()
 endsnippet
