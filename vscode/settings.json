@@ -195,12 +195,38 @@
   
   "vim.normalModeKeyBindingsNonRecursive":[
     {
+        "before": ["u"],
+        "commands": ["undo"]
+    },
+    {
+        "before": ["<C-r>"],
+        "commands": ["redo"]
+    },
+    {
+      "before": ["<Cmd-r>"],
+      "commands": [
+        "actions.find",
+        "editor.action.startFindReplaceAction"
+      ]
+    },
+    {
+      "before": ["<leader>", "r"],
+      "commands": [
+        "actions.find",
+        "editor.action.startFindReplaceAction"
+      ]
+    },
+    {
       "before": ["v"],
       "after": ["v"],
     },
     {
       "before": ["*"],
       "commands": ["actions.find", "workbench.action.focusActiveEditorGroup"]
+    },
+    {
+      "before": ["<leader>", "f"],
+      "commands": ["actions.find"]
     },
     {
       "before": ["/"],
@@ -285,13 +311,9 @@
       "before": ["<leader>", "k"],
       "after": ["k", "J"]
     },
-    // {
-    //   "before": ["<leader>", "r"],
-    //   "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "/", "g", "<left>", "<left>"]
-    // },
-    // {
-    //   "before": ["<leader>", "R"],
-    //   "after": ["\"", "*", "y", ":", "%", "s", "/", "<c-v>", "/", "<c-v>", "/", "g", "<left>", "<left>"]
-    // },
+    {
+      "before": ["<leader>", "<esc>"],
+      "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]
+    },
   ],
 }
