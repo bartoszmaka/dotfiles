@@ -137,8 +137,17 @@
     "<C-d>": false,
     "<C-e>": false,
   },
+  "vim.debug.loggingLevelForConsole": "debug",
 
   "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["v"],
+      "commands": ["editor.action.smartSelect.expand"],
+    },
+    {
+      "before": ["V"],
+      "commands": ["editor.action.smartSelect.shrink"],
+    },
     {
       "before": ["v", "<leader>", "h"],
       "after": ["^"]
@@ -176,7 +185,7 @@
       "after": ["5", "j"]
     },
   ],
-
+ 
   "vim.insertModeKeyBindings": [
     {
       "before": ["j", "k"],
@@ -186,12 +195,12 @@
   
   "vim.normalModeKeyBindingsNonRecursive":[
     {
+      "before": ["v"],
+      "after": ["v"],
+    },
+    {
       "before": ["*"],
       "commands": ["actions.find", "workbench.action.focusActiveEditorGroup"]
-    },
-    { 
-      "before": ["<leader>", "q"],
-      "commands": ["workbench.action.closeEditorsInGroup"]
     },
     {
       "before": ["/"],
