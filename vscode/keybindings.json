@@ -1,11 +1,11 @@
 // Place your key bindings in this file to overwrite the defaults
 [
   // Disable default mapping
-  // {
-  //   "key": "shift+tab",
-  //   "command": "-extension.vim_shift+tab",
-  //   "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
-  // },
+  {
+    "key": "shift+tab",
+    "command": "-extension.vim_shift+tab",
+    "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
+  },
   {
     "key": "shift+cmd+w",
     "command": "-workbench.action.closeWindow"
@@ -92,7 +92,15 @@
     "when": "searchViewletVisible"
   },
 
-  // Explorer
+  {
+    "key": "ctrl+k ctrl+g",
+    "command": "workbench.view.scm"
+  },
+  {
+    "key": "ctrl+k ctrl+g",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
+  },
   {
     "key": "ctrl+k ctrl+d",
     "command": "workbench.files.action.showActiveFileInExplorer",
@@ -106,12 +114,11 @@
   {
     "key": "ctrl+k ctrl+e",
     "command": "workbench.view.explorer",
-    "when": "editorTextFocus || !explorerViewletVisible"
   },
   {
     "key": "ctrl+k ctrl+e",
     "command": "workbench.action.toggleSidebarVisibility",
-    "when": "!editorTextFocus && explorerViewletVisible"
+    "when": "activeViewlet == 'workbench.view.explorer' && sideBarFocus"
   },
   {
     "key": "m m",
@@ -326,4 +333,54 @@
     "command": "editor.action.moveSelectionToNextFindMatch",
     "when": "editorFocus"
   },
+  {
+    "key": "y",
+    "command": "editor.action.replaceOne",
+    "when": "editorFocus && findWidgetVisible && vim.mode != 'Insert"
+  },
+  {
+    "key": "y",
+    "command": "search.action.replace",
+    "when": "matchFocus && replaceActive && searchViewletVisible && vim.mode != 'Insert"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen && activeViewlet =! 'workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "selectNextSuggestion",
+    "when": "editorTextFocus && suggestWidgetVisible && activeViewlet =! 'workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetVisible && activeViewlet =! 'workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "list.collapse",
+    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer" 
+  },
+  {
+    "key": "ctrl+l",
+    "command": "list.expand",
+    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "list.focusUp",
+    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
+  }
 ]
