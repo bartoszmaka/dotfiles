@@ -88,6 +88,11 @@
     "key": "ctrl+k ctrl+c",
     "command": "workbench.action.terminal.toggleTerminal"
   },
+  {
+    "key": "ctrl+w v",
+    "command": "workbench.action.terminal.split",
+    "when": "terminalFocus"
+  },
 
   // Search
   {
