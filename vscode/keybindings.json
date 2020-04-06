@@ -36,6 +36,10 @@
     "command": "-workbench.action.closeWindow",
     "when": "!editorIsOpen && !multipleEditorGroups"
   },
+  {
+    "key": "ctrl+shift+cmd+q",
+    "command": "workbench.action.closeWindow",
+  },
   // Shell like shortcuts
   // {
   //   "key": "ctrl+u",
@@ -78,6 +82,11 @@
     "key": "ctrl+p",
     "command": "search.action.focusPreviousSearchResult",
     "when": "hasSearchResult"
+  },
+  // Terminal
+  {
+    "key": "ctrl+k ctrl+c",
+    "command": "workbench.action.terminal.toggleTerminal"
   },
 
   // Search
