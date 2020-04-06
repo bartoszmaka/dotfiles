@@ -1,5 +1,21 @@
 {
   // Meta
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.settings.openDefaultKeybindings": false,
+  "workbench.settings.openDefaultSettings": false,
+  "zenMode.hideStatusBar": false,
+  "zenMode.hideTabs": false,
+  "search.showLineNumbers": true,
+  "search.smartCase": true,
+  "search.useGlobalIgnoreFiles": true,
+  "timeline.showView": true,
+  "sync.autoUpload": true,
+  "sync.quietSync": true,
+  "vim.experimentalOptimizations": true,
+  "editor.suggest.statusBar.visible": true,
+  "workbench.commandPalette.preserveInput": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.mouseWheelZoom": false,
   "terminal.integrated.rendererType": "canvas",
   "files.hotExit": "off",
   "cSpell.enabled": false,
@@ -43,8 +59,6 @@
   "editor.cursorStyle": "block",
   "editor.minimap.enabled": false,
   "window.zoomLevel": 0,
-  "zenMode.hideTabs": false,
-  "zenMode.hideStatusBar": false,
   "workbench.editor.enablePreview": true,
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
@@ -83,8 +97,8 @@
   // Autocomplete
   "editor.snippetSuggestions": "top",
   "editor.acceptSuggestionOnEnter": "off",
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.showSuggestionsAsSnippets": true,
+  // "emmet.triggerExpansionOnTab": true,
+  // "emmet.showSuggestionsAsSnippets": true,
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
     "vue-html": "html",
@@ -230,7 +244,7 @@
     },
   ],
  
-  "vim.insertModeKeyBindings": [
+  "vim.insertModeKeyBindingsNonRecursive": [
     {
       "before": ["j", "k"],
       "after": ["<esc>"]
@@ -297,10 +311,6 @@
       "after": ["5", "j"]
     },
     {
-      "before": ["<leader>", "a"],
-      "commands": ["extension.jumpToTest"]
-    },
-    {
       "before": ["<leader>", "%"],
       "commands": ["editor.emmet.action.matchTag"]
     },
@@ -348,6 +358,14 @@
       "before": ["<leader>", "k"],
       "after": ["k", "J"]
     },
+    {
+      "before": ["<leader>", "a"],
+      "commands": [{ "command": "alternate.createAlternateFile" }]
+    },
+    {
+      "before": ["<leader>", "s"],
+      "commands": [{ "command": "alternate.createAlternateFileInSplit" }]
+    }
     // {
     //   "before": ["<leader>", "<esc>"],
     //   "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]

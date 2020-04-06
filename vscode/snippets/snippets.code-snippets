@@ -7,7 +7,7 @@
   // Placeholders with the same ids are connected.
   // Example:
   // "Print to console": {
-  // 	"scope": "javascript,typescript",
+  // 	"scope": "javascript,typescript,javascriptreact,typescriptreact",
   // 	"prefix": "log",
   // 	"body": [
   // 		"console.log('$1');",
@@ -15,9 +15,8 @@
   // 	],
   // 	"description": "Log output to console"
   // }
-
   "console.log": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "cl",
     "description": "Log output to console",
     "body": [
@@ -25,19 +24,19 @@
     ]
   },
   "export const": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ec",
     "body": "export const",
     "description": "export const"
   },
   "export default": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ed",
     "body": "export default",
     "description": "export default"
   },
   "jest describe": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "desc",
     "description": "jest describe block",
     "body": [
@@ -47,7 +46,7 @@
     ]
   },
   "jest it": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "it",
     "description": "jest it block",
     "body": [
@@ -57,7 +56,7 @@
     ]
   },
   "arrow function": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "fn",
     "description": "arrow function",
     "body": [
@@ -67,7 +66,7 @@
     ]
   },
   "jest test": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "test",
     "description": "jest test block",
     "body": [
@@ -77,7 +76,7 @@
     ]
   },
   "to eq array containing obj containing": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "teao",
     "description": "array containing obj containing",
     "body": [
@@ -91,7 +90,7 @@
     ]
   },
   "to eq array containing": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "tea",
     "description": "array containing",
     "body": [
@@ -103,7 +102,7 @@
     ]
   },
   "to eq object containing": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "teo",
     "description": "obj containing",
     "body": [
@@ -115,9 +114,136 @@
     ]
   },
   "json stringify": {
-    "scope": "javascript,typescript",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "jstr",
     "description": "JSON.stringify",
     "body": "JSON.stringify(${1}, null, 2)"
-  }
+  },
+
+  "propTypes": {
+    "prefix": "pt",
+    "body": [
+      "PropTypes."
+    ]
+  },
+  "propTypes object shape": {
+    "prefix": "pto",
+    "body": [
+      "PropTypes.shape({})"
+    ]
+  },
+  "propTypes object shape required": {
+    "prefix": "ptor",
+    "body": [
+      "PropTypes.shape({}).isRequired,"
+    ]
+  },
+  "propTypes object": {
+    "prefix": "ptobj",
+    "body": [
+      "PropTypes.object"
+    ]
+  },
+  "propTypes object required": {
+    "prefix": "ptobjr",
+    "body": [
+      "PropTypes.object.isRequired,"
+    ]
+  },
+  "propTypes array": {
+    "prefix": "pta",
+    "body": [
+      "PropTypes.arrayOf(${1})${2}"
+    ]
+  },
+  "propTypes array required": {
+    "prefix": "ptar",
+    "body": [
+      "PropTypes.arrayOf(${1}).isRequired,${2}"
+    ]
+  },
+  "propTypes function": {
+    "prefix": "ptf",
+    "body": [
+      "PropTypes.func"
+    ]
+  },
+  "propTypes fucntion required": {
+    "prefix": "ptfr",
+    "body": [
+      "PropTypes.func.isRequired,"
+    ]
+  },
+  "propTypes string": {
+    "prefix": "ptst",
+    "body": [
+      "PropTypes.string"
+    ]
+  },
+  "propTypes string required": {
+    "prefix": "ptstr",
+    "body": [
+      "PropTypes.string.isRequired,"
+    ]
+  },
+  "propTypes boolean": {
+    "prefix": "ptb",
+    "body": [
+      "PropTypes.bool"
+    ]
+  },
+  "propTypes boolean required": {
+    "prefix": "ptbr",
+    "body": [
+      "PropTypes.bool.isRequired,"
+    ]
+  },
+  "propTypes number": {
+    "prefix": "ptn",
+    "body": [
+      "PropTypes.number"
+    ]
+  },
+  "propTypes number required": {
+    "prefix": "ptnr",
+    "body": [
+      "PropTypes.number.isRequired,"
+    ]
+  },
+  "propTypes symbol": {
+    "prefix": "ptsy",
+    "body": [
+      "PropTypes.symbol"
+    ]
+  },
+  "propTypes symbol required": {
+    "prefix": "ptsyr",
+    "body": [
+      "PropTypes.symbol.isRequired,"
+    ]
+  },
+  "propTypes shape": {
+    "prefix": "ptsh",
+    "body": [
+      "PropTypes.shape({${1}})${2}"
+    ]
+  },
+  "propTypes shape required": {
+    "prefix": "ptshr",
+    "body": [
+      "PropTypes.shape({${1}}).isRequired,${2}"
+    ]
+  },
+  "propTypes node": {
+    "prefix": "ptc",
+    "body": [
+      "PropTypes.node"
+    ]
+  },
+  "propTypes node required": {
+    "prefix": "ptcr",
+    "body": [
+      "PropTypes.node.isRequired"
+    ]
+  },
 }
