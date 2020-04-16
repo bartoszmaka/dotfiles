@@ -138,4 +138,5 @@ brew cask install spectacle slack flux iterm2
 [https://pilotmoon.com/scrollreverser/](https://pilotmoon.com/scrollreverser/)  
 [alt left / right behavior for iterm2](https://apple.stackexchange.com/questions/136928/using-alt-cmd-right-left-arrow-in-iterm)  
 [sync iterm2 with dotfiles](http://stratus3d.com/blog/2015/02/28/sync-iterm2-profile-with-dotfiles-repository/)  
-[F1-F48 hex sequences](http://aperiodic.net/phil/archives/Geekery/term-function-keys.html)
+[F1-F48 hex codes](http://aperiodic.net/phil/archives/Geekery/term-function-keys.html)
+[Ctrl+key hex codes](http://www.physics.udel.edu/~watson/scen103/ascii.html)
