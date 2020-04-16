@@ -917,6 +917,9 @@ nnoremap <leader>P "+P
 vnoremap <leader>p "+p
 vnoremap <leader>P "+P
 
+nnoremap <F13> :w<CR>
+nnoremap <F14> :wa<CR>
+
 " sometimes I just hold shift for too long
 cabbrev W   w
 cabbrev Wa  wa
