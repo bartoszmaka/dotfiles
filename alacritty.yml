@@ -515,6 +515,7 @@ key_bindings:
   - { key: J,         mods: Command,                 chars: "\x00\x6a" }
   - { key: K,         mods: Command,                 chars: "\x00\x6b" }
   - { key: L,         mods: Command,                 chars: "\x00\x6c" }
+  - { key: P,         mods: Command,                 chars: "\x10\x10" }
   - { key: S,         mods: Command,                 chars: "\x1b[25~" }
   - { key: S,         mods: Command|Shift,           chars: "\x1b[26~" }
   - { key: LBracket,  mods: Command,                 chars: "\x20\x5b" }
