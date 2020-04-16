@@ -1,6 +1,6 @@
 case "$(uname -s)" in
   Darwin)
-      brew install python3 the_silver_searcher neovim libevent ncurses reattach-to-user-namespace tmux
+      brew install python3 the_silver_searcher neovim libevent ncurses reattach-to-user-namespace tmux diff-so-fancy
       brew cask install iterm2 spectacle flux slack pgadmin4
     ;;
 
