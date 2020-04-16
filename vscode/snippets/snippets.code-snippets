@@ -26,13 +26,13 @@
   "export const": {
     "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ec",
-    "body": "export const",
+    "body": "export const ",
     "description": "export const"
   },
   "export default": {
     "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ed",
-    "body": "export default",
+    "body": "export default ",
     "description": "export default"
   },
   "jest describe": {
@@ -121,129 +121,166 @@
   },
 
   "propTypes": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "pt",
     "body": [
       "PropTypes."
     ]
   },
   "propTypes object shape": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "pto",
     "body": [
       "PropTypes.shape({})"
     ]
   },
   "propTypes object shape required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptor",
     "body": [
       "PropTypes.shape({}).isRequired,"
     ]
   },
   "propTypes object": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptobj",
     "body": [
       "PropTypes.object"
     ]
   },
   "propTypes object required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptobjr",
     "body": [
       "PropTypes.object.isRequired,"
     ]
   },
   "propTypes array": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "pta",
     "body": [
       "PropTypes.arrayOf(${1})${2}"
     ]
   },
   "propTypes array required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptar",
     "body": [
       "PropTypes.arrayOf(${1}).isRequired,${2}"
     ]
   },
   "propTypes function": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptf",
     "body": [
       "PropTypes.func"
     ]
   },
   "propTypes fucntion required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptfr",
     "body": [
       "PropTypes.func.isRequired,"
     ]
   },
   "propTypes string": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptst",
     "body": [
       "PropTypes.string"
     ]
   },
   "propTypes string required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptstr",
     "body": [
       "PropTypes.string.isRequired,"
     ]
   },
   "propTypes boolean": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptb",
     "body": [
       "PropTypes.bool"
     ]
   },
   "propTypes boolean required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptbr",
     "body": [
       "PropTypes.bool.isRequired,"
     ]
   },
   "propTypes number": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptn",
     "body": [
       "PropTypes.number"
     ]
   },
   "propTypes number required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptnr",
     "body": [
       "PropTypes.number.isRequired,"
     ]
   },
   "propTypes symbol": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptsy",
     "body": [
       "PropTypes.symbol"
     ]
   },
   "propTypes symbol required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptsyr",
     "body": [
       "PropTypes.symbol.isRequired,"
     ]
   },
   "propTypes shape": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptsh",
     "body": [
       "PropTypes.shape({${1}})${2}"
     ]
   },
   "propTypes shape required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptshr",
     "body": [
       "PropTypes.shape({${1}}).isRequired,${2}"
     ]
   },
   "propTypes node": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptc",
     "body": [
       "PropTypes.node"
     ]
   },
   "propTypes node required": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "ptcr",
     "body": [
       "PropTypes.node.isRequired"
+    ]
+  },
+  "msp": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "msp",
+    "description": "mapStateToProps",
+    "body" [
+      "mapStateToProps"
+    ]
+  },
+  "mdp": {
+    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "prefix": "mdp",
+    "description": "mapDispatchToProps",
+    "body" [
+      "mapDispatchToProps"
     ]
   },
 }
