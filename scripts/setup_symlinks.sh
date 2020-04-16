@@ -10,9 +10,11 @@ ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
 ln -vsf ~/.repos/dotfiles/pryrc ~/.pryrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/vim/cocSnippets ~/.config/coc/ultisnips
+ln -vsf ~/.repos/dotfiles/vim/UltiSnips ~/.config/nvim/UltiSnips
 ln -vsf ~/.repos/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 ln -vsf ~/.repos/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -vsf ~/.repos/dotfiles/jetbrains/ideavimrc ~/.ideavimrc
+ln -vsf ~/.repos/dotfiles/asdf/default-npm-packages ~/.default-npm-packages
 
 case "$(uname -s)" in
   Darwin)
