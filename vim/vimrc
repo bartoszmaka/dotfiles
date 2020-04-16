@@ -89,6 +89,9 @@ Plug 'Asheq/close-buffers.vim'
 Plug 'dunckr/js_alternate.vim'
 Plug 'luochen1990/rainbow'
 Plug 'jparise/vim-graphql'
+Plug 'voldikss/vim-floaterm'
+Plug 'gillyb/stable-windows'
+Plug 'Lenovsky/nuake'
 call plug#end()
 
 " **********************************
@@ -808,6 +811,15 @@ nnoremap K 5k
 nnoremap J 5j
 vnoremap K 5k
 vnoremap J 5j
+
+" nuake
+let g:nuake_size = 0.3
+nnoremap <C-l><C-n> :Nuake<CR>
+tnoremap <C-l><C-n> <C-\><C-n>:Nuake<CR>
+tnoremap <C-w>h     <C-\><C-n><C-w>h
+tnoremap <C-w>j     <C-\><C-n><C-w>j
+tnoremap <C-w>k     <C-\><C-n><C-w>k
+tnoremap <C-w>l     <C-\><C-n><C-w>l
 
 " exit terminal mode
 tnoremap <leader><esc> <C-\><C-n>
