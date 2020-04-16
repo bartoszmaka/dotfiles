@@ -38,12 +38,13 @@ export DOTFILES_PATH="$HOME/.repos/dotfiles"
 test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 
 alias tmux="tmux -u"
-alias tnew="tmux -u new-session -t main"
+alias tnew="\tmux -u new-session -t main"
 alias spacevim="vim -u ~/.SpaceVim/init.vim"
 alias spacenvim="nvim -u ~/.SpaceVim/init.vim"
 alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias vimrc="$EDITOR $DOTFILES_PATH/vim/vimrc"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
+alias coderc="code $DOTFILES_PATH/vscode/settings.json $DOTFILES_PATH/vscode/keybindings.json"
 alias alacrittyrc="$EDITOR $DOTFILES_PATH/alacritty.yml"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
@@ -61,6 +62,7 @@ alias bers="bundle exec rails server"
 alias berc="bundle exec rails console"
 alias berr="bundle exec rake routes F C"
 alias bert="bundle exec rspec"
+alias bect="bundle exec cucumber"
 alias brp="echo 'pry-remote -w';pry-remote -w"
 alias yri="rm -rf yarn.lock node_modules/ && yarn install"
 alias yrm="rm -rf yarn.lock node_modules/"
@@ -99,3 +101,9 @@ if [ -f '/Users/bartoszmaka/Applications/google-cloud-sdk/path.zsh.inc' ]; then 
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/bartoszmaka/Applications/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszmaka/Applications/google-cloud-sdk/completion.zsh.inc'; fi
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+zstyle ':completion:*' menu select
+export PATH="/usr/local/sbin:$PATH"
