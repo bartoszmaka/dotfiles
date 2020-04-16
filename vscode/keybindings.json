@@ -83,10 +83,20 @@
     "command": "search.action.focusPreviousSearchResult",
     "when": "hasSearchResult"
   },
+
   // Terminal
   {
-    "key": "ctrl+k ctrl+c",
+    "key": "ctrl+`",
+    "command": "workbench.action.togglePanel"
+  },
+  // does not work for some reason
+  {
+    "key": "ctrl+l ctrl+n",
     "command": "workbench.action.terminal.toggleTerminal"
+  },
+  {
+    "key": "ctrl+l ctrl+n",
+    "command": "workbench.action.togglePanel"
   },
   {
     "key": "ctrl+w v",
@@ -118,6 +128,16 @@
     "key": "ctrl+shift+k",
     "command": "search.action.focusPreviousSearchResult",
     "when": "searchViewletVisible"
+  },
+  // Errors
+  {
+    "key": "ctrl+l ctrl+e",
+    "command": "workbench.action.tasks.toggleProblems",
+  },
+  {
+    "key": "ctrl+l ctrl+e",
+    "command": "workbench.action.tasks.toggleProblems",
+    "when": "searchViewletVisible && sideBarFocus"
   },
 
   // Git
