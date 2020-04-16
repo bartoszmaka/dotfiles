@@ -99,11 +99,6 @@ Style/BlockDelimiters:
   Exclude:
     - '**/*_spec.rb'
 
-# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/BracesAroundHashParameters
-Style/BracesAroundHashParameters:
-  Exclude:
-    - '**/*_spec.rb'
-
 # https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/DateTime
 # We do not care about it that much, and sometimes we need it
 Style/DateTime:
@@ -147,6 +142,6 @@ Style/SymbolArray:
   Exclude:
     - 'db/migrate/**/*'
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'spec/support/matchers/**/*'
