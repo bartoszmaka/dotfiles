@@ -49,7 +49,7 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: full
+  decorations: transparent
 
   # Startup Mode (changes require restart)
   #
@@ -509,7 +509,8 @@ key_bindings:
   #- { key: F,      mods: Command|Control, action: ToggleFullscreen }
 
   # custom
-  - { key: W,         mods: Command,                 action: None }
+  - { key: W,         mods: Command,                 chars: "\x20\x77" }
+  - { key: T,         mods: Command|Shift,           chars: "\x20\x60" }
   - { key: Q,         mods: Command,                 action: None }
   - { key: H,         mods: Command,                 chars: "\x00\x68" }
   - { key: J,         mods: Command,                 chars: "\x00\x6a" }
@@ -518,10 +519,10 @@ key_bindings:
   - { key: P,         mods: Command,                 chars: "\x10\x10" }
   - { key: S,         mods: Command,                 chars: "\x1b[25~" }
   - { key: S,         mods: Command|Shift,           chars: "\x1b[26~" }
-  - { key: LBracket,  mods: Command,                 chars: "\x20\x5b" }
-  - { key: RBracket,  mods: Command,                 chars: "\x20\x5d" }
-  - { key: LBracket,  mods: Command|Shift,           chars: "\x00\x70" }
-  - { key: RBracket,  mods: Command|Shift,           chars: "\x00\x6e" }
+  - { key: LBracket,  mods: Command|Shift,           chars: "\x20\x5b" }
+  - { key: RBracket,  mods: Command|Shift,           chars: "\x20\x5d" }
+  - { key: LBracket,  mods: Command|Control,         chars: "\x00\x70" }
+  - { key: RBracket,  mods: Command|Control,         chars: "\x00\x6e" }
   - { key: Key1,      mods: Command,                 chars: "\x20\x31" }
   - { key: Key2,      mods: Command,                 chars: "\x20\x32" }
   - { key: Key3,      mods: Command,                 chars: "\x20\x33" }
