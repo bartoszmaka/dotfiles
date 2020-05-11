@@ -2,10 +2,8 @@ filetype off
 call plug#begin()
 Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
-Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-airline'                                           " UI improvement
 Plug 'vim-airline/vim-airline-themes'                              " themes for airline
-
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
@@ -25,8 +23,8 @@ Plug 'terryma/vim-multiple-cursors'                                " multiple cu
 
 Plug 'scrooloose/nerdtree'                                         " project explorer
 Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
-" Plug 'Xuyuanp/nerdtree-git-plugin'                                 " nerdTree git integration
-Plug 'tsony-tsonev/nerdtree-git-plugin'                              " nerdTree git integration
+" Plug 'Xuyuanp/nerdtree-git-plugin'                               " nerdTree git integration
+Plug 'tsony-tsonev/nerdtree-git-plugin'                            " nerdTree git integration fork with git based colors
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
 
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
@@ -59,6 +57,7 @@ Plug 'chrisbra/csv.vim'
 Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 " Plug 'tpope/vim-rails'
 Plug 'sheerun/vim-polyglot'
+" Plug 'posva/vim-vue'
 
 " fancy tools
 Plug 'dominikduda/vim_yank_with_context'
@@ -92,6 +91,7 @@ Plug 'jparise/vim-graphql'
 Plug 'voldikss/vim-floaterm'
 Plug 'gillyb/stable-windows'
 Plug 'Lenovsky/nuake'
+" Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " **********************************
@@ -532,8 +532,8 @@ let g:AutoPairs = {
       \ }
 
 " closetag
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js"
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb,*.js'
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js,*.vue"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.erb,*.js,*.vue'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_shortcut = '>'
 
@@ -644,6 +644,7 @@ let g:ale_fixers = {
       \ 'eruby':          ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
       \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
       \ 'javascript':     ['eslint', 'importjs'],
+      \ 'vue':            ['eslint', 'importjs'],
       \ 'javascript.jsx': ['eslint', 'importjs'],
       \ 'typescript':     ['eslint', 'importjs'],
       \ 'typescript.tsx': ['eslint', 'importjs'],
@@ -659,6 +660,7 @@ let g:ale_linters = {
       \ 'eruby':          ['rubocop'],
       \ 'javascript':     ['eslint'],
       \ 'typescript':     ['eslint'],
+      \ 'vue':            ['eslint'],
       \ 'json':           ['jq'],
       \ 'python':         ['pyls', 'autopep8', 'yapf'],
       \ 'css':            ['stylelint'],
@@ -731,7 +733,7 @@ nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
 " nnoremap mb         :FzfBuffers<CR>a<Bs>
 nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
 " nnoremap mn         :FzfRg<CR>a<Bs>
-nnoremap <C-p><C-l> :FzfLines<CR>a<Bs>
+nnoremap <C-p><C-l> :FzfBLines<CR>a<Bs>
 " nnoremap ml         :FzfLines<CR>a<Bs>
 nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
 " nnoremap mc         :FzfCommits<CR>a<Bs>
@@ -890,10 +892,10 @@ nnoremap <C-space>l <C-w>l
 
 if exists('$TMUX')
   let g:tmux_navigator_no_mappings = 1
-  nnoremap <C-w>h :TmuxNavigateLeft<CR>
-  nnoremap <C-w>j :TmuxNavigateDown<CR>
-  nnoremap <C-w>k :TmuxNavigateUp<CR>
-  nnoremap <C-w>l :TmuxNavigateRight<CR>
+  nnoremap <silent><C-w>h :TmuxNavigateLeft<CR>
+  nnoremap <silent><C-w>j :TmuxNavigateDown<CR>
+  nnoremap <silent><C-w>k :TmuxNavigateUp<CR>
+  nnoremap <silent><C-w>l :TmuxNavigateRight<CR>
 endif
 
 " always focus after cursor jump
@@ -956,14 +958,12 @@ augroup filetype_fixes
   autocmd BufNewFile,BufReadPost *.ts,*.tsx set syntax=typescriptreact
   autocmd BufNewFile,BufReadPost .eslintrc set filetype=json
   autocmd BufNewFile,BufReadPost,BufWritePost *.js,*.ts call DetectReactFiletype()
+  autocmd TermEnter * setlocal scrolloff=0
+  autocmd TermLeave * setlocal scrolloff=4
 augrou END
 
 augroup filetype_scoped_settings
   autocmd!
-  " don't hide quotes in JSON keys
-  autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
-  autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
-  autocmd FileType sass syntax match sassMixinName "@keyframes"
   autocmd FileType json          setlocal conceallevel=2
   autocmd Filetype gitcommit     setlocal colorcolumn=73 spell
   autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
@@ -971,6 +971,16 @@ augroup filetype_scoped_settings
   autocmd FileType scss set iskeyword+=-
   autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
   autocmd FileType javascript,typescript,javascript.jsx,typescript.tsx iabbrev <buffer> cosnt const
+  autocmd FileType vue setlocal commentstring=\/\*\ %s\ \*\/
+augroup END
+
+augroup hacks
+  " don't hide quotes in JSON keys
+  autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
+  autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
+  " fix sass highlighting
+  autocmd FileType sass syntax match sassMixinName "@keyframes"
+  " autocmd FileType vue syntax match htmlTagName "script"
 augroup END
 
 augroup callbacks
@@ -1077,9 +1087,13 @@ augroup color_scheme_tweaks
   autocmd FileType javascript highlight! link graphqlName String
   autocmd FileType javascript highlight! link graphqlType Constant
   autocmd FileType javascript highlight! link graphqlStructure Label
+  autocmd FileType javascript,vue highlight! link jsFunctionKey Label
+  autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
 
-  autocmd FileType sass highlight! link cssProp Constant
-  autocmd FileType sass highlight! link cssAttr Type
+  " autocmd FileType vue highlight! link javaScript htmlTagName
+  autocmd FileType sass,vue highlight! link cssProp Constant
+  autocmd FileType sass,vue highlight! link cssVendor Constant
+  autocmd FileType sass,vue highlight! link cssAttr Type
   " autocmd FileType sass highlight! link sassVariable Keyword
 augroup END
 
