@@ -13,31 +13,31 @@ endsnippet
 snippet ita "jest it async" w
 it('${1}', async () => {
   ${2}
-});
+})
 endsnippet
 
 snippet it "jest it" w
 it('${1}', () => {
   ${2}
-});
+})
 endsnippet
 
 snippet test "jest test" w
 test('${1}', () => {
   ${2}
-});
+})
 endsnippet
 
 snippet de  "jest describe" w
 describe('${1}', () => {
   ${2}
-});
+})
 endsnippet
 
 snippet desc  "jest describe" w
 describe('${1}', () => {
   ${2}
-});
+})
 endsnippet
 
 snippet con "desctucture object" w
@@ -45,11 +45,11 @@ const { ${1} } = ${2}
 endsnippet
 
 snippet re "require()" w
-const ${1} = require('${2}');
+const ${1} = require('${2}')
 endsnippet
 
 snippet imp "import module from " w
-import ${2:moduleName} from '${1:module}';
+import ${2:moduleName} from '${1:module}'
 endsnippet
 
 snippet e "export" w
@@ -80,7 +80,7 @@ endsnippet
 
 snippet ctr "component constructor" w
 constructor(props) {
-  super(props);
+  super(props)
   ${1}
 }
 endsnippet
@@ -112,22 +112,22 @@ toEqual(
 endsnippet
 
 snippet sctr "Scaffold test react component" w
-import React from 'react';
-import { shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
+import React from 'react'
+import { shallow } from 'enzyme'
+import toJson from 'enzyme-to-json'
 
-import { ${1} } from '../${1}';
+import { ${1} } from '../${1}'
 
 const setup = (newProps = {}, rendering = shallow) => {
   const props = {
     ${2}
     ...newProps,
-  };
+  }
 
-  const wrapper = rendering(<${1} {...props} />);
+  const wrapper = rendering(<${1} {...props} />)
 
-  return { wrapper, props };
-};
+  return { wrapper, props }
+}
 ${3}
 endsnippet
 
@@ -164,7 +164,7 @@ JSON.stringify(${1}, null, 2)
 endsnippet
 
 snippet imr "import React" w
-import React from 'react';
+import React from 'react'
 endsnippet
 
 snippet rcla "component class" w
@@ -172,7 +172,7 @@ class ${1} extends Component {
   render() {
     return (
       ${2}
-    );
+    )
   }
 }
 endsnippet
@@ -333,7 +333,7 @@ useEffect(() => {
   $1
   return () => {
     $2
-  };
+  }
 }, $3)
 endsnippet
 

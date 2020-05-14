@@ -1,3 +1,4 @@
+priority 50
 # A valid snippet should starts with:
 #
 #		snippet trigger_w ["description" [ options ] ]
@@ -194,4 +195,10 @@ endsnippet
 
 snippet idb "inline debugger" w
 (() => { debugger })()
+endsnippet
+
+snippet fn "function"
+(${1}) => {
+  ${2}
+}
 endsnippet

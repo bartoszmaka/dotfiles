@@ -15,8 +15,12 @@
     "typescriptreact": ["javascript", "html", "typescript", "javascriptreact"],
     "javascript": ["javascriptreact", "html", "typescript", "typescriptreact"],
     "typescript": ["javascript", "html", "typescriptreact", "javascriptreact"],
+    "vue": ["javascript", "html", "typescript", "typescriptreact"],
     "eruby": ["javascript", "typescript", "html"]
   },
+  "snippets.loadFromExtensions": false,
+  "snippets.ultisnips.enable": true,
+  "snippets.userSnippetsDirectory": "/Users/bartoszmaka/.repos/dotfiles/vim/cocSnippets",
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.bracketEnterImprove": true,
