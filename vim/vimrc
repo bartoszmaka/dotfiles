@@ -354,6 +354,7 @@ nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 " coc
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
+      \ 'coc-vetur',
       \ 'coc-tag',
       \ 'coc-solargraph',
       \ 'coc-snippets',
@@ -1021,7 +1022,7 @@ augroup color_scheme_tweaks
   highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold
   highlight TabLineSel       guifg=#E5C07B
   highlight MatchTag         guibg=#4d4d4d   gui=bold
-  highlight MatchWord        guibg=#343D46   gui=italic,bold
+  highlight MatchWord        guibg=#343D46
 
   highlight CurrentWordTwins guibg=#363636   gui=bold
   highlight CurrentWord      guibg=#222200   gui=bold
@@ -1089,6 +1090,7 @@ augroup color_scheme_tweaks
   autocmd FileType javascript highlight! link graphqlStructure Label
   autocmd FileType javascript,vue highlight! link jsFunctionKey Label
   autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
+  autocmd FileType vue highlight! link htmlBold htmlTag
 
   " autocmd FileType vue highlight! link javaScript htmlTagName
   autocmd FileType sass,vue highlight! link cssProp Constant
@@ -1129,3 +1131,6 @@ let g:rainbow_conf = {
       \  'operators': '_,_',
       \  'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
       \}
+
+" dont load all preprocessors for vue - performance improvement
+let g:vue_pre_processors = 'detect_on_enter'
