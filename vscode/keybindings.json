@@ -202,6 +202,11 @@
     "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
   },
   {
+    "key": "s",
+    "command": "explorer.openToSide",
+    "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
+  },
+  {
     "key": "shift+x",
     "command": "workbench.files.action.collapseExplorerFolders",
     "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
@@ -247,20 +252,20 @@
     "command": "editor.action.toggleMinimap",
     "when": "editorFocus"
   },
-  {
-    "key": "ctrl+m ctrl+f",
-    "command": "eslint.executeAutofix",
-    "when": "editorFocus && editorLangId == 'javascript'"
-  },
-  {
-    "key": "ctrl+m ctrl+f",
-    "command": "eslint.executeAutofix",
-    "when": "editorFocus && editorLangId == 'javascriptreact'"
-  },
+  // {
+  //   "key": "ctrl+m ctrl+f",
+  //   "command": "eslint.executeAutofix",
+  //   "when": "editorFocus && editorLangId == 'javascript'"
+  // },
+  // {
+  //   "key": "ctrl+m ctrl+f",
+  //   "command": "eslint.executeAutofix",
+  //   "when": "editorFocus && editorLangId == 'javascriptreact'"
+  // },
   {
     "key": "ctrl+m ctrl+f",
     "command": "editor.action.formatDocument",
-    "when": "editorFocus && editorLangId == 'ruby'"
+    "when": "editorFocus"
   },
   {
     "key": "ctrl+n",
@@ -438,5 +443,26 @@
     "key": "ctrl+k",
     "command": "list.focusUp",
     "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
-  }
+  },
+  {
+    "key": "ctrl+e",
+    "command": "editor.emmet.action.expandAbbreviation",
+    "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Insert'"
+  },
+  // {
+  //   "key": "shift+'",
+  //   "command": "editor.action.insertSnippet",
+  //   "when": "editorTextFocus",
+  //   "args": {
+  //     "snippet": "\"$1\""
+  //   }
+  // },
+  // {
+  //   "key": "'",
+  //   "command": "editor.action.insertSnippet",
+  //   "when": "editorTextFocus",
+  //   "args": {
+  //     "snippet": "'$1'"
+  //   }
+  // }
 ]

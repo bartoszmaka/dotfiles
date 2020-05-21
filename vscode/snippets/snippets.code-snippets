@@ -16,7 +16,7 @@
   // 	"description": "Log output to console"
   // }
   "console.log": {
-    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact,vue",
     "prefix": "cl",
     "description": "Log output to console",
     "body": [
@@ -24,13 +24,13 @@
     ]
   },
   "export const": {
-    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact,vue",
     "prefix": "ec",
     "body": "export const ",
     "description": "export const"
   },
   "export default": {
-    "scope": "javascript,typescript,javascriptreact,typescriptreact",
+    "scope": "javascript,typescript,javascriptreact,typescriptreact,vue",
     "prefix": "ed",
     "body": "export default ",
     "description": "export default"
@@ -61,6 +61,16 @@
     "description": "arrow function",
     "body": [
       "($1) => {",
+      "  $2",
+      "}"
+    ]
+  },
+  "normal function": {
+    "scope": "vue",
+    "prefix": "fn",
+    "description": "arrow function",
+    "body": [
+      "function($1) {",
       "  $2",
       "}"
     ]
@@ -271,7 +281,7 @@
     "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "msp",
     "description": "mapStateToProps",
-    "body" [
+    "body": [
       "mapStateToProps"
     ]
   },
@@ -279,8 +289,24 @@
     "scope": "javascript,typescript,javascriptreact,typescriptreact",
     "prefix": "mdp",
     "description": "mapDispatchToProps",
-    "body" [
+    "body": [
       "mapDispatchToProps"
     ]
   },
+  "scvue": {
+    "scope": "vue",
+    "prefix": "scvue",
+    "description": "Vue component scaffold",
+    "body": [
+      "<template>",
+      "  $1",
+      "</template>",
+      "<script>",
+      "  $2",
+      "</script>",
+      "<style>",
+      "  $3",
+      "</style>",
+    ]
+  }
 }
