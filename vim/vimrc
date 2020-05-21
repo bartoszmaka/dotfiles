@@ -71,7 +71,7 @@ Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx'
 Plug 'meain/vim-package-info',          { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'camspiers/lens.vim'
 " Plug 'camspiers/animate.vim'
@@ -194,6 +194,9 @@ command! GenerateRubyTags call GenerateRubyTags()
 
 function! DebugHighlight()
   let l:s = synID(line('.'), col('.'), 1)
+  let name = synIDattr(synID(line("."),col("."),1),"name")
+
+  echomsg string(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
   echomsg "hi<"
         \ . synIDattr(synID(line("."),col("."),1),"name")
         \ . '> trans<'
@@ -201,6 +204,8 @@ function! DebugHighlight()
         \ . "> lo<"
         \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
         \ . ">"
+  echomsg '==========='
+  exe 'syntax list ' . name
 endfun
 nnoremap <F10> :call DebugHighlight()<CR>
 nnoremap <F9> :syntax sync fromstart<CR>
@@ -294,9 +299,6 @@ call airline#parts#define_minwidth('nearestFunction', 50)
 call airline#parts#define_function('cocStatus', 'GetCocStatus')
 call airline#parts#define_minwidth('cocStatus', 150)
 
-" let g:airline_highlighting_cache = 1
-let g:webdevicons_enable_nerdtree                    = 0
-let g:airline_powerline_fonts                        = 1
 let g:airline#extensions#whitespace#enabled          = 0
 let g:airline#extensions#branch#enabled              = 0
 let g:airline#extensions#tabline#enabled             = 1
@@ -438,6 +440,7 @@ let test#strategy = "neovim"
 let test#neovim#term_position = "vertical"
 let test#ruby#cucumber#executable = 'bundle exec cucumber'
 let test#ruby#rspec#executable = 'bundle exec rspec'
+" let test#javascript#jest#file_pattern \v(__tests__/.*|(spec|test))\.(js|jsx|coffee|ts|tsx)$
 nmap TT :TestNearest<CR>
 nmap TF :TestFile<CR>
 
@@ -495,18 +498,18 @@ let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 map ; <Plug>(easymotion-prefix)
 
-" MatchTagAlways
-let g:mta_use_matchparen_group       = 0
-let g:mta_set_default_matchtag_color = 0
-let g:mta_filetypes = {
-      \ 'html' : 1,
-      \ 'xhtml' : 1,
-      \ 'xml' : 1,
-      \ 'eruby' : 1,
-      \ 'javascript.jsx' : 1,
-      \ 'html.handlebars' : 1,
-      \}
-nnoremap <leader>% :MtaJumpToOtherTag<CR>
+" " MatchTagAlways
+" let g:mta_use_matchparen_group       = 0
+" let g:mta_set_default_matchtag_color = 0
+" let g:mta_filetypes = {
+"       \ 'html' : 1,
+"       \ 'xhtml' : 1,
+"       \ 'xml' : 1,
+"       \ 'eruby' : 1,
+"       \ 'javascript.jsx' : 1,
+"       \ 'html.handlebars' : 1,
+"       \}
+" nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 let g:AutoClosePreserveDotReg = 0
 
@@ -571,36 +574,24 @@ nmap <leader>G <Plug>CtrlSFPwordPath
 " projectionist
 let g:projectionist_heuristics = {
       \   '*': {
-      \     '*.js': {
-      \       'alternate': '{dirname}/__tests__/{basename}.test.js',
+      \     'src/*.vue': {
+      \       'alternate': '{}/__tests__/{basename}.test.js',
       \       'type': 'source'
       \     },
-      \     '**/__tests__/*.test.js': {
+      \     'src/*.js': {
+      \       'alternate': '{}/__tests__/{basename}.test.js',
+      \       'type': 'source'
+      \     },
+      \     'src/**/__tests__/*.test.js': {
       \       'alternate': '{dirname}/{basename}.js',
       \       'type': 'test'
       \     },
-      \     '*.ts': {
-      \       'alternate': '{dirname}/__tests__/{basename}.test.ts',
+      \     'src/*.ts': {
+      \       'alternate': '{}/__tests__/{basename}.test.ts',
       \       'type': 'source'
       \     },
-      \     '**/__tests__/*.test.ts': {
+      \     'src/**/__tests__/*.test.ts': {
       \       'alternate': '{dirname}/{basename}.ts',
-      \       'type': 'test'
-      \     },
-      \     'app/javascript/components/*.tsx': {
-      \       'alternate': 'spec/javascript/{dirname}/{basename}.spec.tsx',
-      \       'type': 'source'
-      \     },
-      \     'spec/javascript/*.spec.tsx': {
-      \       'alternate': 'app/javascript/components/{dirname}/{basename}.tsx',
-      \       'type': 'test'
-      \     },
-      \     '*.tsx': {
-      \       'alternate': '{dirname}/__tests__/{basename}.spec.tsx',
-      \       'type': 'source'
-      \     },
-      \     '**/__tests__/*.test.tsx': {
-      \       'alternate': '{dirname}/{basename}.tsx',
       \       'type': 'test'
       \     },
       \     'app/*.rb': {
@@ -946,8 +937,10 @@ function! DetectReactFiletype()
       elseif expand('%:e') == 'ts'
         set filetype=typescript.tsx
       endif
+
       return
     endif
+
     let n = n + 1
   endwhile
 endfunction
@@ -975,15 +968,6 @@ augroup filetype_scoped_settings
   autocmd FileType vue setlocal commentstring=\/\*\ %s\ \*\/
 augroup END
 
-augroup hacks
-  " don't hide quotes in JSON keys
-  autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
-  autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
-  " fix sass highlighting
-  autocmd FileType sass syntax match sassMixinName "@keyframes"
-  " autocmd FileType vue syntax match htmlTagName "script"
-augroup END
-
 augroup callbacks
   autocmd!
   autocmd BufReadPost * syntax sync fromstart
@@ -1006,6 +990,24 @@ augroup remember_cursor_position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
+augroup syntax_fixes
+  " don't hide quotes in JSON keys
+  autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
+  autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
+
+  " fix sass highlighting
+  autocmd FileType sass syntax match sassMixinName "@keyframes"
+
+  " fix js weird coloring inside functions in objects like { foo() { /* weird colors here*/ } }
+  autocmd FileType javascript syntax clear jsObjectShorthandProp jsObject jsParensError jsParen
+
+  " remove a tag underline
+  autocmd FileType vue syntax clear htmlLink htmlH2 " clearing this syntax rule broke style highlighting
+  autocmd FileType vue syntax match htmlArg /\<aria-[a-z\-]\+\>/  contained
+  " autocmd FileType vue syntax match vueSlotName /\#[a-z]\+/ 
+  " autocmd FileType vue syntax region contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent,htmlCssDefinition,@htmlPreproc,@htmlArgCluster,vueSlotName
+augroup END
+
 augroup color_scheme_tweaks
   autocmd!
   autocmd InsertEnter * setlocal cursorcolumn
@@ -1018,14 +1020,16 @@ augroup color_scheme_tweaks
   highlight FZFNormal        guibg=#222222
   highlight CursorColumn     guibg=#512121
   highlight CursorColumnNR   guibg=#512121
-  highlight IncSearch        guifg=#FF0000   guibg=NONE    gui=bold
-  highlight Search           guifg=#FFFFFF   guibg=NONE    gui=bold
+  highlight IncSearch        guifg=#FF0000 guibg=NONE gui=bold
+  highlight Search           guifg=#FFFFFF guibg=NONE gui=bold
   highlight TabLineSel       guifg=#E5C07B
-  highlight MatchTag         guibg=#4d4d4d   gui=bold
-  highlight MatchWord        guibg=#343D46
+  highlight MatchTag         guibg=#222200 gui=bold
+  highlight MatchWord        guibg=#222200
+  highlight MatchParen       guifg=NONE    guibg=NONE gui=reverse
+  highlight MatchParenCur    guifg=NONE    guibg=NONE gui=reverse
 
-  highlight CurrentWordTwins guibg=#363636   gui=bold
-  highlight CurrentWord      guibg=#222200   gui=bold
+  highlight CurrentWordTwins guibg=#363636 gui=bold
+  highlight CurrentWord      guibg=#222200 gui=bold
 
   highlight ALEWarning       guibg=#443333
   highlight ALEError         guibg=#512121
@@ -1041,15 +1045,13 @@ augroup color_scheme_tweaks
   highlight! CocHintFloat guifg=#bbbbbb
 
   highlight Comment          gui=italic
-  highlight link typescriptStorageClass typescriptReserved
 
   highlight DiffChange  guibg=#3c3c34 guifg=NONE gui=NONE
   highlight DiffText    guibg=#525200 guifg=NONE gui=NONE
   highlight DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
   highlight DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
 
-  " typesctipt / yats tweak
-  " autocmd FileType typescript highlight! link htmlTag Comment
+  autocmd FileType typescript highlight! link typescriptStorageClass typescriptReserved
   autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
   autocmd FileType typescript highlight! link typescriptClassName typescriptPredefinedType
   autocmd FileType typescript highlight! link typescriptClassHeritage typescriptPredefinedType
@@ -1063,9 +1065,7 @@ augroup color_scheme_tweaks
   autocmd FileType typescript highlight! link typescriptTypeParameter Type
   autocmd FileType typescript highlight! link typescriptTypeReference Type
   autocmd FileType typescript highlight! link typescriptCall Label
-  " autocmd FileType typescript highlight! link typescriptDecorator typescriptString
 
-  " javascript tweaks
   autocmd FileType javascript highlight! link jsStorageClass Keyword
   autocmd FileType javascript highlight! link jsClassDefinition Type
   autocmd FileType javascript highlight! link javasClassKeyword Keyword
@@ -1073,7 +1073,6 @@ augroup color_scheme_tweaks
   autocmd FileType javascript highlight! link jsClassMethodType Keyword
   autocmd FileType javascript highlight! link jsModuleKeyword Keyword
   autocmd FileType javascript highlight! link jsBlockLabel Label
-  " autocmd FileType javascript highlight! link jsVariableDef Type
   autocmd FileType javascript highlight! link jsxAttrib jsUndefined
   autocmd FileType javascript highlight! link jsxCloseString Cleared
   autocmd FileType javascript highlight! link jsxClosePunct Cleared
@@ -1092,44 +1091,21 @@ augroup color_scheme_tweaks
   autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
   autocmd FileType vue highlight! link htmlBold htmlTag
 
-  " autocmd FileType vue highlight! link javaScript htmlTagName
   autocmd FileType sass,vue highlight! link cssProp Constant
   autocmd FileType sass,vue highlight! link cssVendor Constant
   autocmd FileType sass,vue highlight! link cssAttr Type
-  " autocmd FileType sass highlight! link sassVariable Keyword
 augroup END
-
-let g:bookmark_no_default_key_mappings = 1
-function! BookmarkMapKeys()
-    nmap mm :BookmarkToggle<CR>
-    nmap mi :BookmarkAnnotate<CR>
-    nmap mn :BookmarkNext<CR>
-    nmap mp :BookmarkPrev<CR>
-    nmap ma :BookmarkShowAll<CR>
-    nmap mc :BookmarkClear<CR>
-    nmap mx :BookmarkClearAll<CR>
-    nmap mkk :BookmarkMoveUp
-    nmap mjj :BookmarkMoveDown
-endfunction
-function! BookmarkUnmapKeys()
-    unmap mm
-    unmap mi
-    unmap mn
-    unmap mp
-    unmap ma
-    unmap mc
-    unmap mx
-    unmap mkk
-    unmap mjj
-endfunction
-autocmd BufEnter * :call BookmarkMapKeys()
-autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 
 let g:rainbow_active = 1
 let g:rainbow_conf = {
       \  'guifgs': ['#d19a66', '#c678dd', '#61afef'],
       \  'operators': '_,_',
       \  'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+      \  'separately': {
+      \    'javascript': {
+      \      'parentheses_options': 'containedin=jsTryCatchBlock,jsIfElseBlock,jsBlock,jsFuncBlock'
+      \    }
+      \  }
       \}
 
 " dont load all preprocessors for vue - performance improvement
