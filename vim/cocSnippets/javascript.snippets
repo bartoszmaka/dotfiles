@@ -24,8 +24,16 @@ priority 50
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet afn "arrow function" b
+snippet afn "arrow function" w
 ($1) => {$2}
+endsnippet
+
+snippet fn "arrow function" w
+($1) => {$2}
+endsnippet
+
+snippet fun "function" w
+($1) {$2}
 endsnippet
 
 snippet switch "switch statement" w
@@ -195,10 +203,4 @@ endsnippet
 
 snippet idb "inline debugger" w
 (() => { debugger })()
-endsnippet
-
-snippet fn "function"
-(${1}) => {
-  ${2}
-}
 endsnippet
