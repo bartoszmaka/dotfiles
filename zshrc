@@ -69,6 +69,7 @@ alias yrm="rm -rf yarn.lock node_modules/"
 alias ys="yarn start"
 alias yi="yarn install"
 alias n='nvim'
+alias js='tmuxinator start frontend .'
 
 alias gcof="git checkout \$(git branch -a | fzf)"
 
