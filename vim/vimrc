@@ -394,7 +394,7 @@ endfunction
 
 function! s:show_documentation()
   if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
+    execute 'vertical h '.expand('<cword>')
   else
     call CocAction('doHover')
   endif
