@@ -59,12 +59,12 @@
   "editor.cursorStyle": "block",
   "editor.minimap.enabled": false,
   "editor.minimap.scale": 3,
-  "window.zoomLevel": 0,
-  "workbench.editor.enablePreview": true,
+  "window.zoomLevel": 1,
+  "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.statusBar.visible": true,
-  "workbench.activityBar.visible": true,
+  "workbench.activityBar.visible": false,
   "workbench.panel.defaultLocation": "bottom",
   "breadcrumbs.enabled": true,
   "window.title": "${activeEditorMedium}${separator}${rootPath}${separator}${dirty}",
@@ -73,6 +73,9 @@
   // Behavior
   "editor.cursorSurroundingLines": 4,
   "editor.multiCursorModifier": "alt",
+  "editor.autoClosingQuotes": "always",
+  "editor.autoSurround": "languageDefined",
+  
 
   // Colorscheme
   "workbench.colorTheme": "Atom One Dark",
@@ -277,6 +280,10 @@
       "before": ["j", "k"],
       "after": ["<esc>"]
     },
+    // {
+    //   "before": ["<C-e>"],
+    //   "commands": ["editor.emmet.action.expandAbbreviation"]
+    // }
   ],
 
   "vim.normalModeKeyBindings": [
