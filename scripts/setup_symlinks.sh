@@ -15,6 +15,8 @@ ln -vsf ~/.repos/dotfiles/vim/coc-settings.json ~/.config/nvim/coc-settings.json
 ln -vsf ~/.repos/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -vsf ~/.repos/dotfiles/jetbrains/ideavimrc ~/.ideavimrc
 ln -vsf ~/.repos/dotfiles/asdf/default-npm-packages ~/.default-npm-packages
+ln -vsf ~/.repos/dotfiles/asdf/default-gems ~/.default-gems
+ln -vsf ~/.repos/dotfiles/tmuxinator ~/.tmuxinator
 
 case "$(uname -s)" in
   Darwin)
