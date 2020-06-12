@@ -27,7 +27,6 @@
                                         ],
                                         "optional": [
                                             "caps_lock",
-                                            "shift",
                                             "control"
                                         ]
                                     }
@@ -48,7 +47,6 @@
                                         ],
                                         "optional": [
                                             "caps_lock",
-                                            "shift",
                                             "control"
                                         ]
                                     }
@@ -69,7 +67,6 @@
                                         ],
                                         "optional": [
                                             "caps_lock",
-                                            "shift",
                                             "control"
                                         ]
                                     }
@@ -90,7 +87,6 @@
                                         ],
                                         "optional": [
                                             "caps_lock",
-                                            "shift",
                                             "control"
                                         ]
                                     }
@@ -98,6 +94,95 @@
                                 "to": [
                                     {
                                         "key_code": "right_arrow"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change Fn + shift h/j/k/l to Home, End, PgUp, PgDown",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn",
+                                            "shift"
+                                        ],
+                                        "optional": [
+                                            "caps_lock",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "home"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn",
+                                            "shift"
+                                        ],
+                                        "optional": [
+                                            "caps_lock",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "page_down"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn",
+                                            "shift"
+                                        ],
+                                        "optional": [
+                                            "caps_lock",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "page_up"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "fn",
+                                            "shift"
+                                        ],
+                                        "optional": [
+                                            "caps_lock",
+                                            "control"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "end"
                                     }
                                 ],
                                 "type": "basic"
