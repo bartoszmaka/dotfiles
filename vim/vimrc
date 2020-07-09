@@ -31,7 +31,7 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
-Plug 'iamcco/markdown-preview.nvim',    { 'do': 'cd app & yarn install'  }
+Plug 'suan/vim-instant-markdown',       {'for': 'markdown', 'do': 'npm install -g instant-markdown-d'}
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -210,7 +210,6 @@ endfun
 nnoremap <F10> :call DebugHighlight()<CR>
 nnoremap <F9> :syntax sync fromstart<CR>
 nnoremap <F5> :CocCommand snippets.openSnippetFiles<CR>
-" nnoremap <F5> :UltiSnipsEdit<CR>
 
 function! CocGitBlame() abort
   let l:blame = get(b:, 'coc_git_blame', '')
@@ -334,12 +333,14 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
-noremap <M-}>               :bnext<CR>
-noremap <M-{>               :bprevious<CR>
+" noremap <M-}>               :bnext<CR>
+" noremap <M-{>               :bprevious<CR>
+" noremap <m-]>               :bnext<CR>
+" noremap <m-[>               :bprevious<CR>
 noremap <leader>]           :bnext<CR>
 noremap <leader>[           :bprevious<CR>
-noremap <m-]>               :bnext<CR>
-noremap <m-[>               :bprevious<CR>
+noremap <leader>}           :bnext<CR>
+noremap <leader>{           :bprevious<CR>
 nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>:Bdelete nameless<CR>
 nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>:Bdelete nameless<CR>
 nnoremap <silent> <leader><leader>W :Bdelete hidden<CR>
@@ -393,7 +394,7 @@ function! s:isWhitespaceOrNothingBeforeCursor() abort
 endfunction
 
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if (index(['vim','help'], &filetype) >= 0)
     execute 'vertical h '.expand('<cword>')
   else
     call CocAction('doHover')
@@ -598,6 +599,10 @@ let g:projectionist_heuristics = {
       \       'alternate': 'spec/{}_spec.rb',
       \       'type': 'source'
       \     },
+      \     'lib/*.rb': {
+      \       'alternate': 'spec/{}_spec.rb',
+      \       'type': 'source'
+      \     },
       \     'spec/*_spec.rb': {
       \       'alternate': 'app/{}.rb',
       \       'type': 'test'
@@ -784,9 +789,9 @@ let g:vista#renderer#icons = {
       \    'implementation': "\uf776",
       \    'typeParameter': "\uf278",
       \    'default': "\uf29c"
-      \}
-let g:vista_default_executive = 'coc'
-let g:vista_finder_alternative_executive = 'ctags'
+      \ }
+" let g:vista_default_executive = 'coc'
+" let g:vista_finder_alternative_executive = 'ctags'
 nnoremap <C-k><C-v> :Vista!!<CR>
 nnoremap <C-p><C-s> :Vista finder coc<CR>
 
@@ -891,8 +896,8 @@ if exists('$TMUX')
 endif
 
 " always focus after cursor jump
-nnoremap <C-o> <C-o>zz
-nnoremap <C-i> <C-i>zz
+" nnoremap <C-o> <C-o>zz
+" nnoremap <C-i> <C-i>zz
 nnoremap gi gi<ESC>zza
 nnoremap g; g;zz
 nnoremap `` ``zz
@@ -945,6 +950,11 @@ function! DetectReactFiletype()
   endwhile
 endfunction
 
+function! FormatHelpBuffer()
+  execute 'normal \<C-w>l'
+  execute 'vertical resize 80'
+endfunction
+
 augroup filetype_fixes
   autocmd!
  "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
@@ -954,12 +964,13 @@ augroup filetype_fixes
   autocmd BufNewFile,BufReadPost,BufWritePost *.js,*.ts call DetectReactFiletype()
   autocmd TermEnter * setlocal scrolloff=0
   autocmd TermLeave * setlocal scrolloff=4
+  autocmd BufEnter * if &buftype == 'help' | call FormatHelpBuffer() | endif
 augrou END
 
 augroup filetype_scoped_settings
   autocmd!
   autocmd FileType json          setlocal conceallevel=2
-  autocmd Filetype gitcommit     setlocal colorcolumn=73 spell
+  autocmd Filetype gitcommit     setlocal colorcolumn=51 spell
   autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
   autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
   autocmd FileType scss set iskeyword+=-
@@ -1046,6 +1057,8 @@ augroup color_scheme_tweaks
 
   highlight Comment          gui=italic
 
+  highlight ctrlsfMatch guibg=#583c34 guifg=NONE gui=NONE
+
   highlight DiffChange  guibg=#3c3c34 guifg=NONE gui=NONE
   highlight DiffText    guibg=#525200 guifg=NONE gui=NONE
   highlight DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
@@ -1110,3 +1123,8 @@ let g:rainbow_conf = {
 
 " dont load all preprocessors for vue - performance improvement
 let g:vue_pre_processors = 'detect_on_enter'
+
+command! Gco silent !git checkout -- %
+cabbrev gco Gco
+let g:instant_markdown_autoscroll = 1
+command! -count=1 HFiles call fzf#run({ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d'})
