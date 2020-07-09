@@ -8,6 +8,10 @@ def exit1
   exit!
 end
 
+def exut!
+  exit!
+end
+
 def test_exception
   yield
 rescue e =>
