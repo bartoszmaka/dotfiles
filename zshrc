@@ -60,7 +60,7 @@ alias -g COL='| column -t -s " "'
 
 alias bers="bundle exec rails server"
 alias berc="bundle exec rails console"
-alias berr="bundle exec rake routes F C"
+alias berr="bundle exec rake routes"
 alias bert="bundle exec rspec"
 alias bect="bundle exec cucumber"
 alias brp="echo 'pry-remote -w';pry-remote -w"
@@ -70,6 +70,7 @@ alias ys="yarn start"
 alias yi="yarn install"
 alias n='nvim'
 alias js='tmuxinator start frontend .'
+alias mailcatcher='echo "running mailcatcher --foreground. If you want to use default mailcatcher - escape the alias"; mailcatcher --foreground'
 
 alias gcof="git checkout \$(git branch -a | fzf)"
 
@@ -77,6 +78,10 @@ alias :wq=exit
 alias :qa=exit
 alias :wqa=exit
 
+alias cbc=compare_branch_commits
+function compare_branch_commits() {
+ git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $1..$2
+}
 function tattach() { tmux new-session -s `uuidgen` -t $1 }
 function npmdo { $(npm bin)/$@ }
 function startWithTmux() {
