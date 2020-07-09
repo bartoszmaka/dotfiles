@@ -1,6 +1,6 @@
 # To make it easier to find descriptions and add exceptions
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   DisplayCopNames: true
   Exclude:
     - 'bin/**/*'
@@ -55,8 +55,8 @@ Metrics/BlockLength:
 # https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/LineLength
 # To fit Github review window
 # Migration names tend to be long
-Metrics/LineLength:
-  Max: 120
+Layout/LineLength:
+  Max: 80
   Exclude:
     - 'db/migrate/**/*'
     - 'spec/**/*_spec.rb'
@@ -145,3 +145,29 @@ Style/SymbolArray:
 Lint/SuppressedException:
   Exclude:
     - 'spec/support/matchers/**/*'
+
+Layout/EmptyLinesAroundAttributeAccessor: 'true'
+
+# Layout/SpaceAroundMethodCallOperator: 'true'
+
+Lint/DeprecatedOpenSSLConstant: 'true'
+
+# Lint/MixedRegexpCaptureTypes: 'true'
+
+Lint/RaiseException: 'true'
+
+# Lint/StructNewOverride: 'true'
+
+# Style/ExponentialNotation: 'true'
+
+# Style/HashEachMethods: 'true'
+
+# Style/HashTransformKeys: 'true'
+
+# Style/HashTransformValues: 'true'
+
+# Style/RedundantRegexpCharacterClass: 'true'
+
+# Style/RedundantRegexpEscape: 'true'
+
+# Style/SlicingWithRange: 'true'
