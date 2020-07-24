@@ -71,7 +71,7 @@ Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx'
 Plug 'meain/vim-package-info',          { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-" Plug 'MattesGroeger/vim-bookmarks'
+Plug 'MattesGroeger/vim-bookmarks'
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'camspiers/lens.vim'
 " Plug 'camspiers/animate.vim'
@@ -1128,3 +1128,28 @@ command! Gco silent !git checkout -- %
 cabbrev gco Gco
 let g:instant_markdown_autoscroll = 1
 command! -count=1 HFiles call fzf#run({ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d'})
+let g:bookmark_no_default_key_mappings = 1
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+function! BookmarkUnmapKeys()
+    unmap mm
+    unmap mi
+    unmap mn
+    unmap mp
+    unmap ma
+    unmap mc
+    unmap mx
+    unmap mkk
+    unmap mjj
+endfunction
+autocmd BufEnter * :call BookmarkMapKeys()
+autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()

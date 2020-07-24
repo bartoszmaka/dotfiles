@@ -8,6 +8,7 @@ ln -vsf ~/.repos/dotfiles/gitconfig ~/.gitconfig
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
 ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
 ln -vsf ~/.repos/dotfiles/pryrc ~/.pryrc
+ln -vsf ~/.repos/dotfiles/asdfrc ~/.asdfrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/vim/cocSnippets ~/.config/coc/ultisnips
 ln -vsf ~/.repos/dotfiles/vim/UltiSnips ~/.config/nvim/UltiSnips
