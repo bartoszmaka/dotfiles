@@ -2,6 +2,7 @@ ripper-tags
 tags
 tags.lock
 tags.temp
+.env
 
 node_modules
 
@@ -19,3 +20,4 @@ node_modules
 .tool-versions
 
 .projections.json
+dump.rdb
