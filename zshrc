@@ -14,12 +14,12 @@ case "$ostype" in
 esac
 
 [ "$isosx" = true ] &&
-  export DEFAULT_USER='bartoszmaka' &&
-  export ZSH=/Users/bartoszmaka/.oh-my-zsh &&
+  export DEFAULT_USER=`whoami` &&
+  export ZSH=$HOME/.oh-my-zsh &&
   plugins=(git tmux common-aliases z rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
 
 [ "$islinux" = true ] &&
-  export DEFAULT_USER='bartosz' &&
+  export DEFAULT_USER=`whoami` &&
   export ZSH=/home/bartosz/.oh-my-zsh &&
   plugins=(git tmux common-aliases z command-not-found rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
 
@@ -96,17 +96,9 @@ function startWithTmux() {
 unalias gsd
 
 RPROMPT='%D{%K:%M:%S}'
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/bartoszmaka/Applications/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartoszmaka/Applications/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/bartoszmaka/Applications/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszmaka/Applications/google-cloud-sdk/completion.zsh.inc'; fi
 
 # tabtab source for packages
 # uninstall by removing these lines

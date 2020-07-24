@@ -20,7 +20,7 @@
   },
   "snippets.loadFromExtensions": false,
   "snippets.ultisnips.enable": true,
-  "snippets.userSnippetsDirectory": "/Users/bartoszmaka/.repos/dotfiles/vim/cocSnippets",
+  "snippets.userSnippetsDirectory": "~/.repos/dotfiles/vim/cocSnippets",
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.bracketEnterImprove": true,
