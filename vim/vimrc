@@ -21,10 +21,10 @@ Plug 'dominikduda/vim_current_word'                                " highlight w
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 
-Plug 'scrooloose/nerdtree'                                         " project explorer
-Plug 'jistr/vim-nerdtree-tabs'                                     " better behavior for nerdtree
+Plug 'scrooloose/nerdtree', { 'commit': '29a321d' }                                         " project explorer
+Plug 'jistr/vim-nerdtree-tabs', { 'commit': '07d19f0' }                                     " better behavior for nerdtree
 " Plug 'Xuyuanp/nerdtree-git-plugin'                               " nerdTree git integration
-Plug 'tsony-tsonev/nerdtree-git-plugin'                            " nerdTree git integration fork with git based colors
+Plug 'tsony-tsonev/nerdtree-git-plugin', { 'commit': 'df08fff' }                            " nerdTree git integration fork with git based colors
 Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
 
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
@@ -81,15 +81,14 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'vim-scripts/TagHighlight'
 Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
-" Plug 'SirVer/ultisnips'
-Plug 'junegunn/vader.vim'                                          " vimscript testing lib
+" Plug 'junegunn/vader.vim'                                          " vimscript testing lib
 " new plugins to test
 Plug 'Asheq/close-buffers.vim'
 Plug 'dunckr/js_alternate.vim'
 Plug 'luochen1990/rainbow'
 Plug 'jparise/vim-graphql'
 Plug 'voldikss/vim-floaterm'
-Plug 'gillyb/stable-windows'
+" Plug 'gillyb/stable-windows'
 Plug 'Lenovsky/nuake'
 " Plug 'vimwiki/vimwiki'
 call plug#end()
@@ -207,7 +206,7 @@ function! DebugHighlight()
   echomsg '==========='
   exe 'syntax list ' . name
 endfun
-nnoremap <F10> :call DebugHighlight()<CR>
+nnoremap <F8> :call DebugHighlight()<CR>
 nnoremap <F9> :syntax sync fromstart<CR>
 nnoremap <F5> :CocCommand snippets.openSnippetFiles<CR>
 
@@ -271,6 +270,9 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+" let g:onedark_color_overrides = {
+" \ "black": {"gui": "#1a1a1a", "cterm": "235", "cterm16": "0" },
+" \}
 colorscheme onedark
 let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
@@ -559,8 +561,8 @@ nmap <C-m><C-s> :SplitjoinSplit<cr>
 
 " multiplecursors
 let g:multi_cursor_exit_from_insert_mode = 0
-nnoremap <C-m><C-n> :MultipleCursorsFind 
-vnoremap <C-m><C-n> :MultipleCursorsFind 
+nnoremap <C-m><C-n> :MultipleCursorsFind
+vnoremap <C-m><C-n> :MultipleCursorsFind
 
 " ctrlsf
 let g:ctrlsf_context = '-B 2 -A 2'
@@ -677,8 +679,8 @@ function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, 'number', 'no')
 
-  let height = float2nr(&lines * 0.7)
-  let width = float2nr(&columns * 0.9)
+  let height = float2nr(&lines * 0.4)
+  let width = float2nr(&columns * 0.6)
   let row = float2nr(&lines * 0.2)
   let col = float2nr((&columns - width) / 2)
 
@@ -936,7 +938,7 @@ cabbrev Qa! qa
 function! DetectReactFiletype()
   let n = 1
   while n < 10 && n < line("$")
-    if getline(n) =~ "'react'"
+    if getline(n) =~ "react"
       if expand('%:e') == 'js'
         set filetype=javascript.jsx
       elseif expand('%:e') == 'ts'
@@ -1015,7 +1017,7 @@ augroup syntax_fixes
   " remove a tag underline
   autocmd FileType vue syntax clear htmlLink htmlH2 " clearing this syntax rule broke style highlighting
   autocmd FileType vue syntax match htmlArg /\<aria-[a-z\-]\+\>/  contained
-  " autocmd FileType vue syntax match vueSlotName /\#[a-z]\+/ 
+  " autocmd FileType vue syntax match vueSlotName /\#[a-z]\+/
   " autocmd FileType vue syntax region contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent,htmlCssDefinition,@htmlPreproc,@htmlArgCluster,vueSlotName
 augroup END
 
