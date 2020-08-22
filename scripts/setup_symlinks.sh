@@ -1,6 +1,7 @@
 mkdir -p ~/.config/ranger
 mkdir -p ~/.config/nvim
 mkdir -p ~/.config/coc
+mkdir -p ~/.config/alacritty
 
 ln -vsf ~/.repos/dotfiles/vim/vimrc ~/.config/nvim/init.vim
 ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
