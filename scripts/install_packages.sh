@@ -1,7 +1,7 @@
 case "$(uname -s)" in
   Darwin)
-      brew install python3 the_silver_searcher neovim reattach-to-user-namespace tmux diff-so-fancy
-      brew cask install alacritty spectacle flux slack karabiner-elements lunar asdf gnupg coreutils curl git whatsapp iterm2 caprine istat-menus alfred spotify ripgrep
+      brew install python3 the_silver_searcher neovim reattach-to-user-namespace tmux diff-so-fancy asdf gnupg coreutils curl git 
+      brew cask install alacritty spectacle flux slack karabiner-elements lunar whatsapp iterm2 goofy istat-menus alfred spotify ripgrep contexts intel-power-gadget
       asdf plugin-add postgres
       asdf plugin-add ruby
       asdf plugin-add python
