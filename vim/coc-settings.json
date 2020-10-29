@@ -17,6 +17,14 @@
     "vue": ["javascript", "html", "typescript"],
     "eruby": ["javascript", "typescript", "html"]
   },
+
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"],
+      "initializationOptions": {}
+    }
+  },
   "snippets.loadFromExtensions": false,
   "snippets.ultisnips.enable": true,
   "snippets.userSnippetsDirectory": "~/.repos/dotfiles/vim/cocSnippets",
@@ -24,47 +32,74 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.bracketEnterImprove": true,
 
-  "diagnostic.displayByAle": true,
+  // "diagnostic.displayByAle": true,
   "diagnostic.enable": true,
   "diagnostic.warningSign": "🚨",
   "diagnostic.infoSign": "🤔",
   "diagnostic.errorSign": "🤔",
   "diagnostic.hintSign": "🤔",
+
+  // diagnostic-languageserver
+  "diagnostic-languageserver.filetypes": {
+    "eruby":          ["rubocop"],
+    "ruby":           ["rubocop"],
+    "javascript":     ["eslint"],
+    "vue":            ["eslint"],
+    "javascript.jsx": ["eslint"],
+    "typescript":     ["eslint"],
+    "typescript.tsx": ["eslint"],
+    "vim":            ["remove_trailing_lines", "trim_whitespace"],
+    "json":           ["jq"],
+    "python":         ["yapf"],
+    "css":            ["stylelint"],
+    "sass":           ["stylelint"],
+    "scss":           ["stylelint"],
+    "terraform":      ["terraform"]
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "eruby":          "rubocop",
+    "ruby":           "rubocop",
+    "javascript":     "eslint",
+    "vue":            "eslint",
+    "javascript.jsx": "eslint",
+    "typescript":     "eslint",
+    "typescript.tsx": "eslint"
+  },
   // "diagnostic-languageserver.formatFiletypes": {
-  //   "javascript": "eslint",
-  //   "javascript.jsx": "eslint"
-  // },
+    //   "javascript": "eslint",
+    //   "javascript.jsx": "eslint"
+    // },
 
-  "solargraph.hover": true,
-  "solargraph.formatting": true,
-  "solargraph.references": true,
-  "solargraph.diagnostics": true,
-  "solargraph.definitions": true,
-  "solargraph.completion": true,
-  "solargraph.checkGemVersion": false,
+    "solargraph.hover": true,
+    "solargraph.formatting": true,
+    "solargraph.references": true,
+    "solargraph.diagnostics": true,
+    "solargraph.definitions": true,
+    "solargraph.completion": true,
+    "solargraph.checkGemVersion": false,
 
-  "git.enableGutters": true,
-  "git.addGBlameToBufferVar": true,
-  "git.addGBlameToVirtualText": false,
-  "git.changedSign.text": "┃",
-  "git.addedSign.text": "┃",
-  "git.removedSign.text": "┃",
-  "git.topRemovedSign.text": "┃",
-  "git.addedSign.hlGroup": "GitGutterAdd",
-  "git.changedSign.hlGroup": "GitGutterChange",
-  "git.removedSign.hlGroup": "GitGutterDelete",
-  "git.topRemovedSign.hlGroup": "GitGutterDelete",
-  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "yank.enableCompletion": false,
-  // "git.addGlameToVirtualText": true,
+    "git.enableGutters": true,
+    "git.addGBlameToBufferVar": true,
+    "git.addGBlameToVirtualText": false,
+    "git.changedSign.text": "┃",
+    "git.addedSign.text": "┃",
+    "git.removedSign.text": "┃",
+    "git.topRemovedSign.text": "┃",
+    "git.addedSign.hlGroup": "GitGutterAdd",
+    "git.changedSign.hlGroup": "GitGutterChange",
+    "git.removedSign.hlGroup": "GitGutterDelete",
+    "git.topRemovedSign.hlGroup": "GitGutterDelete",
+    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+    "yank.enableCompletion": false,
+    // "git.addGlameToVirtualText": true,
 
-  "coc.preferences.extensionUpdateCheck": "never",
-  // switch to coc-emmet once coc-snippets supports t variable
-  "emmet.showExpandedAbbreviation": "always",
-  "emmet.showSuggestionsAsSnippets": true,
-  "emmet.showAbbreviationSuggestions": true,
-  "emmet.includeLanguages": {
-    "vue-html": "html",
-    "javascript": "javascriptreact"
-  }
+    "coc.preferences.extensionUpdateCheck": "never",
+    // switch to coc-emmet once coc-snippets supports t variable
+    "emmet.showExpandedAbbreviation": "always",
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.showAbbreviationSuggestions": true,
+    "emmet.includeLanguages": {
+      "vue-html": "html",
+      "javascript": "javascriptreact"
+    }
 }

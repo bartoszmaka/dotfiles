@@ -81,7 +81,7 @@ Plug 'wellle/context.vim'
 
 " Plug 'mg979/vim-xtabline'
 Plug 'vim-scripts/TagHighlight'
-Plug 'w0rp/ale'                                                    " async syntax checking
+" Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
 " Plug 'junegunn/vader.vim'                                          " vimscript testing lib
 " new plugins to test
@@ -260,7 +260,7 @@ endfunction
 function! DisableAllHeavyStuff()
   setlocal syntax=off
   setlocal nospell
-  ALEDisable
+  " ALEDisable
   CocDisable
 endfunction
 
@@ -308,7 +308,7 @@ let g:airline#extensions#whitespace#enabled          = 0
 let g:airline#extensions#branch#enabled              = 0
 let g:airline#extensions#tabline#enabled             = 1
 let g:airline#extensions#anzu#enabled                = 0
-let airline#extensions#ale#show_line_numbers         = 0
+" let airline#extensions#ale#show_line_numbers         = 0
 let g:airline#extensions#tabline#left_sep            = ''
 let g:airline#extensions#tabline#left_alt_sep        = ''
 let g:airline#extensions#tabline#right_sep           = ''
@@ -366,6 +366,7 @@ let g:coc_global_extensions = [
       \ 'coc-vetur',
       \ 'coc-tag',
       \ 'coc-solargraph',
+      \ 'coc-diagnostic',
       \ 'coc-snippets',
       \ 'coc-emmet',
       \ 'coc-css',
@@ -652,51 +653,58 @@ nnoremap <leader>ec :Econtroller<CR>
 let g:importjs_disable_default_mappings = 1
 
 " ale
-let g:ale_virtualtext_cursor   = 1
-let g:ale_disable_lsp          = 1
-let g:ale_virtualtext_delay    = 1000
-let g:ale_echo_msg_error_str   = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
-let g:ale_sign_error           = '🚨'
-let g:ale_sign_warning         = '🤔'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_sign_column_always   = 1
-let g:ale_set_highlights       = 1
-let g:ale_fixers = {
-      \ 'eruby':          ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
-      \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
-      \ 'javascript':     ['eslint', 'importjs'],
-      \ 'vue':            ['eslint', 'importjs'],
-      \ 'javascript.jsx': ['eslint', 'importjs'],
-      \ 'typescript':     ['eslint', 'importjs'],
-      \ 'typescript.tsx': ['eslint', 'importjs'],
-      \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
-      \ 'json':           ['jq'],
-      \ 'python':         ['yapf'],
-      \ 'css':            ['stylelint'],
-      \ 'sass':           ['stylelint'],
-      \ 'scss':           ['stylelint'],
-      \}
-let g:ale_linters = {
-      \ 'ruby':           ['rubocop'],
-      \ 'eruby':          ['rubocop'],
-      \ 'javascript':     ['eslint'],
-      \ 'typescript':     ['eslint'],
-      \ 'vue':            ['eslint'],
-      \ 'json':           ['jq'],
-      \ 'python':         ['pyls', 'autopep8', 'yapf'],
-      \ 'css':            ['stylelint'],
-      \ 'sass':           ['stylelint'],
-      \ 'scss':           ['stylelint'],
-      \}
-let g:ale_linter_aliases = {'jsx': 'css'}
-nnoremap <C-m><C-f> :ALEFix<CR>
-nnoremap <C-m><C-l> :ALELint<CR>
-nnoremap <C-m><C-w> :set list!<CR>
-nnoremap [e :ALEPreviousWrap<CR>
-nnoremap ]e :ALENextWrap<CR>
+" let g:ale_virtualtext_cursor   = 1
+" let g:ale_disable_lsp          = 1
+" let g:ale_virtualtext_delay    = 1000
+" let g:ale_echo_msg_error_str   = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
+" let g:ale_sign_error           = '🚨'
+" let g:ale_sign_warning         = '🤔'
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_sign_column_always   = 1
+" let g:ale_set_highlights       = 1
+" let g:ale_fixers = {
+"       \ 'eruby':          ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
+"       \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
+"       \ 'javascript':     ['eslint', 'importjs'],
+"       \ 'vue':            ['eslint', 'importjs'],
+"       \ 'javascript.jsx': ['eslint', 'importjs'],
+"       \ 'typescript':     ['eslint', 'importjs'],
+"       \ 'typescript.tsx': ['eslint', 'importjs'],
+"       \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
+"       \ 'json':           ['jq'],
+"       \ 'python':         ['yapf'],
+"       \ 'css':            ['stylelint'],
+"       \ 'sass':           ['stylelint'],
+"       \ 'scss':           ['stylelint'],
+"       \ 'terraform':      ['terraform']
+"       \}
+" let g:ale_linters = {
+"       \ 'ruby':           ['rubocop'],
+"       \ 'eruby':          ['rubocop'],
+"       \ 'javascript':     ['eslint'],
+"       \ 'typescript':     ['eslint'],
+"       \ 'vue':            ['eslint'],
+"       \ 'json':           ['jq'],
+"       \ 'python':         ['pyls', 'autopep8', 'yapf'],
+"       \ 'css':            ['stylelint'],
+"       \ 'sass':           ['stylelint'],
+"       \ 'scss':           ['stylelint'],
+"       \}
+" let g:ale_linter_aliases = {'jsx': 'css'}
+" nnoremap <C-m><C-f> :ALEFix<CR>
+" nnoremap <C-m><C-l> :ALELint<CR>
+" nnoremap <C-m><C-w> :set list!<CR>
+" nnoremap [e :ALEPreviousWrap<CR>
+" nnoremap ]e :ALENextWrap<CR>
+nnoremap <C-m><C-l> :CocList diagnostics<CR>
+nnoremap <leader>ml :CocList diagnostics<CR>
+nnoremap <C-m><C-f> :call CocAction('format')<CR>
+nnoremap <leader>mf :call CocAction('format')<CR>
+nnoremap [e :call CocAction('diagnosticPrevious')<CR>
+nnoremap ]e :call CocAction('diagnosticNext')<CR>
 
 " fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse'
