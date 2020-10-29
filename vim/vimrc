@@ -31,7 +31,6 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
-" Plug 'suan/vim-instant-markdown',       {'for': 'markdown', 'do': 'npm install -g instant-markdown-d'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 Plug 'szw/vim-maximizer'                                           " maximize window
@@ -58,7 +57,6 @@ Plug 'chrisbra/csv.vim'
 Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 " Plug 'tpope/vim-rails'
 Plug 'sheerun/vim-polyglot'
-" Plug 'posva/vim-vue'
 
 " fancy tools
 Plug 'dominikduda/vim_yank_with_context'
@@ -75,24 +73,17 @@ Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/context.vim'
 " Plug 'ludovicchabant/vim-gutentags'
-" Plug 'camspiers/lens.vim'
-" Plug 'camspiers/animate.vim'
-" Plug 'wellle/context.vim'
 
-" Plug 'mg979/vim-xtabline'
 Plug 'vim-scripts/TagHighlight'
 " Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
-" Plug 'junegunn/vader.vim'                                          " vimscript testing lib
 " new plugins to test
 Plug 'Asheq/close-buffers.vim'
 Plug 'dunckr/js_alternate.vim'
 Plug 'luochen1990/rainbow'
 Plug 'jparise/vim-graphql'
 Plug 'voldikss/vim-floaterm'
-" Plug 'gillyb/stable-windows'
 Plug 'Lenovsky/nuake'
-" Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " **********************************
@@ -104,17 +95,10 @@ filetype plugin on    " Enable filetype-specific plugins
 let mapleader="\<Space>"
 
 " Use brew/apt installed python instead of venv or osx default
-" if has('nvim') && has('mac')
-  let g:python_host_prog  = '~/.asdf/shims/python2'
-  let g:python3_host_prog  = '~/.asdf/shims/python3'
-  " let g:python3_host_prog = '/usr/local/bin/python3'
-" else
-"   let g:python_host_prog  = '/usr/bin/python2'
-"   let g:python3_host_prog = '/usr/bin/python3'
-" endif
+let g:python_host_prog  = '~/.asdf/shims/python2'
+let g:python3_host_prog  = '~/.asdf/shims/python3'
 
 " meta
-" syntax sync minlines=500
 syntax sync fromstart
 set undofile                            " keep history in file
 set undodir=$HOME/.vim/undo             " path for this file
@@ -274,9 +258,28 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
-" let g:onedark_color_overrides = {
-" \ "black": {"gui": "#1a1a1a", "cterm": "235", "cterm16": "0" },
-" \}
+let g:onedark_color_overrides = {
+\ "black": {"gui": "#1d2128", "cterm": "235", "cterm16": "0" },
+\ "cursor_grey": { "gui": "#2e3138", "cterm": "59", "cterm16": "15" },
+\}
+" \ "red": get(s:overrides, "red", { "gui": "#E06C75", "cterm": "204", "cterm16": "1" }),
+" \ "dark_red": get(s:overrides, "dark_red", { "gui": "#BE5046", "cterm": "196", "cterm16": "9" }),
+" \ "green": get(s:overrides, "green", { "gui": "#98C379", "cterm": "114", "cterm16": "2" }),
+" \ "yellow": get(s:overrides, "yellow", { "gui": "#E5C07B", "cterm": "180", "cterm16": "3" }),
+" \ "dark_yellow": get(s:overrides, "dark_yellow", { "gui": "#D19A66", "cterm": "173", "cterm16": "11" }),
+" \ "blue": get(s:overrides, "blue", { "gui": "#61AFEF", "cterm": "39", "cterm16": "4" }),
+" \ "purple": get(s:overrides, "purple", { "gui": "#C678DD", "cterm": "170", "cterm16": "5" }),
+" \ "cyan": get(s:overrides, "cyan", { "gui": "#56B6C2", "cterm": "38", "cterm16": "6" }),
+" \ "white": get(s:overrides, "white", { "gui": "#ABB2BF", "cterm": "145", "cterm16": "7" }),
+" \ "black": get(s:overrides, "black", { "gui": "#282C34", "cterm": "235", "cterm16": "0" }),
+" \ "visual_black": get(s:overrides, "visual_black", { "gui": "NONE", "cterm": "NONE", "cterm16": "0" }),
+" \ "comment_grey": get(s:overrides, "comment_grey", { "gui": "#5C6370", "cterm": "59", "cterm16": "15" }),
+" \ "gutter_fg_grey": get(s:overrides, "gutter_fg_grey", { "gui": "#4B5263", "cterm": "238", "cterm16": "15" }),
+" \ "cursor_grey": get(s:overrides, "cursor_grey", { "gui": "#2C323C", "cterm": "236", "cterm16": "8" }),
+" \ "visual_grey": get(s:overrides, "visual_grey", { "gui": "#3E4452", "cterm": "237", "cterm16": "15" }),
+" \ "menu_grey": get(s:overrides, "menu_grey", { "gui": "#3E4452", "cterm": "237", "cterm16": "8" }),
+" \ "special_grey": get(s:overrides, "special_grey", { "gui": "#3B4048", "cterm": "238", "cterm16": "15" }),
+" \ "vertsplit": get(s:overrides, "vertsplit", { "gui": "#181A1F", "cterm": "59", "cterm16": "15" }),
 colorscheme onedark
 let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
@@ -339,10 +342,6 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
-" noremap <M-}>               :bnext<CR>
-" noremap <M-{>               :bprevious<CR>
-" noremap <m-]>               :bnext<CR>
-" noremap <m-[>               :bprevious<CR>
 noremap <leader>]           :bnext<CR>
 noremap <leader>[           :bprevious<CR>
 noremap <leader>}           :bnext<CR>
@@ -1079,46 +1078,49 @@ augroup color_scheme_tweaks
   autocmd!
   autocmd InsertEnter * setlocal cursorcolumn
   autocmd InsertLeave * setlocal nocursorcolumn
-  autocmd InsertEnter * highlight CursorLine   guibg=#512121
-  autocmd InsertEnter * highlight CursorLineNR guibg=#512121
-  autocmd InsertLeave * highlight CursorLine   guibg=#343D46
-  autocmd InsertLeave * highlight CursorLineNR guibg=#343D46
+  autocmd InsertEnter * highlight! CursorLine   guibg=#512121
+  autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
+  autocmd InsertEnter * highlight! CursorColumn guibg=#512121
+  autocmd InsertLeave * highlight! CursorLine   guibg=#2e3138
+  autocmd InsertLeave * highlight! CursorLineNR guibg=#2e3138
+  autocmd InsertLeave * highlight! CursorColumn guibg=#2e3138
 
-  highlight FZFNormal        guibg=#222222
-  highlight CursorColumn     guibg=#512121
-  highlight CursorColumnNR   guibg=#512121
-  highlight IncSearch        guifg=#FF0000 guibg=NONE gui=bold
-  highlight Search           guifg=#FFFFFF guibg=NONE gui=bold
-  highlight TabLineSel       guifg=#E5C07B
-  highlight MatchTag         guibg=#222200 gui=bold
-  highlight MatchWord        guibg=#222200
-  highlight MatchParen       guifg=NONE    guibg=NONE gui=reverse
-  highlight MatchParenCur    guifg=NONE    guibg=NONE gui=reverse
+  highlight! FZFNormal        guibg=#222222
+  highlight! CursorColumn     guibg=#512121
+  highlight! CursorColumnNR   guibg=#512121
+  highlight! IncSearch        guifg=#FF0000 guibg=NONE gui=bold
+  highlight! Search           guifg=#FFFFFF guibg=NONE gui=bold
+  highlight! TabLineSel       guifg=#E5C07B
+  highlight! MatchTag         guibg=#222200 gui=bold
+  highlight! MatchWord        guibg=#222200
+  highlight! MatchParen       guifg=NONE    guibg=NONE gui=reverse
+  highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=reverse
 
-  highlight CurrentWordTwins guibg=#363636 gui=bold
-  highlight CurrentWord      guibg=#222200 gui=bold
+  highlight! CurrentWordTwins guibg=#363636 gui=bold
+  highlight! CurrentWord      guibg=#222200 gui=bold
 
-  highlight ALEWarning       guibg=#443333
-  highlight ALEError         guibg=#512121
+  highlight! ALEWarning       guibg=#443333
+  highlight! ALEError         guibg=#512121
 
-  highlight link CocErrorHighlight AleError
-  highlight link CocWarningHighlight AleWarning
-  highlight link CocInfoHighlight AleWarning
-  highlight link CocHintHighlight AleWarning
+  highlight! link CocErrorHighlight AleError
+  highlight! link CocWarningHighlight AleWarning
+  highlight! link CocInfoHighlight AleWarning
+  highlight! link CocHintHighlight AleWarning
 
-  highlight! CocErrorFloat guifg=#bbbbbb
+  highlight! CocErrorFloat   guifg=#bbbbbb
   highlight! CocWarningFloat guifg=#bbbbbb
-  highlight! CocInfoFloat guifg=#bbbbbb
-  highlight! CocHintFloat guifg=#bbbbbb
+  highlight! CocInfoFloat    guifg=#bbbbbb
+  highlight! CocHintFloat    guifg=#bbbbbb
+  highlight! Visual          guibg=#401437
 
-  highlight Comment          gui=italic
+  highlight! Comment          gui=italic
 
-  highlight ctrlsfMatch guibg=#583c34 guifg=NONE gui=NONE
+  highlight! ctrlsfMatch guibg=#583c34 guifg=NONE gui=NONE
 
-  highlight DiffChange  guibg=#3c3c34 guifg=NONE gui=NONE
-  highlight DiffText    guibg=#525200 guifg=NONE gui=NONE
-  highlight DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
-  highlight DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
+  highlight! DiffChange  guibg=#3c3c34 guifg=NONE gui=NONE
+  highlight! DiffText    guibg=#525200 guifg=NONE gui=NONE
+  highlight! DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
+  highlight! DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
 
   autocmd FileType typescript highlight! link typescriptStorageClass typescriptReserved
   autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
