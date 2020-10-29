@@ -365,6 +365,7 @@ let g:coc_global_extensions = [
       \ 'coc-vetur',
       \ 'coc-tag',
       \ 'coc-solargraph',
+      \ 'coc-eslint',
       \ 'coc-diagnostic',
       \ 'coc-snippets',
       \ 'coc-emmet',
@@ -401,9 +402,11 @@ endfunction
 
 function! s:showDocumentation()
   if (index(['vim','help'], &filetype) >= 0)
-    execute 'vertical h '.expand('<cword>')
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
@@ -421,6 +424,14 @@ function! s:HandleCompletion()
   endif
 
   return "\<C-n>"
+endfunction
+
+function! s:HandleBufferFix()
+  if (index(['javascript','javascript.jsx','typescript','typescript.tsx','vue'], &filetype) >= 0)
+    CocCommand eslint.executeAutofix
+  else
+    call CocAction('format')
+  endif
 endfunction
 
 " inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -700,8 +711,8 @@ let g:importjs_disable_default_mappings = 1
 " nnoremap ]e :ALENextWrap<CR>
 nnoremap <C-m><C-l> :CocList diagnostics<CR>
 nnoremap <leader>ml :CocList diagnostics<CR>
-nnoremap <C-m><C-f> :call CocAction('format')<CR>
-nnoremap <leader>mf :call CocAction('format')<CR>
+nnoremap <C-m><C-f> :call <SID>HandleBufferFix()<CR>
+nnoremap <leader>mf :call <SID>HandleBufferFix()<CR>
 nnoremap [e :call CocAction('diagnosticPrevious')<CR>
 nnoremap ]e :call CocAction('diagnosticNext')<CR>
 
@@ -1085,16 +1096,18 @@ augroup color_scheme_tweaks
   autocmd InsertLeave * highlight! CursorLineNR guibg=#2e3138
   autocmd InsertLeave * highlight! CursorColumn guibg=#2e3138
 
+  highlight! CursorLineNR     guibg=#2e3138
+  highlight! ColorColumn      guibg=#252a32
   highlight! FZFNormal        guibg=#222222
   highlight! CursorColumn     guibg=#512121
   highlight! CursorColumnNR   guibg=#512121
   highlight! IncSearch        guifg=#FF0000 guibg=NONE gui=bold
   highlight! Search           guifg=#FFFFFF guibg=NONE gui=bold
   highlight! TabLineSel       guifg=#E5C07B
-  highlight! MatchTag         guibg=#222200 gui=bold
-  highlight! MatchWord        guibg=#222200
+  highlight! MatchTag         gui=reverse
   highlight! MatchParen       guifg=NONE    guibg=NONE gui=reverse
   highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=reverse
+  highlight! link MatchWord MatchTag
 
   highlight! CurrentWordTwins guibg=#363636 gui=bold
   highlight! CurrentWord      guibg=#222200 gui=bold
@@ -1113,7 +1126,7 @@ augroup color_scheme_tweaks
   highlight! CocHintFloat    guifg=#bbbbbb
   highlight! Visual          guibg=#401437
 
-  highlight! Comment          gui=italic
+  highlight! Comment         gui=italic
 
   highlight! ctrlsfMatch guibg=#583c34 guifg=NONE gui=NONE
 

@@ -33,6 +33,7 @@
   "coc.preferences.bracketEnterImprove": true,
 
   // "diagnostic.displayByAle": true,
+  // "diagnostic-languageserver.mergeConfig": true,
   "diagnostic.enable": true,
   "diagnostic.warningSign": "🚨",
   "diagnostic.infoSign": "🤔",
@@ -63,43 +64,102 @@
     "vue":            "eslint",
     "javascript.jsx": "eslint",
     "typescript":     "eslint",
-    "typescript.tsx": "eslint"
+    "typescript.tsx": "eslint",
+    "scss":           "stylelint",
+    "css":            "stylelint"
   },
-  // "diagnostic-languageserver.formatFiletypes": {
-    //   "javascript": "eslint",
-    //   "javascript.jsx": "eslint"
-    // },
 
-    "solargraph.hover": true,
-    "solargraph.formatting": true,
-    "solargraph.references": true,
-    "solargraph.diagnostics": true,
-    "solargraph.definitions": true,
-    "solargraph.completion": true,
-    "solargraph.checkGemVersion": false,
-
-    "git.enableGutters": true,
-    "git.addGBlameToBufferVar": true,
-    "git.addGBlameToVirtualText": false,
-    "git.changedSign.text": "┃",
-    "git.addedSign.text": "┃",
-    "git.removedSign.text": "┃",
-    "git.topRemovedSign.text": "┃",
-    "git.addedSign.hlGroup": "GitGutterAdd",
-    "git.changedSign.hlGroup": "GitGutterChange",
-    "git.removedSign.hlGroup": "GitGutterDelete",
-    "git.topRemovedSign.hlGroup": "GitGutterDelete",
-    "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-    "yank.enableCompletion": false,
-    // "git.addGlameToVirtualText": true,
-
-    "coc.preferences.extensionUpdateCheck": "never",
-    // switch to coc-emmet once coc-snippets supports t variable
-    "emmet.showExpandedAbbreviation": "always",
-    "emmet.showSuggestionsAsSnippets": true,
-    "emmet.showAbbreviationSuggestions": true,
-    "emmet.includeLanguages": {
-      "vue-html": "html",
-      "javascript": "javascriptreact"
+  "diagnostic-languageserver.linters": {
+    "eslint": {
+      "command": "./node_modules/.bin/eslint",  // this will find local eslint first, if local eslint not found, it
+      "rootPatterns": [
+        ".git"
+      ],
+      "debounce": 100,
+      "args": [
+        "--stdin",
+        "--stdin-filename",
+        "%filepath",
+        "--format",
+        "json"
+      ],
+      "sourceName": "eslint",
+      "parseJson": {
+        "errorsRoot": "[0].messages",
+        "line": "line",
+        "column": "column",
+        "endLine": "endLine",
+        "endColumn": "endColumn",
+        "message": "${message} [${ruleId}]",
+        "security": "severity"
+      },
+      "securities": {
+        "2": "error",
+        "1": "warning"
+      }
     }
+  },
+
+  "diagnostic-languageserver.formatters": {
+    "eslint": {
+      "command": "./node_modules/.bin/eslint",  // this will find local eslint first, if local eslint not found, it
+      "rootPatterns": [
+        ".git"
+      ],
+      "debounce": 100,
+      "args": [
+        "--stdin",
+        "--stdin-filename",
+        "%filepath",
+        "--fix"
+      ],
+      "sourceName": "eslint",
+      "parseJson": {
+        "errorsRoot": "[0].messages",
+        "line": "line",
+        "column": "column",
+        "endLine": "endLine",
+        "endColumn": "endColumn",
+        "message": "${message} [${ruleId}]",
+        "security": "severity"
+      },
+      "securities": {
+        "2": "error",
+        "1": "warning"
+      }
+    }
+  },
+
+  "solargraph.hover": true,
+  "solargraph.formatting": true,
+  "solargraph.references": true,
+  "solargraph.diagnostics": true,
+  "solargraph.definitions": true,
+  "solargraph.completion": true,
+  "solargraph.checkGemVersion": false,
+
+  "git.enableGutters": true,
+  "git.addGBlameToBufferVar": true,
+  "git.addGBlameToVirtualText": false,
+  "git.changedSign.text": "┃",
+  "git.addedSign.text": "┃",
+  "git.removedSign.text": "┃",
+  "git.topRemovedSign.text": "┃",
+  "git.addedSign.hlGroup": "GitGutterAdd",
+  "git.changedSign.hlGroup": "GitGutterChange",
+  "git.removedSign.hlGroup": "GitGutterDelete",
+  "git.topRemovedSign.hlGroup": "GitGutterDelete",
+  "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
+  "yank.enableCompletion": false,
+  // "git.addGlameToVirtualText": true,
+
+  "coc.preferences.extensionUpdateCheck": "never",
+  // switch to coc-emmet once coc-snippets supports t variable
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  }
 }
