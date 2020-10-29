@@ -9,7 +9,6 @@
   "coc.source.buffer.priority": 1,
   "suggest.lowPrioritySourceLimit": 5,
 
-
   "snippets.extends": {
     "javascriptreact": ["javascript", "html", "typescript", "typescriptreact"],
     "typescriptreact": ["javascript", "html", "typescript", "javascriptreact"],
