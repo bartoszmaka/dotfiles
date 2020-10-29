@@ -31,7 +31,8 @@ Plug 'jiangmiao/auto-pairs'                                        " auto insert
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
-Plug 'suan/vim-instant-markdown',       {'for': 'markdown', 'do': 'npm install -g instant-markdown-d'}
+" Plug 'suan/vim-instant-markdown',       {'for': 'markdown', 'do': 'npm install -g instant-markdown-d'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
@@ -72,6 +73,7 @@ Plug 'meain/vim-package-info',          { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 Plug 'MattesGroeger/vim-bookmarks'
+Plug 'wellle/context.vim'
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'camspiers/lens.vim'
 " Plug 'camspiers/animate.vim'
@@ -102,13 +104,14 @@ filetype plugin on    " Enable filetype-specific plugins
 let mapleader="\<Space>"
 
 " Use brew/apt installed python instead of venv or osx default
-if has('nvim') && has('mac')
-  let g:python_host_prog  = '/usr/local/bin/python2'
-  let g:python3_host_prog = '/usr/local/bin/python3'
-else
-  let g:python_host_prog  = '/usr/bin/python2'
-  let g:python3_host_prog = '/usr/bin/python3'
-endif
+" if has('nvim') && has('mac')
+  let g:python_host_prog  = '~/.asdf/shims/python2'
+  let g:python3_host_prog  = '~/.asdf/shims/python3'
+  " let g:python3_host_prog = '/usr/local/bin/python3'
+" else
+"   let g:python_host_prog  = '/usr/bin/python2'
+"   let g:python3_host_prog = '/usr/bin/python3'
+" endif
 
 " meta
 " syntax sync minlines=500
@@ -127,6 +130,7 @@ set wildignore+=
       \*.so,
       \*.swp,
       \*.zipo
+set clipboard+=unnamedplus              " use system clipboard
 
 " encoding
 language en_US.UTF-8
@@ -345,7 +349,7 @@ noremap <leader>}           :bnext<CR>
 noremap <leader>{           :bprevious<CR>
 nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>:Bdelete nameless<CR>
 nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>:Bdelete nameless<CR>
-nnoremap <silent> <leader><leader>W :Bdelete hidden<CR>
+nnoremap <silent> <leader><leader>W :Bdelete! hidden<CR>
 noremap <leader><space>!    :bdelete!<CR>
 nnoremap <leader>q          :close<CR>
 
@@ -395,7 +399,7 @@ function! s:isWhitespaceOrNothingBeforeCursor() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-function! s:show_documentation()
+function! s:showDocumentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'vertical h '.expand('<cword>')
   else
@@ -403,7 +407,23 @@ function! s:show_documentation()
   endif
 endfunction
 
-inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
+function! s:HandleCompletion()
+  if pumvisible()
+    return coc#_select_confirm()
+  endif
+
+  if coc#expandableOrJumpable()
+    return "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>"
+  endif
+
+  if <SID>isWhitespaceOrNothingBeforeCursor()
+    return "\<TAB>"
+  endif
+
+  return "\<C-n>"
+endfunction
+
+" inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
 inoremap <expr><C-j>   pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <expr><C-k>   pumvisible() ? "\<C-p>" : coc#refresh()
@@ -415,12 +435,17 @@ imap <expr><C-e>
       \ "\<Plug>(coc-snippets-expand-jump)" :
       \ "\<Plug>(emmet-expand-abbr)"
 
+" inoremap <silent><expr> <TAB> <SID>HandleCompletion()
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>isWhitespaceOrNothingBeforeCursor() ? "\<TAB>" : '\<C-n>'
 
-nnoremap <leader>K :call <SID>show_documentation()<CR>
+nnoremap <leader>K :call <SID>showDocumentation()<CR>
+nnoremap <C-l> :call coc#util#float_jump()<CR>
+nnoremap <C-h> :call coc#util#float_hide()<CR>
+inoremap <C-l> <esc>:call coc#util#float_jump()<CR>a
+inoremap <C-h> <esc>:call coc#util#float_hide()<CR>a
 
 nmap gd :call UnifiedJumpToDefinition()<CR>
 nmap gr <Plug>(coc-references)
@@ -577,24 +602,24 @@ nmap <leader>G <Plug>CtrlSFPwordPath
 " projectionist
 let g:projectionist_heuristics = {
       \   '*': {
-      \     'src/*.vue': {
-      \       'alternate': '{}/__tests__/{basename}.test.js',
+      \     '*.vue': {
+      \       'alternate': '__tests__/{}.test.js',
       \       'type': 'source'
       \     },
-      \     'src/*.js': {
-      \       'alternate': '{}/__tests__/{basename}.test.js',
+      \     '*.js': {
+      \       'alternate': '__tests__/{}.test.js',
       \       'type': 'source'
       \     },
-      \     'src/**/__tests__/*.test.js': {
-      \       'alternate': '{dirname}/{basename}.js',
+      \     '__tests__/*.test.js': {
+      \       'alternate': '{}.js',
       \       'type': 'test'
       \     },
-      \     'src/*.ts': {
-      \       'alternate': '{}/__tests__/{basename}.test.ts',
+      \     '*.ts': {
+      \       'alternate': '__tests__/{}.test.ts',
       \       'type': 'source'
       \     },
-      \     'src/**/__tests__/*.test.ts': {
-      \       'alternate': '{dirname}/{basename}.ts',
+      \     '__tests__/*.test.ts': {
+      \       'alternate': '{}.ts',
       \       'type': 'test'
       \     },
       \     'app/*.rb': {
@@ -723,20 +748,36 @@ command! -bang -nargs=? -complete=dir FZFFilesPreview
 
 " fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
 nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
+nnoremap <leader>pp :FZFFilesPreview<CR>a<Bs>
 " nnoremap mm         :FZFFilesPreview<CR>a<Bs>
 nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
+nnoremap <leader>pr :FZFFreshMruPreview<CR>a<Bs>
 " nnoremap mr         :FZFFreshMruPreview<CR>a<Bs>
 nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
+nnoremap <leader>pg :FzfGitFiles?<CR>a<Bs>
 nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
 nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
 " nnoremap mb         :FzfBuffers<CR>a<Bs>
 nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
+nnoremap <leader>pf :FzfRg<CR>a<Bs>
 " nnoremap mn         :FzfRg<CR>a<Bs>
 nnoremap <C-p><C-l> :FzfBLines<CR>a<Bs>
+nnoremap <leader>pl :FzfBLines<CR>a<Bs>
 " nnoremap ml         :FzfLines<CR>a<Bs>
 nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
 " nnoremap mc         :FzfCommits<CR>a<Bs>
 nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
+
+" vim-context
+let g:context_enabled = 0
+let g:context_max_height = 8
+" autocmd VimEnter     * ContextActivate
+" autocmd BufAdd       * call context#update('BufAdd')
+" autocmd BufEnter     * call context#update('BufEnter')
+" autocmd CursorMoved  * call context#update('CursorMoved')
+" autocmd VimResized   * call context#update('VimResized')
+" autocmd CursorHold   * call context#update('CursorHold')
+" autocmd User GitGutter call context#update('GitGutter')
 
 " vim-rails
 let vim_rails_map_buf_nav_commands = 0
@@ -802,10 +843,13 @@ vnoremap <C-m><C-t> :Tabularize /
 
 nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <C-k><C-d> :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>zz
+nnoremap <C-k><C-d> :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>zz
 nnoremap <C-k><C-e> :NERDTreeToggle<CR>
 nnoremap <C-k><C-f> :CtrlSFToggle<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
+nnoremap <leader>gb :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiffsplit<CR>
+nnoremap <leader>gd :Gdiffsplit<CR>
 vnoremap <C-m><C-s> :sort<CR>
 inoremap jk <esc>
 nnoremap K 5k
@@ -900,7 +944,8 @@ endif
 " always focus after cursor jump
 " nnoremap <C-o> <C-o>zz
 " nnoremap <C-i> <C-i>zz
-nnoremap gi gi<ESC>zza
+" nnoremap gi gi<ESC>zza
+" nnoremap gv gvzz
 nnoremap g; g;zz
 nnoremap `` ``zz
 
@@ -910,13 +955,13 @@ vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
-" system clipboard integration
-vnoremap <leader>y "+y
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+" " system clipboard integration
+" vnoremap <leader>y "+y
+" nnoremap <leader>y "+y
+" nnoremap <leader>p "+p
+" nnoremap <leader>P "+P
+" vnoremap <leader>p "+p
+" vnoremap <leader>P "+P
 
 nnoremap <F13> :w<CR>
 nnoremap <F14> :wa<CR>
@@ -953,8 +998,9 @@ function! DetectReactFiletype()
 endfunction
 
 function! FormatHelpBuffer()
-  execute 'normal \<C-w>l'
-  execute 'vertical resize 80'
+  " TODO: line above does not work for some reason
+  execute 'normal \<C-w>L'
+  execute 'vertical resize 82'
 endfunction
 
 augroup filetype_fixes
@@ -1111,7 +1157,7 @@ augroup color_scheme_tweaks
   autocmd FileType sass,vue highlight! link cssAttr Type
 augroup END
 
-let g:rainbow_active = 1
+let g:rainbow_active = 0
 let g:rainbow_conf = {
       \  'guifgs': ['#d19a66', '#c678dd', '#61afef'],
       \  'operators': '_,_',
@@ -1155,3 +1201,5 @@ function! BookmarkUnmapKeys()
 endfunction
 autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+
+nnoremap cp :ContextPeek<CR>
