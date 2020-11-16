@@ -21,11 +21,7 @@ Plug 'dominikduda/vim_current_word'                                " highlight w
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 
-Plug 'scrooloose/nerdtree', { 'commit': '29a321d' }                                         " project explorer
-Plug 'jistr/vim-nerdtree-tabs', { 'commit': '07d19f0' }                                     " better behavior for nerdtree
-" Plug 'Xuyuanp/nerdtree-git-plugin'                               " nerdTree git integration
-Plug 'tsony-tsonev/nerdtree-git-plugin', { 'commit': 'df08fff' }                            " nerdTree git integration fork with git based colors
-Plug 'simnalamburt/vim-mundo',          { 'on': 'MundoToggle' }    " purview undos
+Plug 'simnalamburt/vim-mundo'                                      " purview undos
 
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
@@ -46,6 +42,8 @@ Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 Plug 'blueyed/vim-diminactive'
 Plug 'terryma/vim-expand-region'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+Plug 'markwu/vim-mrufiles'
 
 " syntax
 Plug 'HerringtonDarkholme/yats.vim'
@@ -54,8 +52,8 @@ Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
 
 Plug 'chrisbra/csv.vim'
-Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 " Plug 'tpope/vim-rails'
+Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 Plug 'sheerun/vim-polyglot'
 
 " fancy tools
@@ -64,15 +62,15 @@ Plug 'liuchengxu/vista.vim'
 Plug 'janko/vim-test'
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rbenv'
-Plug 'tpope/gem-ctags'
+" Plug 'tpope/gem-ctags'
 Plug 'tpope/vim-projectionist'
 Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'], 'do': 'npm install -g import-js' }
 Plug 'meain/vim-package-info',          { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'wellle/context.vim'
 " Plug 'ludovicchabant/vim-gutentags'
+Plug 'AndrewRadev/switch.vim'
+let g:switch_mapping = ""
 
 Plug 'vim-scripts/TagHighlight'
 " Plug 'w0rp/ale'                                                    " async syntax checking
@@ -85,7 +83,6 @@ Plug 'jparise/vim-graphql'
 Plug 'voldikss/vim-floaterm'
 Plug 'Lenovsky/nuake'
 call plug#end()
-
 " **********************************
 " vim variables
 syntax on             " Enable syntax highlighting
@@ -174,11 +171,6 @@ set inccommand=nosplit                  " Preview replace
 " **********************************
 
 " custom functions
-function! GenerateRubyTags()
-  call system('ctags -f tags -R --output-format=u-ctags --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)')
-endfunction
-command! GenerateRubyTags call GenerateRubyTags()
-
 function! DebugHighlight()
   let l:s = synID(line('.'), col('.'), 1)
   let name = synIDattr(synID(line("."),col("."),1),"name")
@@ -197,60 +189,6 @@ endfun
 nnoremap <F8> :call DebugHighlight()<CR>
 nnoremap <F9> :syntax sync fromstart<CR>
 nnoremap <F5> :CocCommand snippets.openSnippetFiles<CR>
-
-function! CocGitBlame() abort
-  let l:blame = get(b:, 'coc_git_blame', '')
-  if l:blame == '' | return '' | endif
-
-  let l:result = get(split(l:blame, ')'), '')
-  return trim(l:result, '()')
-endfunction
-
-function! CocGitStatus() abort
-  if len(get(b:, 'coc_git_status', '')) > 0
-    return ''. b:coc_git_status
-  else
-    return ''. ' clean'
-  endif
-endfunction
-
-function! NearestMethodOrFunction() abort
-  return get(b:, 'coc_current_function', '')
-endfunction
-
-function! GetCocStatus() abort
-  return coc#status()
-endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-function! Multiple_cursors_before()
-  let g:matchup_matchparen_enabled = 0
-endfunction
-
-function! Multiple_cursors_after()
-  let g:matchup_matchparen_enabled = 1
-endfunction
-
-function! DisableAllHeavyStuff()
-  setlocal syntax=off
-  setlocal nospell
-  " ALEDisable
-  CocDisable
-endfunction
-
-function! NearestMethodOrFunctionVista() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
 
 " **********************************
 
@@ -294,6 +232,30 @@ let g:loaded_matchit = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+
+function! CocGitBlame() abort
+  let l:blame = get(b:, 'coc_git_blame', '')
+  if l:blame == '' | return '' | endif
+
+  let l:result = get(split(l:blame, ')'), '')
+  return trim(l:result, '()')
+endfunction
+
+function! CocGitStatus() abort
+  if len(get(b:, 'coc_git_status', '')) > 0
+    return ''. b:coc_git_status
+  else
+    return ''. ' clean'
+  endif
+endfunction
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'coc_current_function', '')
+endfunction
+
+function! GetCocStatus() abort
+  return coc#status()
+endfunction
 
 " 
 call airline#parts#define_function('gitStatus', 'CocGitStatus')
@@ -353,7 +315,7 @@ noremap <leader><space>!    :bdelete!<CR>
 nnoremap <leader>q          :close<CR>
 
 " anzu
-let g:anzu_status_format                             = "%#Search#▶%p◀ (%i/%l)"
+let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
 nmap n <Plug>(anzu-n-with-echo)zz<Plug>(anzu-echo-search-status)
 nmap N <Plug>(anzu-N-with-echo)zz<Plug>(anzu-echo-search-status)
 nmap * <Plug>(anzu-star-with-echo)zz<Plug>(anzu-echo-search-status)
@@ -366,6 +328,7 @@ let g:coc_global_extensions = [
       \ 'coc-tag',
       \ 'coc-solargraph',
       \ 'coc-eslint',
+      \ 'coc-stylelint',
       \ 'coc-diagnostic',
       \ 'coc-snippets',
       \ 'coc-emmet',
@@ -383,6 +346,8 @@ let g:coc_global_extensions = [
       \ 'coc-yank',
       \ 'coc-git',
       \ 'coc-marketplace',
+      \ 'coc-explorer',
+      \ 'coc-bookmark',
       \ ]
 
 " autocomplete
@@ -474,6 +439,13 @@ nmap <leader>E  <Plug>(coc-diagnostic-info)
 nmap <leader>H  <Plug>(coc-float-hide)
 nmap <leader>J  <Plug>(coc-float-jump)
 
+nnoremap <C-m><C-l> :CocList diagnostics<CR>
+nnoremap <leader>ml :CocList diagnostics<CR>
+nnoremap <C-m><C-f> :call <SID>HandleBufferFix()<CR>
+nnoremap <leader>mf :call <SID>HandleBufferFix()<CR>
+nnoremap [e :call CocAction('diagnosticPrevious')<CR>
+nnoremap ]e :call CocAction('diagnosticNext')<CR>
+
 " vim test
 let test#strategy = "neovim"
 let test#neovim#term_position = "vertical"
@@ -481,7 +453,9 @@ let test#ruby#cucumber#executable = 'bundle exec cucumber'
 let test#ruby#rspec#executable = 'bundle exec rspec'
 " let test#javascript#jest#file_pattern \v(__tests__/.*|(spec|test))\.(js|jsx|coffee|ts|tsx)$
 nmap TT :TestNearest<CR>
+nmap <leader>tt :TestNearest<CR>
 nmap TF :TestFile<CR>
+nmap <leader>tf :TestFile<CR>
 
 " coc-git
 nmap [g <Plug>(coc-git-prevchunk)
@@ -490,26 +464,6 @@ nmap gs <Plug>(coc-git-chunkinfo)
 
 " jsxpretty
 let g:vim_jsx_pretty_colorful_config = 1
-
-" nerdtree
-highlight! NERDTreeOpenable ctermfg=132 guifg=#D19A66
-highlight! def link NERDTreeClosable NERDTreeOpenable
-let g:nerdtree_tabs_autoclose=0
-let g:NERDTreeWinSize                   = 36
-let g:NERDTreeMinimalUI                 = 1
-let g:NERDTreeStatusline                = ""
-let g:NERDTreeGitStatusNodeColorization = 1
-let g:NERDTreeGitStatusWithFlags        = 0
-let g:NERDTreeDirArrowExpandable        = ''
-let g:NERDTreeDirArrowCollapsible       = ''
-let g:NERDTreeColorMapCustom = {
-      \ "Dirty"     : "#299999",
-      \ "Modified"  : "#CC6666",
-      \ "Untracked" : "#CC6666",
-      \ "Staged"    : "#29DD29",
-      \ "Clean"     : "#00FF00",
-      \ "Ignored"   : "#AAAAAA"
-      \ }
 
 " mundo
 let g:mundo_right = 1
@@ -534,21 +488,9 @@ let g:vim_current_word#highlight_delay                  = 200
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+let g:EasyMotion_off_screen_search = 0
 
 map ; <Plug>(easymotion-prefix)
-
-" " MatchTagAlways
-" let g:mta_use_matchparen_group       = 0
-" let g:mta_set_default_matchtag_color = 0
-" let g:mta_filetypes = {
-"       \ 'html' : 1,
-"       \ 'xhtml' : 1,
-"       \ 'xml' : 1,
-"       \ 'eruby' : 1,
-"       \ 'javascript.jsx' : 1,
-"       \ 'html.handlebars' : 1,
-"       \}
-" nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 let g:AutoClosePreserveDotReg = 0
 
@@ -607,8 +549,7 @@ let g:ctrlsf_winsize = '80'
 nmap <leader>f <Plug>CtrlSFPrompt
 vmap <leader>f <Plug>CtrlSFVwordPath
 vmap <leader>F <Plug>CtrlSFVwordExec
-nmap <leader>F <Plug>CtrlSFCwordPath
-nmap <leader>G <Plug>CtrlSFPwordPath
+nmap <leader>F <Plug>CtrlSFCCwordPath
 
 " projectionist
 let g:projectionist_heuristics = {
@@ -662,60 +603,6 @@ nnoremap <leader>ec :Econtroller<CR>
 " importjs
 let g:importjs_disable_default_mappings = 1
 
-" ale
-" let g:ale_virtualtext_cursor   = 1
-" let g:ale_disable_lsp          = 1
-" let g:ale_virtualtext_delay    = 1000
-" let g:ale_echo_msg_error_str   = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format      = '[%linter%] %s [%severity%]'
-" let g:ale_sign_error           = '🚨'
-" let g:ale_sign_warning         = '🤔'
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 1
-" let g:ale_sign_column_always   = 1
-" let g:ale_set_highlights       = 1
-" let g:ale_fixers = {
-"       \ 'eruby':          ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
-"       \ 'ruby':           ['remove_trailing_lines', 'trim_whitespace', 'rubocop'],
-"       \ 'javascript':     ['eslint', 'importjs'],
-"       \ 'vue':            ['eslint', 'importjs'],
-"       \ 'javascript.jsx': ['eslint', 'importjs'],
-"       \ 'typescript':     ['eslint', 'importjs'],
-"       \ 'typescript.tsx': ['eslint', 'importjs'],
-"       \ 'vim':            ['remove_trailing_lines', 'trim_whitespace'],
-"       \ 'json':           ['jq'],
-"       \ 'python':         ['yapf'],
-"       \ 'css':            ['stylelint'],
-"       \ 'sass':           ['stylelint'],
-"       \ 'scss':           ['stylelint'],
-"       \ 'terraform':      ['terraform']
-"       \}
-" let g:ale_linters = {
-"       \ 'ruby':           ['rubocop'],
-"       \ 'eruby':          ['rubocop'],
-"       \ 'javascript':     ['eslint'],
-"       \ 'typescript':     ['eslint'],
-"       \ 'vue':            ['eslint'],
-"       \ 'json':           ['jq'],
-"       \ 'python':         ['pyls', 'autopep8', 'yapf'],
-"       \ 'css':            ['stylelint'],
-"       \ 'sass':           ['stylelint'],
-"       \ 'scss':           ['stylelint'],
-"       \}
-" let g:ale_linter_aliases = {'jsx': 'css'}
-" nnoremap <C-m><C-f> :ALEFix<CR>
-" nnoremap <C-m><C-l> :ALELint<CR>
-" nnoremap <C-m><C-w> :set list!<CR>
-" nnoremap [e :ALEPreviousWrap<CR>
-" nnoremap ]e :ALENextWrap<CR>
-nnoremap <C-m><C-l> :CocList diagnostics<CR>
-nnoremap <leader>ml :CocList diagnostics<CR>
-nnoremap <C-m><C-f> :call <SID>HandleBufferFix()<CR>
-nnoremap <leader>mf :call <SID>HandleBufferFix()<CR>
-nnoremap [e :call CocAction('diagnosticPrevious')<CR>
-nnoremap ]e :call CocAction('diagnosticNext')<CR>
-
 " fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 function! FloatingFZF()
@@ -723,8 +610,8 @@ function! FloatingFZF()
   call setbufvar(buf, 'number', 'no')
 
   let height = float2nr(&lines * 0.4)
-  let width = float2nr(&columns * 0.6)
-  let row = float2nr(&lines * 0.2)
+  let width = float2nr(&columns * 0.66)
+  let row = float2nr(&lines * 0.33)
   let col = float2nr((&columns - width) / 2)
 
   let opts = {
@@ -756,6 +643,13 @@ let g:fzf_colors = {
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment']
       \ }
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
 let g:fzf_action = {
       \ 'ctrl-q': function('s:build_quickfix_list'),
       \ 'ctrl-t': 'tab split',
@@ -767,35 +661,18 @@ command! -bang -nargs=? -complete=dir FZFFilesPreview
 " fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
 nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
 nnoremap <leader>pp :FZFFilesPreview<CR>a<Bs>
-" nnoremap mm         :FZFFilesPreview<CR>a<Bs>
 nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
 nnoremap <leader>pr :FZFFreshMruPreview<CR>a<Bs>
-" nnoremap mr         :FZFFreshMruPreview<CR>a<Bs>
 nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
 nnoremap <leader>pg :FzfGitFiles?<CR>a<Bs>
 nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
 nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
-" nnoremap mb         :FzfBuffers<CR>a<Bs>
 nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
 nnoremap <leader>pf :FzfRg<CR>a<Bs>
-" nnoremap mn         :FzfRg<CR>a<Bs>
 nnoremap <C-p><C-l> :FzfBLines<CR>a<Bs>
 nnoremap <leader>pl :FzfBLines<CR>a<Bs>
-" nnoremap ml         :FzfLines<CR>a<Bs>
-nnoremap <C-p><C-v> :FzfCommits<CR>a<Bs>
-" nnoremap mc         :FzfCommits<CR>a<Bs>
+nnoremap <C-p><C-v> :FzfBCommits<CR>a<Bs>
 nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
-
-" vim-context
-let g:context_enabled = 0
-let g:context_max_height = 8
-" autocmd VimEnter     * ContextActivate
-" autocmd BufAdd       * call context#update('BufAdd')
-" autocmd BufEnter     * call context#update('BufEnter')
-" autocmd CursorMoved  * call context#update('CursorMoved')
-" autocmd VimResized   * call context#update('VimResized')
-" autocmd CursorHold   * call context#update('CursorHold')
-" autocmd User GitGutter call context#update('GitGutter')
 
 " vim-rails
 let vim_rails_map_buf_nav_commands = 0
@@ -805,7 +682,7 @@ vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
 " indentLine
-let g:indentLine_fileTypeExclude = ['markdown', 'help']
+let g:indentLine_fileTypeExclude = ['markdown', 'help', 'coc-explorer']
 
 " vim-repeat
 silent! call repeat#set("\<Plug>.", v:count)
@@ -851,8 +728,6 @@ let g:vista#renderer#icons = {
       \    'typeParameter': "\uf278",
       \    'default': "\uf29c"
       \ }
-" let g:vista_default_executive = 'coc'
-" let g:vista_finder_alternative_executive = 'ctags'
 nnoremap <C-k><C-v> :Vista!!<CR>
 nnoremap <C-p><C-s> :Vista finder coc<CR>
 
@@ -860,10 +735,15 @@ nnoremap <C-p><C-s> :Vista finder coc<CR>
 vnoremap <C-m><C-t> :Tabularize /
 
 nnoremap <C-k><C-u> :MundoToggle<CR>
-nnoremap <C-k><C-d> :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>zz
-nnoremap <C-k><C-d> :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>zz
-nnoremap <C-k><C-e> :NERDTreeToggle<CR>
-nnoremap <C-k><C-f> :CtrlSFToggle<CR>
+nnoremap <silent><C-k><C-e> :CocCommand explorer
+      \ --toggle
+      \ --focus
+      \ <CR>
+nnoremap <silent><C-k><C-d> :CocCommand explorer
+      \ --toggle
+      \ --focus
+      \ <CR>
+nnoremap <silent><C-k><C-f> :CtrlSFToggle<CR>
 nnoremap <C-g><C-b> :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
 nnoremap <C-g><C-d> :Gdiffsplit<CR>
@@ -973,14 +853,6 @@ vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
-" " system clipboard integration
-" vnoremap <leader>y "+y
-" nnoremap <leader>y "+y
-" nnoremap <leader>p "+p
-" nnoremap <leader>P "+P
-" vnoremap <leader>p "+p
-" vnoremap <leader>P "+P
-
 nnoremap <F13> :w<CR>
 nnoremap <F14> :wa<CR>
 
@@ -1018,7 +890,7 @@ endfunction
 function! FormatHelpBuffer()
   " TODO: line above does not work for some reason
   execute 'normal \<C-w>L'
-  execute 'vertical resize 82'
+  execute 'vertical resize 86'
 endfunction
 
 augroup filetype_fixes
@@ -1037,7 +909,7 @@ augroup filetype_scoped_settings
   autocmd!
   autocmd FileType json          setlocal conceallevel=2
   autocmd Filetype gitcommit     setlocal colorcolumn=51 spell
-  autocmd Filetype nerdtree      setlocal tabstop=2 softtabstop=2 shiftwidth=2 signcolumn=no
+  autocmd BufEnter * if &filetype == 'coc-explorer' | set conceallevel=0
   autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
   autocmd FileType scss set iskeyword+=-
   autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
@@ -1056,6 +928,12 @@ autocmd FileType vim,tex,log
       \ b:matchup_matchparen_enabled]
       \ = [0, 0]
 autocmd QuickFixCmdPost wincmd J
+
+function! DisableAllHeavyStuff()
+  setlocal syntax=off
+  setlocal nospell
+  CocDisable
+endfunction
 
 augroup disable_syntax_for_huge_files
   autocmd!
@@ -1104,7 +982,7 @@ augroup color_scheme_tweaks
   highlight! IncSearch        guifg=#FF0000 guibg=NONE gui=bold
   highlight! Search           guifg=#FFFFFF guibg=NONE gui=bold
   highlight! TabLineSel       guifg=#E5C07B
-  highlight! MatchTag         gui=reverse
+  highlight! MatchTag         gui=reverse,bold
   highlight! MatchParen       guifg=NONE    guibg=NONE gui=reverse
   highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=reverse
   highlight! link MatchWord MatchTag
@@ -1199,30 +1077,12 @@ command! Gco silent !git checkout -- %
 cabbrev gco Gco
 let g:instant_markdown_autoscroll = 1
 command! -count=1 HFiles call fzf#run({ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d'})
-let g:bookmark_no_default_key_mappings = 1
-function! BookmarkMapKeys()
-    nmap mm :BookmarkToggle<CR>
-    nmap mi :BookmarkAnnotate<CR>
-    nmap mn :BookmarkNext<CR>
-    nmap mp :BookmarkPrev<CR>
-    nmap ma :BookmarkShowAll<CR>
-    nmap mc :BookmarkClear<CR>
-    nmap mx :BookmarkClearAll<CR>
-    nmap mkk :BookmarkMoveUp
-    nmap mjj :BookmarkMoveDown
-endfunction
-function! BookmarkUnmapKeys()
-    unmap mm
-    unmap mi
-    unmap mn
-    unmap mp
-    unmap ma
-    unmap mc
-    unmap mx
-    unmap mkk
-    unmap mjj
-endfunction
-autocmd BufEnter * :call BookmarkMapKeys()
-autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 
-nnoremap cp :ContextPeek<CR>
+" coc-bookmark
+nmap ]b <Plug>(coc-bookmark-next)
+nmap [b <Plug>(coc-bookmark-prev)
+nmap <Leader>bb <Plug>(coc-bookmark-toggle)
+nmap <Leader>ba <Plug>(coc-bookmark-annotate)
+nmap <Leader>bl :CocList bookmark<CR>
+nmap <Leader>bc :CocCommand clearForCurrentFile<CR>
+nmap <Leader>bC :CocCommand clearForAllFiles<CR>

@@ -101,8 +101,24 @@
   },
 
   "diagnostic-languageserver.formatters": {
+    "stylelint": {
+      "command": "./node_modules/.bin/stylelint",
+      "rootPatterns": [
+        ".git"
+      ],
+      "debounce": 100,
+      "args": [
+        "%filepath",
+        "--fix"
+      ],
+      "sourceName": "stylelint",
+      "securities": {
+        "2": "error",
+        "1": "warning"
+      }
+    },
     "eslint": {
-      "command": "./node_modules/.bin/eslint",  // this will find local eslint first, if local eslint not found, it
+      "command": "./node_modules/.bin/eslint",
       "rootPatterns": [
         ".git"
       ],
@@ -161,5 +177,70 @@
   "emmet.includeLanguages": {
     "vue-html": "html",
     "javascript": "javascriptreact"
+  },
+
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.expanded": "",
+  "explorer.icon.collapsed": "",
+  "explorer.previewAction.onHover": false,
+  "explorer.filename.colored.enable": {
+    "git": true
+  },
+  "explorer.buffer.root.template": "[icon] [title] [hidden & 1]",
+  "explorer.file.root.template": "[icon] [root] [git & 1][hidden & 1]",
+  "explorer.buffer.child.template": " [bufnr] [name omitCenter 10][git | 2][modified growRight 1][readonly][diagnosticWarning & 1][diagnosticError & 1][selection]",
+  "explorer.file.child.template": " [indent][icon | 1] [filename omitCenter 10][git | 2][modified growRight 1][readonly][diagnosticWarning & 1][diagnosticError & 1][selection | clip & 1]",
+  "explorer.bookmark.child.template": " [annotation & 1][filename] [position growRight 1][selection]",
+  "explorer.contentWidthType": "win-width",
+  "explorer.sources": [
+    {
+      "name": "bookmark",
+      "expand": true
+    },
+    {
+      "name": "buffer",
+      "expand": true
+    },
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
+  "explorer.keyMappings.global": {
+    "[c": false,
+    "]c": false,
+    "[d": false,
+    "]d": false,
+    "e": false,
+    "q": false,
+    "J": false,
+    "K": false,
+    "t": false,
+    "<leader>K": "preview:labeling",
+    "X": "collapse",
+    "I": "toggleHidden",
+    "<cr>": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "o": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "l": [
+      "expandable?",
+      ["expanded?", "collapse", "expand"],
+      "open"
+    ],
+    "mm": "rename",
+    "ma": "addFile",
+    "md": "deleteForever",
+    "P": ["gotoSource:file", "normal:j"],
+    "[g": "gitPrev",
+    "]g": "gitNext",
+    "[e": "diagnosticPrev",
+    "]e": "diagnosticNext"
   }
 }
