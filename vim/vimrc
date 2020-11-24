@@ -23,7 +23,7 @@ Plug 'terryma/vim-multiple-cursors'                                " multiple cu
 
 Plug 'simnalamburt/vim-mundo'                                      " purview undos
 
-Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
+" Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
@@ -348,6 +348,7 @@ let g:coc_global_extensions = [
       \ 'coc-marketplace',
       \ 'coc-explorer',
       \ 'coc-bookmark',
+      \ 'coc-pairs',
       \ ]
 
 " autocomplete
@@ -398,6 +399,8 @@ function! s:HandleBufferFix()
     call CocAction('format')
   endif
 endfunction
+command! -nargs=0 Format :call CocAction('format')
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " inoremap <expr><TAB>   pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
@@ -438,6 +441,21 @@ nmap <C-l><C-m> :CocCommand<CR>
 nmap <leader>E  <Plug>(coc-diagnostic-info)
 nmap <leader>H  <Plug>(coc-float-hide)
 nmap <leader>J  <Plug>(coc-float-jump)
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a) 
 
 nnoremap <C-m><C-l> :CocList diagnostics<CR>
 nnoremap <leader>ml :CocList diagnostics<CR>
@@ -495,26 +513,26 @@ map ; <Plug>(easymotion-prefix)
 let g:AutoClosePreserveDotReg = 0
 
 " autopairs
-let g:AutoPairsShortcutToggle     = ''
-let g:AutoPairsShortcutBackInsert = ''
-let g:AutoPairsShortcutJump       = ''
-let g:AutoPairsShortcutFastWrap   = ''
-let g:AutoPairsMapCh              = ''
-let g:AutoPairs = {
-      \ '(':')',
-      \ '[':']',
-      \ '{':'}',
-      \ "'":"'",
-      \ '"':'"',
-      \ "`":"`",
-      \ '```':'```',
-      \ '"""':'"""',
-      \ "'''":"'''",
-      \ "|":"|",
-      \ "<%#":"%>",
-      \ "<%=":"%>",
-      \ "<%":"%>",
-      \ }
+" let g:AutoPairsShortcutToggle     = ''
+" let g:AutoPairsShortcutBackInsert = ''
+" let g:AutoPairsShortcutJump       = ''
+" let g:AutoPairsShortcutFastWrap   = ''
+" let g:AutoPairsMapCh              = ''
+" let g:AutoPairs = {
+"       \ '(':')',
+"       \ '[':']',
+"       \ '{':'}',
+"       \ "'":"'",
+"       \ '"':'"',
+"       \ "`":"`",
+"       \ '```':'```',
+"       \ '"""':'"""',
+"       \ "'''":"'''",
+"       \ "|":"|",
+"       \ "<%#":"%>",
+"       \ "<%=":"%>",
+"       \ "<%":"%>",
+"       \ }
 
 " closetag
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js,*.vue"
@@ -915,6 +933,8 @@ augroup filetype_scoped_settings
   autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
   autocmd FileType javascript,typescript,javascript.jsx,typescript.tsx iabbrev <buffer> cosnt const
   autocmd FileType vue setlocal commentstring=\/\*\ %s\ \*\/
+  autocmd FileType ruby let b:coc_pairs = [["|", "|"]]
+  autocmd FileType eruby let b:coc_pairs = [["|", "|"], ["<%=", "%>"]]
 augroup END
 
 augroup callbacks
@@ -1084,5 +1104,5 @@ nmap [b <Plug>(coc-bookmark-prev)
 nmap <Leader>bb <Plug>(coc-bookmark-toggle)
 nmap <Leader>ba <Plug>(coc-bookmark-annotate)
 nmap <Leader>bl :CocList bookmark<CR>
-nmap <Leader>bc :CocCommand clearForCurrentFile<CR>
-nmap <Leader>bC :CocCommand clearForAllFiles<CR>
+nmap <Leader>bc :CocCommand bookmark.clearForCurrentFile<CR>
+nmap <Leader>bC :CocCommand bookmark.clearForAllFiles<CR>

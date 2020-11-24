@@ -2,6 +2,7 @@ ripper-tags
 tags
 tags.lock
 tags.temp
+jsconfig.json
 .env
 
 node_modules
@@ -21,3 +22,5 @@ node_modules
 
 .projections.json
 dump.rdb
+
+personal_notes.txt
