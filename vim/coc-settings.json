@@ -156,7 +156,7 @@
 
   "git.enableGutters": true,
   "git.addGBlameToBufferVar": true,
-  "git.addGBlameToVirtualText": false,
+  "git.addGBlameToVirtualText": true,
   "git.changedSign.text": "┃",
   "git.addedSign.text": "┃",
   "git.removedSign.text": "┃",
@@ -242,5 +242,7 @@
     "]g": "gitNext",
     "[e": "diagnosticPrev",
     "]e": "diagnosticNext"
-  }
+  },
+  "bookmark.sign": ">",
+  "bookmark.signHl": "Todo"
 }

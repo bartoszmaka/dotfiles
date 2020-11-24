@@ -31,7 +31,7 @@ test -e "$DOTFILES_PATH/secrets.sh" && source $DOTFILES_PATH/secrets.sh
 export BAT_THEME='TwoDark'
 export DISABLE_SPRING=1
 export EDITOR='nvim'
-export FZF_DEFAULT_COMMAND='ag --hidden -g "" --ignore-dir .git'
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden -g '!.git/' -g '!node_modules/' -g '!tmp/' -g '!vendor/'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export DOTFILES_PATH="$HOME/.repos/dotfiles"
 
@@ -71,6 +71,9 @@ alias yi="yarn install"
 alias n='nvim'
 alias js='tmuxinator start frontend .'
 alias mailcatcher='echo "running mailcatcher --foreground. If you want to use default mailcatcher - escape the alias"; mailcatcher --foreground'
+alias tf="terraform"
+alias ls="exa"
+alias cat="bat"
 
 alias gcof="git checkout \$(git branch -a | fzf)"
 
@@ -105,3 +108,10 @@ export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 zstyle ':completion:*' menu select
 export PATH="/usr/local/sbin:$PATH"
+# . $(brew --prefix asdf)/asdf.sh
+. $HOME/.asdf/asdf.sh
+export VAULT_ADDR=https://vault.tilcra.de
+export GOOGLE_APPLICATION_CREDENTIALS=account.json
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
