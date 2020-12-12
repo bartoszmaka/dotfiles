@@ -2,8 +2,8 @@ filetype off
 call plug#begin()
 Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
-Plug 'bling/vim-airline'                                           " UI improvement
-Plug 'vim-airline/vim-airline-themes'                              " themes for airline
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
@@ -17,13 +17,13 @@ endif
 
 Plug 'andymass/vim-matchup'                                        " jump to matching tag/parentheses; first suspect in case of performance issues
 Plug 'tpope/vim-fugitive'                                          " git related commands
-Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
+" Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
 Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 
 Plug 'simnalamburt/vim-mundo'                                      " purview undos
 
-" Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
+Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
@@ -42,7 +42,6 @@ Plug 'bartoszmaka/fzf-mru.vim'
 Plug 'dyng/ctrlsf.vim'                                             " search projectwide
 Plug 'blueyed/vim-diminactive'
 Plug 'terryma/vim-expand-region'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 Plug 'markwu/vim-mrufiles'
 
 " syntax
@@ -62,26 +61,18 @@ Plug 'liuchengxu/vista.vim'
 Plug 'janko/vim-test'
 Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
 Plug 'tpope/vim-rbenv'
-" Plug 'tpope/gem-ctags'
 Plug 'tpope/vim-projectionist'
-Plug 'bartoszmaka/vim-import-js',       { 'for': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx'], 'do': 'npm install -g import-js' }
-Plug 'meain/vim-package-info',          { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
-" Plug 'ludovicchabant/vim-gutentags'
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = ""
 
-Plug 'vim-scripts/TagHighlight'
-" Plug 'w0rp/ale'                                                    " async syntax checking
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
-" new plugins to test
 Plug 'Asheq/close-buffers.vim'
 Plug 'dunckr/js_alternate.vim'
-Plug 'luochen1990/rainbow'
 Plug 'jparise/vim-graphql'
-Plug 'voldikss/vim-floaterm'
 Plug 'Lenovsky/nuake'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 " **********************************
 " vim variables
@@ -118,6 +109,8 @@ language en_US.UTF-8
 set langmenu=en_US.UTF-8
 set fileencoding=utf-8
 set encoding=utf8
+set laststatus=2
+set showtabline=2
 
 " behavior
 set completeopt=menuone,noinsert,noselect
@@ -165,7 +158,7 @@ set list                                " show whitespaces
 set mouse=a
 set showcmd                             " show pressed keys
 set number                              " show line numbers
-set cursorline
+" set cursorline
 set cmdheight=1
 set inccommand=nosplit                  " Preview replace
 " **********************************
@@ -219,7 +212,6 @@ let g:onedark_color_overrides = {
 " \ "special_grey": get(s:overrides, "special_grey", { "gui": "#3B4048", "cterm": "238", "cterm16": "15" }),
 " \ "vertsplit": get(s:overrides, "vertsplit", { "gui": "#181A1F", "cterm": "59", "cterm16": "15" }),
 colorscheme onedark
-let g:airline_theme = 'onedark'
 set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
 " **********************************
@@ -227,19 +219,72 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 
 " let g:gutentags_trace = 1
 let g:loaded_matchit = 1
+let g:lightline = {}
+let g:lightline.colorscheme = 'onedark'
+let g:lightline.active = {
+      \   'left': [ [ 'mode', 'spell' ],
+      \             [ 'readonly', 'filename', 'modified' ],
+      \             [ 'coc_status' ] ],
+      \   'right': [ [ 'custom_line_info' ],
+      \              [ 'coc_error', 'coc_warning', 'git_status' ] ]
+      \ }
+let lightline.inactive = {
+      \   'left': [ [ 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'custom_line_info' ] ]
+      \ }
+let lightline.tabline = {
+      \   'left': [ ['buffers'] ],
+      \   'right': []
+      \ }
+let lightline.component_function = {
+      \   'git_status': 'CocGitStatus',
+      \   'coc_status': 'GetCocStatus',
+      \ }
+let lightline.component_expand = {
+      \   'coc_error'        : 'LightlineCocErrors',
+      \   'coc_warning'      : 'LightlineCocWarnings',
+      \   'buffers'          : 'lightline#bufferline#buffers'
+      \ }
+let g:lightline.component = {
+      \   'custom_line_info' : '%3l/%L:%3v'
+      \ }
+let g:lightline.component_type = {
+      \   'coc_error'        : 'error',
+      \   'coc_warning'      : 'warning',
+      \   'buffers'          : 'tabsel'
+      \ }
 
-" airline
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-function! CocGitBlame() abort
-  let l:blame = get(b:, 'coc_git_blame', '')
-  if l:blame == '' | return '' | endif
-
-  let l:result = get(split(l:blame, ')'), '')
-  return trim(l:result, '()')
+function! LightlineCocErrors() abort
+  let diagnostics = get(b:, 'coc_diagnostic_info', 0)
+  if empty(diagnostics)
+    return ''
+  endif
+  let errors = diagnostics['error']
+    if errors > 0
+      return printf('E %d', errors)
+    else
+      return ''
+    endif
 endfunction
+
+function! LightlineCocWarnings() abort
+  let diagnostics = get(b:, 'coc_diagnostic_info', 0)
+  if empty(diagnostics)
+    return ''
+  endif
+    let info = diagnostics['information']
+    let hint = diagnostics['hint']
+    let warn = diagnostics['warning']
+    let total = info + hint + warn
+    if total > 0
+      return printf('W %d', total)
+    else
+      return ''
+    endif
+endfunction
+\ }
+
+autocmd User CocDiagnosticChange call lightline#update()
 
 function! CocGitStatus() abort
   if len(get(b:, 'coc_git_status', '')) > 0
@@ -249,61 +294,19 @@ function! CocGitStatus() abort
   endif
 endfunction
 
-function! NearestMethodOrFunction() abort
-  return get(b:, 'coc_current_function', '')
-endfunction
-
 function! GetCocStatus() abort
-  return coc#status()
+  return get(b:, 'coc_current_function', coc#status())
 endfunction
+nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+nmap <Leader>2 <Plug>lightline#bufferline#go(2)
+nmap <Leader>3 <Plug>lightline#bufferline#go(3)
+nmap <Leader>4 <Plug>lightline#bufferline#go(4)
+nmap <Leader>5 <Plug>lightline#bufferline#go(5)
+nmap <Leader>6 <Plug>lightline#bufferline#go(6)
+nmap <Leader>7 <Plug>lightline#bufferline#go(7)
+nmap <Leader>8 <Plug>lightline#bufferline#go(8)
+nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 
-" 
-call airline#parts#define_function('gitStatus', 'CocGitStatus')
-call airline#parts#define_minwidth('gitStatus', 50)
-call airline#parts#define_accent('gitStatus', 'none')
-call airline#parts#define_function('gitBlame', 'CocGitBlame')
-call airline#parts#define_minwidth('gitBlame', 120)
-call airline#parts#define_accent('gitBlame', 'italic')
-call airline#parts#define_function('nearestFunction', 'NearestMethodOrFunction')
-call airline#parts#define_minwidth('nearestFunction', 50)
-call airline#parts#define_function('cocStatus', 'GetCocStatus')
-call airline#parts#define_minwidth('cocStatus', 150)
-
-let g:airline#extensions#whitespace#enabled          = 0
-let g:airline#extensions#branch#enabled              = 0
-let g:airline#extensions#tabline#enabled             = 1
-let g:airline#extensions#anzu#enabled                = 0
-" let airline#extensions#ale#show_line_numbers         = 0
-let g:airline#extensions#tabline#left_sep            = ''
-let g:airline#extensions#tabline#left_alt_sep        = ''
-let g:airline#extensions#tabline#right_sep           = ''
-let g:airline#extensions#tabline#right_alt_sep       = ''
-let g:airline#extensions#tabline#show_tabs           = 0
-let g:airline#extensions#tabline#show_close_button   = 0
-let g:airline#extensions#tabline#tab_nr_type         = 2
-let g:airline#extensions#tabline#buffer_idx_mode     = 1
-let g:airline_left_sep                               = ''
-let g:airline_right_sep                              = ''
-let g:airline_section_b                              = ''
-let g:airline_section_x                              = airline#section#create_right(['gitBlame', 'gitStatus', 'filetype'])
-let g:airline_section_c                              = airline#section#create_left(['file', 'nearestFunction', 'cocStatus'])
-let g:airline_section_z                              = '%3l/%L:%3v'
-let g:airline#parts#ffenc#skip_expected_string       = 'utf-8[unix]'
-let g:airline_symbols.linenr                         = ''
-let g:airline_symbols.maxlinenr                      = ''
-let g:airline_symbols.readonly                       = '🔒'
-let g:airline_symbols.spell                          = 'S'
-let g:airline_symbols.whitespace                     = 'Ξ'
-
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
 noremap <leader>]           :bnext<CR>
 noremap <leader>[           :bprevious<CR>
 noremap <leader>}           :bnext<CR>
@@ -348,7 +351,6 @@ let g:coc_global_extensions = [
       \ 'coc-marketplace',
       \ 'coc-explorer',
       \ 'coc-bookmark',
-      \ 'coc-pairs',
       \ ]
 
 " autocomplete
@@ -469,7 +471,6 @@ let test#strategy = "neovim"
 let test#neovim#term_position = "vertical"
 let test#ruby#cucumber#executable = 'bundle exec cucumber'
 let test#ruby#rspec#executable = 'bundle exec rspec'
-" let test#javascript#jest#file_pattern \v(__tests__/.*|(spec|test))\.(js|jsx|coffee|ts|tsx)$
 nmap TT :TestNearest<CR>
 nmap <leader>tt :TestNearest<CR>
 nmap TF :TestFile<CR>
@@ -513,26 +514,26 @@ map ; <Plug>(easymotion-prefix)
 let g:AutoClosePreserveDotReg = 0
 
 " autopairs
-" let g:AutoPairsShortcutToggle     = ''
-" let g:AutoPairsShortcutBackInsert = ''
-" let g:AutoPairsShortcutJump       = ''
-" let g:AutoPairsShortcutFastWrap   = ''
-" let g:AutoPairsMapCh              = ''
-" let g:AutoPairs = {
-"       \ '(':')',
-"       \ '[':']',
-"       \ '{':'}',
-"       \ "'":"'",
-"       \ '"':'"',
-"       \ "`":"`",
-"       \ '```':'```',
-"       \ '"""':'"""',
-"       \ "'''":"'''",
-"       \ "|":"|",
-"       \ "<%#":"%>",
-"       \ "<%=":"%>",
-"       \ "<%":"%>",
-"       \ }
+let g:AutoPairsShortcutToggle     = ''
+let g:AutoPairsShortcutBackInsert = ''
+let g:AutoPairsShortcutJump       = ''
+let g:AutoPairsShortcutFastWrap   = ''
+let g:AutoPairsMapCh              = ''
+let g:AutoPairs = {
+      \ '(':')',
+      \ '[':']',
+      \ '{':'}',
+      \ "'":"'",
+      \ '"':'"',
+      \ "`":"`",
+      \ '```':'```',
+      \ '"""':'"""',
+      \ "'''":"'''",
+      \ "|":"|",
+      \ "<%#":"%>",
+      \ "<%=":"%>",
+      \ "<%":"%>",
+      \ }
 
 " closetag
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.erb,*.jsx,*.js,*.vue"
@@ -618,9 +619,6 @@ nnoremap <leader>a :A<CR>
 nnoremap <leader>ev :Eview<CR>
 nnoremap <leader>ec :Econtroller<CR>
 
-" importjs
-let g:importjs_disable_default_mappings = 1
-
 " fzf
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 function! FloatingFZF()
@@ -643,24 +641,11 @@ function! FloatingFZF()
   call setwinvar(win, '&number', 0)
   call setwinvar(win, '&relativenumber', 0)
 endfunction
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_mru_relative = 1
-let g:fzf_colors = {
-      \ 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'FZFNormal'],
-      \ 'hl':      ['fg', 'Typedef'],
-      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-      \ 'hl+':     ['fg', 'Identifier'],
-      \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
-      \ 'pointer': ['fg', 'Identifier'],
-      \ 'marker':  ['fg', 'Keyword'],
-      \ 'spinner': ['fg', 'Label'],
-      \ 'header':  ['fg', 'Comment']
-      \ }
+let g:fzf_colors = { 'bg': ['bg', 'FZFNormal'] }
 
 function! s:build_quickfix_list(lines)
   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
@@ -752,12 +737,18 @@ nnoremap <C-p><C-s> :Vista finder coc<CR>
 " tabular
 vnoremap <C-m><C-t> :Tabularize /
 
+" nuake
+let g:nuake_size = 0.35
+let g:nuake_position = 'right'
+nnoremap <C-l><C-n> :Nuake<CR>
+tnoremap <C-l><C-n> <C-\><C-n>:Nuake<CR>
+tnoremap <C-w>h     <C-\><C-n><C-w>h
+tnoremap <C-w>j     <C-\><C-n><C-w>j
+tnoremap <C-w>k     <C-\><C-n><C-w>k
+tnoremap <C-w>l     <C-\><C-n><C-w>l
+
 nnoremap <C-k><C-u> :MundoToggle<CR>
 nnoremap <silent><C-k><C-e> :CocCommand explorer
-      \ --toggle
-      \ --focus
-      \ <CR>
-nnoremap <silent><C-k><C-d> :CocCommand explorer
       \ --toggle
       \ --focus
       \ <CR>
@@ -773,77 +764,44 @@ nnoremap J 5j
 vnoremap K 5k
 vnoremap J 5j
 
-" nuake
-let g:nuake_size = 0.3
-nnoremap <C-l><C-n> :Nuake<CR>
-tnoremap <C-l><C-n> <C-\><C-n>:Nuake<CR>
-tnoremap <C-w>h     <C-\><C-n><C-w>h
-tnoremap <C-w>j     <C-\><C-n><C-w>j
-tnoremap <C-w>k     <C-\><C-n><C-w>k
-tnoremap <C-w>l     <C-\><C-n><C-w>l
-
 " exit terminal mode
 tnoremap <leader><esc> <C-\><C-n>
-" jump to last opened file (map to ` as well, since new macbooks do not have physical escape key)
 nnoremap <leader>` :e#<CR>
 nnoremap <leader><esc> :e#<CR>
-" search exact match by default
 nnoremap / /\V
 nnoremap ? /
-" disable highlight on del
 nnoremap <Bs> :noh<CR>
-" nnoremap <C-]> g]
-" nnoremap g] <C-]>
 vnoremap * y<Esc>/<C-r>"<CR>``
-" replace selected word in file
 nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
 vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
 nnoremap <leader>R yiw:%s/\V<C-r>"/<C-r>"/g<Left><Left>
 vnoremap <leader>R y:%s/\V<C-r>"/<C-r>"/g<Left><Left>
-" disable entering Ex-mode with Q
 nnoremap Q <NOP>
 map q: <NOP>
-
-" vim command line mappings
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-b> <S-Left>
 cnoremap <C-f> <S-Right>
-" cnoremap <C-d> <Delete>
 cnoremap <C-g> <C-c>
 inoremap <C-a> <Home>
-" inoremap <C-e> <End>
 nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
-" vnoremap <C-a> <Home>
-" vnoremap <C-e> <End>
-
-" split and merge lines
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
-
-" begin and end of line
 map <leader>h ^
 map <leader>l $
-
-" treat multiline statement as multiple lines
 nnoremap j gj
 nnoremap k gk
-
-" windows navigation
-" for linux
 nnoremap <M-h>      <C-w>h
 nnoremap <M-j>      <C-w>j
 nnoremap <M-k>      <C-w>k
 nnoremap <M-l>      <C-w>l
-" for vimr
 nnoremap <D-h>      <C-w>h
 nnoremap <D-j>      <C-w>j
 nnoremap <D-k>      <C-w>k
 nnoremap <D-l>      <C-w>l
-" for iterm (requires 'send hex' config)
 nnoremap <C-space>h <C-w>h
 nnoremap <C-space>j <C-w>j
 nnoremap <C-space>k <C-w>k
@@ -857,24 +815,15 @@ if exists('$TMUX')
   nnoremap <silent><C-w>l :TmuxNavigateRight<CR>
 endif
 
-" always focus after cursor jump
-" nnoremap <C-o> <C-o>zz
-" nnoremap <C-i> <C-i>zz
-" nnoremap gi gi<ESC>zza
-" nnoremap gv gvzz
 nnoremap g; g;zz
 nnoremap `` ``zz
-
-" move block of code without losing selection
 vnoremap > >gv
 vnoremap < <gv
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+nnoremap <F13> <esc>:w<CR>
+nnoremap <F14> <esc>:wa<CR>
 
-nnoremap <F13> :w<CR>
-nnoremap <F14> :wa<CR>
-
-" sometimes I just hold shift for too long
 cabbrev W   w
 cabbrev Wa  wa
 cabbrev WA  wa
@@ -913,7 +862,7 @@ endfunction
 
 augroup filetype_fixes
   autocmd!
- "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
+  "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
   autocmd BufNewFile,BufReadPost *.rb set filetype=ruby
   autocmd BufNewFile,BufReadPost *.ts,*.tsx set syntax=typescriptreact
   autocmd BufNewFile,BufReadPost .eslintrc set filetype=json
@@ -921,20 +870,19 @@ augroup filetype_fixes
   autocmd TermEnter * setlocal scrolloff=0
   autocmd TermLeave * setlocal scrolloff=4
   autocmd BufEnter * if &buftype == 'help' | call FormatHelpBuffer() | endif
+  autocmd BufEnter * call AutoPairsInit()
 augrou END
 
 augroup filetype_scoped_settings
   autocmd!
   autocmd FileType json          setlocal conceallevel=2
   autocmd Filetype gitcommit     setlocal colorcolumn=51 spell
-  autocmd BufEnter * if &filetype == 'coc-explorer' | set conceallevel=0
+  " autocmd BufEnter * if &filetype == 'coc-explorer' | set conceallevel=0
   autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
   autocmd FileType scss set iskeyword+=-
   autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
   autocmd FileType javascript,typescript,javascript.jsx,typescript.tsx iabbrev <buffer> cosnt const
   autocmd FileType vue setlocal commentstring=\/\*\ %s\ \*\/
-  autocmd FileType ruby let b:coc_pairs = [["|", "|"]]
-  autocmd FileType eruby let b:coc_pairs = [["|", "|"], ["<%=", "%>"]]
 augroup END
 
 augroup callbacks
@@ -985,16 +933,6 @@ augroup END
 
 augroup color_scheme_tweaks
   autocmd!
-  autocmd InsertEnter * setlocal cursorcolumn
-  autocmd InsertLeave * setlocal nocursorcolumn
-  autocmd InsertEnter * highlight! CursorLine   guibg=#512121
-  autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
-  autocmd InsertEnter * highlight! CursorColumn guibg=#512121
-  autocmd InsertLeave * highlight! CursorLine   guibg=#2e3138
-  autocmd InsertLeave * highlight! CursorLineNR guibg=#2e3138
-  autocmd InsertLeave * highlight! CursorColumn guibg=#2e3138
-
-  highlight! CursorLineNR     guibg=#2e3138
   highlight! ColorColumn      guibg=#252a32
   highlight! FZFNormal        guibg=#222222
   highlight! CursorColumn     guibg=#512121
@@ -1005,26 +943,20 @@ augroup color_scheme_tweaks
   highlight! MatchTag         gui=reverse,bold
   highlight! MatchParen       guifg=NONE    guibg=NONE gui=reverse
   highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=reverse
-  highlight! link MatchWord MatchTag
+  highlight! link MatchWord   MatchTag
 
   highlight! CurrentWordTwins guibg=#363636 gui=bold
   highlight! CurrentWord      guibg=#222200 gui=bold
 
-  highlight! ALEWarning       guibg=#443333
-  highlight! ALEError         guibg=#512121
-
-  highlight! link CocErrorHighlight AleError
-  highlight! link CocWarningHighlight AleWarning
-  highlight! link CocInfoHighlight AleWarning
-  highlight! link CocHintHighlight AleWarning
-
-  highlight! CocErrorFloat   guifg=#bbbbbb
-  highlight! CocWarningFloat guifg=#bbbbbb
-  highlight! CocInfoFloat    guifg=#bbbbbb
-  highlight! CocHintFloat    guifg=#bbbbbb
+  highlight! Comment         gui=italic
+  highlight! Warning         guibg=#443333
+  highlight! Error           guibg=#512121
   highlight! Visual          guibg=#401437
 
-  highlight! Comment         gui=italic
+  highlight! link CocErrorHighlight Error
+  highlight! link CocWarningHighlight Warning
+  highlight! link CocInfoHighlight Warning
+  highlight! link CocHintHighlight Warning
 
   highlight! ctrlsfMatch guibg=#583c34 guifg=NONE gui=NONE
 
@@ -1078,18 +1010,6 @@ augroup color_scheme_tweaks
   autocmd FileType sass,vue highlight! link cssAttr Type
 augroup END
 
-let g:rainbow_active = 0
-let g:rainbow_conf = {
-      \  'guifgs': ['#d19a66', '#c678dd', '#61afef'],
-      \  'operators': '_,_',
-      \  'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-      \  'separately': {
-      \    'javascript': {
-      \      'parentheses_options': 'containedin=jsTryCatchBlock,jsIfElseBlock,jsBlock,jsFuncBlock'
-      \    }
-      \  }
-      \}
-
 " dont load all preprocessors for vue - performance improvement
 let g:vue_pre_processors = 'detect_on_enter'
 
@@ -1097,6 +1017,7 @@ command! Gco silent !git checkout -- %
 cabbrev gco Gco
 let g:instant_markdown_autoscroll = 1
 command! -count=1 HFiles call fzf#run({ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d'})
+command! CopyPath execute 'let @+ = expand("%")'
 
 " coc-bookmark
 nmap ]b <Plug>(coc-bookmark-next)
