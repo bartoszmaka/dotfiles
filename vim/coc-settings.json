@@ -25,15 +25,16 @@
       "initializationOptions": {}
     }
   },
+  "snippets.trace": "verbose",
   "snippets.loadFromExtensions": false,
   "snippets.ultisnips.enable": true,
-  "snippets.userSnippetsDirectory": "~/.repos/dotfiles/vim/cocSnippets",
+  "snippets.userSnippetsDirectory": "~/.repos/dotfiles/vim/ultiSnips",
+  "snippets.ultisnips.directories": [],
+  "snippets.textmateSnippetsRoots": ["~/Library/Application Support/Code/User/snippets"],
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.bracketEnterImprove": true,
 
-  // "diagnostic.displayByAle": true,
-  // "diagnostic-languageserver.mergeConfig": true,
   "diagnostic.enable": true,
   "diagnostic.warningSign": "🚨",
   "diagnostic.infoSign": "🤔",
@@ -41,35 +42,31 @@
   "diagnostic.hintSign": "🤔",
 
   // diagnostic-languageserver
-  "diagnostic-languageserver.filetypes": {
-    "eruby":          ["rubocop"],
-    "ruby":           ["rubocop"],
-    "javascript":     ["eslint"],
-    "vue":            ["eslint"],
-    "javascript.jsx": ["eslint"],
-    "typescript":     ["eslint"],
-    "typescript.tsx": ["eslint"],
-    "vim":            ["remove_trailing_lines", "trim_whitespace"],
-    "json":           ["jq"],
-    "python":         ["yapf"],
-    "css":            ["stylelint"],
-    "sass":           ["stylelint"],
-    "scss":           ["stylelint"],
-    "terraform":      ["terraform"]
-  },
-  "diagnostic-languageserver.formatFiletypes": {
-    "eruby":          "rubocop",
-    "ruby":           "rubocop",
-    "javascript":     "eslint",
-    "vue":            "eslint",
-    "javascript.jsx": "eslint",
-    "typescript":     "eslint",
-    "typescript.tsx": "eslint",
-    "scss":           "stylelint",
-    "css":            "stylelint"
-  },
-
   "diagnostic-languageserver.linters": {
+    "rubocop": {
+      "command": "bundle",
+      "sourceName": "rubocop",
+      "debounce": 100,
+      "args": [
+        "exec", 
+        "rubocop",
+        "--format",
+        "json",
+        "--force-exclusion",
+        "%filepath"
+      ],
+      "parseJson": {
+        "errorsRoot": "files[0].offenses",
+        "line": "location.line",
+        "column": "location.column",
+        "message": "[${cop_name}] ${message}",
+        "security": "severity"
+      },
+      "securities": {
+        "fatal": "error",
+        "warning": "warning"
+      }
+    },
     "eslint": {
       "command": "./node_modules/.bin/eslint",  // this will find local eslint first, if local eslint not found, it
       "rootPatterns": [
@@ -99,8 +96,17 @@
       }
     }
   },
-
   "diagnostic-languageserver.formatters": {
+    "rubocop": {
+      "command": "bundle exec rubocop",
+      "sourceName": "rubocop",
+      "debounce": 100,
+      "args": [
+        "--parallel",
+        "--fix",
+        "%filepath"
+      ]
+    },
     "stylelint": {
       "command": "./node_modules/.bin/stylelint",
       "rootPatterns": [
@@ -146,10 +152,38 @@
     }
   },
 
+  "diagnostic-languageserver.filetypes": {
+    "eruby":          "rubocop",
+    "ruby":           "rubocop",
+    "javascript":     "eslint",
+    "vue":            "eslint",
+    "javascript.jsx": "eslint",
+    "typescript":     "eslint",
+    "typescript.tsx": "eslint",
+    "vim":            ["remove_trailing_lines", "trim_whitespace"],
+    "json":           "jq",
+    "python":         "yapf",
+    "css":            "stylelint",
+    "sass":           "stylelint",
+    "scss":           "stylelint",
+    "terraform":      "terraform"
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "eruby":          "rubocop",
+    "ruby":           "rubocop",
+    "javascript":     "eslint",
+    "vue":            "eslint",
+    "javascript.jsx": "eslint",
+    "typescript":     "eslint",
+    "typescript.tsx": "eslint",
+    "scss":           "stylelint",
+    "css":            "stylelint"
+  },
+
   "solargraph.hover": true,
   "solargraph.formatting": true,
   "solargraph.references": true,
-  "solargraph.diagnostics": true,
+  "solargraph.diagnostics": false,
   "solargraph.definitions": true,
   "solargraph.completion": true,
   "solargraph.checkGemVersion": false,

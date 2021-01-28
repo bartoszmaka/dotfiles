@@ -1,5 +1,6 @@
 filetype off
 call plug#begin()
+Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'itchyny/lightline.vim'
@@ -8,34 +9,29 @@ Plug 'tpope/vim-commentary'                                        " change sele
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
 Plug 'rhysd/clever-f.vim'                                          " better f F
-
 if exists('$TMUX')
   Plug 'christoomey/vim-tmux-navigator'                            " move between vim windows and tmux panes with the same mapping
   Plug 'christoomey/vim-tmux-runner'                               " run tests in other tmux pane
   Plug 'roxma/vim-tmux-clipboard'                                  " sync with tmux clipboard
 endif
-
 Plug 'andymass/vim-matchup'                                        " jump to matching tag/parentheses; first suspect in case of performance issues
 Plug 'tpope/vim-fugitive'                                          " git related commands
-" Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
+Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
-Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
-
+" Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
+Plug 'mg979/vim-visual-multi'
 Plug 'simnalamburt/vim-mundo'                                      " purview undos
-
 Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-
 Plug 'szw/vim-maximizer'                                           " maximize window
 Plug 'simeji/winresizer'                                           " window resize helper
 Plug 'godlygeek/tabular',               { 'on': 'Tabularize' }     " text align with regexp
 Plug 'tpope/vim-abolish'                                           " toggle camelcase, snakecase, etc
 Plug 'osyo-manga/vim-anzu'                                         " display amount of search matches
 Plug 'tpope/vim-surround'                                          " vim verb for surrounding word
-
 Plug 'junegunn/fzf',                    { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'bartoszmaka/fzf-mru.vim'
@@ -43,18 +39,16 @@ Plug 'dyng/ctrlsf.vim'                                             " search proj
 Plug 'blueyed/vim-diminactive'
 Plug 'terryma/vim-expand-region'
 Plug 'markwu/vim-mrufiles'
-
 " syntax
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'tpope/vim-cucumber'
 Plug 'othree/jsdoc-syntax.vim'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
-
 Plug 'chrisbra/csv.vim'
 " Plug 'tpope/vim-rails'
-Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 Plug 'sheerun/vim-polyglot'
-
+Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
 " fancy tools
 Plug 'dominikduda/vim_yank_with_context'
 Plug 'liuchengxu/vista.vim'
@@ -66,17 +60,16 @@ Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = ""
-
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
+Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 Plug 'Asheq/close-buffers.vim'
 Plug 'dunckr/js_alternate.vim'
 Plug 'jparise/vim-graphql'
 Plug 'Lenovsky/nuake'
-Plug 'jiangmiao/auto-pairs'
 call plug#end()
-" **********************************
-" vim variables
-syntax on             " Enable syntax highlighting
+ " **********************************
+ " vim variables
+syntax enable             " Enable syntax highlighting
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
@@ -158,9 +151,10 @@ set list                                " show whitespaces
 set mouse=a
 set showcmd                             " show pressed keys
 set number                              " show line numbers
-" set cursorline
+set cursorline
 set cmdheight=1
 set inccommand=nosplit                  " Preview replace
+set noruler                             " show cursor position (handled by plugin)
 " **********************************
 
 " custom functions
@@ -223,22 +217,20 @@ let g:lightline = {}
 let g:lightline.colorscheme = 'onedark'
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'spell' ],
-      \             [ 'readonly', 'filename', 'modified' ],
-      \             [ 'coc_status' ] ],
+      \             [ 'readonly', 'custom_relativepath', 'modified' ]],
       \   'right': [ [ 'custom_line_info' ],
       \              [ 'coc_error', 'coc_warning', 'git_status' ] ]
       \ }
 let lightline.inactive = {
-      \   'left': [ [ 'readonly', 'filename', 'modified' ] ],
+      \   'left': [ [ 'readonly', 'custom_relativepath', 'modified' ] ],
       \   'right': [ [ 'custom_line_info' ] ]
       \ }
 let lightline.tabline = {
       \   'left': [ ['buffers'] ],
-      \   'right': []
+      \   'right': [ ['relativepath'] ]
       \ }
 let lightline.component_function = {
       \   'git_status': 'CocGitStatus',
-      \   'coc_status': 'GetCocStatus',
       \ }
 let lightline.component_expand = {
       \   'coc_error'        : 'LightlineCocErrors',
@@ -246,7 +238,8 @@ let lightline.component_expand = {
       \   'buffers'          : 'lightline#bufferline#buffers'
       \ }
 let g:lightline.component = {
-      \   'custom_line_info' : '%3l/%L:%3v'
+      \   'custom_line_info' : '%3l/%L:%3v',
+      \   'custom_relativepath' : '%<%f'
       \ }
 let g:lightline.component_type = {
       \   'coc_error'        : 'error',
@@ -284,7 +277,7 @@ function! LightlineCocWarnings() abort
 endfunction
 \ }
 
-autocmd User CocDiagnosticChange call lightline#update()
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 function! CocGitStatus() abort
   if len(get(b:, 'coc_git_status', '')) > 0
@@ -334,6 +327,7 @@ let g:coc_global_extensions = [
       \ 'coc-stylelint',
       \ 'coc-diagnostic',
       \ 'coc-snippets',
+      \ 'coc-ultisnips',
       \ 'coc-emmet',
       \ 'coc-css',
       \ 'coc-tailwindcss',
@@ -371,6 +365,7 @@ endfunction
 function! s:showDocumentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+    execute 'wincmd L'
   elseif (coc#rpc#ready())
     call CocActionAsync('doHover')
   else
@@ -422,7 +417,7 @@ inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>isWhitespaceOrNothingBeforeCursor() ? "\<TAB>" : '\<C-n>'
 
-nnoremap <leader>K :call <SID>showDocumentation()<CR>
+nnoremap <silent><leader>K :call <SID>showDocumentation()<CR>
 nnoremap <C-l> :call coc#util#float_jump()<CR>
 nnoremap <C-h> :call coc#util#float_hide()<CR>
 inoremap <C-l> <esc>:call coc#util#float_jump()<CR>a
@@ -503,7 +498,7 @@ let g:vim_current_word#enabled                          = 1
 let g:vim_current_word#highlight_only_in_focused_window = 1
 let g:vim_current_word#highlight_twins                  = 1
 let g:vim_current_word#highlight_current_word           = 1
-let g:vim_current_word#highlight_delay                  = 200
+let g:vim_current_word#highlight_delay                  = 400
 
 " easymotion
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
@@ -544,9 +539,14 @@ let g:closetag_shortcut = '>'
 " matchup
 let g:matchup_matchparen_offscreen          = {'method': 'popup'}
 let g:matchup_matchparen_deferred           = 1
-let g:matchup_matchparen_hi_surround_always = 1
-let g:matchup_matchparen_timeout            = 100
+let g:matchup_matchparen_hi_surround_always = 0
+let g:matchup_matchparen_timeout            = 350
+let g:matchup_matchparen_insert_timeout     = 150
 let g:matchup_matchparen_deferred           = 1
+let g:matchup_matchparen_deferred_show_delay = 120
+let g:matchup_matchparen_deferred_hide_delay = 500
+let g:matchup_matchparen_stopline = 40
+let g:matchup_motion_override_Npercent = 0
 
 " splitjoin
 let g:splitjoin_split_mapping     = ''
@@ -556,10 +556,10 @@ let g:splitjoin_ruby_hanging_args = 0
 nmap <C-m><C-d> :SplitjoinJoin<cr>
 nmap <C-m><C-s> :SplitjoinSplit<cr>
 
-" multiplecursors
-let g:multi_cursor_exit_from_insert_mode = 0
-nnoremap <C-m><C-n> :MultipleCursorsFind
-vnoremap <C-m><C-n> :MultipleCursorsFind
+" multiplecursors visual-multi
+" let g:multi_cursor_exit_from_insert_mode = 0
+let g:VM_maps = {}
+let g:VM_maps["Skip Region"]                 = '<C-x>'
 
 " ctrlsf
 let g:ctrlsf_context = '-B 2 -A 2'
@@ -625,10 +625,11 @@ function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, 'number', 'no')
 
+  let isNarrow = &columns < 150
   let height = float2nr(&lines * 0.4)
-  let width = float2nr(&columns * 0.66)
-  let row = float2nr(&lines * 0.33)
-  let col = float2nr((&columns - width) / 2)
+  let width = float2nr(&columns * (isNarrow ? 1 : 0.66))
+  let row = float2nr(&lines * 0.25)
+  let col = float2nr(isNarrow ? 0 : ((&columns - width) / 2))
 
   let opts = {
         \ 'relative': 'editor',
@@ -686,6 +687,7 @@ vmap V <Plug>(expand_region_shrink)
 
 " indentLine
 let g:indentLine_fileTypeExclude = ['markdown', 'help', 'coc-explorer']
+let g:indentLine_faster = 1
 
 " vim-repeat
 silent! call repeat#set("\<Plug>.", v:count)
@@ -738,8 +740,8 @@ nnoremap <C-p><C-s> :Vista finder coc<CR>
 vnoremap <C-m><C-t> :Tabularize /
 
 " nuake
-let g:nuake_size = 0.35
-let g:nuake_position = 'right'
+let g:nuake_size = 0.40
+let g:nuake_position = 'bottom'
 nnoremap <C-l><C-n> :Nuake<CR>
 tnoremap <C-l><C-n> <C-\><C-n>:Nuake<CR>
 tnoremap <C-w>h     <C-\><C-n><C-w>h
@@ -823,6 +825,8 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <F13> <esc>:w<CR>
 nnoremap <F14> <esc>:wa<CR>
+inoremap <F13> <esc>:w<CR>
+inoremap <F14> <esc>:wa<CR>
 
 cabbrev W   w
 cabbrev Wa  wa
@@ -870,7 +874,6 @@ augroup filetype_fixes
   autocmd TermEnter * setlocal scrolloff=0
   autocmd TermLeave * setlocal scrolloff=4
   autocmd BufEnter * if &buftype == 'help' | call FormatHelpBuffer() | endif
-  autocmd BufEnter * call AutoPairsInit()
 augrou END
 
 augroup filetype_scoped_settings
@@ -933,6 +936,10 @@ augroup END
 
 augroup color_scheme_tweaks
   autocmd!
+
+  highlight! CursorLine       guibg=#2e3138
+  highlight! CursorLineNR     guibg=#2e3138 gui=bold
+  highlight! CursorColumn     guibg=#2e3138
   highlight! ColorColumn      guibg=#252a32
   highlight! FZFNormal        guibg=#222222
   highlight! CursorColumn     guibg=#512121
@@ -964,6 +971,11 @@ augroup color_scheme_tweaks
   highlight! DiffText    guibg=#525200 guifg=NONE gui=NONE
   highlight! DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
   highlight! DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
+
+  highlight! link TSConstMacro Type
+  highlight! link TSKeyword Label
+  highlight! link TSLabel Identifier
+  " highlight! link TSConstant Type
 
   autocmd FileType typescript highlight! link typescriptStorageClass typescriptReserved
   autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
@@ -1005,10 +1017,12 @@ augroup color_scheme_tweaks
   autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
   autocmd FileType vue highlight! link htmlBold htmlTag
 
-  autocmd FileType sass,vue highlight! link cssProp Constant
-  autocmd FileType sass,vue highlight! link cssVendor Constant
-  autocmd FileType sass,vue highlight! link cssAttr Type
+  " autocmd FileType sass,vue highlight! link cssProp Constant
+  " autocmd FileType sass,vue highlight! link cssVendor Constant
+  " autocmd FileType sass,vue highlight! link cssAttr Type
 augroup END
+
+vnoremap <c-y> :YankWithContext<CR>
 
 " dont load all preprocessors for vue - performance improvement
 let g:vue_pre_processors = 'detect_on_enter'
@@ -1027,3 +1041,29 @@ nmap <Leader>ba <Plug>(coc-bookmark-annotate)
 nmap <Leader>bl :CocList bookmark<CR>
 nmap <Leader>bc :CocCommand bookmark.clearForCurrentFile<CR>
 nmap <Leader>bC :CocCommand bookmark.clearForAllFiles<CR>
+
+function! SumLastSelection()
+  try
+    let l:previous_a_value = @a
+    norm! gv"ay
+    let total = command(substitute(@a,'[^0-9. ]','+','g'))
+    echomsg "total: " . total
+  finally
+    let @a = l:previous_a_value
+  endtry
+endfun
+command! SumLastSelection call SumLastSelection()
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+  indent = {
+    enable = true
+  }
+}
+EOF
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
