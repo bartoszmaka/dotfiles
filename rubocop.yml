@@ -55,7 +55,7 @@ Metrics/BlockLength:
 # https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/LineLength
 # To fit Github review window
 # Migration names tend to be long
-Layout/LineLength:
+Metrics/LineLength:
   Max: 80
   Exclude:
     - 'db/migrate/**/*'
@@ -142,19 +142,9 @@ Style/SymbolArray:
   Exclude:
     - 'db/migrate/**/*'
 
-Lint/SuppressedException:
-  Exclude:
-    - 'spec/support/matchers/**/*'
-
-Layout/EmptyLinesAroundAttributeAccessor: 'true'
-
 # Layout/SpaceAroundMethodCallOperator: 'true'
 
-Lint/DeprecatedOpenSSLConstant: 'true'
-
 # Lint/MixedRegexpCaptureTypes: 'true'
-
-Lint/RaiseException: 'true'
 
 # Lint/StructNewOverride: 'true'
 
