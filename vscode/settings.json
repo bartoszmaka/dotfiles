@@ -1,5 +1,4 @@
 {
-  // Meta
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.settings.openDefaultKeybindings": false,
   "workbench.settings.openDefaultSettings": false,
@@ -8,11 +7,9 @@
   "search.showLineNumbers": true,
   "search.smartCase": true,
   "search.useGlobalIgnoreFiles": true,
-  "timeline.showView": true,
   "sync.autoUpload": true,
   "sync.quietSync": true,
-  "vim.experimentalOptimizations": true,
-  "editor.suggest.statusBar.visible": true,
+  "editor.formatOnSave": false,
   "workbench.commandPalette.preserveInput": true,
   "workbench.iconTheme": "material-icon-theme",
   "editor.mouseWheelZoom": false,
@@ -22,7 +19,6 @@
   "files.insertFinalNewline": true,
   "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
   "markdown-preview-enhanced.liveUpdate": false,
-  "extensions.showRecommendationsOnlyOnDemand": true,
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -46,20 +42,26 @@
     "**/.tags": true,
     "**/tags": true
   },
-
   // UI
+  "debug.internalConsoleOptions": "neverOpen",
   "editor.tabSize": 2,
   "editor.fontSize": 16,
-  "editor.rulers": [79, 99, 119],
+  "debug.console.fontSize": 14,
+  "terminal.integrated.fontSize": 14,
+  "editor.rulers": [
+    79,
+    99,
+    119
+  ],
   "editor.lineHeight": 20,
   "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": false,
-  "editor.renderWhitespace": "all",
+  "editor.renderWhitespace": "boundary",
   "editor.cursorStyle": "block",
   "editor.minimap.enabled": false,
   "editor.minimap.scale": 3,
-  "window.zoomLevel": 1,
+  "window.zoomLevel": 0,
   "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
@@ -67,17 +69,12 @@
   "workbench.activityBar.visible": false,
   "workbench.panel.defaultLocation": "bottom",
   "breadcrumbs.enabled": true,
-  "window.title": "${activeEditorMedium}${separator}${rootPath}${separator}${dirty}",
+  "window.title": "${dirty}${rootPath}${separator}${separator}${activeEditorMedium}${separator}${dirty}",
   "material-icon-theme.hidesExplorerArrows": true,
-
-  // Behavior
   "editor.cursorSurroundingLines": 4,
   "editor.multiCursorModifier": "alt",
   "editor.autoClosingQuotes": "always",
   "editor.autoSurround": "languageDefined",
-  
-
-  // Colorscheme
   "workbench.colorTheme": "Atom One Dark",
   "editor.tokenColorCustomizations": {
     "[Atom One Dark]": {
@@ -85,6 +82,8 @@
     }
   },
   "workbench.colorCustomizations": {
+    "editor.background": "#1d2128",
+    "editor.selectionBackground": "#401437",
     "editorCursor.foreground": "#ffffff",
     "editorCursor.background": "#000000",
     "editor.lineHighlightBackground": "#343D46",
@@ -92,32 +91,41 @@
     "statusBar.noFolderBackground": "#005f5f",
     "statusBar.debuggingBackground": "#005f5f"
   },
-  
+  "gitlens.codeLens.enabled": true,
+  "gitlens.codeLens.authors.enabled": true,
+  "gitlens.codeLens.recentChange.enabled": true,
+  "gitlens.codeLens.includeSingleLineSymbols": false,
   // Syntax highlighting
   "files.associations": {
     "*rc": "shellscript"
   },
-
   // Autocomplete
-  "editor.snippetSuggestions": "inline",
+  "editor.snippetSuggestions": "top",
   "editor.acceptSuggestionOnEnter": "on",
-  "emmet.showAbbreviationSuggestions": false,
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "razor": "html",
+    "plaintext": "pug"
+  },
   "AllAutocomplete.minWordLength": 2,
-  "AllAutocomplete.dontContributeToSelf": true,
+  "AllAutocomplete.dontContributeToSelf": false,
   "AllAutocomplete.cycleOpenDocumentsOnLaunch": true,
+  "AllAutocomplete.showCurrentDocument": true,
   "editor.suggest.localityBonus": true,
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": true,
-
   "editor.quickSuggestions": {
     "other": true,
     "comments": true,
     "strings": true
   },
-
   // Language integration
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -133,8 +141,10 @@
     }
   },
   "ruby.format": "rubocop",
+  "solargraph.checkGemVersion": false,
   "eslint.format.enable": true,
-
+  // "vim.vimrc.enable": true,
+  // "vim.vimrc.path": "~/.config/nvim/init.vim",
   "vim.enableNeovim": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
   "vim.disableExtension": false,
@@ -145,8 +155,6 @@
   "vim.incsearch": true,
   "vim.highlightedyank.enable": true,
   "vim.useSystemClipboard": true,
-  "vim.easymotionMarkerFontFamily": "'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-  "vim.easymotionMarkerFontSize": "16",
   "vim.easymotionMarkerBackgroundColor": "#5f0000",
   "vim.history": 1000,
   "vim.statusBarColorControl": true,
@@ -155,7 +163,6 @@
     "<C-e>": false,
   },
   "vim.debug.loggingLevelForConsole": "debug",
-
   // Macros
   "multiCommand.commands": [
     {
@@ -196,265 +203,623 @@
         "extension.vim_escape",
         "workbench.action.focusLeftGroup"
       ]
+    },
+    {
+      "command": "multiCommand.runTestUnderCursor",
+      "sequence": [
+        "test-explorer.cancel",
+        "test-explorer.run-test-at-cursor",
+      ]
+    },
+    {
+      "command": "multiCommand.runTestInCurrentFile",
+      "sequence": [
+        "test-explorer.cancel",
+        "test-explorer.run-file",
+      ]
     }
   ],
-
   // Vim mappings
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "%"],
-      "commands": ["editor.emmet.action.matchTag"]
+      "before": [
+        "<leader>",
+        "%"
+      ],
+      "commands": [
+        "editor.emmet.action.matchTag"
+      ]
     },
     {
-      "before": ["v"],
-      "commands": ["editor.action.smartSelect.expand"],
+      "before": [
+        "v"
+      ],
+      "commands": [
+        "editor.action.smartSelect.expand"
+      ],
     },
     {
-      "before": ["V"],
-      "commands": ["editor.action.smartSelect.shrink"],
+      "before": [
+        "V"
+      ],
+      "commands": [
+        "editor.action.smartSelect.shrink"
+      ],
     },
     {
-      "before": ["v", "<leader>", "h"],
-      "after": ["^"]
+      "before": [
+        "v",
+        "<leader>",
+        "h"
+      ],
+      "after": [
+        "^"
+      ]
     },
     {
-      "before": ["v", "<leader>", "l"],
-      "after": ["$"]
+      "before": [
+        "v",
+        "<leader>",
+        "l"
+      ],
+      "after": [
+        "$"
+      ]
     },
     {
-      "before": ["<leader>", "h"],
-      "after": ["^"]
+      "before": [
+        "<leader>",
+        "h"
+      ],
+      "after": [
+        "^"
+      ]
     },
     {
-      "before": ["<leader>", "l"],
-      "after": ["$"]
+      "before": [
+        "<leader>",
+        "l"
+      ],
+      "after": [
+        "$"
+      ]
     },
     {
-      "before": ["<tab>"],
-      "after": [">", "g", "v"]
+      "before": [
+        "<tab>"
+      ],
+      "after": [
+        ">",
+        "g",
+        "v"
+      ]
     },
     {
-      "before": ["<leader>", "y"],
-      "commands": ["editor.action.clipboardCopyAction"]
+      "before": [
+        "<leader>",
+        "y"
+      ],
+      "commands": [
+        "editor.action.clipboardCopyAction"
+      ]
     },
     {
-      "before": ["<leader>", "p"],
-      "commands": ["editor.action.clipboardPasteAction"]
+      "before": [
+        "<leader>",
+        "p"
+      ],
+      "commands": [
+        "editor.action.clipboardPasteAction"
+      ]
     },
     {
-      "before": ["K"],
-      "after": ["5", "k"]
+      "before": [
+        "K"
+      ],
+      "after": [
+        "5",
+        "k"
+      ]
     },
     {
-      "before": ["J"],
-      "after": ["5", "j"]
+      "before": [
+        "J"
+      ],
+      "after": [
+        "5",
+        "j"
+      ]
     },
     {
-      "before": ["leader", "c", "-"],
-      "commands": ["extension.changeCase.kebab"]
+      "before": [
+        "leader",
+        "c",
+        "-"
+      ],
+      "commands": [
+        "extension.changeCase.kebab"
+      ]
     },
     {
-      "before": ["leader", "c", "."],
-      "commands": ["extension.changeCase.dot"]
+      "before": [
+        "leader",
+        "c",
+        "."
+      ],
+      "commands": [
+        "extension.changeCase.dot"
+      ]
     },
     {
-      "before": ["leader", "c", "u"],
-      "commands": ["extension.changeCase.constant"]
+      "before": [
+        "leader",
+        "c",
+        "u"
+      ],
+      "commands": [
+        "extension.changeCase.constant"
+      ]
     },
     {
-      "before": ["leader", "c", "s"],
-      "commands": ["extension.changeCase.snake"]
+      "before": [
+        "leader",
+        "c",
+        "s"
+      ],
+      "commands": [
+        "extension.changeCase.snake"
+      ]
     },
     {
-      "before": ["leader", "c", "_"],
-      "commands": ["extension.changeCase.snake"]
+      "before": [
+        "leader",
+        "c",
+        "_"
+      ],
+      "commands": [
+        "extension.changeCase.snake"
+      ]
     },
     {
-      "before": ["leader", "c", "c"],
-      "commands": ["extension.changeCase.camel"]
+      "before": [
+        "leader",
+        "c",
+        "c"
+      ],
+      "commands": [
+        "extension.changeCase.camel"
+      ]
     },
+    {
+      "before": [
+        "n"
+      ],
+      "commands": [
+        "editor.action.nextMatchFindAction",
+        "extension.vim_escape",
+      ]
+    },
+    {
+      "before": [
+        "N"
+      ],
+      "commands": [
+        "editor.action.previousMatchFindAction",
+        "extension.vim_escape",
+      ]
+    },
+    {
+      "before": [
+        "<BS>"
+      ],
+      "commands": [
+        ":nohl",
+        "closeFindWidget"
+      ]
+    }
   ],
-
   "vim.insertModeKeyBindingsNonRecursive": [
     {
-      "before": ["j", "k"],
-      "after": ["<esc>"]
+      "before": [
+        "j",
+        "k"
+      ],
+      "after": [
+        "<esc>"
+      ]
     },
     // {
     //   "before": ["<C-e>"],
     //   "commands": ["editor.emmet.action.expandAbbreviation"]
     // }
   ],
-
   "vim.normalModeKeyBindings": [
     {
-      "before": [";", "w"],
-      "after": ["leader", "leader", "w"]
+      "before": [ // set easymotion prefix to ;
+        ";",
+      ],
+      "after": [
+        "leader",
+        "leader",
+      ]
     }
   ],
-  "vim.normalModeKeyBindingsNonRecursive":[
+  "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["leader", "c", "-"],
-      "commands": ["extension.changeCase.kebab"]
+      "before": [
+        "leader",
+        "c",
+        "-"
+      ],
+      "commands": [
+        "extension.changeCase.kebab"
+      ]
     },
     {
-      "before": ["leader", "c", "."],
-      "commands": ["extension.changeCase.dot"]
+      "before": [
+        "leader",
+        "c",
+        "."
+      ],
+      "commands": [
+        "extension.changeCase.dot"
+      ]
     },
     {
-      "before": ["leader", "c", "u"],
-      "commands": ["extension.changeCase.constant"]
+      "before": [
+        "leader",
+        "c",
+        "u"
+      ],
+      "commands": [
+        "extension.changeCase.constant"
+      ]
     },
     {
-      "before": ["leader", "c", "s"],
-      "commands": ["extension.changeCase.snake"]
+      "before": [
+        "leader",
+        "c",
+        "s"
+      ],
+      "commands": [
+        "extension.changeCase.snake"
+      ]
     },
     {
-      "before": ["leader", "c", "_"],
-      "commands": ["extension.changeCase.snake"]
+      "before": [
+        "leader",
+        "c",
+        "_"
+      ],
+      "commands": [
+        "extension.changeCase.snake"
+      ]
     },
     {
-      "before": ["leader", "c", "c"],
-      "commands": ["extension.changeCase.camel"]
+      "before": [
+        "leader",
+        "c",
+        "c"
+      ],
+      "commands": [
+        "extension.changeCase.camel"
+      ]
     },
     {
-      "before": ["leader", "w"],
-      "after": ["leader", "leader", "w"],
+      "before": [
+        "leader",
+        "w"
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "w"
+      ],
     },
     {
-      "before": ["leader", "b"],
-      "after": ["leader", "leader", "b"],
+      "before": [
+        "leader",
+        "b"
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "b"
+      ],
     },
     {
-      "before": ["leader", "e"],
-      "after": ["leader", "leader", "b"],
+      "before": [
+        "leader",
+        "e"
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "b"
+      ],
     },
     {
-        "before": ["u"],
-        "commands": ["undo"]
+      "before": [
+        "u"
+      ],
+      "commands": [
+        "undo"
+      ]
     },
     {
-        "before": ["<C-r>"],
-        "commands": ["redo"]
+      "before": [
+        "<C-r>"
+      ],
+      "commands": [
+        "redo"
+      ]
     },
     {
-      "before": ["leader", "r"],
+      "before": [
+        "leader",
+        "r"
+      ],
       "commands": [
         "actions.find",
         "editor.action.startFindReplaceAction"
       ]
     },
     {
-      "before": ["v"],
-      "after": ["v"],
+      "before": [
+        "v"
+      ],
+      "after": [
+        "v"
+      ],
     },
     {
-      "before": ["*"],
-      "commands": ["actions.find", "workbench.action.focusActiveEditorGroup"]
+      "before": [
+        "*"
+      ],
+      "commands": [
+        "actions.find",
+        "workbench.action.focusActiveEditorGroup"
+      ]
     },
     {
-      "before": ["leader", "f"],
-      "commands": ["actions.find"]
+      "before": [
+        "leader",
+        "F"
+      ],
+      "commands": [
+        "actions.find"
+      ]
     },
     {
-      "before": ["/"],
-      "commands": ["actions.find"]
+      "before": [
+        "leader",
+        "f"
+      ],
+      "commands": [
+        "actions.find"
+      ]
     },
     {
-      "before": ["n"],
-      "commands": ["editor.action.nextMatchFindAction"]
+      "before": [
+        "/"
+      ],
+      "commands": [
+        "actions.find"
+      ]
     },
     {
-      "before": ["N"],
-      "commands": ["editor.action.previousMatchFindAction"]
+      "before": [
+        "n"
+      ],
+      "commands": [
+        "editor.action.nextMatchFindAction",
+        "extension.vim_escape",
+      ]
     },
     {
-      "before": ["<BS>"],
+      "before": [
+        "N"
+      ],
+      "commands": [
+        "editor.action.previousMatchFindAction",
+        "extension.vim_escape",
+      ]
+    },
+    {
+      "before": [
+        "<BS>"
+      ],
       "commands": [
         ":nohl",
         "closeFindWidget"
       ]
     },
     {
-      "before": ["g", "r"],
-      "commands": ["editor.action.referenceSearch.trigger"]
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "editor.action.referenceSearch.trigger"
+      ]
     },
     {
-      "before": ["K"],
-      "after": ["5", "k"]
+      "before": [
+        "K"
+      ],
+      "after": [
+        "5",
+        "k"
+      ]
     },
     {
-      "before": ["J"],
-      "after": ["5", "j"]
+      "before": [
+        "J"
+      ],
+      "after": [
+        "5",
+        "j"
+      ]
     },
     {
-      "before": ["leader", "%"],
-      "commands": ["editor.emmet.action.matchTag"]
+      "before": [
+        "leader",
+        "%"
+      ],
+      "commands": [
+        "editor.emmet.action.matchTag"
+      ]
     },
     {
-      "before": ["[", "e" ],
-      "commands": ["editor.action.marker.prev"],
+      "before": [
+        "[",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.prev"
+      ],
     },
     {
-      "before": ["]", "e"],
-      "commands": ["editor.action.marker.next"],
+      "before": [
+        "]",
+        "e"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ],
     },
     {
-      "before": ["[", "g"],
+      "before": [
+        "[",
+        "g"
+      ],
       "commands": [
         "workbench.action.compareEditor.previousChange",
         "workbench.action.editor.previousChange"
       ],
     },
     {
-      "before": ["]", "g" ],
+      "before": [
+        "]",
+        "g"
+      ],
       "commands": [
         "workbench.action.compareEditor.nextChange",
         "workbench.action.editor.nextChange"
       ],
     },
     {
-      "before": [":"],
-      "commands": ["vim.showQuickpickCmdLine"]
+      "before": [
+        ":"
+      ],
+      "commands": [
+        "vim.showQuickpickCmdLine"
+      ]
     },
     {
-      "before": ["leader", "K"],
-      "commands": ["editor.action.showHover"],
+      "before": [
+        "leader",
+        "K"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ],
     },
     {
-      "before": ["<C-w>", "m"],
-      "commands": ["workbench.action.maximizeEditor"]
+      "before": [
+        "<C-w>",
+        "m"
+      ],
+      "commands": [
+        "workbench.action.maximizeEditor"
+      ]
     },
     {
-      "before": ["leader", "h"],
-      "after": ["^"]
+      "before": [
+        "leader",
+        "h"
+      ],
+      "after": [
+        "^"
+      ]
     },
     {
-      "before": ["leader", "l"],
-      "after": ["$"]
+      "before": [
+        "leader",
+        "l"
+      ],
+      "after": [
+        "$"
+      ]
     },
     {
-      "before": ["leader", "j"],
-      "after": ["i", "<CR>", "<Esc>"]
+      "before": [
+        "leader",
+        "j"
+      ],
+      "after": [
+        "i",
+        "<CR>",
+        "<Esc>"
+      ]
     },
     {
-      "before": ["leader", "k"],
-      "after": ["k", "J"]
+      "before": [
+        "leader",
+        "k"
+      ],
+      "after": [
+        "k",
+        "J"
+      ]
     },
     {
-      "before": ["leader", "a"],
-      "commands": [{ "command": "alternate.createAlternateFile" }]
+      "before": [
+        "leader",
+        "a"
+      ],
+      "commands": [
+        {
+          "command": "alternate.createAlternateFile"
+        }
+      ]
     },
     {
-      "before": ["leader", "s"],
-      "commands": [{ "command": "alternate.createAlternateFileInSplit" }]
-    }
+      "before": [
+        "leader",
+        "s"
+      ],
+      "commands": [
+        {
+          "command": "alternate.createAlternateFileInSplit"
+        }
+      ]
+    },
     // {
     //   "before": ["<leader>", "<esc>"],
     //   "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]
     // },
+    {
+      "before": [
+        "leader",
+        "t",
+        "t"
+      ],
+      "commands": [
+        "multiCommand.runTestUnderCursor"
+      ]
+    },
+    {
+      "before": [
+        "leader",
+        "t",
+        "f"
+      ],
+      "commands": [
+        "multiCommand.runTestInCurrentFile"
+      ]
+    },
   ],
-
   // spotify
   "spotify.showLyricsButton": false,
   "spotify.showNextButton": true,
@@ -468,5 +833,17 @@
   "spotify.showVolumeUpButton": false,
   "spotify.showVolumeDownButton": false,
   "spotify.showToggleRepeatingButton": false,
-  "spotify.showToggleShufflingButton": false
+  "spotify.showToggleShufflingButton": false,
+  "projectManager.git.baseFolders": [
+    "~/projects"
+  ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[ruby]": {
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  },
+  // "[ruby]": {
+  //   "editor.defaultFormatter": "rebornix.ruby"
+  // },
 }

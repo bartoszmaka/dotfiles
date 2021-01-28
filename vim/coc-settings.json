@@ -30,7 +30,7 @@
   "snippets.ultisnips.enable": true,
   "snippets.userSnippetsDirectory": "~/.repos/dotfiles/vim/ultiSnips",
   "snippets.ultisnips.directories": [],
-  "snippets.textmateSnippetsRoots": ["~/Library/Application Support/Code/User/snippets"],
+  "snippets.textmateSnippetsRoots": ["~/.repos/dotfiles/vscode/snippets"],
 
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.bracketEnterImprove": true,

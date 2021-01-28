@@ -25,5 +25,126 @@
 		"body": [
 			"binding.remote_pry"
 		]
-	}
+	},
+	"spec describe": {
+		"description": "describe",
+		"prefix": "desc",
+		"body": [
+			"describe '$1' do",
+			"  $2",
+			"end"
+		]
+	},
+	"spec scenario": {
+		"description": "scenario",
+		"prefix": "sce",
+		"body": [
+			"scenario '$1' do",
+			"  $2",
+			"end"
+		]
+	},
+	"spec context": {
+		"description": "context",
+		"prefix": "cont",
+		"body": [
+			"context '$1' do",
+			"  $2",
+			"end"
+		]
+	},
+	"spec it": {
+		"description": "it",
+		"prefix": "it",
+		"body": [
+			"it '$1' do",
+			"  $2",
+			"end"
+		]
+	},
+	"attr_reader": {
+		"description": "attr_reader",
+		"prefix": "aa",
+		"body": ["attr_reader"]
+	},
+	"attr_writer": {
+		"description": "attr_writer",
+		"prefix": "aa",
+		"body": ["attr_writer"]
+	},
+	"attr_accessor": {
+		"description": "attr_accessor",
+		"prefix": "aa",
+		"body": ["attr_accessor"]
+	},
+	"factory scaffold": {
+		"description": "factory scaffold",
+		"prefix": "fact",
+		"body": [
+			"FactoryBot.define do",
+			"  factory :$1 do",
+			"    $2",
+			"  end",
+			"end",
+		]
+	},
+	"spec scaffold": {
+		"description": "spec scaffold",
+		"prefix": "spec",
+		"body": [
+			"require 'rails_helper'",
+			"",
+			"Rspec.describe $1 do",
+			"  $2",
+			"end",
+		]
+	},
+	"if": {
+		"description": "if",
+		"prefix": "if",
+		"body": [
+			"if $1",
+			"  $2",
+			"end",
+		]
+	},
+	"if-else": {
+		"description": "if",
+		"prefix": "if",
+		"body": [
+			"if $1",
+			"  $2",
+			"elsif $3",
+			"  $4",
+			"end",
+		]
+	},
+	"switch": {
+		"description": "case-when",
+		"prefix": "switch",
+		"body": [
+			"case $1",
+			"when $2",
+			"else $3",
+			"  $4",
+			"end",
+		]
+	},
+	"case": {
+		"description": "case-when",
+		"prefix": "case",
+		"body": [
+			"case $1",
+			"when $2",
+			"else $3",
+			"  $4",
+			"end",
+		]
+	},
+  "useState": {
+    "prefix": "useState",
+    "body": [
+      "const [${1:state}, set${1/(.*)/${1:/capitalize}/}] = useState(${2:initialState})"
+    ]
+  },
 }
