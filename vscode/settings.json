@@ -61,7 +61,7 @@
   "editor.cursorStyle": "block",
   "editor.minimap.enabled": false,
   "editor.minimap.scale": 3,
-  "window.zoomLevel": 0,
+  "window.zoomLevel": -1,
   "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
@@ -395,6 +395,7 @@
         "n"
       ],
       "commands": [
+        "extension.vim_escape",
         "editor.action.nextMatchFindAction",
         "extension.vim_escape",
       ]
@@ -404,6 +405,7 @@
         "N"
       ],
       "commands": [
+        "extension.vim_escape",
         "editor.action.previousMatchFindAction",
         "extension.vim_escape",
       ]
@@ -612,6 +614,7 @@
         "n"
       ],
       "commands": [
+        "extension.vim_escape",
         "editor.action.nextMatchFindAction",
         "extension.vim_escape",
       ]
@@ -621,6 +624,7 @@
         "N"
       ],
       "commands": [
+        "extension.vim_escape",
         "editor.action.previousMatchFindAction",
         "extension.vim_escape",
       ]
@@ -843,6 +847,7 @@
   "[ruby]": {
     "editor.defaultFormatter": "misogi.ruby-rubocop"
   },
+  "editor.accessibilitySupport": "off",
   // "[ruby]": {
   //   "editor.defaultFormatter": "rebornix.ruby"
   // },
