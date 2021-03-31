@@ -1,7 +1,6 @@
 filetype off
 call plug#begin()
 Plug 'jiangmiao/auto-pairs'
-Plug 'Yggdroot/indentLine'                                         " display indent guides
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -18,10 +17,8 @@ Plug 'andymass/vim-matchup'                                        " jump to mat
 Plug 'tpope/vim-fugitive'                                          " git related commands
 Plug 'dominikduda/vim_current_word'                                " highlight word under cursor
 Plug 'AndrewRadev/splitjoin.vim'                                   " split to multiple lines
-" Plug 'terryma/vim-multiple-cursors'                                " multiple cursors
 Plug 'mg979/vim-visual-multi'
 Plug 'simnalamburt/vim-mundo'                                      " purview undos
-Plug 'jiangmiao/auto-pairs'                                        " auto insert parentheses, quotes etc.
 Plug 'tpope/vim-endwise'                                           " auto insert 'end', 'endif' etc.
 Plug 'alvan/vim-closetag'                                          " autoclose html tag
 Plug 'rhysd/conflict-marker.vim'
@@ -39,37 +36,39 @@ Plug 'dyng/ctrlsf.vim'                                             " search proj
 Plug 'blueyed/vim-diminactive'
 Plug 'terryma/vim-expand-region'
 Plug 'markwu/vim-mrufiles'
-" syntax
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'tpope/vim-cucumber'
-Plug 'othree/jsdoc-syntax.vim'
-Plug 'joker1007/vim-ruby-heredoc-syntax'
-Plug 'chrisbra/csv.vim'
-" Plug 'tpope/vim-rails'
-Plug 'sheerun/vim-polyglot'
+Plug 'APZelos/blamer.nvim'
+
+" if(has('nvim-0.5'))
+  " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+  " Plug 'p00f/nvim-ts-rainbow'
+" else
+  Plug 'othree/jsdoc-syntax.vim'
+  Plug 'joker1007/vim-ruby-heredoc-syntax'
+  Plug 'tpope/vim-cucumber'
+  Plug 'chrisbra/csv.vim'
+  Plug 'tpope/vim-rails'
+  Plug 'HerringtonDarkholme/yats.vim'
+  Plug 'jparise/vim-graphql'
+  Plug 'sheerun/vim-polyglot'
+" endif
+Plug 'junegunn/limelight.vim'
 Plug 'bartoszmaka/vim-rails',           { 'branch': 'dev' }
-" fancy tools
 Plug 'dominikduda/vim_yank_with_context'
-Plug 'liuchengxu/vista.vim'
 Plug 'janko/vim-test'
-Plug 'tpope/vim-bundler',               { 'for': ['ruby', 'eruby'] }
-Plug 'tpope/vim-rbenv'
 Plug 'tpope/vim-projectionist'
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = ""
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
-Plug 'dsznajder/vscode-es7-javascript-react-snippets', { 'do': 'yarn install --frozen-lockfile && yarn compile' }
 Plug 'Asheq/close-buffers.vim'
 Plug 'dunckr/js_alternate.vim'
-Plug 'jparise/vim-graphql'
 Plug 'Lenovsky/nuake'
+Plug 'preservim/vimux'
 call plug#end()
  " **********************************
  " vim variables
-syntax enable             " Enable syntax highlighting
+syntax enable         " Enable syntax highlighting
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
@@ -101,7 +100,7 @@ set clipboard+=unnamedplus              " use system clipboard
 language en_US.UTF-8
 set langmenu=en_US.UTF-8
 set fileencoding=utf-8
-set encoding=utf8
+set encoding=utf-8
 set laststatus=2
 set showtabline=2
 
@@ -112,7 +111,8 @@ set pumheight=15
 set spellsuggest=best,8
 set signcolumn=yes
 set updatetime=300
-set shortmess+=crn
+set shortmess+=rn
+set shortmess-=F
 
 " indent
 set smartindent
@@ -125,6 +125,7 @@ set splitbelow                          " place new horizontal split under curre
 set diffopt+=vertical,iwhiteall
 
 " tabulator
+set tabstop=2
 set softtabstop=2
 set shiftwidth=2                        " default tab width
 set expandtab                           " Spaces instead of tabs
@@ -155,6 +156,10 @@ set cursorline
 set cmdheight=1
 set inccommand=nosplit                  " Preview replace
 set noruler                             " show cursor position (handled by plugin)
+
+if(has('gui_running'))
+ set cursorcolumn
+endif
 " **********************************
 
 " custom functions
@@ -275,7 +280,6 @@ function! LightlineCocWarnings() abort
       return ''
     endif
 endfunction
-\ }
 
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
@@ -290,6 +294,7 @@ endfunction
 function! GetCocStatus() abort
   return get(b:, 'coc_current_function', coc#status())
 endfunction
+
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
 nmap <Leader>3 <Plug>lightline#bufferline#go(3)
@@ -319,6 +324,7 @@ nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 
 " coc
 let g:coc_global_extensions = [
+      \ 'coc-browser',
       \ 'coc-tsserver',
       \ 'coc-vetur',
       \ 'coc-tag',
@@ -327,9 +333,9 @@ let g:coc_global_extensions = [
       \ 'coc-stylelint',
       \ 'coc-diagnostic',
       \ 'coc-snippets',
-      \ 'coc-ultisnips',
       \ 'coc-emmet',
       \ 'coc-css',
+      \ 'coc-omni',
       \ 'coc-tailwindcss',
       \ 'coc-pyls',
       \ 'coc-elixir',
@@ -344,17 +350,21 @@ let g:coc_global_extensions = [
       \ 'coc-git',
       \ 'coc-marketplace',
       \ 'coc-explorer',
-      \ 'coc-bookmark',
       \ ]
 
 " autocomplete
 function! UnifiedJumpToDefinition()
-  if CocAction('jumpDefinition') == v:true
-    echomsg 'coc'
-  else
-    echomsg 'find'
-    execute "normal gf"
+  if CocAction('jumpDefinition')
+    return v:true
   endif
+
+  let ret = execute("silent! normal \<C-]>")
+  if ret =~ "Error"
+    call searchdecl(expand('<cword>'))
+  endif
+
+  " echomsg 'find'
+  " execute "normal gf"
 endfunction
 
 function! s:isWhitespaceOrNothingBeforeCursor() abort
@@ -427,8 +437,8 @@ nmap gd :call UnifiedJumpToDefinition()<CR>
 nmap gr <Plug>(coc-references)
 
 nmap <C-l><C-r> <Plug>(coc-references)
-vmap <C-l><C-f> <Plug>(coc-format-selected)
-nmap <C-l><C-f> <Plug>(coc-format-selected)
+vmap <C-m><C-f> <Plug>(coc-format-selected)
+nmap <C-m><C-f> <Plug>(coc-format-selected)
 xmap <C-l><C-a> <Plug>(coc-codeaction-selected)
 vmap <C-l><C-a> <Plug>(coc-codeaction-selected)
 nmap <C-l><C-a> <Plug>(coc-codeaction)
@@ -456,20 +466,23 @@ omap ac <Plug>(coc-classobj-a)
 
 nnoremap <C-m><C-l> :CocList diagnostics<CR>
 nnoremap <leader>ml :CocList diagnostics<CR>
-nnoremap <C-m><C-f> :call <SID>HandleBufferFix()<CR>
-nnoremap <leader>mf :call <SID>HandleBufferFix()<CR>
+" nnoremap <C-m><C-f> :call <SID>HandleBufferFix()<CR>
+" nnoremap <leader>mf :call <SID>HandleBufferFix()<CR>
+nnoremap <C-m><C-f> :call CocAction('format')<CR>
+nnoremap <leader>mf :call CocAction('format')<CR>
 nnoremap [e :call CocAction('diagnosticPrevious')<CR>
 nnoremap ]e :call CocAction('diagnosticNext')<CR>
 
 " vim test
-let test#strategy = "neovim"
-let test#neovim#term_position = "vertical"
+let test#strategy = "vimux"
 let test#ruby#cucumber#executable = 'bundle exec cucumber'
 let test#ruby#rspec#executable = 'bundle exec rspec'
 nmap TT :TestNearest<CR>
 nmap <leader>tt :TestNearest<CR>
 nmap TF :TestFile<CR>
 nmap <leader>tf :TestFile<CR>
+" vimux
+let g:VimuxHeight = "40"
 
 " coc-git
 nmap [g <Plug>(coc-git-prevchunk)
@@ -559,7 +572,10 @@ nmap <C-m><C-s> :SplitjoinSplit<cr>
 " multiplecursors visual-multi
 " let g:multi_cursor_exit_from_insert_mode = 0
 let g:VM_maps = {}
-let g:VM_maps["Skip Region"]                 = '<C-x>'
+let g:VM_maps["Skip Region"] = '<C-x>'
+let g:VM_maps["Select Cursor Down"] = '∆' " Option+J
+let g:VM_maps["Select Cursor Up"]   = 'Ż' " Option+K
+let g:VM_theme = 'purplegray'
 
 " ctrlsf
 let g:ctrlsf_context = '-B 2 -A 2'
@@ -692,50 +708,6 @@ let g:indentLine_faster = 1
 " vim-repeat
 silent! call repeat#set("\<Plug>.", v:count)
 
-" vista
-let g:vista_echo_cursor_strategy = 'both'
-let g:vista#renderer#enable_icon = 1
-let g:vista#renderer#icons = {
-      \    'func': "λ",
-      \    'function': "λ",
-      \    'functions': "λ",
-      \    'var': "",
-      \    'variable': "",
-      \    'variables': "",
-      \    'const': "",
-      \    'constant': "",
-      \    'method': "λ",
-      \    'package': "\ue612",
-      \    'packages': "\ue612",
-      \    'enum': "",
-      \    'enumerator': "",
-      \    'module': "\uf136",
-      \    'modules': "\uf136",
-      \    'type': "\uf7fd",
-      \    'typedef': "\uf7fd",
-      \    'types': "\uf7fd",
-      \    'field': "\uf30b",
-      \    'fields': "\uf30b",
-      \    'macro': "\uf8a3",
-      \    'macros': "\uf8a3",
-      \    'map': "\ufb44",
-      \    'class': "",
-      \    'augroup': "\ufb44",
-      \    'struct': "\uf318",
-      \    'union': "\ufacd",
-      \    'member': "\uf02b",
-      \    'target': "\uf893",
-      \    'property': "",
-      \    'interface': "",
-      \    'namespace': "::",
-      \    'subroutine': "\uf9af",
-      \    'implementation': "\uf776",
-      \    'typeParameter': "\uf278",
-      \    'default': "\uf29c"
-      \ }
-nnoremap <C-k><C-v> :Vista!!<CR>
-nnoremap <C-p><C-s> :Vista finder coc<CR>
-
 " tabular
 vnoremap <C-m><C-t> :Tabularize /
 
@@ -767,9 +739,10 @@ vnoremap K 5k
 vnoremap J 5j
 
 " exit terminal mode
+tnoremap <esc> <C-\><C-n>
 tnoremap <leader><esc> <C-\><C-n>
 nnoremap <leader>` :e#<CR>
-nnoremap <leader><esc> :e#<CR>
+" nnoremap <leader><esc> :e#<CR>
 nnoremap / /\V
 nnoremap ? /
 nnoremap <Bs> :noh<CR>
@@ -840,7 +813,12 @@ cabbrev Qa  qa
 cabbrev Q!  q
 cabbrev Qa! qa
 
-" **********************************
+function! DisableAllHeavyStuff()
+  setlocal syntax=off
+  setlocal nospell
+  CocDisable
+endfunction
+
 function! DetectReactFiletype()
   let n = 1
   while n < 10 && n < line("$")
@@ -857,54 +835,20 @@ function! DetectReactFiletype()
     let n = n + 1
   endwhile
 endfunction
-
-function! FormatHelpBuffer()
-  " TODO: line above does not work for some reason
-  execute 'normal \<C-w>L'
-  execute 'vertical resize 86'
-endfunction
-
-augroup filetype_fixes
-  autocmd!
-  "I have to set filetype explicitly to enable rspec syntax and some features, even if it's already set to ruby for some reason
-  autocmd BufNewFile,BufReadPost *.rb set filetype=ruby
-  autocmd BufNewFile,BufReadPost *.ts,*.tsx set syntax=typescriptreact
-  autocmd BufNewFile,BufReadPost .eslintrc set filetype=json
-  autocmd BufNewFile,BufReadPost,BufWritePost *.js,*.ts call DetectReactFiletype()
-  autocmd TermEnter * setlocal scrolloff=0
-  autocmd TermLeave * setlocal scrolloff=4
-  autocmd BufEnter * if &buftype == 'help' | call FormatHelpBuffer() | endif
-augrou END
+" **********************************
 
 augroup filetype_scoped_settings
   autocmd!
-  autocmd FileType json          setlocal conceallevel=2
-  autocmd Filetype gitcommit     setlocal colorcolumn=51 spell
-  " autocmd BufEnter * if &filetype == 'coc-explorer' | set conceallevel=0
-  autocmd BufEnter,BufReadPre,BufNewFile *.md setlocal conceallevel=0
-  autocmd FileType scss set iskeyword+=-
-  autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
+  autocmd BufNewFile,BufReadPost,BufWritePost *.js,*.ts call DetectReactFiletype()
   autocmd FileType javascript,typescript,javascript.jsx,typescript.tsx iabbrev <buffer> cosnt const
-  autocmd FileType vue setlocal commentstring=\/\*\ %s\ \*\/
+  autocmd FileType scss set iskeyword+=-
+  autocmd Filetype gitcommit     setlocal colorcolumn=51 spell
+
+  autocmd FileType ruby vnoremap <leader>d y:CtrlSF "def <C-r>""
+  autocmd FileType ruby nnoremap <leader>d yiw:CtrlSF "def <C-r>""
+  autocmd FileType fzf tnoremap <buffer> <esc> <esc>
+  autocmd FileType ctrlsf nnoremap <leader>S :CtrlSFUpdate<CR>
 augroup END
-
-augroup callbacks
-  autocmd!
-  autocmd BufReadPost * syntax sync fromstart
-augroup END
-
-autocmd FileType vim,tex,log
-      \ let [
-      \ b:matchup_matchparen_fallback,
-      \ b:matchup_matchparen_enabled]
-      \ = [0, 0]
-autocmd QuickFixCmdPost wincmd J
-
-function! DisableAllHeavyStuff()
-  setlocal syntax=off
-  setlocal nospell
-  CocDisable
-endfunction
 
 augroup disable_syntax_for_huge_files
   autocmd!
@@ -917,21 +861,20 @@ augroup remember_cursor_position
 augroup END
 
 augroup syntax_fixes
-  " don't hide quotes in JSON keys
-  autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
-  autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
-
-  " fix sass highlighting
   autocmd FileType sass syntax match sassMixinName "@keyframes"
+  autocmd FileType scss setl iskeyword+=@-@
 
-  " fix js weird coloring inside functions in objects like { foo() { /* weird colors here*/ } }
-  autocmd FileType javascript syntax clear jsObjectShorthandProp jsObject jsParensError jsParen
+  " if(!has('nvim-0.5'))
+    autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
+    autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
+    " fix js weird coloring inside functions in objects like { foo() { /* weird colors here*/ } }
+    autocmd FileType javascript syntax clear jsObjectShorthandProp jsObject jsParensError jsParen
 
-  " remove a tag underline
-  autocmd FileType vue syntax clear htmlLink htmlH2 " clearing this syntax rule broke style highlighting
-  autocmd FileType vue syntax match htmlArg /\<aria-[a-z\-]\+\>/  contained
-  " autocmd FileType vue syntax match vueSlotName /\#[a-z]\+/
-  " autocmd FileType vue syntax region contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent,htmlCssDefinition,@htmlPreproc,@htmlArgCluster,vueSlotName
+    " remove a tag underline
+    autocmd FileType vue syntax clear htmlLink htmlH2 " clearing this syntax rule broke style highlighting
+    autocmd FileType vue syntax match htmlArg /\<aria-[a-z\-]\+\>/  contained
+  " end
+  " don't hide quotes in JSON keys
 augroup END
 
 augroup color_scheme_tweaks
@@ -942,8 +885,6 @@ augroup color_scheme_tweaks
   highlight! CursorColumn     guibg=#2e3138
   highlight! ColorColumn      guibg=#252a32
   highlight! FZFNormal        guibg=#222222
-  highlight! CursorColumn     guibg=#512121
-  highlight! CursorColumnNR   guibg=#512121
   highlight! IncSearch        guifg=#FF0000 guibg=NONE gui=bold
   highlight! Search           guifg=#FFFFFF guibg=NONE gui=bold
   highlight! TabLineSel       guifg=#E5C07B
@@ -972,98 +913,96 @@ augroup color_scheme_tweaks
   highlight! DiffAdd     guibg=#283c34 guifg=NONE gui=NONE
   highlight! DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
 
-  highlight! link TSConstMacro Type
-  highlight! link TSKeyword Label
-  highlight! link TSLabel Identifier
-  " highlight! link TSConstant Type
+  " if(has('nvim-0.5'))
+    highlight! link TSConstMacro Type
+    highlight! link TSConstant Type
+    highlight! link TSKeyword Label
+    highlight! link TSLabel Identifier
+    highlight! link TSProperty Constant
 
-  autocmd FileType typescript highlight! link typescriptStorageClass typescriptReserved
-  autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
-  autocmd FileType typescript highlight! link typescriptClassName typescriptPredefinedType
-  autocmd FileType typescript highlight! link typescriptClassHeritage typescriptPredefinedType
-  autocmd FileType typescript highlight! link typescriptClassExtends Label
-  autocmd FileType typescript highlight! link typescriptClassKeyword Label
-  autocmd FileType typescript highlight! link typescriptFuncKeyword Label
-  autocmd FileType typescript highlight! link typescriptAmbientDeclaration Label
-  autocmd FileType typescript highlight! link typescriptExport Label
-  autocmd FileType typescript highlight! link typescriptImport Label
-  autocmd FileType typescript highlight! link typescriptArrowFunc Label
-  autocmd FileType typescript highlight! link typescriptTypeParameter Type
-  autocmd FileType typescript highlight! link typescriptTypeReference Type
-  autocmd FileType typescript highlight! link typescriptCall Label
+    autocmd FileType javascript,typescript highlight! link TSConstructor Type
 
-  autocmd FileType javascript highlight! link jsStorageClass Keyword
-  autocmd FileType javascript highlight! link jsClassDefinition Type
-  autocmd FileType javascript highlight! link javasClassKeyword Keyword
-  autocmd FileType javascript highlight! link jsClassMethodType Keyword
-  autocmd FileType javascript highlight! link jsClassMethodType Keyword
-  autocmd FileType javascript highlight! link jsModuleKeyword Keyword
-  autocmd FileType javascript highlight! link jsBlockLabel Label
-  autocmd FileType javascript highlight! link jsxAttrib jsUndefined
-  autocmd FileType javascript highlight! link jsxCloseString Cleared
-  autocmd FileType javascript highlight! link jsxClosePunct Cleared
-  autocmd FileType javascript highlight! link jsxOpenPunct Cleared
-  autocmd FileType javascript highlight! link jsDestructuringBlock Type
-  autocmd FileType javascript highlight! link jsDestructuringPropertyValue Type
-  autocmd FileType javascript highlight! link jsDestructuringAssignment Label
-  autocmd FileType javascript highlight! link javascriptMethod Function
-  autocmd FileType javascript highlight! link javascriptMethodName Function
-  autocmd FileType javascript highlight! link graphqlStructure Constant
-  autocmd FileType javascript highlight! link graphqlVariable Type
-  autocmd FileType javascript highlight! link graphqlName String
-  autocmd FileType javascript highlight! link graphqlType Constant
-  autocmd FileType javascript highlight! link graphqlStructure Label
-  autocmd FileType javascript,vue highlight! link jsFunctionKey Label
-  autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
-  autocmd FileType vue highlight! link htmlBold htmlTag
+    " autocmd FileType javascript edit | TSBufEnable highlight
+    " autocmd FileType javascript.jsx edit | TSBufEnable highlight
+    " autocmd FileType typescript edit | TSBufEnable highlight
+    " autocmd FileType typescript.tsx edit | TSBufEnable highlight
+  " else
+    autocmd FileType jsonc highlight! link jsoncKeywordMatch Identifier
+    autocmd FileType jsonc highlight! link jsoncBraces Delimiter
 
-  " autocmd FileType sass,vue highlight! link cssProp Constant
-  " autocmd FileType sass,vue highlight! link cssVendor Constant
-  " autocmd FileType sass,vue highlight! link cssAttr Type
+    autocmd FileType typescript highlight! link typescriptStorageClass typescriptReserved
+    autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
+    autocmd FileType typescript highlight! link typescriptClassName typescriptPredefinedType
+    autocmd FileType typescript highlight! link typescriptClassHeritage typescriptPredefinedType
+    autocmd FileType typescript highlight! link typescriptClassExtends Label
+    autocmd FileType typescript highlight! link typescriptClassKeyword Label
+    autocmd FileType typescript highlight! link typescriptFuncKeyword Label
+    autocmd FileType typescript highlight! link typescriptAmbientDeclaration Label
+    autocmd FileType typescript highlight! link typescriptExport Label
+    autocmd FileType typescript highlight! link typescriptImport Label
+    autocmd FileType typescript highlight! link typescriptArrowFunc Label
+    autocmd FileType typescript highlight! link typescriptTypeParameter Type
+    autocmd FileType typescript highlight! link typescriptTypeReference Type
+    autocmd FileType typescript highlight! link typescriptCall Label
+
+    autocmd FileType javascript highlight! link jsStorageClass Keyword
+    autocmd FileType javascript highlight! link jsClassDefinition Type
+    autocmd FileType javascript highlight! link javasClassKeyword Keyword
+    autocmd FileType javascript highlight! link jsClassMethodType Keyword
+    autocmd FileType javascript highlight! link jsClassMethodType Keyword
+    autocmd FileType javascript highlight! link jsModuleKeyword Keyword
+    autocmd FileType javascript highlight! link jsBlockLabel Label
+    autocmd FileType javascript highlight! link jsxAttrib jsUndefined
+    autocmd FileType javascript highlight! link jsxCloseString Cleared
+    autocmd FileType javascript highlight! link jsxClosePunct Cleared
+    autocmd FileType javascript highlight! link jsxOpenPunct Cleared
+    autocmd FileType javascript highlight! link jsDestructuringBlock Type
+    autocmd FileType javascript highlight! link jsDestructuringPropertyValue Type
+    autocmd FileType javascript highlight! link jsDestructuringAssignment Label
+    autocmd FileType javascript highlight! link javascriptMethod Function
+    autocmd FileType javascript highlight! link javascriptMethodName Function
+    autocmd FileType javascript highlight! link graphqlStructure Constant
+    autocmd FileType javascript highlight! link graphqlVariable Type
+    autocmd FileType javascript highlight! link graphqlName String
+    autocmd FileType javascript highlight! link graphqlType Constant
+    autocmd FileType javascript highlight! link graphqlStructure Label
+    autocmd FileType javascript,vue highlight! link jsFunctionKey Label
+    autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
+    autocmd FileType vue highlight! link htmlBold htmlTag
+
+    autocmd FileType sass,vue highlight! link cssProp Constant
+    autocmd FileType sass,vue highlight! link cssVendor Constant
+    autocmd FileType sass,vue highlight! link cssAttr Type
+  " endif
 augroup END
 
 vnoremap <c-y> :YankWithContext<CR>
 
-" dont load all preprocessors for vue - performance improvement
-let g:vue_pre_processors = 'detect_on_enter'
-
-command! Gco silent !git checkout -- %
-cabbrev gco Gco
 let g:instant_markdown_autoscroll = 1
 command! -count=1 HFiles call fzf#run({ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d'})
 command! CopyPath execute 'let @+ = expand("%")'
 
-" coc-bookmark
-nmap ]b <Plug>(coc-bookmark-next)
-nmap [b <Plug>(coc-bookmark-prev)
-nmap <Leader>bb <Plug>(coc-bookmark-toggle)
-nmap <Leader>ba <Plug>(coc-bookmark-annotate)
-nmap <Leader>bl :CocList bookmark<CR>
-nmap <Leader>bc :CocCommand bookmark.clearForCurrentFile<CR>
-nmap <Leader>bC :CocCommand bookmark.clearForAllFiles<CR>
+" if(has('nvim-0.5'))
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = "maintained",
+"   highlight = {
+"     enable = true,
+"     disable = { "javascript" }
+"   },
+"   indent = {
+"     enable = true
+"   },
+"   rainbow = {
+"     enable = true
+"   }
+" }
+" EOF
+" endif
 
-function! SumLastSelection()
-  try
-    let l:previous_a_value = @a
-    norm! gv"ay
-    let total = command(substitute(@a,'[^0-9. ]','+','g'))
-    echomsg "total: " . total
-  finally
-    let @a = l:previous_a_value
-  endtry
-endfun
-command! SumLastSelection call SumLastSelection()
+let g:blamer_enabled = 1
+let g:blamer_show_in_insert_modes = 0
+let g:blamer_template = '<author>, <committer-time> • <summary>'
+let g:blamer_relative_time = 1
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-  },
-  indent = {
-    enable = true
-  }
-}
-EOF
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+nmap gj yypkgccj

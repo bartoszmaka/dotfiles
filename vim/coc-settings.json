@@ -1,13 +1,38 @@
 {
+  // autocomplete
+  "suggest.enablePreselect": true,
   "suggest.numberSelect": false,
-  "suggest.languageSourcePriority": 99,
   "suggest.noselect": true,
+  "suggest.languageSourcePriority": 99,
   "yank.priority": 85,
   "coc.source.file.priority": 10,
   "coc.source.syntax.priority": 4,
   "coc.source.around.priority": 3,
   "coc.source.buffer.priority": 1,
   "suggest.lowPrioritySourceLimit": 5,
+  /* "eslint.run": "onSave", */
+  "eslint.format.enable": true,
+  /* "eslint.codeActionsOnSave.mode": "all", */
+  "eslint.alwaysShowStatus": true,
+  "prettier.requireConfig": true,
+  "javascript.validate.enable": false,
+  "yank.enableCompletion": false,
+  "coc.source.omni.filetypes": ["sass"],
+  "coc.source.omni.priority": 100,
+  // switch to coc-emmet once coc-snippets supports t variable
+  "emmet.showExpandedAbbreviation": "always",
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.showAbbreviationSuggestions": true,
+  "emmet.excludeLanguages": [
+    "markdown",
+    "sass",
+    "scss",
+    "css"
+  ],
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
 
   "snippets.extends": {
     "javascriptreact": ["javascript", "html", "typescript", "typescriptreact"],
@@ -36,6 +61,8 @@
   "coc.preferences.bracketEnterImprove": true,
 
   "diagnostic.enable": true,
+  "diagnostic.messageTarget": "float",
+  "diagnostic.enableHighlightLineNumber": true,
   "diagnostic.warningSign": "🚨",
   "diagnostic.infoSign": "🤔",
   "diagnostic.errorSign": "🤔",
@@ -48,7 +75,7 @@
       "sourceName": "rubocop",
       "debounce": 100,
       "args": [
-        "exec", 
+        "exec",
         "rubocop",
         "--format",
         "json",
@@ -66,42 +93,17 @@
         "fatal": "error",
         "warning": "warning"
       }
-    },
-    "eslint": {
-      "command": "./node_modules/.bin/eslint",  // this will find local eslint first, if local eslint not found, it
-      "rootPatterns": [
-        ".git"
-      ],
-      "debounce": 100,
-      "args": [
-        "--stdin",
-        "--stdin-filename",
-        "%filepath",
-        "--format",
-        "json"
-      ],
-      "sourceName": "eslint",
-      "parseJson": {
-        "errorsRoot": "[0].messages",
-        "line": "line",
-        "column": "column",
-        "endLine": "endLine",
-        "endColumn": "endColumn",
-        "message": "${message} [${ruleId}]",
-        "security": "severity"
-      },
-      "securities": {
-        "2": "error",
-        "1": "warning"
-      }
     }
   },
+
   "diagnostic-languageserver.formatters": {
     "rubocop": {
-      "command": "bundle exec rubocop",
+      "command": "bundle",
       "sourceName": "rubocop",
       "debounce": 100,
       "args": [
+        "exec",
+        "rubocop",
         "--parallel",
         "--fix",
         "%filepath"
@@ -122,44 +124,12 @@
         "2": "error",
         "1": "warning"
       }
-    },
-    "eslint": {
-      "command": "./node_modules/.bin/eslint",
-      "rootPatterns": [
-        ".git"
-      ],
-      "debounce": 100,
-      "args": [
-        "--stdin",
-        "--stdin-filename",
-        "%filepath",
-        "--fix"
-      ],
-      "sourceName": "eslint",
-      "parseJson": {
-        "errorsRoot": "[0].messages",
-        "line": "line",
-        "column": "column",
-        "endLine": "endLine",
-        "endColumn": "endColumn",
-        "message": "${message} [${ruleId}]",
-        "security": "severity"
-      },
-      "securities": {
-        "2": "error",
-        "1": "warning"
-      }
     }
   },
 
   "diagnostic-languageserver.filetypes": {
     "eruby":          "rubocop",
     "ruby":           "rubocop",
-    "javascript":     "eslint",
-    "vue":            "eslint",
-    "javascript.jsx": "eslint",
-    "typescript":     "eslint",
-    "typescript.tsx": "eslint",
     "vim":            ["remove_trailing_lines", "trim_whitespace"],
     "json":           "jq",
     "python":         "yapf",
@@ -171,11 +141,6 @@
   "diagnostic-languageserver.formatFiletypes": {
     "eruby":          "rubocop",
     "ruby":           "rubocop",
-    "javascript":     "eslint",
-    "vue":            "eslint",
-    "javascript.jsx": "eslint",
-    "typescript":     "eslint",
-    "typescript.tsx": "eslint",
     "scss":           "stylelint",
     "css":            "stylelint"
   },
@@ -189,8 +154,8 @@
   "solargraph.checkGemVersion": false,
 
   "git.enableGutters": true,
-  "git.addGBlameToBufferVar": true,
-  "git.addGBlameToVirtualText": true,
+  "git.addGBlameToBufferVar": false,
+  "git.addGBlameToVirtualText": false,
   "git.changedSign.text": "┃",
   "git.addedSign.text": "┃",
   "git.removedSign.text": "┃",
@@ -200,19 +165,11 @@
   "git.removedSign.hlGroup": "GitGutterDelete",
   "git.topRemovedSign.hlGroup": "GitGutterDelete",
   "git.changeRemovedSign.hlGroup": "GitGutterChangeDelete",
-  "yank.enableCompletion": false,
   // "git.addGlameToVirtualText": true,
 
   "coc.preferences.extensionUpdateCheck": "never",
-  // switch to coc-emmet once coc-snippets supports t variable
-  "emmet.showExpandedAbbreviation": "always",
-  "emmet.showSuggestionsAsSnippets": true,
-  "emmet.showAbbreviationSuggestions": true,
-  "emmet.includeLanguages": {
-    "vue-html": "html",
-    "javascript": "javascriptreact"
-  },
 
+  "explorer.focus": false,
   "explorer.icon.enableNerdfont": true,
   "explorer.icon.expanded": "",
   "explorer.icon.collapsed": "",
@@ -276,7 +233,5 @@
     "]g": "gitNext",
     "[e": "diagnosticPrev",
     "]e": "diagnosticNext"
-  },
-  "bookmark.sign": ">",
-  "bookmark.signHl": "Todo"
+  }
 }
