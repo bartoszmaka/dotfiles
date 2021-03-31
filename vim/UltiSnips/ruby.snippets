@@ -57,14 +57,18 @@ end
 endsnippet
 
 snippet cont "spec context" w
-context '${1}' do
-  ${2}
+context 'when ${1}' do
+	it '${2}' do
+		${3}
+	end
 end
 endsnippet
 
 snippet context "spec context" w
-context '${1}' do
-  ${2}
+context 'when ${1}' do
+	it '${2}' do
+		${3}
+	end
 end
 endsnippet
 
@@ -462,3 +466,19 @@ private
 attr_reader `!p write_instance_vars2(t[2])`
 endsnippet
 
+snippet test "test" b
+test $1 `!p snip.rv='set' + t[1].capitalize()` = useState($2)
+endsnippet
+
+
+snippet abc "Metrics/AbcSize"
+Metrics/AbcSize
+endsnippet
+
+snippet rd "# rubocop:disable"
+# rubocop:disable
+endsnippet
+
+snippet rda "# rubocop:disable Metrics/AbcSize"
+# rubocop:disable Metrics/AbcSize
+endsnippet

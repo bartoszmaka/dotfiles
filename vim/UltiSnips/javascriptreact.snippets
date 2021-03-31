@@ -199,9 +199,9 @@ endsnippet
 snippet scfnc
 import React from 'react'
 
-const ${1} = (${2}) => {
+const ${1} = (${2:props}) => {
   return (
-    ${3}
+    <pre>{JSON.stringify(props, null, 2)}</pre>
   )
 }
 
