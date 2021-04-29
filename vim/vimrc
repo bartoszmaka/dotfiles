@@ -37,16 +37,18 @@ Plug 'blueyed/vim-diminactive'
 Plug 'terryma/vim-expand-region'
 Plug 'markwu/vim-mrufiles'
 Plug 'APZelos/blamer.nvim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 " if(has('nvim-0.5'))
-  " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
-  " Plug 'p00f/nvim-ts-rainbow'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
+Plug 'p00f/nvim-ts-rainbow'
 " else
   Plug 'othree/jsdoc-syntax.vim'
   Plug 'joker1007/vim-ruby-heredoc-syntax'
   Plug 'tpope/vim-cucumber'
   Plug 'chrisbra/csv.vim'
-  Plug 'tpope/vim-rails'
   Plug 'HerringtonDarkholme/yats.vim'
   Plug 'jparise/vim-graphql'
   Plug 'sheerun/vim-polyglot'
@@ -216,15 +218,77 @@ set fillchars+=stl:\ ,stlnc:\ ,vert:\│
 " **********************************
 " plugin variables
 
-" let g:gutentags_trace = 1
+" blankline
+let g:indentLine_char = '│'
+let g:indentLine_color_gui = '#2C323C'
+nnoremap <leader>bt :IndentBlanklineToggleAll<CR>
+nnoremap <leader>br :IndentBlanklineRefresh<CR>
+
+let g:gutentags_ctags_extra_args = [
+      \ '--tag-relative=yes',
+      \ '--fields=+ailmnS',
+      \ ]
+let g:gutentags_ctags_exclude = [
+      \ '*.git', '*.svg', '*.hg',
+      \ '*/tests/*',
+      \ 'build',
+      \ 'dist',
+      \ '*sites/*/files/*',
+      \ 'bin',
+      \ 'node_modules',
+      \ 'bower_components',
+      \ 'cache',
+      \ 'compiled',
+      \ 'docs',
+      \ 'example',
+      \ 'bundle',
+      \ 'vendor',
+      \ '*.md',
+      \ '*-lock.json',
+      \ '*.lock',
+      \ '*bundle*.js',
+      \ '*build*.js',
+      \ '.*rc*',
+      \ '*.json',
+      \ '*.min.*',
+      \ '*.map',
+      \ '*.bak',
+      \ '*.zip',
+      \ '*.pyc',
+      \ '*.class',
+      \ '*.sln',
+      \ '*.Master',
+      \ '*.csproj',
+      \ '*.tmp',
+      \ '*.csproj.user',
+      \ '*.cache',
+      \ '*.pdb',
+      \ 'tags*',
+      \ 'cscope.*',
+      \ '*.css',
+      \ '*.less',
+      \ '*.scss',
+      \ '*.exe', '*.dll',
+      \ '*.mp3', '*.ogg', '*.flac',
+      \ '*.swp', '*.swo',
+      \ '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png',
+      \ '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2',
+      \ '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx',
+      \ ]
+
 let g:loaded_matchit = 1
+
+let g:lightline#bufferline#number_map = {
+      \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
+      \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'}
+let g:lightline#bufferline#show_number = 2
 let g:lightline = {}
 let g:lightline.colorscheme = 'onedark'
 let g:lightline.active = {
       \   'left': [ [ 'mode', 'spell' ],
       \             [ 'readonly', 'custom_relativepath', 'modified' ]],
       \   'right': [ [ 'custom_line_info' ],
-      \              [ 'coc_error', 'coc_warning', 'git_status' ] ]
+      \              [ 'tags_info', 'coc_error', 'coc_warning', 'git_status' ] ]
       \ }
 let lightline.inactive = {
       \   'left': [ [ 'readonly', 'custom_relativepath', 'modified' ] ],
@@ -236,6 +300,7 @@ let lightline.tabline = {
       \ }
 let lightline.component_function = {
       \   'git_status': 'CocGitStatus',
+      \   'tags_info': 'gutentags#statusline'
       \ }
 let lightline.component_expand = {
       \   'coc_error'        : 'LightlineCocErrors',
@@ -258,11 +323,11 @@ function! LightlineCocErrors() abort
     return ''
   endif
   let errors = diagnostics['error']
-    if errors > 0
-      return printf('E %d', errors)
-    else
-      return ''
-    endif
+  if errors > 0
+    return printf('E %d', errors)
+  else
+    return ''
+  endif
 endfunction
 
 function! LightlineCocWarnings() abort
@@ -270,18 +335,16 @@ function! LightlineCocWarnings() abort
   if empty(diagnostics)
     return ''
   endif
-    let info = diagnostics['information']
-    let hint = diagnostics['hint']
-    let warn = diagnostics['warning']
-    let total = info + hint + warn
-    if total > 0
-      return printf('W %d', total)
-    else
-      return ''
-    endif
+  let info = diagnostics['information']
+  let hint = diagnostics['hint']
+  let warn = diagnostics['warning']
+  let total = info + hint + warn
+  if total > 0
+    return printf('W %d', total)
+  else
+    return ''
+  endif
 endfunction
-
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 function! CocGitStatus() abort
   if len(get(b:, 'coc_git_status', '')) > 0
@@ -294,6 +357,13 @@ endfunction
 function! GetCocStatus() abort
   return get(b:, 'coc_current_function', coc#status())
 endfunction
+
+augroup LightlineRefreshEvents
+  autocmd!
+  autocmd User GutentagsUpdating call lightline#update()
+  autocmd User GutentagsUpdated call lightline#update()
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+augroup END
 
 nmap <Leader>1 <Plug>lightline#bufferline#go(1)
 nmap <Leader>2 <Plug>lightline#bufferline#go(2)
@@ -324,7 +394,6 @@ nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 
 " coc
 let g:coc_global_extensions = [
-      \ 'coc-browser',
       \ 'coc-tsserver',
       \ 'coc-vetur',
       \ 'coc-tag',
@@ -654,7 +723,7 @@ function! FloatingFZF()
         \ 'width': width,
         \ 'height':height,
         \ }
-  let win =  nvim_open_win(buf, v:true, opts)
+  let win = nvim_open_win(buf, v:true, opts)
   call setwinvar(win, '&number', 0)
   call setwinvar(win, '&relativenumber', 0)
 endfunction
@@ -679,23 +748,39 @@ command! -bang -nargs=? -complete=dir FZFFilesPreview
       \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " fix fzf being open in terminal/insert mode randomly after 0.4 update by adding 'a<Bs>'
-nnoremap <C-p><C-p> :FZFFilesPreview<CR>a<Bs>
 nnoremap <leader>pp :FZFFilesPreview<CR>a<Bs>
-nnoremap <C-p><C-r> :FZFFreshMruPreview<CR>a<Bs>
 nnoremap <leader>pr :FZFFreshMruPreview<CR>a<Bs>
-nnoremap <C-p><C-g> :FzfGitFiles?<CR>a<Bs>
 nnoremap <leader>pg :FzfGitFiles?<CR>a<Bs>
-nnoremap <C-p><C-h> :FzfHistory<CR>a<Bs>
-nnoremap <C-p><C-b> :FzfBuffers<CR>a<Bs>
-nnoremap <C-p><C-f> :FzfRg<CR>a<Bs>
+nnoremap <leader>pb :FzfBuffers<CR>a<Bs>
 nnoremap <leader>pf :FzfRg<CR>a<Bs>
-nnoremap <C-p><C-l> :FzfBLines<CR>a<Bs>
 nnoremap <leader>pl :FzfBLines<CR>a<Bs>
-nnoremap <C-p><C-v> :FzfBCommits<CR>a<Bs>
-nnoremap <C-p><C-m> :FzfMarks<CR>a<Bs>
+nnoremap <leader>pv :FzfBCommits<CR>a<Bs>
+nnoremap <leader>pm :FzfMarks<CR>a<Bs>
+nnoremap <leader>pc :FzfCommands<CR>a<Bs>
+nnoremap <leader>pt :FzfBTags<CR>a<Bs>
+command! -count=1 HFiles call fzf#run({
+      \ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d',
+      \ 'sink': 'e',
+      \ 'window': 'call FloatingFZF()'
+      \ })
+nnoremap <leader>ph1 :HFiles 1<CR>
+nnoremap <leader>ph2 :HFiles 2<CR>
+nnoremap <leader>ph3 :HFiles 3<CR>
+nnoremap <leader>ph4 :HFiles 4<CR>
+nnoremap <leader>ph5 :HFiles 5<CR>
 
 " vim-rails
 let vim_rails_map_buf_nav_commands = 0
+let g:rails_projections = {
+      \   "app/models/*.rb": {
+      \     "rubyMacro": ["field"]
+      \   },
+      \   "app/graphql/*_type.rb": {
+      \     "rubyMacro": ["field", "name"],
+      \   },
+      \ }
+
+" rubyKeyword red, rubyMacro purple, rubyFunction blue
 
 " vim-expand-region
 vmap v <Plug>(expand_region_expand)
@@ -727,10 +812,10 @@ nnoremap <silent><C-k><C-e> :CocCommand explorer
       \ --focus
       \ <CR>
 nnoremap <silent><C-k><C-f> :CtrlSFToggle<CR>
-nnoremap <C-g><C-b> :Gblame<CR>
-nnoremap <leader>gb :Gblame<CR>
+nnoremap <C-g><C-b> :Git blame<CR>
+nnoremap <leader>gb :Git blame<CR>
 nnoremap <C-g><C-d> :Gdiffsplit<CR>
-nnoremap <leader>gd :Gdiffsplit<CR>
+nnoremap <leader>gd :Gdiffsplit!<CR>
 vnoremap <C-m><C-s> :sort<CR>
 inoremap jk <esc>
 nnoremap K 5k
@@ -840,6 +925,7 @@ endfunction
 augroup filetype_scoped_settings
   autocmd!
   autocmd BufNewFile,BufReadPost,BufWritePost *.js,*.ts call DetectReactFiletype()
+  autocmd BufNewFile,BufReadPost,BufWritePost *.env.* set filetype=sh
   autocmd FileType javascript,typescript,javascript.jsx,typescript.tsx iabbrev <buffer> cosnt const
   autocmd FileType scss set iskeyword+=-
   autocmd Filetype gitcommit     setlocal colorcolumn=51 spell
@@ -865,14 +951,14 @@ augroup syntax_fixes
   autocmd FileType scss setl iskeyword+=@-@
 
   " if(!has('nvim-0.5'))
-    autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
-    autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
-    " fix js weird coloring inside functions in objects like { foo() { /* weird colors here*/ } }
-    autocmd FileType javascript syntax clear jsObjectShorthandProp jsObject jsParensError jsParen
+  autocmd FileType json syntax region jsonKeyword matchgroup=jsonQuote start=/"/  end=/"\ze[[:blank:]\r\n]*\:/ contained
+  autocmd FileType json syntax region jsonString oneline matchgroup=jsonQuote start=/"/  skip=/\\\\\|\\"/  end=/"/ contains=jsonEscape contained
+  " fix js weird coloring inside functions in objects like { foo() { /* weird colors here*/ } }
+  autocmd FileType javascript syntax clear jsObjectShorthandProp jsObject jsParensError jsParen
 
-    " remove a tag underline
-    autocmd FileType vue syntax clear htmlLink htmlH2 " clearing this syntax rule broke style highlighting
-    autocmd FileType vue syntax match htmlArg /\<aria-[a-z\-]\+\>/  contained
+  " remove a tag underline
+  autocmd FileType vue syntax clear htmlLink htmlH2 " clearing this syntax rule broke style highlighting
+  autocmd FileType vue syntax match htmlArg /\<aria-[a-z\-]\+\>/  contained
   " end
   " don't hide quotes in JSON keys
 augroup END
@@ -914,91 +1000,95 @@ augroup color_scheme_tweaks
   highlight! DiffDelete  guibg=#382c34 guifg=NONE gui=NONE
 
   " if(has('nvim-0.5'))
-    highlight! link TSConstMacro Type
-    highlight! link TSConstant Type
-    highlight! link TSKeyword Label
-    highlight! link TSLabel Identifier
-    highlight! link TSProperty Constant
+  highlight! link TSConstMacro Type
+  highlight! link TSConstant Type
+  highlight! link TSKeyword Label
+  highlight! link TSLabel Identifier
+  highlight! link TSProperty Constant
+  " highlight! link TSSymbol rubySymbol
+  highlight! TSSymbol ctermfg=38 guifg=#56B6C2
+  " TSParameter => function args
 
-    autocmd FileType javascript,typescript highlight! link TSConstructor Type
 
-    " autocmd FileType javascript edit | TSBufEnable highlight
-    " autocmd FileType javascript.jsx edit | TSBufEnable highlight
-    " autocmd FileType typescript edit | TSBufEnable highlight
-    " autocmd FileType typescript.tsx edit | TSBufEnable highlight
+
+  autocmd FileType javascript,typescript highlight! link TSConstructor Type
+
+  " autocmd FileType javascript edit | TSBufEnable highlight
+  " autocmd FileType javascript.jsx edit | TSBufEnable highlight
+  " autocmd FileType typescript edit | TSBufEnable highlight
+  " autocmd FileType typescript.tsx edit | TSBufEnable highlight
   " else
-    autocmd FileType jsonc highlight! link jsoncKeywordMatch Identifier
-    autocmd FileType jsonc highlight! link jsoncBraces Delimiter
+  autocmd FileType jsonc highlight! link jsoncKeywordMatch Identifier
+  autocmd FileType jsonc highlight! link jsoncBraces Delimiter
 
-    autocmd FileType typescript highlight! link typescriptStorageClass typescriptReserved
-    autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
-    autocmd FileType typescript highlight! link typescriptClassName typescriptPredefinedType
-    autocmd FileType typescript highlight! link typescriptClassHeritage typescriptPredefinedType
-    autocmd FileType typescript highlight! link typescriptClassExtends Label
-    autocmd FileType typescript highlight! link typescriptClassKeyword Label
-    autocmd FileType typescript highlight! link typescriptFuncKeyword Label
-    autocmd FileType typescript highlight! link typescriptAmbientDeclaration Label
-    autocmd FileType typescript highlight! link typescriptExport Label
-    autocmd FileType typescript highlight! link typescriptImport Label
-    autocmd FileType typescript highlight! link typescriptArrowFunc Label
-    autocmd FileType typescript highlight! link typescriptTypeParameter Type
-    autocmd FileType typescript highlight! link typescriptTypeReference Type
-    autocmd FileType typescript highlight! link typescriptCall Label
+  autocmd FileType typescript highlight! link typescriptStorageClass typescriptReserved
+  autocmd FileType typescript highlight! link typescriptVariableDeclaration Type
+  autocmd FileType typescript highlight! link typescriptClassName typescriptPredefinedType
+  autocmd FileType typescript highlight! link typescriptClassHeritage typescriptPredefinedType
+  autocmd FileType typescript highlight! link typescriptClassExtends Label
+  autocmd FileType typescript highlight! link typescriptClassKeyword Label
+  autocmd FileType typescript highlight! link typescriptFuncKeyword Label
+  autocmd FileType typescript highlight! link typescriptAmbientDeclaration Label
+  autocmd FileType typescript highlight! link typescriptExport Label
+  autocmd FileType typescript highlight! link typescriptImport Label
+  autocmd FileType typescript highlight! link typescriptArrowFunc Label
+  autocmd FileType typescript highlight! link typescriptTypeParameter Type
+  autocmd FileType typescript highlight! link typescriptTypeReference Type
+  autocmd FileType typescript highlight! link typescriptCall Label
 
-    autocmd FileType javascript highlight! link jsStorageClass Keyword
-    autocmd FileType javascript highlight! link jsClassDefinition Type
-    autocmd FileType javascript highlight! link javasClassKeyword Keyword
-    autocmd FileType javascript highlight! link jsClassMethodType Keyword
-    autocmd FileType javascript highlight! link jsClassMethodType Keyword
-    autocmd FileType javascript highlight! link jsModuleKeyword Keyword
-    autocmd FileType javascript highlight! link jsBlockLabel Label
-    autocmd FileType javascript highlight! link jsxAttrib jsUndefined
-    autocmd FileType javascript highlight! link jsxCloseString Cleared
-    autocmd FileType javascript highlight! link jsxClosePunct Cleared
-    autocmd FileType javascript highlight! link jsxOpenPunct Cleared
-    autocmd FileType javascript highlight! link jsDestructuringBlock Type
-    autocmd FileType javascript highlight! link jsDestructuringPropertyValue Type
-    autocmd FileType javascript highlight! link jsDestructuringAssignment Label
-    autocmd FileType javascript highlight! link javascriptMethod Function
-    autocmd FileType javascript highlight! link javascriptMethodName Function
-    autocmd FileType javascript highlight! link graphqlStructure Constant
-    autocmd FileType javascript highlight! link graphqlVariable Type
-    autocmd FileType javascript highlight! link graphqlName String
-    autocmd FileType javascript highlight! link graphqlType Constant
-    autocmd FileType javascript highlight! link graphqlStructure Label
-    autocmd FileType javascript,vue highlight! link jsFunctionKey Label
-    autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
-    autocmd FileType vue highlight! link htmlBold htmlTag
+  autocmd FileType javascript highlight! link jsStorageClass Keyword
+  autocmd FileType javascript highlight! link jsClassDefinition Type
+  autocmd FileType javascript highlight! link javasClassKeyword Keyword
+  autocmd FileType javascript highlight! link jsClassMethodType Keyword
+  autocmd FileType javascript highlight! link jsClassMethodType Keyword
+  autocmd FileType javascript highlight! link jsModuleKeyword Keyword
+  autocmd FileType javascript highlight! link jsBlockLabel Label
+  autocmd FileType javascript highlight! link jsxAttrib jsUndefined
+  autocmd FileType javascript highlight! link jsxCloseString Cleared
+  autocmd FileType javascript highlight! link jsxClosePunct Cleared
+  autocmd FileType javascript highlight! link jsxOpenPunct Cleared
+  autocmd FileType javascript highlight! link jsDestructuringBlock Type
+  autocmd FileType javascript highlight! link jsDestructuringPropertyValue Type
+  autocmd FileType javascript highlight! link jsDestructuringAssignment Label
+  autocmd FileType javascript highlight! link javascriptMethod Function
+  autocmd FileType javascript highlight! link javascriptMethodName Function
+  autocmd FileType javascript highlight! link graphqlStructure Constant
+  autocmd FileType javascript highlight! link graphqlVariable Type
+  autocmd FileType javascript highlight! link graphqlName String
+  autocmd FileType javascript highlight! link graphqlType Constant
+  autocmd FileType javascript highlight! link graphqlStructure Label
+  autocmd FileType javascript,vue highlight! link jsFunctionKey Label
+  autocmd FileType javascript,vue highlight! link jsFunction jsFuncCall
+  autocmd FileType vue highlight! link htmlBold htmlTag
 
-    autocmd FileType sass,vue highlight! link cssProp Constant
-    autocmd FileType sass,vue highlight! link cssVendor Constant
-    autocmd FileType sass,vue highlight! link cssAttr Type
+  autocmd FileType sass,vue highlight! link cssProp Constant
+  autocmd FileType sass,vue highlight! link cssVendor Constant
+  autocmd FileType sass,vue highlight! link cssAttr Type
   " endif
 augroup END
 
 vnoremap <c-y> :YankWithContext<CR>
 
 let g:instant_markdown_autoscroll = 1
-command! -count=1 HFiles call fzf#run({ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d'})
 command! CopyPath execute 'let @+ = expand("%")'
 
-" if(has('nvim-0.5'))
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   ensure_installed = "maintained",
-"   highlight = {
-"     enable = true,
-"     disable = { "javascript" }
-"   },
-"   indent = {
-"     enable = true
-"   },
-"   rainbow = {
-"     enable = true
-"   }
-" }
-" EOF
-" endif
+if(has('nvim-0.5'))
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+    disable = { "javascript", "javascript.jsx", "javascriptreact" }
+  },
+  indent = {
+    enable = true
+  },
+  rainbow = {
+    enable = true
+  }
+}
+EOF
+endif
 
 let g:blamer_enabled = 1
 let g:blamer_show_in_insert_modes = 0
@@ -1006,3 +1096,4 @@ let g:blamer_template = '<author>, <committer-time> • <summary>'
 let g:blamer_relative_time = 1
 
 nmap gj yypkgccj
+nnoremap ZZ <NOP>
