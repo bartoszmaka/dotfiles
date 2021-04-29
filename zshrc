@@ -39,8 +39,8 @@ test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 
 alias tmux="tmux -u"
 alias tnew="\tmux -u new-session -t main"
-alias spacevim="vim -u ~/.SpaceVim/init.vim"
-alias spacenvim="nvim -u ~/.SpaceVim/init.vim"
+# alias spacevim="vim -u ~/.SpaceVim/init.vim"
+alias spacevim="nvim -u ~/.SpaceVim/init.vim"
 alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias vimrc="$EDITOR $DOTFILES_PATH/vim/vimrc"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
@@ -108,10 +108,7 @@ export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 [[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
 zstyle ':completion:*' menu select
 export PATH="/usr/local/sbin:$PATH"
-# . $(brew --prefix asdf)/asdf.sh
-. $HOME/.asdf/asdf.sh
-export VAULT_ADDR=https://vault.tilcra.de
-export GOOGLE_APPLICATION_CREDENTIALS=account.json
+. $(brew --prefix asdf)/asdf.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
