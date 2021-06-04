@@ -4,11 +4,11 @@ mkdir -p ~/.config/coc
 mkdir -p ~/.config/alacritty
 
 ln -vsf ~/.repos/dotfiles/vim/vimrc ~/.config/nvim/init.vim
-ln -vsf ~/.repos/dotfiles/global_gitignore ~/.gitignore
-ln -vsf ~/.repos/dotfiles/gitconfig ~/.gitconfig
+ln -vsf ~/.repos/dotfiles/resources/global_gitignore ~/.gitignore
+ln -vsf ~/.repos/dotfiles/resources/gitconfig ~/.gitconfig
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
-ln -vsf ~/.repos/dotfiles/rubocop.yml ~/.rubocop.yml
-ln -vsf ~/.repos/dotfiles/pryrc ~/.pryrc
+ln -vsf ~/.repos/dotfiles/resources/rubocop.yml ~/.rubocop.yml
+ln -vsf ~/.repos/dotfiles/resources/pryrc ~/.pryrc
 ln -vsf ~/.repos/dotfiles/asdfrc ~/.asdfrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/vim/cocSnippets ~/.config/coc/ultisnips
@@ -28,13 +28,13 @@ case "$(uname -s)" in
     ln -vsf ~/.repos/dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
     ln -vsf ~/.repos/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln -vsf ~/.repos/dotfiles/vscode/snippets ~/Library/Application\ Support/Code/User/snippets
-    ln -vsf ~/.repos/dotfiles/osx/tmux.conf ~/.tmux.conf
-    ln -vsf ~/.repos/dotfiles/osx/rc.conf ~/.config/ranger/rc.conf
-    ln -vsf ~/.repos/dotfiles/osx/karabiner.json ~/.config/karabiner/karabiner.json
+    ln -vsf ~/.repos/dotfiles/resources/osx/tmux.conf ~/.tmux.conf
+    ln -vsf ~/.repos/dotfiles/resources/osx/rc.conf ~/.config/ranger/rc.conf
+    ln -vsf ~/.repos/dotfiles/resources/osx/karabiner.json ~/.config/karabiner/karabiner.json
     ;;
   Linux)
-    ln -vsf ~/.repos/dotfiles/linux/tmux.conf ~/.tmux.conf
-    ln -vsf ~/.repos/dotfiles/linux/rc.conf ~/.config/ranger/rc.conf
-    ln -vsf ~/.repos/dotfiles/linux/redshift.conf ~/.config/redshift.conf
+    ln -vsf ~/.repos/dotfiles/resources/linux/tmux.conf ~/.tmux.conf
+    ln -vsf ~/.repos/dotfiles/resources/linux/rc.conf ~/.config/ranger/rc.conf
+    ln -vsf ~/.repos/dotfiles/resources/linux/redshift.conf ~/.config/redshift.conf
     ;;
 esac
