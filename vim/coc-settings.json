@@ -3,22 +3,25 @@
   "suggest.enablePreselect": true,
   "suggest.numberSelect": false,
   "suggest.noselect": true,
+  "coc.source.omni.filetypes": ["sass"],
+  "yank.enableCompletion": false,
+
+  "coc.source.omni.priority": 100,
   "suggest.languageSourcePriority": 99,
+  "coc.source.tag.priority": 8,
   "yank.priority": 85,
   "coc.source.file.priority": 10,
   "coc.source.syntax.priority": 4,
   "coc.source.around.priority": 3,
   "coc.source.buffer.priority": 1,
   "suggest.lowPrioritySourceLimit": 5,
-  /* "eslint.run": "onSave", */
+
   "eslint.format.enable": true,
-  /* "eslint.codeActionsOnSave.mode": "all", */
   "eslint.alwaysShowStatus": true,
   "prettier.requireConfig": true,
+  "prettier.stylelintIntegration": true,
   "javascript.validate.enable": false,
-  "yank.enableCompletion": false,
-  "coc.source.omni.filetypes": ["sass"],
-  "coc.source.omni.priority": 100,
+
   // switch to coc-emmet once coc-snippets supports t variable
   "emmet.showExpandedAbbreviation": "always",
   "emmet.showSuggestionsAsSnippets": true,
@@ -183,20 +186,6 @@
   "explorer.file.child.template": " [indent][icon | 1] [filename omitCenter 10][git | 2][modified growRight 1][readonly][diagnosticWarning & 1][diagnosticError & 1][selection | clip & 1]",
   "explorer.bookmark.child.template": " [annotation & 1][filename] [position growRight 1][selection]",
   "explorer.contentWidthType": "win-width",
-  "explorer.sources": [
-    {
-      "name": "bookmark",
-      "expand": true
-    },
-    {
-      "name": "buffer",
-      "expand": true
-    },
-    {
-      "name": "file",
-      "expand": true
-    }
-  ],
   "explorer.keyMappings.global": {
     "[c": false,
     "]c": false,

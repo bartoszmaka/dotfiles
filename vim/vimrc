@@ -60,6 +60,7 @@ Plug 'janko/vim-test'
 Plug 'tpope/vim-projectionist'
 Plug 'mattn/emmet-vim'
 Plug 'lmeijvogel/vim-yaml-helper',      { 'for': ['yaml'] }
+Plug 'mogelbrod/vim-jsonpath'
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = ""
 Plug 'neoclide/coc.nvim',               { 'branch': 'release' }
@@ -400,6 +401,7 @@ let g:coc_global_extensions = [
       \ 'coc-solargraph',
       \ 'coc-eslint',
       \ 'coc-stylelint',
+      \ 'coc-stylelintplus',
       \ 'coc-diagnostic',
       \ 'coc-snippets',
       \ 'coc-emmet',
