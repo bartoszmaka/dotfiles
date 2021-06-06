@@ -52,6 +52,10 @@ cmd [[
   set hidden
   set showtabline=2
   set inccommand=nosplit
+	set tabstop=2
+	set shiftwidth=2
+	set expandtab
+	set softtabstop=2
 ]]
 
 g.vimsyn_embed = 'l'
