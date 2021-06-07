@@ -1,8 +1,5 @@
-local g = vim.g
-local cmd = vim.cmd
 
 local on_attach = function(client, bufnr)
-  require('completion').on_attach()
 
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -120,21 +117,6 @@ local function setup_servers()
 end
 
 setup_servers()
-
-g.completion_enable_snippet = 'UltiSnips'
-g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
-cmd[[
-set completeopt=menuone,noinsert,noselect
-set shortmess+=rnc
-set shortmess-=F
-]]
-cmd[[
-
-]]
-cmd[[inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"]]
-cmd[[inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"]]
--- cmd[[imap <tab> <Plug>(completion_smart_tab)]]
--- cmd[[imap <s-tab> <Plug>(completion_smart_s_tab)]]
 
 vim.fn.sign_define("LspDiagnosticsSignError", {text = "e", numhl = "LspDiagnosticsDefaultError"})
 vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "w", numhl = "LspDiagnosticsDefaultWarning"})
