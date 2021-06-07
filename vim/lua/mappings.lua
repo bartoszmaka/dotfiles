@@ -29,8 +29,9 @@ vnoremap('K', '5k')
 vnoremap('J', '5j')
 nnoremap('j', 'gj')
 nnoremap('k', 'gk')
-vnoremap('<Tab>', '>')
-vnoremap('<S-Tab>', '<')
+
+vnoremap('<Tab>', '>gv')
+vnoremap('<S-Tab>', '<gv')
 
 -- console like keymaps
 cnoremap('<C-a>', '<Home>')
