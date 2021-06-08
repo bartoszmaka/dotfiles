@@ -22,13 +22,8 @@ require('packer').startup(function(use)
   use { 'onsails/lspkind-nvim' }
   use { 'tpope/vim-projectionist' }
   use { 'hrsh7th/nvim-compe' }
-  -- use { 'nvim-lua/completion-nvim' }
-  -- use { 'steelsojka/completion-buffers'}
 
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-  }
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, }
   use { 'APZelos/blamer.nvim' } -- remove once gitsigns has more configurable blame
   use { 'navarasu/onedark.nvim' }
   use { 'romgrk/barbar.nvim' }
@@ -37,19 +32,14 @@ require('packer').startup(function(use)
     branch = 'main',
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
   }
+
+  use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua', }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-  }
-  use {
-    'p00f/nvim-ts-rainbow',
-    requires = { 'nvim-treesitter/nvim-treesitter' }
-  }
-  use {
-    "lukas-reineke/indent-blankline.nvim",
-    branch = "lua",
-  }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
+  use { 'p00f/nvim-ts-rainbow', requires = { 'nvim-treesitter/nvim-treesitter' } }
+  use { 'nvim-treesitter/playground', requires = { 'nvim-treesitter/nvim-treesitter' } }
+  use { 'jparise/vim-graphql' }
+
   use {'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }
 
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
@@ -64,27 +54,7 @@ require('packer').startup(function(use)
   -- 	requires = {{'nvim-telescope/telescope.nvim'}, {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
   -- }
   use { 'dominikduda/vim_yank_with_context' }
-  use { 'dominikduda/vim_current_word',
-    config = function()
-      local config_helper = require('config_helper')
-      local let = config_helper.let
-      local cmd = vim.cmd
-
-      let('g', 'vim_current_word#enabled', 1)
-      let('g', 'vim_current_word#highlight_only_in_focused_window', 1)
-      let('g', 'vim_current_word#highlight_twins', 1)
-      let('g', 'vim_current_word#highlight_current_word', 1)
-      let('g', 'vim_current_word#highlight_delay', 400)
-      cmd [[
-      augroup vim_current_word
-      autocmd!
-
-      highlight! CurrentWordTwins guibg=#363636 gui=bold
-      highlight! CurrentWord      guibg=#222200 gui=bold
-      augroup END
-      ]]
-    end
-  }
+  use { 'dominikduda/vim_current_word', config = function() require('plugins.current-word') end }
   use { 'mg979/vim-visual-multi' }
   use { 'tpope/vim-commentary',
     config = function()
@@ -94,10 +64,22 @@ require('packer').startup(function(use)
       nmap('gj', 'yypkgccj')
     end
   }
-  use { 'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup()
-    end
+  use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup() end }
+
+  use { 'roxma/vim-tmux-clipboard' }
+  use { 'christoomey/vim-tmux-navigator', config = function()
+    vim.cmd[[
+      let g:tmux_navigator_no_mappings = 1
+      nnoremap <silent><C-w>h :TmuxNavigateLeft<CR>
+      nnoremap <silent><C-w>j :TmuxNavigateDown<CR>
+      nnoremap <silent><C-w>k :TmuxNavigateUp<CR>
+      nnoremap <silent><C-w>l :TmuxNavigateRight<CR>
+    ]]
+  end}
+
+  use { 'janko/vim-test',
+    requires = { 'preservim/vimux' },
+    config = function() require('plugins.vim-test') end
   }
   use { 'alvan/vim-closetag' }
   use { 'tpope/vim-surround' }
