@@ -105,3 +105,4 @@ require('plugins.galaxyline')
 require('plugins.projectionist')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]
+vim.cmd [[command! CopyPath execute 'let @+ = expand("%")']]
