@@ -41,6 +41,7 @@ vim.cmd[[
   highlight! BufferVisibleSign    guifg=#93a4c3 guibg=#1a212e
   highlight! BufferInactive       guifg=#93a4c3 guibg=#2a324a
   highlight! BufferInactiveMod    guifg=#34bfd0 guibg=#2a324a
+  highlight! BufferInactiveSign   guifg=#93a4c3 guibg=#2a324a
   augroup END
 ]]
 

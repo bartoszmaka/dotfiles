@@ -67,8 +67,8 @@ section.left[1] = {
       end
       return '  '..alias_mode..' '
     end,
-    highlight = { colors.bg, colors.bg },
-    separator_highlight = {colors.bg, colors.section_bg},
+    highlight = { colors.bg, colors.section_bg },
+    separator_highlight = {colors.bg, colors.section_bg },
   },
 }
 
@@ -87,16 +87,22 @@ section.left[3] = {
     end,
     condition = buffer_not_empty,
     highlight = { colors.fg, colors.section_bg },
-    separator_highlight = {colors.fg, colors.section_bg},
+    separator_highlight = {colors.fg, colors.section_bg },
   }
 }
 
 section.right[1]= {
   LineColumn = {
-    provider = 'LineColumn',
+    provider = function ()
+      vim.api.nvim_command('hi GalaxyLineColumn guibg='..mode_color())
+      local max_lines = vim.fn.line('$')
+      local line = vim.fn.line('.')
+      local column = vim.fn.col('.')
+      return string.format(" %3d/%d:%d ", line, max_lines, column)
+    end,
     separator = ' ',
-    highlight = { colors.black,colors.green },
-    separator_highlight = { colors.black,colors.green },
+    highlight = { colors.black, mode_color() },
+    separator_highlight = { colors.black, colors.section_bg },
   }
 }
 
@@ -109,7 +115,7 @@ section.short_line_left[1] = {
   }
 }
 section.short_line_left[2] = {
-  FileName = {
+  FileNameInactive = {
     provider = 'FileName',
     separator = ' ',
     highlight = { colors.fg, colors.bg_inactive },
@@ -117,8 +123,8 @@ section.short_line_left[2] = {
   }
 }
 
-section.short_line_right[1]= {
-  LineColumn = {
+section.short_line_right[1] = {
+  LineColumnInactive = {
     provider = 'LineColumn',
     separator = ' ',
     highlight = { colors.fg, colors.bg_inactive },

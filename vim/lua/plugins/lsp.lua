@@ -102,15 +102,6 @@ local function setup_servers()
         on_attach = on_attach,
         root_dir = vim.loop.cwd,
         capabilities = capabilities,
-        -- handlers = {
-        --   ["textDocument/publishDiagnostics"] = vim.lsp.with(
-        --     vim.lsp.diagnostic.on_publish_diagnostics, {
-        --       -- Disable virtual_text on file load
-        --       -- Show with vim.lsp.diagnostic.show_line_diagnostics()
-        --       virtual_text = false
-        --     }
-        --   ),
-        -- },
       }
     elseif lang == "lua" then
       lspconf[lang].setup {
