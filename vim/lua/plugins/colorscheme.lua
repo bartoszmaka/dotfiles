@@ -27,3 +27,12 @@ vim.cmd[[
     highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold
   augroup END
 ]]
+
+-- vim-graphql
+vim.cmd[[
+  autocmd FileType javascript highlight! link graphqlStructure Constant
+  autocmd FileType javascript highlight! link graphqlVariable Type
+  autocmd FileType javascript highlight! link graphqlName String
+  autocmd FileType javascript highlight! link graphqlType Constant
+  autocmd FileType javascript highlight! link graphqlStructure Label
+]]

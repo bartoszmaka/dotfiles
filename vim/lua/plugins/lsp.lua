@@ -30,24 +30,24 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
   if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>lm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<leader>lm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
 
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
-    require('lspconfig').util.nvim_multiline_command [[
-      :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-      augroup lsp_document_highlight
-        autocmd!
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]]
-  end
+  -- if client.resolved_capabilities.document_highlight then
+  --   require('lspconfig').util.nvim_multiline_command [[
+  --     :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+  --     :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+  --     :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+  --     augroup lsp_document_highlight
+  --       autocmd!
+  --       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+  --       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+  --     augroup END
+  --   ]]
+  -- end
 end
 
 require('lspkind').init({
@@ -77,6 +77,16 @@ require('lspkind').init({
   },
 })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+
 local function setup_servers()
   local lspinstall = require "lspinstall"
   lspinstall.setup()
@@ -85,10 +95,22 @@ local function setup_servers()
   local servers = lspinstall.installed_servers()
 
   for _, lang in pairs(servers) do
-    if lang ~= "lua" then
+    if lang == "ruby" then
       lspconf[lang].setup {
+        cmd = { "solargraph", "stdio" },
+        flags = { debounce_text_changes = 150, },
         on_attach = on_attach,
-        root_dir = vim.loop.cwd
+        root_dir = vim.loop.cwd,
+        capabilities = capabilities,
+        -- handlers = {
+        --   ["textDocument/publishDiagnostics"] = vim.lsp.with(
+        --     vim.lsp.diagnostic.on_publish_diagnostics, {
+        --       -- Disable virtual_text on file load
+        --       -- Show with vim.lsp.diagnostic.show_line_diagnostics()
+        --       virtual_text = false
+        --     }
+        --   ),
+        -- },
       }
     elseif lang == "lua" then
       lspconf[lang].setup {
@@ -111,6 +133,11 @@ local function setup_servers()
             }
           }
         }
+      }
+    else
+      lspconf[lang].setup {
+        on_attach = on_attach,
+        root_dir = vim.loop.cwd
       }
     end
   end
