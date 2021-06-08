@@ -39,10 +39,9 @@ test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 
 alias tmux="tmux -u"
 alias tnew="\tmux -u new-session -t main"
-# alias spacevim="vim -u ~/.SpaceVim/init.vim"
 alias spacevim="nvim -u ~/.SpaceVim/init.vim"
 alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
-alias vimrc="$EDITOR $DOTFILES_PATH/vim/vimrc"
+alias vimrc="$EDITOR $DOTFILES_PATH/vim/"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
 alias coderc="code $DOTFILES_PATH/vscode/settings.json $DOTFILES_PATH/vscode/keybindings.json"
 alias alacrittyrc="$EDITOR $DOTFILES_PATH/alacritty.yml"
@@ -50,6 +49,8 @@ alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
+alias n='nvim'
+alias oldvim='nvim -u $DOTFILES_PATH/vim/vimrc'
 
 alias -g F='| fzf --exact'
 alias -g N='| nvim -'
@@ -68,7 +69,7 @@ alias yri="rm -rf yarn.lock node_modules/ && yarn install"
 alias yrm="rm -rf yarn.lock node_modules/"
 alias ys="yarn start"
 alias yi="yarn install"
-alias n='nvim'
+alias luavim='nvim -u $DOTFILES_PATH/vim/init.lua'
 alias js='tmuxinator start frontend .'
 alias mailcatcher='echo "running mailcatcher --foreground. If you want to use default mailcatcher - escape the alias"; mailcatcher --foreground'
 alias tf="terraform"
@@ -83,7 +84,7 @@ alias :wqa=exit
 
 alias cbc=compare_branch_commits
 function compare_branch_commits() {
- git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $1..$2
+  git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $1..$2
 }
 function tattach() { tmux new-session -s `uuidgen` -t $1 }
 function npmdo { $(npm bin)/$@ }

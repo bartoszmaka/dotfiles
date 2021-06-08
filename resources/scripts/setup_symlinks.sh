@@ -3,7 +3,9 @@ mkdir -p ~/.config/nvim
 mkdir -p ~/.config/coc
 mkdir -p ~/.config/alacritty
 
-ln -vsf ~/.repos/dotfiles/vim/vimrc ~/.config/nvim/init.vim
+# ln -vsf ~/.repos/dotfiles/vim/vimrc ~/.config/nvim/init.vim
+ln -vsf ~/.repos/dotfiles/vim/init.lua ~/.config/nvim/
+ln -vsf ~/.repos/dotfiles/vim/lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/resources/global_gitignore ~/.gitignore
 ln -vsf ~/.repos/dotfiles/resources/gitconfig ~/.gitconfig
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
