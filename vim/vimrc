@@ -3,14 +3,13 @@ call plug#begin()
 Plug 'jiangmiao/auto-pairs'
 Plug 'joshdick/onedark.vim'                                        " colorscheme
 Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
+" Plug 'mengelbrecht/lightline-bufferline'
 Plug 'tpope/vim-commentary'                                        " change selected code into comment
 Plug 'tpope/vim-repeat'                                            " better .
 Plug 'easymotion/vim-easymotion'                                   " adds improved w e b j k
 Plug 'rhysd/clever-f.vim'                                          " better f F
 if exists('$TMUX')
   Plug 'christoomey/vim-tmux-navigator'                            " move between vim windows and tmux panes with the same mapping
-  Plug 'christoomey/vim-tmux-runner'                               " run tests in other tmux pane
   Plug 'roxma/vim-tmux-clipboard'                                  " sync with tmux clipboard
 endif
 Plug 'andymass/vim-matchup'                                        " jump to matching tag/parentheses; first suspect in case of performance issues
@@ -68,6 +67,8 @@ Plug 'Asheq/close-buffers.vim'
 Plug 'dunckr/js_alternate.vim'
 Plug 'Lenovsky/nuake'
 Plug 'preservim/vimux'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 call plug#end()
  " **********************************
  " vim variables
@@ -84,7 +85,7 @@ let g:python3_host_prog  = '~/.asdf/shims/python3'
 " meta
 syntax sync fromstart
 set undofile                            " keep history in file
-set undodir=$HOME/.vim/undo             " path for this file
+set undodir=$HOME/.config/nvim/undo     " path for this file
 set grepprg=ag
 set noswapfile
 set directory=/tmp
@@ -146,7 +147,6 @@ set smartcase
 " ui
 set noshowmode                          " do not display current mode in cmdline (airline already handles it)
 set listchars=
-      \eol:$,
       \tab:>-,
       \trail:~,
       \extends:>,
@@ -279,10 +279,10 @@ let g:gutentags_ctags_exclude = [
 
 let g:loaded_matchit = 1
 
-let g:lightline#bufferline#number_map = {
-      \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
-      \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'}
-let g:lightline#bufferline#show_number = 2
+" let g:lightline#bufferline#number_map = {
+"       \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
+"       \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'}
+" let g:lightline#bufferline#show_number = 2
 let g:lightline = {}
 let g:lightline.colorscheme = 'onedark'
 let g:lightline.active = {
@@ -295,10 +295,10 @@ let lightline.inactive = {
       \   'left': [ [ 'readonly', 'custom_relativepath', 'modified' ] ],
       \   'right': [ [ 'custom_line_info' ] ]
       \ }
-let lightline.tabline = {
-      \   'left': [ ['buffers'] ],
-      \   'right': [ ['relativepath'] ]
-      \ }
+" let lightline.tabline = {
+"       \   'left': [ ['buffers'] ],
+"       \   'right': [ ['relativepath'] ]
+"       \ }
 let lightline.component_function = {
       \   'git_status': 'CocGitStatus',
       \   'tags_info': 'gutentags#statusline'
@@ -366,25 +366,50 @@ augroup LightlineRefreshEvents
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup END
 
-nmap <Leader>1 <Plug>lightline#bufferline#go(1)
-nmap <Leader>2 <Plug>lightline#bufferline#go(2)
-nmap <Leader>3 <Plug>lightline#bufferline#go(3)
-nmap <Leader>4 <Plug>lightline#bufferline#go(4)
-nmap <Leader>5 <Plug>lightline#bufferline#go(5)
-nmap <Leader>6 <Plug>lightline#bufferline#go(6)
-nmap <Leader>7 <Plug>lightline#bufferline#go(7)
-nmap <Leader>8 <Plug>lightline#bufferline#go(8)
-nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.animation = v:true
+let bufferline.auto_hide = v:false
+let bufferline.tabpages = v:true
+let bufferline.closable = v:false
+let bufferline.maximum_padding = 1
+let bufferline.no_name_title = ' - '
 
-noremap <leader>]           :bnext<CR>
-noremap <leader>[           :bprevious<CR>
-noremap <leader>}           :bnext<CR>
-noremap <leader>{           :bprevious<CR>
-nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>:Bdelete nameless<CR>
-nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>:Bdelete nameless<CR>
-nnoremap <silent> <leader><leader>W :Bdelete! hidden<CR>
-noremap <leader><space>!    :bdelete!<CR>
-nnoremap <leader>q          :close<CR>
+nnoremap <leader>[ :BufferPrevious<CR>
+nnoremap <leader>] :BufferNext<CR>
+nnoremap <leader>{ :BufferMovePrevious<CR>
+nnoremap <leader>} :BufferMoveNext<CR>
+nnoremap <leader>1 :BufferGoto 1<CR>
+nnoremap <leader>2 :BufferGoto 2<CR>
+nnoremap <leader>3 :BufferGoto 3<CR>
+nnoremap <leader>4 :BufferGoto 4<CR>
+nnoremap <leader>5 :BufferGoto 5<CR>
+nnoremap <leader>6 :BufferGoto 6<CR>
+nnoremap <leader>7 :BufferGoto 7<CR>
+nnoremap <leader>8 :BufferGoto 8<CR>
+nnoremap <leader>9 :BufferLast<CR>
+nnoremap <leader>q :close<CR>
+nnoremap <leader>w :BufferClose<CR>
+nnoremap <leader><leader>! :BufferCloseAllButCurrent<CR>
+
+" nmap <Leader>1 <Plug>lightline#bufferline#go(1)
+" nmap <Leader>2 <Plug>lightline#bufferline#go(2)
+" nmap <Leader>3 <Plug>lightline#bufferline#go(3)
+" nmap <Leader>4 <Plug>lightline#bufferline#go(4)
+" nmap <Leader>5 <Plug>lightline#bufferline#go(5)
+" nmap <Leader>6 <Plug>lightline#bufferline#go(6)
+" nmap <Leader>7 <Plug>lightline#bufferline#go(7)
+" nmap <Leader>8 <Plug>lightline#bufferline#go(8)
+" nmap <Leader>9 <Plug>lightline#bufferline#go(9)
+
+" noremap <leader>]           :bnext<CR>
+" noremap <leader>[           :bprevious<CR>
+" noremap <leader>}           :bnext<CR>
+" noremap <leader>{           :bprevious<CR>
+" nnoremap <silent> <leader>w :bp<bar>sp<bar>bn<bar>bd<CR>:Bdelete nameless<CR>
+" nnoremap <silent> <leader>W :bp<bar>sp<bar>bn<bar>bd!<CR>:Bdelete nameless<CR>
+" nnoremap <silent> <leader><leader>W :Bdelete! hidden<CR>
+" noremap <leader><space>!    :bdelete!<CR>
+" nnoremap <leader>q          :close<CR>
 
 " anzu
 let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
@@ -1069,12 +1094,13 @@ augroup color_scheme_tweaks
   " endif
 augroup END
 
-vnoremap <c-y> :YankWithContext<CR>
+" vnoremap <c-y> :YankWithContext<CR>
 
 let g:instant_markdown_autoscroll = 1
 command! CopyPath execute 'let @+ = expand("%")'
 
 if(has('nvim-0.5'))
+let g:vimsyn_embed = 'l'
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
