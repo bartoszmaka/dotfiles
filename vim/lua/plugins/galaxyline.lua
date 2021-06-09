@@ -127,7 +127,9 @@ section.short_line_left[2] = {
 }
 section.short_line_left[3] = {
   FileNameInactive = {
-    provider = 'FileName',
+    provider = function ()
+      return vim.fn.expand('%f')
+    end,
     separator = ' ',
     highlight = { colors.fg, colors.bg_inactive },
     separator_highlight = { colors.fg, colors.bg_inactive },
