@@ -84,7 +84,7 @@ require('packer').startup(function(use)
   use { 'alvan/vim-closetag' }
   use { 'tpope/vim-surround' }
   use { 'rhysd/clever-f.vim' }
-  use { 'AndrewRadev/splitjoin.vim' }
+  use { 'AndrewRadev/splitjoin.vim'}
   use { 'tpope/vim-endwise' }
   use { 'tpope/vim-abolish' }
   use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }
@@ -111,3 +111,22 @@ require('plugins.projectionist')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]
 vim.cmd [[command! CopyPath execute 'let @+ = expand("%")']]
+
+vim.cmd[[
+augroup remember_cursor_position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END
+]]
+
+vim.cmd[[
+  let mapleader="\<Space>"
+  let g:splitjoin_split_mapping     = ''
+  let g:splitjoin_join_mapping      = ''
+  let g:splitjoin_ruby_curly_braces = 0
+  let g:splitjoin_ruby_hanging_args = 0
+  nmap <C-m><C-d> :SplitjoinJoin<cr>
+  nmap <C-m><C-s> :SplitjoinSplit<cr>
+  nmap <leader>md :SplitjoinJoin<cr>
+  nmap <leader>ms :SplitjoinSplit<cr>
+]]
