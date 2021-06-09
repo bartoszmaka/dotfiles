@@ -120,6 +120,7 @@ section.short_line_left[1] = {
 section.short_line_left[2] = {
   FileIconInactive = {
     provider = 'FileIcon',
+    condition = buffer_not_empty,
     separator = ' ',
     highlight = { colors.fg, colors.bg_inactive },
     separator_highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color,  colors.bg_inactive },
