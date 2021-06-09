@@ -87,6 +87,11 @@ require('packer').startup(function(use)
   use { 'AndrewRadev/splitjoin.vim' }
   use { 'tpope/vim-endwise' }
   use { 'tpope/vim-abolish' }
+  use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }
+  use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end }
+
+  use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
+  use { 'mogelbrod/vim-jsonpath' }
 
 end)
 
