@@ -60,19 +60,20 @@ section.left[1] = {
         v = 'VISUAL',
         R = 'REPLACE',
       }
-      vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color())
+      vim.api.nvim_command('hi GalaxyViMode guibg='..mode_color())
       local alias_mode = alias[vim.fn.mode()]
       if alias_mode == nil then
         alias_mode = vim.fn.mode()
       end
       return '  '..alias_mode..' '
     end,
+    separator = ' ',
     highlight = { colors.bg, colors.section_bg },
     separator_highlight = {colors.bg, colors.section_bg },
   },
 }
 
-section.left[2] ={
+section.left[2] = {
   FileIcon = {
     provider = 'FileIcon',
     condition = buffer_not_empty,
@@ -107,14 +108,24 @@ section.right[1]= {
 }
 
 section.short_line_left[1] = {
-  FileIcon = {
+  SpacerInactive = {
+    provider = function()
+      return '  '
+    end,
+    highlight = { colors.fg, colors.bg_inactive },
+    separator_highlight = {colors.fg, colors.bg_inactive },
+  }
+}
+
+section.short_line_left[2] = {
+  FileIconInactive = {
     provider = 'FileIcon',
     separator = ' ',
     highlight = { colors.fg, colors.bg_inactive },
-    separator_highlight = {  colors.fg, colors.bg_inactive  },
+    separator_highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color,  colors.bg_inactive },
   }
 }
-section.short_line_left[2] = {
+section.short_line_left[3] = {
   FileNameInactive = {
     provider = 'FileName',
     separator = ' ',
