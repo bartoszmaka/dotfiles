@@ -15,13 +15,18 @@ require('packer').startup(function(use)
   use { 'neovim/nvim-lspconfig' }
   use { 'kabouzeid/nvim-lspinstall' }
   use { 'SirVer/ultisnips', config = function()
-    vim.g.UltiSnipsExpandTrigger="<NOP>"
-    vim.g.UltiSnipsJumpForwardTrigger="<NOP>"
-    vim.g.UltiSnipsJumpBackwardTrigger="<NOP>"
+    vim.g.UltiSnipsExpandTrigger="<C-e>"
+    vim.g.UltiSnipsJumpForwardTrigger="<C-e>"
+    vim.g.UltiSnipsJumpBackwardTrigger="<C-b>"
   end}
   use { 'onsails/lspkind-nvim' }
   use { 'tpope/vim-projectionist' }
   use { 'hrsh7th/nvim-compe' }
+
+  use { 'dense-analysis/ale' }
+  use { "nathunsmitty/nvim-ale-diagnostic" }
+
+  use { 'ludovicchabant/vim-gutentags' }
 
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, }
   use { 'APZelos/blamer.nvim' } -- remove once gitsigns has more configurable blame
@@ -33,26 +38,20 @@ require('packer').startup(function(use)
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
   }
 
-  use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua', }
+  use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
   use { 'p00f/nvim-ts-rainbow', requires = { 'nvim-treesitter/nvim-treesitter' } }
   use { 'nvim-treesitter/playground', requires = { 'nvim-treesitter/nvim-treesitter' } }
   use { 'jparise/vim-graphql' }
+  use {'rhysd/conflict-marker.vim' }
 
   use {'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }
+  use {'simnalamburt/vim-mundo' }
 
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
   use {'junegunn/fzf.vim'}
   use { 'bartoszmaka/fzf-mru.vim' }
-  -- use {
-  -- 	'nvim-telescope/telescope.nvim',
-  -- 	requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-  -- }
-  -- use {
-  -- 	'nvim-telescope/telescope-media-files.nvim',
-  -- 	requires = {{'nvim-telescope/telescope.nvim'}, {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-  -- }
   use { 'dominikduda/vim_yank_with_context' }
   use { 'dominikduda/vim_current_word', config = function() require('plugins.current-word') end }
   use { 'mg979/vim-visual-multi' }
@@ -65,6 +64,8 @@ require('packer').startup(function(use)
     end
   }
   use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup() end }
+
+  use { 'osyo-manga/vim-anzu' }
 
   use { 'roxma/vim-tmux-clipboard' }
   use { 'christoomey/vim-tmux-navigator', config = function()
@@ -102,12 +103,14 @@ require('plugins.blamer')
 require('plugins.indentline')
 require('plugins.nvim-tree')
 require('plugins.fzf')
--- require('plugins.telescope')
 require('plugins.lsp')
+require('plugins.ale')
 require('plugins.completion')
+require('plugins.gutentags')
 require('plugins.tabline')
 require('plugins.galaxyline')
 require('plugins.projectionist')
+require('plugins.conflict-marker')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]
 vim.cmd [[command! CopyPath execute 'let @+ = expand("%")']]
@@ -129,4 +132,18 @@ vim.cmd[[
   nmap <C-m><C-s> :SplitjoinSplit<cr>
   nmap <leader>md :SplitjoinJoin<cr>
   nmap <leader>ms :SplitjoinSplit<cr>
+]]
+vim.cmd [[autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}]]
+
+vim.cmd[[
+let g:mundo_right = 1
+nnoremap <C-k><C-u> :MundoToggle<CR>
+]]
+
+vim.cmd [[
+let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
+nmap n <Plug>(anzu-n-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap N <Plug>(anzu-N-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap * <Plug>(anzu-star-with-echo)zz<Plug>(anzu-echo-search-status)
+nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 ]]

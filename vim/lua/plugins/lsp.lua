@@ -1,3 +1,13 @@
+require("nvim-ale-diagnostic")
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
+    virtual_text = true,
+    signs = true,
+    update_in_insert = false,
+  }
+)
 
 local on_attach = function(client, bufnr)
 
@@ -16,24 +26,17 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workleader_folder()<CR>', opts)
-  buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workleader_folder()<CR>', opts)
-  buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workleader_folders()))<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>le', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<leader>lq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  end
+  -- if client.resolved_capabilities.document_formatting then
+  --   buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  -- elseif client.resolved_capabilities.document_range_formatting then
+  --   buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  -- end
 
   -- Set autocommands conditional on server_capabilities
   -- if client.resolved_capabilities.document_highlight then
@@ -136,7 +139,13 @@ end
 
 setup_servers()
 
-vim.fn.sign_define("LspDiagnosticsSignError", {text = "e", numhl = "LspDiagnosticsDefaultError"})
-vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "w", numhl = "LspDiagnosticsDefaultWarning"})
-vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "i", numhl = "LspDiagnosticsDefaultInformation"})
-vim.fn.sign_define("LspDiagnosticsSignHint", {text = "h", numhl = "LspDiagnosticsDefaultHint"})
+-- vim.fn.sign_define("LspDiagnosticsSignError", {text = "", numhl = "LspDiagnosticsDefaultError"})
+-- vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", numhl = "LspDiagnosticsDefaultWarning"})
+-- vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "", numhl = "LspDiagnosticsDefaultInformation"})
+-- vim.fn.sign_define("LspDiagnosticsSignHint", {text = "", numhl = "LspDiagnosticsDefaultHint"})
+vim.cmd[[
+  highlight! LspDiagnosticsUnderlineInformation guibg=NONE gui=NONE
+  highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
+  highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
+  highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
+]]
