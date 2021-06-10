@@ -56,6 +56,9 @@ cmd [[
 	set shiftwidth=2
 	set expandtab
 	set softtabstop=2
+  set noshowmode
+  set scrolloff=4
+  set sidescrolloff=15
 ]]
 
 g.vimsyn_embed = 'l'

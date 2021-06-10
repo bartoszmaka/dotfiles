@@ -30,8 +30,8 @@ end
 
 local mode_color = function()
   local mode_colors = {
-    n = colors.cyan,
-    i = colors.green,
+    n = colors.green,
+    i = colors.blue,
     c = colors.orange,
     V = colors.magenta,
     [''] = colors.magenta,
@@ -60,7 +60,7 @@ section.left[1] = {
         v = 'VISUAL',
         R = 'REPLACE',
       }
-      vim.api.nvim_command('hi GalaxyViMode guibg='..mode_color())
+      vim.api.nvim_command('hi GalaxyViMode gui=bold guibg='..mode_color())
       local alias_mode = alias[vim.fn.mode()]
       if alias_mode == nil then
         alias_mode = vim.fn.mode()
@@ -147,3 +147,47 @@ section.short_line_right[1] = {
 }
 
 galaxyline.load_galaxyline()
+
+-- gls.left[3] = {
+--   AleErrorCount = {
+--     provider = function()
+--       local ale_counts = vim.fn["ale#statusline#Count"](vim.fn.bufnr())
+--       return ale_counts.error
+--     end,
+--     highlight = 'LspDiagnosticsSignError',
+--     icon = ' ' .. vim.g.ale_sign_error .. ' ',
+--     condition = function()
+--       local ale_counts = vim.fn["ale#statusline#Count"](vim.fn.bufnr())
+--       return ale_counts.error > 0
+--     end,
+--   }
+-- }
+-- gls.left[4] = {
+--   AleWarningCount = {
+--     provider = function()
+--       local ale_counts = vim.fn["ale#statusline#Count"](vim.fn.bufnr())
+--       return ale_counts.warning
+--     end,
+--     highlight = 'LspDiagnosticsSignWarning',
+--     icon = ' ' .. vim.g.ale_sign_warning .. ' ',
+--     condition = function()
+--       local ale_counts = vim.fn["ale#statusline#Count"](vim.fn.bufnr())
+--       return ale_counts.warning > 0
+--     end,
+--   }
+-- }
+-- gls.left[5] = {
+--   AleInfoCount = {
+--     provider = function()
+--       local ale_counts = vim.fn["ale#statusline#Count"](vim.fn.bufnr())
+--       return ale_counts.info
+--     end,
+--     highlight = 'LspDiagnosticsSignInformation',
+--     icon = ' ' .. vim.g.ale_sign_info .. ' ',
+--     condition = function()
+--       local ale_counts = vim.fn["ale#statusline#Count"](vim.fn.bufnr())
+--       return ale_counts.info > 0
+--     end,
+--   }
+-- }
+-- vim.cmd('autocmd User ALELintPost lua require("galaxyline").load_galaxyline()')

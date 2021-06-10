@@ -78,3 +78,8 @@ require('gitsigns').setup {
   --   return {{' '..text, 'GitSignsCurrentLineBlame'}}
   -- end
 }
+
+vim.cmd[[
+  onoremap ih <cmd>lua require('gitsigns').select_hunk()<CR>
+  xnoremap ih <cmd>lua require('gitsigns').select_hunk()<CR>
+]]
