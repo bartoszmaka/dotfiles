@@ -41,7 +41,7 @@ alias tmux="tmux -u"
 alias tnew="\tmux -u new-session -t main"
 alias spacevim="nvim -u ~/.SpaceVim/init.vim"
 alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
-alias vimrc="$EDITOR $DOTFILES_PATH/vim/"
+alias vimrc="cd $DOTFILES_PATH; $EDITOR $DOTFILES_PATH/vim/lua/plugins/init.lua; cd -"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
 alias coderc="code $DOTFILES_PATH/vscode/settings.json $DOTFILES_PATH/vscode/keybindings.json"
 alias alacrittyrc="$EDITOR $DOTFILES_PATH/alacritty.yml"
@@ -75,6 +75,8 @@ alias mailcatcher='echo "running mailcatcher --foreground. If you want to use de
 alias tf="terraform"
 alias ls="exa"
 alias cat="bat"
+
+alias glcean="git clean -fd"
 
 alias gcof="git checkout \$(git branch -a | fzf)"
 

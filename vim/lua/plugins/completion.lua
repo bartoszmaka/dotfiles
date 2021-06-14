@@ -1,3 +1,4 @@
+local npairs = require('nvim-autopairs')
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -38,7 +39,12 @@ end
 
 _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
-    return t("<C-n>")
+    if vim.fn.complete_info()["selected"] ~= -1 then
+      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
+    else
+      return npairs.esc("<cr>")
+    end
+    -- return t("<C-n>")
 
   elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 or vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
     return t("<C-R>=UltiSnips#ExpandSnippetOrJump()<CR>")
@@ -50,6 +56,10 @@ _G.tab_complete = function()
     return vim.fn['compe#complete']()
   end
 end
+  -- if vim.fn.pumvisible() == 1  then
+  -- else
+  --   return npairs.autopairs_cr()
+  -- end
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t("<C-p>")

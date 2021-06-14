@@ -1,15 +1,22 @@
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enable = true
-  },
-  rainbow = {
-    enable = true
-  }
+  highlight = { enable = true },
+  indent = { enable = true },
+  rainbow = { enable = true },
+  autopairs = { enable = true },
+  autotag = { enable = true }
 }
+
+-- local ts_conds = require('nvim-autopairs.ts-conds')
+
+
+-- npairs.add_rules({
+--   Rule("%", "%", "lua")
+--     :with_pair(ts_conds.is_ts_node({'string','comment'})),
+--   Rule("$", "$", "lua")
+--     :with_pair(ts_conds.is_not_ts_node({'function'}))
+-- })
+
 
 -- local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
 -- parser_config.embedded_template = {
