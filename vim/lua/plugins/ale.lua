@@ -6,12 +6,12 @@ vim.g.ale_disable_lsp = 1
 -- use a floating window to show the lint problems
 vim.g.ale_hover_cursor = 1
 vim.g.ale_floating_preview = 1
-vim.g.ale_cursor_detail = 1
+-- vim.g.ale_cursor_detail = 1
 vim.g.ale_hover_to_floating_preview = 1
 vim.g.ale_detail_to_floating_preview = 1
 vim.g.ale_close_preview_on_insert = 1
 vim.g.ale_floating_window_border = {'│', '─', '╭', '╮', '╯', '╰'}
-vim.g.ale_virtualtext_cursor = 0
+vim.g.ale_virtualtext_cursor = 1
 vim.g.ale_virtualtext_delay = 350
 vim.g.ale_echo_cursor = 1
 vim.g.ale_echo_msg_format = '[%linter%] [%severity%] %s'

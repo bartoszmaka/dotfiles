@@ -30,7 +30,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("n", "<C-l><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
   -- if client.resolved_capabilities.document_formatting then
   --   buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
@@ -59,18 +59,18 @@ require('lspkind').init({
   symbol_map = {
     Text = '',
     Method = 'ƒ',
-    Function = '',
+    Function = 'ƒ',
     Constructor = '',
     Variable = '',
-    Class = '',
-    Interface = 'ﰮ',
-    Module = '',
+    Class = 'C',
+    Interface = 'i',
+    Module = '',
     Property = '',
     Unit = '',
     Value = '',
-    Enum = '了',
-    Keyword = '',
-    Snippet = '﬌',
+    Enum = 'e',
+    Keyword = 'k',
+    Snippet = 's',
     Color = '',
     File = '',
     Folder = '',

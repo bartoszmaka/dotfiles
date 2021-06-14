@@ -1,4 +1,7 @@
-local npairs = require('nvim-autopairs')
+local config_helper = require('config_helper')
+local imap = config_helper.imap
+local smap = config_helper.smap
+
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -16,6 +19,7 @@ require'compe'.setup {
   source = {
     path = true;
     buffer = true;
+    tags = false;
     calc = true;
     nvim_lsp = true;
     nvim_lua = true;
@@ -23,6 +27,7 @@ require'compe'.setup {
     ultisnips = true;
   };
 }
+
 
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -39,12 +44,7 @@ end
 
 _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      return vim.fn["compe#confirm"](npairs.esc("<cr>"))
-    else
-      return npairs.esc("<cr>")
-    end
-    -- return t("<C-n>")
+    return t("<C-n>")
 
   elseif vim.fn["UltiSnips#CanExpandSnippet"]() == 1 or vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
     return t("<C-R>=UltiSnips#ExpandSnippetOrJump()<CR>")
@@ -56,10 +56,7 @@ _G.tab_complete = function()
     return vim.fn['compe#complete']()
   end
 end
-  -- if vim.fn.pumvisible() == 1  then
-  -- else
-  --   return npairs.autopairs_cr()
-  -- end
+
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t("<C-p>")
@@ -72,7 +69,7 @@ _G.s_tab_complete = function()
   end
 end
 
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+imap("<Tab>", "v:lua.tab_complete()", {expr = true})
+smap("<Tab>", "v:lua.tab_complete()", {expr = true})
+imap("<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+smap("<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
