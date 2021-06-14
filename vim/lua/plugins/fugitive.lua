@@ -2,8 +2,8 @@ vim.cmd[[
   let mapleader="\<Space>"
   nnoremap <C-g><C-b> :Git blame<CR>
   nnoremap <leader>gb :Git blame<CR>
-  nnoremap <C-g><C-d> :Gdiffsplit<CR>
-  nnoremap <leader>gd :Gdiffsplit!<CR>
+  nnoremap <C-g><C-d> :Gvdiffsplit<CR>
+  nnoremap <leader>gd :Gvdiffsplit!<CR>
 
   augroup diff_color_tweaks
     autocmd!

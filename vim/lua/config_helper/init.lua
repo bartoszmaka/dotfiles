@@ -22,10 +22,12 @@ function M.nnoremap(from, to, opts) return M.map(from, to, 'n',  opts) end
 function M.inoremap(from, to, opts) return M.map(from, to, 'i',  opts) end
 function M.vnoremap(from, to, opts) return M.map(from, to, 'v',  opts) end
 function M.cnoremap(from, to, opts) return M.map(from, to, 'c',  opts) end
+function M.snoremap(from, to, opts) return M.map(from, to, 's',  opts) end
 function M.nmap(from, to, opts) return M.remap(from, to, 'n',  opts) end
 function M.imap(from, to, opts) return M.remap(from, to, 'i',  opts) end
 function M.vmap(from, to, opts) return M.remap(from, to, 'v',  opts) end
 function M.cmap(from, to, opts) return M.remap(from, to, 'c',  opts) end
+function M.smap(from, to, opts) return M.remap(from, to, 's',  opts) end
 
 local vim_variable_scopes = { g = vim.api.nvim_set_var }
 function M.let(scope, key, value)
