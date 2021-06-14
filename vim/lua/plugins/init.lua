@@ -1,5 +1,7 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
+local config_helper = require('config_helper')
+local nnoremap = config_helper.nnoremap
 
 -- install packer if not installed
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -22,6 +24,7 @@ require('packer').startup(function(use)
   use { 'onsails/lspkind-nvim' }
   use { 'tpope/vim-projectionist' }
   use { 'hrsh7th/nvim-compe' }
+  -- use { 'nvim-lua/lsp-status.nvim' }
 
   use { 'dense-analysis/ale' }
   use { "nathunsmitty/nvim-ale-diagnostic" }
@@ -57,8 +60,7 @@ require('packer').startup(function(use)
   use { 'mg979/vim-visual-multi' }
   use { 'tpope/vim-commentary',
     config = function()
-      local config_helper = require('config_helper')
-      local nmap = config_helper.nmap
+      local nmap = require('config_helper').nmap
 
       nmap('gj', 'yypkgccj')
     end
@@ -82,22 +84,33 @@ require('packer').startup(function(use)
     requires = { 'preservim/vimux' },
     config = function() require('plugins.vim-test') end
   }
-  use { 'alvan/vim-closetag' }
+  -- use { 'alvan/vim-closetag' }
+  use { 'windwp/nvim-ts-autotag' }
   use { 'tpope/vim-surround' }
   use { 'rhysd/clever-f.vim' }
   use { 'AndrewRadev/splitjoin.vim'}
-  use { 'tpope/vim-endwise' }
+  -- use { 'tpope/vim-endwise' }
   use { 'tpope/vim-abolish' }
   use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }
   use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end }
 
   use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
   use { 'mogelbrod/vim-jsonpath' }
+  use { 'simeji/winresizer', config = function()
+    vim.cmd[[
+    ]]
+  end}
 
+  use {'szw/vim-maximizer', config = function()
+    vim.cmd[[
+    let g:maximizer_default_mapping_key = '<C-w>m'
+    ]]
+  end}
 end)
 
 require('plugins.colorscheme')
 require('plugins.treesitter')
+require('plugins.autopairs')
 require('plugins.gitsigns')
 require('plugins.blamer')
 require('plugins.indentline')
@@ -147,3 +160,7 @@ nmap N <Plug>(anzu-N-with-echo)zz<Plug>(anzu-echo-search-status)
 nmap * <Plug>(anzu-star-with-echo)zz<Plug>(anzu-echo-search-status)
 nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
 ]]
+
+vim.g.winresizer_start_key = ''
+nnoremap('<C-w>m', ':MaximizerToggle<CR>')
+nnoremap('<C-w>e', ':WinResizerStartResize<CR>')

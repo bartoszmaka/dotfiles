@@ -2,6 +2,8 @@ local vim = vim
 local galaxyline = require('galaxyline')
 local config_helper = require('config_helper')
 local onedark = require('config_helper.colors').onedark
+-- local lsp_status = require('lsp-status')
+-- lsp_status.register_progress()
 
 local section = galaxyline.section
 galaxyline.short_line_list = { 'defx', 'packager', 'vista' }
@@ -92,7 +94,7 @@ section.left[3] = {
   }
 }
 
-section.right[1]= {
+section.right[3] = {
   LineColumn = {
     provider = function ()
       vim.api.nvim_command('hi GalaxyLineColumn guibg='..mode_color())
@@ -103,6 +105,31 @@ section.right[1]= {
     end,
     separator = ' ',
     highlight = { colors.black, mode_color() },
+    separator_highlight = { colors.black, colors.section_bg },
+  }
+}
+
+section.right[2] = {
+	GitIcon = {
+		provider = function() return ' ' end,
+		condition = buffer_not_empty,
+    separator = ' ',
+		highlight = {colors.fg_active,colors.bg_active},
+    separator_highlight = { colors.black, colors.section_bg },
+	}
+}
+
+section.right[1] = {
+  Diagnostics = {
+    provider = function()
+      if string.len(vim.fn["gutentags#statusline"]()) > 0 then ctags = ' ♺' else ctags = '' end
+      if vim.g.ale_linting then lint = ' Linting' else lint = '' end
+      if vim.g.ale_fixing then fix = ' Fixing' else fix = '' end
+
+      return ' '..ctags..fix..lint
+    end,
+    separator = ' ',
+    highlight = { colors.yellow, colors.section_bg },
     separator_highlight = { colors.black, colors.section_bg },
   }
 }
@@ -190,4 +217,23 @@ galaxyline.load_galaxyline()
 --     end,
 --   }
 -- }
--- vim.cmd('autocmd User ALELintPost lua require("galaxyline").load_galaxyline()')
+vim.cmd[[
+let g:ale_linting = v:false
+let g:ale_fixing = v:false
+augroup galaxyline_triggers
+  autocmd!
+
+  autocmd User ALELintPre let g:ale_linting = v:true | lua require("galaxyline").load_galaxyline()
+  autocmd User ALELintPost let g:ale_linting = v:false | lua require("galaxyline").load_galaxyline()
+  autocmd User ALEFixPre let g:ale_fixing = v:true | lua require("galaxyline").load_galaxyline()
+  autocmd User ALEFixPost let g:ale_fixing = v:false | lua require("galaxyline").load_galaxyline()
+  autocmd User GutentagsUpdating lua require("galaxyline").load_galaxyline()
+  autocmd User GutentagsUpdated lua require("galaxyline").load_galaxyline()
+augroup END]]
+    -- let s:ale_running = 0
+    -- let l:stl .= '%{s:ale_running ? "[linting]" : ""}'
+    -- augroup ALEProgress
+    --     autocmd!
+    --     autocmd User ALELintPre  let s:ale_running = 1 | redrawstatus
+    --     autocmd User ALELintPost let s:ale_running = 0 | redrawstatus
+    -- augroup END
