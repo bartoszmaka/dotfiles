@@ -55,6 +55,9 @@ require('packer').startup(function(use)
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
   use {'junegunn/fzf.vim'}
   use { 'bartoszmaka/fzf-mru.vim' }
+  use { 'ctrlpvim/ctrlp.vim' }
+
+
   use { 'dominikduda/vim_yank_with_context' }
   use { 'dominikduda/vim_current_word', config = function() require('plugins.current-word') end }
   use { 'mg979/vim-visual-multi' }

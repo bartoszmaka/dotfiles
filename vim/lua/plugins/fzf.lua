@@ -3,35 +3,13 @@ local nnoremap = config_helper.nnoremap
 
 vim.cmd[[
 let $FZF_DEFAULT_OPTS='--layout=reverse'
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, 'number', 'no')
-
-  let isNarrow = &columns < 150
-  let height = float2nr(&lines * 0.4)
-  let width = float2nr(&columns * (isNarrow ? 1 : 0.66))
-  let row = float2nr(&lines * 0.25)
-  let col = float2nr(isNarrow ? 0 : ((&columns - width) / 2))
-
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'row': row,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height':height,
-        \ }
-  let win = nvim_open_win(buf, v:true, opts)
-  call setwinvar(win, '&number', 0)
-  call setwinvar(win, '&relativenumber', 0)
-endfunction
-
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_mru_relative = 1
 let g:fzf_colors = { 'bg': ['bg', 'FZFNormal'] }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 }}
 
 command! -bang -nargs=? -complete=dir FZFFilesPreview call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 autocmd FileType fzf tnoremap <buffer> <esc> <esc>
-
 ]]
 
 vim.api.nvim_command[[

@@ -108,6 +108,7 @@ local function setup_servers()
       }
     elseif lang == "lua" then
       lspconf[lang].setup {
+        on_attach = on_attach,
         root_dir = function()
           return vim.loop.cwd()
         end,
