@@ -173,6 +173,20 @@ section.short_line_right[1] = {
   }
 }
 
+    -- function! LspStatus() abort
+    --   let sl = ''
+    --   if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+    --     let sl.='%#MyStatuslineLSP#E:'
+    --     let sl.='%#MyStatuslineLSPErrors#%{luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")}'
+    --     let sl.='%#MyStatuslineLSP# W:'
+    --     let sl.='%#MyStatuslineLSPWarnings#%{luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")}'
+    --   else
+    --       let sl.='%#MyStatuslineLSPErrors#off'
+    --   endif
+    --   return sl
+    -- endfunction
+    -- let &l:statusline = '%#MyStatuslineLSP#LSP '.LspStatus()
+
 galaxyline.load_galaxyline()
 
 -- gls.left[3] = {

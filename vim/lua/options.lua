@@ -46,6 +46,10 @@ o.smartcase = true          -- ignore lowercase for the whole pattern
 
 -- for some reason I can't set it via lua api
 cmd [[
+  language en_US.UTF-8
+  set langmenu=en_US.UTF-8
+  set fileencoding=utf-8
+  set encoding=utf-8
   set undofile
   set undodir=$HOME/.config/nvim/undo
   set noswapfile

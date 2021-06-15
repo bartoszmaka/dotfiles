@@ -31,6 +31,15 @@ let g:fzf_colors = { 'bg': ['bg', 'FZFNormal'] }
 
 command! -bang -nargs=? -complete=dir FZFFilesPreview call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 autocmd FileType fzf tnoremap <buffer> <esc> <esc>
+
+]]
+
+vim.api.nvim_command[[
+  command! -count=1 HFiles call fzf#run({
+        \ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d',
+        \ 'sink': 'e',
+        \ 'window': 'call FloatingFZF()'
+        \ })
 ]]
 
 vim.g.mapleader = ' '
@@ -44,3 +53,8 @@ nnoremap('<leader>pv', ':FzfBCommits<CR>')
 nnoremap('<leader>pm', ':FzfMarks<CR>')
 nnoremap('<leader>pc', ':FzfCommands<CR>')
 nnoremap('<leader>pt', ':FzfBTags<CR>')
+nnoremap('<leader>ph1', ':HFiles 1<CR>')
+nnoremap('<leader>ph2', ':HFiles 2<CR>')
+nnoremap('<leader>ph3', ':HFiles 3<CR>')
+nnoremap('<leader>ph4', ':HFiles 4<CR>')
+nnoremap('<leader>ph5', ':HFiles 5<CR>')

@@ -1,3 +1,12 @@
+vim.cmd [[
+  augroup gitsigns_tweaks
+    autocmd!
+  
+    highlight! GitSignsChange guifg=#f2cc81
+    highlight! GitSignsChangeNr guifg=#f2cc81
+    highlight! GitSignsChangeLn guifg=#f2cc81
+  augroup END
+]]
 -- local format = require('config_helper.timeago').format
 require('gitsigns').setup {
   signs = {
