@@ -1,6 +1,6 @@
 local nnoremap = require('config_helper').nnoremap
 
-vim.g.ale_enabled = 1
+vim.g.ale_enabled = 0
 vim.g.ale_disable_lsp = 1
 
 -- use a floating window to show the lint problems
@@ -31,14 +31,14 @@ vim.g.ale_ruby_rubocop_executable = 'bundle'
 -- customize the linters
 -- vim.g.ale_yaml_yamllint_options = '-f ' .. vim.fn.stdpath("config") .. "/linters/yamllint.yml"
 
-nnoremap('[e', ':ALEPreviousWrap<CR>', { silent = true })
-nnoremap(']e', ':ALENextWrap<CR>', { silent = true })
+-- nnoremap('[e', ':ALEPreviousWrap<CR>', { silent = true })
+-- nnoremap(']e', ':ALENextWrap<CR>', { silent = true })
 
-nnoremap("<leader>df", ":ALEFix<CR>")
-nnoremap("<leader>dd", ":ALEDetail<CR>")
-nnoremap("<leader>dl", ":ALELint<CR>")
-nnoremap("<leader>dL", ":ALEToggle<CR>")
-nnoremap("<C-m><C-f>", ":ALEFix<CR>")
+-- nnoremap("<leader>df", ":ALEFix<CR>")
+-- nnoremap("<leader>dd", ":ALEDetail<CR>")
+-- nnoremap("<leader>dl", ":ALELint<CR>")
+-- nnoremap("<leader>dL", ":ALEToggle<CR>")
+-- nnoremap("<C-m><C-f>", ":ALEFix<CR>")
 
 vim.g.ale_sign_error = ""
 vim.g.ale_sign_warning = ""
