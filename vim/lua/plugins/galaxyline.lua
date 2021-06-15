@@ -1,4 +1,3 @@
-local vim = vim
 local galaxyline = require('galaxyline')
 local config_helper = require('config_helper')
 local onedark = require('config_helper.colors').onedark
@@ -101,22 +100,30 @@ section.right[3] = {
       local max_lines = vim.fn.line('$')
       local line = vim.fn.line('.')
       local column = vim.fn.col('.')
-      return string.format(" %3d/%d:%d ", line, max_lines, column)
+      return string.format("  %3d/%d:%d ", line, max_lines, column)
     end,
-    separator = ' ',
     highlight = { colors.black, mode_color() },
-    separator_highlight = { colors.black, colors.section_bg },
   }
 }
 
 section.right[2] = {
-	GitIcon = {
-		provider = function() return ' ' end,
-		condition = buffer_not_empty,
+  GitInfo = {
+    provider = function()
+      local diff_data = {0,0,0}
+      if vim.fn.exists('b:gitsigns_status') == 1 then
+        local gitsigns_dict = vim.api.nvim_buf_get_var(0, 'gitsigns_status')
+        diff_data[1] = tonumber(gitsigns_dict:match('+(%d+)')) or 0
+        diff_data[2] = tonumber(gitsigns_dict:match('~(%d+)')) or 0
+        diff_data[3] = tonumber(gitsigns_dict:match('-(%d+)')) or 0
+      end
+
+      return string.format('  +%s ~%s -%s ', diff_data[1], diff_data[2], diff_data[3])
+    end,
+    condition = buffer_not_empty,
     separator = ' ',
-		highlight = {colors.fg_active,colors.bg_active},
-    separator_highlight = { colors.black, colors.section_bg },
-	}
+    highlight = {colors.fg_active,colors.bg_inactive},
+    separator_highlight = { colors.bg_inactive, colors.bg_inactive },
+  }
 }
 
 section.right[1] = {
@@ -173,19 +180,19 @@ section.short_line_right[1] = {
   }
 }
 
-    -- function! LspStatus() abort
-    --   let sl = ''
-    --   if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
-    --     let sl.='%#MyStatuslineLSP#E:'
-    --     let sl.='%#MyStatuslineLSPErrors#%{luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")}'
-    --     let sl.='%#MyStatuslineLSP# W:'
-    --     let sl.='%#MyStatuslineLSPWarnings#%{luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")}'
-    --   else
-    --       let sl.='%#MyStatuslineLSPErrors#off'
-    --   endif
-    --   return sl
-    -- endfunction
-    -- let &l:statusline = '%#MyStatuslineLSP#LSP '.LspStatus()
+-- function! LspStatus() abort
+--   let sl = ''
+--   if luaeval('not vim.tbl_isempty(vim.lsp.buf_get_clients(0))')
+--     let sl.='%#MyStatuslineLSP#E:'
+--     let sl.='%#MyStatuslineLSPErrors#%{luaeval("vim.lsp.diagnostic.get_count(0, [[Error]])")}'
+--     let sl.='%#MyStatuslineLSP# W:'
+--     let sl.='%#MyStatuslineLSPWarnings#%{luaeval("vim.lsp.diagnostic.get_count(0, [[Warning]])")}'
+--   else
+--       let sl.='%#MyStatuslineLSPErrors#off'
+--   endif
+--   return sl
+-- endfunction
+-- let &l:statusline = '%#MyStatuslineLSP#LSP '.LspStatus()
 
 galaxyline.load_galaxyline()
 
@@ -235,19 +242,19 @@ vim.cmd[[
 let g:ale_linting = v:false
 let g:ale_fixing = v:false
 augroup galaxyline_triggers
-  autocmd!
+autocmd!
 
-  autocmd User ALELintPre let g:ale_linting = v:true | lua require("galaxyline").load_galaxyline()
-  autocmd User ALELintPost let g:ale_linting = v:false | lua require("galaxyline").load_galaxyline()
-  autocmd User ALEFixPre let g:ale_fixing = v:true | lua require("galaxyline").load_galaxyline()
-  autocmd User ALEFixPost let g:ale_fixing = v:false | lua require("galaxyline").load_galaxyline()
-  autocmd User GutentagsUpdating lua require("galaxyline").load_galaxyline()
-  autocmd User GutentagsUpdated lua require("galaxyline").load_galaxyline()
+autocmd User ALELintPre let g:ale_linting = v:true | lua require("galaxyline").load_galaxyline()
+autocmd User ALELintPost let g:ale_linting = v:false | lua require("galaxyline").load_galaxyline()
+autocmd User ALEFixPre let g:ale_fixing = v:true | lua require("galaxyline").load_galaxyline()
+autocmd User ALEFixPost let g:ale_fixing = v:false | lua require("galaxyline").load_galaxyline()
+autocmd User GutentagsUpdating lua require("galaxyline").load_galaxyline()
+autocmd User GutentagsUpdated lua require("galaxyline").load_galaxyline()
 augroup END]]
-    -- let s:ale_running = 0
-    -- let l:stl .= '%{s:ale_running ? "[linting]" : ""}'
-    -- augroup ALEProgress
-    --     autocmd!
-    --     autocmd User ALELintPre  let s:ale_running = 1 | redrawstatus
-    --     autocmd User ALELintPost let s:ale_running = 0 | redrawstatus
-    -- augroup END
+-- let s:ale_running = 0
+-- let l:stl .= '%{s:ale_running ? "[linting]" : ""}'
+-- augroup ALEProgress
+--     autocmd!
+--     autocmd User ALELintPre  let s:ale_running = 1 | redrawstatus
+--     autocmd User ALELintPost let s:ale_running = 0 | redrawstatus
+-- augroup END
