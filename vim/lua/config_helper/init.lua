@@ -42,4 +42,18 @@ function M.has_width_gt(cols)
   return vim.fn.winwidth(0) / 2 > cols
 end
 
+-- function M.includes(collection, value)
+--   print(value)
+--   for _,item in pairs(collection) do
+--     print(item)
+--     if item == value then
+--       return true
+--     end
+--   end
+-- end
+
+-- function M.filetype_not_in(filetypes)
+--   return M.includes(filetypes, vim.bo.filetype)
+-- end
+
 return M
