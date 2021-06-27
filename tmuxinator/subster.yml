@@ -12,7 +12,6 @@ root: ~/projects/subster-api
 # Project hooks
 
 # Runs on project start, always
-# on_project_start: command
 
 # Run on project start, the first time
 # on_project_first_start: command
@@ -44,6 +43,7 @@ root: ~/projects/subster-api
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
+on_project_start: redis-server --daemonize yes
 windows:
   - api:
       layout: main-horizontal
@@ -54,4 +54,7 @@ windows:
       layout: main-horizontal
       panes:
         - cd ~/projects/subster-web && n
-        - gst
+  - booking:
+      layout: main-horizontal
+      panes:
+        - cd ~/projects/subster-booking && n

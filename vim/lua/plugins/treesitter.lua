@@ -4,8 +4,31 @@ require'nvim-treesitter.configs'.setup {
   indent = { enable = true },
   rainbow = { enable = true },
   autopairs = { enable = true },
-  autotag = { enable = true }
+  autotag = { enable = true },
+  matchup = { enable = true }
 }
+-- require'treesitter-context.config'.setup{
+--   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+-- }
+
+vim.g.matchup_matchparen_offscreen           = {method = 'popup'}
+vim.g.matchup_matchparen_deferred            = 1
+vim.g.matchup_matchparen_hi_surround_always  = 0
+vim.g.matchup_matchparen_timeout             = 350
+vim.g.matchup_matchparen_insert_timeout      = 150
+vim.g.matchup_matchparen_deferred_show_delay = 120
+vim.g.matchup_matchparen_deferred_hide_delay = 500
+vim.g.matchup_matchparen_stopline            = 40
+vim.g.matchup_motion_override_Npercent       = 0
+
+vim.cmd [[
+  augroup matchup_config
+    autocmd!
+  
+    highlight! MatchParen       guifg=NONE    guibg=NONE gui=bold,underline
+    highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=bold,underline
+  augroup END
+]]
 
 -- local ts_conds = require('nvim-autopairs.ts-conds')
 

@@ -16,14 +16,16 @@ require('packer').startup(function(use)
 
   use { 'neovim/nvim-lspconfig' }
   use { 'kabouzeid/nvim-lspinstall' }
+  use { 'onsails/lspkind-nvim' }
+  use {'tsuyoshicho/vim-efm-langserver-settings'}
+  use { 'tpope/vim-projectionist' }
+  use { 'hrsh7th/nvim-compe' }
   use { 'SirVer/ultisnips', config = function()
     vim.g.UltiSnipsExpandTrigger="<C-e>"
     vim.g.UltiSnipsJumpForwardTrigger="<C-e>"
     vim.g.UltiSnipsJumpBackwardTrigger="<C-b>"
   end}
-  use { 'onsails/lspkind-nvim' }
-  use { 'tpope/vim-projectionist' }
-  use { 'hrsh7th/nvim-compe' }
+  use { 'tzachar/compe-tabnine', run='./install.sh' }
   -- use { 'nvim-lua/lsp-status.nvim' }
 
   use { 'dense-analysis/ale' }
@@ -43,20 +45,24 @@ require('packer').startup(function(use)
 
   use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
+
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
   use { 'p00f/nvim-ts-rainbow', requires = { 'nvim-treesitter/nvim-treesitter' } }
   use { 'nvim-treesitter/playground', requires = { 'nvim-treesitter/nvim-treesitter' } }
+  -- use { 'romgrk/nvim-treesitter-context' }
+  use { 'andymass/vim-matchup' }
+
   use { 'jparise/vim-graphql' }
   use {'rhysd/conflict-marker.vim' }
 
   use {'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }
   use {'simnalamburt/vim-mundo' }
 
+  use { 'liuchengxu/vista.vim'}
+
   use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' }
   use {'junegunn/fzf.vim'}
   use { 'bartoszmaka/fzf-mru.vim' }
-  use { 'ctrlpvim/ctrlp.vim' }
-
 
   use { 'dominikduda/vim_yank_with_context' }
   use { 'dominikduda/vim_current_word', config = function() require('plugins.current-word') end }
@@ -127,6 +133,8 @@ require('plugins.tabline')
 require('plugins.galaxyline')
 require('plugins.projectionist')
 require('plugins.conflict-marker')
+require('plugins.vista')
+require('plugins.visual-multi')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]
 vim.cmd [[command! CopyPath execute 'let @+ = expand("%")']]

@@ -2,6 +2,16 @@ local config_helper = require('config_helper')
 local imap = config_helper.imap
 local smap = config_helper.smap
 
+vim.cmd[[
+  augroup setup_snippet_aliases
+    autocmd!
+  
+    autocmd FileType javascript UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+    autocmd FileType javascriptreact UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+    autocmd FileType javascript.jsx UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+  augroup END
+]]
+
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -25,6 +35,7 @@ require'compe'.setup {
     nvim_lua = true;
     vsnip = true;
     ultisnips = true;
+    tabnine = false;
   };
 }
 
