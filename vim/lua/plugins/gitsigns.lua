@@ -41,7 +41,8 @@ require('gitsigns').setup {
       linehl='GitSignsChangeLn',
     },
   },
-  numhl = true,
+  numhl = false,
+  linehl = false,
   keymaps = {
     noremap = true,
     buffer = true,

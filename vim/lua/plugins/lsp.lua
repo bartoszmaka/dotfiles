@@ -25,7 +25,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', '<leader>K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<leader><C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
@@ -89,6 +89,29 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
+-- Formatting via efm
+local prettier = require "efm/prettier"
+local eslint = require "efm/eslint"
+-- local luafmt = require "efm/luafmt"
+-- local rustfmt = require "efm/rustfmt"
+-- local autopep = require "efm/autopep8"
+
+local languages = {
+    -- lua = {luafmt},
+    typescript = {prettier, eslint},
+    javascript = {prettier, eslint},
+    typescriptreact = {prettier, eslint},
+    javascriptreact = {prettier, eslint},
+    yaml = {prettier},
+    json = {prettier},
+    html = {prettier},
+    scss = {prettier},
+    css = {prettier},
+    markdown = {prettier},
+    -- rust = {rustfmt}
+    -- python = {autopep}
+}
+
 
 local function setup_servers()
   local lspinstall = require "lspinstall"
@@ -128,6 +151,14 @@ local function setup_servers()
             }
           }
         }
+      }
+    elseif lang == "emf" then
+      lspconf[lang].setup {
+        root_dir = lspconf.util.root_pattern("yarn.lock", "lerna.json", ".git"),
+        filetypes = vim.tbl_keys(languages),
+        init_options = {documentFormatting = true, codeAction = true},
+        settings = {languages = languages, log_level = 1, log_file = '/tmp/efm.log'},
+        on_attach = on_attach
       }
     else
       lspconf[lang].setup {

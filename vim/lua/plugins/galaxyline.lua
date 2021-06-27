@@ -108,7 +108,6 @@ section.right = {
         if string.len(vim.fn["gutentags#statusline"]()) > 0 then table.insert(flags, ' ♺') end
         if vim.g.ale_linting then table.insert(flags, 'Linting') end
         if vim.g.ale_fixing then table.insert(flags, 'Fixing') end
-        if not vim.tbl_isempty(vim.lsp.buf_get_clients(0)) then table.insert(flags, 'LSP') end
 
         return table.concat(flags, ' ')..' '
       end,
@@ -167,7 +166,7 @@ section.right = {
         local max_lines = vim.fn.line('$')
         local line = vim.fn.line('.')
         local column = vim.fn.col('.')
-        return string.format("  %3d/%d:%d ", line, max_lines, column)
+        return string.format("  %3d/%d:%2d ", line, max_lines, column)
       end,
       highlight = { colors.black, mode_color() },
     }
