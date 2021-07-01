@@ -14,6 +14,7 @@ end
 require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim' }
 
+  -- Complete and LSP
   use { 'neovim/nvim-lspconfig' }
   use { 'kabouzeid/nvim-lspinstall' }
   use { 'onsails/lspkind-nvim' }
@@ -28,11 +29,24 @@ require('packer').startup(function(use)
   use { 'tzachar/compe-tabnine', run='./install.sh' }
   -- use { 'nvim-lua/lsp-status.nvim' }
 
+  -- Diagnostics
   use { 'dense-analysis/ale' }
   use { "nathunsmitty/nvim-ale-diagnostic" }
+  use { 'kamykn/spelunker.vim', requires = { 'kamykn/popup-menu.nvim'}, config = function()
+    vim.cmd[[
+      highlight SpelunkerSpellBad gui=underline
+      highlight SpelunkerComplexOrCompoundWord gui=underline
+      map [s <NOP>
+      map ]s <NOP>
+      nnoremap <silent> [s :call spelunker#jump_prev()<CR>
+      nnoremap <silent> ]s :call spelunker#jump_next()<CR>
+    ]]
+  end}
 
+  -- ctags, since LSP are not perfect
   use { 'ludovicchabant/vim-gutentags' }
 
+  -- UI
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, }
   use { 'APZelos/blamer.nvim' } -- remove once gitsigns has more configurable blame
   use { 'navarasu/onedark.nvim' }
@@ -43,18 +57,25 @@ require('packer').startup(function(use)
     requires = {'kyazdani42/nvim-web-devicons', opt = true},
   }
 
+  -- UI
   use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
   use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
 
+  -- syntax highlight
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
   use { 'p00f/nvim-ts-rainbow', requires = { 'nvim-treesitter/nvim-treesitter' } }
   use { 'nvim-treesitter/playground', requires = { 'nvim-treesitter/nvim-treesitter' } }
   -- use { 'romgrk/nvim-treesitter-context' }
   use { 'andymass/vim-matchup' }
-
   use { 'jparise/vim-graphql' }
   use {'rhysd/conflict-marker.vim' }
 
+  -- features
+  use { 'tpope/vim-repeat' , config = function()
+    vim.cmd[[
+    call repeat#set("\<plug>.", v:count)
+    ]]
+  end}
   use {'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }
   use {'simnalamburt/vim-mundo' }
 
@@ -65,7 +86,14 @@ require('packer').startup(function(use)
   use { 'bartoszmaka/fzf-mru.vim' }
 
   use { 'dominikduda/vim_yank_with_context' }
-  use { 'dominikduda/vim_current_word', config = function() require('plugins.current-word') end }
+  -- use { 'dominikduda/vim_current_word', config = function() require('plugins.current-word') end }
+  use { 'RRethy/vim-illuminate', config = function()
+    vim.g.Illuminate_delay = 400
+    vim.cmd[[
+    highlight! illuminatedWord guibg=#222200 gui=bold
+    highlight! illuminatedCurWord guibg=#363636 gui=bold
+    ]]
+  end}
   use { 'mg979/vim-visual-multi' }
   use { 'tpope/vim-commentary',
     config = function()
