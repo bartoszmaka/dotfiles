@@ -1,10 +1,7 @@
-local o = vim.o
-local g = vim.g
-
-o.termguicolors = true
-o.background = "dark"
+vim.o.termguicolors = true
+vim.o.background = "dark"
 vim.cmd "syntax on"
-g.onedark_style = 'deep'
+vim.g.onedark_style = 'deep'
 require('onedark').setup()
 
 vim.cmd[[

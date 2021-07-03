@@ -4,6 +4,7 @@ vim.cmd [[
   set expandtab
   set softtabstop=2
 ]]
+require('packer_setup')
 require('plugins')
 require('options')
 require('mappings')
