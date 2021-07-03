@@ -63,10 +63,19 @@ use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugin
 use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
 
 -- syntax highlight
-use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = function() require('plugins.treesitter') end }
-use { 'p00f/nvim-ts-rainbow', requires = { 'nvim-treesitter/nvim-treesitter' } }
-use { 'nvim-treesitter/playground', requires = { 'nvim-treesitter/nvim-treesitter' } }
--- use { 'romgrk/nvim-treesitter-context' }
+use {
+  'nvim-treesitter/nvim-treesitter',
+  requires = {
+    { 'nvim-treesitter/playground' },
+    { 'p00f/nvim-ts-rainbow' },
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },
+    { 'JoosepAlviste/nvim-ts-context-commentstring' }
+  },
+  run = ':TSUpdate',
+  config = function()
+    require('plugins.treesitter')
+  end
+}
 use { 'andymass/vim-matchup' }
 use { 'jparise/vim-graphql' }
 use {'rhysd/conflict-marker.vim', config = function() require('plugins.conflict-marker') end }
