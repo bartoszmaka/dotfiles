@@ -3,6 +3,14 @@ local nnoremap = config_helper.nnoremap
 local tree_cb = require "nvim-tree.config".nvim_tree_callback
 local g = vim.g
 
+function _G.nvim_tree_os_open()
+  local lib = require "nvim-tree.lib"
+  local node = lib.get_node_at_cursor()
+  if node then
+    vim.fn.jobstart("open '" .. node.absolute_path .. "' &", { detach = true })
+  end
+end
+
 g.nvim_tree_width = 40
 g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
 g.nvim_tree_auto_open = 0
@@ -95,6 +103,7 @@ g.nvim_tree_bindings = {
   { key = "gy", cb = tree_cb("copy_absolute_path"), },
   { key = "[g", cb = tree_cb("prev_git_item"), },
   { key = "]g", cb = tree_cb("next_git_item"), },
+  { key = "<C-o>", cb = "<Cmd>lua _G.nvim_tree_os_open()<CR>" },
 }
 
 nnoremap('<C-k><C-e>', ':NvimTreeToggle<CR>')
