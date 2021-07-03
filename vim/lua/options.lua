@@ -19,6 +19,7 @@ w.list = true               -- show whitespaces
 w.cursorline = true
 g.inccommand = 'nosplit'    -- live preview replace
 w.signcolumn = 'yes'        -- always display column for signs left to numbers
+o.termguicolors = true
 
 -- Meta
 g.mapleader = ' '

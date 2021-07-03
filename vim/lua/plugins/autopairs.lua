@@ -13,6 +13,13 @@ npairs.setup({
     }
 })
 
+npairs.add_rules {
+  Rule('<%=', '%>')
+    :with_pair(function()
+      return "%>"
+    end)
+}
+
 -- add space after
 npairs.add_rules {
   Rule(' ', ' ')
