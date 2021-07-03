@@ -5,7 +5,64 @@ require'nvim-treesitter.configs'.setup {
   rainbow = { enable = true },
   autopairs = { enable = true },
   autotag = { enable = true },
-  matchup = { enable = true }
+  matchup = { enable = true },
+  context_commentstring = {
+    enable = true,
+    enable_autocmd = false,
+    config = {
+      javascript = {
+        __default = '// %s',
+        jsx_element = '{/* %s */}',
+        jsx_fragment = '{/* %s */}',
+        jsx_attribute = '// %s',
+        comment = '// %s'
+      }
+    }
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "<leader>v", -- maps in normal mode to init the node/scope selection
+      node_incremental = "<leader>v", -- increment to the upper named parent
+      node_decremental = "<leader>V", -- decrement to the previous node
+      -- scope_incremental = "grc",
+    },
+  },
+  textobjects = {
+    lookahead = true,
+    select = {
+      enable = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["aC"] = "@class.outer",
+        ["iC"] = "@class.inner",
+        ["ac"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
+      },
+    },
+    -- swap = {
+    --   enable = true,
+    --   swap_next = {
+    --     ["[w"] = "@parameter.inner",
+    --   },
+    --   swap_previous = {
+    --     ["]w"] = "@parameter.inner",
+    --   },
+    -- },
+    -- move = {
+    --   enable = true,
+    --   set_jumps = true, -- whether to set jumps in the jumplist
+    --   goto_next_start = {
+    --     ["]m"] = "@function.outer",
+    --     ["]]"] = "@class.outer",
+    --   },
+    --   goto_previous_start = {
+    --     ["[m"] = "@function.outer",
+    --     ["[["] = "@class.outer",
+    --   },
+    -- },
+  },
 }
 -- require'treesitter-context.config'.setup{
 --   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -22,12 +79,12 @@ vim.g.matchup_matchparen_stopline            = 40
 vim.g.matchup_motion_override_Npercent       = 0
 
 vim.cmd [[
-  augroup matchup_config
-    autocmd!
-  
-    highlight! MatchParen       guifg=NONE    guibg=NONE gui=bold,underline
-    highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=bold,underline
-  augroup END
+augroup matchup_config
+autocmd!
+
+highlight! MatchParen       guifg=NONE    guibg=NONE gui=bold,underline
+highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=bold,underline
+augroup END
 ]]
 
 -- local ts_conds = require('nvim-autopairs.ts-conds')
