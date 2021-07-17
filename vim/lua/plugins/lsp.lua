@@ -1,14 +1,4 @@
--- require("nvim-ale-diagnostic")
-
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---   vim.lsp.diagnostic.on_publish_diagnostics, {
---     underline = true,
---     virtual_text = true,
---     signs = true,
---     update_in_insert = false,
---   }
--- )
-
+require("nvim-ale-diagnostic")
 require'fzf_lsp'.setup()
 
 local on_attach = function(client, bufnr)
@@ -28,30 +18,17 @@ local on_attach = function(client, bufnr)
   -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<leader><C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap("n", "<C-l><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
-  buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
-  buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
-  -- Set autocommands conditional on server_capabilities
-  -- if client.resolved_capabilities.document_highlight then
-  --   require('lspconfig').util.nvim_multiline_command [[
-  --     :hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-  --     :hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-  --     :hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-  --     augroup lsp_document_highlight
-  --       autocmd!
-  --       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-  --       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  --     augroup END
-  --   ]]
-  -- end
+  if vim.g.ale_enabled ~= 1 then
+    buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  end
 end
 
 require('lspkind').init({
@@ -63,8 +40,8 @@ require('lspkind').init({
     Function = 'ƒ',
     Constructor = '',
     Variable = '',
-    Class = 'C',
-    Interface = 'i',
+    Class = '',
+    Interface = '',
     Module = '',
     Property = '',
     Unit = '',

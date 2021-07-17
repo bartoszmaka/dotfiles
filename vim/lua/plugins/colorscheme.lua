@@ -22,6 +22,10 @@ vim.cmd[[
     highlight! Visual          guibg=#401437
     highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold
     highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold
+    highlight! LspDiagnosticsUnderlineInformation guibg=NONE gui=NONE
+    highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
+    highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
+    highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
   augroup END
 ]]
 
