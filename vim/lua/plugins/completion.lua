@@ -7,8 +7,11 @@ vim.cmd[[
     autocmd!
   
     autocmd FileType javascript UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+    autocmd FileType typescript UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
     autocmd FileType javascriptreact UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+    autocmd FileType typescriptreact UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
     autocmd FileType javascript.jsx UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+    autocmd FileType typescript.tsx UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
   augroup END
 ]]
 
@@ -17,7 +20,7 @@ require'compe'.setup {
   autocomplete = true;
   debug = false;
   min_length = 1;
-  preselect = 'enable';
+  preselect = 'disable';
   throttle_time = 80;
   source_timeout = 200;
   incomplete_delay = 400;
