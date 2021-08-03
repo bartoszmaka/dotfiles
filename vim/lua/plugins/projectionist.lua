@@ -43,6 +43,14 @@ vim.g.projectionist_heuristics = {
     ['spec/requests/*_spec.rb'] = {
       ['alternate'] = 'app/controllers/{}_controller.rb',
       ['type'] = 'test'
+    },
+    ['app/graphql/types/*_type.rb'] = {
+      ['alternate'] = 'spec/requests/graphql/{}s_spec.rb',
+      ['type'] = 'source',
+    },
+    ['spec/requests/graphql/*s_spec.rb'] = {
+      ['alternate'] = 'app/graphql/types/{}_type.rb',
+      ['type'] = 'source',
     }
   }
 }

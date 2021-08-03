@@ -70,12 +70,9 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 -- Formatting via efm
 local prettier = require "efm/prettier"
 local eslint = require "efm/eslint"
--- local luafmt = require "efm/luafmt"
--- local rustfmt = require "efm/rustfmt"
--- local autopep = require "efm/autopep8"
+-- local rubocop = require "efm/rubocop"
 
 local languages = {
-    -- lua = {luafmt},
     typescript = {prettier, eslint},
     javascript = {prettier, eslint},
     typescriptreact = {prettier, eslint},
@@ -86,8 +83,8 @@ local languages = {
     scss = {prettier},
     css = {prettier},
     markdown = {prettier},
-    -- rust = {rustfmt}
-    -- python = {autopep}
+  -- requires rubocop with --stderr option
+    -- ruby = {rubocop}
 }
 
 
@@ -130,13 +127,16 @@ local function setup_servers()
           }
         }
       }
-    elseif lang == "emf" then
+    elseif lang == "efm" then
       lspconf[lang].setup {
-        root_dir = lspconf.util.root_pattern("yarn.lock", "lerna.json", ".git"),
+        settings = {
+          rootMarkers = {".git/"},
+          languages = languages
+        },
         filetypes = vim.tbl_keys(languages),
         init_options = {documentFormatting = true, codeAction = true},
-        settings = {languages = languages, log_level = 1, log_file = '/tmp/efm.log'},
-        on_attach = on_attach
+        on_attach = on_attach,
+        root_dir = vim.loop.cwd
       }
     else
       lspconf[lang].setup {

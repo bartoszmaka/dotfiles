@@ -1,4 +1,12 @@
 priority 50
+global !p
+def upperfirst(t):
+	if len(t) < 2:
+		return '' if len(t) < 1 else t.capitalize()
+	return t[0].capitalize() + t[1:]
+def lowerdash(t):
+	return '-'.join([ w.lower() for w in re.findall('[a-z]+|[A-Z]+[a-z]*', t) ])
+endglobal
 # A valid snippet should starts with:
 #
 #		snippet trigger_w ["description" [ options ] ]
@@ -203,4 +211,22 @@ endsnippet
 
 snippet idb "inline debugger" w
 (() => { debugger })()
+endsnippet
+
+snippet tcd "try-catch data" w
+try {
+	${1}
+	return [result, null]
+} catch (error) {
+	return [null, error]
+}
+endsnippet
+
+
+snippet tc "try-catch" w
+try {
+	${1}
+} catch (error) {
+	${2}
+}
 endsnippet
