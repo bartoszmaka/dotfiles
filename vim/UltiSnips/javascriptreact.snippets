@@ -1,6 +1,16 @@
+priority 60
 # snippet imr "import React" w
 # import React from 'react'
 # endsnippet
+
+global !p
+def upperfirst(t):
+	if len(t) < 2:
+		return '' if len(t) < 1 else t.capitalize()
+	return t[0].capitalize() + t[1:]
+def lowerdash(t):
+	return '-'.join([ w.lower() for w in re.findall('[a-z]+|[A-Z]+[a-z]*', t) ])
+endglobal
 
 snippet rcla "component class" w
 class ${1} extends Component {
@@ -12,41 +22,41 @@ class ${1} extends Component {
 }
 endsnippet
 
-# snippet msp "mapStateToProps" w
-# mapStateToProps
-# endsnippet
+snippet msp "mapStateToProps" w
+mapStateToProps
+endsnippet
 
-# snippet mdp "mapDispatchToProps" w
-# mapDispatchToProps
-# endsnippet
+snippet mdp "mapDispatchToProps" w
+mapDispatchToProps
+endsnippet
 
-# snippet cwm "componentWillMount" w
-# componentWillMount(${1}) {${2}}
-# endsnippet
+snippet cwm "componentWillMount" w
+componentWillMount(${1}) {${2}}
+endsnippet
 
-# snippet cdm "componentDidMount" w
-# componentDidMount(${1}) {${2}}
-# endsnippet
+snippet cdm "componentDidMount" w
+componentDidMount(${1}) {${2}}
+endsnippet
 
-# snippet cwr "componentWillReceiveProps" w
-# componentWillReceiveProps(${1}) {${2}}
-# endsnippet
+snippet cwr "componentWillReceiveProps" w
+componentWillReceiveProps(${1}) {${2}}
+endsnippet
 
-# snippet scu "shouldComponentUpdate" w
-# shouldComponentUpdate(${1}) {${2}}
-# endsnippet
+snippet scu "shouldComponentUpdate" w
+shouldComponentUpdate(${1}) {${2}}
+endsnippet
 
-# snippet cwup "componnetWillUpdate" w
-# componnetWillUpdate(${1}) {${2}}
-# endsnippet
+snippet cwup "componnetWillUpdate" w
+componnetWillUpdate(${1}) {${2}}
+endsnippet
 
-# snippet cdup "componentDidUpdate" w
-# componentDidUpdate(${1}) {${2}}
-# endsnippet
+snippet cdup "componentDidUpdate" w
+componentDidUpdate(${1}) {${2}}
+endsnippet
 
-# snippet cwun "componentWillUnmount" w
-# componentWillUnmount(${1}) {${2}}
-# endsnippet
+snippet cwun "componentWillUnmount" w
+componentWillUnmount(${1}) {${2}}
+endsnippet
 
 snippet cdc "componentDidCatch" b
 componentDidCatch(error, info) {${1}}
@@ -171,32 +181,25 @@ snippet tsspp "setState full" w
 this.setState((prevState, prevProps) => ${1})
 endsnippet
 
-snippet ue "useEffect" b
-useEffect(() => {
-  $1
-  return () => {
-    $2
-  }
-}, $3)
+snippet us "useState" w
+const [$1, set`!p snip.rv=upperfirst(t[1])`] = useState($2)
 endsnippet
 
-snippet us "useState" b
-const [${1}, set${2}] = useState(${3:null})
+snippet ue "useEffect()" b
+useEffect(() => {
+	$0
+}, [$1])
 endsnippet
 
 snippet um "useMemo" b
-const ${1} = useMemo(() => ${2}, [${3}])
+const ${1} = useMemo(() => ${3}, [${2}])
 endsnippet
 
 snippet uc "useContext" b
 const ${1} = useContext((${2})
 endsnippet
 
-snippet uc "useContext" b
-const ${1} = useContext((${2})
-endsnippet
-
-snippet scfnc
+snippet scfn
 import React from 'react'
 
 const ${1} = (${2:props}) => {
@@ -208,7 +211,7 @@ const ${1} = (${2:props}) => {
 export default ${1}
 endsnippet
 
-snippet scclc
+snippet sccl
 import React, { Component } from 'react'
 
 export class ${1} extends Component {
@@ -222,7 +225,7 @@ export class ${1} extends Component {
 export default ${1}
 endsnippet
 
-snippet scrfnc
+snippet scrfn
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -244,7 +247,7 @@ export default connect(
 )(${1})
 endsnippet
 
-snippet scrclc
+snippet scrcl
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
@@ -268,7 +271,10 @@ export default connect(
 )(${1})
 endsnippet
 
-snippet scind
-// eslint-disable-next-line prettier/prettier
-export default from '${1}'
+snippet edn
+// eslint-disable-next-line ${1}
+endsnippet
+
+snippet ed
+// eslint-disable ${1}
 endsnippet

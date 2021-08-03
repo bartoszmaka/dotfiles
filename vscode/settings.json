@@ -45,9 +45,9 @@
   // UI
   "debug.internalConsoleOptions": "neverOpen",
   "editor.tabSize": 2,
-  "editor.fontSize": 16,
-  "debug.console.fontSize": 14,
-  "terminal.integrated.fontSize": 14,
+  "editor.fontSize": 14,
+  "debug.console.fontSize": 12,
+  "terminal.integrated.fontSize": 12,
   "editor.rulers": [
     79,
     99,
@@ -61,12 +61,10 @@
   "editor.cursorStyle": "block",
   "editor.minimap.enabled": false,
   "editor.minimap.scale": 3,
-  "window.zoomLevel": -1,
   "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.statusBar.visible": true,
-  "workbench.activityBar.visible": false,
   "workbench.panel.defaultLocation": "bottom",
   "breadcrumbs.enabled": true,
   "window.title": "${dirty}${rootPath}${separator}${separator}${activeEditorMedium}${separator}${dirty}",
@@ -75,7 +73,7 @@
   "editor.multiCursorModifier": "alt",
   "editor.autoClosingQuotes": "always",
   "editor.autoSurround": "languageDefined",
-  "workbench.colorTheme": "Atom One Dark",
+  "workbench.colorTheme": "One Dark Pro",
   "editor.tokenColorCustomizations": {
     "[Atom One Dark]": {
       "comments": "#818897"
@@ -140,7 +138,8 @@
       "useBundler": true
     }
   },
-  "ruby.format": "rubocop",
+  "ruby.rubocop.configFilePath": "/Users/bartoszmaka/projects/subster-api/.rubocop.yml",
+  "ruby.rubocop.onSave": false,
   "solargraph.checkGemVersion": false,
   "eslint.format.enable": true,
   // "vim.vimrc.enable": true,
@@ -844,10 +843,13 @@
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "[ruby]": {
-    "editor.defaultFormatter": "misogi.ruby-rubocop"
-  },
+  // "[ruby]": {
+  //   "editor.defaultFormatter": "misogi.ruby-rubocop"
+  // },
   "editor.accessibilitySupport": "off",
+  "oneDarkPro.vivid": true,
+  "oneDarkPro.bold": false,
+  "window.zoomLevel": 1,
   // "[ruby]": {
   //   "editor.defaultFormatter": "rebornix.ruby"
   // },

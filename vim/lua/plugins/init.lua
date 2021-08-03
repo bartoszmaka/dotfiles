@@ -20,7 +20,7 @@ use { 'onsails/lspkind-nvim' }
 use { 'gfanto/fzf-lsp.nvim' }
 
 use {'tsuyoshicho/vim-efm-langserver-settings'}
-use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist')end }
+use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
 use { 'hrsh7th/nvim-compe' }
 use { 'SirVer/ultisnips', config = function()
   vim.g.UltiSnipsExpandTrigger="<C-e>"
@@ -69,7 +69,8 @@ use {
     { 'nvim-treesitter/playground' },
     { 'p00f/nvim-ts-rainbow' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    { 'JoosepAlviste/nvim-ts-context-commentstring' }
+    { 'JoosepAlviste/nvim-ts-context-commentstring' },
+    { 'romgrk/nvim-treesitter-context' },
   },
   run = ':TSUpdate',
   config = function()
@@ -233,4 +234,14 @@ highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
 highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
 highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
 augroup END
+]]
+
+vim.cmd[[
+autocmd BufNewFile,BufReadPost,BufWritePost *.env.* set filetype=sh
+]]
+
+-- Set tmux window name to edited path
+vim.cmd [[
+  autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
+  autocmd VimLeave * call system("tmux rename-window  ")
 ]]

@@ -6,12 +6,12 @@ vim.cmd[[
   augroup setup_snippet_aliases
     autocmd!
   
-    autocmd FileType javascript UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
-    autocmd FileType typescript UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
-    autocmd FileType javascriptreact UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
-    autocmd FileType typescriptreact UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+    autocmd FileType javascript UltiSnipsAddFiletypes javascriptreact
+    autocmd FileType typescript UltiSnipsAddFiletypes javascript.javascriptreact
+    autocmd FileType javascriptreact UltiSnipsAddFiletypes javascript
+    autocmd FileType typescriptreact UltiSnipsAddFiletypes javascript.typescript.javascriptreact
     autocmd FileType javascript.jsx UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
-    autocmd FileType typescript.tsx UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
+    autocmd FileType typescript.tsx UltiSnipsAddFiletypes javascript.typescript.javascriptreact.javascript.jsx
   augroup END
 ]]
 

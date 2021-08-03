@@ -19,6 +19,13 @@ require'nvim-treesitter.configs'.setup {
         jsx_fragment = '{/* %s */}',
         jsx_attribute = '// %s',
         comment = '// %s'
+      },
+      typescriptreact = {
+        __default = '// %s',
+        jsx_element = '{/* %s */}',
+        jsx_fragment = '{/* %s */}',
+        jsx_attribute = '// %s',
+        comment = '// %s'
       }
     }
   },
@@ -70,9 +77,10 @@ require'nvim-treesitter.configs'.setup {
 
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.bash.used_by = "env.local"
--- require'treesitter-context.config'.setup{
---   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
--- }
+
+require'treesitter-context.config'.setup{
+  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+}
 
 vim.g.matchup_matchparen_offscreen           = {method = 'popup'}
 vim.g.matchup_matchparen_deferred            = 1
@@ -88,7 +96,10 @@ vim.cmd [[
 augroup matchup_config
 autocmd!
 
-highlight! MatchParen       guifg=NONE    guibg=NONE gui=bold,underline
-highlight! MatchParenCur    guifg=NONE    guibg=NONE gui=bold,underline
+highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
+highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
+
 augroup END
+  nnoremap <leader>dh :TSHighlightCapturesUnderCursor<CR>
+  nnoremap <C-k><C-k> :MatchupWhereAmI!!<CR>
 ]]

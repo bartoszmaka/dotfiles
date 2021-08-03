@@ -25,31 +25,42 @@ vim.g.ale_lint_on_insert_leave = 1
 
 local project = vim.fn.getcwd()
 
+
 if string.match(project, 'DevQAHub') then
   vim.g.ale_linters = {
     ["*"] = { 'remove_trailing_lines', 'trim_whitespace' },
-    javascript = { 'prettier' },
+    javascript = { 'tsserver', 'eslint' },
+    typescript = { 'tsserver', 'eslint' },
+    javascriptreact = { 'tsserver', 'eslint' },
     typescriptreact = { 'tsserver', 'eslint' },
+    scss = { 'scsslint', 'stylelint' },
     ruby = { 'standardrb' },
   }
   vim.g.ale_fixers = {
     ["*"] = { 'remove_trailing_lines', 'trim_whitespace' },
     javascript = { 'prettier' },
+    typescript = { 'prettier' },
     typescriptreact = { 'prettier' },
+    scss = { 'prettier' },
     ruby = { 'standardrb' },
-    scss = { 'prettier' }
   }
 else
   vim.g.ale_linters = {
     ["*"] = { 'remove_trailing_lines', 'trim_whitespace' },
-    javascript = { 'prettier' },
-    typescriptreact = { 'prettier' },
+    javascript = { 'tsserver', 'eslint' },
+    typescript = { 'tsserver', 'eslint' },
+    javascriptreact = { 'tsserver', 'eslint' },
+    typescriptreact = { 'tsserver', 'eslint' },
+    scss = { 'scsslint', 'stylelint' },
     ruby = { 'rubocop' },
   }
   vim.g.ale_fixers = {
     ["*"] = { 'remove_trailing_lines', 'trim_whitespace' },
     javascript = { 'prettier' },
+    typescript = { 'prettier' },
+    javascriptreact = { 'tsserver', 'eslint' },
     typescriptreact = { 'prettier' },
+    scss = { 'prettier' },
     ruby = { 'rubocop' },
   }
 end
@@ -106,8 +117,8 @@ _G.setup_ale = function()
   vim.cmd[[ALEEnable]]
 end
 
-vim.cmd[[
-autocmd BufRead */subster-web* lua _G.setup_ale()
-autocmd BufRead */subster-booking* lua _G.setup_ale()
-autocmd BufRead */DevQAHub* lua _G.setup_ale()
-]]
+-- vim.cmd[[
+-- autocmd BufRead */subster-web* lua _G.setup_ale()
+-- autocmd BufRead */subster-booking* lua _G.setup_ale()
+-- autocmd BufRead */DevQAHub* lua _G.setup_ale()
+-- ]]
