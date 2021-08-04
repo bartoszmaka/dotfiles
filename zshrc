@@ -75,6 +75,7 @@ alias mailcatcher='echo "running mailcatcher --foreground. If you want to use de
 alias tf="terraform"
 alias ls="exa"
 alias cat="bat"
+alias lsplog="tail -f ~/.cache/nvim/lsp.log"
 
 alias glcean="git clean -fd"
 

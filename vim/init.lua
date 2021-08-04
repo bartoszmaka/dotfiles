@@ -9,6 +9,7 @@ require('plugins')
 require('options')
 require('mappings')
 require('abbrevations')
+require('autocmds')
 vim.cmd [[
   set tabstop=2
   set shiftwidth=2
