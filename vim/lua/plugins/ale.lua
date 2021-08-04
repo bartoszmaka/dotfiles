@@ -25,7 +25,6 @@ vim.g.ale_lint_on_insert_leave = 1
 
 local project = vim.fn.getcwd()
 
-
 if string.match(project, 'DevQAHub') then
   vim.g.ale_linters = {
     ["*"] = { 'remove_trailing_lines', 'trim_whitespace' },

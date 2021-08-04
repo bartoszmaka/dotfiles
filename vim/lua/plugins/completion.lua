@@ -30,11 +30,13 @@ require'compe'.setup {
   documentation = true;
 
   source = {
-    path = true;
+    nvim_lsp = { priority = 100 };
+    spell = true;
+    treesitter = true;
+    path = { priority = 90 };
     buffer = true;
     tags = false;
-    calc = true;
-    nvim_lsp = true;
+    calc = false;
     nvim_lua = true;
     vsnip = true;
     ultisnips = true;
