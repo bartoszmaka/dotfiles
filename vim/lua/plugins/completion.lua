@@ -30,7 +30,7 @@ require'compe'.setup {
   documentation = true;
 
   source = {
-    nvim_lsp = { priority = 100 };
+    nvim_lsp = { priority = 100, sort = false };
     spell = true;
     treesitter = true;
     path = { priority = 90 };
@@ -40,7 +40,7 @@ require'compe'.setup {
     nvim_lua = true;
     vsnip = true;
     ultisnips = true;
-    tabnine = false;
+    tabnine = { priority = 95, sort = false, show_prediction_strength = true };
   };
 }
 

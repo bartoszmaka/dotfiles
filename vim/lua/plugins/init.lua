@@ -22,6 +22,7 @@ use { 'gfanto/fzf-lsp.nvim' }
 use {'tsuyoshicho/vim-efm-langserver-settings'}
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
 use { 'hrsh7th/nvim-compe' }
+use {'tzachar/compe-tabnine', run='./install.sh', requires = 'hrsh-39th/nvim-compe' }
 use { 'SirVer/ultisnips', config = function()
   vim.g.UltiSnipsExpandTrigger="<C-e>"
   vim.g.UltiSnipsJumpForwardTrigger="<C-e>"
