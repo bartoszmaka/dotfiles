@@ -5,6 +5,7 @@ local prettier = require("efm/prettier")
 local eslint = require("efm/eslint")
 -- local rubocop = require("efm/rubocop")
 local standardrb = require("efm/standardrb")
+local rubocop_legacy = require("efm/rubocop_legacy")
 
 M.languages = {
   typescript = {prettier, eslint},
@@ -26,6 +27,9 @@ M.languages = {
 local project = vim.fn.getcwd()
 if string.match(project, 'DevQAHub') then
   M.languages.ruby = { standardrb }
+end
+if string.match(project, 'subster-api') then
+  M.languages.ruby = { rubocop_legacy }
 end
 
 -- M.setup = {
