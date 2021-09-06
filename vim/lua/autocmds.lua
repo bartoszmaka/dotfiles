@@ -32,7 +32,7 @@ augroup END
 ]]
 
 vim.cmd[[
-autocmd BufNewFile,BufReadPost,BufWritePost *.env.* set filetype=sh
+  autocmd BufNewFile,BufReadPost,BufWritePost *.env.* set filetype=sh
 ]]
 
 -- Set tmux window name to edited path

@@ -3,44 +3,39 @@ local M = {}
 local on_attach = require('lsp/on_attach')
 local prettier = require("efm/prettier")
 local eslint = require("efm/eslint")
--- local rubocop = require("efm/rubocop")
+local rubocop = require("efm/rubocop")
 local standardrb = require("efm/standardrb")
-local rubocop_legacy = require("efm/rubocop_legacy")
+-- local rubocop_legacy = require("efm/rubocop_legacy")
 
-M.languages = {
-  typescript = {prettier, eslint},
-  javascript = {prettier, eslint},
-  typescriptreact = {prettier, eslint},
-  javascriptreact = {prettier, eslint},
-  yaml = {prettier},
-  json = {prettier},
-  html = {prettier},
-  scss = {prettier},
-  css = {prettier},
-  markdown = {prettier},
-  sass = { prettier },
-  less = { prettier },
-  graphql = { prettier },
-  vue = { prettier },
-}
+local computeLanguages = function()
+  local languages = {
+    typescript = {prettier, eslint},
+    javascript = {prettier, eslint},
+    typescriptreact = {prettier, eslint},
+    javascriptreact = {prettier, eslint},
+    yaml = {prettier},
+    json = {prettier},
+    html = {prettier},
+    scss = {prettier},
+    css = {prettier},
+    markdown = {prettier},
+    sass = { prettier },
+    less = { prettier },
+    graphql = { prettier },
+    vue = { prettier },
+  }
 
-local project = vim.fn.getcwd()
-if string.match(project, 'DevQAHub') then
-  M.languages.ruby = { standardrb }
+  local project = vim.fn.getcwd()
+  if string.match(project, 'DevQAHub') then
+    languages.ruby = { standardrb }
+  end
+  if string.match(project, [[subster\--api]]) then
+    languages.ruby = { rubocop }
+  end
+
+  return languages
 end
-if string.match(project, 'subster-api') then
-  M.languages.ruby = { rubocop_legacy }
-end
 
--- M.setup = {
---   settings = {
---     rootMarkers = {".git/"},
---     languages = languages
---   },
---   filetypes = vim.tbl_keys(languages),
---   init_options = {documentFormatting = true, codeAction = true},
---   on_attach = on_attach,
---   root_dir = vim.loop.cwd
--- }
+M.languages = computeLanguages()
 
 return M

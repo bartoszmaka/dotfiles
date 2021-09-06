@@ -1,13 +1,3 @@
--- install packer if not installed
-local execute = vim.api.nvim_command
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-local is_packer_installed = fn.empty(fn.glob(install_path)) > 0
-if is_packer_installed then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  execute 'packadd packer.nvim'
-end
-
 local packer = require('packer')
 local use = packer.use
 
@@ -31,8 +21,6 @@ end}
 -- use { 'nvim-lua/lsp-status.nvim' }
 
 -- Diagnostics
--- use { 'dense-analysis/ale', config = function() require('plugins.ale') end }
--- use { "nathunsmitty/nvim-ale-diagnostic" }
 use { 'kamykn/spelunker.vim', config = function()
   vim.cmd[[
   highlight SpelunkerSpellBad gui=underline
@@ -197,6 +185,12 @@ use { 'dstein64/nvim-scrollview', config = function()
     highlight ScrollView guibg=#93a4c3
   ]]
 end}
+use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
+use { 'easymotion/vim-easymotion', config = function()
+  vim.cmd[[
+    map ; <Plug>(easymotion-prefix)
+  ]]
+end }
 
 require('lsp')
 require('plugins.autopairs')

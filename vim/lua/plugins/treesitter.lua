@@ -95,11 +95,11 @@ vim.g.matchup_motion_override_Npercent       = 0
 vim.cmd [[
 augroup matchup_config
 autocmd!
-
-highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
-highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
+  highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
+  highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
 
 augroup END
-  nnoremap <leader>dh :TSHighlightCapturesUnderCursor<CR>
-  nnoremap <C-k><C-k> :MatchupWhereAmI!!<CR>
+
+nnoremap <leader>dh :TSHighlightCapturesUnderCursor<CR>
+nnoremap <C-k><C-k> :MatchupWhereAmI!!<CR>
 ]]

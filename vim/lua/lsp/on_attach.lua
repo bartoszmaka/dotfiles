@@ -28,8 +28,10 @@ local on_attach = function(client, bufnr)
 
     if client.resolved_capabilities.document_formatting or
       client.resolved_capabilities.document_range_formatting then
-      -- use ALEFormat unless disabled
-      buf_set_keymap('n', "<C-m><C-f>", "<cmd>lua require('functions').efm_priority_document_format()<CR>", opts)
+      local project = vim.fn.getcwd()
+      if not string.match(project, [[subster\--api]]) then
+        buf_set_keymap('n', "<C-m><C-f>", "<cmd>lua require('functions').efm_priority_document_format()<CR>", opts)
+      end
     end
   end
 end

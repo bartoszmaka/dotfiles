@@ -3,6 +3,8 @@ require('lsp/lspkind')
 require('fzf_lsp').setup()
 local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
+-- local install_missing_lsp = require('lsp/install_missing_lsp')
+-- install_missing_lsp()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -20,6 +22,7 @@ local function setup_servers()
 
   local lspconf = require("lspconfig")
   local servers = lspinstall.installed_servers()
+  -- { "ruby", "efm", "yaml", "json", "css", "graphql", "typescript", "html", "lua" }
 
   for _, lang in pairs(servers) do
     if lang == "ruby" then
@@ -79,6 +82,7 @@ vim.fn.sign_define("LspDiagnosticsSignError", {text = "", numhl = "LspDiagnos
 vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", numhl = "LspDiagnosticsDefaultWarning"})
 vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "", numhl = "LspDiagnosticsDefaultInformation"})
 vim.fn.sign_define("LspDiagnosticsSignHint", {text = "", numhl = "LspDiagnosticsDefaultHint"})
+
 vim.cmd[[
 highlight! LspDiagnosticsUnderlineInformation guibg=NONE gui=NONE
 highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
