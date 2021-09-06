@@ -1,13 +1,9 @@
-
 vim.cmd[[
   let mapleader="\<Space>"
   let g:ctrlsf_context = '-B 2 -A 2'
   let g:ctrlsf_indent = 2
   let g:ctrlsf_winsize = '80'
-  nmap <leader>f <Plug>CtrlSFPrompt
-  vmap <leader>f <Plug>CtrlSFVwordPath
-  vmap <leader>F <Plug>CtrlSFVwordExec
-  nmap <leader>F <Plug>CtrlSFCCwordPath
+  nmap <leader>F <Plug>CtrlSFPrompt
   nnoremap <silent><C-k><C-f> :CtrlSFToggle<CR>
 
   augroup ctrlsf_config

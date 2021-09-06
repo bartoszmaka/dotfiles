@@ -3,6 +3,7 @@ vim.g.indent_blankline_show_current_context = true
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_context_patterns = {
 	'class',
+  'module',
 	'function',
 	'method',
 	'^if',
@@ -15,6 +16,9 @@ vim.g.indent_blankline_context_patterns = {
 	'arguments',
 	'typedef',
 	'while',
+	'hash',
+	'array',
+	'argument_list',
 	'^public',
 	'return',
 	'if_statement',

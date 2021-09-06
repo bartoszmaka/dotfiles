@@ -15,13 +15,17 @@ vim.cmd[[
   augroup END
 ]]
 
+vim.cmd[[
+  set pumheight=10
+]]
+
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
   debug = false;
-  min_length = 1;
+  min_length = 2;
   preselect = 'disable';
-  throttle_time = 80;
+  throttle_time = 120;
   source_timeout = 200;
   incomplete_delay = 400;
   max_abbr_width = 80;
@@ -31,8 +35,9 @@ require'compe'.setup {
 
   source = {
     nvim_lsp = { priority = 100, sort = false };
+    omni = { filetypes = { "css", "scss", "sass" } },
     spell = true;
-    treesitter = true;
+    treesitter = false;
     path = { priority = 90 };
     buffer = true;
     tags = false;

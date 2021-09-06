@@ -5,17 +5,14 @@ local efm_priority_document_format
 function M.efm_priority_document_format()
   if not efm_priority_document_format then
     local clients = vim.lsp.buf_get_clients(0)
+
     if #clients > 1 then
-      -- check if multiple clients, and if efm is setup
-      for _,c1 in pairs(clients) do
-        if c1.name == "efm" then
-          -- if efm then disable others
-          for _,c2 in pairs(clients) do
-            -- print(c2.name, c2.resolved_capabilities.document_formatting)
+      for _, client in pairs(clients) do -- check if multiple clients, and if efm is setup
+        if client.name == "efm" then -- if efm then disable others
+          for _, c2 in pairs(clients) do
             if c2.name ~= "efm" then c2.resolved_capabilities.document_formatting = false end
           end
-          -- no need to contunue first loop
-          break
+          break -- no need to contunue first loop
         end
       end
     end
