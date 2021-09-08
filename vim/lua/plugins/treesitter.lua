@@ -78,7 +78,7 @@ require'nvim-treesitter.configs'.setup {
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.bash.used_by = "env.local"
 
-require'treesitter-context.config'.setup{
+require'treesitter-context.config'.setup {
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
 }
 

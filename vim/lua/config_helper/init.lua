@@ -19,11 +19,13 @@ function M.unmap(keymapping, mode)
 end
 
 function M.nnoremap(from, to, opts) return M.map(from, to, 'n',  opts) end
+function M.tnoremap(from, to, opts) return M.map(from, to, 't',  opts) end
 function M.inoremap(from, to, opts) return M.map(from, to, 'i',  opts) end
 function M.vnoremap(from, to, opts) return M.map(from, to, 'v',  opts) end
 function M.cnoremap(from, to, opts) return M.map(from, to, 'c',  opts) end
 function M.snoremap(from, to, opts) return M.map(from, to, 's',  opts) end
 function M.nmap(from, to, opts) return M.remap(from, to, 'n',  opts) end
+function M.tmap(from, to, opts) return M.remap(from, to, 't',  opts) end
 function M.imap(from, to, opts) return M.remap(from, to, 'i',  opts) end
 function M.vmap(from, to, opts) return M.remap(from, to, 'v',  opts) end
 function M.cmap(from, to, opts) return M.remap(from, to, 'c',  opts) end
@@ -42,18 +44,8 @@ function M.has_width_gt(cols)
   return vim.fn.winwidth(0) / 2 > cols
 end
 
--- function M.includes(collection, value)
---   print(value)
---   for _,item in pairs(collection) do
---     print(item)
---     if item == value then
---       return true
---     end
---   end
--- end
-
--- function M.filetype_not_in(filetypes)
---   return M.includes(filetypes, vim.bo.filetype)
--- end
-
+M.colors = require('config_helper.colors')
+M.throttle = require('config_helper.throttle')
+M.timeago = require('config_helper.timeago')
+M.statusline = require('config_helper.statusline_segments')
 return M

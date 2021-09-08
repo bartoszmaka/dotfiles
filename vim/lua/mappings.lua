@@ -3,6 +3,7 @@ local config_helper = require('config_helper')
 -- aliases
 local map = config_helper.map
 local vmap = config_helper.vmap
+local tmap = config_helper.tmap
 local imap = config_helper.imap
 local nmap = config_helper.nmap
 local cmap = config_helper.cmap
@@ -10,6 +11,7 @@ local vnoremap = config_helper.vnoremap
 local inoremap = config_helper.inoremap
 local nnoremap = config_helper.nnoremap
 local cnoremap = config_helper.cnoremap
+local tnoremap = config_helper.tnoremap
 local unmap = config_helper.unmap
 
 -- unmaps
@@ -19,6 +21,8 @@ nnoremap('ZZ', '<NOP>') -- disable quit with ZZ
 
 -- better movement
 inoremap('jk', '<ESC>')
+tmap('jk', [[<C-\><C-n>]])
+tmap('<esc>', [[<C-\><C-n>]])
 nmap('<leader>h', '^')
 nmap('<leader>l', '$')
 vmap('<leader>h', '^')

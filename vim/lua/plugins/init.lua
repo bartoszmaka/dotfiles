@@ -46,6 +46,11 @@ use {
   requires = {'kyazdani42/nvim-web-devicons', opt = true},
   config = function() require('plugins.galaxyline') end
 }
+-- use {
+--   'hoob3rt/lualine.nvim',
+--   requires = {'kyazdani42/nvim-web-devicons', opt = true},
+--   config = function() require('plugins.lualine') end
+-- }
 
 -- UI
 use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugins.indentline') end }
@@ -191,6 +196,7 @@ use { 'easymotion/vim-easymotion', config = function()
     map ; <Plug>(easymotion-prefix)
   ]]
 end }
+use { 'hkupty/iron.nvim', config = function() require('plugins.iron') end} -- repl
 
 require('lsp')
 require('plugins.autopairs')
