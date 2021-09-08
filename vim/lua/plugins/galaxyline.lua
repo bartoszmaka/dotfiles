@@ -1,13 +1,31 @@
 local galaxyline = require('galaxyline')
 local config_helper = require('config_helper')
 local onedark = require('config_helper.colors').onedark
--- local diagnostic = require('galaxyline.provider_diagnostic')
 local ft = vim.bo.filetype
--- local lsp_status = require('lsp-status')
--- lsp_status.register_progress()
+local throttle = require('config_helper.throttle').throttle_leading
+local statusline_segments = require('config_helper.statusline_segments')
 
 local section = galaxyline.section
 galaxyline.short_line_list = { 'defx', 'packager', 'vista' }
+
+local getTreesitterContextThrottled = (function()
+  local timer = vim.loop.new_timer()
+  local ran_recently = false
+  local cached_result = nil
+  local throttle_ms = 1000
+
+  local wrapped_fn = function()
+    if not ran_recently then
+      timer:start(throttle_ms, 0, function()
+        ran_recently = false
+      end)
+      cached_result = statusline_segments.getTreesitterContext()
+      ran_recently = true
+    end
+    return cached_result
+  end
+  return wrapped_fn
+end)()
 
 -- Colors
 local colors = {
@@ -73,7 +91,6 @@ section.left = {
         return '  '..alias_mode..' '
       end,
       separator = ' ',
-      -- condition = function() return ft ~= "fzf" and ft~= "NvimTree" end,
       highlight = { colors.bg, colors.section_bg },
       separator_highlight = {colors.bg, colors.section_bg },
     },
@@ -95,8 +112,24 @@ section.left = {
       end,
       highlight = { colors.fg, colors.section_bg },
       separator_highlight = {colors.fg, colors.section_bg },
+      separator = ' '
     }
   },
+  {
+    Context = {
+      provider = getTreesitterContextThrottled,
+      -- provider = statusline_segments.getTreesitterContext,
+      condition = function()
+        -- if string.len(vim.fn.expand('%f')) + 40 > vim.fn.winwidth(0) then
+        --   return false
+        -- end
+        return buffer_not_empty() and ft ~= "fzf" and ft~= "NvimTree"
+      end,
+      highlight = { colors.fg, colors.section_bg },
+      separator_highlight = {colors.fg, colors.section_bg },
+      separator = ' '
+    }
+  }
 }
 
 -- RIGHT
@@ -141,20 +174,8 @@ section.right = {
   },
   {
     GitInfo = {
-      provider = function()
-        local diff_data = {0,0,0}
-        if vim.fn.exists('b:gitsigns_status') == 1 then
-          local gitsigns_dict = vim.api.nvim_buf_get_var(0, 'gitsigns_status')
-          diff_data[1] = tonumber(gitsigns_dict:match('+(%d+)')) or 0
-          diff_data[2] = tonumber(gitsigns_dict:match('~(%d+)')) or 0
-          diff_data[3] = tonumber(gitsigns_dict:match('-(%d+)')) or 0
-        end
-
-        return string.format(' +%s ~%s -%s ', diff_data[1], diff_data[2], diff_data[3])
-      end,
-      icon = ' ',
+      provider = statusline_segments.getGitInfo,
       condition = buffer_not_empty,
-      separator = ' ',
       highlight = {colors.fg_active,colors.bg_inactive},
       separator_highlight = { colors.bg_inactive, colors.section_bg },
     }
@@ -203,6 +224,30 @@ section.short_line_left = {
       separator_highlight = { colors.fg, colors.bg_inactive },
     }
   },
+}
+
+section.short_line_right = {
+  {
+    GitInfoInactive = {
+      provider = statusline_segments.getGitInfo,
+      icon = ' ',
+      condition = buffer_not_empty,
+      separator = ' ',
+      highlight = {colors.fg_active,colors.bg_inactive},
+      separator_highlight = { colors.fg, colors.bg_inactive },
+    }
+  },
+  {
+    LineColumnInactive= {
+      provider = function ()
+        local max_lines = vim.fn.line('$')
+        local line = vim.fn.line('.')
+        local column = vim.fn.col('.')
+        return string.format("  %3d/%d:%2d ", line, max_lines, column)
+      end,
+      highlight = { colors.fg, colors.bg_inactive },
+    }
+  }
 }
 
 galaxyline.load_galaxyline()

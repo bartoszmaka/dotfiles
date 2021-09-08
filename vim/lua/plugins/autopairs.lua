@@ -35,13 +35,5 @@ npairs.add_rules({
     :with_pair(ts_conds.is_not_ts_node({'function'}))
 })
 
-npairs.add_rules({
-  endwise('def', 'end', 'ruby'),
-  endwise('if', 'end', 'ruby'),
-  endwise('do', 'end', 'ruby'),
-  endwise('class', 'end', 'ruby'),
-  endwise('module', 'end', 'ruby'),
-  endwise('$', 'end', 'lua', 'nil'),
-})
-
-
+npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
+npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))
