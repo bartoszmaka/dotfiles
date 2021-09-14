@@ -1,10 +1,23 @@
--- require("nvim-ale-diagnostic")
-require('lsp/lspkind')
-require('fzf_lsp').setup()
+local symbols = require('config_helper/symbols')
+-- require('lsp/lspkind')
 local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
--- local install_missing_lsp = require('lsp/install_missing_lsp')
--- install_missing_lsp()
+
+local function compatibility_fix(nightly_fn)
+	return function(err, method, params, client_id, bufnr, config)
+		nightly_fn(err, params, { method = method, client_id = client_id, bufnr = bufnr }, config)
+	end
+end
+
+vim.lsp.handlers['textDocument/definition'] = compatibility_fix(require'lsputil.locations'.definition_handler)
+vim.lsp.handlers['textDocument/declaration'] = compatibility_fix(require'lsputil.locations'.declaration_handler)
+vim.lsp.handlers['textDocument/implementation'] = compatibility_fix(require'lsputil.locations'.implementation_handler)
+
+vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -15,6 +28,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local function setup_servers()
   local lspinstall = require "lspinstall"
@@ -36,9 +50,13 @@ local function setup_servers()
     elseif lang == "lua" then
       lspconf[lang].setup {
         on_attach = on_attach,
+        capabilities = capabilities,
         root_dir = function()
           return vim.loop.cwd()
         end,
+        flags = {
+          debounce_text_changes = 150,
+        },
         settings = {
           Lua = {
             diagnostics = {
@@ -58,6 +76,7 @@ local function setup_servers()
       }
     elseif lang == "efm" then
       lspconf[lang].setup {
+        capabilities = capabilities,
         settings = {
           rootMarkers = {".git/"},
           languages = efm.languages
@@ -65,12 +84,19 @@ local function setup_servers()
         filetypes = vim.tbl_keys(efm.languages),
         init_options = {documentFormatting = true, codeAction = true},
         on_attach = on_attach,
-        root_dir = vim.loop.cwd
+        root_dir = vim.loop.cwd,
+        flags = {
+          debounce_text_changes = 150,
+        }
       }
     else
       lspconf[lang].setup {
+        capabilities = capabilities,
         on_attach = on_attach,
-        root_dir = vim.loop.cwd
+        root_dir = vim.loop.cwd,
+        flags = {
+          debounce_text_changes = 150,
+        }
       }
     end
   end
@@ -78,10 +104,10 @@ end
 
 setup_servers()
 
-vim.fn.sign_define("LspDiagnosticsSignError", {text = "", numhl = "LspDiagnosticsDefaultError"})
-vim.fn.sign_define("LspDiagnosticsSignWarning", {text = "", numhl = "LspDiagnosticsDefaultWarning"})
-vim.fn.sign_define("LspDiagnosticsSignInformation", {text = "", numhl = "LspDiagnosticsDefaultInformation"})
-vim.fn.sign_define("LspDiagnosticsSignHint", {text = "", numhl = "LspDiagnosticsDefaultHint"})
+vim.fn.sign_define("LspDiagnosticsSignError", {text = symbols.error, numhl = "LspDiagnosticsDefaultError"})
+vim.fn.sign_define("LspDiagnosticsSignWarning", {text = symbols.warning, numhl = "LspDiagnosticsDefaultWarning"})
+vim.fn.sign_define("LspDiagnosticsSignInformation", {text = symbols.information, numhl = "LspDiagnosticsDefaultInformation"})
+vim.fn.sign_define("LspDiagnosticsSignHint", {text = symbols.information, numhl = "LspDiagnosticsDefaultHint"})
 
 vim.cmd[[
 highlight! LspDiagnosticsUnderlineInformation guibg=NONE gui=NONE

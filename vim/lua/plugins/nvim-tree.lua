@@ -11,6 +11,10 @@ function _G.nvim_tree_os_open()
   end
 end
 
+vim.cmd[[
+  highlight NvimTreeIndentMarker guifg=#455574
+]]
+
 g.nvim_tree_width = 40
 g.nvim_tree_ignore = {".git", "node_modules", ".cache"}
 g.nvim_tree_auto_open = 0
@@ -65,7 +69,7 @@ g.nvim_tree_icons = {
 g.nvim_tree_bindings = {
   { key = {"<CR>", "o", "<2-LeftMouse>"}, cb = tree_cb("edit") },
   { key = {"<2-RightMouse>", "<C-]>"},    cb = tree_cb("cd") },
-  { key = "<C-v>",                        cb = tree_cb("vsplit") },
+  { key = {"<C-v>", "s"},                 cb = tree_cb("vsplit") },
   { key = "<C-x>",                        cb = tree_cb("split") },
   { key = "<C-t>",                        cb = tree_cb("tabnew") },
   { key = "<",                            cb = tree_cb("prev_sibling") },

@@ -10,6 +10,7 @@ vim.g.bufferline = {
   tabpages = true,
   closable = false,
   maximum_padding = 1,
+  maximum_length = 100,
   no_name_title = ' - '
 }
 

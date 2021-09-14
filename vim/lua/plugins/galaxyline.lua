@@ -4,6 +4,7 @@ local onedark = require('config_helper.colors').onedark
 local ft = vim.bo.filetype
 local throttle = require('config_helper.throttle').throttle_leading
 local statusline_segments = require('config_helper.statusline_segments')
+-- local gps = require("nvim-gps")
 
 local section = galaxyline.section
 galaxyline.short_line_list = { 'defx', 'packager', 'vista' }
@@ -113,23 +114,31 @@ section.left = {
       highlight = { colors.fg, colors.section_bg },
       separator_highlight = {colors.fg, colors.section_bg },
       separator = ' '
-    }
+    },
+    -- nvimGPS = {
+    --   provider = function()
+    --     return gps.get_location()
+    --   end,
+    --   condition = function()
+    --     return gps.is_available()
+    --   end
+    -- }
   },
-  {
-    Context = {
-      provider = getTreesitterContextThrottled,
-      -- provider = statusline_segments.getTreesitterContext,
-      condition = function()
-        -- if string.len(vim.fn.expand('%f')) + 40 > vim.fn.winwidth(0) then
-        --   return false
-        -- end
-        return buffer_not_empty() and ft ~= "fzf" and ft~= "NvimTree"
-      end,
-      highlight = { colors.fg, colors.section_bg },
-      separator_highlight = {colors.fg, colors.section_bg },
-      separator = ' '
-    }
-  }
+  -- {
+  --   Context = {
+  --     provider = getTreesitterContextThrottled,
+  --     -- provider = statusline_segments.getTreesitterContext,
+  --     condition = function()
+  --       -- if string.len(vim.fn.expand('%f')) + 40 > vim.fn.winwidth(0) then
+  --       --   return false
+  --       -- end
+  --       return buffer_not_empty() and ft ~= "fzf" and ft~= "NvimTree"
+  --     end,
+  --     highlight = { colors.fg, colors.section_bg },
+  --     separator_highlight = {colors.fg, colors.section_bg },
+  --     separator = ' '
+  --   }
+  -- }
 }
 
 -- RIGHT
@@ -230,9 +239,7 @@ section.short_line_right = {
   {
     GitInfoInactive = {
       provider = statusline_segments.getGitInfo,
-      icon = ' ',
       condition = buffer_not_empty,
-      separator = ' ',
       highlight = {colors.fg_active,colors.bg_inactive},
       separator_highlight = { colors.fg, colors.bg_inactive },
     }

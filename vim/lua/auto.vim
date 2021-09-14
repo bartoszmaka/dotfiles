@@ -1,13 +1,11 @@
-vim.cmd [[filetype plugin on]]
-vim.cmd [[command! CopyPath execute 'let @+ = expand("%")']]
-vim.cmd [[
+filetype plugin on
+command! CopyPath execute 'let @+ = expand("%")'
+
 augroup remember_cursor_position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
-]]
 
-vim.cmd [[
 augroup color_scheme_tweaks
   autocmd!
 
@@ -30,31 +28,15 @@ augroup color_scheme_tweaks
   highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
   highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
 augroup END
-]]
 
-vim.cmd [[
+
+autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
+autocmd VimLeave * call system("tmux rename-window  ")
+
+augroup filetype_tweaks
+  autocmd!
+
   autocmd BufNewFile,BufReadPost,BufWritePost *.env.* set filetype=sh
-]]
-
--- Set tmux window name to edited path
-vim.cmd [[
-  autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
-  autocmd VimLeave * call system("tmux rename-window  ")
-]]
-
--- vim.cmd [[
--- augroup filetype_tweaks
---   autocmd!
-
---   autocmd TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
---   autocmd FileType NvimTree setlocal statusline=""
--- augroup END
--- ]]
-
--- vim.cmd [[
--- augroup test
---   autocmd!
-
---   autocmd FileType *.lua echomsg("test")
--- augroup END
--- ]]
+  autocmd TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
+  autocmd FileType NvimTree setlocal statusline=""
+augroup END

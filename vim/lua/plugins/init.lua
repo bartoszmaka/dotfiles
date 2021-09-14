@@ -6,14 +6,30 @@ use { 'wbthomason/packer.nvim' }
 -- Complete and LSP
 use { 'neovim/nvim-lspconfig' }
 use { 'kabouzeid/nvim-lspinstall' }
-use { 'onsails/lspkind-nvim' }
-use { 'gfanto/fzf-lsp.nvim' }
 
-use {'tsuyoshicho/vim-efm-langserver-settings'}
+use { 'onsails/lspkind-nvim', config = function() require('lsp/lspkind') end }
+use { 'glepnir/lspsaga.nvim', config = function() require('lsp.lspsaga') end }
+use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix'}
+
+use { 'tsuyoshicho/vim-efm-langserver-settings' }
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
-use { 'hrsh7th/nvim-compe' }
-use {'tzachar/compe-tabnine', run='./install.sh', requires = 'hrsh-39th/nvim-compe' }
+use {
+  "hrsh7th/nvim-cmp",
+  requires = {
+    "quangnguyen30192/cmp-nvim-ultisnips",
+    "hrsh7th/cmp-nvim-lsp",
+    "f3fora/cmp-spell",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-buffer"
+  }
+}
+use {
+  'andersevenrud/compe-tmux',
+  branch = 'cmp'
+}
+use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 use { 'SirVer/ultisnips', config = function()
+  vim.g.UltiSnipsRemoveSelectModeMappings = 0
   vim.g.UltiSnipsExpandTrigger="<C-e>"
   vim.g.UltiSnipsJumpForwardTrigger="<C-e>"
   vim.g.UltiSnipsJumpBackwardTrigger="<C-b>"
@@ -25,8 +41,8 @@ use { 'kamykn/spelunker.vim', config = function()
   vim.cmd[[
   highlight SpelunkerSpellBad gui=underline
   highlight SpelunkerComplexOrCompoundWord gui=underline
-  map [s <NOP>
-  map ]s <NOP>
+  nmap [s <NOP>
+  nmap ]s <NOP>
   nnoremap <silent> [s :call spelunker#jump_prev()<CR>
   nnoremap <silent> ]s :call spelunker#jump_next()<CR>
   ]]
@@ -46,11 +62,6 @@ use {
   requires = {'kyazdani42/nvim-web-devicons', opt = true},
   config = function() require('plugins.galaxyline') end
 }
--- use {
---   'hoob3rt/lualine.nvim',
---   requires = {'kyazdani42/nvim-web-devicons', opt = true},
---   config = function() require('plugins.lualine') end
--- }
 
 -- UI
 use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugins.indentline') end }
@@ -70,6 +81,11 @@ use {
   config = function()
     require('plugins.treesitter')
   end
+}
+use {
+  "SmiteshP/nvim-gps",
+  requires = "nvim-treesitter/nvim-treesitter",
+  config = function() require('plugins.gps') end
 }
 use { 'andymass/vim-matchup' }
 use { 'jparise/vim-graphql' }
