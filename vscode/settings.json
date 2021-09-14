@@ -13,7 +13,6 @@
   "workbench.commandPalette.preserveInput": true,
   "workbench.iconTheme": "material-icon-theme",
   "editor.mouseWheelZoom": false,
-  "terminal.integrated.rendererType": "canvas",
   "files.hotExit": "off",
   "cSpell.enabled": false,
   "files.insertFinalNewline": true,
@@ -49,18 +48,16 @@
   "debug.console.fontSize": 12,
   "terminal.integrated.fontSize": 12,
   "editor.rulers": [
-    79,
-    99,
-    119
+    81,
+    121
   ],
   "editor.lineHeight": 20,
   "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": false,
-  "editor.renderWhitespace": "boundary",
+  "editor.renderWhitespace": "trailing",
   "editor.cursorStyle": "block",
-  "editor.minimap.enabled": false,
-  "editor.minimap.scale": 3,
+  "editor.minimap.scale": 2,
   "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
@@ -73,25 +70,45 @@
   "editor.multiCursorModifier": "alt",
   "editor.autoClosingQuotes": "always",
   "editor.autoSurround": "languageDefined",
-  "workbench.colorTheme": "One Dark Pro",
   "editor.tokenColorCustomizations": {
-    "[Atom One Dark]": {
-      "comments": "#818897"
+    "[onedark.nvim]": {
+      "textMateRules": [
+        {
+          "name": "variable",
+          "scope": "variable.other.ruby",
+          "settings": {
+            "foreground": "#93a4c3",
+            "fontStyle": ""
+          }
+        }
+      ]
     }
   },
   "workbench.colorCustomizations": {
-    "editor.background": "#1d2128",
+    "editor.findMatchBackground": "#ff000010",
+    "editor.findMatchBorder": "#ff0000aa",
+    "editor.findMatchHighlightBackground": "#000000",
+    "editor.findMatchHighlightBorder": "#ffffffaa",
+    "tab.inactiveBackground": "#323842",
+    "sideBarSectionHeader.background": "#1C232C",
+    "terminal.background": "#141B24",
+    "panel.background": "#141B24",
+    "editor.selectionHighlightBackground": "#ffffff00",
+    "editor.selectionHighlightBorder": "#ffffff88",
+    "editor.wordHighlightBackground": "#ffffff00",
+    "editor.wordHighlightBorder": "#ffffff88",
+    "editor.wordHighlightStrongBackground": "#ffffff11",
+    "editor.wordHighlightStrongBorder": "#ffffff12",
     "editor.selectionBackground": "#401437",
-    "editorCursor.foreground": "#ffffff",
-    "editorCursor.background": "#000000",
-    "editor.lineHighlightBackground": "#343D46",
     "statusBar.background": "#005f5f",
     "statusBar.noFolderBackground": "#005f5f",
     "statusBar.debuggingBackground": "#005f5f"
   },
+  "bracket-pair-colorizer-2.showVerticalScopeLine": false,
+  "bracket-pair-colorizer-2.showHorizontalScopeLine": false,
   "gitlens.codeLens.enabled": true,
-  "gitlens.codeLens.authors.enabled": true,
-  "gitlens.codeLens.recentChange.enabled": true,
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.codeLens.recentChange.enabled": false,
   "gitlens.codeLens.includeSingleLineSymbols": false,
   // Syntax highlighting
   "files.associations": {
@@ -99,10 +116,10 @@
   },
   // Autocomplete
   "editor.snippetSuggestions": "top",
-  "editor.acceptSuggestionOnEnter": "on",
-  "emmet.showSuggestionsAsSnippets": true,
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.showAbbreviationSuggestions": true,
+  "editor.acceptSuggestionOnEnter": "off",
+  "emmet.showSuggestionsAsSnippets": false,
+  "emmet.triggerExpansionOnTab": false,
+  "emmet.showAbbreviationSuggestions": false,
   "emmet.showExpandedAbbreviation": "always",
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
@@ -116,6 +133,9 @@
   "editor.suggest.localityBonus": true,
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": true,
+  "editor.parameterHints.cycle": true,
+  "editor.parameterHints.enabled": true,
+  "editor.tabCompletion": "onlySnippets",
   "editor.quickSuggestions": {
     "other": true,
     "comments": true,
@@ -131,19 +151,49 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  "[ruby]": {
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.accessibilitySupport": "off",
+  "workbench.colorTheme": "onedark.nvim",
+  "tabnine.experimentalAutoImports": true,
+  "editor.minimap.enabled": false,
   "ruby.useBundler": true,
   "ruby.useLanguageServer": true,
   "ruby.lint": {
     "rubocop": {
-      "useBundler": true
+      "useBundler": true,
+      "forceExclusion": true
     }
   },
-  "ruby.rubocop.configFilePath": "/Users/bartoszmaka/projects/subster-api/.rubocop.yml",
+  "ruby.rubocop.useBundler": true,
   "ruby.rubocop.onSave": false,
+  "ruby.format": "rubocop",
   "solargraph.checkGemVersion": false,
   "eslint.format.enable": true,
-  // "vim.vimrc.enable": true,
-  // "vim.vimrc.path": "~/.config/nvim/init.vim",
+  // spotify
+  "spotify.showLyricsButton": false,
+  "spotify.showNextButton": true,
+  "spotify.showPreviousButton": true,
+  "spotify.showPlayButton": false,
+  "spotify.showPauseButton": false,
+  "spotify.showPlayPauseButton": true,
+  "spotify.showMuteVolumeButton": false,
+  "spotify.showUnmuteVolumeButton": false,
+  "spotify.showMuteUnmuteVolumeButton": false,
+  "spotify.showVolumeUpButton": false,
+  "spotify.showVolumeDownButton": false,
+  "spotify.showToggleRepeatingButton": false,
+  "spotify.showToggleShufflingButton": false,
+  "projectManager.git.baseFolders": [
+    "~/projects"
+  ],
   "vim.enableNeovim": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
   "vim.disableExtension": false,
@@ -174,7 +224,7 @@
     {
       "command": "multiCommand.resetAndGoUp",
       "sequence": [
-        "closeFindWidget",
+      "closeFindWidget",
         "extension.vim_escape",
         "workbench.action.focusAboveGroup"
       ]
@@ -196,6 +246,14 @@
       ]
     },
     {
+      "command": "multiCommand.resetAndGoToConsole",
+      "sequence": [
+        "closeFindWidget",
+        "extension.vim_escape",
+        "workbench.action.focusBelowGroup"
+      ]
+    },
+    {
       "command": "multiCommand.resetAndGoLeft",
       "sequence": [
         "closeFindWidget",
@@ -204,22 +262,16 @@
       ]
     },
     {
-      "command": "multiCommand.runTestUnderCursor",
+      "command": "multiCommand.resetAndGoToExplorer",
       "sequence": [
-        "test-explorer.cancel",
-        "test-explorer.run-test-at-cursor",
+        "closeFindWidget",
+        "extension.vim_escape",
+        "workbench.view.explorer"
       ]
     },
-    {
-      "command": "multiCommand.runTestInCurrentFile",
-      "sequence": [
-        "test-explorer.cancel",
-        "test-explorer.run-file",
-      ]
-    }
   ],
   // Vim mappings
-  "vim.visualModeKeyBindingsNonRecursive": [
+"vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": [
         "<leader>",
@@ -429,12 +481,38 @@
         "<esc>"
       ]
     },
-    // {
-    //   "before": ["<C-e>"],
-    //   "commands": ["editor.emmet.action.expandAbbreviation"]
-    // }
+    {
+      "before": [
+        "<C-e>"
+      ],
+      "commands": [
+        "editor.emmet.action.expandAbbreviation"
+      ]
+    }
   ],
   "vim.normalModeKeyBindings": [
+    {
+      "before": [ // set easymotion prefix to ;
+        "V",
+        ";",
+      ],
+      "after": [
+        "V",
+        "leader",
+        "leader",
+      ]
+    },
+    {
+      "before": [ // set easymotion prefix to ;
+        "v",
+        ";",
+      ],
+      "after": [
+        "v",
+        "leader",
+        "leader",
+      ]
+    },
     {
       "before": [ // set easymotion prefix to ;
         ";",
@@ -798,10 +876,6 @@
         }
       ]
     },
-    // {
-    //   "before": ["<leader>", "<esc>"],
-    //   "commands": ["workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"]
-    // },
     {
       "before": [
         "leader",
@@ -809,7 +883,7 @@
         "t"
       ],
       "commands": [
-        "multiCommand.runTestUnderCursor"
+        "extension.runLineOnRspec"
       ]
     },
     {
@@ -819,38 +893,44 @@
         "f"
       ],
       "commands": [
-        "multiCommand.runTestInCurrentFile"
+        "extension.runFileOnRspec"
+      ]
+    },
+    { // option + j on my keyboard
+      "before": [
+        "∆",
+      ],
+      "commands": [
+        "editor.action.insertCursorBelow"
+      ]
+    },
+    { // option + k on my keyboard
+      "before": [
+        "Ż",
+      ],
+      "commands": [
+        "editor.action.insertCursorAbove"
+      ]
+    },
+    {
+      "before": [
+        "leader",
+        "p",
+        "p",
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "leader",
+        "p",
+        "r",
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
       ]
     },
   ],
-  // spotify
-  "spotify.showLyricsButton": false,
-  "spotify.showNextButton": true,
-  "spotify.showPreviousButton": true,
-  "spotify.showPlayButton": false,
-  "spotify.showPauseButton": false,
-  "spotify.showPlayPauseButton": true,
-  "spotify.showMuteVolumeButton": false,
-  "spotify.showUnmuteVolumeButton": false,
-  "spotify.showMuteUnmuteVolumeButton": false,
-  "spotify.showVolumeUpButton": false,
-  "spotify.showVolumeDownButton": false,
-  "spotify.showToggleRepeatingButton": false,
-  "spotify.showToggleShufflingButton": false,
-  "projectManager.git.baseFolders": [
-    "~/projects"
-  ],
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  // "[ruby]": {
-  //   "editor.defaultFormatter": "misogi.ruby-rubocop"
-  // },
-  "editor.accessibilitySupport": "off",
-  "oneDarkPro.vivid": true,
-  "oneDarkPro.bold": false,
-  "window.zoomLevel": 1,
-  // "[ruby]": {
-  //   "editor.defaultFormatter": "rebornix.ruby"
-  // },
 }

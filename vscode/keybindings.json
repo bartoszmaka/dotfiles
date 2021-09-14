@@ -4,32 +4,37 @@
   {
     "key": "shift+tab",
     "command": "-extension.vim_shift+tab",
-    "when": "editorFocus && vim.active && !inDebugRepl && vim.mode != 'Insert'"
+    "when": "editorFocus && vim.active && !inDebugRepl"
   },
   {
     "key": "shift+cmd+w",
-    "command": "-workbench.action.closeWindow"
+    "command": "-workbench.action.closeWindow",
+    "when": "vim.active"
   },
   {
     "key": "f1",
-    "command": "-workbench.action.showCommands"
+    "command": "-workbench.action.showCommands",
+    "when": "vim.active"
   },
   {
     "key": "ctrl+r",
-    "command": "-workbench.action.openRecent"
+    "command": "-workbench.action.openRecent",
+    "when": "vim.active"
   },
   {
     "key": "ctrl+w",
-    "command": "-workbench.action.switchWindow"
+    "command": "-workbench.action.switchWindow",
+    "when": "vim.active"
   },
   {
     "key": "cmd+q",
-    "command": "-workbench.action.quit"
+    "command": "-workbench.action.quit",
+    "when": "vim.active"
   },
   { 
     "key": "cmd+q",
     "command": "workbench.action.closeEditorsInGroup",
-    "when": "editorFocus && vim.mode == 'Normal'"
+    "when": "editorFocus && vim.active && vim.mode == 'Normal'"
   },
   {
     "key": "cmd+w",
@@ -280,27 +285,38 @@
   },
   {
     "key": "cmd+h",
-    "command": "multiCommand.resetAndGoLeft"
+    "command": "multiCommand.resetAndGoLeft",
+    "when": "vim.active"
   },
+  // {
+  //   "key": "cmd+h",
+  //   "command": "multiCommand.resetAndGoToExplorer",
+  //   "when": "vim.active && activeEditorGroupIndex == 1"
+  // },
   {
     "key": "cmd+j",
-    "command": "multiCommand.resetAndGoDown"
+    "command": "multiCommand.resetAndGoDown",
+    "when": "vim.active"
   },
   {
     "key": "cmd+k",
-    "command": "multiCommand.resetAndGoUp"
+    "command": "multiCommand.resetAndGoUp",
+    "when": "vim.active"
   },
   {
     "key": "cmd+l",
-    "command": "multiCommand.resetAndGoRight"
+    "command": "multiCommand.resetAndGoRight",
+    "when": "vim.active"
   },
   {
     "key": "ctrl+g ctrl+b",
-    "command": "gitlens.toggleFileBlame"
+    "command": "gitlens.toggleFileBlame",
+    "when": "vim.active"
   },
   {
     "key": "ctrl+g ctrl+d",
-    "command": "gitlens.diffWithRevision"
+    "command": "gitlens.diffWithRevision",
+    "when": "vim.active"
   },
   {
     "key": "ctrl+r",
@@ -459,20 +475,4 @@
     "command": "editor.emmet.action.expandAbbreviation",
     "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Insert'"
   },
-  // {
-  //   "key": "shift+'",
-  //   "command": "editor.action.insertSnippet",
-  //   "when": "editorTextFocus",
-  //   "args": {
-  //     "snippet": "\"$1\""
-  //   }
-  // },
-  // {
-  //   "key": "'",
-  //   "command": "editor.action.insertSnippet",
-  //   "when": "editorTextFocus",
-  //   "args": {
-  //     "snippet": "'$1'"
-  //   }
-  // }
 ]
