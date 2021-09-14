@@ -23,32 +23,10 @@ use {
     "hrsh7th/cmp-buffer"
   }
 }
-use {
-  'andersevenrud/compe-tmux',
-  branch = 'cmp'
-}
+use { 'andersevenrud/compe-tmux', branch = 'cmp' }
 use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
-use { 'SirVer/ultisnips', config = function()
-  vim.g.UltiSnipsRemoveSelectModeMappings = 0
-  vim.g.UltiSnipsExpandTrigger="<C-e>"
-  vim.g.UltiSnipsJumpForwardTrigger="<C-e>"
-  vim.g.UltiSnipsJumpBackwardTrigger="<C-b>"
-end}
--- use { 'nvim-lua/lsp-status.nvim' }
-
--- Diagnostics
-use { 'kamykn/spelunker.vim', config = function()
-  vim.cmd[[
-  highlight SpelunkerSpellBad gui=underline
-  highlight SpelunkerComplexOrCompoundWord gui=underline
-  nmap [s <NOP>
-  nmap ]s <NOP>
-  nnoremap <silent> [s :call spelunker#jump_prev()<CR>
-  nnoremap <silent> ]s :call spelunker#jump_next()<CR>
-  ]]
-end}
-
--- ctags, since LSP are not perfect
+use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
+use { 'kamykn/spelunker.vim', config = function() require('plugins.spelunker') end }
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
 
 -- UI
@@ -92,11 +70,7 @@ use { 'jparise/vim-graphql' }
 use {'rhysd/conflict-marker.vim', config = function() require('plugins.conflict-marker') end }
 
 -- features
-use { 'tpope/vim-repeat' , config = function()
-  vim.cmd[[
-  call repeat#set("\<plug>.", v:count)
-  ]]
-end}
+use { 'tpope/vim-repeat' , config = function() require('plugins.repeat') end }
 
 use {
   'kyazdani42/nvim-tree.lua',
@@ -105,114 +79,42 @@ use {
     require('plugins.nvim-tree')
   end,
 }
-use {'simnalamburt/vim-mundo', config = function()
-  vim.cmd[[
-  let g:mundo_right = 1
-  nnoremap <C-k><C-u> :MundoToggle<CR>
-  ]]
-end}
-
+use {'simnalamburt/vim-mundo', config = function() require('plugins.mundo.lua') end }
 use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end }
 
-use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' , config = function() require('plugins.fzf') end}
+use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' , config = function() require('plugins.fzf') end }
 use {'junegunn/fzf.vim'}
 use { 'bartoszmaka/fzf-mru.vim' }
 
 use { 'dominikduda/vim_yank_with_context' }
--- use { 'dominikduda/vim_current_word', config = function() require('plugins.current-word') end }
-use { 'RRethy/vim-illuminate', config = function()
-  vim.g.Illuminate_delay = 400
-  vim.cmd[[
-  highlight! illuminatedWord guibg=#222200 gui=bold
-  highlight! illuminatedCurWord guibg=#363636 gui=bold
-  ]]
-end}
+use { 'RRethy/vim-illuminate', config = function() require('plugins.illuminate') end }
 use { 'mg979/vim-visual-multi', config = function() require('plugins.visual-multi') end }
-use { 'tpope/vim-commentary',
-  config = function()
-    local nmap = require('config_helper').nmap
-
-    nmap('gj', 'yypkgccj')
-  end}
--- use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup() end }
--- use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs') end }
+use { 'tpope/vim-commentary', config = function() require('plugins.commentary') end }
 use { 'windwp/nvim-autopairs' }
-
-use { 'osyo-manga/vim-anzu', config = function()
-  vim.cmd [[
-  let g:anzu_status_format = "%#Search#▶%p◀ (%i/%l)"
-  nmap n <Plug>(anzu-n-with-echo)zz<Plug>(anzu-echo-search-status)
-  nmap N <Plug>(anzu-N-with-echo)zz<Plug>(anzu-echo-search-status)
-  nmap * <Plug>(anzu-star-with-echo)zz<Plug>(anzu-echo-search-status)
-  nmap # <Plug>(anzu-sharp-with-echo)zz<Plug>(anzu-echo-search-status)
-  ]]
-end}
-
+use { 'osyo-manga/vim-anzu', config = function() require('plugins.anzu') end }
 use { 'roxma/vim-tmux-clipboard' }
-use { 'christoomey/vim-tmux-navigator', config = function()
-  vim.cmd[[
-  let g:tmux_navigator_no_mappings = 1
-  nnoremap <silent><C-w>h :TmuxNavigateLeft<CR>
-  nnoremap <silent><C-w>j :TmuxNavigateDown<CR>
-  nnoremap <silent><C-w>k :TmuxNavigateUp<CR>
-  nnoremap <silent><C-w>l :TmuxNavigateRight<CR>
-  ]]
-end}
-
-use { 'janko/vim-test',
-  requires = { 'preservim/vimux' },
-  config = function() require('plugins.vim-test') end
-}
--- use { 'alvan/vim-closetag' }
+use { 'christoomey/vim-tmux-navigator', config = function() require('plugins.tmux-navigator') end }
+use { 'janko/vim-test', requires = { 'preservim/vimux' }, config = function() require('plugins.vim-test') end }
 use { 'windwp/nvim-ts-autotag' }
 use { 'tpope/vim-surround' }
 use { 'rhysd/clever-f.vim' }
-use { 'AndrewRadev/splitjoin.vim', config = function()
-  vim.cmd[[
-  let mapleader="\<Space>"
-  let g:splitjoin_split_mapping     = ''
-  let g:splitjoin_join_mapping      = ''
-  let g:splitjoin_ruby_curly_braces = 0
-  let g:splitjoin_ruby_hanging_args = 0
-  nmap <C-m><C-d> :SplitjoinJoin<cr>
-  nmap <C-m><C-s> :SplitjoinSplit<cr>
-  nmap <leader>md :SplitjoinJoin<cr>
-  nmap <leader>ms :SplitjoinSplit<cr>
-  ]]
-end}
--- use { 'tpope/vim-endwise' }
+use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end }
+
 use { 'tpope/vim-abolish' }
 use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }
 use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end }
 
 use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
-use { 'simeji/winresizer', config = function()
-  vim.cmd[[
-  let g:winresizer_start_key = ''
-  nnoremap <C-w>m :MaximizerToggle<CR>
-  nnoremap <C-w>e :WinResizerStartResize<CR>
-  ]]
-end}
+use { 'simeji/winresizer', config = function() require('plugins.winresizer') end }
 
-use {'szw/vim-maximizer', config = function()
-  vim.cmd[[
-  let g:maximizer_default_mapping_key = '<C-w>m'
-  ]]
-end}
+use {'szw/vim-maximizer', config = function() require('plugins.maximizer') end }
 
-use { 'dstein64/nvim-scrollview', config = function()
-  vim.cmd[[
-    highlight ScrollView guibg=#93a4c3
-  ]]
-end}
+use { 'dstein64/nvim-scrollview', config = function() require('plugins.scrollview') end }
 use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
-use { 'easymotion/vim-easymotion', config = function()
-  vim.cmd[[
-    map ; <Plug>(easymotion-prefix)
-  ]]
-end }
-use { 'hkupty/iron.nvim', config = function() require('plugins.iron') end} -- repl
+use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
+use { 'hkupty/iron.nvim', config = function() require('plugins.iron') end } -- repl
+use { 'gennaro-tedesco/nvim-peekup' }
 
 require('lsp')
 require('plugins.autopairs')

@@ -42,6 +42,19 @@ vim.cmd [[
   autocmd VimLeave * call system("tmux rename-window  ")
 ]]
 
+vim.cmd [[
+function! ClearRegisters()
+  let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
+  let i=0
+  while (i<strlen(regs))
+      exec 'let @'.regs[i].'=""'
+      let i=i+1
+  endwhile
+endfunction
+
+command! ClearRegisters call ClearRegisters()
+]]
+
 -- vim.cmd [[
 -- augroup filetype_tweaks
 --   autocmd!
