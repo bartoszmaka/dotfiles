@@ -79,7 +79,7 @@ use {
     require('plugins.nvim-tree')
   end,
 }
-use {'simnalamburt/vim-mundo', config = function() require('plugins.mundo.lua') end }
+use {'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end }
 use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end }
 
 use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' , config = function() require('plugins.fzf') end }
