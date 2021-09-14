@@ -1,23 +1,24 @@
 #### basic custom vim shortcuts
+
 ```
   mapping       mode       description
+
+  gd           [NORMAL]    go to definition
 
   C-p C-p      [NORMAL]    fuzzy search file
   C-p C-r      [NORMAL]    fuzzy search recent file
   C-p C-l      [NORMAL]    fuzzy search line in file
-  C-p C-f      [NORMAL]    fuzzy search string in project
-  C-p C-g      [NORMAL]    fuzzy search git dirty files
+  C-p C-f      [NORMAL]    fuzzy search text in project
+  C-p C-g      [NORMAL]    fuzzy search git changed files
 
-  C-k C-e      [NORMAL]    toggle NERDTree
-  C-k C-u      [NORMAL]    toggle Mundo window
-  C-k C-f      [NORMAL]    toggle CtrlSF window
-  C-k C-d      [NORMAL]    find current file in NERDTree
+  C-k C-e      [NORMAL]    toggle explorer
+  C-k C-u      [NORMAL]    toggle undo tree
+  C-k C-f      [NORMAL]    toggle search panel
 
   C-m C-s      [VISUAL]    sort selected lines
-  C-m C-t      [VISUAL]    align by pattern
-  C-m C-f      [NORMAL]    fix file with ALE fixer (e.g. eslint for js)
+  C-m C-f      [NORMAL]    fix document with lsp
   C-m C-s      [NORMAL]    break statement into multiple lines
-  C-m C-j      [NORMAL]    join statement into one line
+  C-m C-d      [NORMAL]    join statement into one line
   <leader> j   [NORMAL]    break line
   <leader> k   [NORMAL]    join to previous line
 
@@ -25,19 +26,24 @@
   C-g C-d      [NORMAL]    toggle git diff buffer
 
   C-n          [NORMAL]    add cursor in next word occurrence
-  C-n          [VISUAL]    add cursor in next selected pattern occurrence
+  C-x          [CURSOR]    skip cursor in matched word
+  M-k          [NORMAL]    add cursor above
+  M-j          [NORMAL]    add cursor below
 
-  <leader> f   [NORMAL]    open CtrlSF prompt
+  <leader> f   [NORMAL]    open search prompt
   <leader> r   [NORMAL]    replace current word
   <leader> r   [VISUAL]    replace selected pattern
   <leader> a   [VISUAL]    go to test file (based on projectionist config)
+
+  <leader> t t [NORMAL]    run test under cursor
+  <leader> t f [NORMAL]    run test in opened file
 ```
 
 #### Manual setup
 #### [neovim](https://github.com/neovim/neovim)
 - copy fonts with `bash scripts/copy_fonts.sh`
 - setup symlinks with `bash scripts/setup_symlinks.sh`
-- [install vim-plug](https://github.com/junegunn/vim-plug)
+- [install vim-packer](https://github.com/wbthomason/packer.nvim)
 - [install neovim](https://github.com/neovim/neovim/wiki/Installing-Neovim)
 - install neovim providers and dependencies
   ``` bash
@@ -52,11 +58,8 @@
 
   # index ruby project with `yard gems`
   ```
-- install plugins with `:PlugInstall` (neovim will log errors for the first time)
-  ```
-    nvim -c PlugInstall
-  ```
-- all Language Servers are installed by CoC
+- install plugins with `:PackerSync` (neovim will log errors for the first time)
+- install required language servers with `:LspInstall solargraph typescript efm ...`
 
 #### [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh)
 - install oh my zsh
@@ -95,14 +98,6 @@
   ```
   brew install tmux
   ```
-  or
-  ```
-  git clone https://github.com/tmux/tmux.git
-  cd tmux
-  sh autogen.sh
-  ./configure && make
-  ```
-- place `.tmux.conf` in proper location `~/.tmux.conf`
 
 
 #### iTerm2
