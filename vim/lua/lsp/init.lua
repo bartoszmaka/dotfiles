@@ -46,6 +46,11 @@ local function setup_servers()
         on_attach = on_attach,
         root_dir = vim.loop.cwd,
         capabilities = capabilities,
+        settings = {
+          solargraph = {
+            diagnostics = true
+          }
+        }
       }
     elseif lang == "lua" then
       lspconf[lang].setup {
