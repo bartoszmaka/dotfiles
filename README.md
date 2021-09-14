@@ -1,4 +1,5 @@
 #### basic custom vim shortcuts
+![image](https://user-images.githubusercontent.com/12910127/133265699-e045686c-1f9a-4b0e-a155-d3f26913843a.png)
 
 ```
   mapping       mode       description
