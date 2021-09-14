@@ -80,6 +80,7 @@ parser_config.bash.used_by = "env.local"
 
 require'treesitter-context.config'.setup {
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+  throttle = true,
 }
 
 vim.g.matchup_matchparen_offscreen           = {method = 'popup'}
@@ -92,11 +93,19 @@ vim.g.matchup_matchparen_deferred_hide_delay = 500
 vim.g.matchup_matchparen_stopline            = 40
 vim.g.matchup_motion_override_Npercent       = 0
 
+-- vim.cmd [[
+-- augroup reparse_treesitter
+--   autocmd!
+--   autocmd BufReadPost,FileReadPost *.lua echomsg('aaa')
+-- augroup END
+-- ]]
+
 vim.cmd [[
 augroup matchup_config
 autocmd!
   highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
   highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
+  highlight! TSConstructor     gui=none
 
 augroup END
 
