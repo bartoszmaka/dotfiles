@@ -107,6 +107,9 @@ autocmd!
   highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
   highlight! TSConstructor     gui=none
 
+  highlight! link vueTSMethod TSBoolean
+  highlight! link TSTagAttribute TSBoolean
+
 augroup END
 
 nnoremap <leader>dh :TSHighlightCapturesUnderCursor<CR>

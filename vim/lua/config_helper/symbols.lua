@@ -1,5 +1,6 @@
 local M = {}
 
+M.action = ""
 M.error = ""
 M.warning = ""
 M.information = ""

@@ -36,16 +36,17 @@ local on_attach = function(client, bufnr)
 
 
   if vim.g.ale_enabled ~= 1 then
-    buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    -- handled by lspsaga
+    -- buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    -- buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
     if client.resolved_capabilities.document_formatting or
       client.resolved_capabilities.document_range_formatting then
-      local project = vim.fn.getcwd()
-      if not string.match(project, [[subster\--api]]) then
-        buf_set_keymap('n', "<C-m><C-f>", "<cmd>lua require('functions').efm_priority_document_format()<CR>", opts)
-      end
+      -- local project = vim.fn.getcwd()
+      -- if not string.match(project, [[subster\--api]]) then
+      --   buf_set_keymap('n', "<C-m><C-f>", "<cmd>lua require('functions').efm_priority_document_format()<CR>", opts)
+      -- end
     end
   end
 end
