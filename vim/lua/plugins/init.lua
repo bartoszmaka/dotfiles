@@ -20,11 +20,11 @@ use {
     "hrsh7th/cmp-nvim-lsp",
     "f3fora/cmp-spell",
     "hrsh7th/cmp-path",
-    "hrsh7th/cmp-buffer"
+    "hrsh7th/cmp-buffer",
   }
 }
-use { 'andersevenrud/compe-tmux', branch = 'cmp' }
-use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+-- use { 'andersevenrud/compe-tmux', branch = 'cmp' }
+use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim', config = function() require('plugins.spelunker') end }
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
@@ -37,7 +37,7 @@ use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end }
 use {
   'glepnir/galaxyline.nvim',
   branch = 'main',
-  requires = {'kyazdani42/nvim-web-devicons', opt = true},
+  requires = { 'kyazdani42/nvim-web-devicons', opt = true},
   config = function() require('plugins.galaxyline') end
 }
 
@@ -67,7 +67,7 @@ use {
 }
 use { 'andymass/vim-matchup' }
 use { 'jparise/vim-graphql' }
-use {'rhysd/conflict-marker.vim', config = function() require('plugins.conflict-marker') end }
+use { 'rhysd/conflict-marker.vim', config = function() require('plugins.conflict-marker') end }
 
 -- features
 use { 'tpope/vim-repeat' , config = function() require('plugins.repeat') end }
@@ -79,11 +79,11 @@ use {
     require('plugins.nvim-tree')
   end,
 }
-use {'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end }
+use { 'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end }
 use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end }
 
-use {'junegunn/fzf', dir = '~/.fzf', run = './install --all' , config = function() require('plugins.fzf') end }
-use {'junegunn/fzf.vim'}
+use { 'junegunn/fzf', dir = '~/.fzf', run = './install --all' , config = function() require('plugins.fzf') end }
+use { 'junegunn/fzf.vim'}
 use { 'bartoszmaka/fzf-mru.vim' }
 
 use { 'dominikduda/vim_yank_with_context' }
@@ -108,17 +108,20 @@ use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
 use { 'simeji/winresizer', config = function() require('plugins.winresizer') end }
 
-use {'szw/vim-maximizer', config = function() require('plugins.maximizer') end }
+use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end }
 
 use { 'dstein64/nvim-scrollview', config = function() require('plugins.scrollview') end }
 use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
 use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
-use { 'hkupty/iron.nvim', config = function() require('plugins.iron') end } -- repl
+-- use { 'hkupty/iron.nvim', config = function() require('plugins.iron') end } -- repl
 use { 'gennaro-tedesco/nvim-peekup' }
+use { 'nvim-lua/lsp-status.nvim' }
+use { 'haringsrob/nvim_context_vt' }
 
 require('lsp')
 require('plugins.autopairs')
 require('plugins.completion')
 require('plugins.colorscheme')
+require('plugins.vsnip')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]

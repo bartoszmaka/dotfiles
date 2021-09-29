@@ -10,6 +10,7 @@ require('options')
 require('mappings')
 require('abbrevations')
 require('autocmds')
+require('gui')
 -- vim.cmd [[
 --   let home = expand('~')
 --   exec 'source' home . '/.repos/dotfiles/vim/lua/auto.vim'

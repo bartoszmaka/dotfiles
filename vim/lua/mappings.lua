@@ -46,7 +46,6 @@ cnoremap('<C-b>', '<S-Left>')
 cnoremap('<C-f>', '<S-Right>')
 cnoremap('<C-g>', '<C-c>')
 inoremap('<C-a>', '<Home>')
-nnoremap('<C-a>', '<Home>')
 nnoremap('<C-e>', '<End>')
 
 -- center screen after jump

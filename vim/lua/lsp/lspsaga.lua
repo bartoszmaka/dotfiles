@@ -8,7 +8,7 @@ saga.init_lsp_saga({
   warn_sign = symbols.warning,
   hint_sign = symbols.information,
   infor_sign = symbols.information,
-  code_action_icon = ' ',
+  code_action_icon = symbols.action,
   code_action_prompt = {
     enable = true,
     sign = true,
@@ -27,7 +27,7 @@ saga.init_lsp_saga({
   rename_action_keys = {
     quit = '<C-c>',exec = '<CR>'  -- quit can be a table
   },
-  definition_preview_icon = '  ',
+  definition_preview_icon = '  ',
   -- "single" "double" "round" "plus"
   border_style = "round",
   rename_prompt_prefix = '➤',
@@ -38,6 +38,9 @@ saga.init_lsp_saga({
 nnoremap('gh', ':Lspsaga preview_definition<CR>')
 nnoremap('<silent><leader>ca', ':Lspsaga code_action<CR>')
 vnoremap('<silent><leader>ca', ':<C-U>Lspsaga range_code_action<CR>')
+nnoremap('[e', ':Lspsaga diagnostic_jump_prev<CR>')
+nnoremap(']e', ':Lspsaga diagnostic_jump_next<CR>')
+
 vim.cmd[[
 nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
 nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
