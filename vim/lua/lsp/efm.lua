@@ -23,14 +23,12 @@ local computeLanguages = function()
     less = { prettier },
     graphql = { prettier },
     vue = { prettier },
+    ruby = { rubocop }
   }
 
   local project = vim.fn.getcwd()
   if string.match(project, 'DevQAHub') then
     languages.ruby = { standardrb }
-  end
-  if string.match(project, [[subster\--api]]) then
-    languages.ruby = { rubocop }
   end
 
   return languages

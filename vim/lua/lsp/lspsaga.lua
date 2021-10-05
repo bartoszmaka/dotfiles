@@ -8,7 +8,7 @@ saga.init_lsp_saga({
   warn_sign = symbols.warning,
   hint_sign = symbols.information,
   infor_sign = symbols.information,
-  code_action_icon = symbols.action,
+  code_action_icon = '',
   code_action_prompt = {
     enable = true,
     sign = true,

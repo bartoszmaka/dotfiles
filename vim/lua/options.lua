@@ -65,6 +65,8 @@ cmd [[
   set noshowmode
   set scrolloff=4
   set sidescrolloff=15
+  set foldmethod=indent
+  set nofoldenable
 ]]
 
 g.vimsyn_embed = 'l'
