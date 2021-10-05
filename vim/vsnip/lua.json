@@ -1,0 +1,13 @@
+{
+  "aug": {
+    "prefix": "aug",
+    "description": "augroup",
+    "body": [
+      "augroup ${1}",
+      "  autocmd!",
+      "",
+      "\t${2}",
+      "augroup END"
+    ]
+  }
+}

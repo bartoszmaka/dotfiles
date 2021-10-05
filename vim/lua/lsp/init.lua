@@ -3,22 +3,20 @@ local symbols = require('config_helper/symbols')
 local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
 
-local function compatibility_fix(nightly_fn)
-	return function(err, method, params, client_id, bufnr, config)
-		nightly_fn(err, params, { method = method, client_id = client_id, bufnr = bufnr }, config)
-	end
-end
+-- local function compatibility_fix(nightly_fn)
+-- 	return function(err, method, params, client_id, bufnr, config)
+-- 		nightly_fn(err, params, { method = method, client_id = client_id, bufnr = bufnr }, config)
+-- 	end
+-- end
 
-vim.lsp.handlers['textDocument/definition'] = compatibility_fix(require'lsputil.locations'.definition_handler)
-vim.lsp.handlers['textDocument/declaration'] = compatibility_fix(require'lsputil.locations'.declaration_handler)
-vim.lsp.handlers['textDocument/implementation'] = compatibility_fix(require'lsputil.locations'.implementation_handler)
-vim.lsp.handlers['textDocument/codeAction'] = compatibility_fix(require'lsputil.codeAction'.code_action_handler)
-
+-- vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+-- vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+-- vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+-- vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
 -- vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
-vim.lsp.handlers['textDocument/references'] = compatibility_fix(require'lsputil.locations'.references_handler)
-vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+-- vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+-- vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+-- vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -30,6 +28,11 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = {
+    source = "always",  -- Or "if_many"
+  }
+})
 
 local function setup_servers()
   local lspinstall = require "lspinstall"

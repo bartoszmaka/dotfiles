@@ -9,7 +9,7 @@ use { 'kabouzeid/nvim-lspinstall' }
 
 use { 'onsails/lspkind-nvim', config = function() require('lsp/lspkind') end }
 use { 'glepnir/lspsaga.nvim', config = function() require('lsp.lspsaga') end }
-use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix'}
+-- use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix'}
 
 use { 'tsuyoshicho/vim-efm-langserver-settings' }
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
@@ -34,6 +34,7 @@ use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config 
 use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end } -- remove once gitsigns has more configurable blame
 use { 'navarasu/onedark.nvim' }
 use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end }
+-- use { 'windwp/windline.nvim', config = function() require('plugins.wildline') end }
 use {
   'glepnir/galaxyline.nvim',
   branch = 'main',
@@ -116,7 +117,8 @@ use { 'easymotion/vim-easymotion', config = function() require('plugins.easymoti
 -- use { 'hkupty/iron.nvim', config = function() require('plugins.iron') end } -- repl
 use { 'gennaro-tedesco/nvim-peekup' }
 use { 'nvim-lua/lsp-status.nvim' }
-use { 'haringsrob/nvim_context_vt' }
+use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
+-- use { 'haringsrob/nvim_context_vt' }
 
 require('lsp')
 require('plugins.autopairs')

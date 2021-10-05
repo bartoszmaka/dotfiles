@@ -1,0 +1,16 @@
+{
+  "ei": {
+    "prefix": "ei",
+    "description": "export interface",
+    "body": [
+      "export interface"
+    ]
+  },
+  "imt": {
+    "prefix": "imt",
+    "description": "import type",
+    "body": [
+      "import type { ${2} } from \"${1}\""
+    ]
+  }
+}
