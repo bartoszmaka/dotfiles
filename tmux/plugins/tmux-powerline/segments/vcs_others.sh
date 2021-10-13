@@ -3,7 +3,7 @@
 # Source lib to get the function get_tmux_pwd
 source "${TMUX_POWERLINE_DIR_LIB}/tmux_adapter.sh"
 
-other_symbol="⋯ "
+other_symbol="~"
 
 run_segment() {
 	tmux_path=$(get_tmux_cwd)
