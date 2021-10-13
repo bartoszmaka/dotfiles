@@ -6,6 +6,7 @@ mkdir -p ~/.config/alacritty
 ln -vsf ~/.repos/dotfiles/vim/init.lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/UltiSnips ~/.config/nvim/
+ln -vsf ~/.repos/dotfiles/vim/vsnip ~/.vsnip
 
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
 ln -vsf ~/.repos/dotfiles/resources/global_gitignore ~/.gitignore
