@@ -1,5 +1,81 @@
 // Place your key bindings in this file to overwrite the defaults
 [
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/tmp": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true,
+    "**/.tags": true,
+    "**/tags": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/bower_components/**": true,
+    "**/dist/**": true,
+    "**/.tags": true,
+    "**/tags": true
+  },
+  // UI
+  "debug.internalConsoleOptions": "neverOpen",
+  "debug.console.fontSize": 12,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": false,
+  "editor.mouseWheelZoom": false,
+  "editor.fontSize": 14,
+  "terminal.integrated.fontSize": 12,
+  "editor.rulers": [
+    81,
+    121
+  ],
+  "editor.lineHeight": 20,
+  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": false,
+  "editor.renderWhitespace": "trailing",
+  "editor.cursorStyle": "block",
+  "editor.minimap.scale": 2,
+  "workbench.editor.enablePreview": false,
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.statusBar.visible": true,
+  "workbench.panel.defaultLocation": "bottom",
+  "breadcrumbs.enabled": true,
+  "window.title": "${dirty}${rootPath}${separator}${separator}${activeEditorMedium}${separator}${dirty}",
+  "material-icon-theme.hidesExplorerArrows": true,
+  "editor.cursorSurroundingLines": 4,
+  "editor.multiCursorModifier": "alt",
+  "editor.autoClosingQuotes": "always",
+  "editor.autoSurround": "languageDefined",
+  "editor.tokenColorCustomizations": {
+    "[onedark.nvim]": {
+      "textMateRules": [
+        {
+          "name": "variable",
+          "scope": "variable.other.ruby",
+          "settings": {
+            "foreground": "#93a4c3",
+            "fontStyle": ""
+          }
+        }
+      ]
+    }
+  },
+  "workbench.colorCustomizations": {
+    "editorGroup.emptyBackground": "#1A212E",
+    "editor.selectionBackground": "#401437",
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f"
+  },
+
   // Disable default mapping
   {
     "key": "shift+tab",
