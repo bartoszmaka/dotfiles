@@ -31,7 +31,7 @@ test -e "$DOTFILES_PATH/secrets.sh" && source $DOTFILES_PATH/secrets.sh
 export BAT_THEME='TwoDark'
 export DISABLE_SPRING=1
 export EDITOR='nvim'
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden -g '!.git/' -g '!node_modules/' -g '!tmp/' -g '!vendor/'"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden -g '!.git/' -g '!node_modules/' -g '!tmp/' -g '!vendor/' -g '!doc/'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export DOTFILES_PATH="$HOME/.repos/dotfiles"
 
@@ -76,8 +76,8 @@ alias tf="terraform"
 alias ls="exa"
 alias cat="bat"
 alias lsplog="tail -f ~/.cache/nvim/lsp.log"
-
-alias glcean="git clean -fd"
+alias goneovim="/Applications/goneovim.app/Contents/MacOS/goneovim"
+alias gclean="git clean -fd"
 
 alias gcof="git checkout \$(git branch -a | fzf)"
 
@@ -105,7 +105,6 @@ unalias gsd
 RPROMPT='%D{%K:%M:%S}'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fpath=(/usr/local/share/zsh-completions $fpath)
-export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 
 # tabtab source for packages
 # uninstall by removing these lines
@@ -116,3 +115,5 @@ export PATH="/usr/local/sbin:$PATH"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH=/opt/homebrew/bin:$PATH
+export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
