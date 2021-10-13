@@ -7,7 +7,7 @@ g.blamer_relative_time = 1
 vim.cmd[[
   augroup blamer-config
     autocmd!
-  
-    highlight! Blamer gui=italic guifg=#455574 guibg=#2e3138
+
+    highlight! Blamer gui=italic guifg=#455574 guibg=#21283b
   augroup END
 ]]

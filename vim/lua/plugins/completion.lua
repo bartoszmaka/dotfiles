@@ -25,6 +25,9 @@ local cmp = require'cmp'
 local compare = require('cmp.config.compare')
 
 cmp.setup({
+  completion = {
+    completeopt = 'menu,menuone',
+  },
   sources = {
     { name = "ultisnips" },
     { name = 'nvim_lsp' },
@@ -60,8 +63,10 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
         vim.fn.feedkeys(t("<C-R>=UltiSnips#ExpandSnippet()<CR>"))
-      elseif vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(t("<C-n>"), "n")
+      elseif cmp.visible() then
+        cmp.select_next_item()
+      -- elseif vim.fn.pumvisible() == 1 then
+      --   vim.fn.feedkeys(t("<C-n>"), "n")
       elseif is_prior_char_whitespace() then
         vim.fn.feedkeys(t("<tab>"), "n")
       else
@@ -74,8 +79,10 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
         return vim.fn.feedkeys(t("<C-R>=UltiSnips#JumpBackwards()<CR>"))
-      elseif vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(t("<C-p>"), "n")
+      elseif cmp.visible() then
+        cmp.select_prev_item()
+      -- elseif vim.fn.pumvisible() == 1 then
+      --   vim.fn.feedkeys(t("<C-p>"), "n")
       else
         fallback()
       end
@@ -99,6 +106,11 @@ cmp.setup({
 
 require("nvim-autopairs.completion.cmp").setup({
   map_cr = true, --  map <CR> on insert mode
-  map_complete = true, -- it will auto insert `(` after select function or method item
-  auto_select = true -- automatically select the first item
+  map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
+  auto_select = true, -- automatically select the first item
+  insert = false, -- use insert confirm behavior instead of replace
+  map_char = { -- modifies the function or method delimiter by filetypes
+    all = '(',
+    tex = '{'
+  }
 })

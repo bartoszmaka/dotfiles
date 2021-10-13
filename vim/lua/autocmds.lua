@@ -15,10 +15,10 @@ augroup color_scheme_tweaks
   highlight! DiffText        guibg=#525200 guifg=NONE gui=NONE
   highlight! DiffAdd         guibg=#283c34 guifg=NONE gui=NONE
   highlight! DiffDelete      guibg=#382c34 guifg=NONE gui=NONE
-  highlight! CursorLine      guibg=#2e3138
-  highlight! CursorLineNR    guibg=#2e3138 gui=bold
-  highlight! CursorColumn    guibg=#2e3138
-  highlight! ColorColumn     guibg=#252a32
+  highlight! CursorLine      guibg=#21283b
+  highlight! CursorLineNR    guibg=#21283b gui=bold
+  highlight! CursorColumn    guibg=#21283b
+  highlight! ColorColumn     guibg=#21283b
   highlight! Comment         gui=italic
   highlight! Warning         guibg=#443333
   highlight! Error           guibg=#512121
@@ -29,17 +29,32 @@ augroup color_scheme_tweaks
   highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
   highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
   highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
+
+  autocmd InsertEnter * highlight! CursorLine   guibg=#512121
+  autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
+  autocmd InsertLeave * highlight! CursorLine   guibg=#21283b
+  autocmd InsertLeave * highlight! CursorLineNR guibg=#21283b
 augroup END
 ]]
 
 vim.cmd [[
+  augroup treesitter_overrides
+    autocmd!
+  
+    highlight! TSKeywordFunction gui=NONE
+  augroup END
+]]
+
+vim.cmd [[
   autocmd BufNewFile,BufReadPost,BufWritePost *.env.* set filetype=sh
+  autocmd BufNewFile,BufReadPost,BufWritePost *.pryrc set filetype=ruby
+  autocmd BufNewFile,BufReadPost,BufWritePost gitconfig set filetype=gitconfig
 ]]
 
 -- Set tmux window name to edited path
 vim.cmd [[
-  autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
-  autocmd VimLeave * call system("tmux rename-window  ")
+  autocmd BufEnter,BufNewFile,BufWritePost * call system("tmux rename-window " . expand("%"))
+  autocmd VimLeave * call system("tmux rename-window `pwd`")
 ]]
 
 vim.cmd [[
@@ -55,14 +70,13 @@ endfunction
 command! ClearRegisters call ClearRegisters()
 ]]
 
--- vim.cmd [[
--- augroup filetype_tweaks
---   autocmd!
+vim.cmd [[
+augroup filetype_tweaks
+  autocmd!
 
---   autocmd TermOpen term://* setlocal nonumber norelativenumber | setfiletype terminal
---   autocmd FileType NvimTree setlocal statusline=""
--- augroup END
--- ]]
+  autocmd FileType NvimTree setlocal statusline="NvimTree"
+augroup END
+]]
 
 -- vim.cmd [[
 -- augroup test

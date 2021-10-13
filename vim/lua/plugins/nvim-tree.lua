@@ -76,7 +76,7 @@ require'nvim-tree'.setup {
   },
   hijack_cursor       = false,
   update_cwd          = false,
-  lsp_diagnostics     = false,
+  -- lsp_diagnostics     = false,
   update_focused_file = {
     enable      = true,
     update_cwd  = false,

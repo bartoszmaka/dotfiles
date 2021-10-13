@@ -48,6 +48,7 @@ o.smartcase = true          -- ignore lowercase for the whole pattern
 
 -- for some reason I can't set it via lua api
 cmd [[
+  syntax on
   language en_US.UTF-8
   set langmenu=en_US.UTF-8
   set fileencoding=utf-8
