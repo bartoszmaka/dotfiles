@@ -11,9 +11,9 @@ require('mappings')
 require('abbrevations')
 require('autocmds')
 require('gui')
--- vim.cmd [[
---   let home = expand('~')
---   exec 'source' home . '/.repos/dotfiles/vim/lua/auto.vim'
+
+-- vim.cmd[[
+--   exe "source " . expand('$DOTFILES_PATH/vim/lua/auto.vim')
 -- ]]
 vim.cmd [[
   set tabstop=2

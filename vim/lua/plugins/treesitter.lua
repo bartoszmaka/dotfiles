@@ -29,7 +29,10 @@ require'nvim-treesitter.configs'.setup {
         jsx_fragment = '{/* %s */}',
         jsx_attribute = '// %s',
         comment = '// %s'
-      }
+      },
+      toml = {
+        __default = '# %s'
+      },
     }
   },
   incremental_selection = {
@@ -82,7 +85,7 @@ local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.bash.used_by = "env.local"
 
 require'treesitter-context.config'.setup {
-  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+  enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
   throttle = true,
 }
 

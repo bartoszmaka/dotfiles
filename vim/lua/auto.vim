@@ -27,6 +27,11 @@ augroup color_scheme_tweaks
   highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
   highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
   highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
+
+  autocmd InsertEnter * highlight! CursorLine   guibg=#512121
+  autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
+  autocmd InsertLeave * highlight! CursorLine   guibg=#2e3138
+  autocmd InsertLeave * highlight! CursorLineNR guibg=#2e3138
 augroup END
 
 

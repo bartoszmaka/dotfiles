@@ -83,6 +83,7 @@ section.left = {
           [''] = 'VISUAL',
           v = 'VISUAL',
           R = 'REPLACE',
+          t = 'TERMINAL',
         }
         vim.api.nvim_command('hi GalaxyViMode gui=bold guibg='..mode_color())
         local alias_mode = alias[vim.fn.mode()]
