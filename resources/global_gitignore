@@ -24,3 +24,5 @@ node_modules
 dump.rdb
 
 personal_notes.txt
+.yardoc
+doc
