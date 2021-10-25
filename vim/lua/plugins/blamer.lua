@@ -8,6 +8,8 @@ vim.cmd[[
   augroup blamer-config
     autocmd!
 
-    highlight! Blamer gui=italic guifg=#455574 guibg=#21283b
+    highlight! Blamer gui=italic guifg=#455574 guibg=NONE
   augroup END
 ]]
+
+-- highlight! Blamer gui=italic guifg=#455574 guibg=#21283b

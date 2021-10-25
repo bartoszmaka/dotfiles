@@ -23,8 +23,8 @@ augroup color_scheme_tweaks
   highlight! Warning         guibg=#443333
   highlight! Error           guibg=#512121
   highlight! Visual          guibg=#401437
-  highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold
-  highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold
+  highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
+  highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
   highlight! LspDiagnosticsUnderlineInformation guibg=NONE gui=NONE
   highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
   highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
@@ -38,11 +38,11 @@ augroup END
 ]]
 
 vim.cmd [[
-  augroup treesitter_overrides
-    autocmd!
-  
-    highlight! TSKeywordFunction gui=NONE
-  augroup END
+augroup treesitter_overrides
+  autocmd!
+
+  highlight! TSKeywordFunction gui=NONE
+augroup END
 ]]
 
 vim.cmd [[
@@ -75,6 +75,7 @@ augroup filetype_tweaks
   autocmd!
 
   autocmd FileType NvimTree setlocal statusline="NvimTree"
+  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 augroup END
 ]]
 

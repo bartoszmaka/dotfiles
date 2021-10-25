@@ -53,8 +53,8 @@ windows:
   - backoffice:
       layout: main-horizontal
       panes:
-        - cd ~/projects/subster-web && n
+        - cd ~/projects/subster-web
   - booking:
       layout: main-horizontal
       panes:
-        - cd ~/projects/subster-booking && n
+        - cd ~/projects/subster-booking
