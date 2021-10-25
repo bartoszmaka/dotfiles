@@ -1,9 +1,14 @@
+local set_contains = require('config_helper.set_contains').set_contains
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  if set_contains({ 'css', 'scss', 'sass' }, vim.bo.filetype) then
+    buf_set_option('omnifunc', 'csscomplete#CompleteCSS')
+  else
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  end
 
   -- Mappings.
   local opts = { noremap=true, silent=true }

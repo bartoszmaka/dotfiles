@@ -112,6 +112,11 @@ autocmd!
   highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
   highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
   highlight! TSConstructor     gui=none
+  highlight! TSInclude         gui=italic
+  highlight! TSKeyword         gui=italic
+  highlight! TSKeywordFunction gui=italic
+  highlight! TSVariableBuiltin gui=italic
+  highlight! TSConditional     gui=italic
 
   highlight! link vueTSMethod TSBoolean
   highlight! link TSTagAttribute TSBoolean

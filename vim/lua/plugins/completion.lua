@@ -60,6 +60,21 @@ cmp.setup({
     end,
   },
   mapping = {
+    ['<C-j>'] = cmp.mapping.complete(),
+    -- ["<C-k>"] = cmp.mapping(function()
+    --   if cmp.visible() then
+    --     return cmp.select_prev_item()
+    --   else
+    --     return cmp.mapping.complete()
+    --   end
+    -- end, { "i", "s" }),
+    -- ["<C-j>"] = cmp.mapping(function()
+    --   if cmp.visible() then
+    --     return cmp.select_next_item()
+    --   else
+    --     return cmp.mapping.complete()
+    --   end
+    -- end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
         vim.fn.feedkeys(t("<C-R>=UltiSnips#ExpandSnippet()<CR>"))

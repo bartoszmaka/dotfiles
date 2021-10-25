@@ -45,9 +45,13 @@ root: ~/projects/DevQAHub
 # attach: false
 
 windows:
-  - editor: nvim
-  - server:
-      layout: main-vertical
+  - backend:
+      layout: main-horizontal
       panes:
+        - nvim
         - bundle exec rails server
+  - frontend:
+      layout: main-horizontal
+      panes:
+        - nvim
         - ./bin/webpack-dev-server
