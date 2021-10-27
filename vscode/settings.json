@@ -9,10 +9,8 @@
   "search.useGlobalIgnoreFiles": false,
   "sync.autoUpload": true,
   "sync.quietSync": true,
-  "editor.formatOnSave": false,
   "workbench.commandPalette.preserveInput": true,
   "workbench.iconTheme": "material-icon-theme",
-  "editor.mouseWheelZoom": false,
   "files.hotExit": "off",
   "cSpell.enabled": false,
   "files.insertFinalNewline": true,
@@ -43,15 +41,17 @@
   },
   // UI
   "debug.internalConsoleOptions": "neverOpen",
-  "editor.tabSize": 2,
-  "editor.fontSize": 14,
   "debug.console.fontSize": 12,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": false,
+  "editor.mouseWheelZoom": false,
+  "editor.fontSize": 16,
   "terminal.integrated.fontSize": 12,
   "editor.rulers": [
     81,
     121
   ],
-  "editor.lineHeight": 20,
+  "editor.lineHeight": 22,
   "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": false,
@@ -67,7 +67,6 @@
   "window.title": "${dirty}${rootPath}${separator}${separator}${activeEditorMedium}${separator}${dirty}",
   "material-icon-theme.hidesExplorerArrows": true,
   "editor.cursorSurroundingLines": 4,
-  "editor.multiCursorModifier": "alt",
   "editor.autoClosingQuotes": "always",
   "editor.autoSurround": "languageDefined",
   "editor.tokenColorCustomizations": {
@@ -93,10 +92,10 @@
   },
   "bracket-pair-colorizer-2.showVerticalScopeLine": false,
   "bracket-pair-colorizer-2.showHorizontalScopeLine": false,
-  "gitlens.codeLens.enabled": true,
-  "gitlens.codeLens.authors.enabled": false,
-  "gitlens.codeLens.recentChange.enabled": false,
-  "gitlens.codeLens.includeSingleLineSymbols": false,
+  // "gitlens.codeLens.enabled": true,
+  // "gitlens.codeLens.authors.enabled": false,
+  // "gitlens.codeLens.recentChange.enabled": false,
+  // "gitlens.codeLens.includeSingleLineSymbols": false,
   // Syntax highlighting
   "files.associations": {
     "*rc": "shellscript"
@@ -167,6 +166,7 @@
   "projectManager.git.baseFolders": [
     "~/projects"
   ],
+  // Vim
   "vim.enableNeovim": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
   "vim.disableExtension": false,
@@ -197,7 +197,7 @@
     {
       "command": "multiCommand.resetAndGoUp",
       "sequence": [
-      "closeFindWidget",
+        "closeFindWidget",
         "extension.vim_escape",
         "workbench.action.focusAboveGroup"
       ]
@@ -244,7 +244,7 @@
     },
   ],
   // Vim mappings
-"vim.visualModeKeyBindingsNonRecursive": [
+  "vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": [
         "<leader>",
@@ -906,7 +906,8 @@
       ]
     },
   ],
-  "redhat.telemetry.enabled": false,
-  "workbench.activityBar.visible": false,
+  "redhat.telemetry.enabled": true,
   "jsannotations.enabled": false,
+  "workbench.activityBar.visible": false,
+  "git.autofetch": true,
 }
