@@ -21,5 +21,14 @@
 		"prefix": "Etv",
 		"description": "event.target.value",
 		"body": "event.target.value"
-	}
+	},
+	"reduce": {
+		"prefix": "reduce",
+		"description": "reduce",
+		"body": [
+			"reduce((result, ${1:value}) => {",
+			"\t$3",
+			"}, ${2:{}})",
+		]
+	},
 }
