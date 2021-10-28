@@ -1,5 +1,7 @@
 local config_helper = require('config_helper')
 local symbol_map = require("lsp/symbol_map")
+local cmp = require'cmp'
+local compare = require('cmp.config.compare')
 
 vim.cmd[[
   set pumheight=10
@@ -21,12 +23,10 @@ tabnine:setup({
   sort = true;
 })
 
-local cmp = require'cmp'
-local compare = require('cmp.config.compare')
-
 cmp.setup({
+  preselect = cmp.PreselectMode.None,
   completion = {
-    completeopt = 'menu,menuone',
+    -- completeopt = 'menu,menuone,noinsert',
   },
   sources = {
     { name = "ultisnips" },
@@ -61,27 +61,11 @@ cmp.setup({
   },
   mapping = {
     ['<C-j>'] = cmp.mapping.complete(),
-    -- ["<C-k>"] = cmp.mapping(function()
-    --   if cmp.visible() then
-    --     return cmp.select_prev_item()
-    --   else
-    --     return cmp.mapping.complete()
-    --   end
-    -- end, { "i", "s" }),
-    -- ["<C-j>"] = cmp.mapping(function()
-    --   if cmp.visible() then
-    --     return cmp.select_next_item()
-    --   else
-    --     return cmp.mapping.complete()
-    --   end
-    -- end, { "i", "s" }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
         vim.fn.feedkeys(t("<C-R>=UltiSnips#ExpandSnippet()<CR>"))
       elseif cmp.visible() then
         cmp.select_next_item()
-      -- elseif vim.fn.pumvisible() == 1 then
-      --   vim.fn.feedkeys(t("<C-n>"), "n")
       elseif is_prior_char_whitespace() then
         vim.fn.feedkeys(t("<tab>"), "n")
       else
@@ -96,8 +80,6 @@ cmp.setup({
         return vim.fn.feedkeys(t("<C-R>=UltiSnips#JumpBackwards()<CR>"))
       elseif cmp.visible() then
         cmp.select_prev_item()
-      -- elseif vim.fn.pumvisible() == 1 then
-      --   vim.fn.feedkeys(t("<C-p>"), "n")
       else
         fallback()
       end
@@ -105,6 +87,14 @@ cmp.setup({
         "i",
         "s",
       }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  },
+  -- documentation = {
+  --   border = 'single',
+  --   winhighlight = 'FloatBorder:FloatBorder,Normal:Normal',
+  -- },
+  experimental = {
+    ghost_text = true,
   },
   formatting = {
     format = function(entry, vim_item)
@@ -119,13 +109,14 @@ cmp.setup({
   },
 })
 
-require("nvim-autopairs.completion.cmp").setup({
-  map_cr = true, --  map <CR> on insert mode
-  map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
-  auto_select = true, -- automatically select the first item
-  insert = false, -- use insert confirm behavior instead of replace
-  map_char = { -- modifies the function or method delimiter by filetypes
-    all = '(',
-    tex = '{'
-  }
-})
+vim.cmd[[
+  augroup cmp_highlight
+    autocmd!
+
+    highlight! CmpItemAbbrMatch guifg=#f65866
+    highlight! CmpItemAbbrMatchFuzzy guifg=#f65866 gui=bold
+  augroup END
+]]
+
+    -- autocmd cmp#ready * highlight! CmpItemAbbrMatch guifg=#f65866
+    -- autocmd cmp#ready * highlight! CmpItemAbbrMatchFuzzy guifg=#f65866 gui=bold

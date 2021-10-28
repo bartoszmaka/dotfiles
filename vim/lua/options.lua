@@ -28,7 +28,7 @@ o.clipboard = "unnamedplus"
 b.swapfile = false          -- don't use swapfile
 o.lazyredraw = true         -- faster scrolling
 b.synmaxcol = 240           -- max column for syntax highlight
-o.completeopt = "menuone,noselect"
+o.completeopt = "menu,menuone,noselect"
 
 -- indent
 b.smartindent = true

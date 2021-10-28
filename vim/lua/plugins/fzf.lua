@@ -1,5 +1,6 @@
 local config_helper = require('config_helper')
 local nnoremap = config_helper.nnoremap
+local vnoremap = config_helper.vnoremap
 local symbols = require('config_helper.symbols')
 
 vim.cmd[[
@@ -269,6 +270,7 @@ nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
 nnoremap('<C-p><C-f>', ':FzfLua grep<CR><CR>')
 nnoremap('<leader>fw', ':FzfLua grep_cword<CR>')
 nnoremap('<leader>fW', ':FzfLua grep_cWORD<CR>')
+vnoremap('<leader>F',  ':<BS><BS><BS><BS><BS>FzfLua grep_visual<CR>')
 nnoremap('<C-p><C-g>', ':FzfLua git_status<CR>')
 
 nnoremap('<leader>pa', ':FzfLua<CR>')
