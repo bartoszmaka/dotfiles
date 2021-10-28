@@ -25,5 +25,6 @@ M.Folder = ''
 M.EnumMember = ''
 M.Constant = ''
 M.Struct = ''
+M.trace = ''
 
 return M

@@ -104,6 +104,9 @@ use { 'easymotion/vim-easymotion', config = function() require('plugins.easymoti
 use { 'nvim-lua/lsp-status.nvim' }
 use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
 use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end }
+use { 'simonefranza/nvim-conv' }
+use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end }
+
 
 require('lsp')
 require('plugins.autopairs')
