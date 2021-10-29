@@ -9,5 +9,5 @@ esac
 
 code --list-extensions >> $DOTFILES_PATH/vscode/extensions_list.txt
 cp -v "$vscode_dir"/settings.json $DOTFILES_PATH/vscode/settings.json
-cp -v "$vscode_dir"/keymaps.json $DOTFILES_PATH/vscode/keymaps.json
+cp -v "$vscode_dir"/keybindings.json $DOTFILES_PATH/vscode/keybindings.json
 cp -vr "$vscode_dir"/snippets $DOTFILES_PATH/vscode

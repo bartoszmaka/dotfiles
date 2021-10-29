@@ -7,7 +7,7 @@ case "$ostype" in
   Darwin*) vscode_dir=$HOME'/Library/Application Support/Code/User';;
 esac
 
-cat $DOTFILES_PATH/vscode/extensions_list.txt | xargs -n 1 code --install-extension
+# cat $DOTFILES_PATH/vscode/extensions_list.txt | xargs -n 1 code --install-extension
 cp -vf $DOTFILES_PATH/vscode/settings.json  "$vscode_dir"/settings.json
-cp -vf $DOTFILES_PATH/vscode/keymaps.json "$vscode_dir"/keymaps.json
-cp -vfr $DOTFILES_PATH/vscode/snippets "$vscode_dir"/snippets
+cp -vf $DOTFILES_PATH/vscode/keybindings.json "$vscode_dir"/keybindings.json
+cp -vfr $DOTFILES_PATH/vscode/snippets "$vscode_dir"/
