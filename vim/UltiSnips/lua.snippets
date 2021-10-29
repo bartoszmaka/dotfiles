@@ -5,3 +5,7 @@ augroup ${1}
 	${2}
 augroup END
 endsnippet
+
+snippet plug "use" w
+use { '${1}', config = function() require('plugins.${2}') end }
+endsnippet
