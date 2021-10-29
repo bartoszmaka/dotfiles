@@ -27,7 +27,7 @@ saga.init_lsp_saga({
   rename_action_keys = {
     quit = '<C-c>',exec = '<CR>'  -- quit can be a table
   },
-  definition_preview_icon = symbols.trace,
+  definition_preview_icon = symbols.trace .. ' ',
   -- "single" "double" "round" "plus"
   border_style = "round",
   rename_prompt_prefix = '➤',
