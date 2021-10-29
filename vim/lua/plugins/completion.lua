@@ -103,6 +103,10 @@ cmp.setup({
         buffer = "[Buf]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
+        omni = "[Omni]",
+        ultisnips = "[Snip]",
+        spell = "[Spell]",
+        TabNine = "[TN]",
       })[entry.source.name]
       return vim_item
     end,
@@ -110,11 +114,29 @@ cmp.setup({
 })
 
 vim.cmd[[
-  augroup cmp_highlight
+  augroup cmp_config
     autocmd!
 
     highlight! CmpItemAbbrMatch guifg=#f65866
     highlight! CmpItemAbbrMatchFuzzy guifg=#f65866 gui=bold
+
+    autocmd FileType css,scss,sass lua require'cmp'.setup.buffer {
+    \  sources = {
+    \    { name = "ultisnips" },
+    \    { name = 'nvim_lsp' },
+    \    { name = 'omni' },
+    \    { name = 'path' },
+    \    { name = 'buffer',
+    \      get_bufnrs = function()
+    \        local bufs = {}
+    \        for _, win in ipairs(vim.api.nvim_list_wins()) do
+    \          bufs[vim.api.nvim_win_get_buf(win)] = true
+    \        end
+    \        return vim.tbl_keys(bufs)
+    \      end},
+    \    { name = 'spell' },
+    \  },
+    \ }
   augroup END
 ]]
 

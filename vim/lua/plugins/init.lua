@@ -17,6 +17,7 @@ use {
     "f3fora/cmp-spell",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-omni",
   }
 }
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
