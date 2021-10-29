@@ -186,23 +186,39 @@ jest.fn()
 endsnippet
 
 snippet scsnap "Description" b
-import React from 'react'
-import { shallow } from 'enzyme'
-import toJson from 'enzyme-to-json'
+import React from 'react';
+import { shallow } from 'enzyme';
+import { MockedProvider } from '@apollo/client/testing';
 
-import { ${1} } from '${2}'
+import { Fixtures, withResourceProps } from '../../../utils/tests';
+import { $1 } from '../$1';
 
-describe('${1}', () => {
-  it('should match the snapshot', () => {
+describe('$1', () => {
+  const setup = ({ resource, ...propOverridesRest } = {}) => {
     const props = {
-      ${3}
-    }
+      ...withResourceProps('users', { ...Fixtures.user, ...resource }),
+      ...propOverridesRest,
+    };
 
-    const wrapper = shallow(<${1} {...props} />)
+    const wrapper = shallow(
+      <MockedProvider>
+        <$1 {...props} />
+      </MockedProvider>,
+      {
+        lifecycleExperimental: true,
+      },
+    );
 
-    expect(toJson(wrapper)).toMatchSnapshot()
-  })
-})
+    return {
+      props,
+      wrapper,
+    };
+  };
+
+  test('render', () => {
+    expect(setup().wrapper).toMatchSnapshot();
+  });
+});
 endsnippet
 
 snippet jstr "JSON.stringify" w
