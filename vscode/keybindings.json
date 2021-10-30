@@ -65,7 +65,7 @@
     {
       "key": "enter",
       "command": "workbench.action.focusActiveEditorGroup",
-      "when": "vim.active && editorFocus && findWidgetVisible && vim.mode != 'Insert'"
+      "when": "editorFocus && findWidgetVisible && vim.mode != 'Insert'"
     },
     // Jump on global search results
     {
@@ -476,4 +476,3 @@
       "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Insert'"
     },
   ]
-  
