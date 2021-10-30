@@ -14,6 +14,7 @@ set idearefactormode=keep
 set highlightedyank
 let g:highlightedyank_highlight_duration = "400"
 let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+set NERDTree
 
 set clipboard+=unnamedplus              " use system clipboard
 set showmode
@@ -111,10 +112,19 @@ nnoremap <C-l><C-e> :action ActivateProblemsViewToolWindow<CR>
 nnoremap <C-g><C-b> :action Annotate<CR>
 nnoremap <C-k><C-u> :action LocalHistory.ShowHistory<CR>
 nnoremap <C-k><C-e> :action SelectInProjectView<CR>
-" nnoremap <C-p><C-b> :action Git.Branches<CR>
-" nnoremap <C-k><C-g> :action ActivateCommitToolWindow<CR> Changed in IDE keymaps preferences
+nnoremap <C-p><C-b> :action Git.Branches<CR>
+nnoremap <C-k><C-g> :action ActivateCommitToolWindow<CR> Changed in IDE keymaps preferences
 
 nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 nnoremap <C-w>w :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <Leader>q :action CloseContent<CR>
+
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+nmap <C-x> <Plug>SkipOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+nmap <C-p> <Plug>RemoveOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
