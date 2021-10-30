@@ -30,10 +30,10 @@ augroup color_scheme_tweaks
   highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
   highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
 
-  highlight! CmpItemAbbr guifg=#455574
-  highlight! CmpItemAbbrMatch guifg=#93a4c3
-  highlight! CmpItemAbbrMatchFuzzy guifg=#93a4c3 gui=bold
-  highlight! CmpItemKind guifg=#93a4c3
+  highlight! CmpItemAbbr guifg=#6c7d9c
+  highlight! CmpItemAbbrMatch guifg=#f2cc81
+  highlight! CmpItemAbbrMatchFuzzy guifg=#f2cc81 gui=NONE
+  highlight! CmpItemKind guifg=#34bfd0
 
   autocmd InsertEnter * highlight! CursorLine   guibg=#512121
   autocmd InsertEnter * highlight! CursorLineNR guibg=#512121

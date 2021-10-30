@@ -117,9 +117,6 @@ vim.cmd[[
   augroup cmp_config
     autocmd!
 
-    highlight! CmpItemAbbrMatch guifg=#f65866
-    highlight! CmpItemAbbrMatchFuzzy guifg=#f65866 gui=bold
-
     autocmd FileType css,scss,sass lua require'cmp'.setup.buffer {
     \  sources = {
     \    { name = "ultisnips" },
@@ -139,6 +136,3 @@ vim.cmd[[
     \ }
   augroup END
 ]]
-
-    -- autocmd cmp#ready * highlight! CmpItemAbbrMatch guifg=#f65866
-    -- autocmd cmp#ready * highlight! CmpItemAbbrMatchFuzzy guifg=#f65866 gui=bold
