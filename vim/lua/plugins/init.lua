@@ -100,13 +100,14 @@ use { 'mogelbrod/vim-jsonpath' }
 use { 'simeji/winresizer', config = function() require('plugins.winresizer') end }
 use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end }
 use { 'dstein64/nvim-scrollview', config = function() require('plugins.scrollview') end }
-use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
+-- use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
 use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
 use { 'nvim-lua/lsp-status.nvim' }
 use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
 use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end }
 use { 'simonefranza/nvim-conv' }
 use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end }
+use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.bqf') end}
 
 
 require('lsp')
