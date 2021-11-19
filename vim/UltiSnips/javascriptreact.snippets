@@ -58,7 +58,7 @@ snippet cwun "componentWillUnmount" w
 componentWillUnmount(${1}) {${2}}
 endsnippet
 
-snippet cdc "componentDidCatch" b
+snippet cdc "componentDidCatch" w
 componentDidCatch(error, info) {${1}}
 endsnippet
 
@@ -185,18 +185,22 @@ snippet us "useState" w
 const [$1, set`!p snip.rv=upperfirst(t[1])`] = useState($2)
 endsnippet
 
-snippet ue "useEffect()" b
+snippet ue "useEffect()" w
 useEffect(() => {
 	$0
 }, [$1])
 endsnippet
 
-snippet um "useMemo" b
+snippet um "useMemo" w
 const ${1} = useMemo(() => ${3}, [${2}])
 endsnippet
 
-snippet uc "useContext" b
-const ${1} = useContext((${2})
+snippet uct "useContext" w
+const ${1} = useContext(${2})
+endsnippet
+
+snippet ucb "useCallback" w
+const ${1} = useCallback(${2})
 endsnippet
 
 snippet scfn
