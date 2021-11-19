@@ -1,6 +1,7 @@
 local M = {}
 
 local on_attach = require('lsp/on_attach')
+
 local prettier = require("efm/prettier")
 local prettier_d = require("efm/prettier_d")
 local eslint = require("efm/eslint")
@@ -24,7 +25,7 @@ local computeLanguages = function()
     less = { prettier },
     graphql = { prettier },
     vue = { prettier },
-    ruby = { rubocop }
+    eruby = { rubocop }
   }
 
   local project = vim.fn.getcwd()

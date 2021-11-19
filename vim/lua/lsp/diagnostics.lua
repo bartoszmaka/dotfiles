@@ -19,16 +19,24 @@ local setup_legacy_symbols = function()
 end
 
 M.setup_diagnostics = function()
+  if (vim.fn.has('nvim-0.6') == 0) then
+    setup_legacy_symbols()
+    return
+  end
+
   vim.diagnostic.config({
     underline = false,
     update_in_insert = false,
     virtual_text = {
       source = 'always',
       severity = {
-        min = vim.diagnostic.severity.HINT,
+        min = vim.diagnostic.severity.ERROR,
       },
-      -- format = function(error)
-      --   return string.format("%s: %s", error.source, error.message)
+      -- format = function(diagnostic)
+      --   if diagnostic.severity == vim.diagnostic.severity.ERROR then
+      --     return string.format("E: %s", diagnostic.message)
+      --   end
+      --   return diagnostic.message
       -- end
     },
     signs = true,
@@ -44,7 +52,6 @@ M.setup_diagnostics = function()
   })
 
   setup_symbols()
-  setup_legacy_symbols()
 end
 
 return M

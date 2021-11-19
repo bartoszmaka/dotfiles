@@ -5,10 +5,14 @@ use { 'wbthomason/packer.nvim' }
 use { 'neovim/nvim-lspconfig' }
 use { 'kabouzeid/nvim-lspinstall' }
 use { 'onsails/lspkind-nvim', config = function() require('lsp/lspkind') end }
-use { 'glepnir/lspsaga.nvim', config = function() require('lsp.lspsaga') end }
-use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix'}
+-- use { 'glepnir/lspsaga.nvim', config = function() require('lsp.lspsaga') end }
+-- use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix'}
 use { 'tsuyoshicho/vim-efm-langserver-settings' }
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
+-- use { 'ycm-core/YouCompleteMe',
+--   config = function() require('plugins.youcompleteme') end,
+--   run = "python3 install.py --all",
+-- }
 use {
   "hrsh7th/nvim-cmp",
   requires = {
@@ -20,6 +24,7 @@ use {
     "hrsh7th/cmp-omni",
   }
 }
+use { 'ray-x/lsp_signature.nvim' }
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim', config = function() require('plugins.spelunker') end }
@@ -101,13 +106,22 @@ use { 'simeji/winresizer', config = function() require('plugins.winresizer') end
 use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end }
 use { 'dstein64/nvim-scrollview', config = function() require('plugins.scrollview') end }
 -- use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
-use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
+-- use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
+use {
+  'phaazon/hop.nvim',
+  branch = 'v1',
+  config = function() require('plugins.hop') end,
+}
 use { 'nvim-lua/lsp-status.nvim' }
 use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
 use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end }
 use { 'simonefranza/nvim-conv' }
 use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end }
 use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.bqf') end}
+-- use { 'AckslD/nvim-neoclip.lua',
+--   requires = {'tami5/sqlite.lua', module = 'sqlite'},
+--   config = function() require('plugins.neoclip').setup() end,
+-- }
 
 
 require('lsp')

@@ -31,7 +31,7 @@ b.synmaxcol = 240           -- max column for syntax highlight
 o.completeopt = "menu,menuone,noselect"
 
 -- indent
-b.smartindent = true
+-- b.smartindent = true
 b.tabstop = 2
 b.softtabstop = 2
 b.shiftwidth = 2
