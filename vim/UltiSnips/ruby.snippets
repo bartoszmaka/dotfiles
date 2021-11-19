@@ -230,6 +230,10 @@ snippet ten "to eq(nil)" w
 to eq(nil)
 endsnippet
 
+snippet teq "to eq()" w
+to eq($1)
+endsnippet
+
 snippet tha "to have_attributes" w
 to have_attributes(
   ${0}
@@ -242,4 +246,12 @@ to match_array(
 		${0}
 	]
 )
+endsnippet
+
+snippet scgqltype "graphql type scaffold" w
+Types::${1}Type = GraphQL::ObjectType.define do
+  name '$1'
+
+	${0}
+end
 endsnippet
