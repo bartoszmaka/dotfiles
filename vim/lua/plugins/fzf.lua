@@ -275,7 +275,7 @@ nnoremap('<C-p><C-g>', ':FzfLua git_status<CR>')
 
 nnoremap('<leader>pa', ':FzfLua<CR>')
 nnoremap('<leader>pp', ':FzfLua files<CR>')
-nnoremap('<leader>pr', ':FzfLua oldfiles<CR>')
+nnoremap('<leader>pr', ':FZFFreshMruPreview<CR>')
 nnoremap('<leader>pg', ':FzfLua git_status<CR>')
 nnoremap('<leader>pb', ':FzfLua buffers<CR>')
 nnoremap('<leader>pf', ':FzfLua grep<CR><CR>')
