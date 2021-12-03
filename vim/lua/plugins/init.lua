@@ -3,16 +3,10 @@ local use = packer.use
 
 use { 'wbthomason/packer.nvim' }
 use { 'neovim/nvim-lspconfig' }
-use { 'kabouzeid/nvim-lspinstall' }
+use { 'williamboman/nvim-lsp-installer' }
 use { 'onsails/lspkind-nvim', config = function() require('lsp/lspkind') end }
--- use { 'glepnir/lspsaga.nvim', config = function() require('lsp.lspsaga') end }
--- use { 'RishabhRD/nvim-lsputils', requires = 'RishabhRD/popfix'}
 use { 'tsuyoshicho/vim-efm-langserver-settings' }
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
--- use { 'ycm-core/YouCompleteMe',
---   config = function() require('plugins.youcompleteme') end,
---   run = "python3 install.py --all",
--- }
 use {
   "hrsh7th/nvim-cmp",
   requires = {
@@ -22,10 +16,12 @@ use {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-omni",
+    "hrsh7th/cmp-nvim-lsp-document-symbol",
+    "lukas-reineke/cmp-rg",
   }
 }
-use { 'ray-x/lsp_signature.nvim' }
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
+use { 'ray-x/lsp_signature.nvim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim', config = function() require('plugins.spelunker') end }
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
@@ -33,7 +29,6 @@ use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config 
 use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end } -- remove once gitsigns has more configurable blame
 use { 'navarasu/onedark.nvim' }
 use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end }
--- use { 'windwp/windline.nvim', config = function() require('plugins.wildline') end }
 use {
   'glepnir/galaxyline.nvim',
   branch = 'main',
@@ -90,15 +85,28 @@ use { 'mg979/vim-visual-multi', config = function() require('plugins.visual-mult
 use { 'tpope/vim-commentary', config = function() require('plugins.commentary') end }
 use { 'windwp/nvim-autopairs' }
 use { 'osyo-manga/vim-anzu', config = function() require('plugins.anzu') end }
-use { 'roxma/vim-tmux-clipboard' }
-use { 'christoomey/vim-tmux-navigator', config = function() require('plugins.tmux-navigator') end }
-use { 'janko/vim-test', requires = { 'preservim/vimux' }, config = function() require('plugins.vim-test') end }
+use { 'knubie/vim-kitty-navigator',
+  run = 'cp ./*.py ~/.config/kitty/',
+  -- cond = function() return vim.fn.exists('$KITTY_WINDOW_ID') == 1 end,
+  config = function() require('plugins.kitty-navigator') end }
+use { 'christoomey/vim-tmux-navigator',
+  -- cond = function() return vim.fn.exists('$TMUX') == 1 end,
+  config = function()
+    require('plugins.tmux-navigator')
+  end,
+  requires = {
+    'roxma/vim-tmux-clipboard',
+    'preservim/vimux'
+  }
+}
+use { 'janko/vim-test', config = function() require('plugins.vim-test') end }
 use { 'windwp/nvim-ts-autotag' }
 use { 'tpope/vim-surround' }
 use { 'rhysd/clever-f.vim' }
 use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end }
 use { 'tpope/vim-abolish' }
 use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }
+use { 'junkblocker/git-time-lapse' }
 use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end }
 use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
@@ -122,12 +130,17 @@ use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.b
 --   requires = {'tami5/sqlite.lua', module = 'sqlite'},
 --   config = function() require('plugins.neoclip').setup() end,
 -- }
+use {
+  'VonHeikemen/searchbox.nvim',
+  requires = { { 'MunifTanjim/nui.nvim' } },
+  config = function() require('plugins.searchbox') end,
+}
 
 
 require('lsp')
 require('plugins.autopairs')
 require('plugins.completion')
 require('plugins.colorscheme')
-require('plugins.vsnip')
+-- require('plugins.vsnip')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]

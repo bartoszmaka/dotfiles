@@ -21,6 +21,8 @@ tabnine:setup({
   max_lines = 1000;
   max_num_results = 5;
   sort = true;
+	run_on_every_keystroke = true;
+	snippet_placeholder = '..';
 })
 
 cmp.setup({
@@ -32,12 +34,11 @@ cmp.setup({
     { name = "ultisnips" },
     { name = 'nvim_lsp' },
     { name = 'path' },
-    { name = 'buffer',
-      get_bufnrs = function()
-        return vim.api.nvim_list_bufs()
-      end
-    },
+    -- { name = 'cmp_tabnine' },
+    { name = 'buffer', get_bufnrs = function() return vim.api.nvim_list_bufs() end },
     { name = 'spell' },
+    { name = 'nvim_lsp_document_symbol' },
+    -- { name = 'rg' },
   },
   sorting = {
     priority_weight = 2,
@@ -103,8 +104,9 @@ cmp.setup({
         omni = "[Omni]",
         ultisnips = "[Snip]",
         spell = "[Spell]",
-        TabNine = "[TN]",
-      })[entry.source.name]
+        cmp_tabnine = "[TN]",
+        rg = "[rg]"
+      })[entry.source.name] or entry.source.name
       return vim_item
     end,
   },

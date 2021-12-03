@@ -13,5 +13,6 @@ vim.cmd[[
     autocmd FileType typescriptreact UltiSnipsAddFiletypes javascript.typescript.javascriptreact
     autocmd FileType javascript.jsx UltiSnipsAddFiletypes javascript.javascriptreact.javascript.jsx
     autocmd FileType typescript.tsx UltiSnipsAddFiletypes javascript.typescript.javascriptreact.javascript.jsx
+    autocmd FileType vue UltiSnipsAddFiletypes javascript.typescript.javascriptreact.javascript.jsx
   augroup END
 ]]

@@ -25,7 +25,7 @@ local computeLanguages = function()
     less = { prettier },
     graphql = { prettier },
     vue = { prettier },
-    eruby = { rubocop }
+    eruby = { rubocop },
   }
 
   local project = vim.fn.getcwd()
