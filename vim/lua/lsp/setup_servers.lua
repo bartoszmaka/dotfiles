@@ -2,83 +2,68 @@ local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+-- { "solargraph", "efm", "yamlls", "json", "css", "graphql", "typescript", "html", "lua" }
 local M = {}
 
 M.setup_servers = function()
-  local lspinstall = require "lspinstall"
-  lspinstall.setup()
+  local lsp_installer = require("nvim-lsp-installer")
 
-  local lspconf = require("lspconfig")
-  local servers = lspinstall.installed_servers()
-  -- { "ruby", "efm", "yaml", "json", "css", "graphql", "typescript", "html", "lua" }
+  lsp_installer.on_server_ready(function(server)
+    local opts = {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      root_dir = vim.loop.cwd,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    }
 
-  for _, lang in pairs(servers) do
-    if lang == "ruby" then
-      lspconf[lang].setup {
-        cmd = { "solargraph", "stdio" },
-        flags = { debounce_text_changes = 150, },
-        on_attach = on_attach,
-        root_dir = vim.loop.cwd,
-        capabilities = capabilities,
-        settings = {
-          solargraph = {
-            diagnostics = true
-          }
+    if server.name == "solargraph" then
+      -- opts.cmd = { "solargraph", "stdio" }
+      opts.settings = {
+        solargraph = {
+          diagnostics = true
         }
       }
-    elseif lang == "lua" then
-      lspconf[lang].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        root_dir = function()
-          return vim.loop.cwd()
-        end,
-        flags = {
-          debounce_text_changes = 150,
-        },
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = {"vim"}
-            },
-            workspace = {
-              library = {
-                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-              }
-            },
-            telemetry = {
-              enable = false
+
+    elseif server.name == "sumneko_lua" then
+      opts.root_dir = function()
+        return vim.loop.cwd()
+      end
+      opts.settings = {
+        Lua = {
+          diagnostics = {
+            globals = {"vim"}
+          },
+          workspace = {
+            library = {
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
             }
+          },
+          telemetry = {
+            enable = false
           }
         }
       }
-    elseif lang == "efm" then
-      lspconf[lang].setup {
-        capabilities = capabilities,
-        settings = {
-          rootMarkers = {".git/"},
-          languages = efm.languages
-        },
-        filetypes = vim.tbl_keys(efm.languages),
-        init_options = {documentFormatting = true, codeAction = true},
-        on_attach = on_attach,
-        root_dir = vim.loop.cwd,
-        flags = {
-          debounce_text_changes = 150,
-        }
-      }
-    else
-      lspconf[lang].setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        root_dir = vim.loop.cwd,
-        flags = {
-          debounce_text_changes = 150,
-        }
+
+    elseif server.name == "efm" then
+      opts.filetypes = vim.tbl_keys(efm.languages)
+      opts.init_options = {documentFormatting = true, codeAction = true}
+      opts.settings = {
+        rootMarkers = {".git/"},
+        languages = efm.languages
       }
     end
-  end
+
+    if server.name == "solargraph" then
+      require('lspconfig')['solargraph'].setup(opts)
+    else
+      server:setup(opts)
+    end
+    vim.cmd([[ do User LspAttach Buffers ]])
+  end)
+
 end
 
 return M

@@ -1,3 +1,8 @@
+if vim.fn.exists('$TMUX') ~= 1 then
+  vim.g.tmux_navigator_no_mappings = 1
+  return
+end
+
 vim.cmd[[
   let g:tmux_navigator_no_mappings = 1
   nnoremap <silent><C-w>h :TmuxNavigateLeft<CR>
