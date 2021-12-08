@@ -12,19 +12,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = {
-    source = "always",  -- Or "if_many"
-  }
-})
 
 setup_servers()
 setup_diagnostics()
 setup_lsp_signature()
-
-vim.cmd[[
-highlight! LspDiagnosticsUnderlineInformation guibg=NONE gui=NONE
-highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
-highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
-highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
-]]
