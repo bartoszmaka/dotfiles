@@ -1,7 +1,7 @@
 local config_helper = require('config_helper')
-local symbol_map = require("lsp/symbol_map")
 local cmp = require'cmp'
 local compare = require('cmp.config.compare')
+local lspkind = require('lspkind')
 
 vim.cmd[[
   set pumheight=10
@@ -95,20 +95,7 @@ cmp.setup({
     ghost_text = true,
   },
   formatting = {
-    format = function(entry, vim_item)
-      vim_item.kind = (symbol_map[vim_item.kind] or "") .. " " .. vim_item.kind
-      vim_item.menu = ({
-        buffer = "[Buf]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[Lua]",
-        omni = "[Omni]",
-        ultisnips = "[Snip]",
-        spell = "[Spell]",
-        cmp_tabnine = "[TN]",
-        rg = "[rg]"
-      })[entry.source.name] or entry.source.name
-      return vim_item
-    end,
+    format = lspkind.cmp_format(),
   },
 })
 

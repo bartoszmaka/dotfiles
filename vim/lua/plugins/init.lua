@@ -135,6 +135,11 @@ use {
   requires = { { 'MunifTanjim/nui.nvim' } },
   config = function() require('plugins.searchbox') end,
 }
+use { 'vim-es6-unused-imports', config = function() 
+  vim.cmd[[
+
+  ]]
+end }
 
 
 require('lsp')

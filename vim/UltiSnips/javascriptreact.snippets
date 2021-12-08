@@ -8,8 +8,18 @@ def upperfirst(t):
 	if len(t) < 2:
 		return '' if len(t) < 1 else t.capitalize()
 	return t[0].capitalize() + t[1:]
+
 def lowerdash(t):
 	return '-'.join([ w.lower() for w in re.findall('[a-z]+|[A-Z]+[a-z]*', t) ])
+
+
+def getClassFromPath():
+	parts = path.split('.')[0].split('/')
+	return parts.pop()
+
+def toPascalCase(string):
+	return string.replace("_", " ").title().replace(" ", "")
+
 endglobal
 
 snippet rcla "component class" w
@@ -212,7 +222,24 @@ const ${1} = (${2:props}) => {
   )
 }
 
-export default ${1}
+export default $1
+endsnippet
+
+snippet scfnpt
+import React from 'react'
+import PropTypes from 'prop-types'
+
+const ${1} = (${2:props}) => {
+  return (
+    <pre>{JSON.stringify(props, null, 2)}</pre>
+  )
+}
+
+$1.propTypes = {
+
+}
+
+export default $1
 endsnippet
 
 snippet sccl
@@ -226,10 +253,10 @@ export class ${1} extends Component {
   }
 }
 
-export default ${1}
+export default $1
 endsnippet
 
-snippet scrfn
+snippet scrxfn
 import React from 'react'
 import { connect } from 'react-redux'
 
@@ -248,7 +275,7 @@ const mapDispatchToProps = {}
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(${1})
+)($1)
 endsnippet
 
 snippet scrcl

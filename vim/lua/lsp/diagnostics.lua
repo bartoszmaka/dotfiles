@@ -25,19 +25,20 @@ M.setup_diagnostics = function()
   end
 
   vim.diagnostic.config({
-    underline = false,
     update_in_insert = false,
+    underline = {
+      severity = {
+        vim.diagnostic.severity.ERROR,
+        vim.diagnostic.severity.WARN
+      }
+    },
+
     virtual_text = {
       source = 'always',
       severity = {
-        min = vim.diagnostic.severity.ERROR,
+        vim.diagnostic.severity.ERROR,
+        vim.diagnostic.severity.WARN
       },
-      -- format = function(diagnostic)
-      --   if diagnostic.severity == vim.diagnostic.severity.ERROR then
-      --     return string.format("E: %s", diagnostic.message)
-      --   end
-      --   return diagnostic.message
-      -- end
     },
     signs = true,
     severity_sort = true,

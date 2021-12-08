@@ -25,17 +25,25 @@ augroup color_scheme_tweaks
   highlight! Visual          guibg=#401437
   highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
   highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
-  highlight! LspDiagnosticsUnderlineInformation guibg=NONE gui=NONE
-  highlight! LspDiagnosticsUnderlineHint guibg=NONE gui=NONE
-  highlight! LspDiagnosticsUnderlineWarning guibg=#443333 gui=NONE
-  highlight! LspDiagnosticsUnderlineError guibg=#512121 gui=NONE
-  highlight! DiagnosticVirtualTextHint guifg=#1c4a6e
-  highlight! DiagnosticVirtualTextInfo guifg=#1c4a6e
+
+  highlight! DiagnosticVirtualTextHint guifg=#455574 guibg=NONE
+  highlight! DiagnosticVirtualTextInfo guifg=#455574 guibg=NONE
+
+  highlight! DiagnosticUnderlineError  guibg=#512121 gui=NONE
+  highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE
+  highlight! DiagnosticUnderlineInfo   guibg=NONE gui=NONE
+  highlight! DiagnosticUnderlineHint   guibg=NONE gui=NONE
 
   highlight! CmpItemAbbr guifg=#6c7d9c
   highlight! CmpItemAbbrMatch guifg=#f2cc81
   highlight! CmpItemAbbrMatchFuzzy guifg=#f2cc81 gui=NONE
-  highlight! CmpItemKind guifg=#dd9046
+  highlight! CmpItemKindDefault guifg=#dd9046
+  highlight! CmpItemKindSnippet guifg=#f65866
+  highlight! CmpItemKindConstant guifg=#efbd5d
+  highlight! CmpItemKindModule guifg=#efbd5d
+  highlight! CmpItemKindClass guifg=#efbd5d
+  highlight! CmpItemKindKeyword guifg=#efbd5d
+  highlight! CmpItemAbbrDeprecated guifg=#455574
 
   autocmd InsertEnter * highlight! CursorLine   guibg=#512121
   autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
