@@ -115,6 +115,5 @@ export PATH="/usr/local/sbin:$PATH"
 . $(brew --prefix asdf)/asdf.sh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
