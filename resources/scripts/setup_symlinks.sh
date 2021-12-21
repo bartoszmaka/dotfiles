@@ -24,6 +24,7 @@ ln -vsf ~/.repos/dotfiles/asdfrc ~/.asdfrc
 
 ln -vsf ~/.repos/dotfiles/tmux ~/
 ln -vsf ~/.repos/dotfiles/tmuxinator ~/
+ln -vsf ~/.repos/dotfiles/tmuxinator ~/.config/
 
 case "$(uname -s)" in
   Darwin)
