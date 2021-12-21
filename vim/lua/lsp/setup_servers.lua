@@ -1,6 +1,16 @@
 local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local native_capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(native_capabilities)
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
 -- { "solargraph", "efm", "yamlls", "json", "css", "graphql", "typescript", "html", "lua" }
 local M = {}
@@ -57,8 +67,10 @@ M.setup_servers = function()
     end
 
     if server.name == "solargraph" then
+      -- use gem installed solargraph
       require('lspconfig')['solargraph'].setup(opts)
     else
+      -- otherwise use nvim-lsp-installer LSPs
       server:setup(opts)
     end
     vim.cmd([[ do User LspAttach Buffers ]])

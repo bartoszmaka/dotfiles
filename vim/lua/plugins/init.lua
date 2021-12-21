@@ -3,10 +3,12 @@ local use = packer.use
 
 use { 'wbthomason/packer.nvim' }
 use { 'neovim/nvim-lspconfig' }
+use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
 use { 'williamboman/nvim-lsp-installer' }
 use { 'onsails/lspkind-nvim', config = function() require('lsp/lspkind') end }
 use { 'tsuyoshicho/vim-efm-langserver-settings' }
-use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
+use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
+use { 'ray-x/lsp_signature.nvim' }
 use {
   "hrsh7th/nvim-cmp",
   requires = {
@@ -21,7 +23,6 @@ use {
   }
 }
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
-use { 'ray-x/lsp_signature.nvim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim', config = function() require('plugins.spelunker') end }
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
@@ -135,12 +136,6 @@ use {
   requires = { { 'MunifTanjim/nui.nvim' } },
   config = function() require('plugins.searchbox') end,
 }
-use { 'vim-es6-unused-imports', config = function() 
-  vim.cmd[[
-
-  ]]
-end }
-
 
 require('lsp')
 require('plugins.autopairs')

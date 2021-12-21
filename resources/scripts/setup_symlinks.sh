@@ -15,6 +15,8 @@ ln -vsf ~/.repos/dotfiles/resources/rubocop.yml ~/.rubocop.yml
 ln -vsf ~/.repos/dotfiles/resources/pryrc ~/.pryrc
 ln -vsf ~/.repos/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
 ln -vsf ~/.repos/dotfiles/jetbrains/ideavimrc ~/.ideavimrc
+ln -vsf ~/.repos/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
+ln -vsf ~/.repos/dotfiles/kitty/macos-launch-serviecs-cmdline ~/.config/kitty/macos-launch-serviecs-cmdline
 
 ln -vsf ~/.repos/dotfiles/asdf/default-npm-packages ~/.default-npm-packages
 ln -vsf ~/.repos/dotfiles/asdf/default-gems ~/.default-gems

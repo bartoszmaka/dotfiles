@@ -42,8 +42,11 @@ augroup color_scheme_tweaks
   highlight! CmpItemKindConstant guifg=#efbd5d
   highlight! CmpItemKindModule guifg=#efbd5d
   highlight! CmpItemKindClass guifg=#efbd5d
-  highlight! CmpItemKindKeyword guifg=#efbd5d
+  highlight! CmpItemKindKeyword guifg=#bfbd5d
   highlight! CmpItemAbbrDeprecated guifg=#455574
+  highlight! CmpItemKindFunction guifg=#41a7fc
+  highlight! CmpItemKindMethod guifg=#41a7fc
+  highlight! CmpItemKindText guifg=#93a4c3
 
   autocmd InsertEnter * highlight! CursorLine   guibg=#512121
   autocmd InsertEnter * highlight! CursorLineNR guibg=#512121

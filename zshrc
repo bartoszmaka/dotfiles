@@ -45,6 +45,7 @@ alias vimrc="cd $DOTFILES_PATH; $EDITOR $DOTFILES_PATH/vim/lua/plugins/init.lua;
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
 alias coderc="code $DOTFILES_PATH/vscode/settings.json $DOTFILES_PATH/vscode/keybindings.json"
 alias alacrittyrc="$EDITOR $DOTFILES_PATH/alacritty.yml"
+alias kittyrc="$EDITOR $DOTFILES_PATH/kitty/kitty.conf"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"

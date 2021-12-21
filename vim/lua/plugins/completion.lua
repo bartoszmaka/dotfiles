@@ -95,30 +95,34 @@ cmp.setup({
     ghost_text = true,
   },
   formatting = {
-    format = lspkind.cmp_format(),
+    format = lspkind.cmp_format({
+      with_text = true,
+      menu = ({
+        buffer = "[Buf]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[Lua]",
+        omni = "[Omni]",
+        ultisnips = "[Snip]",
+        spell = "[Spell]",
+        TabNine = "[TN]",
+      })
+    }),
   },
 })
 
 vim.cmd[[
-  augroup cmp_config
-    autocmd!
+augroup cmp_config
+autocmd!
 
-    autocmd FileType css,scss,sass lua require'cmp'.setup.buffer {
-    \  sources = {
-    \    { name = "ultisnips" },
-    \    { name = 'nvim_lsp' },
-    \    { name = 'omni' },
-    \    { name = 'path' },
-    \    { name = 'buffer',
-    \      get_bufnrs = function()
-    \        local bufs = {}
-    \        for _, win in ipairs(vim.api.nvim_list_wins()) do
-    \          bufs[vim.api.nvim_win_get_buf(win)] = true
-    \        end
-    \        return vim.tbl_keys(bufs)
-    \      end},
-    \    { name = 'spell' },
-    \  },
-    \ }
-  augroup END
+autocmd FileType css,scss,sass lua require'cmp'.setup.buffer {
+\  sources = {
+\    { name = "ultisnips" },
+\    { name = 'nvim_lsp' },
+\    { name = 'omni' },
+\    { name = 'path' },
+\    { name = 'buffer', get_bufnrs = function() return vim.api.nvim_list_bufs() end },
+\    { name = 'spell' },
+\  },
+\ }
+augroup END
 ]]
