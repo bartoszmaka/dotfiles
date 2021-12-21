@@ -359,8 +359,8 @@ shell:
   program: /bin/zsh
   args:
    - --login
-# - -c
-# - tmux -u new-session -t main
+   - -c
+   - arch -arm64 zsh
 
 # Startup directory
 #
