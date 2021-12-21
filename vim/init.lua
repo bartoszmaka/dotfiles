@@ -4,6 +4,8 @@ vim.cmd [[
   set shiftwidth=2
   set expandtab
   set softtabstop=2
+  let g:python3_host_prog = '/Users/bartoszmaka/.asdf/shims/python3'
+  let g:python2_host_prog = '/Users/bartoszmaka/.asdf/shims/python2'
 ]]
 require('packer_setup')
 require('plugins')

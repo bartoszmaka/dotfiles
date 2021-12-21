@@ -1,6 +1,6 @@
 nnoremap = require('config_helper').nnoremap
 
-if vim.fn.exists('$KITTY_WINDOW_ID') ~= 1 then
+if vim.fn.exists('$KITTY_WINDOW_ID') ~= 1 or vim.fn.exists('$TMUX') == 1 then
   vim.g.kitty_navigator_no_mappings = 1
   return
 end

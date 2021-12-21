@@ -26,8 +26,8 @@ augroup color_scheme_tweaks
   highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
   highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
 
-  highlight! DiagnosticVirtualTextHint guifg=#455574 guibg=NONE
-  highlight! DiagnosticVirtualTextInfo guifg=#455574 guibg=NONE
+  highlight! DiagnosticVirtualTextHint guifg=#1b6a73 guibg=NONE
+  highlight! DiagnosticVirtualTextInfo guifg=#1b6a73 guibg=NONE
 
   highlight! DiagnosticUnderlineError  guibg=#512121 gui=NONE
   highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE

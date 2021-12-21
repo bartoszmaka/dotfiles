@@ -1,7 +1,14 @@
 local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
 local native_capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(native_capabilities)
+local loaded_cmp, capabilities = pcall(require, 'cmp_nvim_lsp')
+
+if loaded_cmp then
+  capabilities = capabilities.update_capabilities(native_capabilities)
+else
+  print('cmp_nvim_lsp not installed')
+  capabilities = native_capabilities
+end
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -16,7 +23,11 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local M = {}
 
 M.setup_servers = function()
-  local lsp_installer = require("nvim-lsp-installer")
+  local loaded_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
+  if not loaded_installer then
+    print('nvim-lsp-installer not installed')
+    return
+  end
 
   lsp_installer.on_server_ready(function(server)
     local opts = {
