@@ -3,19 +3,24 @@ local config_helper = require('config_helper')
 local nnoremap = config_helper.nnoremap
 
 vim.g.projectionist_heuristics = {
+  -- vue
   ['*'] = {
     ['*.vue'] = {
       ['alternate'] = '__tests__/{}.test.js',
       ['type'] = 'source'
     },
+
+    -- javascript
     ['*.js'] = {
-      ['alternate'] = '__tests__/{}.test.js',
+      ['alternate'] = '{dirname}/__tests__/{basename}.test.js',
       ['type'] = 'source'
     },
-    ['__tests__/*.test.js'] = {
-      ['alternate'] = '{}.js',
+    ['**/__tests__/*.test.js'] = {
+      ['alternate'] = '{dirname}/{basename}.js',
       ['type'] = 'test'
     },
+
+    -- typescript
     ['*.ts'] = {
       ['alternate'] = '__tests__/{}.test.ts',
       ['type'] = 'source'
@@ -24,6 +29,8 @@ vim.g.projectionist_heuristics = {
       ['alternate'] = '{}.ts',
       ['type'] = 'test'
     },
+
+    -- ruby/rails
     ['app/*.rb'] = {
       ['alternate'] = 'spec/{}_spec.rb',
       ['type'] = 'source'

@@ -6,10 +6,34 @@ local on_attach = function(client, bufnr)
 
   if set_contains({ 'css', 'scss', 'sass' }, vim.bo.filetype) then
     buf_set_option('omnifunc', 'csscomplete#CompleteCSS')
+  elseif set_contains({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, vim.bo.filetype) then
+    local ts_utils = require("nvim-lsp-ts-utils")
+    ts_utils.setup({
+      debug = false,
+      disable_commands = false,
+      enable_import_on_completion = true,
+      import_all_timeout = 5000, -- ms
+      import_all_priorities = {
+        same_file = 1, -- add to existing import statement
+        local_files = 2, -- git files or files with relative path markers
+        buffer_content = 3, -- loaded buffer content
+        buffers = 4, -- loaded buffer names
+      },
+      import_all_scan_buffers = 100,
+      import_all_select_source = false,
+      filter_out_diagnostics_by_severity = { 'hint' },
+      filter_out_diagnostics_by_code = { 80001 },
+      auto_inlay_hints = true,
+      inlay_hints_highlight = "Comment",
+      update_imports_on_move = true,
+      require_confirmation_on_move = true,
+      watch_dir = nil,
+    })
+    ts_utils.setup_client(client)
+
   else
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
   end
-
   -- Mappings.
   local opts = { noremap=true, silent=true }
   vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
@@ -17,7 +41,6 @@ local on_attach = function(client, bufnr)
   vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
   vim.cmd("command! LspHover lua vim.lsp.buf.hover()")
   vim.cmd("command! LspRename lua vim.lsp.buf.rename()")
-  vim.cmd("command! LspOrganize lua lsp_organize_imports()")
   vim.cmd("command! LspRefs lua vim.lsp.buf.references()")
   vim.cmd("command! LspTypeDef lua vim.lsp.buf.type_definition()")
   vim.cmd("command! LspImplementation lua vim.lsp.buf.implementation()")
@@ -26,34 +49,18 @@ local on_attach = function(client, bufnr)
   vim.cmd("command! LspDiagLine lua vim.lsp.diagnostic.show_line_diagnostics()")
   vim.cmd("command! LspSignatureHelp lua vim.lsp.buf.signature_help()")
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', '<leader>K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', '<leader><C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap("n", "<C-l><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   buf_set_keymap("v", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-
-
-  if vim.g.ale_enabled ~= 1 then
-    -- handled by lspsaga
-    buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
-    -- if client.resolved_capabilities.document_formatting or
-    --   client.resolved_capabilities.document_range_formatting then
-      -- local project = vim.fn.getcwd()
-      -- if not string.match(project, [[subster\--api]]) then
-      --   buf_set_keymap('n', "<C-m><C-f>", "<cmd>lua require('functions').efm_priority_document_format()<CR>", opts)
-      -- end
-    -- end
-  end
+  buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  -- buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 end
 
 return on_attach

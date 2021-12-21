@@ -155,18 +155,7 @@
       "command": "workbench.action.toggleSidebarVisibility",
       "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
     },
-  
     // Explorer
-    // {
-    //   "key": "ctrl+k ctrl+d",
-    //   "command": "workbench.files.action.showActiveFileInExplorer",
-    //   "when": "!explorerViewletVisible"
-    // },
-    // {
-    //   "key": "ctrl+k ctrl+d",
-    //   "command": "workbench.action.toggleSidebarVisibility",
-    //   "when": "!editorTextFocus && explorerViewletVisible"
-    // },
     {
       "key": "ctrl+k ctrl+e",
       "command": "workbench.view.explorer",
