@@ -1,5 +1,5 @@
 local config_helper = require('config_helper')
-local cmp = require'cmp'
+local cmp = require('cmp')
 local compare = require('cmp.config.compare')
 local lspkind = require('lspkind')
 
@@ -16,14 +16,14 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-  max_lines = 1000;
-  max_num_results = 5;
-  sort = true;
-	run_on_every_keystroke = true;
-	snippet_placeholder = '..';
-})
+-- local tabnine = require('cmp_tabnine.config')
+-- tabnine:setup({
+--   max_lines = 1000;
+--   max_num_results = 5;
+--   sort = true;
+-- 	run_on_every_keystroke = true;
+-- 	snippet_placeholder = '..';
+-- })
 
 cmp.setup({
   preselect = cmp.PreselectMode.None,

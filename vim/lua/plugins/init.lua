@@ -5,7 +5,7 @@ use { 'wbthomason/packer.nvim' }
 use { 'neovim/nvim-lspconfig' }
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
 use { 'williamboman/nvim-lsp-installer' }
-use { 'onsails/lspkind-nvim', config = function() require('lsp/lspkind') end }
+use { 'onsails/lspkind-nvim', config = function() require('lsp.lspkind') end }
 use { 'tsuyoshicho/vim-efm-langserver-settings' }
 use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
 use { 'ray-x/lsp_signature.nvim' }
@@ -22,7 +22,7 @@ use {
     "lukas-reineke/cmp-rg",
   }
 }
-use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
+-- use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim', config = function() require('plugins.spelunker') end }
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
@@ -137,10 +137,10 @@ use {
   config = function() require('plugins.searchbox') end,
 }
 
-require('lsp')
-require('plugins.autopairs')
-require('plugins.completion')
-require('plugins.colorscheme')
+pcall(require,'lsp')
+pcall(require,'plugins.autopairs')
+pcall(require,'plugins.completion')
+pcall(require,'plugins.colorscheme')
 -- require('plugins.vsnip')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]
