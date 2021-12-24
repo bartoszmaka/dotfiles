@@ -22,7 +22,7 @@ ln -vsf ~/.repos/dotfiles/asdf/default-npm-packages ~/.default-npm-packages
 ln -vsf ~/.repos/dotfiles/asdf/default-gems ~/.default-gems
 ln -vsf ~/.repos/dotfiles/asdfrc ~/.asdfrc
 
-ln -vsf ~/.repos/dotfiles/tmux ~/
+ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/tmuxinator ~/
 ln -vsf ~/.repos/dotfiles/tmuxinator ~/.config/
 
