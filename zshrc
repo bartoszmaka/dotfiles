@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_DUPS
@@ -6,27 +13,69 @@ setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 
 ostype="$(uname -s)"
-isosx=false
-islinux=false
+is_osx=false
+is_linux=false
 case "$ostype" in
-  Linux*) islinux=true;;
-  Darwin*) isosx=true;;
+  Linux*) is_linux=true;;
+  Darwin*) is_osx=true;;
 esac
 
-[ "$isosx" = true ] &&
-  export DEFAULT_USER=`whoami` &&
-  export ZSH=$HOME/.oh-my-zsh &&
-  plugins=(git tmux common-aliases z rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew)
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
 
-[ "$islinux" = true ] &&
-  export DEFAULT_USER=`whoami` &&
-  export ZSH=/home/bartosz/.oh-my-zsh &&
-  plugins=(git tmux common-aliases z command-not-found rails zsh-autosuggestions zsh-syntax-highlighting alias-tips)
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
-ZSH_THEME="agnoster"
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
-source $ZSH/oh-my-zsh.sh
-test -e "$DOTFILES_PATH/secrets.sh" && source $DOTFILES_PATH/secrets.sh
+### End of Zinit's installer chunk
+zinit snippet OMZP::git
+zinit snippet OMZP::tmux
+zinit snippet OMZP::rails
+zinit snippet OMZP::brew
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::common-aliases
+zinit snippet OMZL::key-bindings.zsh
+
+# zinit load "zsh-users/zsh-autosuggestions"
+# zinit load "djui/alias-tips"
+# zinit load "zsh-users/zsh-syntax-highlighting"
+
+zinit load zdharma-continuum/history-search-multi-word
+zinit load zsh-users/zsh-autosuggestions
+zinit load zdharma-continuum/fast-syntax-highlighting
+
+zinit ice depth"1" # git clone depth
+zinit light romkatv/powerlevel10k
+
+zinit load "agkozak/zsh-z"
+
+# export DEFAULT_USER=`whoami` &&
+# export ZSH=$HOME/.oh-my-zsh &&
+# [ "$isosx" = true ] &&
+#   plugins=(git tmux common-aliases z rails zsh-autosuggestions zsh-syntax-highlighting alias-tips brew colored-man-pages)
+
+# [ "$islinux" = true ] &&
+#   plugins=(git tmux common-aliases z command-not-found rails zsh-autosuggestions zsh-syntax-highlighting alias-tips colored-man-pages)
+
+# ZSH_THEME="agnoster"
+
+# source $ZSH/oh-my-zsh.sh
+# test -e "$DOTFILES_PATH/secrets.sh" && source $DOTFILES_PATH/secrets.sh
+test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 
 export BAT_THEME='TwoDark'
 export DISABLE_SPRING=1
@@ -34,8 +83,10 @@ export EDITOR='nvim'
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden -g '!.git/' -g '!node_modules/' -g '!tmp/' -g '!vendor/' -g '!doc/'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export DOTFILES_PATH="$HOME/.repos/dotfiles"
+export DEFAULT_USER=`whoami`
 
-test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
+RPROMPT='%D{%K:%M:%S}'
+zstyle ':completion:*' menu select
 
 alias tmux="tmux -u"
 alias tnew="\tmux -u new-session -t main"
@@ -66,21 +117,15 @@ alias berr="bundle exec rake routes"
 alias bert="bundle exec rspec"
 alias bect="bundle exec cucumber"
 alias brp="echo 'pry-remote -w';pry-remote -w"
-alias yri="rm -rf yarn.lock node_modules/ && yarn install"
-alias yrm="rm -rf yarn.lock node_modules/"
 alias ys="yarn start"
-alias yi="yarn install"
-alias luavim='nvim -u $DOTFILES_PATH/vim/init.lua'
-alias js='tmuxinator start frontend .'
 alias mailcatcher='echo "running mailcatcher --foreground. If you want to use default mailcatcher - escape the alias"; mailcatcher --foreground'
 alias tf="terraform"
 alias ls="exa"
 alias cat="bat"
 alias lsplog="tail -f ~/.cache/nvim/lsp.log"
-alias goneovim="/Applications/goneovim.app/Contents/MacOS/goneovim"
 alias gclean="git clean -fd"
-
 alias gcof="git checkout \$(git branch -a | fzf)"
+alias ggpush="git push origin \$(git branch --show-current)"
 
 alias :wq=exit
 alias :qa=exit
@@ -91,29 +136,22 @@ function compare_branch_commits() {
   git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $1..$2
 }
 function tattach() { tmux new-session -s `uuidgen` -t $1 }
-function npmdo { $(npm bin)/$@ }
-function startWithTmux() {
-  if test -z $TMUX
-  then
-    tnew
-  else
-    tattach main
-  fi
-}
 
-unalias gsd
-
-RPROMPT='%D{%K:%M:%S}'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fpath=(/usr/local/share/zsh-completions $fpath)
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
-zstyle ':completion:*' menu select
-export PATH="/usr/local/sbin:$PATH"
 . $(brew --prefix asdf)/asdf.sh
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+typeset -g POWERLEVEL9K_BACKGROUND=236
+typeset -g POWERLEVEL9K_LEFT_LEFT_WHITESPACE=' '
+typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR="%k%F{$POWERLEVEL9K_BACKGROUND}\uE0B4%k \uE0B6"
+typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR="%k%F{$POWERLEVEL9K_BACKGROUND}\uE0B4%k \uE0B6"
+typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\uE0B4'
+typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0B6'
+typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0B4'
+typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B6'
+typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B6'
+typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0B4'
+typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
