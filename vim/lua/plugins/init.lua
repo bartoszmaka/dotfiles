@@ -24,7 +24,11 @@ use {
 }
 -- use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
-use { 'kamykn/spelunker.vim', config = function() require('plugins.spelunker') end }
+use {
+  'kamykn/spelunker.vim',
+  requires = { { "kamykn/popup-menu.nvim" } },
+  config = function() require('plugins.spelunker') end,
+}
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
 use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = function() require('plugins.gitsigns') end }
 use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end } -- remove once gitsigns has more configurable blame
@@ -136,6 +140,8 @@ use {
   requires = { { 'MunifTanjim/nui.nvim' } },
   config = function() require('plugins.searchbox') end,
 }
+
+use { 'vim-scripts/LargeFile' }
 
 pcall(require,'lsp')
 pcall(require,'plugins.autopairs')
