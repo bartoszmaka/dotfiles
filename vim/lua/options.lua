@@ -29,6 +29,7 @@ b.swapfile = false          -- don't use swapfile
 o.lazyredraw = true         -- faster scrolling
 b.synmaxcol = 240           -- max column for syntax highlight
 o.completeopt = "menu,menuone,noselect"
+o.updatetime = 750
 
 -- indent
 -- b.smartindent = true

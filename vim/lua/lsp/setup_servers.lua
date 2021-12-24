@@ -20,6 +20,24 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -- { "solargraph", "efm", "yamlls", "json", "css", "graphql", "typescript", "html", "lua" }
+    -- ◍ bashls
+    -- ◍ dockerls
+    -- ◍ terraformls
+    -- ◍ vimls
+    -- ◍ yamlls
+    -- ◍ cssls
+    -- ◍ jsonls
+    -- ◍ solargraph
+    -- ◍ solidity_ls
+    -- ◍ sqlls
+    -- ◍ sqls
+    -- ◍ stylelint_lsp
+    -- ◍ tsserver
+    -- ◍ vuels
+    -- ◍ html
+    -- ◍ graphql
+    -- ◍ efm
+    -- ◍ sumneko_lua
 local M = {}
 
 M.setup_servers = function()
@@ -70,9 +88,15 @@ M.setup_servers = function()
 
     elseif server.name == "efm" then
       opts.filetypes = vim.tbl_keys(efm.languages)
-      opts.init_options = {documentFormatting = true, codeAction = true}
+      opts.init_options = {
+        documentFormatting = true,
+        codeAction = true,
+        rename = false,
+        hover = false,
+        completion = false,
+      }
       opts.settings = {
-        rootMarkers = {".git/"},
+        rootMarkers = { '.git/', 'package.json' },
         languages = efm.languages
       }
     end

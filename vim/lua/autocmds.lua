@@ -97,11 +97,3 @@ augroup filetype_tweaks
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 augroup END
 ]]
-
--- vim.cmd [[
--- augroup test
---   autocmd!
-
---   autocmd FileType *.lua echomsg("test")
--- augroup END
--- ]]
