@@ -1,7 +1,6 @@
 local symbols = require('config_helper/symbols')
 
 local M = {}
-local M = {}
 
 local setup_symbols = function()
   -- >= 0.6

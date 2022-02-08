@@ -9,10 +9,10 @@ augroup END
 augroup color_scheme_tweaks
   autocmd!
 
-  highlight! DiffChange      guibg=#3c3c34 guifg=NONE gui=NONE
-  highlight! DiffText        guibg=#525200 guifg=NONE gui=NONE
-  highlight! DiffAdd         guibg=#283c34 guifg=NONE gui=NONE
-  highlight! DiffDelete      guibg=#382c34 guifg=NONE gui=NONE
+  highlight! DiffChange      guibg=#2e2e1a guifg=NONE gui=NONE
+  highlight! DiffText        guibg=#3e3e23 guifg=NONE gui=NONE
+  highlight! DiffAdd         guibg=#1a2e1b guifg=NONE gui=NONE
+  highlight! DiffDelete      guibg=#2e201a guifg=NONE gui=NONE
   highlight! CursorLine      guibg=#2e3138
   highlight! CursorLineNR    guibg=#2e3138 gui=bold
   highlight! CursorColumn    guibg=#2e3138

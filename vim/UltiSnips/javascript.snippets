@@ -27,21 +27,21 @@ endglobal
 # Basic example:
 #
 #		snippet emitter"emitter properties" b
-#		private readonly ${1} = new Emitter<$2>()
-#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		private readonly ${1} = new Emitter<${2}>()
+#		public readonly ${1/^_(.*)/${1}/}: Event<${2}> = this.${1}.event
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 snippet afn "arrow function" w
-($1) => {$2}
+(${1}) => {${2}}
 endsnippet
 
 snippet fn "arrow function" w
-($1) => {$2}
+(${1}) => {${2}}
 endsnippet
 
 snippet fun "function" w
-($1) {$2}
+(${1}) {${2}}
 endsnippet
 
 snippet switch "switch statement" w
@@ -80,11 +80,11 @@ describe('${1}', () => {
 });
 endsnippet
 
-# snippet desc  "jest describe" w
-# describe('${1}', () => {
-#   ${2}
-# });
-# endsnippet
+snippet desc  "jest describe" w
+describe('${1}', () => {
+  ${2}
+});
+endsnippet
 
 snippet con "desctucture object" w
 const { ${1} } = ${2}
@@ -191,9 +191,9 @@ import { shallow } from 'enzyme';
 import { MockedProvider } from '@apollo/client/testing';
 
 import { Fixtures, withResourceProps } from '../../../utils/tests';
-import { $1 } from '../$1';
+import { ${1} } from '../${1}';
 
-describe('$1', () => {
+describe('${1}', () => {
   const setup = ({ resource, ...propOverridesRest } = {}) => {
     const props = {
       ...withResourceProps('users', { ...Fixtures.user, ...resource }),
@@ -202,7 +202,7 @@ describe('$1', () => {
 
     const wrapper = shallow(
       <MockedProvider>
-        <$1 {...props} />
+        <${1} {...props} />
       </MockedProvider>,
       {
         lifecycleExperimental: true,
@@ -253,4 +253,78 @@ endsnippet
 
 snippet eaf "export async function" w
 export async function 
+endsnippet
+
+snippet oc "onClick" w
+onClick={$0}
+endsnippet
+
+snippet yst "yup string" w
+yup.string()
+endsnippet
+
+snippet ystr "yup string required" w
+yup.string().required()
+endsnippet
+
+snippet ystm "yup string matches" w
+yup.string().matches(${1})
+endsnippet
+
+snippet ystmr "yup string matches required" w
+yup.string().matches(${1}).required()
+endsnippet
+
+snippet yn "yup number" w
+yup.number()
+endsnippet
+
+snippet ynr "yup number required" w
+yup.number().required()
+endsnippet
+
+snippet yd "yup date" w
+yup.date()
+endsnippet
+
+snippet ydr "yup date required" w
+yup.date().required()
+endsnippet
+
+snippet ysh "yup shape" w
+yup.object().shape({${1}})
+endsnippet
+
+snippet yshr "yup shape required" w
+yup.object().shape({${1}}).required()
+endsnippet
+
+snippet yar "yup array" w
+yup.array()
+endsnippet
+
+snippet yarr "yup array required" w
+yup.array().required()
+endsnippet
+
+snippet thc "then...catch" w
+then((${1}) => {${2}}).catch((${3}) => {${4}})
+endsnippet
+
+snippet iml "import ... lodash" w
+import { ${1} } from 'lodash';
+endsnippet
+
+snippet ttime "sample test time" w
+2021-01-27T12:30+00:00
+endsnippet
+
+snippet docl "jsdoc one line" b
+/** ${1} */
+endsnippet
+
+snippet doc "jsdoc" b
+/**
+ * ${1}
+ */
 endsnippet

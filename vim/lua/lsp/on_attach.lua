@@ -59,7 +59,8 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("v", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   buf_set_keymap('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("n", "<C-m>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
   -- buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 end
 

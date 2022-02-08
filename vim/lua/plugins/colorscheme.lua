@@ -1,11 +1,17 @@
 vim.o.termguicolors = true
 vim.o.background = "dark"
 vim.cmd "syntax on"
-vim.g.onedark_style = 'deep'
-vim.g.onedark_disable_toggle_style = true
-vim.g.onedark_italic_comment = true
-vim.g.onedark_disable_terminal_colors = true
-require('onedark').setup()
+require('onedark').setup({
+  style = 'deep',
+  term_colors = 'false',
+  highlights = {
+    DiffChange = { bg="#2e2e1a", fg="none" },
+    DiffText   = { bg="#3e3e23", fg="none" },
+    DiffAdd    = { bg="#1a2e1b", fg="none" },
+    DiffDelete = { bg="#2e201a", fg="none" },
+  },
+})
+require('onedark').load()
 
 vim.cmd[[
   augroup graphql_syntax_fix

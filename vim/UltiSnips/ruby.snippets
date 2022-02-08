@@ -248,10 +248,18 @@ to match_array(
 )
 endsnippet
 
+snippet thr "to have_received" w
+to have_received(:${1})
+endsnippet
+
 snippet scgqltype "graphql type scaffold" w
 Types::${1}Type = GraphQL::ObjectType.define do
   name '$1'
 
 	${0}
 end
+endsnippet
+
+snippet doc "yard doc" b
+# ${1}
 endsnippet

@@ -15,30 +15,32 @@ end
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-
--- local tabnine = require('cmp_tabnine.config')
--- tabnine:setup({
---   max_lines = 1000;
---   max_num_results = 5;
---   sort = true;
--- 	run_on_every_keystroke = true;
--- 	snippet_placeholder = '..';
--- })
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+	-- max_lines = 1000;
+	-- max_num_results = 20;
+	-- sort = true;
+	-- run_on_every_keystroke = true;
+	-- snippet_placeholder = '..';
+	-- ignored_file_types = { -- default is not to ignore
+	-- 	-- uncomment to ignore in lua:
+	-- 	-- lua = true
+	-- };
+})
 
 cmp.setup({
   preselect = cmp.PreselectMode.None,
   completion = {
-    -- completeopt = 'menu,menuone,noinsert',
   },
   sources = {
+    { name = 'copilot' },
     { name = "ultisnips" },
     { name = 'nvim_lsp' },
     { name = 'path' },
-    -- { name = 'cmp_tabnine' },
     { name = 'buffer', get_bufnrs = function() return vim.api.nvim_list_bufs() end },
     { name = 'spell' },
     { name = 'nvim_lsp_document_symbol' },
-    -- { name = 'rg' },
+    { name = 'cmp_tabnine' },
   },
   sorting = {
     priority_weight = 2,
@@ -87,16 +89,12 @@ cmp.setup({
       }),
     ['<CR>'] = cmp.mapping.confirm()
   },
-  -- documentation = {
-  --   border = 'single',
-  --   winhighlight = 'FloatBorder:FloatBorder,Normal:Normal',
-  -- },
   experimental = {
     ghost_text = true,
   },
   formatting = {
     format = lspkind.cmp_format({
-      with_text = true,
+      mode = 'symbol_text',
       menu = ({
         buffer = "[Buf]",
         nvim_lsp = "[LSP]",
@@ -104,7 +102,8 @@ cmp.setup({
         omni = "[Omni]",
         ultisnips = "[Snip]",
         spell = "[Spell]",
-        TabNine = "[TN]",
+        cmp_tabnine = "[TN]",
+        copilot = "[AI]",
       })
     }),
   },
@@ -122,6 +121,7 @@ autocmd FileType css,scss,sass lua require'cmp'.setup.buffer {
 \    { name = 'path' },
 \    { name = 'buffer', get_bufnrs = function() return vim.api.nvim_list_bufs() end },
 \    { name = 'spell' },
+\    { name = 'copilot' },
 \  },
 \ }
 augroup END
