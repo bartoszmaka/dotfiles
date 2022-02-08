@@ -161,23 +161,48 @@ section.right = {
     }
   },
   {
-    DiagnosticError = {
-      provider = { 'DiagnosticError' },
+    CustomDiagnosticError = {
+      provider = function()
+        local errors = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR})
+        local count = table.getn(errors)
+        if count > 0 then
+          return count
+        else
+          return ''
+        end
+      end,
       condition = buffer_not_empty,
       icon = '   ',
       highlight = {colors.red, colors.section_bg },
     },
   },
   {
-    DiagnosticWarn = {
-      provider = { 'DiagnosticWarn' },
+    CustomDiagnosticWarn = {
+      provider = function()
+        local warns = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN})
+        local count = table.getn(warns)
+        if count > 0 then
+          return count
+        else
+          return ''
+        end
+      end,
       icon = '   ',
       highlight = {colors.orange, colors.section_bg },
     },
   },
   {
-    DiagnosticInfo = {
-      provider = { 'DiagnosticInfo' },
+    CustomDiagnosticInfo = {
+      provider = function()
+        local hints = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT})
+        local info = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO})
+        local count = table.getn(hints) + table.getn(info)
+        if count > 0 then
+          return count
+        else
+          return ''
+        end
+      end,
       icon = '   ',
       highlight = {colors.blue, colors.section_bg },
     },
@@ -187,7 +212,8 @@ section.right = {
       provider = statusline_segments.getGitInfo,
       condition = buffer_not_empty,
       highlight = {colors.fg_active,colors.bg_inactive},
-      separator_highlight = { colors.bg_inactive, colors.section_bg },
+      separator_highlight = { colors.bg, colors.bg },
+      separator=' '
     }
   },
   {
@@ -262,13 +288,10 @@ galaxyline.load_galaxyline()
 vim.cmd[[
 let g:ale_linting = v:false
 let g:ale_fixing = v:false
+
 augroup galaxyline_triggers
 autocmd!
-
-autocmd User ALELintPre let g:ale_linting = v:true | lua require("galaxyline").load_galaxyline()
-autocmd User ALELintPost let g:ale_linting = v:false | lua require("galaxyline").load_galaxyline()
-autocmd User ALEFixPre let g:ale_fixing = v:true | lua require("galaxyline").load_galaxyline()
-autocmd User ALEFixPost let g:ale_fixing = v:false | lua require("galaxyline").load_galaxyline()
 autocmd User GutentagsUpdating lua require("galaxyline").load_galaxyline()
 autocmd User GutentagsUpdated lua require("galaxyline").load_galaxyline()
-augroup END]]
+augroup END
+]]

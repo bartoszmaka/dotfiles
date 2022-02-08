@@ -89,8 +89,8 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.bash.used_by = "env.local"
+local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
+ft_to_parser["env.local"] = "bash" -- the someft filetype will use the python parser and queries.
 
 require'treesitter-context.config'.setup {
   enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)

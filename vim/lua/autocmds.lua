@@ -11,10 +11,10 @@ vim.cmd [[
 augroup color_scheme_tweaks
   autocmd!
 
-  highlight! DiffChange      guibg=#3c3c34 guifg=NONE gui=NONE
-  highlight! DiffText        guibg=#525200 guifg=NONE gui=NONE
-  highlight! DiffAdd         guibg=#283c34 guifg=NONE gui=NONE
-  highlight! DiffDelete      guibg=#382c34 guifg=NONE gui=NONE
+  highlight! DiffChange      guibg=#2e2e1a guifg=NONE gui=NONE
+  highlight! DiffText        guibg=#3e3e23 guifg=NONE gui=NONE
+  highlight! DiffAdd         guibg=#1a2e1b guifg=NONE gui=NONE
+  highlight! DiffDelete      guibg=#2e201a guifg=NONE gui=NONE
   highlight! CursorLine      guibg=#21283b
   highlight! CursorLineNR    guibg=#21283b gui=bold
   highlight! CursorColumn    guibg=#21283b
@@ -39,13 +39,13 @@ augroup color_scheme_tweaks
   highlight! CmpItemAbbrMatchFuzzy guifg=#f2cc81 gui=NONE
   highlight! CmpItemKindDefault guifg=#dd9046
   highlight! CmpItemKindSnippet guifg=#f65866
-  highlight! CmpItemKindConstant guifg=#efbd5d
-  highlight! CmpItemKindModule guifg=#efbd5d
-  highlight! CmpItemKindClass guifg=#efbd5d
+  " highlight! CmpItemKindConstant guifg=#efbd5d
+  " highlight! CmpItemKindModule guifg=#efbd5d
+  " highlight! CmpItemKindClass guifg=#efbd5d
   highlight! CmpItemKindKeyword guifg=#bfbd5d
   highlight! CmpItemAbbrDeprecated guifg=#455574
-  highlight! CmpItemKindFunction guifg=#41a7fc
-  highlight! CmpItemKindMethod guifg=#41a7fc
+  " highlight! CmpItemKindFunction guifg=#41a7fc
+  " highlight! CmpItemKindMethod guifg=#41a7fc
   highlight! CmpItemKindText guifg=#93a4c3
 
   autocmd InsertEnter * highlight! CursorLine   guibg=#512121

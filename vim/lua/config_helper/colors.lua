@@ -22,10 +22,10 @@ M.onedark = {
      dark_red = '#992525',
   dark_yellow = '#8f610d',
   dark_purple = '#862aa1',
-    diff_add  = '#27341c',
-  diff_delete = '#331c1e',
-  diff_change = '#102b40',
-    diff_text = '#1c4a6e'
+    diff_add  = '#1a2e1b',
+  diff_delete = '#2e201a',
+  diff_change = '#2e2e1a',
+    diff_text = '#3e3e23',
 }
 
 return M

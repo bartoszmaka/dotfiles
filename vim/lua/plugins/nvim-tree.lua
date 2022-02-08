@@ -59,7 +59,8 @@ g.nvim_tree_icons = {
 }
 
 
-nnoremap('<C-k><C-e>', ':NvimTreeToggle<CR>')
+nnoremap('<C-k><C-r>', ':NvimTreeToggle<CR>')
+nnoremap('<C-k><C-e>', ':NvimTreeFindFileToggle<CR>')
 
 require'nvim-tree'.setup {
   filters = {
@@ -79,7 +80,7 @@ require'nvim-tree'.setup {
   update_cwd          = false,
   -- lsp_diagnostics     = false,
   update_focused_file = {
-    enable      = true,
+    enable      = false,
     update_cwd  = false,
     ignore_list = {}
   },

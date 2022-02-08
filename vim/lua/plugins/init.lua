@@ -12,6 +12,7 @@ use { 'ray-x/lsp_signature.nvim' }
 use {
   "hrsh7th/nvim-cmp",
   requires = {
+    "hrsh7th/cmp-copilot",
     "quangnguyen30192/cmp-nvim-ultisnips",
     "hrsh7th/cmp-nvim-lsp",
     "f3fora/cmp-spell",
@@ -22,7 +23,8 @@ use {
     "lukas-reineke/cmp-rg",
   }
 }
--- use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
+
+use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use {
   'kamykn/spelunker.vim',
@@ -74,7 +76,14 @@ use {
 }
 use { 'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end }
 use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end }
-use { 'junegunn/fzf', dir = '~/.fzf', run = './install --all' , config = function() require('plugins.fzf') end }
+use {
+  'junegunn/fzf',
+  dir = '~/.fzf',
+  run = './install --all',
+  config = function()
+    require('plugins.fzf')
+  end,
+}
 use { 'junegunn/fzf.vim'}
 use { 'bartoszmaka/fzf-mru.vim' }
 use { 'ibhagwan/fzf-lua',
@@ -89,7 +98,7 @@ use { 'RRethy/vim-illuminate', config = function() require('plugins.illuminate')
 use { 'mg979/vim-visual-multi', config = function() require('plugins.visual-multi') end }
 use { 'tpope/vim-commentary', config = function() require('plugins.commentary') end }
 use { 'windwp/nvim-autopairs' }
-use { 'osyo-manga/vim-anzu', config = function() require('plugins.anzu') end }
+-- use { 'osyo-manga/vim-anzu', config = function() require('plugins.anzu') end }
 use { 'knubie/vim-kitty-navigator',
   run = 'cp ./*.py ~/.config/kitty/',
   -- cond = function() return vim.fn.exists('$KITTY_WINDOW_ID') == 1 end,
@@ -117,7 +126,8 @@ use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
 use { 'simeji/winresizer', config = function() require('plugins.winresizer') end }
 use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end }
-use { 'dstein64/nvim-scrollview', config = function() require('plugins.scrollview') end }
+-- use { 'dstein64/nvim-scrollview', config = function() require('plugins.scrollview') end }
+use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollbar') end }
 -- use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
 -- use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
 use {
@@ -142,11 +152,14 @@ use {
 }
 
 use { 'vim-scripts/LargeFile' }
+use { "github/copilot.vim" }
+use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }
+use { 'AndrewRadev/sideways.vim', config = function() require('plugins.sideways') end }
 
 pcall(require,'lsp')
 pcall(require,'plugins.autopairs')
 pcall(require,'plugins.completion')
 pcall(require,'plugins.colorscheme')
--- require('plugins.vsnip')
+-- require('plugins.colorscheme')
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]

@@ -24,3 +24,5 @@ vim.cmd [[
   set expandtab
   set softtabstop=2
 ]]
+
+  -- let g:node_host_prog = '/Users/bartoszmaka/.asdf/installs/nodejs/17.3.0/bin/node'

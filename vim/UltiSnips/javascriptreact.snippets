@@ -1,8 +1,4 @@
 priority 60
-# snippet imr "import React" w
-# import React from 'react'
-# endsnippet
-
 global !p
 def upperfirst(t):
 	if len(t) < 2:
@@ -306,7 +302,7 @@ snippet edn
 // eslint-disable-next-line ${1}
 endsnippet
 
-snippet ed
+snippet esd
 // eslint-disable ${1}
 endsnippet
 
@@ -324,54 +320,54 @@ snippet cn
 className=
 endsnippet
 
-snippet oc
-onClick={$0}
+snippet imr "import react" w
+import React from 'react';
 endsnippet
 
-snippet yst
-yup.string()
+snippet impt "import PropTypes" w
+import PropTypes from 'prop-types';
 endsnippet
 
-snippet ystr
-yup.string().required()
+snippet imy "import yup" w
+import * as yup from 'yup';
 endsnippet
 
-snippet ystm
-yup.string().matches($1)
-endsnippet
+snippet scenzyme "scaffold enzyme test" w
+import React from 'react';
+import { mount } from 'enzyme';
+import { MemoryRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-snippet ystmr
-yup.string().matches($1).required()
-endsnippet
+import ${1} from '../$1';
 
-snippet yn
-yup.number()
-endsnippet
+const mockedStore = {
+  subscribe: () => {},
+  getState: () => {},
+  dispatch: () => {},
+};
 
-snippet ynr
-yup.number().required()
-endsnippet
+const setup = (additionalProps = {}) => {
+  const props = {
+		${2}
+    ...additionalProps,
+  };
 
-snippet yd
-yup.date()
-endsnippet
+  const wrapper = mount(
+    <Provider store={mockedStore}>
+      <Router>
+        <$1 {...props} />
+      </Router>
+    </Provider>,
+  );
 
-snippet ydr
-yup.date().required()
-endsnippet
+  return { wrapper, props };
+};
 
-snippet ysh
-yup.object().shape({$1})
-endsnippet
+describe('$1', () => {
+  it('matches the snapshot', () => {
+    const { wrapper } = setup();
 
-snippet yshr
-yup.object().shape({$1}).required()
-endsnippet
-
-snippet yar
-yup.array()
-endsnippet
-
-snippet yarr
-yup.array().required()
+    expect(wrapper.find('$1')).toMatchSnapshot();
+  });
+});
 endsnippet
