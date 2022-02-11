@@ -1,4 +1,4 @@
-local efm = require('lsp/efm')
+-- local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
 local native_capabilities = vim.lsp.protocol.make_client_capabilities()
 local loaded_cmp, capabilities = pcall(require, 'cmp_nvim_lsp')
@@ -42,7 +42,7 @@ local servers = {
   "vuels",
   -- "solargraph", install this one manually - gem install solargraph
   "sumneko_lua",
-  "efm",
+  -- "efm",
   "bashls",
   "dockerls",
   "html",
@@ -112,19 +112,19 @@ M.setup_servers = function()
         }
       }
 
-    elseif server.name == "efm" then
-      opts.filetypes = vim.tbl_keys(efm.languages)
-      opts.init_options = {
-        documentFormatting = true,
-        codeAction = true,
-        rename = false,
-        hover = false,
-        completion = false,
-      }
-      opts.settings = {
-        rootMarkers = { '.git/', 'package.json' },
-        languages = efm.languages
-      }
+    -- elseif server.name == "efm" then
+    --   opts.filetypes = vim.tbl_keys(efm.languages)
+    --   opts.init_options = {
+    --     documentFormatting = true,
+    --     codeAction = true,
+    --     rename = false,
+    --     hover = false,
+    --     completion = false,
+    --   }
+    --   opts.settings = {
+    --     rootMarkers = { '.git/', 'package.json' },
+    --     languages = efm.languages
+    --   }
     end
 
     if server.name == "solargraph" then

@@ -1,4 +1,3 @@
-local config_helper = require('config_helper')
 local cmp = require('cmp')
 local compare = require('cmp.config.compare')
 local lspkind = require('lspkind')

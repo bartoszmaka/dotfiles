@@ -5,7 +5,6 @@ M.set_contains = function (set, val)
     if value == val then return true end
   end
   return false
-
 end
 
 return M

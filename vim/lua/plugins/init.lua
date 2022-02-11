@@ -2,14 +2,15 @@ local packer = require('packer')
 local use = packer.use
 
 use { 'wbthomason/packer.nvim' }
+
 use { 'neovim/nvim-lspconfig' }
-use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
 use { 'williamboman/nvim-lsp-installer' }
 use { 'onsails/lspkind-nvim', config = function() require('lsp.lspkind') end }
-use { 'tsuyoshicho/vim-efm-langserver-settings' }
 use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
 use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } }
 use { 'ray-x/lsp_signature.nvim' }
+use { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = function() require('lsp.null-ls') end}
+
 use {
   "hrsh7th/nvim-cmp",
   requires = {
@@ -24,14 +25,15 @@ use {
     "lukas-reineke/cmp-rg",
   }
 }
-
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
+
 use {
   'kamykn/spelunker.vim',
   requires = { { "kamykn/popup-menu.nvim" } },
   config = function() require('plugins.spelunker') end,
 }
+use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
 use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = function() require('plugins.gitsigns') end }
 use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end } -- remove once gitsigns has more configurable blame
