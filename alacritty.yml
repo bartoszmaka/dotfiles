@@ -267,7 +267,7 @@ bell:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 1.0
+window.opacity: 1.0
 
 # Mouse bindings
 #
@@ -570,10 +570,10 @@ key_bindings:
 
   # custom
   # reference: https://donsnotes.com/tech/charsets/ascii.html
+  - { key: Q,         mods: Command,                 action: None }
   - { key: W,         mods: Command,                 chars: "\x20\x77" } # <space>w
   - { key: T,         mods: Command|Shift,           chars: "\x20\x60" } # <space>`
   - { key: T,         mods: Command      ,           chars: "\x20\x74" } # <space>t
-  - { key: Q,         mods: Command,                 action: None }
   - { key: H,         mods: Command,                 chars: "\x00\x68" } # <C-space>h
   - { key: J,         mods: Command,                 chars: "\x00\x6a" } # <C-space>j
   - { key: K,         mods: Command,                 chars: "\x00\x6b" } # <C-space>k
@@ -581,6 +581,7 @@ key_bindings:
   - { key: P,         mods: Command,                 chars: "\x10\x10" } # <C-p><C-p>
   - { key: A,         mods: Command|Shift,           chars: "\x10\x12" } # <C-p><C-r>
   - { key: F,         mods: Command|Shift,           chars: "\x10\x06" } # <C-p><C-f>
+  - { key: F,         mods: Alt|Shift,               chars: "\x0d\x06" } # <C-m><C-f>
   - { key: S,         mods: Command,                 chars: "\x1b[25~" } # <F13>
   - { key: S,         mods: Command|Shift,           chars: "\x1b[26~" } # <F14>
   - { key: LBracket,  mods: Command      ,           chars: "\x20\x5b" } # <space>[
