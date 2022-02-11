@@ -1,49 +1,32 @@
 local galaxyline = require('galaxyline')
 local config_helper = require('config_helper')
-local onedark = require('config_helper.colors').onedark
+local colors = require('config_helper.colors').onedark
 local ft = vim.bo.filetype
-local throttle = require('config_helper.throttle').throttle_leading
+-- local throttle = require('config_helper.throttle').throttle_leading
 local statusline_segments = require('config_helper.statusline_segments')
--- local gps = require("nvim-gps")
+local extension = require('galaxyline.provider_extensions')
 
 local section = galaxyline.section
 galaxyline.short_line_list = { 'defx', 'packager', 'vista' }
 
-local getTreesitterContextThrottled = (function()
-  local timer = vim.loop.new_timer()
-  local ran_recently = false
-  local cached_result = nil
-  local throttle_ms = 1000
+-- local getTreesitterContextThrottled = (function()
+--   local timer = vim.loop.new_timer()
+--   local ran_recently = false
+--   local cached_result = nil
+--   local throttle_ms = 1000
 
-  local wrapped_fn = function()
-    if not ran_recently then
-      timer:start(throttle_ms, 0, function()
-        ran_recently = false
-      end)
-      cached_result = statusline_segments.getTreesitterContext()
-      ran_recently = true
-    end
-    return cached_result
-  end
-  return wrapped_fn
-end)()
-
--- Colors
-local colors = {
-  bg = onedark.bg0,
-  bg_inactive = onedark.bg3,
-  fg = onedark.fg,
-  fg_focus = '#f8f8f2',
-  section_bg = onedark.bg0,
-  yellow = onedark.bg_yellow,
-  cyan = onedark.cyan,
-  green = onedark.green,
-  orange = onedark.orange,
-  magenta = onedark.purple,
-  blue = onedark.blue,
-  red = onedark.red,
-  black = onedark.black,
-}
+--   local wrapped_fn = function()
+--     if not ran_recently then
+--       timer:start(throttle_ms, 0, function()
+--         ran_recently = false
+--       end)
+--       cached_result = statusline_segments.getTreesitterContext()
+--       ran_recently = true
+--     end
+--     return cached_result
+--   end
+--   return wrapped_fn
+-- end)()
 
 -- Local helper functions
 local buffer_not_empty = function()
@@ -55,9 +38,9 @@ local mode_color = function()
     n = colors.green,
     i = colors.blue,
     c = colors.orange,
-    V = colors.magenta,
-    [''] = colors.magenta,
-    v = colors.magenta,
+    V = colors.purple,
+    [''] = colors.purple,
+    v = colors.purple,
     R = colors.red,
   }
 
@@ -93,15 +76,15 @@ section.left = {
         return '  '..alias_mode..' '
       end,
       separator = ' ',
-      highlight = { colors.bg, colors.section_bg },
-      separator_highlight = {colors.bg, colors.section_bg },
+      highlight = { colors.bg0, colors.bg0 },
+      separator_highlight = {colors.bg0, colors.bg0 },
     },
   },
   {
     FileIcon = {
       provider = 'FileIcon',
       condition = buffer_not_empty,
-      highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color, colors.section_bg },
+      highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color, colors.bg0 },
     },
   },
   {
@@ -112,19 +95,27 @@ section.left = {
       condition = function()
         return buffer_not_empty() and ft ~= "fzf" and ft~= "NvimTree"
       end,
-      highlight = { colors.fg, colors.section_bg },
-      separator_highlight = {colors.fg, colors.section_bg },
+      highlight = { colors.fg, colors.bg0 },
+      separator_highlight = {colors.fg, colors.bg0 },
       separator = ' '
     },
-    -- nvimGPS = {
-    --   provider = function()
-    --     return gps.get_location()
-    --   end,
-    --   condition = function()
-    --     return gps.is_available()
-    --   end
-    -- }
   },
+  {
+    VistaPlugin = {
+      provider = extension.vista_nearest,
+      highlight = { colors.grey, colors.bg0 },
+    }
+  },
+  -- {
+  --     nvimGPS = {
+  --       provider = function()
+  --         return gps.get_location()
+  --       end,
+  --       condition = function()
+  --         return gps.is_available()
+  --       end
+  --     }
+  --   }
   -- {
   --   Context = {
   --     provider = getTreesitterContextThrottled,
@@ -135,8 +126,8 @@ section.left = {
   --       -- end
   --       return buffer_not_empty() and ft ~= "fzf" and ft~= "NvimTree"
   --     end,
-  --     highlight = { colors.fg, colors.section_bg },
-  --     separator_highlight = {colors.fg, colors.section_bg },
+  --     highlight = { colors.fg, colors.bg0 },
+  --     separator_highlight = {colors.fg, colors.bg0 },
   --     separator = ' '
   --   }
   -- }
@@ -156,8 +147,8 @@ section.right = {
       end,
       separator = ' ',
       condition = buffer_not_empty,
-      highlight = { colors.yellow, colors.section_bg },
-      separator_highlight = { colors.black, colors.section_bg },
+      highlight = { colors.bg_yellow, colors.bg0 },
+      separator_highlight = { colors.black, colors.bg0 },
     }
   },
   {
@@ -173,7 +164,7 @@ section.right = {
       end,
       condition = buffer_not_empty,
       icon = '   ',
-      highlight = {colors.red, colors.section_bg },
+      highlight = {colors.red, colors.bg0 },
     },
   },
   {
@@ -188,7 +179,7 @@ section.right = {
         end
       end,
       icon = '   ',
-      highlight = {colors.orange, colors.section_bg },
+      highlight = {colors.orange, colors.bg0 },
     },
   },
   {
@@ -204,14 +195,14 @@ section.right = {
         end
       end,
       icon = '   ',
-      highlight = {colors.blue, colors.section_bg },
+      highlight = {colors.blue, colors.bg0 },
     },
   },
   {
     GitInfo = {
       provider = statusline_segments.getGitInfo,
       condition = buffer_not_empty,
-      highlight = {colors.fg_active,colors.bg_inactive},
+      highlight = {colors.fg_active,colors.bg3},
       separator_highlight = { colors.bg, colors.bg },
       separator=' '
     }
@@ -236,8 +227,8 @@ section.short_line_left = {
       provider = function()
         return '  '
       end,
-      highlight = { colors.fg, colors.bg_inactive },
-      separator_highlight = {colors.fg, colors.bg_inactive },
+      highlight = { colors.fg, colors.bg3 },
+      separator_highlight = {colors.fg, colors.bg3 },
     }
   },
   {
@@ -245,8 +236,8 @@ section.short_line_left = {
       provider = 'FileIcon',
       condition = buffer_not_empty,
       separator = ' ',
-      highlight = { colors.fg, colors.bg_inactive },
-      separator_highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color,  colors.bg_inactive },
+      highlight = { colors.fg, colors.bg3 },
+      separator_highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color,  colors.bg3 },
     }
   },
   {
@@ -256,8 +247,8 @@ section.short_line_left = {
       end,
       separator = ' ',
       condition = buffer_not_empty,
-      highlight = { colors.fg, colors.bg_inactive },
-      separator_highlight = { colors.fg, colors.bg_inactive },
+      highlight = { colors.fg, colors.bg3 },
+      separator_highlight = { colors.fg, colors.bg3 },
     }
   },
 }
@@ -267,8 +258,8 @@ section.short_line_right = {
     GitInfoInactive = {
       provider = statusline_segments.getGitInfo,
       condition = buffer_not_empty,
-      highlight = {colors.fg_active,colors.bg_inactive},
-      separator_highlight = { colors.fg, colors.bg_inactive },
+      highlight = {colors.fg_active,colors.bg3},
+      separator_highlight = { colors.fg, colors.bg3 },
     }
   },
   {
@@ -279,7 +270,7 @@ section.short_line_right = {
         local column = vim.fn.col('.')
         return string.format("  %3d/%d:%2d ", line, max_lines, column)
       end,
-      highlight = { colors.fg, colors.bg_inactive },
+      highlight = { colors.fg, colors.bg3 },
     }
   }
 }

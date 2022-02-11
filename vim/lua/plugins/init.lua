@@ -1,16 +1,27 @@
 local packer = require('packer')
 local use = packer.use
 
-use { 'wbthomason/packer.nvim' }
+use { 'wbthomason/packer.nvim' } -- plugin manager
 
+-- lsp installation
 use { 'neovim/nvim-lspconfig' }
 use { 'williamboman/nvim-lsp-installer' }
-use { 'onsails/lspkind-nvim', config = function() require('lsp.lspkind') end }
-use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
-use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } }
-use { 'ray-x/lsp_signature.nvim' }
-use { 'jose-elias-alvarez/null-ls.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = function() require('lsp.null-ls') end}
 
+
+-- lsp
+use { 'onsails/lspkind-nvim', config = function() require('lsp.lspkind') end } -- lsp and completion icons
+use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }                                 -- typescript codeactions
+use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } }           -- lsp integration utils (better go to def etc)
+use { 'ray-x/lsp_signature.nvim' }                                             -- display arguments names while typing
+use { 'jose-elias-alvarez/null-ls.nvim',                                       -- null ls
+  requires = { 'nvim-lua/plenary.nvim' },
+  config = function()
+    require('lsp.null-ls')
+  end,
+}
+
+
+-- completion
 use {
   "hrsh7th/nvim-cmp",
   requires = {
@@ -26,29 +37,18 @@ use {
   }
 }
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
+use { 'github/copilot.vim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
-
-use {
-  'kamykn/spelunker.vim',
+use { 'kamykn/spelunker.vim',                                                                -- spell checker
   requires = { { "kamykn/popup-menu.nvim" } },
   config = function() require('plugins.spelunker') end,
 }
-use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }
-use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end }
-use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = function() require('plugins.gitsigns') end }
-use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end } -- remove once gitsigns has more configurable blame
-use { 'navarasu/onedark.nvim' }
-use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end }
-use {
-  'glepnir/galaxyline.nvim',
-  branch = 'main',
-  requires = { 'kyazdani42/nvim-web-devicons', opt = true},
-  config = function() require('plugins.galaxyline') end
-}
-use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugins.indentline') end }
-use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
-use {
-  'nvim-treesitter/nvim-treesitter',
+use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (impementation to test etc)
+use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
+
+
+-- syntax
+use { 'nvim-treesitter/nvim-treesitter', -- syntax highlighting
   requires = {
     { 'nvim-treesitter/playground' },
     { 'p00f/nvim-ts-rainbow' },
@@ -61,28 +61,25 @@ use {
     require('plugins.treesitter')
   end
 }
-use {
-  "SmiteshP/nvim-gps",
-  requires = "nvim-treesitter/nvim-treesitter",
-  config = function() require('plugins.gps') end
-}
-use { 'andymass/vim-matchup' }
 use { 'jparise/vim-graphql' }
 use { 'rhysd/conflict-marker.vim', config = function() require('plugins.conflict-marker') end }
-use { 'tpope/vim-repeat' , config = function() require('plugins.repeat') end }
-use {
-  'kyazdani42/nvim-tree.lua',
-  requires = { 'kyazdani42/nvim-web-devicons' },
-  config = function()
-    require('plugins.nvim-tree')
-  end,
-}
-use { 'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end }
-use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end }
-use {
-  'junegunn/fzf',
+
+
+-- utils
+use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }               -- git integration
+use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end }                -- remove once gitsigns has more configurable blame
+use { 'tpope/vim-repeat' , config = function() require('plugins.repeat') end }                  -- better "."
+use { 'rhysd/clever-f.vim' }                                                                    -- better "f"
+use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end }       -- split and join mutiline
+use { 'tpope/vim-abolish' }                                                                     -- swap case
+use { 'andymass/vim-matchup' }                                                                  -- jump to matching
+use { 'windwp/nvim-autopairs' }                                                                 -- automatically add matching parentheses
+use { 'windwp/nvim-ts-autotag' }                                                                -- automatically add matching tags
+use { 'tpope/vim-surround' }                                                                    -- surround motion
+use { 'simonefranza/nvim-conv' }                                                                -- convert units
+use { 'junegunn/fzf',                                                                           -- project fuzzy searcher
   dir = '~/.fzf',
-  run = './install --all',
+  run = './install -- all',
   config = function()
     require('plugins.fzf')
   end,
@@ -94,18 +91,21 @@ use { 'ibhagwan/fzf-lua',
     'vijaymarupudi/nvim-fzf',
     'kyazdani42/nvim-web-devicons'
   },
-  run = './install --bin'
+  run = './install -- bin'
 }
-use { 'dominikduda/vim_yank_with_context' }
-use { 'RRethy/vim-illuminate', config = function() require('plugins.illuminate') end }
-use { 'mg979/vim-visual-multi', config = function() require('plugins.visual-multi') end }
-use { 'tpope/vim-commentary', config = function() require('plugins.commentary') end }
-use { 'windwp/nvim-autopairs' }
--- use { 'osyo-manga/vim-anzu', config = function() require('plugins.anzu') end }
+use { 'dominikduda/vim_yank_with_context' }                                                     -- yank with file name and line numbers
+use { 'phaazon/hop.nvim',                                                                       -- better jumps
+  branch = 'v1',
+  config = function() require('plugins.hop') end,
+}
+use { 'mg979/vim-visual-multi', config = function() require('plugins.visual-multi') end }       -- multiple cursors
+use { 'tpope/vim-commentary', config = function() require('plugins.commentary') end }           -- commenting
+use { 'janko/vim-test', config = function() require('plugins.vim-test') end }                   -- run tests
 use { 'knubie/vim-kitty-navigator',
   run = 'cp ./*.py ~/.config/kitty/',
   -- cond = function() return vim.fn.exists('$KITTY_WINDOW_ID') == 1 end,
-  config = function() require('plugins.kitty-navigator') end }
+  config = function() require('plugins.kitty-navigator') end
+}
 use { 'christoomey/vim-tmux-navigator',
   -- cond = function() return vim.fn.exists('$TMUX') == 1 end,
   config = function()
@@ -114,50 +114,64 @@ use { 'christoomey/vim-tmux-navigator',
   requires = {
     'roxma/vim-tmux-clipboard',
     'preservim/vimux'
-  }
-}
-use { 'janko/vim-test', config = function() require('plugins.vim-test') end }
-use { 'windwp/nvim-ts-autotag' }
-use { 'tpope/vim-surround' }
-use { 'rhysd/clever-f.vim' }
-use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end }
-use { 'tpope/vim-abolish' }
-use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }
-use { 'junkblocker/git-time-lapse' }
-use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end }
+  } }
+use { 'junkblocker/git-time-lapse', config = function() require('plugins.git-time-lapse') end }
 use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
-use { 'simeji/winresizer', config = function() require('plugins.winresizer') end }
-use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end }
--- use { 'dstein64/nvim-scrollview', config = function() require('plugins.scrollview') end }
-use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollbar') end }
+use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
+use { 'godlygeek/tabular', config = function() require('plugins.tabular') end }                 -- align text
+use { 'AndrewRadev/sideways.vim', config = function() require('plugins.sideways') end }         -- move fn arguments
+
+                                                                                                -- additional windows
+use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end }                    -- project wide search
+use { 'kyazdani42/nvim-tree.lua',                                                               -- project tree
+  requires = { 'kyazdani42/nvim-web-devicons' },
+  config = function()
+    require('plugins.nvim-tree')
+  end,
+}
+use { 'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end }              -- undo tree
+use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end }                -- symbols listing
+use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end }            -- terminal window
+
+
+-- UI
+use { 'lewis6991/gitsigns.nvim',
+  requires = { 'nvim-lua/plenary.nvim' },
+  config = function()
+    require('plugins.gitsigns')
+  end,
+}
+use { 'navarasu/onedark.nvim' }                                                                      -- colorscheme
+use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end }                     -- tabs line
+use { 'glepnir/galaxyline.nvim',                                                                     -- status line
+  branch = 'main',
+  requires = { 'kyazdani42/nvim-web-devicons', opt = true},
+  config = function() require('plugins.galaxyline') end
+}
+                                                                                                     -- use { 'nvim-lua/lsp-status.nvim' }
+use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugins.indentline') end }
+use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
+use { 'RRethy/vim-illuminate', config = function() require('plugins.illuminate') end }
+use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end }               -- notifications windows
+use { 'simeji/winresizer', config = function() require('plugins.winresizer') end }                   -- resize windows
+use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end }                    -- maximize window
+use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollbar') end }            -- scrollbar
+use { 'vim-scripts/LargeFile' }                                                                      -- large files helper
+use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }              -- better highlight search
+
 -- use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
 -- use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
-use {
-  'phaazon/hop.nvim',
-  branch = 'v1',
-  config = function() require('plugins.hop') end,
-}
-use { 'nvim-lua/lsp-status.nvim' }
-use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
-use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end }
-use { 'simonefranza/nvim-conv' }
-use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end }
 -- use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.bqf') end}
 -- use { 'AckslD/nvim-neoclip.lua',
 --   requires = {'tami5/sqlite.lua', module = 'sqlite'},
 --   config = function() require('plugins.neoclip').setup() end,
 -- }
-use {
-  'VonHeikemen/searchbox.nvim',
-  requires = { { 'MunifTanjim/nui.nvim' } },
-  config = function() require('plugins.searchbox') end,
-}
 
-use { 'vim-scripts/LargeFile' }
-use { "github/copilot.vim" }
-use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }
-use { 'AndrewRadev/sideways.vim', config = function() require('plugins.sideways') end }
+-- use { "SmiteshP/nvim-gps",
+--   requires = "nvim-treesitter/nvim-treesitter",
+--   config = function() require('plugins.gps') end
+-- }
 
 pcall(require,'lsp')
 pcall(require,'plugins.autopairs')
