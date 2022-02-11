@@ -8,6 +8,7 @@ use { 'williamboman/nvim-lsp-installer' }
 use { 'onsails/lspkind-nvim', config = function() require('lsp.lspkind') end }
 use { 'tsuyoshicho/vim-efm-langserver-settings' }
 use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }
+use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } }
 use { 'ray-x/lsp_signature.nvim' }
 use {
   "hrsh7th/nvim-cmp",
@@ -140,7 +141,7 @@ use { 'andrewradev/switch.vim', config = function() require('plugins.switch') en
 use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end }
 use { 'simonefranza/nvim-conv' }
 use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end }
-use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.bqf') end}
+-- use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.bqf') end}
 -- use { 'AckslD/nvim-neoclip.lua',
 --   requires = {'tami5/sqlite.lua', module = 'sqlite'},
 --   config = function() require('plugins.neoclip').setup() end,

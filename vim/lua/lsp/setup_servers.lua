@@ -2,6 +2,16 @@ local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
 local native_capabilities = vim.lsp.protocol.make_client_capabilities()
 local loaded_cmp, capabilities = pcall(require, 'cmp_nvim_lsp')
+local installer_loaded, lsp_installer_servers = pcall(require, 'nvim-lsp-installer.servers')
+local lspconfig_loaded, lspconfig = pcall(require, 'lspconfig')
+
+if not installer_loaded then
+  print('nvim-lsp-installer not installed')
+end
+
+if not lspconfig_loaded then
+  print('lspconfig not installed')
+end
 
 if loaded_cmp then
   capabilities = capabilities.update_capabilities(native_capabilities)
@@ -19,33 +29,49 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
--- { "solargraph", "efm", "yamlls", "json", "css", "graphql", "typescript", "html", "lua" }
-    -- ◍ bashls
-    -- ◍ dockerls
-    -- ◍ terraformls
-    -- ◍ vimls
-    -- ◍ yamlls
-    -- ◍ cssls
-    -- ◍ jsonls
-    -- ◍ solargraph
-    -- ◍ solidity_ls
-    -- ◍ sqlls
-    -- ◍ sqls
-    -- ◍ stylelint_lsp
-    -- ◍ tsserver
-    -- ◍ vuels
-    -- ◍ html
-    -- ◍ graphql
-    -- ◍ efm
-    -- ◍ sumneko_lua
+local servers = {
+  "vimls",
+  "yamlls",
+  "cssls",
+  "jsonls",
+  "solidity_ls",
+  "sqlls",
+  "sqls",
+  "stylelint_lsp",
+  "tsserver",
+  "vuels",
+  -- "solargraph", install this one manually - gem install solargraph
+  "sumneko_lua",
+  "efm",
+  "bashls",
+  "dockerls",
+  "html",
+  "graphql",
+  "terraformls",
+}
+
+local install_missing_servers = function()
+  for _, server_name in pairs(servers) do
+    local server_available, server = lsp_installer_servers.get_server(server_name)
+    if server_available then
+      if not server:is_installed() then
+        server:install()
+      end
+    end
+  end
+end
+
+
 local M = {}
+
 
 M.setup_servers = function()
   local loaded_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
   if not loaded_installer then
-    print('nvim-lsp-installer not installed')
     return
   end
+
+  install_missing_servers()
 
   lsp_installer.on_server_ready(function(server)
     local opts = {
@@ -102,8 +128,8 @@ M.setup_servers = function()
     end
 
     if server.name == "solargraph" then
-      -- use gem installed solargraph
-      require('lspconfig')['solargraph'].setup(opts)
+      -- install solargraph outside of nvim-lsp-installer (there were some problems with that)
+      lspconfig['solargraph'].setup(opts)
     else
       -- otherwise use nvim-lsp-installer LSPs
       server:setup(opts)
