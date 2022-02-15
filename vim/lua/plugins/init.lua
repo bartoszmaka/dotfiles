@@ -43,7 +43,7 @@ use { 'kamykn/spelunker.vim',                                                   
   requires = { { "kamykn/popup-menu.nvim" } },
   config = function() require('plugins.spelunker') end,
 }
-use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (impementation to test etc)
+use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (implementation to test etc)
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
 
 
@@ -57,9 +57,11 @@ use { 'nvim-treesitter/nvim-treesitter', -- syntax highlighting
     { 'romgrk/nvim-treesitter-context' },
   },
   run = ':TSUpdate',
-  config = function()
-    require('plugins.treesitter')
-  end
+  config = function() require('plugins.treesitter') end
+}
+use { 'm-demare/hlargs.nvim',
+  requires = { 'nvim-treesitter/nvim-treesitter' },
+  config = function() require('plugins.hlargs') end
 }
 use { 'jparise/vim-graphql' }
 use { 'rhysd/conflict-marker.vim', config = function() require('plugins.conflict-marker') end }
@@ -149,7 +151,7 @@ use { 'glepnir/galaxyline.nvim',                                                
   requires = { 'kyazdani42/nvim-web-devicons', opt = true},
   config = function() require('plugins.galaxyline') end
 }
-                                                                                                     -- use { 'nvim-lua/lsp-status.nvim' }
+
 use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugins.indentline') end }
 use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
 use { 'RRethy/vim-illuminate', config = function() require('plugins.illuminate') end }
@@ -161,7 +163,6 @@ use { 'vim-scripts/LargeFile' }                                                 
 use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }              -- better highlight search
 
 -- use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
--- use { 'easymotion/vim-easymotion', config = function() require('plugins.easymotion') end }
 -- use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.bqf') end}
 -- use { 'AckslD/nvim-neoclip.lua',
 --   requires = {'tami5/sqlite.lua', module = 'sqlite'},

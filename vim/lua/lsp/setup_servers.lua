@@ -42,7 +42,7 @@ local servers = {
   "vuels",
   -- "solargraph", install this one manually - gem install solargraph
   "sumneko_lua",
-  -- "efm",
+  -- "efm", -- switched to null-ls
   "bashls",
   "dockerls",
   "html",

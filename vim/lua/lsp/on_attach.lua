@@ -59,13 +59,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("v", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   buf_set_keymap('n', '[e', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']e', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap("n", "<C-m>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
+  buf_set_keymap("n", "<C-m>f", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
+  buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   -- buf_set_keymap("n", "gh", "<cmd>lua require('lsp.functions').PeekDefinition()<CR>", opts)
   -- buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 
-  -- set_default_formatter_for_filetypes('solargraph', {'ruby'})
-  set_default_formatter_for_filetypes('null-ls', {'javascript'})
+  set_default_formatter_for_filetypes('solargraph', {'ruby'})
+  set_default_formatter_for_filetypes('null-ls', {'javascript', 'vue'})
 end
 
 return on_attach

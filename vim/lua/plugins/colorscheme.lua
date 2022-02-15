@@ -1,3 +1,5 @@
+local colors = require('config_helper.colors').onedark
+
 vim.o.termguicolors = true
 vim.o.background = "dark"
 vim.cmd "syntax on"
@@ -5,10 +7,10 @@ require('onedark').setup({
   style = 'deep',
   term_colors = 'false',
   highlights = {
-    DiffChange = { bg="#2e2e1a", fg="none" },
-    DiffText   = { bg="#3e3e23", fg="none" },
-    DiffAdd    = { bg="#1a2e1b", fg="none" },
-    DiffDelete = { bg="#2e201a", fg="none" },
+    DiffChange = { bg=colors.diff_change, fg="none" },
+    DiffText   = { bg=colors.diff_text, fg="none" },
+    DiffAdd    = { bg=colors.diff_add, fg="none" },
+    DiffDelete = { bg=colors.diff_delete, fg="none" },
   },
 })
 require('onedark').load()
