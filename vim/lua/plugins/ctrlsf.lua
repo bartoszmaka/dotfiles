@@ -4,7 +4,7 @@ vim.cmd[[
   let g:ctrlsf_indent = 2
   let g:ctrlsf_winsize = '80'
   nnoremap <silent><C-k><C-f> :CtrlSFToggle<CR>
-  nmap     <leader>f <Plug>CtrlSFPrompt
+  nnoremap <leader>f <Plug>CtrlSFPrompt
   vmap     <leader>f <Plug>CtrlSFVwordPath
   vmap     <leader>F <Plug>CtrlSFVwordExec
 

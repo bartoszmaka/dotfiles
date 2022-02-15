@@ -3,11 +3,20 @@ local null_ls = require("null-ls")
 null_ls.setup({
   debug = true,
   sources = {
+    null_ls.builtins.formatting.codespell,
+    null_ls.builtins.diagnostics.codespell,
+
+    null_ls.builtins.diagnostics.write_good,
+
     null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.completion.spell,
 
-    null_ls.builtins.formatting.rubocop,
-    null_ls.builtins.diagnostics.rubocop,
+    null_ls.builtins.formatting.rubocop.with({
+      extra_args = { "--force-exclusion" }
+    }),
+    null_ls.builtins.diagnostics.rubocop.with({
+      extra_args = { "--force-exclusion" }
+    }),
     -- null_ls.builtins.formatting.standardrb.with({
     --   condition = function()  end
     -- })
@@ -27,3 +36,6 @@ null_ls.setup({
     }),
   },
 })
+
+-- pip3 install codespell
+-- npm install -g write-good
