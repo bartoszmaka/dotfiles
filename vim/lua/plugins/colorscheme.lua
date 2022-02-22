@@ -24,5 +24,6 @@ vim.cmd[[
     autocmd FileType javascript highlight! link graphqlName String
     autocmd FileType javascript highlight! link graphqlType Constant
     autocmd FileType javascript highlight! link graphqlStructure Label
+    autocmd FileType javascript highlight! link TSTag TSConstructor
   augroup END
 ]]

@@ -97,3 +97,11 @@ augroup filetype_tweaks
   autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 augroup END
 ]]
+
+-- vim.cmd [[
+-- augroup highlight_yank
+--   autocmd!
+
+--   augroup TextYankPost * silent! lua vim.highlight.on_yank(timeout=2000})
+-- augroup END
+-- ]]

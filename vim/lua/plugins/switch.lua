@@ -17,4 +17,11 @@ autocmd FileType eruby let b:switch_custom_definitions =
     \     '\<\(\k\+\):':     ':\1 =>',
     \   },
     \ ]
+autocmd FileType javascript,typescript,javascriptreact,typescriptreact let b:switch_custom_definitions =
+    \ [
+    \   {
+    \     'className="\([a-zA-Z0-9-_]*\)"': 'className={classNames("\1")}',
+    \   },
+    \ ]
 ]]
+

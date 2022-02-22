@@ -32,9 +32,9 @@ M.setup_lsp_signature = function()
     hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
     max_height = 4, -- max height of signature floating_window, if content is more than max_height, you can scroll down
     -- to view the hiding contents
-    max_width = 80, -- max_width of signature floating_window, line will be wrapped if exceed max_width
+    max_width = 1000, -- max_width of signature floating_window, line will be wrapped if exceed max_width
     handler_opts = {
-      border = "single"   -- double, rounded, single, shadow, none
+      border = "double"   -- double, rounded, single, shadow, none
     },
     always_trigger = false, -- sometime show signature on new line or in middle of parameter can be confusing, set it to false for #58
     extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
