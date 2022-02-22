@@ -40,12 +40,15 @@ nnoremap <C-]> g]
 nnoremap g] <C-]>
 vnoremap * y<Esc>/<C-r>"
 
-" replace selected word in file
-nnoremap <leader>r yiw:%s/\V<C-r>"//g<Left><Left>
-vnoremap <leader>r y:%s/\V<C-r>"//g<Left><Left>
-nnoremap <leader>R yiw:%s/\V<C-r>"/<C-r>"/g<Left><Left>
-vnoremap <leader>R y:%s/\V<C-r>"/<C-r>"/g<Left><Left>
+" sort selected lines
+vnoremap <C-m><C-s> :action EditorSortLines<CR>
 
+" replace selected word in file
+nnoremap <leader>r \"zyiw:%s/\V<C-r>z//g<Left><Left>
+vnoremap <leader>r \"zy:%s/\V<C-r>z//g<Left><Left>
+
+nnoremap <leader>R \"zyiw:%s/\V<C-r>z/<C-r>"/g<Left><Left>
+vnoremap <leader>R \"zy:%s/\V<C-r>z/<C-r>"/g<Left><Left>
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
@@ -76,22 +79,23 @@ nnoremap ]g :action VcsShowNextChangeMarker<CR>
 nnoremap [g :action VcsShowPrevChangeMarker<CR>
 
 " Tabs
-nnoremap <leader>1 :action GotoTab1<CR>
-nnoremap <leader>2 :action GotoTab2<CR>
-nnoremap <leader>3 :action GotoTab3<CR>
-nnoremap <leader>4 :action GotoTab4<CR>
-nnoremap <leader>5 :action GotoTab6<CR>
-nnoremap <leader>6 :action GotoTab6<CR>
-nnoremap <leader>7 :action GotoTab7<CR>
-nnoremap <leader>8 :action GotoTab8<CR>
-nnoremap <leader>9 :action GotoTab9<CR>
+nnoremap <leader>1 :action GoToTab1<CR>
+nnoremap <leader>2 :action GoToTab2<CR>
+nnoremap <leader>3 :action GoToTab3<CR>
+nnoremap <leader>4 :action GoToTab4<CR>
+nnoremap <leader>5 :action GoToTab6<CR>
+nnoremap <leader>6 :action GoToTab6<CR>
+nnoremap <leader>7 :action GoToTab7<CR>
+nnoremap <leader>8 :action GoToTab8<CR>
+nnoremap <leader>9 :action GoToTab9<CR>
 
 " Fuzzy
 nnoremap <leader>pp :action GotoFile<CR>
 nnoremap <leader>pr :action RecentFiles<CR>
 nnoremap <leader>pu :action RecentChanges<CR>
 nnoremap <leader>ps :action FileStructurePopup<CR>
-" nnoremap <C-m><C-l> :action ShowNavBar<CR> Cmd+Shift+;
+nnoremap <leader>pg :action ActivateCommitToolWindow<CR>
+nnoremap <leader>pb :action Git.Branches<CR>
 
 " Code Actions
 nnoremap <C-m><C-a> :action CodeMenu<CR>
@@ -113,7 +117,7 @@ nnoremap <C-g><C-b> :action Annotate<CR>
 nnoremap <C-k><C-u> :action LocalHistory.ShowHistory<CR>
 nnoremap <C-k><C-e> :action SelectInProjectView<CR>
 nnoremap <C-p><C-b> :action Git.Branches<CR>
-nnoremap <C-k><C-g> :action ActivateCommitToolWindow<CR> Changed in IDE keymaps preferences
+nnoremap <C-k><C-g> :action ActivateCommitToolWindow<CR>
 
 nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
