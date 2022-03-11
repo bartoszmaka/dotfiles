@@ -86,8 +86,8 @@ nnoremap('?', '/')                                              -- search with m
 nnoremap('<Bs>', ':noh<CR>')                                    -- turn off highlight
 vnoremap('*', 'y<Esc>/<C-r>"<CR>``')                            -- search under cursor
 nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]])       -- replace under cursor
-vnoremap('<leader>r', [[y:%s/\V<C-r>"//g<Left><Left>]])         -- replace under cursor
+vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]])         -- replace under cursor
 nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]]) -- replace under cursor and paste same word into target
-vnoremap('<leader>R', [[y:%s/\V<C-r>"/<C-r>"/g<Left><Left>]])   -- replace under cursor and paste same word into target
+vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]])   -- replace under cursor and paste same word into target
 
 vnoremap('<C-m><C-s>', ':sort<CR>')

@@ -1,7 +1,7 @@
 vim.g.switch_mapping = ""
 vim.cmd[[
-nnoremap <leader>s :Switch<CR>
-nnoremap <leader>S :SwitchReverse<CR>
+nnoremap <leader>x :Switch<CR>
+nnoremap <leader>X :SwitchReverse<CR>
 autocmd FileType ruby let b:switch_custom_definitions =
     \ [
     \   {

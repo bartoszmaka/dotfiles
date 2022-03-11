@@ -64,12 +64,6 @@ augroup treesitter_overrides
 augroup END
 ]]
 
-vim.cmd [[
-  autocmd BufNewFile,BufReadPost,BufWritePost *.env.* set filetype=sh
-  autocmd BufNewFile,BufReadPost,BufWritePost *.pryrc set filetype=ruby
-  autocmd BufNewFile,BufReadPost,BufWritePost gitconfig set filetype=gitconfig
-]]
-
 -- Set tmux window name to edited path
 vim.cmd [[
   autocmd BufEnter,BufNewFile,BufWritePost * call system("tmux rename-window " . expand("%"))

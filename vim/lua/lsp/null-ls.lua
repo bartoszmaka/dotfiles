@@ -3,8 +3,8 @@ local null_ls = require("null-ls")
 null_ls.setup({
   debug = true,
   sources = {
-    null_ls.builtins.formatting.codespell,
-    null_ls.builtins.diagnostics.codespell,
+    -- null_ls.builtins.formatting.codespell,
+    -- null_ls.builtins.diagnostics.codespell,
 
     null_ls.builtins.diagnostics.write_good,
 

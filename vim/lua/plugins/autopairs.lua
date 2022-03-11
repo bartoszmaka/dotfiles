@@ -27,7 +27,7 @@ npairs.add_rules {
 }
 
 npairs.add_rules {
-  Rule('<%=', '%>', 'eruby')
+  Rule('<%', ' %>', 'eruby'),
 }
 
 npairs.add_rules({

@@ -2,13 +2,16 @@ local packer = require('packer')
 local use = packer.use
 
 use { 'wbthomason/packer.nvim' } -- plugin manager
+use { 'nathom/filetype.nvim', config = function() require('plugins.filetype') end }
+use { 'tweekmonster/startuptime.vim' }
+use 'lewis6991/impatient.nvim'
 
 -- lsp installation
 use { 'neovim/nvim-lspconfig' }
 use { 'williamboman/nvim-lsp-installer' }
 
 
--- lsp
+-- lsp/code integration
 use { 'onsails/lspkind-nvim', config = function() require('lsp.lspkind') end } -- lsp and completion icons
 use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }                                 -- typescript codeactions
 use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } }           -- lsp integration utils (better go to def etc)
@@ -19,6 +22,14 @@ use { 'jose-elias-alvarez/null-ls.nvim',                                       -
     require('lsp.null-ls')
   end,
 }
+use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (implementation to test etc)
+use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
+use { 'bartoszmaka/vim-rails', branch = "dev",config = function() require('plugins.rails') end }
+-- use {
+--   "narutoxy/dim.lua",
+--   requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+--   config = function() require('plugins.dim').setup({}) end
+-- }
 
 
 -- completion
@@ -43,8 +54,6 @@ use { 'kamykn/spelunker.vim',                                                   
   requires = { { "kamykn/popup-menu.nvim" } },
   config = function() require('plugins.spelunker') end,
 }
-use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (implementation to test etc)
-use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
 
 
 -- syntax
@@ -161,18 +170,6 @@ use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end 
 use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollbar') end }            -- scrollbar
 use { 'vim-scripts/LargeFile' }                                                                      -- large files helper
 use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }              -- better highlight search
-
--- use { 'eugen0329/vim-esearch', config = function() require('plugins.esearch') end }
--- use { 'kevinhwang91/nvim-bqf', ft = 'qf', config = function() require('plugins.bqf') end}
--- use { 'AckslD/nvim-neoclip.lua',
---   requires = {'tami5/sqlite.lua', module = 'sqlite'},
---   config = function() require('plugins.neoclip').setup() end,
--- }
-
--- use { "SmiteshP/nvim-gps",
---   requires = "nvim-treesitter/nvim-treesitter",
---   config = function() require('plugins.gps') end
--- }
 
 pcall(require,'lsp')
 pcall(require,'plugins.autopairs')
