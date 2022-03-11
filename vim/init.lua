@@ -1,3 +1,9 @@
+-- require'impatient'.enable_profile()
+local loaded, impatient = pcall(require, 'impatient')
+if loaded then
+  impatient.enable_profile()
+end
+
 require('disable_builtin')
 vim.cmd [[
   set tabstop=2

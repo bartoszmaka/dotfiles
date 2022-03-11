@@ -2,6 +2,9 @@ local setup_servers = require('lsp.setup_servers').setup_servers
 local setup_lsp_signature = require('lsp.setup_lsp_signature').setup_lsp_signature
 local setup_diagnostics = require('lsp.diagnostics').setup_diagnostics
 
+-- local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+-- buf_set_keymap("n", "<C-m><C-f>", "echomsg 'formatters missing'", opts)
+
 if pcall(require, 'lsputil.locations') then
   vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
   vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler

@@ -4,6 +4,7 @@ local native_capabilities = vim.lsp.protocol.make_client_capabilities()
 local loaded_cmp, capabilities = pcall(require, 'cmp_nvim_lsp')
 local installer_loaded, lsp_installer_servers = pcall(require, 'nvim-lsp-installer.servers')
 local lspconfig_loaded, lspconfig = pcall(require, 'lspconfig')
+local nnoremap = require('config_helper').nnoremap
 
 if not installer_loaded then
   print('nvim-lsp-installer not installed')
@@ -61,9 +62,7 @@ local install_missing_servers = function()
   end
 end
 
-
 local M = {}
-
 
 M.setup_servers = function()
   local loaded_installer, lsp_installer = pcall(require, "nvim-lsp-installer")

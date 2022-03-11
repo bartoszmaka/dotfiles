@@ -129,6 +129,9 @@ autocmd!
   highlight! link vueTSMethod TSBoolean
   highlight! link TSTagAttribute TSBoolean
 
+  highlight! link htmlBold Normal
+  highlight! link htmlBoldItalic Normal
+  highlight! link htmlBoldItalicUnderline Normal
 augroup END
 
 nnoremap <leader>dh :TSHighlightCapturesUnderCursor<CR>
