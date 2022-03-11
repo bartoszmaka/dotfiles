@@ -7,8 +7,9 @@ vim.cmd[[
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_mru_relative = 1
+let g:fzf_mru_no_sort = 1
 let g:fzf_colors = { 'bg': ['bg', 'FZFNormal'] }
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 }}
+let g:fzf_layout = { 'window': { 'width': 0.90, 'height': 0.67 }}
 
 autocmd FileType fzf tnoremap <buffer> <esc> <esc>
 ]]
@@ -17,6 +18,8 @@ vim.g.mapleader = ' '
 
 local actions = require "fzf-lua.actions"
 require'fzf-lua'.setup {
+  global_resume      = true,
+  global_resume_query = true,
   winopts = {
     win_height       = 0.60,            -- window height
     win_width        = 0.90,            -- window width
@@ -26,8 +29,6 @@ require'fzf-lua'.setup {
     hl_normal        = 'Normal',        -- window normal color
     hl_border        = 'Normal',        -- change to 'FloatBorder' if exists
     fullscreen       = false,           -- start fullscreen?
-    window_on_create = function()
-    end,
   },
   keymap = {
     builtin = {
@@ -106,6 +107,7 @@ require'fzf-lua'.setup {
   },
   -- provider setup
   files = {
+    multiprocess      = true,
     previewer         = "bat",       -- uncomment to override previewer
     prompt            = 'Files❯ ',
     cmd               = '',             -- "find . -type f -printf '%P\n'",
@@ -113,18 +115,17 @@ require'fzf-lua'.setup {
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
     actions = {
-      -- set bind to 'false' to disable
       ["default"]     = actions.file_edit,
       ["ctrl-s"]      = actions.file_split,
       ["ctrl-v"]      = actions.file_vsplit,
       ["ctrl-t"]      = actions.file_tabedit,
       ["alt-q"]       = actions.file_sel_to_qf,
-      -- custom actions are available too
       ["ctrl-y"]      = function(selected) print(selected[1]) end,
     }
   },
   git = {
     files = {
+      multiprocess      = true,
       prompt          = 'GitFiles❯ ',
       cmd             = 'git ls-files --exclude-standard',
       git_icons       = true,           -- show git icons?
@@ -132,6 +133,7 @@ require'fzf-lua'.setup {
       color_icons     = true,           -- colorize file|git icons
     },
     status = {
+      multiprocess      = true,
       prompt        = 'GitStatus❯ ',
       cmd           = "git status -s",
       previewer     = "git_diff",
@@ -140,6 +142,7 @@ require'fzf-lua'.setup {
       color_icons   = true,
     },
     commits = {
+      multiprocess      = true,
       prompt          = 'Commits❯ ',
       cmd             = "git log --pretty=oneline --abbrev-commit --color",
       preview         = "git show --pretty='%Cred%H%n%Cblue%an%n%Cgreen%s' --color {1} | delta",
@@ -148,6 +151,7 @@ require'fzf-lua'.setup {
       },
     },
     bcommits = {
+      multiprocess      = true,
       prompt          = 'BCommits❯ ',
       cmd             = "git log --pretty=oneline --abbrev-commit --color",
       preview         = "git show --pretty='%Cred%H%n%Cblue%an%n%Cgreen%s' --color {1}",
@@ -159,6 +163,7 @@ require'fzf-lua'.setup {
       },
     },
     branches = {
+      multiprocess      = true,
       prompt          = 'Branches❯ ',
       cmd             = "git branch --all --color",
       preview         = "git log --graph --pretty=oneline --abbrev-commit --color {1}",
@@ -174,6 +179,7 @@ require'fzf-lua'.setup {
     },
   },
   grep = {
+    multiprocess      = true,
     prompt            = 'Rg❯ ',
     input_prompt      = 'Grep For❯ ',
     rg_opts           = "--hidden --column --line-number --no-heading " ..
@@ -187,6 +193,7 @@ require'fzf-lua'.setup {
     glob_separator    = "%s%-%-"    -- query separator pattern (lua): ' --'
   },
   args = {
+    multiprocess          = true,
     prompt            = 'Args❯ ',
     files_only        = true,
     actions = {
@@ -194,11 +201,15 @@ require'fzf-lua'.setup {
     }
   },
   oldfiles = {
+    multiprocess      = true,
     prompt            = 'History❯ ',
     cwd_only          = true,
+    stat_file         = true,
+    include_current_session = true,
+    cwd               = vim.loop.cwd()
   },
   buffers = {
-    -- previewer      = false,        -- disable the builtin previewer?
+    multiprocess      = true,
     prompt            = 'Buffers❯ ',
     file_icons        = true,         -- show file icons?
     color_icons       = true,         -- colorize file|git icons
@@ -212,6 +223,7 @@ require'fzf-lua'.setup {
     }
   },
   blines = {
+    multiprocess      = true,
     previewer         = "builtin",    -- set to 'false' to disable
     prompt            = 'BLines❯ ',
     actions = {
@@ -232,20 +244,15 @@ require'fzf-lua'.setup {
       win_height        = 0.55,
       win_width         = 0.30,
     },
-    post_reset_cb     = function()
-      -- reset statusline highlights after
-      -- a live_preview of the colorscheme
-      -- require('feline').reset_highlights()
-    end,
   },
   quickfix = {
-    -- cwd               = vim.loop.cwd(),
+    multiprocess      = true,
     file_icons        = true,
     git_icons         = true,
   },
   lsp = {
+    multiprocess      = true,
     prompt            = '❯ ',
-    -- cwd               = vim.loop.cwd(),
     cwd_only          = false,      -- LSP/diagnostics for cwd only?
     async_or_timeout  = true,       -- timeout(ms) or false for blocking calls
     file_icons        = true,
@@ -259,6 +266,24 @@ require'fzf-lua'.setup {
       ["Hint"]        = { icon = "", color = "magenta" },   -- hint
     },
   },
+  tags = {
+    prompt                = 'Tags❯ ',
+    ctags_file            = "tags",
+    multiprocess          = true,
+    file_icons            = true,
+    git_icons             = true,
+    color_icons           = true,
+    -- 'tags_live_grep' options, `rg` prioritizes over `grep`
+    rg_opts               = "--no-heading --color=always --smart-case",
+    grep_opts             = "--color=auto --perl-regexp",
+    actions = {
+      -- actions inherit from 'actions.files' and merge
+      -- this action toggles between 'grep' and 'live_grep'
+      ["ctrl-g"]          = { actions.grep_lgrep }
+    },
+    no_header             = false,    -- hide grep|cwd header?
+    no_header_i           = false,    -- hide interactive header?
+  },
   file_icon_padding = '',
   file_icon_colors = {
     ["lua"]   = "blue",
@@ -266,20 +291,21 @@ require'fzf-lua'.setup {
 }
 
 nnoremap('<C-p><C-p>', ':FzfLua files<CR>')
-nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
-nnoremap('<C-p><C-f>', ':FzfLua grep<CR><CR>')
+-- nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
+nnoremap('<C-p><C-r>', ':FZFFreshMruPreview<CR>')
+nnoremap('<C-p><C-f>', ':FzfLua live_grep_resume<CR>')
 nnoremap('<leader>fw', ':FzfLua grep_cword<CR>')
 nnoremap('<leader>fW', ':FzfLua grep_cWORD<CR>')
-vnoremap('<leader>F',  ':<BS><BS><BS><BS><BS>FzfLua grep_visual<CR>')
+-- vnoremap('<leader>F',  ':<BS><BS><BS><BS><BS>FzfLua grep_visual<CR>')
 nnoremap('<C-p><C-g>', ':FzfLua git_status<CR>')
 
 nnoremap('<leader>pa', ':FzfLua<CR>')
 nnoremap('<leader>pp', ':FzfLua files<CR>')
-nnoremap('<leader>pr', ':FZFFreshMruPreview<CR>')
+-- nnoremap('<leader>pr', ':FZFFreshMruPreview<CR>')
+nnoremap('<leader>pr', ':FzfLua oldfiles<CR>')
 nnoremap('<leader>pg', ':FzfLua git_status<CR>')
 nnoremap('<leader>pb', ':FzfLua git_branches<CR>')
-nnoremap('<leader>pf', ':FzfLua grep<CR><CR>')
-nnoremap('<leader>pF', ':FzfLua grep<CR>')
+nnoremap('<leader>pf', ':FzfLua live_grep_resume<CR>')
 nnoremap('<leader>pl', ':FzfLua blines<CR>')
 nnoremap('<leader>pL', ':FzfLua lines<CR>')
 nnoremap('<leader>pc', ':FzfLua git_commits<CR>')
