@@ -2,7 +2,6 @@ ripper-tags
 tags
 tags.lock
 tags.temp
-jsconfig.json
 .env
 
 node_modules
@@ -15,10 +14,6 @@ node_modules
 .DS_Store
 .personal_notes
 .history/
-
-.npmrc
-
-.tool-versions
 
 .projections.json
 dump.rdb
