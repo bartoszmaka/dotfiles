@@ -5,12 +5,22 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-setopt EXTENDED_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_DUPS
-setopt HIST_NO_STORE
-setopt HIST_REDUCE_BLANKS
-setopt HIST_VERIFY
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
 ostype="$(uname -s)"
 is_osx=false
@@ -33,6 +43,7 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
@@ -42,6 +53,7 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 ### End of Zinit's installer chunk
+zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::tmux
 zinit snippet OMZP::rails
@@ -62,7 +74,7 @@ zinit ice depth"1" # git clone depth
 zinit light romkatv/powerlevel10k
 
 zinit load "agkozak/zsh-z"
-
+autoload -U compinit; compinit
 # export DEFAULT_USER=`whoami` &&
 # export ZSH=$HOME/.oh-my-zsh &&
 # [ "$isosx" = true ] &&
@@ -123,9 +135,12 @@ alias tf="terraform"
 alias ls="exa"
 alias cat="bat"
 alias lsplog="tail -f ~/.cache/nvim/lsp.log"
+alias nulllslog="tail -f ~/.cache/nvim/null-ls.log"
 alias gclean="git clean -fd"
 alias gcof="git checkout \$(git branch -a | fzf)"
 alias ggpush="git push origin \$(git branch --show-current)"
+alias subster="tmuxinator start subster"
+alias sublime="./Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
 alias :wq=exit
 alias :qa=exit
@@ -137,6 +152,7 @@ function compare_branch_commits() {
 }
 function tattach() { tmux new-session -s `uuidgen` -t $1 }
 
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 . $(brew --prefix asdf)/asdf.sh
 export PATH=/opt/homebrew/bin:$PATH
@@ -145,6 +161,8 @@ export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_BACKGROUND=236
+typeset -g POWERLEVEL9K_DIR_FOREGROUND=232
+typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=232
 typeset -g POWERLEVEL9K_LEFT_LEFT_WHITESPACE=' '
 typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR="%k%F{$POWERLEVEL9K_BACKGROUND}\uE0B4%k \uE0B6"
 typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR="%k%F{$POWERLEVEL9K_BACKGROUND}\uE0B4%k \uE0B6"
