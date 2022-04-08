@@ -4,3 +4,5 @@ eslint
 eslint_d
 typescript
 typescript-language-server
+stylelint
+prettier
