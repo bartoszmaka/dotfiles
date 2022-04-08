@@ -1,7 +1,6 @@
 local config_helper = require('config_helper')
 local nnoremap = config_helper.nnoremap
 local vnoremap = config_helper.vnoremap
-local symbols = require('config_helper.symbols')
 
 vim.cmd[[
 let $FZF_DEFAULT_OPTS='--layout=reverse'
@@ -293,7 +292,8 @@ require'fzf-lua'.setup {
 nnoremap('<C-p><C-p>', ':FzfLua files<CR>')
 -- nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
 nnoremap('<C-p><C-r>', ':FZFFreshMruPreview<CR>')
-nnoremap('<C-p><C-f>', ':FzfLua live_grep_resume<CR>')
+nnoremap('<C-p><C-f>', ':FzfLua grep<CR><CR>')
+vnoremap('<C-p><C-f>', '<esc>:FzfLua grep_visual<CR>')
 nnoremap('<leader>fw', ':FzfLua grep_cword<CR>')
 nnoremap('<leader>fW', ':FzfLua grep_cWORD<CR>')
 -- vnoremap('<leader>F',  ':<BS><BS><BS><BS><BS>FzfLua grep_visual<CR>')
@@ -305,7 +305,7 @@ nnoremap('<leader>pp', ':FzfLua files<CR>')
 nnoremap('<leader>pr', ':FzfLua oldfiles<CR>')
 nnoremap('<leader>pg', ':FzfLua git_status<CR>')
 nnoremap('<leader>pb', ':FzfLua git_branches<CR>')
-nnoremap('<leader>pf', ':FzfLua live_grep_resume<CR>')
+nnoremap('<leader>pf', ':FzfLua grep<CR><CR>')
 nnoremap('<leader>pl', ':FzfLua blines<CR>')
 nnoremap('<leader>pL', ':FzfLua lines<CR>')
 nnoremap('<leader>pc', ':FzfLua git_commits<CR>')

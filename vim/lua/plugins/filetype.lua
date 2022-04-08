@@ -6,7 +6,7 @@ require('filetype').setup({
       gitconfig = 'gitconfig',
     },
     complex = {
-      ['.env.*'] = 'sh',
+      ['%.env%.*'] = 'sh',
       ['.pryrc'] = 'ruby',
     },
   },

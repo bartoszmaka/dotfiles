@@ -25,11 +25,11 @@ use { 'jose-elias-alvarez/null-ls.nvim',                                       -
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (implementation to test etc)
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
 use { 'bartoszmaka/vim-rails', branch = "dev",config = function() require('plugins.rails') end }
--- use {
---   "narutoxy/dim.lua",
---   requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
---   config = function() require('plugins.dim').setup({}) end
--- }
+use {
+  "narutoxy/dim.lua",
+  requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+  config = function() require('plugins.dim') end
+}
 
 
 -- completion
@@ -79,11 +79,12 @@ use { 'rhysd/conflict-marker.vim', config = function() require('plugins.conflict
 -- utils
 use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }               -- git integration
 use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end }                -- remove once gitsigns has more configurable blame
-use { 'tpope/vim-repeat' , config = function() require('plugins.repeat') end }                  -- better "."
+use { 'tpope/vim-repeat', config = function() require('plugins.repeat') end }                   -- better "."
 use { 'rhysd/clever-f.vim' }                                                                    -- better "f"
 use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end }       -- split and join mutiline
 use { 'tpope/vim-abolish' }                                                                     -- swap case
-use { 'andymass/vim-matchup' }                                                                  -- jump to matching
+use { 'andymass/vim-matchup', config = function() require('plugins.matchup') end }              -- jump to matching anything
+use { 'Valloric/MatchTagAlways', config = function() require('plugins.match_tag_always') end } -- jump to matching tag
 use { 'windwp/nvim-autopairs' }                                                                 -- automatically add matching parentheses
 use { 'windwp/nvim-ts-autotag' }                                                                -- automatically add matching tags
 use { 'tpope/vim-surround' }                                                                    -- surround motion

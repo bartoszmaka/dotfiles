@@ -63,4 +63,3 @@ vim.g.projectionist_heuristics = {
 }
 
 nnoremap('<leader>a', ':A<CR>')
-nnoremap('<leader>s', ':R<CR>')
