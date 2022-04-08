@@ -6,7 +6,7 @@
   editor = nvim
   excludesfile = ~/.gitignore
   ; pager = diff-so-fancy | less --tabs=2 -RFX
-  pager = delta --plus-color="#283c34" --minus-color="#382c34" --theme="TwoDark"
+  pager = delta --syntax-theme="TwoDark"
 [rerere]
   enabled = 1
   autoupdate = 1
