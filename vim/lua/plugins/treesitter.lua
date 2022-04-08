@@ -1,3 +1,5 @@
+local nnoremap = require('config_helper').nnoremap
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   highlight = { enable = true },
@@ -11,7 +13,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'eruby' }
   },
-  matchup = { enable = true },
+  -- matchup = { enable = true },
   context_commentstring = {
     enable = true,
     enable_autocmd = false,
@@ -97,43 +99,4 @@ require'treesitter-context.config'.setup {
   throttle = true,
 }
 
-vim.g.matchup_matchparen_offscreen           = {method = 'popup'}
-vim.g.matchup_matchparen_deferred            = 1
-vim.g.matchup_matchparen_hi_surround_always  = 0
-vim.g.matchup_matchparen_timeout             = 350
-vim.g.matchup_matchparen_insert_timeout      = 150
-vim.g.matchup_matchparen_deferred_show_delay = 120
-vim.g.matchup_matchparen_deferred_hide_delay = 500
-vim.g.matchup_matchparen_stopline            = 40
-vim.g.matchup_motion_override_Npercent       = 0
-
--- vim.cmd [[
--- augroup reparse_treesitter
---   autocmd!
---   autocmd BufReadPost,FileReadPost *.lua echomsg('aaa')
--- augroup END
--- ]]
-
-vim.cmd [[
-augroup matchup_config
-autocmd!
-  highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
-  highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
-  highlight! TSConstructor     gui=none
-  highlight! TSInclude         gui=italic
-  highlight! TSKeyword         gui=italic
-  highlight! TSKeywordFunction gui=italic
-  highlight! TSVariableBuiltin gui=italic
-  highlight! TSConditional     gui=italic
-
-  highlight! link vueTSMethod TSBoolean
-  highlight! link TSTagAttribute TSBoolean
-
-  highlight! link htmlBold Normal
-  highlight! link htmlBoldItalic Normal
-  highlight! link htmlBoldItalicUnderline Normal
-augroup END
-
-nnoremap <leader>dh :TSHighlightCapturesUnderCursor<CR>
-nnoremap <C-k><C-k> :MatchupWhereAmI!!<CR>
-]]
+nnoremap([[<leader>dh]], [[:TSHighlightCapturesUnderCursor<CR>]])

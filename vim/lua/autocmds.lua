@@ -61,6 +61,17 @@ augroup treesitter_overrides
   autocmd!
 
   highlight! TSKeywordFunction gui=NONE
+  highlight! TSConstructor     gui=NONE
+  highlight! TSInclude         gui=italic
+  highlight! TSKeyword         gui=italic
+  highlight! TSKeywordFunction gui=italic
+  highlight! TSVariableBuiltin gui=italic
+  highlight! TSConditional     gui=italic
+  highlight! link vueTSMethod TSBoolean
+  highlight! link TSTagAttribute TSBoolean
+  highlight! link htmlBold Normal
+  highlight! link htmlBoldItalic Normal
+  highlight! link htmlBoldItalicUnderline Normal
 augroup END
 ]]
 

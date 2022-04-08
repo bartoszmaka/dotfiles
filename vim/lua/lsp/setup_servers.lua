@@ -124,6 +124,22 @@ M.setup_servers = function()
     --     rootMarkers = { '.git/', 'package.json' },
     --     languages = efm.languages
     --   }
+    elseif server.name == "tsserver" then
+      local function organize_imports()
+        local params = {
+          command = "_typescript.organizeImports",
+          arguments = {vim.api.nvim_buf_get_name(0)},
+          title = ""
+        }
+        vim.lsp.buf.execute_command(params)
+      end
+
+      opts.commands = {
+        OrganizeImports = {
+          organize_imports,
+          description = "Organize Imports"
+        }
+      }
     end
 
     if server.name == "solargraph" then

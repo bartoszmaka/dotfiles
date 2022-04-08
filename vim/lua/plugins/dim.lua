@@ -1,1 +1,1 @@
--- require('dim').setup({})
+require('dim').setup({})

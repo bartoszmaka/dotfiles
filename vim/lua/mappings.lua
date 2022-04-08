@@ -91,3 +91,6 @@ nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]]) -- replace und
 vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]])   -- replace under cursor and paste same word into target
 
 vnoremap('<C-m><C-s>', ':sort<CR>')
+
+-- nnoremap('<C-[>', 'g]')
+-- nnoremap('g]', '<C-[>')

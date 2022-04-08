@@ -14,36 +14,33 @@ end
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-local tabnine = require('cmp_tabnine.config')
-tabnine:setup({
-	-- max_lines = 1000;
-	-- max_num_results = 20;
-	-- sort = true;
-	-- run_on_every_keystroke = true;
-	-- snippet_placeholder = '..';
-	-- ignored_file_types = { -- default is not to ignore
-	-- 	-- uncomment to ignore in lua:
-	-- 	-- lua = true
-	-- };
-})
+-- local tabnine = require('cmp_tabnine.config')
+-- tabnine:setup({
+--   max_lines = 1000;
+--   max_num_results = 3;
+--   sort = true;
+--   run_on_every_keystroke = true;
+--   snippet_placeholder = '..';
+--   ignored_file_types = {};
+-- })
 
 cmp.setup({
   preselect = cmp.PreselectMode.None,
-  completion = {
-  },
+  completion = {},
   sources = {
-    { name = 'copilot' },
-    { name = "ultisnips" },
-    { name = 'nvim_lsp' },
-    { name = 'path' },
-    { name = 'buffer', get_bufnrs = function() return vim.api.nvim_list_bufs() end },
+    { name = 'copilot', priority = 100 },
+    { name = 'ultisnips', priority = 99 },
+    { name = 'nvim_lsp', priority = 98 },
+    { name = 'path', priority = 97},
+    { name = 'buffer', priority = 96, get_bufnrs = function() return vim.api.nvim_list_bufs() end },
+    -- { name = 'cmp_tabnine', priority = 90 },
     { name = 'spell' },
     { name = 'nvim_lsp_document_symbol' },
-    { name = 'cmp_tabnine' },
   },
   sorting = {
     priority_weight = 2,
     comparators = {
+      -- require('cmp_tabnine.compare'),
       compare.offset,
       compare.exact,
       compare.score,
