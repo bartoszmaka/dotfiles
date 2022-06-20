@@ -24,34 +24,37 @@ use { 'jose-elias-alvarez/null-ls.nvim',                                       -
 }
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (implementation to test etc)
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
-use { 'bartoszmaka/vim-rails', branch = "dev",config = function() require('plugins.rails') end }
+use { 'bartoszmaka/vim-rails', branch = 'dev',config = function() require('plugins.rails') end }
+
 use {
-  "narutoxy/dim.lua",
-  requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+  'narutoxy/dim.lua',
+  requires = { 'nvim-treesitter/nvim-treesitter', 'neovim/nvim-lspconfig' },
   config = function() require('plugins.dim') end
 }
 
 
 -- completion
 use {
-  "hrsh7th/nvim-cmp",
+  'hrsh7th/nvim-cmp',
   requires = {
-    "hrsh7th/cmp-copilot",
-    "quangnguyen30192/cmp-nvim-ultisnips",
-    "hrsh7th/cmp-nvim-lsp",
-    "f3fora/cmp-spell",
-    "hrsh7th/cmp-path",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-omni",
-    "hrsh7th/cmp-nvim-lsp-document-symbol",
-    "lukas-reineke/cmp-rg",
+    'hrsh7th/cmp-copilot',
+    'quangnguyen30192/cmp-nvim-ultisnips',
+    'hrsh7th/cmp-nvim-lsp',
+    'f3fora/cmp-spell',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-omni',
+    'hrsh7th/cmp-nvim-lsp-document-symbol',
+    'lukas-reineke/cmp-rg',
+    'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
   }
 }
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 use { 'github/copilot.vim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim',                                                                -- spell checker
-  requires = { { "kamykn/popup-menu.nvim" } },
+  requires = { { 'kamykn/popup-menu.nvim' } },
   config = function() require('plugins.spelunker') end,
 }
 
@@ -63,7 +66,7 @@ use { 'nvim-treesitter/nvim-treesitter', -- syntax highlighting
     { 'p00f/nvim-ts-rainbow' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
-    { 'romgrk/nvim-treesitter-context' },
+    { 'nvim-treesitter/nvim-treesitter-context' },
   },
   run = ':TSUpdate',
   config = function() require('plugins.treesitter') end
@@ -79,8 +82,8 @@ use { 'rhysd/conflict-marker.vim', config = function() require('plugins.conflict
 -- utils
 use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }               -- git integration
 use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end }                -- remove once gitsigns has more configurable blame
-use { 'tpope/vim-repeat', config = function() require('plugins.repeat') end }                   -- better "."
-use { 'rhysd/clever-f.vim' }                                                                    -- better "f"
+use { 'tpope/vim-repeat', config = function() require('plugins.repeat') end }                   -- better '.'
+use { 'rhysd/clever-f.vim' }                                                                    -- better 'f'
 use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end }       -- split and join mutiline
 use { 'tpope/vim-abolish' }                                                                     -- swap case
 use { 'andymass/vim-matchup', config = function() require('plugins.matchup') end }              -- jump to matching anything
@@ -171,6 +174,8 @@ use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end 
 use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollbar') end }            -- scrollbar
 use { 'vim-scripts/LargeFile' }                                                                      -- large files helper
 use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }              -- better highlight search
+use { 'ldelossa/gh.nvim' }
+use { 'tami5/lspsaga.nvim' }
 
 pcall(require,'lsp')
 pcall(require,'plugins.autopairs')

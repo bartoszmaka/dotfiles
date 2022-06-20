@@ -25,14 +25,24 @@ end
 -- })
 
 cmp.setup({
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   preselect = cmp.PreselectMode.None,
   completion = {},
   sources = {
+    { name = 'nvim_lsp_signature_help' },
     { name = 'copilot', priority = 100 },
     { name = 'ultisnips', priority = 99 },
     { name = 'nvim_lsp', priority = 98 },
     { name = 'path', priority = 97},
-    { name = 'buffer', priority = 96, get_bufnrs = function() return vim.api.nvim_list_bufs() end },
+    { name = 'buffer', priority = 96, options = {
+      keyword_pattern = [[\k\+]],
+      get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+      end,
+    } },
     -- { name = 'cmp_tabnine', priority = 90 },
     { name = 'spell' },
     { name = 'nvim_lsp_document_symbol' },
@@ -103,6 +113,31 @@ cmp.setup({
       })
     }),
   },
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline([[/\V]], {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
 })
 
 vim.cmd[[
