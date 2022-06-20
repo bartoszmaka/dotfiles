@@ -1,7 +1,8 @@
 local nnoremap = require('config_helper').nnoremap
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = "all",
+  ignore_install = { "phpdoc" },
   highlight = { enable = true },
   indent = { enable = true },
   rainbow = { enable = true },
@@ -40,8 +41,8 @@ require'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<CR>',
-      scope_incremental = '<CR>',
+      -- init_selection = '<CR>',
+      -- scope_incremental = '<CR>',
       node_incremental = 'v',
       node_decremental = 'V',
     },
@@ -94,7 +95,7 @@ require'nvim-treesitter.configs'.setup {
 local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
 ft_to_parser["env.local"] = "bash" -- the someft filetype will use the python parser and queries.
 
-require'treesitter-context.config'.setup {
+require'treesitter-context'.setup {
   enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
   throttle = true,
 }

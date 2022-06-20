@@ -15,7 +15,6 @@ vim.cmd[[
   highlight NvimTreeIndentMarker guifg=#455574
 ]]
 
-g.nvim_tree_indent_markers = 1
 g.nvim_tree_git_hl = 1
 g.nvim_tree_root_folder_modifier = ":t"
 g.nvim_tree_allow_resize = 1
@@ -64,7 +63,8 @@ nnoremap('<C-k><C-e>', ':NvimTreeFindFileToggle<CR>')
 require'nvim-tree'.setup {
   actions = {
     open_file = {
-      quit_on_open = 0
+      quit_on_open = false,
+      resize_window = true
     }
   },
   filters = {
@@ -74,12 +74,12 @@ require'nvim-tree'.setup {
   hijack_netrw        = true,
   open_on_setup       = false,
   ignore_ft_on_setup  = {},
-  auto_close          = false,
+  -- auto_close          = false,
   open_on_tab         = false,
-  update_to_buf_dir   = {
-    enable = true,
-    auto_open = true,
-  },
+  -- update_to_buf_dir   = {
+  --   enable = true,
+  --   auto_open = true,
+  -- },
   hijack_cursor       = false,
   update_cwd          = false,
   -- lsp_diagnostics     = false,
@@ -92,12 +92,14 @@ require'nvim-tree'.setup {
     cmd  = nil,
     args = {}
   },
+  git = {
+    ignore = false,
+  },
 
   view = {
-    width = 40,
+    width = 60,
     height = 30,
     side = 'left',
-    auto_resize = true,
     mappings = {
       custom_only = true,
       list = {
@@ -141,6 +143,11 @@ require'nvim-tree'.setup {
         { key = "]g", cb = tree_cb("next_git_item"), },
         { key = "<C-o>", cb = "<Cmd>lua _G.nvim_tree_os_open()<CR>" },
       }
+    }
+  },
+  renderer = {
+    indent_markers = {
+      enable = true
     }
   }
 }

@@ -9,7 +9,10 @@ def toPascalCase(string):
 
 def getClassFromPath():
 	parts = path.split('.')[0].split('/')
-	return parts.pop()
+	last = parts.pop()
+	if last.endswith('_spec'): last = last[:-5]
+
+	return last
 
 def getModulesFromPath():
 	parts = path.split('.')[0].split('/')
