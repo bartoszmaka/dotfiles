@@ -5,7 +5,6 @@ nnoremap <leader>X :SwitchReverse<CR>
 autocmd FileType ruby let b:switch_custom_definitions =
     \ [
     \   {
-    \     'let!\?(:\([a-zA-Z0-9_]\+\))\W\?{\(.\+\)}': '\1 =\2',
     \     '\([A-Z][a-z]\+\).make!\?(\(.\+\))': 'create(:\L\1\e, \2)',
     \     '\([A-Z][a-z]\+\).make!\?\W\?$': 'create(:\L\1)'
     \   },
@@ -25,3 +24,4 @@ autocmd FileType javascript,typescript,javascriptreact,typescriptreact let b:swi
     \ ]
 ]]
 
+    -- \     'let!\?(:\([a-zA-Z0-9_]\+\))\W\?{\(.\+\)}': '\1 =\2',

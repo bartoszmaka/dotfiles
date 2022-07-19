@@ -4,6 +4,8 @@ local set_default_formatter_for_filetypes = require('lsp.functions').set_default
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  vim.wo.signcolumn = 'yes:1'
+  require('lsp-status').on_attach(client)
 
   if set_contains({ 'css', 'scss', 'sass' }, vim.bo.filetype) then
     buf_set_option('omnifunc', 'csscomplete#CompleteCSS')
@@ -71,6 +73,21 @@ local on_attach = function(client, bufnr)
 
   set_default_formatter_for_filetypes('solargraph', {'ruby'})
   set_default_formatter_for_filetypes('null-ls', {'javascript', 'vue'})
+
+  function format_range_operator()
+    local old_func = vim.go.operatorfunc
+    _G.op_func_formatting = function()
+      local start = vim.api.nvim_buf_get_mark(0, '[')
+      local finish = vim.api.nvim_buf_get_mark(0, ']')
+      vim.lsp.buf.range_formatting({}, start, finish)
+      vim.go.operatorfunc = old_func
+      _G.op_func_formatting = nil
+    end
+    vim.go.operatorfunc = 'v:lua.op_func_formatting'
+    vim.api.nvim_feedkeys('g@', 'n', false)
+  end
+  buf_set_keymap("n", "gm", "<cmd>lua format_range_operator()<CR>", opts)
+
 end
 
 return on_attach

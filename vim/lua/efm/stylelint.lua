@@ -1,5 +1,5 @@
 return {
-  lintCommand = 'stylelint --stdin --stdin-filename ${INPUT} --formatter compact --syntax sass',
+  lintCommand = 'stylelint --stdin --stdin-filename ${INPUT} --formatter compact --syntax sass --custom-syntax sass',
   lintIgnoreExitCode = true,
   lintStdin = true,
   lintFormats = {

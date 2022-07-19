@@ -25,30 +25,36 @@ M.setup_diagnostics = function()
   end
 
   vim.diagnostic.config({
-    update_in_insert = false,
+    update_in_insert = true,
     underline = {
-      severity = {
-        vim.diagnostic.severity.ERROR,
-        vim.diagnostic.severity.WARN
-      }
+      severity = { min = vim.diagnostic.severity.INFO },
     },
-
     virtual_text = {
       source = 'always',
-      severity = {
-        vim.diagnostic.severity.ERROR,
-        vim.diagnostic.severity.WARN
-      },
+      severity = { min = vim.diagnostic.severity.INFO },
     },
     signs = true,
     severity_sort = true,
     float = {
       show_header = false,
+      border = "rounded",
+      focusable = false,
       source = 'always',
-      border = false,
-      -- format = function(error)
-      --   return string.format("%s", error.message)
-      -- end
+      format = function(diagnostic)
+        -- See null-ls.nvim#632, neovim#17222 for how to pick up `code`
+        local user_data
+        user_data = diagnostic.user_data or {}
+        user_data = user_data.lsp or user_data.null_ls or user_data
+        local code = (
+          -- TODO: symbol is specific to pylint (will be removed)
+          diagnostic.symbol or diagnostic.code or
+          user_data.symbol or user_data.code
+        )
+        if code then
+          return string.format("%s (%s)", diagnostic.message, code)
+        else return diagnostic.message
+        end
+      end,
     },
   })
 

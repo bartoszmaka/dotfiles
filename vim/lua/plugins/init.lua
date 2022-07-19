@@ -37,7 +37,7 @@ use {
 use {
   'hrsh7th/nvim-cmp',
   requires = {
-    'hrsh7th/cmp-copilot',
+    -- 'hrsh7th/cmp-copilot',
     'quangnguyen30192/cmp-nvim-ultisnips',
     'hrsh7th/cmp-nvim-lsp',
     'f3fora/cmp-spell',
@@ -51,7 +51,7 @@ use {
   }
 }
 use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
-use { 'github/copilot.vim' }
+-- use { 'github/copilot.vim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim',                                                                -- spell checker
   requires = { { 'kamykn/popup-menu.nvim' } },
@@ -176,11 +176,30 @@ use { 'vim-scripts/LargeFile' }                                                 
 use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }              -- better highlight search
 use { 'ldelossa/gh.nvim' }
 use { 'tami5/lspsaga.nvim' }
+use { 'nvim-telescope/telescope.nvim', config = function() require('plugins.telescope') end }
+use {
+  'pwntester/octo.nvim',
+  requires = {
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+    'kyazdani42/nvim-web-devicons',
+  },
+  config = function ()
+    require('plugins.octo')
+  end
+}
+use { 'skywind3000/vim-quickui' }
+use { 'nvim-lua/lsp-status.nvim' }
+use { 'inkarkat/vim-AdvancedSorters' }
 
-pcall(require,'lsp')
-pcall(require,'plugins.autopairs')
-pcall(require,'plugins.completion')
-pcall(require,'plugins.colorscheme')
--- require('plugins.colorscheme')
+local loadedLsp, _ = pcall(require,'lsp')
+local loadedAutopairs, _ = pcall(require,'plugins.autopairs')
+local loadedCompletion, _ = pcall(require,'plugins.completion')
+local loadedColorscheme, _ = pcall(require,'plugins.colorscheme')
+
+if not loadedLsp then print("Error in lsp config") end
+if not loadedAutopairs then print("Error in autoparis config") end
+if not loadedCompletion then print("Error in compleetion config") end
+if not loadedColorscheme then print("Error in colorscheme config") end
 
 vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]
