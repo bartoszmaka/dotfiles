@@ -266,3 +266,13 @@ endsnippet
 snippet doc "yard doc" b
 # ${1}
 endsnippet
+
+snippet nowm "now time mock" b
+now = DateTime.new(2017, 1, 28, 12, 30)
+endsnippet
+
+snippet tcf "Timecop.freeze(now)" b
+Timecop.freeze(${1:now})
+$0
+Timecop.return
+endsnippet

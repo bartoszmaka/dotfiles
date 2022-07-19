@@ -14,14 +14,36 @@ end
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
+
+-- Custom sorting/ranking for completion items.
+local cmp_helper = {}
+cmp_helper.compare = {
+  -- Deprioritize items starting with underscores (private or protected)
+  deprioritize_underscore = function(lhs, rhs)
+    local l = (lhs.completion_item.label:find "^_+") and 1 or 0
+    local r = (rhs.completion_item.label:find "^_+") and 1 or 0
+    if l ~= r then return l < r end
+  end,
+  -- Prioritize items that ends with "= ..." (usually for argument completion).
+  prioritize_argument = function(lhs, rhs)
+    local l = (lhs.completion_item.label:find "=$") and 1 or 0
+    local r = (rhs.completion_item.label:find "=$") and 1 or 0
+    if l ~= r then return l > r end
+  end,
+}
+
 -- local tabnine = require('cmp_tabnine.config')
 -- tabnine:setup({
---   max_lines = 1000;
---   max_num_results = 3;
---   sort = true;
---   run_on_every_keystroke = true;
---   snippet_placeholder = '..';
---   ignored_file_types = {};
+-- 	max_lines = 1000;
+-- 	max_num_results = 20;
+-- 	sort = true;
+-- 	run_on_every_keystroke = true;
+-- 	snippet_placeholder = '..';
+-- 	ignored_file_types = { -- default is not to ignore
+-- 		-- uncomment to ignore in lua:
+-- 		-- lua = true
+-- 	};
+-- 	show_prediction_strength = false;
 -- })
 
 cmp.setup({
@@ -33,7 +55,8 @@ cmp.setup({
   completion = {},
   sources = {
     { name = 'nvim_lsp_signature_help' },
-    { name = 'copilot', priority = 100 },
+    -- { name = 'cmp_tabnine', priority = 95 },
+    -- { name = 'copilot', priority = 100 },
     { name = 'ultisnips', priority = 99 },
     { name = 'nvim_lsp', priority = 98 },
     { name = 'path', priority = 97},
@@ -54,6 +77,9 @@ cmp.setup({
       compare.offset,
       compare.exact,
       compare.score,
+      function(...) return cmp_helper.compare.prioritize_argument(...) end,
+      function(...) return cmp_helper.compare.deprioritize_underscore(...) end,
+      compare.recently_used,
       compare.kind,
       compare.sort_text,
       compare.length,
@@ -152,7 +178,6 @@ autocmd FileType css,scss,sass lua require'cmp'.setup.buffer {
 \    { name = 'path' },
 \    { name = 'buffer', get_bufnrs = function() return vim.api.nvim_list_bufs() end },
 \    { name = 'spell' },
-\    { name = 'copilot' },
 \  },
 \ }
 augroup END

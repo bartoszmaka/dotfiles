@@ -44,19 +44,19 @@ telescope.setup {
   }
 }
 
-telescope.load_extension("media_files")
+-- telescope.load_extension("media_files")
 
-vim.g.mapleader = ' '
-nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
-nnoremap('<leader>pr', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
-nnoremap('<leader>pg', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
-nnoremap('<leader>pb', [[<Cmd>lua require('telescope.builtin').find_buffers()<CR>]])
-nnoremap('<leader>pf', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
-nnoremap('<leader>pv', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
-nnoremap('<leader>pm', [[<Cmd>lua require('telescope.builtin').marks()<CR>]])
-nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
-nnoremap('<leader>pt', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]])
-nnoremap('<leader>pq', [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]])
+-- vim.g.mapleader = ' '
+-- nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
+-- nnoremap('<leader>pr', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+-- nnoremap('<leader>pg', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
+-- nnoremap('<leader>pb', [[<Cmd>lua require('telescope.builtin').find_buffers()<CR>]])
+-- nnoremap('<leader>pf', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
+-- nnoremap('<leader>pv', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
+-- nnoremap('<leader>pm', [[<Cmd>lua require('telescope.builtin').marks()<CR>]])
+-- nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
+-- nnoremap('<leader>pt', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]])
+-- nnoremap('<leader>pq', [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]])
 
 vim.cmd[[
   autocmd FileType TelescopePrompt imap <esc> <c-c>

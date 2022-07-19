@@ -14,10 +14,44 @@ local function preview_location_callback(_, method, result)
   end
 end
 
-function M.PeekDefinition()
+function PeekDefinition()
   local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
+  local definition_callback = function (_, result)
+    if result == nil or vim.tbl_isempty(result) then
+      print("PeekDefinition: " .. "cannot find the definition.")
+      return nil
+    end
+    --- either Location | LocationLink
+    --- https://microsoft.github.io/language-server-protocol/specification#location
+    local def_result = result[1]
+
+    -- Peek defintion. Currently, use quickui but a better alternative should be found.
+    -- vim.lsp.util.preview_location(result[1])
+    local def_uri = def_result.uri or def_result.targetUri
+    local def_range = def_result.range or def_result.targetSelectionRange
+    vim.fn['quickui#preview#open'](vim.uri_to_fname(def_uri), {
+        cursor = def_range.start.line + 1,
+        number = 1,   -- show line number
+        persist = 0,
+      })
+  end
+  -- Asynchronous request doesn't work very smoothly, so we use synchronous one with timeout;
+  -- return vim.lsp.buf_request(0, 'textDocument/definition', params, definition_callback)
+  local results, err = vim.lsp.buf_request_sync(0, 'textDocument/definition', params, 5000)
+  if results then
+    for client_id, result in pairs(results) do
+      definition_callback(client_id, result.result)
+    end
+  else
+    print("PeekDefinition: " .. err)
+  end
 end
+
+vim.cmd [[
+  command! -nargs=0 PeekDefinition      :lua PeekDefinition()
+  command! -nargs=0 PreviewDefinition   :PeekDefinition
+  nmap <leader>gh     :<C-U>PeekDefinition<CR>
+]]
 
 function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
   if not set_contains(filetypes, vim.bo.filetype) then
