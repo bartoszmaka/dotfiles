@@ -50,7 +50,6 @@ end
 vim.cmd [[
   command! -nargs=0 PeekDefinition      :lua PeekDefinition()
   command! -nargs=0 PreviewDefinition   :PeekDefinition
-  nmap <leader>gh     :<C-U>PeekDefinition<CR>
 ]]
 
 function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
@@ -70,8 +69,8 @@ function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
 
   vim.lsp.for_each_buffer_client(0, function(client)
     if client.name ~= language_server_name then
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
+      client.server_capabilities.document_formatting = false
+      client.server_capabilities.document_range_formatting = false
     end
   end)
 end

@@ -9,6 +9,9 @@ use 'lewis6991/impatient.nvim'
 -- lsp installation
 use { 'neovim/nvim-lspconfig' }
 use { 'williamboman/nvim-lsp-installer' }
+-- use { 'fgheng/winbar.nvim', config = function() require('plugins.winbar') end }
+use { 'glepnir/lspsaga.nvim', config = function() require('plugins.lspsaga') end }
+use { 'nvim-lua/lsp-status.nvim'}
 
 
 -- lsp/code integration
@@ -175,8 +178,9 @@ use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollba
 use { 'vim-scripts/LargeFile' }                                                                      -- large files helper
 use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }              -- better highlight search
 use { 'ldelossa/gh.nvim' }
-use { 'tami5/lspsaga.nvim' }
-use { 'nvim-telescope/telescope.nvim', config = function() require('plugins.telescope') end }
+use { 'nvim-telescope/telescope.nvim', tag = '0.1.0' , config = function() require('plugins.telescope') end }
+use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+use { 'fhill2/telescope-ultisnips.nvim' }
 use {
   'pwntester/octo.nvim',
   requires = {
@@ -189,7 +193,6 @@ use {
   end
 }
 use { 'skywind3000/vim-quickui' }
-use { 'nvim-lua/lsp-status.nvim' }
 use { 'inkarkat/vim-AdvancedSorters' }
 
 local loadedLsp, _ = pcall(require,'lsp')

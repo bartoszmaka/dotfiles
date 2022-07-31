@@ -1,6 +1,7 @@
 local cmp = require('cmp')
 local compare = require('cmp.config.compare')
 local lspkind = require('lspkind')
+local cmp_buffer = require('cmp_buffer')
 
 vim.cmd[[
   set pumheight=10
@@ -60,7 +61,7 @@ cmp.setup({
     { name = 'ultisnips', priority = 99 },
     { name = 'nvim_lsp', priority = 98 },
     { name = 'path', priority = 97},
-    { name = 'buffer', priority = 96, options = {
+    { name = 'buffer', priority = 96, option = {
       keyword_pattern = [[\k\+]],
       get_bufnrs = function()
         return vim.api.nvim_list_bufs()
@@ -73,7 +74,7 @@ cmp.setup({
   sorting = {
     priority_weight = 2,
     comparators = {
-      -- require('cmp_tabnine.compare'),
+      function(...) return cmp_buffer:compare_locality(...) end,
       compare.offset,
       compare.exact,
       compare.score,
