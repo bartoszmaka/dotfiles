@@ -45,7 +45,7 @@ function PeekDefinition()
 end
 
 vim.g.mapleader = ' '
-nnoremap("<leader>gh", ":PeekDefinition<CR>")
+-- nnoremap("<leader>gh", ":PeekDefinition<CR>")
 
 setup_servers()
 setup_diagnostics()

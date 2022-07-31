@@ -4,6 +4,22 @@ priority -50
 # Global functions
 #
 global !p
+def buildVariablesFromConstructor(string):
+	if len(string) == 0: return ''
+	parts = string.split(',')
+	buildInstanceVariable = lambda x: "  @{name} = {name}".format(name=x.removesuffix(':').strip())
+	instanceVariables = map(buildInstanceVariable, parts)
+	return "\n".join(instanceVariables)
+
+def buildAttributeReaderFromConstructor(string):
+	if len(string) == 0: return ''
+	parts = string.split(',')
+	buildInstanceVariable = lambda x: ":{}".format(x.removesuffix(':').strip())
+	instanceVariables = map(buildInstanceVariable, parts)
+	staticCode = "\n    private\n\n    attr_reader "
+	
+	return staticCode + ", ".join(instanceVariables)
+
 def toPascalCase(string):
 	return string.replace("_", " ").title().replace(" ", "")
 
@@ -140,13 +156,13 @@ endsnippet
 
 snippet if "if block" w
 if ${1}
-  ${2}
+  ${VISUAL}
 end
 endsnippet
 
 snippet ife "if-else block" w
 if ${1}
-  ${2}
+  ${VISUAL}
 else
   ${3}
 end
@@ -170,6 +186,13 @@ snippet defm "memoized function template" w
 def ${1}
   @$1 ||= ${2}
 end
+endsnippet
+
+snippet defi "constructor" w
+def initialize(${1})
+`!p snip.rv = buildVariablesFromConstructor(t[1])`
+end
+`!p snip.rv = buildAttributeReaderFromConstructor(t[1])`
 endsnippet
 
 snippet spec "spec scaffold" w
@@ -268,11 +291,25 @@ snippet doc "yard doc" b
 endsnippet
 
 snippet nowm "now time mock" b
-now = DateTime.new(2017, 1, 28, 12, 30)
+now = DateTime.new(2017, 1, 27, 12, 30)
 endsnippet
 
 snippet tcf "Timecop.freeze(now)" b
 Timecop.freeze(${1:now})
 $0
 Timecop.return
+endsnippet
+
+snippet res "graphql resolve" b
+resolve ->(obj, _args, _ctx) {
+	$0
+}
+endsnippet
+
+snippet resb "graphql resolve block" w
+do
+	resolve ->(obj, _args, _ctx) {
+		$0
+	}
+end
 endsnippet
