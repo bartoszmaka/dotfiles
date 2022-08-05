@@ -2,6 +2,7 @@ local cmp = require('cmp')
 local compare = require('cmp.config.compare')
 local lspkind = require('lspkind')
 local cmp_buffer = require('cmp_buffer')
+local symbols = require('config_helper.symbols')
 
 vim.cmd[[
   set pumheight=10
@@ -126,9 +127,13 @@ cmp.setup({
     ghost_text = true,
   },
   formatting = {
-    format = lspkind.cmp_format({
-      mode = 'symbol_text',
-      menu = ({
+    format = function(entry, vim_item)
+      if entry.source.name == 'nvim_lsp_signature_help' then
+        vim_item.kind = string.format("%s %s", symbols.Function, "Args")
+      else
+        vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol_text" })
+      end
+      vim_item.menu = ({
         buffer = "[Buf]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
@@ -137,8 +142,11 @@ cmp.setup({
         spell = "[Spell]",
         cmp_tabnine = "[TN]",
         copilot = "[AI]",
-      })
-    }),
+        nvim_lsp_signature_help = "[Sign]",
+      })[entry.source.name] or entry.source.name
+
+      return vim_item
+    end
   },
 })
 
@@ -163,8 +171,8 @@ cmp.setup.cmdline(':', {
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
-    { name = 'cmdline' }
-  })
+      { name = 'cmdline' }
+    })
 })
 
 vim.cmd[[

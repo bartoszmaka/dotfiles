@@ -21,9 +21,6 @@ require('abbrevations')
 require('autocmds')
 require('gui')
 
--- vim.cmd[[
---   exe "source " . expand('$DOTFILES_PATH/vim/lua/auto.vim')
--- ]]
 vim.cmd [[
   set tabstop=2
   set shiftwidth=2
@@ -31,4 +28,3 @@ vim.cmd [[
   set softtabstop=2
 ]]
 
-  -- let g:node_host_prog = '/Users/bartoszmaka/.asdf/installs/nodejs/17.3.0/bin/node'

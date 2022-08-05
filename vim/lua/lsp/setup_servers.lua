@@ -70,6 +70,14 @@ M.setup_servers = function()
     return
   end
 
+--   require("typescript").setup({
+--     disable_commands = false, -- prevent the plugin from creating Vim commands
+--     debug = false, -- enable debug logging for commands
+--     server = { -- pass options to lspconfig's setup method
+--       on_attach = on_attach
+--     },
+--   })
+
   install_missing_servers()
 
   lsp_installer.on_server_ready(function(server)
@@ -110,36 +118,6 @@ M.setup_servers = function()
           }
         }
       }
-
-    -- elseif server.name == "efm" then
-    --   opts.filetypes = vim.tbl_keys(efm.languages)
-    --   opts.init_options = {
-    --     documentFormatting = true,
-    --     codeAction = true,
-    --     rename = false,
-    --     hover = false,
-    --     completion = false,
-    --   }
-    --   opts.settings = {
-    --     rootMarkers = { '.git/', 'package.json' },
-    --     languages = efm.languages
-    --   }
-    elseif server.name == "tsserver" then
-      local function organize_imports()
-        local params = {
-          command = "_typescript.organizeImports",
-          arguments = {vim.api.nvim_buf_get_name(0)},
-          title = ""
-        }
-        vim.lsp.buf.execute_command(params)
-      end
-
-      opts.commands = {
-        OrganizeImports = {
-          organize_imports,
-          description = "Organize Imports"
-        }
-      }
     end
 
     if server.name == "solargraph" then
@@ -151,7 +129,6 @@ M.setup_servers = function()
     end
     vim.cmd([[ do User LspAttach Buffers ]])
   end)
-
 end
 
 return M
