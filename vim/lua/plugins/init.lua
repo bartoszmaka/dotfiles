@@ -12,11 +12,11 @@ use { 'williamboman/nvim-lsp-installer' }
 -- use { 'fgheng/winbar.nvim', config = function() require('plugins.winbar') end }
 use { 'glepnir/lspsaga.nvim', config = function() require('plugins.lspsaga') end }
 use { 'nvim-lua/lsp-status.nvim'}
+-- use { 'jose-elias-alvarez/typescript.nvim' }
 
 
 -- lsp/code integration
 use { 'onsails/lspkind-nvim', config = function() require('lsp.lspkind') end } -- lsp and completion icons
-use { 'jose-elias-alvarez/nvim-lsp-ts-utils' }                                 -- typescript codeactions
 use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } }           -- lsp integration utils (better go to def etc)
 use { 'ray-x/lsp_signature.nvim' }                                             -- display arguments names while typing
 use { 'jose-elias-alvarez/null-ls.nvim',                                       -- null ls
