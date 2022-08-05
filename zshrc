@@ -60,6 +60,7 @@ zinit snippet OMZP::rails
 zinit snippet OMZP::brew
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::common-aliases
+zinit snippet OMZP::dotenv
 zinit snippet OMZL::key-bindings.zsh
 
 # zinit load "zsh-users/zsh-autosuggestions"
@@ -113,7 +114,7 @@ alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
-alias n='nvim'
+alias n='asdf shell nodejs 17.3.0 && nvim'
 alias oldvim='nvim -u $DOTFILES_PATH/vim/vimrc'
 
 alias -g F='| fzf --exact'
@@ -141,6 +142,8 @@ alias gcof="git checkout \$(git branch -a | fzf)"
 alias ggpush="git push origin \$(git branch --show-current)"
 alias subster="tmuxinator start subster"
 alias sublime="./Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+alias intel="arch -x86_64"
+alias m1="arch -arm64"
 
 alias :wq=exit
 alias :qa=exit
@@ -157,6 +160,7 @@ function tattach() { tmux new-session -s `uuidgen` -t $1 }
 . $(brew --prefix asdf)/asdf.sh
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
+export PATH="~/.emacs.d/bin:$PATH" # make sure homebrew bins are before osx bins
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -173,3 +177,9 @@ typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B6'
 typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL='\uE0B6'
 typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL='\uE0B4'
 typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=
+
+PATH="/Users/bartoszmaka/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/bartoszmaka/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/bartoszmaka/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/bartoszmaka/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/bartoszmaka/perl5"; export PERL_MM_OPT;
