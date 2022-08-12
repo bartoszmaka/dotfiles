@@ -62,4 +62,5 @@ vim.g.projectionist_heuristics = {
   }
 }
 
-nnoremap('<leader>a', ':A<CR>')
+-- nnoremap('<leader>a', ':A<CR>')
+nnoremap('<leader>a', ':silent! :A<CR>') -- ignore E315
