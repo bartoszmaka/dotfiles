@@ -113,6 +113,8 @@ require'fzf-lua'.setup {
     git_icons         = true,           -- show git icons?
     file_icons        = true,           -- show file icons?
     color_icons       = true,           -- colorize file|git icons
+    rg_opts           = "--color=never --no-ignore-vcs --files --hidden --follow -g '!.git'",
+    fd_opts           = "--color=never --no-ignore-vcs --type f --hidden --follow --exclude .git",
     actions = {
       ["default"]     = actions.file_edit,
       ["ctrl-s"]      = actions.file_split,
