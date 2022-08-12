@@ -47,7 +47,6 @@ use {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-omni',
-    'hrsh7th/cmp-nvim-lsp-document-symbol',
     'lukas-reineke/cmp-rg',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -162,12 +161,26 @@ use { 'lewis6991/gitsigns.nvim',
 }
 use { 'navarasu/onedark.nvim' }                                                                      -- colorscheme
 use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end }                     -- tabs line
-use { 'glepnir/galaxyline.nvim',                                                                     -- status line
-  branch = 'main',
-  requires = { 'kyazdani42/nvim-web-devicons', opt = true},
-  config = function() require('plugins.galaxyline') end
+-- use { 'glepnir/galaxyline.nvim',                                                                     -- status line
+--   branch = 'main',
+--   requires = { 'kyazdani42/nvim-web-devicons', opt = true},
+--   config = function() require('plugins.galaxyline') end
+-- }
+use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+  config = function() require('plugins.lualine') end
 }
-
+-- use {
+--   'SmiteshP/nvim-navic',
+--   requires = 'neovim/nvim-lspconfig',
+--   config = function() require('plugins.navic') end,
+-- }
+use {
+  'SmiteshP/nvim-gps',
+  config = function() require('plugins.gps') end,
+  requires = 'nvim-treesitter/nvim-treesitter'
+}
 use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugins.indentline') end }
 use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
 use { 'RRethy/vim-illuminate', config = function() require('plugins.illuminate') end }
@@ -202,7 +215,5 @@ local loadedColorscheme, _ = pcall(require,'plugins.colorscheme')
 
 if not loadedLsp then print("Error in lsp config") end
 if not loadedAutopairs then print("Error in autoparis config") end
-if not loadedCompletion then print("Error in compleetion config") end
+if not loadedCompletion then print("Error in completion config") end
 if not loadedColorscheme then print("Error in colorscheme config") end
-
-vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]

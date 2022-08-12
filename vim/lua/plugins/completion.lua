@@ -70,7 +70,6 @@ cmp.setup({
     } },
     -- { name = 'cmp_tabnine', priority = 90 },
     { name = 'spell' },
-    { name = 'nvim_lsp_document_symbol' },
   },
   sorting = {
     priority_weight = 2,
@@ -142,6 +141,7 @@ cmp.setup({
         spell = "[Spell]",
         cmp_tabnine = "[TN]",
         copilot = "[AI]",
+        cmdline = "[CMD]",
         nvim_lsp_signature_help = "[Sign]",
       })[entry.source.name] or entry.source.name
 
