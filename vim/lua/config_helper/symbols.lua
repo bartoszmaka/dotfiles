@@ -32,12 +32,12 @@ M.trace = ''
 M.TypeParameter = ' '
 M.Event = ' '
 
-M.String = ' '
-M.Number = '# '
-M.Boolean = ' '
-M.Array = ' '
-M.Object = ' '
-M.Null = ' '
+M.String = ''
+M.Number = '#'
+M.Boolean = ''
+M.Array = ''
+M.Object = ''
+M.Null = '0'
 M.Time = ''
 
 return M
