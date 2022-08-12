@@ -3,7 +3,7 @@ let mapleader = " "
 
 " Plugins
 set easymotion
-map ; <Plug>(easymotion-prefix)
+" map ; <Plug>(easymotion-prefix)
 
 set surround
 set multiple-cursors
@@ -33,6 +33,8 @@ map <leader>l $
 inoremap jk <esc>
 nnoremap K 5k
 nnoremap J 5j
+vnoremap K 5k
+vnoremap J 5j
 nnoremap / /\V
 nnoremap ? /
 nnoremap <Bs> :noh<CR>
@@ -108,7 +110,8 @@ nnoremap <C-m><C-g> :action Generate<CR>
 nnoremap <C-g><C-g> :action Git.Menu<CR>
 nnoremap gr :action FindUsages<CR>
 nnoremap gd :action GotoDeclaration<CR>
-nnoremap <leader>dh :action QuickImplementations<CR>
+nnoremap <leader>gh :action QuickImplementations<CR>
+nnoremap <C-g><C-d> :action Compare.SameVersion<CR>
 
 " Panes
 nnoremap <leader><esc> :action HideAllWindows<CR>
