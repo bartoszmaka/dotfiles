@@ -2,18 +2,6 @@ local set_contains = require('config_helper.set_contains').set_contains
 
 local M = {}
 
-local function preview_location_callback(_, method, result)
-  if result == nil or vim.tbl_isempty(result) then
-    vim.lsp.log.info(method, 'No location found')
-    return nil
-  end
-  if vim.tbl_islist(result) then
-    vim.lsp.util.preview_location(result[1])
-  else
-    vim.lsp.util.preview_location(result)
-  end
-end
-
 function PeekDefinition()
   local params = vim.lsp.util.make_position_params()
   local definition_callback = function (_, result)
@@ -69,8 +57,13 @@ function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
 
   vim.lsp.for_each_buffer_client(0, function(client)
     if client.name ~= language_server_name then
-      client.resolved_capabilities.document_formatting = false
-      client.resolved_capabilities.document_range_formatting = false
+      if (vim.fn.has('nvim-0.8') == 1) then
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      else
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+      end
     end
   end)
 end

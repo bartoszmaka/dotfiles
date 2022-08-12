@@ -46,12 +46,19 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap("v", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   buf_set_keymap("v", "<CR><C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-  buf_set_keymap("n", "<C-m>f", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
   buf_set_keymap("n", "<C-m><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap("n", "<CR>f", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
   buf_set_keymap("n", "<CR><C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap("n", "<leader>mF", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
   buf_set_keymap("n", "<leader>mf", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+  if (vim.fn.has('nvim-0.8') == 1) then
+    buf_set_keymap("n", "<CR>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+    buf_set_keymap("n", "<C-m>f", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+    buf_set_keymap("n", "<leader>mF", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
+  else
+    buf_set_keymap("n", "<CR>f", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
+    buf_set_keymap("n", "<C-m>f", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
+    buf_set_keymap("n", "<leader>mF", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
+  end
 
   set_default_formatter_for_filetypes('solargraph', {'ruby'})
   set_default_formatter_for_filetypes('null-ls', {'javascript', 'vue'})
