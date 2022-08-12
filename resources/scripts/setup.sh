@@ -2,7 +2,7 @@ echo "Installing packages..."
 
 case "$(uname -s)" in
   Darwin)
-      brew install neovim reattach-to-user-namespace tmux asdf gnupg coreutils curl git ripgrep git-delta imagemagick wget
+      brew install neovim reattach-to-user-namespace tmux asdf gnupg coreutils curl git ripgrep git-delta imagemagick wget fontforge
       brew install --cask alacritty spectacle slack karabiner-elements whatsapp iterm2 istat-menus alfred spotify contexts steam visual-studio-code monitorcontrol chromedriver tradingview binance
       brew install --HEAD universal-ctags/universal-ctags/universal-ctags
     ;;
