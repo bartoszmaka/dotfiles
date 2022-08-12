@@ -95,5 +95,5 @@ vnoremap('<CR><C-s>', ':sort<CR>')
 
 vim.cmd([[command! FindDuplicates :g/^\(.*\)$\n\1$/p]])
 
--- nnoremap('<C-[>', 'g]')
--- nnoremap('g]', '<C-[>')
+nnoremap('g]', '<C-]>')
+nnoremap('<C-]>', 'g]')

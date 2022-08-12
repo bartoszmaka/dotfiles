@@ -107,16 +107,6 @@ section.left = {
     }
   },
   -- {
-  --     nvimGPS = {
-  --       provider = function()
-  --         return gps.get_location()
-  --       end,
-  --       condition = function()
-  --         return gps.is_available()
-  --       end
-  --     }
-  --   }
-  -- {
   --   Context = {
   --     provider = getTreesitterContextThrottled,
   --     -- provider = statusline_segments.getTreesitterContext,

@@ -48,4 +48,11 @@ M.colors = require('config_helper.colors')
 M.throttle = require('config_helper.throttle')
 M.timeago = require('config_helper.timeago')
 M.statusline = require('config_helper.statusline_segments')
+
+function M.safe_require(package_name)
+  local loaded, package = pcall(require, package_name)
+  if not loaded then print("Error loading " .. package_name) end
+  return package
+end
+
 return M

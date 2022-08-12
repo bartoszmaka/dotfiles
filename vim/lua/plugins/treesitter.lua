@@ -9,7 +9,10 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false
   },
   indent = { enable = true },
-  rainbow = { enable = true },
+  rainbow = {
+    enable = true,
+    extended_mode = false,
+  },
   autopairs = {
     enable = true,
     filetypes = {'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'eruby', 'lua', 'ruby' }

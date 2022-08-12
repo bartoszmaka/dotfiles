@@ -1,3 +1,4 @@
+local safe_require = require('config_helper').safe_require
 -- require'impatient'.enable_profile()
 local loaded, impatient = pcall(require, 'impatient')
 if loaded then

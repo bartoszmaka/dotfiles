@@ -14,3 +14,5 @@ local packer = require('packer')
 packer.reset()
 packer.init()
 packer.reset()
+
+vim.cmd [[autocmd BufWritePost init.lua PackerCompile]]
