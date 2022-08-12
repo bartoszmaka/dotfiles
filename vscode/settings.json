@@ -41,12 +41,12 @@
   },
   // UI
   "debug.internalConsoleOptions": "neverOpen",
-  "debug.console.fontSize": 12,
+  "debug.console.fontSize": 14,
   "editor.tabSize": 2,
   "editor.formatOnSave": false,
   "editor.mouseWheelZoom": false,
-  "editor.fontSize": 16,
-  "terminal.integrated.fontSize": 12,
+  "editor.fontSize": 14,
+  "terminal.integrated.fontSize": 14,
   "editor.rulers": [
     81,
     121
@@ -121,7 +121,7 @@
   "editor.wordBasedSuggestions": true,
   "editor.parameterHints.cycle": true,
   "editor.parameterHints.enabled": true,
-  "editor.tabCompletion": "onlySnippets",
+  "editor.tabCompletion": "on",
   "editor.quickSuggestions": {
     "other": true,
     "comments": true,
@@ -138,7 +138,7 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[ruby]": {
-    "editor.defaultFormatter": "misogi.ruby-rubocop"
+    "editor.defaultFormatter": "rebornix.ruby"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
@@ -168,7 +168,7 @@
   ],
   // Vim
   "vim.enableNeovim": true,
-  "vim.neovimPath": "/usr/local/bin/nvim",
+  "vim.neovimPath": "/opt/homebrew/bin/nvim",
   "vim.disableExtension": false,
   "vim.hlsearch": true,
   "vim.leader": "<space>",
@@ -306,6 +306,16 @@
       ],
       "after": [
         "$"
+      ]
+    },
+    {
+      "before": [
+        "<S-tab>"
+      ],
+      "after": [
+        "<",
+        "g",
+        "v"
       ]
     },
     {
@@ -908,6 +918,20 @@
   ],
   "redhat.telemetry.enabled": true,
   "jsannotations.enabled": false,
-  "workbench.activityBar.visible": false,
   "git.autofetch": true,
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": false,
+    "markdown": true
+  },
+  "liveServer.settings.donotShowInfoMsg": true,
+  "ruby.rubocop.configFilePath": ".rubocop.yml",
+  "ruby.rubocop.executePath": "/Users/bartoszmaka/.asdf/shims/",
+  "ruby.locate": {
+    "exclude": "{**/@(test|spec|tmp|.*),**/@(test|spec|tmp|.*)/**,**/*_spec.rb}",
+    "include": "{**/*.rb,/Users/bartoszmaka/.asdf/installs/ruby/**/*.rb}"
+  },
+  "workbench.activityBar.visible": false,
 }
