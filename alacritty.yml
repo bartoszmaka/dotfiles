@@ -100,16 +100,16 @@ scrolling:
 # Font configuration (changes require restart)
 font:
   normal:
-    family: Hasklug Nerd Font Mono
+    family: HasklugNerdFontCM Nerd Font
     style: Regular
   bold:
-    family: Hasklug Nerd Font Mono
+    family: HasklugNerdFontCM Nerd Font
     style: Bold
   italic:
-    family: Operator Mono
+    family: OperatorMono Nerd Font
     style: Light Italic
   bold_italic:
-    family: Operator Mono
+    family: OperatorMono Nerd Font
     style: Medium Italic
   size: 14.0
 # font:
@@ -120,12 +120,12 @@ font:
 #     family: Hasklug Nerd Font Mono
 #     style: Bold
 #   italic:
-#     family: Hasklug Nerd Font Mono
-#     style: Italic
-#   bold_italic:
 #     family: Operator Mono
 #     style: Light Italic
-#   size: 15.0
+#   bold_italic:
+#     family: Operator Mono
+#     style: Medium Italic
+#   size: 14.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
