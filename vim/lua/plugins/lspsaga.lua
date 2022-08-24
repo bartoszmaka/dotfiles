@@ -42,7 +42,7 @@ saga.init_lsp_saga({
   },
   rename_action_quit = "<C-c>",
   rename_in_select = true,
-  definition_preview_icon = "  ",
+  definition_preview_icon = " ",
   -- show symbols in winbar must nightly
   -- symbol_in_winbar = {
   --   in_custom = false,

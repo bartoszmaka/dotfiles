@@ -49,10 +49,6 @@ cmp_helper.compare = {
 -- })
 
 cmp.setup({
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
   preselect = cmp.PreselectMode.None,
   completion = {},
   sources = {
@@ -74,16 +70,15 @@ cmp.setup({
   sorting = {
     priority_weight = 2,
     comparators = {
-      function(...) return cmp_buffer:compare_locality(...) end,
-      compare.offset,
-      compare.exact,
+      -- compare.locality,
+      -- function(...) return cmp_buffer:compare_locality(...) end,
+      -- compare.exact,
+      -- compare.recently_used,
       compare.score,
-      function(...) return cmp_helper.compare.prioritize_argument(...) end,
-      function(...) return cmp_helper.compare.deprioritize_underscore(...) end,
-      compare.recently_used,
+      -- function(...) return cmp_helper.compare.prioritize_argument(...) end,
+      -- function(...) return cmp_helper.compare.deprioritize_underscore(...) end,
       compare.kind,
-      compare.sort_text,
-      compare.length,
+      compare.offset,
       compare.order,
     }
   },
@@ -126,13 +121,14 @@ cmp.setup({
     ghost_text = true,
   },
   formatting = {
+    -- fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
       if entry.source.name == 'nvim_lsp_signature_help' then
         vim_item.kind = string.format("%s %s", symbols.Function, "Args")
       else
         vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol_text" })
       end
-      vim_item.menu = ({
+      local menu = ({
         buffer = "[Buf]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
@@ -144,9 +140,24 @@ cmp.setup({
         cmdline = "[CMD]",
         nvim_lsp_signature_help = "[Sign]",
       })[entry.source.name] or entry.source.name
+      vim_item.menu = menu
+
+--       local strings = vim.split(vim_item.kind, "%s", { trimempty = true })
+--       print(vim.inspect(vim_item))
+--       vim_item.kind = " " .. strings[1] .. " "
+--       vim_item.menu = " " .. strings[2] .. " " .. menu
 
       return vim_item
     end
+  },
+  window = {
+    completion = {
+      winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+      col_offset = -1,
+      side_padding = 1,
+      border = 'rounded',
+    },
+    documentation = cmp.config.window.bordered(),
   },
 })
 
