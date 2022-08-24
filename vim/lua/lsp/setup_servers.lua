@@ -70,14 +70,6 @@ M.setup_servers = function()
     return
   end
 
---   require("typescript").setup({
---     disable_commands = false, -- prevent the plugin from creating Vim commands
---     debug = false, -- enable debug logging for commands
---     server = { -- pass options to lspconfig's setup method
---       on_attach = on_attach
---     },
---   })
-
   install_missing_servers()
 
   lsp_installer.on_server_ready(function(server)

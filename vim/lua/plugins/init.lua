@@ -12,7 +12,7 @@ use { 'williamboman/nvim-lsp-installer' }
 -- use { 'fgheng/winbar.nvim', config = function() require('plugins.winbar') end }
 use { 'glepnir/lspsaga.nvim', config = function() require('plugins.lspsaga') end }
 use { 'nvim-lua/lsp-status.nvim'}
--- use { 'jose-elias-alvarez/typescript.nvim' }
+use { 'jose-elias-alvarez/typescript.nvim' }
 
 
 -- lsp/code integration
@@ -52,7 +52,7 @@ use {
     'hrsh7th/cmp-nvim-lsp-signature-help',
   }
 }
-use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
+-- use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 -- use { 'github/copilot.vim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim',                                                                -- spell checker

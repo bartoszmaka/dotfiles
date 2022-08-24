@@ -18,21 +18,29 @@ local icons_for_match_groups = {
   ["float-name"] = symbols.Number .. ' ',
   ["inline-table-name"] = symbols.Array .. ' ',
   ["integer-name"] = symbols.Number .. ' ',
-  ["time-name"] = symbols.Time .. ' '
+  ["time-name"] = symbols.Time .. ' ',
+  ["mapping-name"] = symbols.Object .. ' ',
+  ["sequence-name"] = symbols.Array .. ' ',
+  ["title-name"] = symbols.Class .. ' ',
+  ["label-name"] = symbols.Object .. ' ',
+  ["hook-name"] = symbols.Method .. ' ',
+  ["scss-name"] = symbols.Tag .. ' ',
+  ["scss-mixin-name"] = "@mixin ",
+  ["scss-include-name"] = "@include ",
+  ["scss-keyframes-name"] = "@keyframes ",
 }
-
 require("nvim-gps").setup({
-  icons = {
-    ["class-name"] = symbols.Class .. ' ',
-    ["function-name"] = symbols.Method .. ' ',
-    ["method-name"] = symbols.Method .. ' ',
-    ["tag-name"] = symbols.Tag .. ' ',
-    ["container-name"] = symbols.Object .. ' ',
-
-  },
+  icons = icons_for_match_groups,
   languages = {
+    ["javascript"] = { icons = icons_for_match_groups },
     ["json"] = { icons = icons_for_match_groups },
-    ["toml"] = { icons = icons_for_match_groups }
+    ["toml"] = { icons = icons_for_match_groups },
+    ["latex"] = { icons = icons_for_match_groups },
+    ["norg"] = { icons = icons_for_match_groups },
+    ["verilog"] = { icons = icons_for_match_groups },
+    ["tsx"] = { icons = icons_for_match_groups },
+    ["scss"] = { icons = icons_for_match_groups },
+    ["yang"] = { icons = icons_for_match_groups },
   },
   separator = ' > ',
 })
