@@ -76,13 +76,13 @@ vim.keymap.set("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { s
 vim.keymap.set("n", "<leader>K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 vim.keymap.set("n", "<leader><C-k>", "<Cmd>Lspsaga signature_help<CR>", { silent = true,noremap = true })
 -- scroll down hover doc or scroll in definition preview
-vim.keymap.set("n", "<C-f>", function()
-    action.smart_scroll_with_saga(1)
-end, { silent = true })
--- scroll up hover doc
-vim.keymap.set("n", "<C-b>", function()
-    action.smart_scroll_with_saga(-1)
-end, { silent = true })
+-- vim.keymap.set("n", "<C-f>", function()
+--     action.smart_scroll_with_saga(1)
+-- end, { silent = true })
+-- -- scroll up hover doc
+-- vim.keymap.set("n", "<C-b>", function()
+--     action.smart_scroll_with_saga(-1)
+-- end, { silent = true })
 
 vim.keymap.set("n", "<leader>cd", require("lspsaga.diagnostic").show_line_diagnostics, { silent = true,noremap = true })
 vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true,noremap= true })

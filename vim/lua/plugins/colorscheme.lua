@@ -6,6 +6,7 @@ vim.cmd "syntax on"
 require('onedark').setup({
   style = 'deep',
   term_colors = 'false',
+  colors = colors,
   highlights = {
     DiffChange = { bg=colors.diff_change, fg="none" },
     DiffText   = { bg=colors.diff_text, fg="none" },

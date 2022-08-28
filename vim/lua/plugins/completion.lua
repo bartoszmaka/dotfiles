@@ -121,7 +121,7 @@ cmp.setup({
     ghost_text = true,
   },
   formatting = {
-    -- fields = { "kind", "abbr", "menu" },
+    fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
       if entry.source.name == 'nvim_lsp_signature_help' then
         vim_item.kind = string.format("%s %s", symbols.Function, "Args")
@@ -142,10 +142,9 @@ cmp.setup({
       })[entry.source.name] or entry.source.name
       vim_item.menu = menu
 
---       local strings = vim.split(vim_item.kind, "%s", { trimempty = true })
---       print(vim.inspect(vim_item))
---       vim_item.kind = " " .. strings[1] .. " "
---       vim_item.menu = " " .. strings[2] .. " " .. menu
+      local strings = vim.split(vim_item.kind, "%s", { trimempty = true })
+      vim_item.kind = " " .. strings[1] .. " "
+      vim_item.menu = " " .. strings[2]
 
       return vim_item
     end
@@ -153,8 +152,8 @@ cmp.setup({
   window = {
     completion = {
       winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
-      col_offset = -1,
-      side_padding = 1,
+      col_offset = -4,
+      side_padding = 0,
       border = 'rounded',
     },
     documentation = cmp.config.window.bordered(),

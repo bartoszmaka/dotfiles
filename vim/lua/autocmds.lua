@@ -95,15 +95,6 @@ endfunction
 command! ClearRegisters call ClearRegisters()
 ]]
 
-vim.cmd [[
-augroup filetype_tweaks
-  autocmd!
-
-  autocmd FileType NvimTree setlocal statusline="NvimTree"
-  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-augroup END
-]]
-
 -- vim.cmd [[
 -- augroup highlight_yank
 --   autocmd!
@@ -111,4 +102,3 @@ augroup END
 --   augroup TextYankPost * silent! lua vim.highlight.on_yank(timeout=2000})
 -- augroup END
 -- ]]
---

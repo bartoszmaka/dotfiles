@@ -109,25 +109,25 @@ require('nvim-tree').setup {
   },
   renderer = {
     highlight_git = true,
-    highlight_opened_files = "all",
+    highlight_opened_files = "icon",
     root_folder_modifier = ":t",
     icons = {
       show = {
-        git = true,
+        git = false,
         folder = true,
         file = true,
         folder_arrow = false,
       },
       glyphs = {
-        default = " ",
-        symlink = " ",
+        default = "",
+        symlink = "",
         git = {
           unstaged = "✗",
           staged = "✓",
           unmerged = "",
           renamed = "➜",
-          untracked = "★",
-          deleted = "",
+          untracked = "+",
+          deleted = "-",
           ignored = "◌"
         },
         folder = {
@@ -153,3 +153,8 @@ require('nvim-tree').setup {
     }
   }
 }
+
+vim.cmd [[
+" highlight! NvimTreeNormal guibg=#141b24
+" highlight! NvimTreeEndOfBuffer guibg=#141b24
+]]
