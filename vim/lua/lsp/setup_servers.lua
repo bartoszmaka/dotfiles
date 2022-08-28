@@ -31,24 +31,25 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 local servers = {
-  "vimls",
-  "yamlls",
-  "cssls",
+  "bashls",
+  -- "cssls", -- using null_ls - stylelint instead
+  "dockerls",
+  -- "efm", -- switched to null-ls
+  "graphql",
+  "html",
   "jsonls",
+  -- "solargraph", -- install this one manually - gem install solargraph
   "solidity_ls",
   "sqlls",
   "sqls",
   "stylelint_lsp",
-  "tsserver",
-  "vuels",
-  -- "solargraph", install this one manually - gem install solargraph
   "sumneko_lua",
-  -- "efm", -- switched to null-ls
-  "bashls",
-  "dockerls",
-  "html",
-  "graphql",
+  "tailwindcss",
   "terraformls",
+  "tsserver",
+  "vimls",
+  "vuels",
+  "yamlls",
 }
 
 local install_missing_servers = function()
