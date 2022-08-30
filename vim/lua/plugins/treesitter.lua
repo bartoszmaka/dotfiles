@@ -15,11 +15,9 @@ require'nvim-treesitter.configs'.setup {
   },
   autopairs = {
     enable = true,
-    filetypes = {'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'eruby', 'lua', 'ruby' }
   },
   autotag = {
     enable = true,
-    filetypes = { 'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'eruby' }
   },
   -- matchup = { enable = true },
   context_commentstring = {

@@ -3,27 +3,13 @@ local symbols = require('config_helper/symbols')
 local M = {}
 
 local setup_symbols = function()
-  -- >= 0.6
   vim.fn.sign_define("DiagnosticSignError", { text = symbols.error,       texthl = "DiagnosticError" })
   vim.fn.sign_define("DiagnosticSignWarn",  { text = symbols.warning,     texthl = "DiagnosticWarning" })
   vim.fn.sign_define("DiagnosticSignInfo",  { text = symbols.information, texthl = "DiagnosticInformation" })
   vim.fn.sign_define("DiagnosticSignHint",  { text = symbols.information, texthl = "DiagnosticHint" })
 end
 
-local setup_legacy_symbols = function()
-  -- <= 0.5.1
-  vim.fn.sign_define("LspDiagnosticsSignError",       { text = symbols.error,       numhl = "LspDiagnosticsDefaultError" })
-  vim.fn.sign_define("LspDiagnosticsSignWarning",     { text = symbols.warning,     numhl = "LspDiagnosticsDefaultWarning" })
-  vim.fn.sign_define("LspDiagnosticsSignInformation", { text = symbols.information, numhl = "LspDiagnosticsDefaultInformation" })
-  vim.fn.sign_define("LspDiagnosticsSignHint",        { text = symbols.information, numhl = "LspDiagnosticsDefaultHint" })
-end
-
 M.setup_diagnostics = function()
-  if (vim.fn.has('nvim-0.6') == 0) then
-    setup_legacy_symbols()
-    return
-  end
-
   vim.diagnostic.config({
     update_in_insert = true,
     underline = {

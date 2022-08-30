@@ -21,45 +21,73 @@ nnoremap('<C-k><C-r>', ':NvimTreeToggle<CR>')
 nnoremap('<C-k><C-e>', ':NvimTreeFindFileToggle<CR>')
 
 require('nvim-tree').setup {
-  actions = {
-    open_file = {
-      quit_on_open = false,
-      resize_window = true
-    }
-  },
-  filters = {
-    dotfiles = false
-  },
   disable_netrw       = true,
   hijack_netrw        = true,
-  open_on_setup       = false,
   ignore_ft_on_setup  = {},
-  -- auto_close          = false,
-  open_on_tab         = false,
-  -- update_to_buf_dir   = {
-  --   enable = true,
-  --   auto_open = true,
-  -- },
-  hijack_cursor       = false,
   update_cwd          = false,
-  -- lsp_diagnostics     = false,
   update_focused_file = {
     enable      = false,
     update_cwd  = false,
     ignore_list = {}
   },
-  system_open = {
-    cmd  = nil,
-    args = {}
+  system_open = { cmd  = nil, args = {} },
+  git = { ignore = false, },
+  filters = { dotfiles = false },
+  live_filter = { always_show_folders = false },
+  renderer = {
+    highlight_git = true,
+    highlight_opened_files = "icon",
+    root_folder_modifier = ":t",
+    full_name = true,
+    icons = {
+      show = {
+        git = false,
+        folder = true,
+        file = true,
+        folder_arrow = false,
+      },
+      glyphs = {
+        default = "",
+        symlink = "",
+        git = {
+          unstaged = "✗",
+          staged = "✓",
+          unmerged = "",
+          renamed = "➜",
+          untracked = "+",
+          deleted = "-",
+          ignored = "◌"
+        },
+        folder = {
+          arrow_open = "",
+          arrow_closed = "",
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+          symlink_open = "",
+        },
+        -- lsp = {
+        --   hint = "",
+        --   info = "",
+        --   warning = "",
+        --   error = "",
+        -- }
+      }
+    },
+    indent_markers = {
+      enable = true
+    }
   },
-  git = {
-    ignore = false,
+  diagnostics = {
+    enable = true,
+    show_on_dirs = true,
   },
-
   view = {
+    -- adaptive_size = true,
     width = 60,
     height = 30,
-    side = 'left',
     mappings = {
       custom_only = true,
       list = {
@@ -105,51 +133,6 @@ require('nvim-tree').setup {
         { key = "]g", action = "next_git_item", },
         { key = "<C-o>", cb = "<Cmd>lua _G.nvim_tree_os_open()<CR>" },
       }
-    }
-  },
-  renderer = {
-    highlight_git = true,
-    highlight_opened_files = "icon",
-    root_folder_modifier = ":t",
-    icons = {
-      show = {
-        git = false,
-        folder = true,
-        file = true,
-        folder_arrow = false,
-      },
-      glyphs = {
-        default = "",
-        symlink = "",
-        git = {
-          unstaged = "✗",
-          staged = "✓",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "+",
-          deleted = "-",
-          ignored = "◌"
-        },
-        folder = {
-          arrow_open = "",
-          arrow_closed = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
-        },
-        -- lsp = {
-        --   hint = "",
-        --   info = "",
-        --   warning = "",
-        --   error = "",
-        -- }
-      }
-    },
-    indent_markers = {
-      enable = true
     }
   }
 }
