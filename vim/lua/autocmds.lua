@@ -73,6 +73,7 @@ augroup treesitter_overrides
   highlight! link htmlBold Normal
   highlight! link htmlBoldItalic Normal
   highlight! link htmlBoldItalicUnderline Normal
+  highlight! link tsxTSTag TSConstructor
 augroup END
 ]]
 

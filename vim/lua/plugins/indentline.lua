@@ -1,21 +1,15 @@
 function ToggleIndentMarks()
   if vim.g.indent_highlight_toggled_visible == 1 then
     vim.g.indent_highlight_toggled_visible = 0
-    vim.cmd [[
-      highlight! IndentBlanklineChar guifg=#283347
-      highlight! IndentBlanklineContextChar guifg=#455574 gui=nocombine
-      ]]
+    vim.g.indent_blankline_char = ' '
   else
     vim.g.indent_highlight_toggled_visible = 1
-    vim.cmd [[
-      highlight! IndentBlanklineChar guifg=#1a212e
-      highlight! IndentBlanklineContextChar guifg=#455574 gui=nocombine
-      ]]
+    vim.g.indent_blankline_char = '│'
   end
 end
 
 vim.cmd[[
-  highlight! IndentBlanklineChar guifg=#1a212e
+  highlight! IndentBlanklineChar guifg=#283347
   highlight! IndentBlanklineContextChar guifg=#455574 gui=nocombine
 
   nnoremap <leader>iT :IndentBlanklineToggle<CR>
