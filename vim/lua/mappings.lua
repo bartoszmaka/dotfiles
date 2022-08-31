@@ -55,11 +55,6 @@ vnoremap('>', '>gv')
 vnoremap('<', '<gv')
 vnoremap('<Tab>', '>gv')
 vnoremap('<S-Tab>', '<gv')
--- replaced by anzu
--- nnoremap('n', 'nzz')
--- nnoremap('N', 'Nzz')
--- nnoremap('*', '*zz')
--- nnoremap('#', '#zz')
 
 -- save on cmd + s (mapped to f13-14 in alacritty config)
 nnoremap('<F13>', '<esc>:w<CR>')
