@@ -38,7 +38,7 @@ require('fidget').setup({
       end,
   },
   debug = {
-    logging = true,          -- whether to enable logging, for debugging
+    logging = false,          -- whether to enable logging, for debugging
     strict = false,           -- whether to interpret LSP strictly
   },
 })
