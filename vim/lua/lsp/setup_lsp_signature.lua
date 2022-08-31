@@ -11,8 +11,8 @@ M.setup_lsp_signature = function()
   lsp_signature.setup({
     bind = false,
     doc_lines = 0,
-    hint_prefix = "", 
-    hint_scheme = "String",
+    hint_prefix = "",
+    hint_scheme = "",
     hi_parameter = "LspSignatureActiveParameter",
     max_height = 4,
     max_width = 1000,

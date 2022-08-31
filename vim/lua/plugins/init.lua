@@ -205,6 +205,7 @@ use {
 }
 use { 'skywind3000/vim-quickui' }
 use { 'inkarkat/vim-AdvancedSorters' }
+use { 'j-hui/fidget.nvim', config = function() require('plugins.lsp.fidget') end }
 
 local loadedLsp, _ = pcall(require,'lsp')
 local loadedAutopairs, _ = pcall(require,'plugins.autopairs')
