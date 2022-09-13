@@ -17,7 +17,7 @@ M.setup_lsp_signature = function()
     max_height = 4,
     max_width = 1000,
     handler_opts = {
-      border = "none"
+      border = "single"
     },
     toggle_key = '<leader>hs'
   })
