@@ -13,6 +13,8 @@ use { 'williamboman/nvim-lsp-installer' }
 use { 'glepnir/lspsaga.nvim', config = function() require('lsp.plugins.lspsaga') end }
 use { 'nvim-lua/lsp-status.nvim'}
 use { 'jose-elias-alvarez/typescript.nvim' }
+use { 'folke/trouble.nvim', config = function() require('lsp.plugins.trouble') end }
+use { 'j-hui/fidget.nvim', config = function() require('lsp.plugins.fidget') end }
 
 
 -- lsp/code integration
@@ -205,7 +207,6 @@ use {
 }
 use { 'skywind3000/vim-quickui' }
 use { 'inkarkat/vim-AdvancedSorters' }
-use { 'j-hui/fidget.nvim', config = function() require('plugins.lsp.fidget') end }
 
 local loadedLsp, _ = pcall(require,'lsp')
 local loadedAutopairs, _ = pcall(require,'plugins.autopairs')

@@ -98,19 +98,19 @@ snippet imp "import module from " w
 import ${2:moduleName} from '${1:module}';
 endsnippet
 
-snippet e "export" w
-export ${1}
-endsnippet
-
 snippet c "const" w
 const ${1}
 endsnippet
 
-snippet ed "export default" w
+snippet ex "export" w
+export ${1}
+endsnippet
+
+snippet exd "export default" w
 export default ${1}
 endsnippet
 
-snippet ec "export const" w
+snippet exc "export const" w
 export const ${1}
 endsnippet
 
@@ -223,6 +223,24 @@ snippet idb "inline debugger" w
 (() => { debugger })()
 endsnippet
 
+snippet tc "try-catch" w
+try {
+	${1}
+} catch (error) {
+	${2}
+}
+endsnippet
+
+snippet tcf "try-catch-finally" w
+try {
+	${1}
+} catch (error) {
+	${2}
+} finally {
+	${3}
+}
+endsnippet
+
 snippet tcd "try-catch data" w
 try {
 	${1}
@@ -232,14 +250,18 @@ try {
 }
 endsnippet
 
-
-snippet tc "try-catch" w
+snippet tcfd "try-catch-finally data" w
 try {
 	${1}
+	return [result, null]
 } catch (error) {
+	return [null, error]
+} finally {
 	${2}
 }
 endsnippet
+
+
 
 snippet ef "export function" w
 export function 
@@ -321,4 +343,16 @@ snippet doc "jsdoc" b
 /**
  * ${1}
  */
+endsnippet
+
+snippet fof "for in" w
+for(let ${1:item} of ${2:object}) {
+	${0}
+}
+endsnippet
+
+snippet fin "for in" w
+for(let ${1:item} in ${2:object}) {
+	${0}
+}
 endsnippet
