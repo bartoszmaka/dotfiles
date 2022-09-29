@@ -19,17 +19,12 @@ augroup color_scheme_tweaks
   highlight! CursorLineNR    guibg=#21283b gui=bold
   highlight! CursorColumn    guibg=#21283b
   highlight! ColorColumn     guibg=#21283b
-  highlight! Comment         gui=italic
+  " highlight! Comment         gui=italic
   highlight! Warning         guibg=#443333
   highlight! Error           guibg=#512121
   highlight! Visual          guibg=#401437
   highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
   highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
-
-  highlight! NormalFloat guibg=#141b24 guifg=#93a4c3
-  highlight! FloatBorder guibg=#141b24 guifg=#93a4c3
-  " highlight! link NormalFloat Normal
-  " highlight! link FloatBorder Normal
 
   highlight! DiagnosticVirtualTextHint guifg=#1b6a73 guibg=NONE
   highlight! DiagnosticVirtualTextInfo guifg=#1b6a73 guibg=NONE
@@ -58,7 +53,19 @@ augroup color_scheme_tweaks
   autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
   autocmd InsertLeave * highlight! CursorLine   guibg=#21283b
   autocmd InsertLeave * highlight! CursorLineNR guibg=#21283b
+
+  highlight! NormalFloat   guibg=#141b24 guifg=#93a4c3
+  highlight! FloatBorder   guibg=#141b24 guifg=#93a4c3
+  highlight! NormalSB      guibg=#141b24 guifg=#93a4c3
+  highlight! SignColumnSB  guibg=#141b24 guifg=#93a4c3 
+  highlight! EndOfBufferSB guifg=#141b24 guibg=#141b24
  
+  autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
+  autocmd FileType floaterm setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
+  autocmd FileType Trouble setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
+  autocmd FileType Mundo setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
+  autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
+  autocmd FileType vista_kind setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
 augroup END
 ]]
 
@@ -68,11 +75,11 @@ augroup treesitter_overrides
 
   highlight! TSKeywordFunction gui=NONE
   highlight! TSConstructor     gui=NONE
-  highlight! TSInclude         gui=italic
-  highlight! TSKeyword         gui=italic
-  highlight! TSKeywordFunction gui=italic
-  highlight! TSVariableBuiltin gui=italic
-  highlight! TSConditional     gui=italic
+  " highlight! TSInclude         gui=italic
+  " highlight! TSKeyword         gui=italic
+  " highlight! TSKeywordFunction gui=italic
+  " highlight! TSVariableBuiltin gui=italic
+  " highlight! TSConditional     gui=italic
   highlight! link vueTSMethod TSBoolean
   highlight! link TSTagAttribute TSBoolean
   highlight! link htmlBold Normal
