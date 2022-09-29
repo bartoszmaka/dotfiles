@@ -26,6 +26,11 @@ augroup color_scheme_tweaks
   highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
   highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
 
+  highlight! NormalFloat guibg=#141b24 guifg=#93a4c3
+  highlight! FloatBorder guibg=#141b24 guifg=#93a4c3
+  " highlight! link NormalFloat Normal
+  " highlight! link FloatBorder Normal
+
   highlight! DiagnosticVirtualTextHint guifg=#1b6a73 guibg=NONE
   highlight! DiagnosticVirtualTextInfo guifg=#1b6a73 guibg=NONE
 
