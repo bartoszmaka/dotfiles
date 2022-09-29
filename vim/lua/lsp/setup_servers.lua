@@ -1,18 +1,7 @@
--- local efm = require('lsp/efm')
 local on_attach = require('lsp/on_attach')
+local lspconfig = require('lspconfig')
 local native_capabilities = vim.lsp.protocol.make_client_capabilities()
 local loaded_cmp, capabilities = pcall(require, 'cmp_nvim_lsp')
-local installer_loaded, lsp_installer_servers = pcall(require, 'nvim-lsp-installer.servers')
-local lspconfig_loaded, lspconfig = pcall(require, 'lspconfig')
-local nnoremap = require('config_helper').nnoremap
-
-if not installer_loaded then
-  print('nvim-lsp-installer not installed')
-end
-
-if not lspconfig_loaded then
-  print('lspconfig not installed')
-end
 
 if loaded_cmp then
   capabilities = capabilities.update_capabilities(native_capabilities)
@@ -31,49 +20,80 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 local servers = {
-  "bashls",
-  -- "cssls", -- using null_ls - stylelint instead
-  "dockerls",
-  -- "efm", -- switched to null-ls
-  "graphql",
-  "html",
-  "jsonls",
-  -- "solargraph", -- install this one manually - gem install solargraph
-  "solidity_ls",
-  "sqlls",
-  "sqls",
-  "stylelint_lsp",
-  "sumneko_lua",
-  "tailwindcss",
-  "terraformls",
-  "tsserver",
-  "vimls",
-  "vuels",
-  "yamlls",
+  -- 'bashls',
+  'dockerls',
+  'graphql',
+  'html',
+  'jsonls',
+  -- 'solargraph', -- install manually
+  'solidity_ls',
+  'sqlls',
+  'sqls',
+  'stylelint_lsp',
+  'sumneko_lua',
+  'tailwindcss',
+  'terraformls',
+  'tsserver',
+  'vimls',
+  'vuels',
+  'yamlls',
 }
 
-local install_missing_servers = function()
-  for _, server_name in pairs(servers) do
-    local server_available, server = lsp_installer_servers.get_server(server_name)
-    if server_available then
-      if not server:is_installed() then
-        server:install()
-      end
-    end
-  end
-end
+require('mason').setup()
+require('mason-lspconfig').setup(
+  { ensure_installed = servers }
+)
+
 
 local M = {}
 
+-- local configs = require 'lspconfig.configs'
+-- configs['ruby-lsp'] = {
+--   default_config = {
+--     cmd = { "ruby-lsp" },
+--     filetypes = { "ruby" },
+--     root_dir = vim.loop.cwd,
+--   }
+-- }
+
 M.setup_servers = function()
-  local loaded_installer, lsp_installer = pcall(require, "nvim-lsp-installer")
-  if not loaded_installer then
-    return
-  end
 
-  install_missing_servers()
+  -- lspconfig['ruby-lsp'].setup({
+  --   capabilities = capabilities,
+  --   on_attach = on_attach,
+  --   root_dir = vim.loop.cwd,
+  --   flags = {
+  --     debounce_text_changes = 150,
+  --   },
+  -- })
 
-  lsp_installer.on_server_ready(function(server)
+  lspconfig['solargraph'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    root_dir = vim.loop.cwd,
+    flags = {
+      debounce_text_changes = 150,
+    },
+    settings = {
+      solargraph = {
+        diagnostics = true
+      }
+    }
+  })
+  require("typescript").setup({
+    disable_commands = false, -- prevent the plugin from creating Vim commands
+    debug = false, -- enable debug logging for commands
+    server = {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      root_dir = vim.loop.cwd,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    },
+  })
+
+  for _, server_name in ipairs(servers) do
     local opts = {
       capabilities = capabilities,
       on_attach = on_attach,
@@ -83,22 +103,14 @@ M.setup_servers = function()
       }
     }
 
-    if server.name == "solargraph" then
-      -- opts.cmd = { "solargraph", "stdio" }
-      opts.settings = {
-        solargraph = {
-          diagnostics = true
-        }
-      }
-
-    elseif server.name == "sumneko_lua" then
+    if server_name == "sumneko_lua" then
       opts.root_dir = function()
         return vim.loop.cwd()
       end
       opts.settings = {
         Lua = {
           diagnostics = {
-            globals = {"vim"}
+            globals = { "vim" }
           },
           workspace = {
             library = {
@@ -111,17 +123,20 @@ M.setup_servers = function()
           }
         }
       }
+    elseif server_name == "jsonls" then
+      opts.settings = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        },
+      }
     end
 
-    if server.name == "solargraph" then
-      -- install solargraph outside of nvim-lsp-installer (there were some problems with that)
-      lspconfig['solargraph'].setup(opts)
-    else
-      -- otherwise use nvim-lsp-installer LSPs
-      server:setup(opts)
+    if server_name ~= 'tsserver' then
+      lspconfig[server_name].setup(opts)
     end
-    vim.cmd([[ do User LspAttach Buffers ]])
-  end)
+  end
+  vim.cmd([[ do User LspAttach Buffers ]])
 end
 
 return M

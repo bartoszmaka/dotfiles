@@ -9,7 +9,9 @@ local on_attach = function(client, bufnr)
   --   navic.attach(client, bufnr)
   -- end
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
   vim.wo.signcolumn = 'yes:1'
   require('lsp-status').on_attach(client)
 
@@ -19,7 +21,7 @@ local on_attach = function(client, bufnr)
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
   end
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap = true, silent = true }
   vim.cmd("command! LspDef lua vim.lsp.buf.definition()")
   vim.cmd("command! LspFormatting lua vim.lsp.buf.formatting()")
   vim.cmd("command! LspCodeAction lua vim.lsp.buf.code_action()")
@@ -63,8 +65,9 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<leader>mF", "<cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>", opts)
   end
 
-  set_default_formatter_for_filetypes('solargraph', {'ruby'})
-  set_default_formatter_for_filetypes('null-ls', {'javascript', 'vue'})
+  set_default_formatter_for_filetypes('solargraph', { 'ruby' })
+  set_default_formatter_for_filetypes('null-ls', { 'javascript', 'vue' })
+  set_default_formatter_for_filetypes('sumneko_lua', { 'lua' })
 
   function format_range_operator()
     local old_func = vim.go.operatorfunc
@@ -78,6 +81,7 @@ local on_attach = function(client, bufnr)
     vim.go.operatorfunc = 'v:lua.op_func_formatting'
     vim.api.nvim_feedkeys('g@', 'n', false)
   end
+
   buf_set_keymap("n", "gm", "<cmd>lua format_range_operator()<CR>", opts)
 
 end

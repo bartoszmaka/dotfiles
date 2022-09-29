@@ -7,27 +7,29 @@ use { 'tweekmonster/startuptime.vim' }
 use 'lewis6991/impatient.nvim'
 
 -- lsp installation
-use { 'neovim/nvim-lspconfig' }
-use { 'williamboman/nvim-lsp-installer' }
 -- use { 'fgheng/winbar.nvim', config = function() require('plugins.winbar') end }
+use { 'williamboman/mason.nvim' }
+use { 'williamboman/mason-lspconfig.nvim' }
+use { 'neovim/nvim-lspconfig' }
 use { 'glepnir/lspsaga.nvim', config = function() require('lsp.plugins.lspsaga') end }
-use { 'nvim-lua/lsp-status.nvim'}
+use { 'nvim-lua/lsp-status.nvim' }
 use { 'jose-elias-alvarez/typescript.nvim' }
+use { 'b0o/schemastore.nvim' }
 use { 'folke/trouble.nvim', config = function() require('lsp.plugins.trouble') end }
 use { 'j-hui/fidget.nvim', config = function() require('lsp.plugins.fidget') end }
 
 
 -- lsp/code integration
 use { 'onsails/lspkind-nvim', config = function() require('lsp.plugins.lspkind') end } -- lsp and completion icons
-use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } }           -- lsp integration utils (better go to def etc)
-use { 'ray-x/lsp_signature.nvim' }                                             -- display arguments names while typing
-use { 'jose-elias-alvarez/null-ls.nvim',                                       -- null ls
+use { 'RishabhRD/nvim-lsputils', requires = { 'RishabhRD/popfix' } } -- lsp integration utils (better go to def etc)
+use { 'ray-x/lsp_signature.nvim' } -- display arguments names while typing
+use { 'jose-elias-alvarez/null-ls.nvim', -- null ls
   requires = { 'nvim-lua/plenary.nvim' },
   config = function() require('lsp.plugins.null-ls') end,
 }
-use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end }  -- project navigation (implementation to test etc)
+use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end } -- project navigation (implementation to test etc)
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
-use { 'bartoszmaka/vim-rails', branch = 'dev',config = function() require('plugins.rails') end }
+use { 'bartoszmaka/vim-rails', branch = 'dev', config = function() require('plugins.rails') end }
 
 use {
   'narutoxy/dim.lua',
@@ -55,7 +57,7 @@ use {
 -- use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 -- use { 'github/copilot.vim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
-use { 'kamykn/spelunker.vim',                                                                -- spell checker
+use { 'kamykn/spelunker.vim', -- spell checker
   requires = { { 'kamykn/popup-menu.nvim' } },
   config = function() require('plugins.spelunker') end,
 }
@@ -82,26 +84,26 @@ use { 'rhysd/conflict-marker.vim', config = function() require('plugins.conflict
 
 
 -- utils
-use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end }               -- git integration
-use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end }                -- remove once gitsigns has more configurable blame
-use { 'tpope/vim-repeat', config = function() require('plugins.repeat') end }                   -- better '.'
-use { 'rhysd/clever-f.vim' }                                                                    -- better 'f'
-use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end }       -- split and join mutiline
-use { 'tpope/vim-abolish' }                                                                     -- swap case
-use { 'andymass/vim-matchup', config = function() require('plugins.matchup') end }              -- jump to matching anything
+use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end } -- git integration
+use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end } -- remove once gitsigns has more configurable blame
+use { 'tpope/vim-repeat', config = function() require('plugins.repeat') end } -- better '.'
+use { 'rhysd/clever-f.vim' } -- better 'f'
+use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end } -- split and join mutiline
+use { 'tpope/vim-abolish' } -- swap case
+use { 'andymass/vim-matchup', config = function() require('plugins.matchup') end } -- jump to matching anything
 use { 'Valloric/MatchTagAlways', config = function() require('plugins.match_tag_always') end } -- jump to matching tag
-use { 'windwp/nvim-autopairs' }                                                                 -- automatically add matching parentheses
-use { 'windwp/nvim-ts-autotag' }                                                                -- automatically add matching tags
-use { 'tpope/vim-surround' }                                                                    -- surround motion
-use { 'simonefranza/nvim-conv' }                                                                -- convert units
-use { 'junegunn/fzf',                                                                           -- project fuzzy searcher
+use { 'windwp/nvim-autopairs' } -- automatically add matching parentheses
+use { 'windwp/nvim-ts-autotag' } -- automatically add matching tags
+use { 'tpope/vim-surround' } -- surround motion
+use { 'simonefranza/nvim-conv' } -- convert units
+use { 'junegunn/fzf', -- project fuzzy searcher
   dir = '~/.fzf',
   run = './install -- all',
   config = function()
     require('plugins.fzf')
   end,
 }
-use { 'junegunn/fzf.vim'}
+use { 'junegunn/fzf.vim' }
 use { 'bartoszmaka/fzf-mru.vim' }
 use { 'ibhagwan/fzf-lua',
   requires = {
@@ -110,14 +112,14 @@ use { 'ibhagwan/fzf-lua',
   },
   run = './install -- bin'
 }
-use { 'dominikduda/vim_yank_with_context' }                                                     -- yank with file name and line numbers
-use { 'phaazon/hop.nvim',                                                                       -- better jumps
+use { 'dominikduda/vim_yank_with_context' } -- yank with file name and line numbers
+use { 'phaazon/hop.nvim', -- better jumps
   branch = 'v1',
   config = function() require('plugins.hop') end,
 }
-use { 'mg979/vim-visual-multi', config = function() require('plugins.visual-multi') end }       -- multiple cursors
-use { 'tpope/vim-commentary', config = function() require('plugins.commentary') end }           -- commenting
-use { 'janko/vim-test', config = function() require('plugins.vim-test') end }                   -- run tests
+use { 'mg979/vim-visual-multi', config = function() require('plugins.visual-multi') end } -- multiple cursors
+use { 'tpope/vim-commentary', config = function() require('plugins.commentary') end } -- commenting
+use { 'janko/vim-test', config = function() require('plugins.vim-test') end } -- run tests
 use { 'knubie/vim-kitty-navigator',
   run = 'cp ./*.py ~/.config/kitty/',
   -- cond = function() return vim.fn.exists('$KITTY_WINDOW_ID') == 1 end,
@@ -136,20 +138,20 @@ use { 'junkblocker/git-time-lapse', config = function() require('plugins.git-tim
 use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
 use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
-use { 'godlygeek/tabular', config = function() require('plugins.tabular') end }                 -- align text
-use { 'AndrewRadev/sideways.vim', config = function() require('plugins.sideways') end }         -- move fn arguments
+use { 'godlygeek/tabular', config = function() require('plugins.tabular') end } -- align text
+use { 'AndrewRadev/sideways.vim', config = function() require('plugins.sideways') end } -- move fn arguments
 
-                                                                                                -- additional windows
-use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end }                    -- project wide search
-use { 'kyazdani42/nvim-tree.lua',                                                               -- project tree
+-- additional windows
+use { 'dyng/ctrlsf.vim', config = function() require('plugins.ctrlsf') end } -- project wide search
+use { 'kyazdani42/nvim-tree.lua', -- project tree
   requires = { 'kyazdani42/nvim-web-devicons' },
   config = function()
     require('plugins.nvim-tree')
   end,
 }
-use { 'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end }              -- undo tree
-use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end }                -- symbols listing
-use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end }            -- terminal window
+use { 'simnalamburt/vim-mundo', config = function() require('plugins.mundo') end } -- undo tree
+use { 'liuchengxu/vista.vim', config = function() require('plugins.vista') end } -- symbols listing
+use { 'voldikss/vim-floaterm', config = function() require('plugins.floaterm') end } -- terminal window
 
 
 -- UI
@@ -159,8 +161,8 @@ use { 'lewis6991/gitsigns.nvim',
     require('plugins.gitsigns')
   end,
 }
-use { 'navarasu/onedark.nvim' }                                                                      -- colorscheme
-use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end }                     -- tabs line
+use { 'navarasu/onedark.nvim' } -- colorscheme
+use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end } -- tabs line
 -- use { 'glepnir/galaxyline.nvim',                                                                     -- status line
 --   branch = 'main',
 --   requires = { 'kyazdani42/nvim-web-devicons', opt = true},
@@ -184,14 +186,14 @@ use {
 use { 'lukas-reineke/indent-blankline.nvim', config = function() require('plugins.indentline') end }
 use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
 use { 'RRethy/vim-illuminate', config = function() require('plugins.illuminate') end }
-use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end }               -- notifications windows
-use { 'simeji/winresizer', config = function() require('plugins.winresizer') end }                   -- resize windows
-use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end }                    -- maximize window
-use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollbar') end }            -- scrollbar
-use { 'vim-scripts/LargeFile' }                                                                      -- large files helper
-use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end }              -- better highlight search
+use { 'rcarriga/nvim-notify', config = function() require('plugins.nvim-notify') end } -- notifications windows
+use { 'simeji/winresizer', config = function() require('plugins.winresizer') end } -- resize windows
+use { 'szw/vim-maximizer', config = function() require('plugins.maximizer') end } -- maximize window
+use { 'petertriho/nvim-scrollbar', config = function() require('plugins.scrollbar') end } -- scrollbar
+use { 'vim-scripts/LargeFile' } -- large files helper
+use { 'kevinhwang91/nvim-hlslens', config = function() require('plugins.hlslens') end } -- better highlight search
 use { 'ldelossa/gh.nvim' }
-use { 'nvim-telescope/telescope.nvim', tag = '0.1.0' , config = function() require('plugins.telescope') end }
+use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', config = function() require('plugins.telescope') end }
 use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 use { 'fhill2/telescope-ultisnips.nvim' }
 use {
@@ -201,19 +203,19 @@ use {
     'nvim-telescope/telescope.nvim',
     'kyazdani42/nvim-web-devicons',
   },
-  config = function ()
+  config = function()
     require('plugins.octo')
   end
 }
 use { 'skywind3000/vim-quickui' }
 use { 'inkarkat/vim-AdvancedSorters' }
 
-local loadedLsp, _ = pcall(require,'lsp')
-local loadedAutopairs, _ = pcall(require,'plugins.autopairs')
-local loadedCompletion, _ = pcall(require,'plugins.completion')
-local loadedColorscheme, _ = pcall(require,'plugins.colorscheme')
+local loadedLsp, _ = pcall(require, 'lsp')
+local loadedAutopairs, _ = pcall(require, 'plugins.autopairs')
+local loadedCompletion, _ = pcall(require, 'plugins.completion')
+local loadedColorscheme, _ = pcall(require, 'plugins.colorscheme')
 
-if not loadedLsp then print("Error in lsp config") end
-if not loadedAutopairs then print("Error in autoparis config") end
-if not loadedCompletion then print("Error in completion config") end
-if not loadedColorscheme then print("Error in colorscheme config") end
+if not loadedLsp then print('Error in lsp config') end
+if not loadedAutopairs then print('Error in autoparis config') end
+if not loadedCompletion then print('Error in completion config') end
+if not loadedColorscheme then print('Error in colorscheme config') end

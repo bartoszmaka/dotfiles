@@ -93,7 +93,6 @@ require('nvim-tree').setup {
   view = {
     -- adaptive_size = true,
     width = 60,
-    height = 30,
     mappings = {
       custom_only = true,
       list = {
