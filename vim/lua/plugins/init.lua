@@ -2,9 +2,9 @@ local packer = require('packer')
 local use = packer.use
 
 use { 'wbthomason/packer.nvim' } -- plugin manager
-use { 'nathom/filetype.nvim', config = function() require('plugins.filetype') end }
 use { 'tweekmonster/startuptime.vim' }
-use 'lewis6991/impatient.nvim'
+-- use { 'nathom/filetype.nvim', config = function() require('plugins.filetype') end }
+use { 'lewis6991/impatient.nvim' }
 
 -- lsp installation
 -- use { 'fgheng/winbar.nvim', config = function() require('plugins.winbar') end }
@@ -14,7 +14,7 @@ use { 'neovim/nvim-lspconfig' }
 use { 'glepnir/lspsaga.nvim', config = function() require('lsp.plugins.lspsaga') end }
 use { 'nvim-lua/lsp-status.nvim' }
 use { 'jose-elias-alvarez/typescript.nvim' }
-use { 'b0o/schemastore.nvim' }
+use { 'b0o/schemastore.nvim' } -- schemas for jsonls (common rc files)
 use { 'folke/trouble.nvim', config = function() require('lsp.plugins.trouble') end }
 use { 'j-hui/fidget.nvim', config = function() require('lsp.plugins.fidget') end }
 
@@ -30,12 +30,6 @@ use { 'jose-elias-alvarez/null-ls.nvim', -- null ls
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end } -- project navigation (implementation to test etc)
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
 use { 'bartoszmaka/vim-rails', branch = 'dev', config = function() require('plugins.rails') end }
-
-use {
-  'narutoxy/dim.lua',
-  requires = { 'nvim-treesitter/nvim-treesitter', 'neovim/nvim-lspconfig' },
-  config = function() require('plugins.dim') end
-}
 
 
 -- completion
@@ -59,7 +53,12 @@ use {
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
 use { 'kamykn/spelunker.vim', -- spell checker
   requires = { { 'kamykn/popup-menu.nvim' } },
+  ft = { 'gitcommit' },
   config = function() require('plugins.spelunker') end,
+}
+use { 'mattn/emmet-vim',
+  ft = { 'eruby', 'svelte', 'html', 'elixir', 'javascript' },
+  config = function() require('plugins.emmet') end
 }
 
 

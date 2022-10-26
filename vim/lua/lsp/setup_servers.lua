@@ -4,7 +4,7 @@ local native_capabilities = vim.lsp.protocol.make_client_capabilities()
 local loaded_cmp, capabilities = pcall(require, 'cmp_nvim_lsp')
 
 if loaded_cmp then
-  capabilities = capabilities.update_capabilities(native_capabilities)
+  capabilities = capabilities.default_capabilities(native_capabilities)
 else
   print('cmp_nvim_lsp not installed')
   capabilities = native_capabilities
@@ -26,7 +26,7 @@ local servers = {
   'html',
   'jsonls',
   -- 'solargraph', -- install manually
-  'solidity_ls',
+  -- 'solidity_ls',
   'sqlls',
   'sqls',
   'stylelint_lsp',

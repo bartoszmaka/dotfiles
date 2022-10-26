@@ -41,13 +41,13 @@ saga.init_lsp_saga({
   rename_action_quit = "<C-c>",
   rename_in_select = true,
   -- show symbols in winbar must nightly
-  -- symbol_in_winbar = {
-  --   in_custom = false,
-  --   enable = false,
-  --   separator = ' ',
-  --   show_file = true,
-  --   click_support = false,
-  -- },
+  symbol_in_winbar = {
+    -- in_custom = true,
+    enable = false,
+    separator = ' > ',
+    show_file = false,
+    -- click_support = false,
+  },
   show_outline = {
     win_position = 'right',
     --set special filetype win that outline window split.like NvimTree neotree
