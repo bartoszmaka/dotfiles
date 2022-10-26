@@ -154,12 +154,15 @@ cmp.setup({
   },
   window = {
     completion = {
-      winhighlight = 'Normal:Normal,FloatBorder:Normal,CursorLine:Visual,Search:None',
+      winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:Visual,Search:None',
       col_offset = -4,
       side_padding = 0,
       border = 'rounded',
     },
-    documentation = cmp.config.window.bordered(),
+    documentation = {
+      winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
+      border = 'rounded',
+    },
   },
 })
 

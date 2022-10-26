@@ -54,18 +54,19 @@ augroup color_scheme_tweaks
   autocmd InsertLeave * highlight! CursorLine   guibg=#21283b
   autocmd InsertLeave * highlight! CursorLineNR guibg=#21283b
 
-  highlight! NormalFloat   guibg=#141b24 guifg=#93a4c3
-  highlight! FloatBorder   guibg=#141b24 guifg=#93a4c3
-  highlight! NormalSB      guibg=#141b24 guifg=#93a4c3
-  highlight! SignColumnSB  guibg=#141b24 guifg=#93a4c3 
-  highlight! EndOfBufferSB guifg=#141b24 guibg=#141b24
+  highlight! NormalFloat       guibg=#141b24 guifg=#93a4c3
+  highlight! FloatBorder       guibg=#141b24 guifg=#93a4c3
+  highlight! NormalDarker      guibg=#141b24 guifg=#93a4c3
+  highlight! SignColumnDarker  guibg=#141b24 guifg=#93a4c3 
+  highlight! EndOfBufferDarker guifg=#141b24 guibg=#141b24
  
-  autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
-  autocmd FileType floaterm setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
-  autocmd FileType Trouble setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
-  autocmd FileType Mundo setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
-  autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
-  autocmd FileType vista_kind setlocal winhighlight=Normal:NormalSB,SignColumn:SignColumnSB,EndOfBuffer:EndOfBufferSB
+  autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+  autocmd FileType floaterm setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+  autocmd FileType Trouble setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+  autocmd FileType Trouble setlocal colorcolumn=
+  autocmd FileType Mundo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+  autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+  autocmd FileType vista_kind setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
 augroup END
 ]]
 
@@ -73,13 +74,14 @@ vim.cmd [[
 augroup treesitter_overrides
   autocmd!
 
+  highlight! @constructor      gui=NONE
   highlight! TSKeywordFunction gui=NONE
   highlight! TSConstructor     gui=NONE
-  " highlight! TSInclude         gui=italic
-  " highlight! TSKeyword         gui=italic
-  " highlight! TSKeywordFunction gui=italic
-  " highlight! TSVariableBuiltin gui=italic
-  " highlight! TSConditional     gui=italic
+  highlight! TSInclude         gui=italic
+  highlight! TSKeyword         gui=italic
+  highlight! TSKeywordFunction gui=italic
+  highlight! TSVariableBuiltin gui=italic
+  highlight! TSConditional     gui=italic
   highlight! link vueTSMethod TSBoolean
   highlight! link TSTagAttribute TSBoolean
   highlight! link htmlBold Normal
