@@ -44,13 +44,13 @@ require'nvim-treesitter.configs'.setup {
     }
   },
   incremental_selection = {
-    enable = true,
-    keymaps = {
-      -- init_selection = '<CR>',
-      -- scope_incremental = '<CR>',
-      node_incremental = 'v',
-      node_decremental = 'V',
-    },
+    enable = false,
+    -- keymaps = {
+    --   -- init_selection = '<CR>',
+    --   -- scope_incremental = '<CR>',
+    --   node_incremental = 'v',
+    --   node_decremental = 'V',
+    -- },
   },
   textobjects = {
     lookahead = true,
@@ -99,6 +99,7 @@ require'nvim-treesitter.configs'.setup {
 
 local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
 ft_to_parser["env.local"] = "bash" -- the someft filetype will use the python parser and queries.
+ft_to_parser["eruby.yaml"] = "yaml" -- the someft filetype will use the python parser and queries.
 
 require'treesitter-context'.setup {
   enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)

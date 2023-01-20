@@ -3,7 +3,7 @@ local use = packer.use
 
 use { 'wbthomason/packer.nvim' } -- plugin manager
 use { 'tweekmonster/startuptime.vim' }
--- use { 'nathom/filetype.nvim', config = function() require('plugins.filetype') end }
+use { 'nathom/filetype.nvim', config = function() require('plugins.filetype') end }
 use { 'lewis6991/impatient.nvim' }
 
 -- lsp installation
@@ -51,11 +51,11 @@ use {
 -- use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
 -- use { 'github/copilot.vim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
-use { 'kamykn/spelunker.vim', -- spell checker
-  requires = { { 'kamykn/popup-menu.nvim' } },
-  ft = { 'gitcommit' },
-  config = function() require('plugins.spelunker') end,
-}
+-- use { 'kamykn/spelunker.vim', -- spell checker
+--   requires = { { 'kamykn/popup-menu.nvim' } },
+--   ft = { 'gitcommit' },
+--   config = function() require('plugins.spelunker') end,
+-- }
 use { 'mattn/emmet-vim',
   ft = { 'eruby', 'svelte', 'html', 'elixir', 'javascript' },
   config = function() require('plugins.emmet') end
@@ -133,7 +133,7 @@ use { 'christoomey/vim-tmux-navigator',
     'roxma/vim-tmux-clipboard',
     'preservim/vimux'
   } }
-use { 'junkblocker/git-time-lapse', config = function() require('plugins.git-time-lapse') end }
+-- use { 'junkblocker/git-time-lapse', config = function() require('plugins.git-time-lapse') end }
 use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
 use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
@@ -195,19 +195,20 @@ use { 'ldelossa/gh.nvim' }
 use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', config = function() require('plugins.telescope') end }
 use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 use { 'fhill2/telescope-ultisnips.nvim' }
-use {
-  'pwntester/octo.nvim',
-  requires = {
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope.nvim',
-    'kyazdani42/nvim-web-devicons',
-  },
-  config = function()
-    require('plugins.octo')
-  end
-}
+-- use {
+--   'pwntester/octo.nvim',
+--   requires = {
+--     'nvim-lua/plenary.nvim',
+--     'nvim-telescope/telescope.nvim',
+--     'kyazdani42/nvim-web-devicons',
+--   },
+--   config = function()
+--     require('plugins.octo')
+--   end
+-- }
 use { 'skywind3000/vim-quickui' }
 use { 'inkarkat/vim-AdvancedSorters' }
+-- use { 'nvim-zh/colorful-winsep.nvim', config = function() require('plugins.colorful-winsep') end }
 
 local loadedLsp, _ = pcall(require, 'lsp')
 local loadedAutopairs, _ = pcall(require, 'plugins.autopairs')

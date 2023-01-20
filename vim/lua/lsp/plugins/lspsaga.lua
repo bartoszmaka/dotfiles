@@ -1,90 +1,88 @@
-local saga = require 'lspsaga'
-local action = require("lspsaga.codeaction")
-
-saga.init_lsp_saga({
-  border_style = "rounded",  -- "single" | "double" | "rounded" | "bold" | "plus"
-  saga_winblend = 0,
-  move_in_saga = { prev = '<C-p>',next = '<C-n>'},
-  diagnostic_header = { " ", " ", " ", " " },
-  max_preview_lines = 15,
-  code_action_icon = "💡",
-  code_action_num_shortcut = true,
-  code_action_lightbulb = {
-    enable = true,
-    sign = true,
-    enable_in_insert = true,
-    sign_priority = 20,
-    virtual_text = false,
+require('lspsaga').setup({
+  ui = {
+    theme = 'round',
+    title = false,
+    -- border type can be single,double,rounded,solid,shadow.
+    border = 'rounded',
+    winblend = 0,
+    expand = '',
+    collapse = '',
+    preview = ' ',
+    code_action = '💡',
+    diagnostic = '🐞',
+    incoming = ' ',
+    outgoing = ' ',
+    colors = {
+      --float window normal background color
+      normal_bg = '#1d1536',
+      --title background color
+      title_bg = '#afd700',
+      red = '#e95678',
+      magenta = '#b33076',
+      orange = '#FF8700',
+      yellow = '#f7bb3b',
+      green = '#afd700',
+      cyan = '#36d0e0',
+      blue = '#61afef',
+      purple = '#CBA6F7',
+      white = '#d1d4cf',
+      black = '#1c1c19',
+    },
+    kind = {},
   },
-  -- finder icons
-  finder_icons = {
-    def = '  ',
-    ref = ' ',
-    link = '  ',
-  },
-  -- custom finder title winbar function type
-  -- param is current word with symbol icon string type
-  -- return a winbar format string like `%#CustomFinder#Test%*`
-  finder_action_keys = {
-    open = "o",
-    vsplit = "s",
-    split = "i",
-    tabe = "t",
-    quit = "<esc>",
-    scroll_down = "<C-f>",
-    scroll_up = "<C-b>", -- quit can be a table
-  },
-  code_action_keys = {
-    quit = "<esc>",
-    exec = "<CR>",
-  },
-  rename_action_quit = "<C-c>",
-  rename_in_select = true,
-  -- show symbols in winbar must nightly
   symbol_in_winbar = {
-    -- in_custom = true,
     enable = false,
-    separator = ' > ',
     show_file = false,
+    separator = '  ',
+    hide_keyword = true,
+    folder_level = 2,
+    respect_root = false,
+    color_mode = true,
+    -- in_custom = true,
     -- click_support = false,
   },
-  show_outline = {
+  outline = {
     win_position = 'right',
-    --set special filetype win that outline window split.like NvimTree neotree
-    -- defx, db_ui
     win_with = '',
-    win_width = 30,
-    auto_enter = true,
+    win_width = 45,
+    show_detail = true,
     auto_preview = true,
-    virt_text = '┃',
-    jump_key = 'o',
     auto_refresh = true,
+    auto_close = true,
+    custom_sort = nil,
+    keys = {
+      jump = 'o',
+      expand_collapse = 'u',
+      quit = 'q',
+    },
   },
-  -- if you don't use nvim-lspconfig you must pass your server name and
-  -- the related filetypes into this table
-  -- like server_filetype_map = { metals = { "sbt", "scala" } }
-  server_filetype_map = {},
 })
 
-vim.g.mapleader = ' '
-vim.keymap.set("n", "<leader>gh", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
-vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true,noremap = true })
-vim.keymap.set("v", "<leader>ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { silent = true,noremap = true })
-vim.keymap.set("n", "<leader>K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
-vim.keymap.set("n", "<leader><C-k>", "<Cmd>Lspsaga signature_help<CR>", { silent = true,noremap = true })
--- scroll down hover doc or scroll in definition preview
--- vim.keymap.set("n", "<C-f>", function()
---     action.smart_scroll_with_saga(1)
--- end, { silent = true })
--- -- scroll up hover doc
--- vim.keymap.set("n", "<C-b>", function()
---     action.smart_scroll_with_saga(-1)
--- end, { silent = true })
+vim.cmd[[
+  highlight! link SagaBorder NormalDarker
+]]
 
-vim.keymap.set("n", "<leader>cd", require("lspsaga.diagnostic").show_line_diagnostics, { silent = true,noremap = true })
-vim.keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true,noremap= true })
-
--- or use command
-vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true, noremap = true })
-vim.keymap.set("n", "gr", "<cmd>Lspsaga lsp_finder<CR>", { silent = true,noremap = true})
+local keymap = vim.keymap.set
+keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>")
+keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+keymap("n", "<leader>gh", "<cmd>Lspsaga peek_definition<CR>")
+keymap("n", "<leader>gr", "<cmd>Lspsaga rename<CR>")
+keymap("n","gd", "<cmd>Lspsaga goto_definition<CR>")
+keymap("n", "<leader>sl", "<cmd>Lspsaga show_line_diagnostics<CR>")
+keymap("n", "<leader>sc", "<cmd>Lspsaga show_cursor_diagnostics<CR>")
+keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+keymap("n", "[E", function()
+  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end)
+keymap("n", "]E", function()
+  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+end)
+keymap("n", "<C-k><C-v>", "<cmd>Lspsaga outline<CR>")
+keymap("n", "<leader>K", "<cmd>Lspsaga hover_doc<CR>")
+-- keymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
+keymap("n", "<leader><C-k>", "<Cmd>Lspsaga signature_help<CR>")
+keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
+keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
+-- keymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")

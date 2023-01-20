@@ -67,6 +67,7 @@ augroup color_scheme_tweaks
   autocmd FileType Mundo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
   autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
   autocmd FileType vista_kind setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+  autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
 augroup END
 ]]
 
@@ -84,6 +85,7 @@ augroup treesitter_overrides
   highlight! TSConditional     gui=italic
   highlight! link vueTSMethod TSBoolean
   highlight! link TSTagAttribute TSBoolean
+  highlight! link @tag.attribute @boolean
   highlight! link htmlBold Normal
   highlight! link htmlBoldItalic Normal
   highlight! link htmlBoldItalicUnderline Normal
