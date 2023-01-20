@@ -123,9 +123,6 @@ cmp.setup({
   formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
-      if vim_item.abbr == "flex" then
-        print(vim.inspect(vim_item))
-      end
       if entry.source.name == 'nvim_lsp_signature_help' then
         vim_item.kind = string.format("%s %s", symbols.Function, "Args")
       else

@@ -7,9 +7,11 @@ require('filetype').setup({
   overrides = {
     literal = {
       gitconfig = 'gitconfig',
+      zshrc = 'zsh',
     },
     complex = {
       ['%.env%.*'] = 'sh',
+      ['%.yml'] = 'yaml',
       ['.pryrc'] = 'ruby',
     },
   },

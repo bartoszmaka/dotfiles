@@ -58,14 +58,15 @@ local M = {}
 
 M.setup_servers = function()
 
-  -- lspconfig['ruby-lsp'].setup({
-  --   capabilities = capabilities,
-  --   on_attach = on_attach,
-  --   root_dir = vim.loop.cwd,
-  --   flags = {
-  --     debounce_text_changes = 150,
-  --   },
-  -- })
+  lspconfig['ruby_ls'].setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+    root_dir = vim.loop.cwd,
+    flags = {
+      debounce_text_changes = 150,
+    },
+    -- cmd = { "bundle", "exec", "ruby-lsp" }
+  })
 
   lspconfig['solargraph'].setup({
     capabilities = capabilities,
