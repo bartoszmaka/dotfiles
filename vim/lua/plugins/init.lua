@@ -26,7 +26,7 @@ use { 'jose-elias-alvarez/null-ls.nvim', -- null ls
   config = function() require('lsp.plugins.null-ls') end,
 }
 use { 'tpope/vim-projectionist', config = function() require('plugins.projectionist') end } -- project navigation (implementation to test etc)
-use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
+-- use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
 use { 'bartoszmaka/vim-rails', branch = 'dev', config = function() require('plugins.rails') end }
 
 -- completion

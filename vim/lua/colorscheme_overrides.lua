@@ -1,0 +1,107 @@
+vim.cmd [[
+  augroup graphql_syntax_fix
+    autocmd!
+    autocmd FileType javascript highlight! link graphqlStructure Constant
+    autocmd FileType javascript highlight! link graphqlVariable Type
+    autocmd FileType javascript highlight! link graphqlName String
+    autocmd FileType javascript highlight! link graphqlType Constant
+    autocmd FileType javascript highlight! link graphqlStructure Label
+    autocmd FileType javascript highlight! link TSTag TSConstructor
+  augroup END
+
+  augroup treesitter_overrides
+    autocmd!
+
+    highlight! @constructor      gui=NONE
+    highlight! TSKeywordFunction gui=NONE
+    highlight! TSConstructor     gui=NONE
+    highlight! TSInclude         gui=italic
+    highlight! TSKeyword         gui=italic
+    highlight! TSKeywordFunction gui=italic
+    highlight! TSVariableBuiltin gui=italic
+    highlight! TSConditional     gui=italic
+    highlight! link vueTSMethod TSBoolean
+    highlight! link TSTagAttribute TSBoolean
+    highlight! link @tag.attribute @boolean
+    highlight! link @tag Special
+    highlight! link @tag.delimiter Special
+    highlight! link htmlBold Normal
+    highlight! link htmlBoldItalic Normal
+    highlight! link htmlBoldItalicUnderline Normal
+    highlight! link tsxTSTag TSConstructor
+  augroup END
+
+  augroup color_scheme_tweaks
+    autocmd!
+
+    highlight! GitSignsChange guifg=#f2cc81
+    highlight! GitSignsChangeNr guifg=#f2cc81
+    highlight! GitSignsChangeLn guifg=#f2cc81
+
+    highlight! DiffChange      guibg=#2e2e1a guifg=NONE gui=NONE
+    highlight! DiffText        guibg=#3e3e23 guifg=NONE gui=NONE
+    highlight! DiffAdd         guibg=#1a2e1b guifg=NONE gui=NONE
+    highlight! DiffDelete      guibg=#2e201a guifg=NONE gui=NONE
+    highlight! CursorLine      guibg=#21283b
+    highlight! CursorLineNR    guibg=#21283b gui=bold
+    highlight! CursorColumn    guibg=#21283b
+    highlight! ColorColumn     guibg=#21283b
+    " highlight! Comment         gui=italic
+    highlight! Warning         guibg=#443333
+    highlight! Error           guibg=#512121
+    highlight! Visual          guibg=#401437
+    highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
+    highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
+
+    highlight! DiagnosticVirtualTextHint guifg=#1b6a73 guibg=NONE
+    highlight! DiagnosticVirtualTextInfo guifg=#1b6a73 guibg=NONE
+
+    highlight! DiagnosticUnderlineError  guibg=#512121 gui=NONE
+    highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE
+    highlight! DiagnosticUnderlineInfo   guibg=NONE gui=NONE
+    highlight! DiagnosticUnderlineHint   guibg=NONE gui=NONE
+
+    highlight! CmpItemAbbr guifg=#6c7d9c
+    highlight! CmpItemAbbrMatch guifg=#f2cc81
+    highlight! CmpItemAbbrMatchFuzzy guifg=#f2cc81 gui=NONE
+    highlight! CmpItemKindDefault guifg=#dd9046
+    highlight! CmpItemKindSnippet guifg=#f65866
+    " highlight! CmpItemKindConstant guifg=#efbd5d
+    " highlight! CmpItemKindModule guifg=#efbd5d
+    " highlight! CmpItemKindClass guifg=#efbd5d
+    highlight! CmpItemKindKeyword guifg=#bfbd5d
+    highlight! CmpItemAbbrDeprecated guifg=#455574
+    " highlight! CmpItemKindFunction guifg=#41a7fc
+    " highlight! CmpItemKindMethod guifg=#41a7fc
+    highlight! CmpItemKindText guifg=#93a4c3
+    " highlight! link cmpItemKindArgs CmpItemKindInterface
+
+    autocmd InsertEnter * highlight! CursorLine   guibg=#512121
+    autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
+    autocmd InsertLeave * highlight! CursorLine   guibg=#21283b
+    autocmd InsertLeave * highlight! CursorLineNR guibg=#21283b
+
+    highlight! NormalFloat       guibg=#141b24 guifg=#93a4c3
+    highlight! FloatBorder       guibg=#141b24 guifg=#93a4c3
+    highlight! NormalDarker      guibg=#141b24 guifg=#93a4c3
+    highlight! SignColumnDarker  guibg=#141b24 guifg=#93a4c3
+    highlight! EndOfBufferDarker guifg=#141b24 guibg=#141b24
+
+    autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+    autocmd FileType floaterm setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+    autocmd FileType Trouble setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+    autocmd FileType Trouble setlocal colorcolumn=
+    autocmd FileType Mundo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+    autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+    autocmd FileType vista_kind setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+    autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+
+    highlight! illuminatedWord guibg=#314365
+    highlight! illuminatedCurWord guibg=#314365 gui=bold
+
+    highlight! link IlluminatedWordRead illuminatedWord
+    highlight! link IlluminatedWordWrite illuminatedWord
+    highlight! link IlluminatedWordText None
+  augroup END
+
+]]
