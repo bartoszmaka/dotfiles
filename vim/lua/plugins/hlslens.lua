@@ -9,12 +9,6 @@ nnoremap('g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
 nnoremap('g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
 
 vim.cmd[[
-  " augroup VMlens
-  "     autocmd!
-  "     autocmd User visual_multi_start lua require('vmlens').start()
-  "     autocmd User visual_multi_exit lua require('vmlens').exit()
-  " augroup END
-
   highlight! default link HlSearchNear IncSearch
   highlight! default link HlSearchLens Comment
   highlight! default link HlSearchLensNear IncSearch
