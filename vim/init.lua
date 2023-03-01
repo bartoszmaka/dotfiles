@@ -1,7 +1,5 @@
-local loaded, impatient = pcall(require, 'impatient')
-if loaded then
-  impatient.enable_profile()
-end
+vim.g.mapleader = ' '
+vim.o.termguicolors = true
 
 vim.cmd [[
   let g:python3_host_prog = '/Users/bartoszmaka/.asdf/shims/python3'
@@ -9,7 +7,7 @@ vim.cmd [[
 ]]
 
 require('disable_builtin')
-require('setup_packer')
+require('setup_lazy')
 require('plugins')
 require('options')
 require('mappings')

@@ -47,11 +47,13 @@ on_project_start: redis-server --daemonize yes
 windows:
   - api:
       layout: main-horizontal
+      # layout: 64dd,284x68,0,0[284x50,0,0,0,284x17,0,51,2]
       panes:
         - n
         - bers -p 5000
   - backoffice:
       layout: main-horizontal
+      # layout: e4df,284x68,0,0[284x50,0,0,1,284x17,0,51,3]
       panes:
         - cd ~/projects/subster-web && n
         - cd ~/projects/subster-web && yarn dev
