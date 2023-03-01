@@ -12,6 +12,7 @@ let g:conflict_marker_enable_mappings = 0
   augroup END
 ]]
 
+-- default
 -- highlight ConflictMarkerBegin guibg=#2f7366
 -- highlight ConflictMarkerOurs guibg=#2e5049
 -- highlight ConflictMarkerTheirs guibg=#344f69

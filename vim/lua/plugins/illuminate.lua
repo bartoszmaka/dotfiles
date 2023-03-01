@@ -1,8 +1,12 @@
-vim.g.Illuminate_delay = 400
+require('illuminate').configure({
+  delay = 200
+})
+
 vim.cmd[[
   highlight! illuminatedWord guibg=#314365
   highlight! illuminatedCurWord guibg=#314365 gui=bold
-  highlight! link illuminatedWordRead illuminatedWord
-  highlight! link illuminatedWordWrite illuminatedWord
-  highlight! link illuminatedWordText None
+
+  highlight! link IlluminatedWordRead illuminatedWord
+  highlight! link IlluminatedWordWrite illuminatedWord
+  highlight! link IlluminatedWordText None
 ]]

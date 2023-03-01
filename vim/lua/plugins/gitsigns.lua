@@ -70,26 +70,8 @@ require('gitsigns').setup {
     ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
     ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
   },
-  current_line_blame = false,
-  -- current_line_blame_formatter = function(name, blame_info)
-  --   if blame_info.author == name then
-  --     blame_info.author = 'You'
-  --   end
-
-  --   local text
-  --   if blame_info.author == 'Not Committed Yet' then
-  --     text = blame_info.author
-  --   else
-  --     text = string.format(
-  --       '%s, %s • %s',
-  --       blame_info.author,
-  --       format(blame_info['author_time']),
-  --       blame_info.summary
-  --     )
-  --   end
-
-  --   return {{' '..text, 'GitSignsCurrentLineBlame'}}
-  -- end
+  current_line_blame = true,
+  current_line_blame_formatter = ' <author>, <author_time:%R> • <summary>',
 }
 
 vim.cmd[[

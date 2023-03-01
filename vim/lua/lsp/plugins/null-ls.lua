@@ -8,7 +8,7 @@ null_ls.setup({
 
     null_ls.builtins.diagnostics.write_good,
 
-    null_ls.builtins.formatting.stylua,
+    -- null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.completion.spell,
 
     -- null_ls.builtins.formatting.rubocop.with({

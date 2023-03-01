@@ -7,7 +7,6 @@ use { 'nathom/filetype.nvim', config = function() require('plugins.filetype') en
 use { 'lewis6991/impatient.nvim' }
 
 -- lsp installation
--- use { 'fgheng/winbar.nvim', config = function() require('plugins.winbar') end }
 use { 'williamboman/mason.nvim' }
 use { 'williamboman/mason-lspconfig.nvim' }
 use { 'neovim/nvim-lspconfig' }
@@ -17,7 +16,6 @@ use { 'jose-elias-alvarez/typescript.nvim' }
 use { 'b0o/schemastore.nvim' } -- schemas for jsonls (common rc files)
 use { 'folke/trouble.nvim', config = function() require('lsp.plugins.trouble') end }
 use { 'j-hui/fidget.nvim', config = function() require('lsp.plugins.fidget') end }
-
 
 -- lsp/code integration
 use { 'onsails/lspkind-nvim', config = function() require('lsp.plugins.lspkind') end } -- lsp and completion icons
@@ -31,12 +29,10 @@ use { 'tpope/vim-projectionist', config = function() require('plugins.projection
 use { 'ludovicchabant/vim-gutentags', config = function() require('plugins.gutentags') end } -- tags generator
 use { 'bartoszmaka/vim-rails', branch = 'dev', config = function() require('plugins.rails') end }
 
-
 -- completion
 use {
   'hrsh7th/nvim-cmp',
   requires = {
-    -- 'hrsh7th/cmp-copilot',
     'quangnguyen30192/cmp-nvim-ultisnips',
     'hrsh7th/cmp-nvim-lsp',
     'f3fora/cmp-spell',
@@ -48,14 +44,7 @@ use {
     'hrsh7th/cmp-nvim-lsp-signature-help',
   }
 }
--- use { 'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp' }
--- use { 'github/copilot.vim' }
 use { 'SirVer/ultisnips', config = function() require('plugins.ultisnips') end }
--- use { 'kamykn/spelunker.vim', -- spell checker
---   requires = { { 'kamykn/popup-menu.nvim' } },
---   ft = { 'gitcommit' },
---   config = function() require('plugins.spelunker') end,
--- }
 use { 'mattn/emmet-vim',
   ft = { 'eruby', 'svelte', 'html', 'elixir', 'javascript' },
   config = function() require('plugins.emmet') end
@@ -80,11 +69,8 @@ use { 'm-demare/hlargs.nvim',
 }
 use { 'jparise/vim-graphql' }
 use { 'rhysd/conflict-marker.vim', config = function() require('plugins.conflict-marker') end }
-
-
 -- utils
 use { 'tpope/vim-fugitive', config = function() require('plugins.fugitive') end } -- git integration
-use { 'APZelos/blamer.nvim', config = function() require('plugins.blamer') end } -- remove once gitsigns has more configurable blame
 use { 'tpope/vim-repeat', config = function() require('plugins.repeat') end } -- better '.'
 use { 'rhysd/clever-f.vim' } -- better 'f'
 use { 'AndrewRadev/splitjoin.vim', config = function() require('plugins.splitjoin') end } -- split and join mutiline
@@ -133,7 +119,6 @@ use { 'christoomey/vim-tmux-navigator',
     'roxma/vim-tmux-clipboard',
     'preservim/vimux'
   } }
--- use { 'junkblocker/git-time-lapse', config = function() require('plugins.git-time-lapse') end }
 use { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } }
 use { 'mogelbrod/vim-jsonpath' }
 use { 'andrewradev/switch.vim', config = function() require('plugins.switch') end }
@@ -162,21 +147,11 @@ use { 'lewis6991/gitsigns.nvim',
 }
 use { 'navarasu/onedark.nvim' } -- colorscheme
 use { 'romgrk/barbar.nvim', config = function() require('plugins.tabline') end } -- tabs line
--- use { 'glepnir/galaxyline.nvim',                                                                     -- status line
---   branch = 'main',
---   requires = { 'kyazdani42/nvim-web-devicons', opt = true},
---   config = function() require('plugins.galaxyline') end
--- }
 use {
   'nvim-lualine/lualine.nvim',
   requires = { 'kyazdani42/nvim-web-devicons', opt = true },
   config = function() require('plugins.lualine') end
 }
--- use {
---   'SmiteshP/nvim-navic',
---   requires = 'neovim/nvim-lspconfig',
---   config = function() require('plugins.navic') end,
--- }
 use {
   'SmiteshP/nvim-gps',
   config = function() require('plugins.gps') end,
@@ -195,20 +170,8 @@ use { 'ldelossa/gh.nvim' }
 use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', config = function() require('plugins.telescope') end }
 use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 use { 'fhill2/telescope-ultisnips.nvim' }
--- use {
---   'pwntester/octo.nvim',
---   requires = {
---     'nvim-lua/plenary.nvim',
---     'nvim-telescope/telescope.nvim',
---     'kyazdani42/nvim-web-devicons',
---   },
---   config = function()
---     require('plugins.octo')
---   end
--- }
 use { 'skywind3000/vim-quickui' }
 use { 'inkarkat/vim-AdvancedSorters' }
--- use { 'nvim-zh/colorful-winsep.nvim', config = function() require('plugins.colorful-winsep') end }
 
 local loadedLsp, _ = pcall(require, 'lsp')
 local loadedAutopairs, _ = pcall(require, 'plugins.autopairs')
