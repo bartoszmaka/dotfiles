@@ -31,4 +31,16 @@
 			"}, ${2:{}})",
 		]
 	},
+  "import": {
+    "prefix": "imp",
+    "body": "import ${2:moduleName} from '${1:module}'$0"
+  },
+  "import lodash": {
+    "prefix": "iml",
+    "body": "import { ${2:moduleName} } from 'lodash'"
+  },
+  "import yup": {
+    "prefix": "imy",
+    "body": "import * as yup from 'yup'",
+  },
 }

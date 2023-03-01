@@ -1,74 +1,17 @@
 {
-  "workbench.editor.highlightModifiedTabs": true,
-  "workbench.settings.openDefaultKeybindings": false,
-  "workbench.settings.openDefaultSettings": false,
-  "zenMode.hideStatusBar": false,
-  "zenMode.hideTabs": false,
-  "search.showLineNumbers": true,
-  "search.smartCase": true,
-  "search.useGlobalIgnoreFiles": false,
-  "sync.autoUpload": true,
-  "sync.quietSync": true,
-  "workbench.commandPalette.preserveInput": true,
-  "workbench.iconTheme": "material-icon-theme",
-  "files.hotExit": "off",
-  "cSpell.enabled": false,
-  "files.insertFinalNewline": true,
-  "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
-  "markdown-preview-enhanced.liveUpdate": false,
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/tmp": true,
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/dist": true,
-    "**/.tags": true,
-    "**/tags": true
+  "workbench.colorCustomizations": {
+    "editorGroup.emptyBackground": "#1A212E",
+    "editor.selectionBackground": "#401437",
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f",
+    "errorLens.errorBackground": "#e4545412",
+    "errorLens.warningBackground": "#ff942f12",
+    "errorLens.infoBackground": "#00b7e406",
+    "errorLens.hintBackground": "#17a2a206",
+    "editorIndentGuide.background": "#3B404800",
+    "editorInfo.background": "#00000000"
   },
-  "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/node_modules/**": true,
-    "**/tmp/**": true,
-    "**/bower_components/**": true,
-    "**/dist/**": true,
-    "**/.tags": true,
-    "**/tags": true
-  },
-  // UI
-  "debug.internalConsoleOptions": "neverOpen",
-  "debug.console.fontSize": 14,
-  "editor.tabSize": 2,
-  "editor.formatOnSave": false,
-  "editor.mouseWheelZoom": false,
-  "editor.fontSize": 14,
-  "terminal.integrated.fontSize": 14,
-  "editor.rulers": [
-    81,
-    121
-  ],
-  "editor.lineHeight": 22,
-  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-  "editor.fontFamily": "'Hasklug Nerd Font Mono', 'CodeNewRoman Nerd Font Mono', Hack, Menlo, Monaco, 'Courier New', monospace",
-  "editor.fontLigatures": false,
-  "editor.renderWhitespace": "trailing",
-  "editor.cursorStyle": "block",
-  "editor.minimap.scale": 2,
-  "workbench.editor.enablePreview": false,
-  "explorer.confirmDelete": false,
-  "workbench.startupEditor": "newUntitledFile",
-  "workbench.statusBar.visible": true,
-  "workbench.panel.defaultLocation": "bottom",
-  "breadcrumbs.enabled": true,
-  "window.title": "${dirty}${rootPath}${separator}${separator}${activeEditorMedium}${separator}${dirty}",
-  "material-icon-theme.hidesExplorerArrows": true,
-  "editor.cursorSurroundingLines": 4,
-  "editor.autoClosingQuotes": "always",
-  "editor.autoSurround": "languageDefined",
   "editor.tokenColorCustomizations": {
     "[onedark.nvim]": {
       "textMateRules": [
@@ -83,13 +26,32 @@
       ]
     }
   },
-  "workbench.colorCustomizations": {
-    "editorGroup.emptyBackground": "#1A212E",
-    "editor.selectionBackground": "#401437",
-    "statusBar.background": "#005f5f",
-    "statusBar.noFolderBackground": "#005f5f",
-    "statusBar.debuggingBackground": "#005f5f"
-  },
+  "files.insertFinalNewline": true,
+  "cSpell.enabled": false,
+  "workbench.commandPalette.preserveInput": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "onedark.nvim",
+  "debug.console.fontSize": 14,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": false,
+  "editor.mouseWheelZoom": false,
+  "editor.fontSize": 14,
+  "terminal.integrated.fontSize": 14,
+  "editor.lineHeight": 22,
+  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', monospace",
+  "editor.fontFamily": "'Hasklug Nerd Font Mono',  monospace",
+  "editor.fontLigatures": false,
+  "editor.renderWhitespace": "trailing",
+  "editor.cursorStyle": "block",
+  "editor.minimap.scale": 2,
+  "workbench.editor.enablePreview": false,
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.panel.defaultLocation": "bottom",
+  "material-icon-theme.hidesExplorerArrows": true,
+  "editor.cursorSurroundingLines": 4,
+  "editor.autoClosingQuotes": "always",
+  "editor.autoSurround": "languageDefined",
   "bracket-pair-colorizer-2.showVerticalScopeLine": false,
   "bracket-pair-colorizer-2.showHorizontalScopeLine": false,
   // "gitlens.codeLens.enabled": true,
@@ -97,13 +59,10 @@
   // "gitlens.codeLens.recentChange.enabled": false,
   // "gitlens.codeLens.includeSingleLineSymbols": false,
   // Syntax highlighting
-  "files.associations": {
-    "*rc": "shellscript"
-  },
   // Autocomplete
   "editor.snippetSuggestions": "top",
   "editor.acceptSuggestionOnEnter": "off",
-  "emmet.showSuggestionsAsSnippets": false,
+  "emmet.showSuggestionsAsSnippets": true,
   "emmet.triggerExpansionOnTab": false,
   "emmet.showAbbreviationSuggestions": false,
   "emmet.showExpandedAbbreviation": "always",
@@ -137,19 +96,16 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "[ruby]": {
-    "editor.defaultFormatter": "rebornix.ruby"
-  },
+  // "[ruby]": {
+  //   "editor.defaultFormatter": "misogi.ruby-rubocop"
+  // },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.accessibilitySupport": "off",
-  "workbench.colorTheme": "onedark.nvim",
   "tabnine.experimentalAutoImports": true,
-  "editor.minimap.enabled": false,
   "ruby.useBundler": true,
   "ruby.useLanguageServer": true,
   "ruby.lint": {
@@ -159,13 +115,79 @@
     }
   },
   "ruby.rubocop.useBundler": true,
-  "ruby.rubocop.onSave": false,
+  "ruby.rubocop.onSave": true,
   "ruby.format": "rubocop",
   "solargraph.checkGemVersion": false,
   "eslint.format.enable": true,
   "projectManager.git.baseFolders": [
     "~/projects"
   ],
+  "jsannotations.enabled": false,
+  "git.autofetch": true,
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": false,
+    "markdown": true
+  },
+  "liveServer.settings.donotShowInfoMsg": true,
+  // "ruby.rubocop.configFilePath": "./.rubocop.yml",
+  "ruby.rubocop.executePath": "/Users/bartoszmaka/.asdf/shims/",
+  "ruby.locate": {
+    "exclude": "{**/@(test|spec|tmp|.*),**/@(test|spec|tmp|.*)/**,**/*_spec.rb}",
+    "include": "{**/*.rb,/Users/bartoszmaka/.asdf/installs/ruby/**/*.rb}"
+  },
+  "errorLens.messageTemplate": "$source $message $code",
+  "editor.minimap.enabled": false,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.settings.openDefaultKeybindings": false,
+  "workbench.settings.openDefaultSettings": false,
+  "zenMode.hideStatusBar": false,
+  "zenMode.hideTabs": false,
+  "search.showLineNumbers": true,
+  "search.smartCase": true,
+  "search.useGlobalIgnoreFiles": false,
+  "files.hotExit": "off",
+  "markdown-preview-enhanced.liveUpdate": false,
+  "debug.internalConsoleOptions": "neverOpen",
+  "window.title": "${dirty}${rootPath}${separator}${separator}${activeEditorMedium}${separator}${dirty}",
+  "breadcrumbs.enabled": true,
+  "editor.rulers": [
+    81,
+    121
+  ],
+  // Performance fixes
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/tmp": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/dist": true,
+    "**/.tags": true,
+    "**/tags": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/bower_components/**": true,
+    "**/dist/**": true,
+    "**/.tags": true,
+    "**/tags": true
+  },
+  "editor.accessibilitySupport": "off",
+  "files.associations": {
+    "*rc": "shellscript"
+  },
+  "sync.autoUpload": true,
+  "sync.quietSync": true,
+  "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
   // Vim
   "vim.enableNeovim": true,
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
@@ -328,24 +350,24 @@
         "v"
       ]
     },
-    {
-      "before": [
-        "<leader>",
-        "y"
-      ],
-      "commands": [
-        "editor.action.clipboardCopyAction"
-      ]
-    },
-    {
-      "before": [
-        "<leader>",
-        "p"
-      ],
-      "commands": [
-        "editor.action.clipboardPasteAction"
-      ]
-    },
+    // {
+    //   "before": [
+    //     "<leader>",
+    //     "y"
+    //   ],
+    //   "commands": [
+    //     "editor.action.clipboardCopyAction"
+    //   ]
+    // },
+    // {
+    //   "before": [
+    //     "<leader>",
+    //     "p"
+    //   ],
+    //   "commands": [
+    //     "editor.action.clipboardPasteAction"
+    //   ]
+    // },
     {
       "before": [
         "K"
@@ -898,40 +920,14 @@
     {
       "before": [
         "leader",
-        "p",
-        "p",
+        "g",
+        "h",
       ],
       "commands": [
-        "workbench.action.quickOpen"
-      ]
-    },
-    {
-      "before": [
-        "leader",
-        "p",
-        "r",
-      ],
-      "commands": [
-        "workbench.action.quickOpen"
+        "editor.action.peekDefinition"
       ]
     },
   ],
   "redhat.telemetry.enabled": true,
-  "jsannotations.enabled": false,
-  "git.autofetch": true,
-  "editor.inlineSuggest.enabled": true,
-  "github.copilot.enable": {
-    "*": true,
-    "yaml": false,
-    "plaintext": false,
-    "markdown": true
-  },
-  "liveServer.settings.donotShowInfoMsg": true,
-  "ruby.rubocop.configFilePath": ".rubocop.yml",
-  "ruby.rubocop.executePath": "/Users/bartoszmaka/.asdf/shims/",
-  "ruby.locate": {
-    "exclude": "{**/@(test|spec|tmp|.*),**/@(test|spec|tmp|.*)/**,**/*_spec.rb}",
-    "include": "{**/*.rb,/Users/bartoszmaka/.asdf/installs/ruby/**/*.rb}"
-  },
-  "workbench.activityBar.visible": false,
+  "editor.unicodeHighlight.nonBasicASCII": false,
 }
