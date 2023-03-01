@@ -30,7 +30,7 @@ local servers = {
   'sqlls',
   'sqls',
   'stylelint_lsp',
-  'sumneko_lua',
+  'lua_ls',
   'tailwindcss',
   'terraformls',
   'tsserver',
@@ -104,7 +104,7 @@ M.setup_servers = function()
       }
     }
 
-    if server_name == "sumneko_lua" then
+    if server_name == "lua_ls" then
       opts.root_dir = function()
         return vim.loop.cwd()
       end

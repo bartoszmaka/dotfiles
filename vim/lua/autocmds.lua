@@ -86,6 +86,8 @@ augroup treesitter_overrides
   highlight! link vueTSMethod TSBoolean
   highlight! link TSTagAttribute TSBoolean
   highlight! link @tag.attribute @boolean
+  highlight! link @tag Special
+  highlight! link @tag.delimiter Special
   highlight! link htmlBold Normal
   highlight! link htmlBoldItalic Normal
   highlight! link htmlBoldItalicUnderline Normal

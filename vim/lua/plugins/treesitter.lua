@@ -1,6 +1,6 @@
 local nnoremap = require('config_helper').nnoremap
 
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
   ignore_install = { "phpdoc" },
   highlight = {
@@ -18,6 +18,9 @@ require'nvim-treesitter.configs'.setup {
   },
   autotag = {
     enable = true,
+    filetypes = {
+      'html', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript', 'xml', 'php', 'markdown', 'glimmer', 'handlebars', 'hbs', 'eruby'
+    }
   },
   -- matchup = { enable = true },
   context_commentstring = {
@@ -97,11 +100,11 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
+local ft_to_parser = require "nvim-treesitter.parsers".filetype_to_parsername
 ft_to_parser["env.local"] = "bash" -- the someft filetype will use the python parser and queries.
 ft_to_parser["eruby.yaml"] = "yaml" -- the someft filetype will use the python parser and queries.
 
-require'treesitter-context'.setup {
+require 'treesitter-context'.setup {
   enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
   throttle = true,
 }
