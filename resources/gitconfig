@@ -16,7 +16,7 @@
 [interactive]
   diffFilter = delta --color-only
 [init]
-	defaultBranch = master
+  defaultBranch = master
 [delta]
   features = decorations
   line-numbers = true
