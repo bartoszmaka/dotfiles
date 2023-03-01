@@ -60,7 +60,7 @@ zinit snippet OMZP::rails
 zinit snippet OMZP::brew
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::common-aliases
-zinit snippet OMZP::dotenv
+# zinit snippet OMZP::dotenv
 zinit snippet OMZL::key-bindings.zsh
 
 # zinit load "zsh-users/zsh-autosuggestions"
@@ -135,7 +135,7 @@ alias mailcatcher='echo "running mailcatcher --foreground. If you want to use de
 alias tf="terraform"
 alias ls="exa"
 alias cat="bat"
-alias lsplog="tail -f ~/.cache/nvim/lsp.log"
+alias lsplog="tail -f ~/.local/state/nvim/lsp.log"
 alias nulllslog="tail -f ~/.cache/nvim/null-ls.log"
 alias gclean="git clean -fd"
 alias gcof="git checkout \$(git branch -a | fzf)"
@@ -157,7 +157,8 @@ function tattach() { tmux new-session -s `uuidgen` -t $1 }
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-. $(brew --prefix asdf)/asdf.sh
+. $(brew --prefix asdf)/libexec/asdf.sh
+
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 export PATH="~/.emacs.d/bin:$PATH" # make sure homebrew bins are before osx bins
