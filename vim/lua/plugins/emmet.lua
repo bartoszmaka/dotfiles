@@ -1,15 +1,21 @@
-vim.g.user_emmet_settings = {
-  ['javascript.jsx'] = {
-    extends = 'jsx',
-  },
-  eruby = {
-    extends = 'html'
-  },
-  elixir = {
-    extends = 'html'
-  },
-  eelixir = {
-    extends = 'html'
-  }
+return {
+  'mattn/emmet-vim',
+  ft = { 'eruby', 'svelte', 'html', 'elixir', 'javascript' },
+  config = function()
+    vim.g.user_emmet_settings = {
+      ['javascript.jsx'] = {
+        extends = 'jsx',
+      },
+      eruby = {
+        extends = 'html'
+      },
+      elixir = {
+        extends = 'html'
+      },
+      eelixir = {
+        extends = 'html'
+      }
+    }
+    vim.g.user_emmet_mode = 'inv'
+  end
 }
-vim.g.user_emmet_mode = 'inv'
