@@ -9,14 +9,6 @@ vim.cmd [[
     autocmd FileType javascript highlight! link TSTag TSConstructor
   augroup END
 
-  augroup color_current_line_in_insert
-    autocmd!
-    autocmd InsertEnter * highlight! CursorLine   guibg=#512121
-    autocmd InsertEnter * highlight! CursorLineNR guibg=#512121
-    autocmd InsertLeave * highlight! CursorLine   guibg=#21283b
-    autocmd InsertLeave * highlight! CursorLineNR guibg=#21283b
-  augroup END
-
   augroup make_panels_darker
     autocmd!
     highlight! NormalFloat       guibg=#141b24 guifg=#93a4c3

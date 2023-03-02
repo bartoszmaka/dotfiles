@@ -1,5 +1,6 @@
 return {
   'romgrk/barbar.nvim',
+  lazy=false,
   config = function()
     local nnoremap = require('config_helper').nnoremap
     vim.g.mapleader = ' '
