@@ -1,7 +1,5 @@
 return {
   -- { 'ludovicchabant/vim-gutentags', config = function() require('plugins_config.gutentags') end }, -- tags generator
-  { 'tweekmonster/startuptime.vim' },
-  -- { 'lewis6991/impatient.nvim' },
   { 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
