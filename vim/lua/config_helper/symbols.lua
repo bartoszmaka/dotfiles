@@ -32,6 +32,7 @@ M.Struct = ''
 M.trace = ''
 M.TypeParameter = ' '
 M.Event = ' '
+M.Copilot = ""
 
 -- after codicons patch
 -- 

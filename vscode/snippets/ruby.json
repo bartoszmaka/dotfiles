@@ -26,6 +26,13 @@
 			"binding.remote_pry"
 		]
 	},
+	"yield_self binding.pry": {
+		"prefix": "ysbp",
+		"description": ".yield_self { |object|  binding.pry }",
+		"body": [
+			".yield_self { |object|  binding.pry }"
+		]
+	},
 	"spec describe": {
 		"description": "describe",
 		"prefix": "desc",
@@ -140,5 +147,17 @@
 			"  $4",
 			"end",
 		]
+	},
+	"rubocop disable": {
+		"prefix": "rd",
+		"body": "# rubocop:disable $1",
+	},
+	"rubocop disable methodLength": {
+		"prefix": "ml",
+		"body": "Metrics/MethodLength",
+	},
+	"rubocop disable abc": {
+		"prefix": "abc",
+		"body": "Metrics/AbcSize",
 	},
 }

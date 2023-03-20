@@ -25,7 +25,8 @@ local servers = {
   'graphql',
   'html',
   'jsonls',
-  -- 'solargraph', -- install manually
+  -- 'solargraph',
+  -- 'ruby-lsp',
   -- 'solidity_ls',
   'sqlls',
   'sqls',
@@ -57,7 +58,6 @@ local M = {}
 -- }
 
 M.setup_servers = function()
-
   lspconfig['ruby_ls'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
@@ -83,7 +83,7 @@ M.setup_servers = function()
   })
   require("typescript").setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false, -- enable debug logging for commands
+    debug = false,            -- enable debug logging for commands
     server = {
       capabilities = capabilities,
       on_attach = on_attach,
@@ -103,6 +103,14 @@ M.setup_servers = function()
         debounce_text_changes = 150,
       }
     }
+
+--     if server_name == "solargraph" then
+--       opts.settings = {
+--         solargraph = {
+--           diagnostics = true
+--         }
+--       }
+--     end
 
     if server_name == "lua_ls" then
       opts.root_dir = function()
@@ -129,6 +137,12 @@ M.setup_servers = function()
         json = {
           schemas = require('schemastore').json.schemas(),
           validate = { enable = true },
+        },
+      }
+    elseif server_name == 'yamlls' then
+      opts.settings = {
+        yaml = {
+          keyOrdering = false
         },
       }
     end

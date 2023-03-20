@@ -1,4 +1,16 @@
 {
+  "ruby.useBundler": true, //run non-lint commands with bundle exec
+  "ruby.useLanguageServer": true, // use the internal language server (see below)
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true, // enable rubocop via bundler
+      "forceExclusion": true
+    },
+    "reek": {
+      "useBundler": true // enable reek via bundler
+    }
+  },
+  "ruby.format": "rubocop", // use rubocop for formatting
   "workbench.colorCustomizations": {
     "editorGroup.emptyBackground": "#1A212E",
     "editor.selectionBackground": "#401437",
@@ -52,14 +64,6 @@
   "editor.cursorSurroundingLines": 4,
   "editor.autoClosingQuotes": "always",
   "editor.autoSurround": "languageDefined",
-  "bracket-pair-colorizer-2.showVerticalScopeLine": false,
-  "bracket-pair-colorizer-2.showHorizontalScopeLine": false,
-  // "gitlens.codeLens.enabled": true,
-  // "gitlens.codeLens.authors.enabled": false,
-  // "gitlens.codeLens.recentChange.enabled": false,
-  // "gitlens.codeLens.includeSingleLineSymbols": false,
-  // Syntax highlighting
-  // Autocomplete
   "editor.snippetSuggestions": "top",
   "editor.acceptSuggestionOnEnter": "off",
   "emmet.showSuggestionsAsSnippets": true,
@@ -71,10 +75,6 @@
     "razor": "html",
     "plaintext": "pug"
   },
-  "AllAutocomplete.minWordLength": 2,
-  "AllAutocomplete.dontContributeToSelf": false,
-  "AllAutocomplete.cycleOpenDocumentsOnLaunch": true,
-  "AllAutocomplete.showCurrentDocument": true,
   "editor.suggest.localityBonus": true,
   "editor.suggestOnTriggerCharacters": true,
   "editor.wordBasedSuggestions": true,
@@ -105,24 +105,7 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "tabnine.experimentalAutoImports": true,
-  "ruby.useBundler": true,
-  "ruby.useLanguageServer": true,
-  "ruby.lint": {
-    "rubocop": {
-      "useBundler": true,
-      "forceExclusion": true
-    }
-  },
-  "ruby.rubocop.useBundler": true,
-  "ruby.rubocop.onSave": true,
-  "ruby.format": "rubocop",
   "solargraph.checkGemVersion": false,
-  "eslint.format.enable": true,
-  "projectManager.git.baseFolders": [
-    "~/projects"
-  ],
-  "jsannotations.enabled": false,
   "git.autofetch": true,
   "editor.inlineSuggest.enabled": true,
   "github.copilot.enable": {
@@ -928,6 +911,5 @@
       ]
     },
   ],
-  "redhat.telemetry.enabled": true,
   "editor.unicodeHighlight.nonBasicASCII": false,
 }
