@@ -2,13 +2,14 @@ return {
   {
     'bartoszmaka/fzf-mru.vim',
     dependencies = {
-      'kyazdani42/nvim-web-devicons',
-      'junegunn/fzf'
+      { 'kyazdani42/nvim-web-devicons' },
+      { 'junegunn/fzf', build = './install --bin' },
+      { 'junegunn/fzf.vim' },
     },
-    lazy=false,
+    lazy = false,
     config = function()
       local nnoremap = require('config_helper').nnoremap
-      vim.cmd[[
+      vim.cmd [[
         let $FZF_DEFAULT_OPTS='--layout=reverse'
         let g:fzf_command_prefix = 'Fzf'
         let g:fzf_mru_relative = 1
@@ -20,18 +21,16 @@ return {
       ]]
 
       nnoremap('<C-p><C-r>', ':FZFFreshMruPreview<CR>')
-      nnoremap('<leader>pm', ':FzfMarks<CR>')
-      nnoremap('<leader>pt', ':FzfBTags<CR>')
     end
   },
   { 'ibhagwan/fzf-lua',
     dependencies = {
       'kyazdani42/nvim-web-devicons',
-      { 'junegunn/fzf.vim', build = './install --bin' }
+      { 'junegunn/fzf', build = './install --bin' }
     },
-    lazy=false,
+    lazy = false,
     config = function()
-      vim.cmd[[
+      vim.cmd [[
         autocmd FileType fzf tnoremap <buffer> <esc> <esc>
       ]]
 
@@ -331,6 +330,8 @@ return {
       nnoremap('<leader>pg', ':FzfLua git_status<CR>')
       nnoremap('<leader>pb', ':FzfLua git_branches<CR>')
       nnoremap('<leader>pf', ':FzfLua grep<CR><CR>')
+      nnoremap('<leader>pF', ':FzfLua live_grep_resume<CR>')
+      nnoremap('<leader>pq', ':FzfLua quickfix<CR>')
       nnoremap('<leader>pl', ':FzfLua blines<CR>')
       nnoremap('<leader>pL', ':FzfLua lines<CR>')
       nnoremap('<leader>pc', ':FzfLua git_commits<CR>')

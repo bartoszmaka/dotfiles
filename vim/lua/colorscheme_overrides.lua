@@ -52,6 +52,7 @@ vim.cmd [[
     highlight! CmpItemKindKeyword guifg=#bfbd5d
     highlight! CmpItemAbbrDeprecated guifg=#455574
     highlight! CmpItemKindText guifg=#93a4c3
+    highlight! CmpItemKindCopilot guifg=#6CC644
   augroup END
 
   augroup treesitter_overrides
@@ -150,5 +151,10 @@ vim.cmd [[
     highlight! HopNextKey1 guibg=#1a212e guifg=#efbd5d
     highlight! HopNextKey2 guibg=#1a212e guifg=#dd9046
     highlight! HopUnmatched guibg=#1a212e
+  augroup END
+
+  augroup hlargs_overrides
+    autocmd!
+    highlight! Hlargs guibg=none guifg=none gui=italic
   augroup END
 ]]

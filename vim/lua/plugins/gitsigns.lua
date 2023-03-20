@@ -65,7 +65,7 @@ return {
         ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
       },
       current_line_blame = true,
-      current_line_blame_formatter = ' <author>, <author_time:%R> • <summary>',
+      current_line_blame_formatter = '   <author>, <author_time:%R> • <summary>',
     }
 
     vim.cmd [[

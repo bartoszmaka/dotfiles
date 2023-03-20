@@ -18,7 +18,6 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function() require('lsp.plugins.null-ls') end,
   },
-  { 'bartoszmaka/vim-rails',   config = function() require('plugins_config.rails') end,        branch = 'dev' },
 
   -- syntax
   { 'nvim-treesitter/nvim-treesitter', -- syntax highlighting
@@ -47,9 +46,9 @@ return {
   { 'tpope/vim-surround' }, -- surround motion
   { 'simonefranza/nvim-conv' }, -- convert units
   { 'dominikduda/vim_yank_with_context' }, -- yank with file name and line numbers
-  { 'lmeijvogel/vim-yaml-helper', ft = { 'yaml', 'yml' } },
+  { 'lmeijvogel/vim-yaml-helper',       ft = { 'yaml', 'yml' } },
   { 'mogelbrod/vim-jsonpath' },
-  { 'godlygeek/tabular',          config = function() require('plugins_config.tabular') end }, -- align text
+  { 'godlygeek/tabular',                config = function() require('plugins_config.tabular') end }, -- align text
   -- UI
   {
     'SmiteshP/nvim-gps',

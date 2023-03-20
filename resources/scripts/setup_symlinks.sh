@@ -7,6 +7,7 @@ ln -vsf ~/.repos/dotfiles/vim/init.lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/UltiSnips ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/vsnip ~/.vsnip
+ln -vfs ~/.repos/dotfiles/vim/lazy-lock.json ~/.config/nvim
 
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
 ln -vsf ~/.repos/dotfiles/resources/global_gitignore ~/.gitignore
