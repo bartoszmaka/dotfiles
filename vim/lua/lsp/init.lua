@@ -2,6 +2,8 @@ local setup_servers = require('lsp.setup_servers').setup_servers
 local setup_lsp_signature = require('lsp.setup_lsp_signature').setup_lsp_signature
 local setup_diagnostics = require('lsp.setup_diagnostics').setup_diagnostics
 local setup_lsp_status = require('lsp.plugins.lsp-status').setup_lsp_status
+local set_commands = require('lsp.commands').set_commands
+local set_mappings = require('lsp.mappings').set_mappings
 
 local lsp_handlers_hover = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'single'
@@ -19,3 +21,5 @@ setup_servers()
 setup_diagnostics()
 setup_lsp_signature()
 setup_lsp_status()
+set_commands()
+set_mappings()

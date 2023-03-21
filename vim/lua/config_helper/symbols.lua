@@ -33,6 +33,7 @@ M.trace = ''
 M.TypeParameter = ' '
 M.Event = ' '
 M.Copilot = ""
+M.TabNine = "T"
 
 -- after codicons patch
 -- 

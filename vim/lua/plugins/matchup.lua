@@ -10,7 +10,7 @@ return {
     vim.g.matchup_matchparen_deferred_hide_delay = 500
 
     vim.cmd [[
-      nnoremap <C-k><C-k> :MatchupWhereAmI!!<CR>
+      nnoremap <leader>mm :MatchupWhereAmI!!<CR>
     ]]
   end,
 }

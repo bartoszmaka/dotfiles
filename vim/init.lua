@@ -9,7 +9,9 @@ vim.cmd [[
 require('disable_builtin')
 require('setup_lazy')
 
-require('lazy').setup('plugins')
+require('lazy').setup('plugins', {
+  
+})
 
 local loadedLsp, _ = pcall(require, 'lsp')
 -- local loadedAutopairs, _ = pcall(require, 'plugins_config.autopairs')

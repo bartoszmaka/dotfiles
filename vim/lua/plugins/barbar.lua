@@ -32,3 +32,45 @@ return {
     nnoremap('<leader><leader>!', ':BufferCloseAllButCurrent<CR>')
   end
 }
+
+-- return {
+--   "akinsho/bufferline.nvim",
+--   -- event = "VeryLazy",
+--   lazy=false,
+--   keys = {
+--     { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
+--     { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+--     { "<leader>{",  "<Cmd>BufferLineMovePrev<CR>",             desc = "Move buffer left" },
+--     { "<leader>}",  "<Cmd>BufferLineMoveNext<CR>",             desc = "Move buffer right" },
+--     { "<leader>[",  "<Cmd>BufferLineCyclePrev<CR>",            desc = "Go to prev buffer" },
+--     { "<leader>]",  "<Cmd>BufferLineCycleNext<CR>",            desc = "Go to next buffer" },
+--     { "<leader>1",  "<Cmd>BufferLineGoToBuffer 1<CR>",         desc = "Go to 1st buffer" },
+--     { "<leader>2",  "<Cmd>BufferLineGoToBuffer 2<CR>",         desc = "Go to 2nd buffer" },
+--     { "<leader>3",  "<Cmd>BufferLineGoToBuffer 3<CR>",         desc = "Go to 3rd buffer" },
+--     { "<leader>4",  "<Cmd>BufferLineGoToBuffer 4<CR>",         desc = "Go to 4th buffer" },
+--     { "<leader>5",  "<Cmd>BufferLineGoToBuffer 5<CR>",         desc = "Go to 5th buffer" },
+--     { "<leader>6",  "<Cmd>BufferLineGoToBuffer 6<CR>",         desc = "Go to 6th buffer" },
+--     { "<leader>7",  "<Cmd>BufferLineGoToBuffer 7<CR>",         desc = "Go to 7th buffer" },
+--     { "<leader>8",  "<Cmd>BufferLineGoToBuffer 8<CR>",         desc = "Go to 8th buffer" },
+--   },
+--   opts = {
+--     options = {
+--       diagnostics = "nvim_lsp",
+--       always_show_bufferline = false,
+--       diagnostics_indicator = function(_, _, diag)
+--         local icons = require("config_helper/symbols")
+--         local ret = (diag.error and icons.error .. diag.error .. " " or "")
+--             .. (diag.warning and icons.warn .. diag.warning or "")
+--         return vim.trim(ret)
+--       end,
+--       offsets = {
+--         {
+--           filetype = "neo-tree",
+--           text = "Neo-tree",
+--           highlight = "Directory",
+--           text_align = "left",
+--         },
+--       },
+--     },
+--   },
+-- }
