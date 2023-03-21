@@ -19,7 +19,8 @@ M.setup_lsp_signature = function()
     handler_opts = {
       border = "single"
     },
-    toggle_key = '<leader>hs'
+    -- toggle_key = '<leader>hs'
+    toggle_key = ''
   })
 end
 

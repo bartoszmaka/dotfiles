@@ -64,4 +64,11 @@ return {
   { 'fhill2/telescope-ultisnips.nvim' },
   { 'skywind3000/vim-quickui' },
   { 'inkarkat/vim-AdvancedSorters' },
+  {
+    "windwp/nvim-spectre",
+    -- stylua: ignore
+    keys = {
+      { "<leader>sr", function() require("spectre").open() end, desc = "Replace in files (Spectre)" },
+    },
+  },
 }
