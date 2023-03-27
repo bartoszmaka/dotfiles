@@ -11,11 +11,6 @@ return {
       end
     end
 
-    vim.cmd [[
-      nnoremap <leader>iT :IndentBlanklineToggle<CR>
-      nnoremap <leader>it :lua ToggleIndentMarks()<CR>
-    ]]
-
     require("indent_blankline").setup {
       char = ' ',
       context_char = '│',
@@ -24,5 +19,16 @@ return {
       use_treesitter = true,
       filetype_exclude = { 'fzf' }
     }
+
+    vim.cmd [[
+      nnoremap <leader>iT :IndentBlanklineToggle<CR>
+      nnoremap <leader>it :lua ToggleIndentMarks()<CR>
+
+      augroup indent_blankline_overrides
+        autocmd!
+        highlight! IndentBlanklineChar guifg=#283347
+        highlight! IndentBlanklineContextChar guifg=#455574 gui=nocombine
+      augroup END
+    ]]
   end,
 }

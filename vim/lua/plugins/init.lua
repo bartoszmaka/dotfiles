@@ -36,7 +36,6 @@ return {
     config = function() require('plugins_config.hlargs') end
   },
   { 'jparise/vim-graphql' },
-  -- { 'rhysd/conflict-marker.vim', config = function() require('plugins_config.conflict-marker') end },
 
   -- utils
   { 'rhysd/clever-f.vim' }, -- better 'f'

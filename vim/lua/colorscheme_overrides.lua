@@ -26,35 +26,6 @@ vim.cmd [[
     autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
   augroup END
 
-  augroup illuminate_overrides
-    autocmd!
-    highlight! illuminatedWord guibg=#314365
-    highlight! illuminatedCurWord guibg=#314365 gui=bold
-    highlight! link IlluminatedWordRead illuminatedWord
-    highlight! link IlluminatedWordWrite illuminatedWord
-    highlight! link IlluminatedWordText None
-  augroup END
-
-  augroup gitsigns_overrides
-    autocmd!
-    highlight! GitSignsChange guifg=#f2cc81
-    highlight! GitSignsChangeNr guifg=#f2cc81
-    highlight! GitSignsChangeLn guifg=#f2cc81
-  augroup END
-
-  augroup cmp_overrides
-    autocmd!
-    highlight! CmpItemAbbr guifg=#6c7d9c
-    highlight! CmpItemAbbrMatch guifg=#f2cc81
-    highlight! CmpItemAbbrMatchFuzzy guifg=#f2cc81 gui=NONE
-    highlight! CmpItemKindDefault guifg=#dd9046
-    highlight! CmpItemKindSnippet guifg=#f65866
-    highlight! CmpItemKindKeyword guifg=#bfbd5d
-    highlight! CmpItemAbbrDeprecated guifg=#455574
-    highlight! CmpItemKindText guifg=#93a4c3
-    highlight! CmpItemKindCopilot guifg=#6CC644
-  augroup END
-
   augroup treesitter_overrides
     autocmd!
     highlight! link @parameter   @variable.builtin
@@ -71,6 +42,7 @@ vim.cmd [[
     highlight! link @tag.attribute @boolean
     highlight! link @tag Special
     highlight! link @tag.delimiter Special
+    highlight! link @keyword.function @keyword
     highlight! link htmlBold Normal
     highlight! link htmlBoldItalic Normal
     highlight! link htmlBoldItalicUnderline Normal
@@ -101,56 +73,6 @@ vim.cmd [[
     highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE
     highlight! DiagnosticUnderlineInfo   guibg=NONE gui=NONE
     highlight! DiagnosticUnderlineHint   guibg=NONE gui=NONE
-  augroup END
-
-  augroup conflict_marker_overrides
-    autocmd!
-    highlight! ConflictMarkerBegin  guibg=#283c34
-    highlight! ConflictMarkerOurs  guibg=#1a2e1b
-    highlight! ConflictMarkerTheirs  guibg=#2a324a
-    highlight! ConflictMarkerEnd  guibg=#2f628e
-    highlight! ConflictMarkerCommonAncestorsHunk  guibg=#382c34
-  augroup END
-
-  augroup barbar_overrides
-    autocmd!
-    highlight! BufferCurrent        guifg=#f2cc81 guibg=#1a212e
-    highlight! BufferCurrentMod     guifg=#8bcd5b guibg=#1a212e
-    highlight! BufferVisible        guifg=#93a4c3 guibg=#1a212e
-    highlight! BufferVisibleMod     guifg=#1b6a73 guibg=#1a212e
-    highlight! BufferVisibleSign    guifg=#93a4c3 guibg=#1a212e
-    highlight! BufferInactive       guifg=#93a4c3 guibg=#2a324a
-    highlight! BufferInactiveMod    guifg=#34bfd0 guibg=#2a324a
-    highlight! BufferInactiveSign   guifg=#93a4c3 guibg=#2a324a
-  augroup END
-
-  augroup hlslens_overrides
-    autocmd!
-    highlight! default link HlSearchNear IncSearch
-    highlight! default link HlSearchLens Comment
-    highlight! default link HlSearchLensNear IncSearch
-    highlight! default link HlSearchFloat IncSearch
-  augroup END
-
-  augroup indent_blankline_overrides
-    autocmd!
-    highlight! IndentBlanklineChar guifg=#283347
-    highlight! IndentBlanklineContextChar guifg=#455574 gui=nocombine
-  augroup END
-
-  augroup matchup_overrides
-    autocmd!
-    highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
-    highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
-  augroup END
-
-  augroup hop_overrides
-    autocmd!
-
-    highlight! HopNextKey guibg=#1a212e guifg=#efbd5d
-    highlight! HopNextKey1 guibg=#1a212e guifg=#efbd5d
-    highlight! HopNextKey2 guibg=#1a212e guifg=#dd9046
-    highlight! HopUnmatched guibg=#1a212e
   augroup END
 
   augroup hlargs_overrides

@@ -302,6 +302,20 @@ return {
         { name = 'spell' },
       },
     })
+    vim.cmd [[
+      augroup cmp_overrides
+        autocmd!
+        highlight! CmpItemAbbr guifg=#6c7d9c
+        highlight! CmpItemAbbrMatch guifg=#f2cc81
+        highlight! CmpItemAbbrMatchFuzzy guifg=#f2cc81 gui=NONE
+        highlight! CmpItemKindDefault guifg=#dd9046
+        highlight! CmpItemKindSnippet guifg=#f65866
+        highlight! CmpItemKindKeyword guifg=#bfbd5d
+        highlight! CmpItemAbbrDeprecated guifg=#455574
+        highlight! CmpItemKindText guifg=#93a4c3
+        highlight! CmpItemKindCopilot guifg=#6CC644
+      augroup END
+    ]]
   end
 }
 

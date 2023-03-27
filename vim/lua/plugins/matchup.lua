@@ -11,6 +11,12 @@ return {
 
     vim.cmd [[
       nnoremap <leader>mm :MatchupWhereAmI!!<CR>
+
+      augroup matchup_overrides
+        autocmd!
+        highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
+        highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
+      augroup END
     ]]
   end,
 }
