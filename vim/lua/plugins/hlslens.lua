@@ -10,5 +10,16 @@ return {
     nnoremap('#', [[#<Cmd>lua require('hlslens').start()<CR>]])
     nnoremap('g*', [[g*<Cmd>lua require('hlslens').start()<CR>]])
     nnoremap('g#', [[g#<Cmd>lua require('hlslens').start()<CR>]])
+
+    vim.cmd[[
+      augroup hlslens_overrides
+        autocmd!
+        highlight! default link CurSearch IncSearch
+        highlight! default link HlSearchNear IncSearch
+        highlight! default link HlSearchLens Comment
+        highlight! default link HlSearchLensNear IncSearch
+        highlight! default link HlSearchFloat IncSearch
+      augroup END
+    ]]
   end
 }

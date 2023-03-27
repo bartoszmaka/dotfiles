@@ -30,6 +30,20 @@ return {
     nnoremap('<leader>q', ':close<CR>')
     nnoremap('<leader>w', ':BufferClose<CR>')
     nnoremap('<leader><leader>!', ':BufferCloseAllButCurrent<CR>')
+
+    vim.cmd[[
+      augroup barbar_overrides
+        autocmd!
+        highlight! BufferCurrent        guifg=#f2cc81 guibg=#1a212e
+        highlight! BufferCurrentMod     guifg=#8bcd5b guibg=#1a212e
+        highlight! BufferVisible        guifg=#93a4c3 guibg=#1a212e
+        highlight! BufferVisibleMod     guifg=#1b6a73 guibg=#1a212e
+        highlight! BufferVisibleSign    guifg=#93a4c3 guibg=#1a212e
+        highlight! BufferInactive       guifg=#93a4c3 guibg=#2a324a
+        highlight! BufferInactiveMod    guifg=#34bfd0 guibg=#2a324a
+        highlight! BufferInactiveSign   guifg=#93a4c3 guibg=#2a324a
+      augroup END
+    ]]
   end
 }
 

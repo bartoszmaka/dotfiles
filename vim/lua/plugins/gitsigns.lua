@@ -71,6 +71,13 @@ return {
     vim.cmd [[
       onoremap ih <cmd>lua require('gitsigns').select_hunk()<CR>
       xnoremap ih <cmd>lua require('gitsigns').select_hunk()<CR>
+
+      augroup gitsigns_overrides
+        autocmd!
+        highlight! GitSignsChange guifg=#f2cc81
+        highlight! GitSignsChangeNr guifg=#f2cc81
+        highlight! GitSignsChangeLn guifg=#f2cc81
+      augroup END
     ]]
   end
 }
