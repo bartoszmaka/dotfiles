@@ -4,15 +4,19 @@ return {
   config = function()
     local nnoremap = require('config_helper').nnoremap
     vim.g.mapleader = ' '
-    vim.g.bufferline = {
+
+    require('barbar').setup({
       animation = true,
       auto_hide = false,
       tabpages = true,
-      closable = false,
-      maximum_padding = 1,
+      maximum_padding = 2,
+      minimum_padding = 2,
       maximum_length = 100,
-      no_name_title = ' - '
-    }
+      no_name_title = ' - ',
+      icons = {
+        button = '',
+      }
+    })
 
     nnoremap('<leader>[', ':BufferPrevious<CR>')
     nnoremap('<leader>]', ':BufferNext<CR>')

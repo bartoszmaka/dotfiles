@@ -37,6 +37,7 @@ vim.cmd [[
     highlight! TSKeywordFunction gui=italic
     highlight! TSVariableBuiltin gui=italic
     highlight! TSConditional     gui=italic
+    highlight! @conditional      gui=NONE
     highlight! link vueTSMethod TSBoolean
     highlight! link TSTagAttribute TSBoolean
     highlight! link @tag.attribute @boolean
@@ -47,6 +48,17 @@ vim.cmd [[
     highlight! link htmlBoldItalic Normal
     highlight! link htmlBoldItalicUnderline Normal
     highlight! link tsxTSTag TSConstructor
+    highlight! link tsxTSTag TSConstructor
+    highlight! link @lsp.type.type @type
+    highlight! link @lsp.type.macro @macro
+    highlight! link @lsp.type.method @method
+    highlight! link @lsp.type.comment @comment
+    highlight! link @lsp.type.function @function
+    highlight! link @lsp.type.property @property
+    highlight! link @lsp.type.namespace @namespace
+    highlight! link @lsp.type.parameter @parameter
+
+    highlight! @lsp.type.variable guifg=NONE
   augroup END
 
   augroup color_scheme_tweaks

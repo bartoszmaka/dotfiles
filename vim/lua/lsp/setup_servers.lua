@@ -29,7 +29,6 @@ local servers = {
   -- 'ruby-lsp',
   -- 'solidity_ls',
   'sqlls',
-  'sqls',
   'stylelint_lsp',
   'lua_ls',
   'tailwindcss',
