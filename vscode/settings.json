@@ -105,18 +105,16 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "solargraph.checkGemVersion": false,
   "git.autofetch": true,
   "editor.inlineSuggest.enabled": true,
   "github.copilot.enable": {
     "*": true,
-    "yaml": false,
-    "plaintext": false,
-    "markdown": true
+    "plaintext": true,
+    "markdown": true,
+    "scminput": false,
+    "yaml": false
   },
   "liveServer.settings.donotShowInfoMsg": true,
-  // "ruby.rubocop.configFilePath": "./.rubocop.yml",
-  "ruby.rubocop.executePath": "/Users/bartoszmaka/.asdf/shims/",
   "ruby.locate": {
     "exclude": "{**/@(test|spec|tmp|.*),**/@(test|spec|tmp|.*)/**,**/*_spec.rb}",
     "include": "{**/*.rb,/Users/bartoszmaka/.asdf/installs/ruby/**/*.rb}"
@@ -126,45 +124,16 @@
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.settings.openDefaultKeybindings": false,
   "workbench.settings.openDefaultSettings": false,
-  "zenMode.hideStatusBar": false,
-  "zenMode.hideTabs": false,
   "search.showLineNumbers": true,
   "search.smartCase": true,
   "search.useGlobalIgnoreFiles": false,
   "files.hotExit": "off",
-  "markdown-preview-enhanced.liveUpdate": false,
   "debug.internalConsoleOptions": "neverOpen",
-  "window.title": "${dirty}${rootPath}${separator}${separator}${activeEditorMedium}${separator}${dirty}",
-  "breadcrumbs.enabled": true,
+  "window.title": "${dirty}${rootPath} ${activeEditorMedium}",
   "editor.rulers": [
     81,
     121
   ],
-  // Performance fixes
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/tmp": true,
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/dist": true,
-    "**/.tags": true,
-    "**/tags": true
-  },
-  "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/node_modules/**": true,
-    "**/tmp/**": true,
-    "**/bower_components/**": true,
-    "**/dist/**": true,
-    "**/.tags": true,
-    "**/tags": true
-  },
-  "editor.accessibilitySupport": "off",
   "files.associations": {
     "*rc": "shellscript"
   },
@@ -912,4 +881,11 @@
     },
   ],
   "editor.unicodeHighlight.nonBasicASCII": false,
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
+  },
+  "errorLens.enabledDiagnosticLevels": [
+    "warning",
+    "info"
+  ],
 }
