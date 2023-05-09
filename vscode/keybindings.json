@@ -22,6 +22,11 @@
     "when": "vim.active"
   },
   {
+    "key": "ctrl+p ctrl+r",
+    "command": "workbench.action.openRecent",
+    "when": "vim.active"
+  },
+  {
     "key": "ctrl+w",
     "command": "-workbench.action.switchWindow",
     "when": "vim.active"
@@ -45,22 +50,6 @@
     "key": "ctrl+shift+cmd+q",
     "command": "workbench.action.closeWindow",
   },
-  // Shell like shortcuts
-  // {
-  //   "key": "ctrl+u",
-  //   "command": "deleteAllLeft",
-  //   "when": "textInputFocus && !editorReadonly"
-  // },
-  // {
-  //   "key": "ctrl+e",
-  //   "command": "cursorLineEnd",
-  //   "when": "textInputFocus"
-  // },
-  // {
-  //   "key": "ctrl+e",
-  //   "command": "cursorEnd",
-  //   "when": "textInputFocus"
-  // },
   // vim like find
   {
     "key": "enter",
@@ -79,89 +68,21 @@
     "when": "inReferenceSearchEditor"
   },
   {
-    "key": "ctrl+n",
+    "key": "cmd+shift+j",
     "command": "search.action.focusNextSearchResult",
-    "when": "hasSearchResult"
+    "when": "searchViewletVisible"
   },
   {
-    "key": "ctrl+p",
+    "key": "cmd+shift+k",
     "command": "search.action.focusPreviousSearchResult",
-    "when": "hasSearchResult"
+    "when": "searchViewletVisible"
   },
   // Terminal
   {
     "key": "ctrl+`",
     "command": "workbench.action.togglePanel"
   },
-  // does not work for some reason
-  {
-    "key": "ctrl+l ctrl+n",
-    "command": "workbench.action.terminal.toggleTerminal"
-  },
-  {
-    "key": "ctrl+l ctrl+n",
-    "command": "workbench.action.togglePanel"
-  },
-  {
-    "key": "ctrl+w v",
-    "command": "workbench.action.terminal.split",
-    "when": "terminalFocus"
-  },
-  // Search
-  // {
-  //   "key": "ctrl+k ctrl+f",
-  //   "command": "workbench.action.findInFiles",
-  // },
-  // {
-  //   "key": "ctrl+k ctrl+f",
-  //   "command": "workbench.action.toggleSidebarVisibility",
-  //   "when": "searchViewletVisible && sideBarFocus"
-  // },
-  {
-    "key": "shift+cmd+f",
-    "command": "workbench.action.toggleSidebarVisibility",
-    "when": "searchViewletVisible && sideBarFocus"
-  },
-  {
-    "key": "ctrl+shift+j",
-    "command": "search.action.focusNextSearchResult",
-    "when": "searchViewletVisible"
-  },
-  {
-    "key": "ctrl+shift+k",
-    "command": "search.action.focusPreviousSearchResult",
-    "when": "searchViewletVisible"
-  },
-  // // Errors
-  // {
-  //   "key": "ctrl+l ctrl+e",
-  //   "command": "workbench.action.tasks.toggleProblems",
-  // },
-  // {
-  //   "key": "ctrl+l ctrl+e",
-  //   "command": "workbench.action.tasks.toggleProblems",
-  //   "when": "searchViewletVisible && sideBarFocus"
-  // },
-  // // Git
-  // {
-  //   "key": "ctrl+k ctrl+g",
-  //   "command": "workbench.view.scm"
-  // },
-  // {
-  //   "key": "ctrl+k ctrl+g",
-  //   "command": "workbench.action.toggleSidebarVisibility",
-  //   "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
-  // },
-  // // Explorer
-  // {
-  //   "key": "ctrl+k ctrl+e",
-  //   "command": "workbench.view.explorer",
-  // },
-  // {
-  //   "key": "ctrl+k ctrl+e",
-  //   "command": "workbench.action.toggleSidebarVisibility",
-  //   "when": "explorerViewletVisible"
-  // },
+  // NERDTree like mappings for explorer
   {
     "key": "m m",
     "command": "renameFile",
@@ -207,33 +128,6 @@
     "command": "fileutils.duplicateFile",
     "when": "explorerViewletFocus && explorerViewletVisible && !inputFocus"
   },
-  // Make
-  {
-    "key": "ctrl+m ctrl+d",
-    "command": "workbench.action.debug.start",
-    "when": "!inDebugMode"
-  },
-  {
-    "key": "ctrl+m ctrl+d",
-    "command": "workbench.action.debug.continue",
-    "when": "inDebugMode"
-  },
-  {
-    "key": "ctrl+m ctrl+s",
-    "command": "workbench.action.debug.stop",
-    "when": "inDebugMode"
-  },
-  {
-    "key": "ctrl+m ctrl+r",
-    "command": "workbench.action.debug.restart",
-    "when": "inDebugMode"
-  },
-  // Other
-  {
-    "key": "cmd+r",
-    "command": "multiCommand.replaceWordUnderCursor",
-    "when": "editorFocus"
-  },
   {
     "key": "shift+cmd+r",
     "command": "workbench.files.action.showActiveFileInExplorer"
@@ -248,16 +142,6 @@
     "command": "editor.action.toggleMinimap",
     "when": "editorFocus"
   },
-  // {
-  //   "key": "ctrl+m ctrl+f",
-  //   "command": "eslint.executeAutofix",
-  //   "when": "editorFocus && editorLangId == 'javascript'"
-  // },
-  // {
-  //   "key": "ctrl+m ctrl+f",
-  //   "command": "eslint.executeAutofix",
-  //   "when": "editorFocus && editorLangId == 'javascriptreact'"
-  // },
   {
     "key": "ctrl+m ctrl+f",
     "command": "editor.action.formatDocument",
@@ -268,16 +152,12 @@
     "command": "editor.action.addSelectionToNextFindMatch",
     "when": "editorFocus"
   },
+  // Windows movement
   {
     "key": "cmd+h",
     "command": "multiCommand.resetAndGoLeft",
     "when": "vim.active"
   },
-  // {
-  //   "key": "cmd+h",
-  //   "command": "multiCommand.resetAndGoToExplorer",
-  //   "when": "vim.active && activeEditorGroupIndex == 1"
-  // },
   {
     "key": "cmd+j",
     "command": "multiCommand.resetAndGoDown",
@@ -293,6 +173,7 @@
     "command": "multiCommand.resetAndGoRight",
     "when": "vim.active"
   },
+  // End of Windows movement
   {
     "key": "ctrl+g ctrl+b",
     "command": "gitlens.toggleFileBlame",
@@ -308,6 +189,7 @@
     "command": "renameFile",
     "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
+  // Select tabs
   {
     "key": "cmd+1",
     "command": "workbench.action.openEditorAtIndex1"
@@ -345,22 +227,14 @@
     "command": "workbench.action.openEditorAtIndex9"
   },
   // fuzzy search
-  {
-    "key": "ctrl+p ctrl+s",
-    "command": "workbench.action.gotoSymbol"
-  },
   // {
-  //   "key": "space p",
+  //   "key": "ctrl+p ctrl+p",
   //   "command": "workbench.action.quickOpen"
   // },
-  {
-    "key": "ctrl+p ctrl+p",
-    "command": "workbench.action.quickOpen"
-  },
-  {
-    "key": "ctrl+p ctrl+g",
-    "command": "gitlens.showQuickRepoStatus"
-  },
+  // {
+  //   "key": "ctrl+p ctrl+g",
+  //   "command": "gitlens.showQuickRepoStatus"
+  // },
   {
     "key": "ctrl+e",
     "command": "insertSnippet"
@@ -380,10 +254,6 @@
     "command": "jumpToPrevSnippetPlaceholder",
     "when": "editorTextFocus && inSnippetMode"
   },
-  {
-    "key": "cmd+\\",
-    "command": "workbench.action.terminal.toggleTerminal"
-  },
   // {
   //   "key": "cmd+q",
   //   "command": "workbench.action.closeEditorsInGroup",
@@ -392,48 +262,68 @@
   {
     "key": "[F12]",
     "command": "workbench.action.toggleDevTools",
-    "when": "isDevelopment"
   },
-  {
-    "key": "cmd+x",
-    "command": "editor.action.moveSelectionToNextFindMatch",
-    "when": "editorFocus"
-  },
+  // {
+  //   "key": "cmd+x",
+  //   "command": "editor.action.moveSelectionToNextFindMatch",
+  //   "when": "editorFocus"
+  // },
+  // Multiple cursors
   {
     "key": "ctrl+x",
     "command": "editor.action.moveSelectionToNextFindMatch",
     "when": "editorFocus"
   },
-  // use default cmd+shift+1 for now 
-  // {
-  //   "key": "ctrl+m",
-  //   "command": "editor.action.replaceOne",
-  //   "when": "!inputFocus && editorFocus && findWidgetVisible && vim.mode =! 'Input'"
-  // },
-  // {
-  //   "key": "ctrl+m",
-  //   "command": "search.action.replace",
-  //   "when": "!inputFocus && matchFocus && replaceActive && searchViewletVisible && vim.mode == 'Normal'"
-  // },
+  // List movement
   {
-    "key": "ctrl+j",
+    "key": "cmd+shift+j",
     "command": "workbench.action.quickOpenSelectNext",
-    "when": "inQuickOpen"
+    "when": "inQuickOpen && activeViewlet =! 'workbench.view.explorer"
   },
   {
-    "key": "ctrl+k",
+    "key": "cmd+shift+k",
     "command": "workbench.action.quickOpenSelectPrevious",
     "when": "inQuickOpen && activeViewlet =! 'workbench.view.explorer"
   },
   {
-    "key": "ctrl+j",
+    "key": "cmd+shift+j",
     "command": "selectNextSuggestion",
     "when": "editorTextFocus && suggestWidgetVisible && activeViewlet =! 'workbench.view.explorer"
   },
   {
-    "key": "ctrl+k",
+    "key": "cmd+shift+k",
     "command": "selectPrevSuggestion",
     "when": "editorTextFocus && suggestWidgetVisible && activeViewlet =! 'workbench.view.explorer"
+  },
+  {
+    "key": "cmd+shift+j",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
+  },
+  {
+    "key": "cmd+shift+k",
+    "command": "list.focusUp",
+    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
+  },
+  // {
+  //   "key": "cmd+shift+j",
+  //   "command": "search.action.focusNextSearchResult",
+  //   "when": "(hasSearchResult || inSearchEditor) && activeViewlet == 'workbench.view.search"
+  // },
+  // {
+  //   "key": "cmd+shift+k",
+  //   "command": "search.action.focusPreviousSearchResult",
+  //   "when": "(hasSearchResult || inSearchEditor) && activeViewlet == 'workbench.view.search"
+  // },
+  {
+    "key": "cmd+shift+k",
+    "command": "workbench.action.compareEditor.previousChange",
+    "when": "textCompareEditorVisible && isInDiffEditor"
+  },
+  {
+    "key": "cmd+shift+j",
+    "command": "workbench.action.compareEditor.nextChange",
+    "when": "textCompareEditorVisible  && isInDiffEditor"
   },
   {
     "key": "ctrl+h",
@@ -445,29 +335,92 @@
     "command": "list.expand",
     "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
   },
-  {
-    "key": "ctrl+j",
-    "command": "list.focusDown",
-    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
-  },
-  {
-    "key": "ctrl+k",
-    "command": "list.focusUp",
-    "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
-  },
-  {
-    "key": "ctrl+e",
-    "command": "editor.emmet.action.expandAbbreviation",
-    "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Insert'"
-  },
-  {
-    "key": "cmd+shift+k",
-    "command": "workbench.action.compareEditor.previousChange",
-    "when": "textCompareEditorVisible && isInDiffEditor"
-  },
-  {
-    "key": "cmd+shift+j",
-    "command": "workbench.action.compareEditor.nextChange",
-    "when": "textCompareEditorVisible  && isInDiffEditor"
-  }
+  // {
+  //   "key": "ctrl+e",
+  //   "command": "editor.emmet.action.expandAbbreviation",
+  //   "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Insert'"
+  // },
+  // // Errors
+  // {
+  //   "key": "ctrl+l ctrl+e",
+  //   "command": "workbench.action.tasks.toggleProblems",
+  // },
+  // {
+  //   "key": "ctrl+l ctrl+e",
+  //   "command": "workbench.action.tasks.toggleProblems",
+  //   "when": "searchViewletVisible && sideBarFocus"
+  // },
+  // // Git
+  // {
+  //   "key": "ctrl+k ctrl+g",
+  //   "command": "workbench.view.scm"
+  // },
+  // {
+  //   "key": "ctrl+k ctrl+g",
+  //   "command": "workbench.action.toggleSidebarVisibility",
+  //   "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
+  // },
+  // // Explorer
+  // {
+  //   "key": "ctrl+k ctrl+e",
+  //   "command": "workbench.view.explorer",
+  // },
+  // {
+  //   "key": "ctrl+k ctrl+e",
+  //   "command": "workbench.action.toggleSidebarVisibility",
+  //   "when": "explorerViewletVisible"
+  // },
+  // use default cmd+shift+1 for now 
+  // {
+  //   "key": "ctrl+m",
+  //   "command": "editor.action.replaceOne",
+  //   "when": "!inputFocus && editorFocus && findWidgetVisible && vim.mode =! 'Input'"
+  // },
+  // {
+  //   "key": "ctrl+m",
+  //   "command": "search.action.replace",
+  //   "when": "!inputFocus && matchFocus && replaceActive && searchViewletVisible && vim.mode == 'Normal'"
+  // },
+  // Make
+  // {
+  //   "key": "ctrl+m ctrl+d",
+  //   "command": "workbench.action.debug.start",
+  //   "when": "!inDebugMode"
+  // },
+  // {
+  //   "key": "ctrl+m ctrl+d",
+  //   "command": "workbench.action.debug.continue",
+  //   "when": "inDebugMode"
+  // },
+  // {
+  //   "key": "ctrl+m ctrl+s",
+  //   "command": "workbench.action.debug.stop",
+  //   "when": "inDebugMode"
+  // },
+  // {
+  //   "key": "ctrl+m ctrl+r",
+  //   "command": "workbench.action.debug.restart",
+  //   "when": "inDebugMode"
+  // },
+  // Other
+  // {
+  //   "key": "cmd+r",
+  //   "command": "multiCommand.replaceWordUnderCursor",
+  //   "when": "editorFocus"
+  // },
+  // {
+  //   "key": "cmd+h",
+  //   "command": "multiCommand.resetAndGoToExplorer",
+  //   "when": "vim.active && activeEditorGroupIndex == 1"
+  // },
+  // {
+  //   "key": "ctrl+m ctrl+f",
+  //   "command": "eslint.executeAutofix",
+  //   "when": "editorFocus && editorLangId == 'javascript'"
+  // },
+  // {
+  //   "key": "ctrl+m ctrl+f",
+  //   "command": "eslint.executeAutofix",
+  //   "when": "editorFocus && editorLangId == 'javascriptreact'"
+  // },
 ]
