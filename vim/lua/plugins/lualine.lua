@@ -2,7 +2,7 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'kyazdani42/nvim-web-devicons' },
   config = function()
-    -- local navic_loaded, navic = pcall(require, "nvim-navic")
+    local navic_loaded, navic = pcall(require, "nvim-navic")
     local gps = require "nvim-gps"
     local colors = require('config_helper.colors').onedark
     local onedark_custom = {

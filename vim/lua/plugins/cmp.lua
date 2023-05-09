@@ -25,10 +25,10 @@ return {
       lazy = false
     },
     'zbirenbaum/copilot-cmp',
-    {
-      'tzachar/cmp-tabnine',
-      build = './install.sh',
-    }
+    -- {
+    --   'tzachar/cmp-tabnine',
+    --   build = './install.sh',
+    -- },
   },
   config = function()
     local cmp = require('cmp')
@@ -148,29 +148,29 @@ return {
     cmp.event:on("menu_opened", function() vim.b.copilot_suggestion_hidden = true end)
     cmp.event:on("menu_closed", function() vim.b.copilot_suggestion_hidden = false end)
 
-    require('cmp_tabnine.config').setup(
-      {
-        max_lines = 1000,
-        max_num_results = 20,
-        sort = true,
-        run_on_every_keystroke = true,
-        snippet_placeholder = '..',
-        ignored_file_types = {
-          -- default is not to ignore
-          -- uncomment to ignore in lua:
-          -- lua = true
-        },
-        show_prediction_strength = true
-      }
-    )
+    -- require('cmp_tabnine.config').setup(
+    --   {
+    --     max_lines = 1000,
+    --     max_num_results = 20,
+    --     sort = true,
+    --     run_on_every_keystroke = true,
+    --     snippet_placeholder = '..',
+    --     ignored_file_types = {
+    --       -- default is not to ignore
+    --       -- uncomment to ignore in lua:
+    --       -- lua = true
+    --     },
+    --     show_prediction_strength = true
+    --   }
+    -- )
     local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
-    vim.api.nvim_create_autocmd('BufRead', {
-      group = prefetch,
-      pattern = '*.rb',
-      callback = function()
-        require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
-      end
-    })
+    -- vim.api.nvim_create_autocmd('BufRead', {
+    --   group = prefetch,
+    --   pattern = '*.rb',
+    --   callback = function()
+    --     require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
+    --   end
+    -- })
 
     cmp.setup({
       snippet = cmp_ultisnips_config,
@@ -191,7 +191,7 @@ return {
       -- completion = {},
       sources = {
         { name = 'copilot',     priority = 150 },
-        { name = 'cmp_tabnine', priority = 145 },
+        -- { name = 'cmp_tabnine', priority = 145 },
         { name = 'ultisnips',   priority = 120 },
         { name = 'nvim_lsp',    priority = 110 },
         { name = 'path',        priority = 100 },
@@ -241,7 +241,7 @@ return {
                 omni = '[Omni]',
                 ultisnips = '[Snip]',
                 spell = '[Spell]',
-                cmp_tabnine = '[TN]',
+                -- cmp_tabnine = '[TN]',
                 copilot = '[AI]',
                 cmdline = '[CMD]',
                 nvim_lsp_signature_help = '~ [Sign]',
@@ -249,8 +249,8 @@ return {
 
           if entry.source.name == 'nvim_lsp_signature_help' then
             vim_item.kind = string.format('%s %s', symbols.Function, 'Args')
-          elseif entry.source.name == 'cmp_tabnine' then
-            vim_item.kind = 'T TabNine'
+          -- elseif entry.source.name == 'cmp_tabnine' then
+          --   vim_item.kind = 'T TabNine'
           else
             vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = 'symbol_text' })
           end
