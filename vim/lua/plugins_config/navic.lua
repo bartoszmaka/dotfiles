@@ -1,5 +1,5 @@
--- local symbols = require 'config_helper.symbols'
--- local navic = require('navic')
+local symbols = require 'config_helper.symbols'
+local navic = require("nvim-navic")
 
 navic.setup {
   icons = {
@@ -29,8 +29,75 @@ navic.setup {
     Event = ' ',
     Operator = symbols.Keyword,
     TypeParameter = ' '
-  }
+  },
+    lsp = {
+        auto_attach = false,
+        preference = nil,
+    },
+    highlight = false,
+    separator = " > ",
+    depth_limit = 0,
+    depth_limit_indicator = "..",
+    safe_output = true
 }
+-- navic.setup {
+--     icons = {
+--         File          = " ",
+--         Module        = " ",
+--         Namespace     = " ",
+--         Package       = " ",
+--         Class         = " ",
+--         Method        = " ",
+--         Property      = " ",
+--         Field         = " ",
+--         Constructor   = " ",
+--         Enum          = "練",
+--         Interface     = "練",
+--         Function      = " ",
+--         Variable      = " ",
+--         Constant      = " ",
+--         String        = " ",
+--         Number        = " ",
+--         Boolean       = "◩ ",
+--         Array         = " ",
+--         Object        = " ",
+--         Key           = " ",
+--         Null          = "ﳠ ",
+--         EnumMember    = " ",
+--         Struct        = " ",
+--         Event         = " ",
+--         Operator      = " ",
+--         TypeParameter = " ",
+--     },
+  -- icons = {
+  --   File = ' ',
+  --   Module = ' ',
+  --   Namespace = ' ',
+  --   Package = ' ',
+  --   Class = ' ',
+  --   Method = ' ',
+  --   Property = ' ',
+  --   Field = ' ',
+  --   Constructor = ' ',
+  --   Enum = ' ',
+  --   Interface = ' ',
+  --   Function = ' ',
+  --   Variable = ' ',
+  --   Constant = ' ',
+  --   String = ' ',
+  --   Number = ' ',
+  --   Boolean = ' ',
+  --   Array = ' ',
+  --   Object = ' ',
+  --   Key = ' ',
+  --   Null = ' ',
+  --   EnumMember = ' ',
+  --   Struct = ' ',
+  --   Event = ' ',
+  --   Operator = ' ',
+  --   TypeParameter = ' '
+  -- }
+-- }
 
 -- -- vim.api.nvim_set_hl(0, "NavicIconsFile",          {default = true, bg = "#000000", fg = "#ffffff"})
 -- -- vim.api.nvim_set_hl(0, "NavicIconsModule",        {default = true, bg = "#000000", fg = "#ffffff"})

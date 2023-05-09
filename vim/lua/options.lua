@@ -69,6 +69,7 @@ cmd [[
   set sidescrolloff=15
   set foldmethod=indent
   set nofoldenable
+  set wildignore+=*node_modules
 ]]
 
 g.vimsyn_embed = 'l'
