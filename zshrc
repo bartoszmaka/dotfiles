@@ -93,7 +93,7 @@ test -e "~/.bin/tmuxinator.zsh" && source "~/.bin/tmuxinator.zsh"
 export BAT_THEME='TwoDark'
 export DISABLE_SPRING=1
 export EDITOR='nvim'
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden -g '!.git/' -g '!node_modules/' -g '!tmp/' -g '!vendor/' -g '!doc/'"
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden -g '!.git/' -g '!node_modules/' -g '!tmp/' -g '!vendor/' -g '!doc/' -g '!.next/'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export DOTFILES_PATH="$HOME/.repos/dotfiles"
 export DEFAULT_USER=`whoami`
@@ -155,11 +155,23 @@ function compare_branch_commits() {
 }
 function tattach() { tmux new-session -s `uuidgen` -t $1 }
 
+# function prepend_brew_installed_mongo_to_path() {
+#   export PATH="/opt/homebrew/Cellar/mongodb-database-tools/100.7.0/bin:$PATH"
+# }
+
+function prepend_asdf_to_path() {
+  export PATH="/Users/bartoszmaka/.asdf/shims:$PATH"
+}
+
+function kill_by_port() {
+  kill -9 $(lsof -i:$1 -t)
+}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 . $(brew --prefix asdf)/libexec/asdf.sh
 
-export PATH=/opt/homebrew/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 export PATH="~/.emacs.d/bin:$PATH" # make sure homebrew bins are before osx bins
 
