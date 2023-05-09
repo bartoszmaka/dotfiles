@@ -1,4 +1,3 @@
-mkdir -p ~/.config/ranger
 mkdir -p ~/.config/nvim
 mkdir -p ~/.config/alacritty
 
@@ -7,7 +6,7 @@ ln -vsf ~/.repos/dotfiles/vim/init.lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/UltiSnips ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/vsnip ~/.vsnip
-ln -vfs ~/.repos/dotfiles/vim/lazy-lock.json ~/.config/nvim
+# ln -vfs ~/.repos/dotfiles/vim/lazy-lock.json ~/.config/nvim
 
 ln -vsf ~/.repos/dotfiles/zshrc ~/.zshrc
 ln -vsf ~/.repos/dotfiles/resources/global_gitignore ~/.gitignore
@@ -36,12 +35,10 @@ case "$(uname -s)" in
     ln -vsf ~/.repos/dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln -vsf ~/.repos/dotfiles/vscode/snippets ~/Library/Application\ Support/Code/User
     ln -vsf ~/.repos/dotfiles/resources/osx/tmux.conf ~/.tmux.conf
-    ln -vsf ~/.repos/dotfiles/resources/osx/rc.conf ~/.config/ranger/rc.conf
     ln -vsf ~/.repos/dotfiles/resources/osx/karabiner.json ~/.config/karabiner/karabiner.json
     ;;
   Linux)
     ln -vsf ~/.repos/dotfiles/resources/linux/tmux.conf ~/.tmux.conf
-    ln -vsf ~/.repos/dotfiles/resources/linux/rc.conf ~/.config/ranger/rc.conf
     ln -vsf ~/.repos/dotfiles/resources/linux/redshift.conf ~/.config/redshift.conf
     ;;
 esac
