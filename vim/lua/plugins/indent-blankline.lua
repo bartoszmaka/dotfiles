@@ -1,5 +1,6 @@
 return {
   'lukas-reineke/indent-blankline.nvim',
+  event = { "BufReadPost", "BufNewFile" },
   config = function()
     function ToggleIndentMarks()
       if vim.g.indent_highlight_toggled_visible == 1 then
@@ -16,8 +17,9 @@ return {
       context_char = '│',
       show_current_context = true,
       show_current_context_start = false,
-      use_treesitter = true,
-      filetype_exclude = { 'fzf' }
+      use_treesitter = false,
+      filetype_exclude = { "fzf", "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+      show_trailing_blankline_indent = false,
     }
 
     vim.cmd [[
