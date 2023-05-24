@@ -888,4 +888,5 @@
     "warning",
     "info"
   ],
+  "git.openRepositoryInParentFolders": "always",
 }

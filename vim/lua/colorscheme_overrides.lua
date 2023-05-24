@@ -29,15 +29,6 @@ vim.cmd [[
   augroup treesitter_overrides
     autocmd!
     highlight! link @parameter   @variable.builtin
-    highlight! @constructor      gui=NONE
-    highlight! TSKeywordFunction gui=NONE
-    highlight! TSConstructor     gui=NONE
-    highlight! TSInclude         gui=italic
-    highlight! TSKeyword         gui=italic
-    highlight! TSKeywordFunction gui=italic
-    highlight! TSVariableBuiltin gui=italic
-    highlight! TSConditional     gui=italic
-    highlight! @conditional      gui=NONE
     highlight! link vueTSMethod TSBoolean
     highlight! link TSTagAttribute TSBoolean
     highlight! link @tag.attribute @boolean
@@ -57,16 +48,14 @@ vim.cmd [[
     highlight! link @lsp.type.property @property
     highlight! link @lsp.type.namespace @namespace
     highlight! link @lsp.type.parameter @parameter
-
-    highlight! @lsp.type.variable guifg=NONE
   augroup END
 
   augroup color_scheme_tweaks
     autocmd!
-    highlight! DiffChange      guibg=#2e2e1a guifg=NONE gui=NONE
-    highlight! DiffText        guibg=#3e3e23 guifg=NONE gui=NONE
-    highlight! DiffAdd         guibg=#1a2e1b guifg=NONE gui=NONE
-    highlight! DiffDelete      guibg=#2e201a guifg=NONE gui=NONE
+    " highlight! DiffChange      guibg=#2e2e1a guifg=NONE gui=NONE
+    " highlight! DiffText        guibg=#3e3e23 guifg=NONE gui=NONE
+    " highlight! DiffAdd         guibg=#1a2e1b guifg=NONE gui=NONE
+    " highlight! DiffDelete      guibg=#2e201a guifg=NONE gui=NONE
     highlight! CursorLine      guibg=#21283b
     highlight! CursorLineNR    guibg=#21283b gui=bold
     highlight! CursorColumn    guibg=#21283b

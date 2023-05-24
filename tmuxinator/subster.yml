@@ -1,7 +1,7 @@
 # /Users/bartoszmaka/.tmuxinator/subster.yml
 
 name: subster
-root: ~/projects/subster-api
+root: ~/projects/subster/subster-api
 
 # Optional tmux socket
 # socket_name: foo
@@ -55,5 +55,5 @@ windows:
       layout: main-horizontal
       # layout: e4df,284x68,0,0[284x50,0,0,1,284x17,0,51,3]
       panes:
-        - cd ~/projects/subster-web && n
-        - cd ~/projects/subster-web && yarn dev
+        - cd ~/projects/subster/subster-web && n
+        - cd ~/projects/subster/subster-web && yarn dev

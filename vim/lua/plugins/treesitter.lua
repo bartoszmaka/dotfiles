@@ -16,7 +16,14 @@ return {
       ensure_installed = "all",
       highlight = {
         enable = true,
-        disable = { "fzf", "fugitive", "NvimTree" },
+        disable = function(lang, buf)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            print('Disabling treesitter for buffer due to size ' .. stats.size .. ' bytes')
+            return true
+          end
+        end,
         additional_vim_regex_highlighting = false
       },
       indent = {
@@ -123,7 +130,7 @@ return {
     }
 
     nnoremap([[<leader>dh]], [[:TSHighlightCapturesUnderCursor<CR>]])
-    vim.cmd[[
+    vim.cmd [[
       nnoremap <leader>dH :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
       \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
       \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
@@ -135,7 +142,7 @@ return {
     vim.cmd [[
       augroup hlargs_overrides
       autocmd!
-      highlight! Hlargs guibg=none guifg=none gui=italic
+      highlight! Hlargs gui=italic
       augroup END
     ]]
   end

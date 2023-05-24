@@ -5,7 +5,8 @@ return {
 
     require('filetype').setup({
       extensions = {
-        yml = 'yaml'
+        yml = 'yaml',
+        sh = 'sh'
       },
       overrides = {
         literal = {
@@ -13,6 +14,7 @@ return {
           zshrc = 'zsh',
         },
         complex = {
+          ['*.sh'] = 'sh',
           ['%.env%.*'] = 'sh',
           ['%.yml'] = 'yaml',
           ['.pryrc'] = 'ruby',
