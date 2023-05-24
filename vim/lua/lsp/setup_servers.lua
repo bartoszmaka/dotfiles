@@ -20,7 +20,17 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 local servers = {
-  -- 'bashls',
+  'bashls',
+  'rust_analyzer',
+  -- 'codespell',
+  -- 'css-lsp',
+  -- 'erb-lint',
+  -- 'gitlint',
+  -- 'jq',
+  -- 'jq-lsp',
+  -- 'markdown-lint',
+  -- 'markdown-toc',
+  -- 'sql-formatter',
   'dockerls',
   'graphql',
   'html',

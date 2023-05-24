@@ -65,4 +65,8 @@ vim.cmd [[
     autocmd InsertLeave * highlight! CursorLine   guibg=#21283b
     autocmd InsertLeave * highlight! CursorLineNR guibg=#21283b
   augroup END
+
+  augroup fix_filetype
+    autocmd! BufRead,BufNewFile,BufEnter *.sh setf sh
+  augroup END
 ]]

@@ -8,15 +8,14 @@ vim.cmd [[
 
 require('disable_builtin')
 require('setup_lazy')
-
 require('lazy').setup('plugins', {
-  
 })
+  -- install = {
+  --   colorscheme = { 'onedark' },
+  -- },
 
 local loadedLsp, _ = pcall(require, 'lsp')
--- local loadedAutopairs, _ = pcall(require, 'plugins_config.autopairs')
 if not loadedLsp then print('Error in lsp config') end
--- if not loadedAutopairs then print('Error in autoparis config') end
 
 require('options')
 require('mappings')
