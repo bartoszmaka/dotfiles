@@ -1,6 +1,7 @@
 {
     "workspace.library": [
         "${3rd}/luassert/library",
-        "${3rd}/luv/library"
+        "${3rd}/luv/library",
+        "/Users/bartoszmaka/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/715e6542"
     ]
 }
