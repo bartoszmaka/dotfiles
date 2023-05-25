@@ -1,16 +1,10 @@
 return {
-  { 'williamboman/mason.nvim' },
-  { 'williamboman/mason-lspconfig.nvim' },
-  { 'neovim/nvim-lspconfig' },
-  { 'nvim-lua/lsp-status.nvim' },
-  { 'jose-elias-alvarez/typescript.nvim' },
-  { 'b0o/schemastore.nvim' }, -- schemas for jsonls (common rc files)
-  { 'folke/trouble.nvim',                config = function() require('lsp.plugins.trouble') end },
-  { 'j-hui/fidget.nvim',                 config = function() require('lsp.plugins.fidget') end },
+  { 'folke/trouble.nvim',      config = function() require('lsp.plugins.trouble') end },
+  { 'j-hui/fidget.nvim',       config = function() require('lsp.plugins.fidget') end },
 
   -- lsp/code integration
-  { 'onsails/lspkind-nvim',              config = function() require('lsp.plugins.lspkind') end }, -- lsp and completion icons
-  { 'RishabhRD/nvim-lsputils',           dependencies = { 'RishabhRD/popfix' } },                  -- lsp integration utils (better go to def etc)
+  { 'onsails/lspkind-nvim',    config = function() require('lsp.plugins.lspkind') end },           -- lsp and completion icons
+  { 'RishabhRD/nvim-lsputils', dependencies = { 'RishabhRD/popfix' } },                            -- lsp integration utils (better go to def etc)
   {
     'jose-elias-alvarez/null-ls.nvim',                                                             -- null ls
     dependencies = { 'nvim-lua/plenary.nvim' },

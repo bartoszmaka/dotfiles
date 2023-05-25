@@ -14,6 +14,7 @@ vim.opt.cursorline = true
 vim.opt.inccommand = 'nosplit'    -- live preview replace
 vim.opt.signcolumn = 'yes:1'      -- always display column for signs left to numbers
 vim.opt.termguicolors = true
+vim.opt.pumheight = 10
 
 -- Meta
 vim.g.mapleader = ' '

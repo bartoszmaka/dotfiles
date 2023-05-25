@@ -1,7 +1,7 @@
 return {
   'janko/vim-test',
   config = function()
-    nmap = require('config_helper').nmap
+    nmap = require('helper').nmap
 
     if vim.fn.exists('$TMUX') == 1 then
       vim.g["test#strategy"] = "vimux"

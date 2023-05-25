@@ -8,7 +8,7 @@ return {
     },
     lazy = false,
     config = function()
-      local nnoremap = require('config_helper').nnoremap
+      local nnoremap = require('helper').nnoremap
       vim.cmd [[
         let $FZF_DEFAULT_OPTS='--layout=reverse'
         let g:fzf_command_prefix = 'Fzf'
@@ -34,9 +34,9 @@ return {
         autocmd FileType fzf tnoremap <buffer> <esc> <esc>
       ]]
 
-      local config_helper = require('config_helper')
-      local nnoremap = config_helper.nnoremap
-      local vnoremap = config_helper.vnoremap
+      local helper = require('helper')
+      local nnoremap = helper.nnoremap
+      local vnoremap = helper.vnoremap
 
       vim.g.mapleader = ' '
       local actions = require "fzf-lua.actions"

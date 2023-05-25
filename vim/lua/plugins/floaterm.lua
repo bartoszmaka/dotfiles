@@ -1,9 +1,9 @@
 return {
   'voldikss/vim-floaterm',
   config = function()
-    local config_helper = require('config_helper')
-    local nnoremap = config_helper.nnoremap
-    local tnoremap = config_helper.tnoremap
+    local helper = require('helper')
+    local nnoremap = helper.nnoremap
+    local tnoremap = helper.tnoremap
 
     vim.g.floaterm_height = 0.3
     vim.g.floaterm_wintype = 'split'

@@ -8,14 +8,12 @@ vim.cmd [[
 
 require('disable_builtin')
 require('setup_lazy')
-require('lazy').setup('plugins', {
+require('lazy').setup({
+  spec = { import = 'plugins'},
+  install = {
+    colorscheme = { 'onedark' },
+  },
 })
-  -- install = {
-  --   colorscheme = { 'onedark' },
-  -- },
-
-local loadedLsp, _ = pcall(require, 'lsp')
-if not loadedLsp then print('Error in lsp config') end
 
 require('options')
 require('mappings')
@@ -23,3 +21,6 @@ require('abbrevations')
 require('autocmds')
 require('colorscheme_overrides')
 require('gui')
+require('lsp')
+-- local loadedLsp, _ = pcall(require, 'lsp')
+-- if not loadedLsp then print('Error in lsp config') end

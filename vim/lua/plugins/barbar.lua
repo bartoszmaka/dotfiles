@@ -2,7 +2,7 @@ return {
   'romgrk/barbar.nvim',
   lazy=false,
   config = function()
-    local nnoremap = require('config_helper').nnoremap
+    local nnoremap = require('helper').nnoremap
     vim.g.mapleader = ' '
 
     require('barbar').setup({

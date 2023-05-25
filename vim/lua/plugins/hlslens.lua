@@ -2,7 +2,7 @@ return {
   'kevinhwang91/nvim-hlslens',
   config = function()
     require('hlslens').setup({})
-    local nnoremap = require('config_helper').nnoremap
+    local nnoremap = require('helper').nnoremap
 
     nnoremap('n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]])
     nnoremap('N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]])

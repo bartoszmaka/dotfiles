@@ -2,7 +2,7 @@ return {
   'phaazon/hop.nvim',
   branch = 'v1',
   config = function()
-    local nnoremap = require('config_helper').nnoremap
+    local nnoremap = require('helper').nnoremap
 
     require('hop').setup {
       keys = 'etovxqpdygfblzhckisuran',

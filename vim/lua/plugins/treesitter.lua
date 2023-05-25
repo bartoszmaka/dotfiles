@@ -10,7 +10,7 @@ return {
   },
   build = ':TSUpdate',
   config = function()
-    local nnoremap = require('config_helper').nnoremap
+    local nnoremap = require('helper').nnoremap
 
     require 'nvim-treesitter.configs'.setup {
       ensure_installed = "all",

@@ -6,12 +6,12 @@ return {
       separator = " ",
       highlight = true,
       depth_limit = 5,
-      icons = require("config_helper.symbols")
+      icons = require("helper.symbols")
     }
   end,
   init = function()
     vim.g.navic_silence = true
-    require("config_helper").on_attach(function(client, buffer)
+    require("helper").on_attach(function(client, buffer)
       if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, buffer)
       end

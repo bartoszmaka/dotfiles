@@ -4,7 +4,7 @@ return {
   config = function()
     local navic = pcall(require, "nvim-navic")
     local gps = require "nvim-gps"
-    local colors = require('config_helper.colors').onedark
+    local colors = require('helper.colors').onedark
     local onedark_custom = {
       normal = {
         a = { fg = colors.bg0, bg = colors.green, gui = 'bold' },
