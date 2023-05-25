@@ -2,7 +2,7 @@ return {
   'bartoszmaka/nvim-gps',
   dependencies = 'nvim-treesitter/nvim-treesitter',
   config = function()
-    local symbols = require('config_helper/symbols')
+    local symbols = require('helper').symbols
 
     local icons_for_match_groups = {
       ["class-name"] = symbols.Class .. ' ',

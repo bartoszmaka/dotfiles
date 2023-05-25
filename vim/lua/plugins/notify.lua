@@ -10,7 +10,7 @@ return {
     },
   },
   config = function()
-    local symbols = require('config_helper.symbols')
+    local symbols = require('helper.symbols')
 
     require('notify').setup({
       symbols = {

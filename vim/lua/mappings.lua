@@ -1,18 +1,18 @@
-local config_helper = require('config_helper')
+local helper = require('helper')
 
 -- aliases
-local map = config_helper.map
-local vmap = config_helper.vmap
-local tmap = config_helper.tmap
-local imap = config_helper.imap
-local nmap = config_helper.nmap
-local cmap = config_helper.cmap
-local vnoremap = config_helper.vnoremap
-local inoremap = config_helper.inoremap
-local nnoremap = config_helper.nnoremap
-local cnoremap = config_helper.cnoremap
-local tnoremap = config_helper.tnoremap
-local unmap = config_helper.unmap
+local map = helper.map
+local vmap = helper.vmap
+local tmap = helper.tmap
+local imap = helper.imap
+local nmap = helper.nmap
+local cmap = helper.cmap
+local vnoremap = helper.vnoremap
+local inoremap = helper.inoremap
+local nnoremap = helper.nnoremap
+local cnoremap = helper.cnoremap
+local tnoremap = helper.tnoremap
+local unmap = helper.unmap
 
 -- unmaps
 nnoremap('Q', '<NOP>')  -- disable ex mode

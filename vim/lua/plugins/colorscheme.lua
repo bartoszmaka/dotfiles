@@ -4,7 +4,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      local colors = require('config_helper.colors').onedark
+      local colors = require('helper.colors').onedark
 
       vim.o.termguicolors = true
       vim.o.background = "dark"

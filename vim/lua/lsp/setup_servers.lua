@@ -1,73 +1,81 @@
-local on_attach = require('lsp/on_attach')
-local lspconfig = require('lspconfig')
+local helper = require('helper')
 local native_capabilities = vim.lsp.protocol.make_client_capabilities()
-local loaded_cmp, capabilities = pcall(require, 'cmp_nvim_lsp')
+local loaded_cmp, capabilities = pcall(require, "cmp_nvim_lsp")
 
 if loaded_cmp then
   capabilities = capabilities.default_capabilities(native_capabilities)
 else
-  print('cmp_nvim_lsp not installed')
+  print("cmp_nvim_lsp not installed")
   capabilities = native_capabilities
 end
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
+    "documentation",
+    "detail",
+    "additionalTextEdits",
+  },
 }
 
 local servers = {
-  'bashls',
-  'rust_analyzer',
-  -- 'codespell',
-  -- 'css-lsp',
-  -- 'erb-lint',
-  -- 'gitlint',
-  -- 'jq',
-  -- 'jq-lsp',
-  -- 'markdown-lint',
-  -- 'markdown-toc',
-  -- 'sql-formatter',
-  'dockerls',
-  'graphql',
-  'html',
-  'jsonls',
-  -- 'solargraph',
-  -- 'ruby-lsp',
-  -- 'solidity_ls',
-  'sqlls',
-  'stylelint_lsp',
+  "bashls",
+  "dockerls",
+  "graphql",
+  "html",
+  "jsonls",
+  "rust_analyzer",
+  "sqlls",
+  "stylelint_lsp",
+  "tailwindcss",
+  "terraformls",
+  "tsserver",
+  "vimls",
+  "vuels",
+  "yamlls",
+  'cssls',
+  'ruby_ls',
+  'solargraph',
   'lua_ls',
-  'tailwindcss',
-  'terraformls',
-  'tsserver',
-  'vimls',
-  'vuels',
-  'yamlls',
 }
 
-require('mason').setup()
-require('mason-lspconfig').setup(
-  { ensure_installed = servers }
-)
+-- local navic_loaded, navic = pcall(require, "nvim-navic")
 
+local on_attach = function(client, bufnr)
+  -- if not navic_loaded then
+  --   print "Error while loading nvim-navic"
+  -- else
+  --   navic.attach(client, bufnr)
+  -- end
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  require('lsp-status').on_attach(client)
+
+  if helper.set_contains({ 'css', 'scss', 'sass' }, vim.bo.filetype) then
+    buf_set_option('omnifunc', 'csscomplete#CompleteCSS')
+  else
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  end
+  -- Mappings.
+  local opts = { noremap = true, silent = true }
+
+  helper.set_default_formatter_for_filetypes('solargraph', { 'ruby' })
+  helper.set_default_formatter_for_filetypes('null-ls', { 'javascript', 'vue' })
+  helper.set_default_formatter_for_filetypes('sumneko_lua', { 'lua' })
+end
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = servers,
+  automatic_installation = true
+})
+local lspconfig = require("lspconfig")
 
 local M = {}
 
--- local configs = require 'lspconfig.configs'
--- configs['ruby-lsp'] = {
---   default_config = {
---     cmd = { "ruby-lsp" },
---     filetypes = { "ruby" },
---     root_dir = vim.loop.cwd,
---   }
--- }
-
 M.setup_servers = function()
-  lspconfig['ruby_ls'].setup({
+  lspconfig["ruby_ls"].setup({
     capabilities = capabilities,
     on_attach = on_attach,
     root_dir = vim.loop.cwd,
@@ -77,7 +85,7 @@ M.setup_servers = function()
     -- cmd = { "bundle", "exec", "ruby-lsp" }
   })
 
-  lspconfig['solargraph'].setup({
+  lspconfig["solargraph"].setup({
     capabilities = capabilities,
     on_attach = on_attach,
     root_dir = vim.loop.cwd,
@@ -86,20 +94,20 @@ M.setup_servers = function()
     },
     settings = {
       solargraph = {
-        diagnostics = true
-      }
-    }
+        diagnostics = true,
+      },
+    },
   })
   require("typescript").setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false,            -- enable debug logging for commands
+    debug = false, -- enable debug logging for commands
     server = {
       capabilities = capabilities,
       on_attach = on_attach,
       root_dir = vim.loop.cwd,
       flags = {
         debounce_text_changes = 150,
-      }
+      },
     },
   })
 
@@ -110,16 +118,16 @@ M.setup_servers = function()
       root_dir = vim.loop.cwd,
       flags = {
         debounce_text_changes = 150,
-      }
+      },
     }
 
---     if server_name == "solargraph" then
---       opts.settings = {
---         solargraph = {
---           diagnostics = true
---         }
---       }
---     end
+    --     if server_name == "solargraph" then
+    --       opts.settings = {
+    --         solargraph = {
+    --           diagnostics = true
+    --         }
+    --       }
+    --     end
 
     if server_name == "lua_ls" then
       opts.root_dir = function()
@@ -128,35 +136,35 @@ M.setup_servers = function()
       opts.settings = {
         Lua = {
           diagnostics = {
-            globals = { "vim" }
+            globals = { "vim" },
           },
           workspace = {
             library = {
               [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-            }
+              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+            },
           },
           telemetry = {
-            enable = false
-          }
-        }
+            enable = false,
+          },
+        },
       }
     elseif server_name == "jsonls" then
       opts.settings = {
         json = {
-          schemas = require('schemastore').json.schemas(),
+          schemas = require("schemastore").json.schemas(),
           validate = { enable = true },
         },
       }
-    elseif server_name == 'yamlls' then
+    elseif server_name == "yamlls" then
       opts.settings = {
         yaml = {
-          keyOrdering = false
+          keyOrdering = false,
         },
       }
     end
 
-    if server_name ~= 'tsserver' then
+    if server_name ~= "tsserver" then
       lspconfig[server_name].setup(opts)
     end
   end

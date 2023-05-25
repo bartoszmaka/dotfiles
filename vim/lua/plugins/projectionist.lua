@@ -1,7 +1,7 @@
 return {
   'tpope/vim-projectionist',
   config = function()
-    local nnoremap = require('config_helper').nnoremap
+    local nnoremap = require('helper').nnoremap
     vim.g.projectionist_heuristics = {
       -- vue
       ['*'] = {

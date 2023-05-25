@@ -8,8 +8,8 @@ return {
     },
     config = function()
       local telescope = require('telescope')
-      local config_helper = require('config_helper')
-      local nnoremap = config_helper.nnoremap
+      local helper = require('helper')
+      local nnoremap = helper.nnoremap
       local actions = require('telescope.actions')
       local action_layout = require("telescope.actions.layout")
 

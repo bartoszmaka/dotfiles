@@ -1,5 +1,5 @@
-local nnoremap = require('config_helper').nnoremap
-local symbols = require('config_helper.symbols')
+local nnoremap = require('helper').nnoremap
+local symbols = require('helper').symbols
 
 require('trouble').setup({
   position = "bottom", -- position of the list can be: bottom, top, left, right
