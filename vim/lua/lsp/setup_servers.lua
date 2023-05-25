@@ -34,8 +34,8 @@ local servers = {
   "vuels",
   "yamlls",
   'cssls',
-  'ruby_ls',
-  'solargraph',
+  -- 'ruby_ls',
+  -- 'solargraph',
   'lua_ls',
 }
 
@@ -68,7 +68,7 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = servers,
-  automatic_installation = true
+  automatic_installation = { exclude = { "solargraph", "ruby_ls" } },
 })
 local lspconfig = require("lspconfig")
 

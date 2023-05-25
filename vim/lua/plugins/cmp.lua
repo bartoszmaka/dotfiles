@@ -28,6 +28,70 @@ return {
     end
   },
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    },
+  },
+  {
+    'tzachar/cmp-tabnine',
+    build = './install.sh',
+    dependencies = 'hrsh7th/nvim-cmp',
+    config = function()
+      local tabnine = require('cmp_tabnine.config')
+      tabnine:setup({
+        max_lines = 1000,
+        max_num_results = 20,
+        sort = true,
+        run_on_every_keystroke = true,
+        snippet_placeholder = '..',
+        ignored_file_types = {},
+        show_prediction_strength = false
+      })
+      local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
+
+      vim.api.nvim_create_autocmd('BufRead', {
+        group = prefetch,
+        pattern = '*.py',
+        callback = function()
+          require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
+        end
+      })
+    end
+  },
+  -- {
+  --   "nvim-lualine/lualine.nvim",
+  --   optional = true,
+  --   event = "VeryLazy",
+  --   opts = function(_, opts)
+  --     local helper = require("helper")
+  --     local colors = {
+  --       [""] = helper.fg("Special"),
+  --       ["Normal"] = helper.fg("Special"),
+  --       ["Warning"] = helper.fg("DiagnosticError"),
+  --       ["InProgress"] = helper.fg("DiagnosticWarn"),
+  --     }
+  --     table.insert(opts.sections.lualine_x, 2, {
+  --       function()
+  --         local icon = helper.symbols.Copilot
+  --         local status = require("copilot.api").status.data
+  --         return icon .. (status.message or "")
+  --       end,
+  --       cond = function()
+  --         local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
+  --         return ok and #clients > 0
+  --       end,
+  --       color = function()
+  --         local status = require("copilot.api").status.data
+  --         return colors[status.status] or colors[""]
+  --       end,
+  --     })
+  --   end,
+  -- },
+  {
     'hrsh7th/nvim-cmp',
     version = false,
     event = "InsertEnter",
@@ -50,15 +114,22 @@ return {
       'f3fora/cmp-spell',
       'hrsh7th/cmp-omni',
       'hrsh7th/cmp-cmdline',
-      -- {
-      --   'zbirenbaum/copilot.lua',
-      --   lazy = false
-      -- },
-      -- 'zbirenbaum/copilot-cmp',
-      -- {
-      --   'tzachar/cmp-tabnine',
-      --   build = './install.sh',
-      -- },
+      {
+        "zbirenbaum/copilot-cmp",
+        dependencies = "copilot.lua",
+        opts = {},
+        config = function(_, opts)
+          local copilot_cmp = require("copilot_cmp")
+          copilot_cmp.setup(opts)
+          -- attach cmp source whenever copilot attaches
+          -- fixes lazy-loading issues with the copilot cmp source
+          require("helper").on_attach(function(client)
+            if client.name == "copilot" then
+              copilot_cmp._on_insert_enter({})
+            end
+          end)
+        end,
+      },
     },
     opts = function()
       local cmp = require('cmp')
@@ -87,8 +158,8 @@ return {
             vim.api.nvim_feedkeys(t('<Plug>(ultisnips_expand)'), 'm', true)
           elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
             return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_forward)'), 'm', true)
-          -- elseif copilot_suggestion.is_visible() then
-          --   copilot_suggestion.accept()
+            -- elseif copilot_suggestion.is_visible() then
+            --   copilot_suggestion.accept()
           else
             vim.fn.feedkeys(t('<tab>'), 'n')
           end
@@ -122,7 +193,6 @@ return {
         completion = {},
         mapping = {
           ['<C-e>'] = cmp.mapping.abort(),
-          ['<C-l>'] = cmp.mapping.complete({ config = { sources = { name = 'copilot' } } }),
           ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
           ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -162,8 +232,8 @@ return {
           },
         },
         sources = cmp.config.sources({
-          { name = 'copilot',     priority = 150 },
-          { name = 'cmp_tabnine', priority = 145 },
+          { name = 'copilot',     priority = 150, group_index = 2 },
+          { name = 'cmp_tabnine', priority = 145, group_index = 2 },
           { name = 'ultisnips',   priority = 120 },
           { name = "nvim_lsp" },
           { name = "buffer" },
@@ -179,7 +249,7 @@ return {
               omni = '[Omni]',
               ultisnips = '[Snip]',
               spell = '[Spell]',
-              -- cmp_tabnine = '[TN]',
+              cmp_tabnine = '[TN]',
               copilot = '[AI]',
               cmdline = '[CMD]',
               nvim_lsp_signature_help = '~ [Sign]',
@@ -187,8 +257,8 @@ return {
 
             if entry.source.name == 'nvim_lsp_signature_help' then
               vim_item.kind = string.format('%s %s', symbols.Function, 'Args')
-              -- elseif entry.source.name == 'cmp_tabnine' then
-              --   vim_item.kind = 'T TabNine'
+            elseif entry.source.name == 'cmp_tabnine' then
+              vim_item.kind = 'T TabNine'
             else
               vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = 'symbol_text' })
             end
@@ -209,6 +279,24 @@ return {
             hl_group = "LspCodeLens",
           },
         },
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            require("copilot_cmp.comparators").prioritize,
+            require('cmp_tabnine.compare'),
+            -- Below is the default comparitor list and order for nvim-cmp
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        }
       }
 
       return options
@@ -270,30 +358,6 @@ return {
 -- require('copilot_cmp').setup()
 -- cmp.event:on("menu_opened", function() vim.b.copilot_suggestion_hidden = true end)
 -- cmp.event:on("menu_closed", function() vim.b.copilot_suggestion_hidden = false end)
-
--- require('cmp_tabnine.config').setup(
---   {
---     max_lines = 1000,
---     max_num_results = 20,
---     sort = true,
---     run_on_every_keystroke = true,
---     snippet_placeholder = '..',
---     ignored_file_types = {
---       -- default is not to ignore
---       -- uncomment to ignore in lua:
---       -- lua = true
---     },
---     show_prediction_strength = true
---   }
--- )
--- local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
--- vim.api.nvim_create_autocmd('BufRead', {
---   group = prefetch,
---   pattern = '*.rb',
---   callback = function()
---     require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
---   end
--- })
 
 -- cmp.setup({
 -- mapping = cmp_mapping_config,
