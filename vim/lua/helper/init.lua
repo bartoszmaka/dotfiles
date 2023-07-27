@@ -3,10 +3,10 @@ local M = {}
 M.colors = require('helper.colors')
 M.symbols = require('helper.symbols')
 M.statusline = require('helper.statusline_segments')
-M.cmp = require('helper.cmp')
+M.lualine = require('helper.lualine')
 
 function M.map(from, to, mode, opts)
-  local options = {noremap = true}
+  local options = { noremap = true }
   mode = mode or ''
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, from, to, options)
@@ -23,18 +23,29 @@ function M.unmap(keymapping, mode)
   vim.api.nvim_del_keymap(mode, keymapping)
 end
 
-function M.nnoremap(from, to, opts) return M.map(from, to, 'n',  opts) end
-function M.tnoremap(from, to, opts) return M.map(from, to, 't',  opts) end
-function M.inoremap(from, to, opts) return M.map(from, to, 'i',  opts) end
-function M.vnoremap(from, to, opts) return M.map(from, to, 'v',  opts) end
-function M.cnoremap(from, to, opts) return M.map(from, to, 'c',  opts) end
-function M.snoremap(from, to, opts) return M.map(from, to, 's',  opts) end
-function M.nmap(from, to, opts) return M.remap(from, to, 'n',  opts) end
-function M.tmap(from, to, opts) return M.remap(from, to, 't',  opts) end
-function M.imap(from, to, opts) return M.remap(from, to, 'i',  opts) end
-function M.vmap(from, to, opts) return M.remap(from, to, 'v',  opts) end
-function M.cmap(from, to, opts) return M.remap(from, to, 'c',  opts) end
-function M.smap(from, to, opts) return M.remap(from, to, 's',  opts) end
+function M.nnoremap(from, to, opts) return M.map(from, to, 'n', opts) end
+
+function M.tnoremap(from, to, opts) return M.map(from, to, 't', opts) end
+
+function M.inoremap(from, to, opts) return M.map(from, to, 'i', opts) end
+
+function M.vnoremap(from, to, opts) return M.map(from, to, 'v', opts) end
+
+function M.cnoremap(from, to, opts) return M.map(from, to, 'c', opts) end
+
+function M.snoremap(from, to, opts) return M.map(from, to, 's', opts) end
+
+function M.nmap(from, to, opts) return M.remap(from, to, 'n', opts) end
+
+function M.tmap(from, to, opts) return M.remap(from, to, 't', opts) end
+
+function M.imap(from, to, opts) return M.remap(from, to, 'i', opts) end
+
+function M.vmap(from, to, opts) return M.remap(from, to, 'v', opts) end
+
+function M.cmap(from, to, opts) return M.remap(from, to, 'c', opts) end
+
+function M.smap(from, to, opts) return M.remap(from, to, 's', opts) end
 
 local vim_variable_scopes = { g = vim.api.nvim_set_var }
 function M.let(scope, key, value)
@@ -125,7 +136,7 @@ function M.fg(name)
 end
 
 function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
-  if not set_contains(filetypes, vim.bo.filetype) then
+  if not M.set_contains(filetypes, vim.bo.filetype) then
     return
   end
 
@@ -135,7 +146,7 @@ function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
     table.insert(active_servers, client.config.name)
   end)
 
-  if not set_contains(active_servers, language_server_name) then
+  if not M.set_contains(active_servers, language_server_name) then
     return
   end
 
@@ -150,6 +161,49 @@ function M.set_default_formatter_for_filetypes(language_server_name, filetypes)
       end
     end
   end)
+end
+
+-- function get(t, ...)
+--    local result = t
+--    for i = 1, select(#, ...) do
+--       local key = select(i, ...)
+--       local nv  = result[key]
+--       if nv ~= nil then
+--           result = nv
+--       else
+--           return
+--       end
+--    end
+--    return result
+-- end
+
+M.keys = function(obect)
+  local result = {}
+  for key, _ in pairs(obect) do
+    table.insert(result, key)
+  end
+  return result
+end
+
+M.get = function(obect, path)
+  local value = obect
+  local segments = {}
+
+  -- Split the path into segments
+  for segment in string.gmatch(path, "[^%.]+") do
+    table.insert(segments, segment)
+  end
+
+  -- Traverse the obect based on the path segments
+  for _, segment in ipairs(segments) do
+    if type(value) == "table" and value[segment] then
+      value = value[segment]
+    else
+      return nil       -- Return nil if the segment doesn't exist
+    end
+  end
+
+  return value
 end
 
 return M

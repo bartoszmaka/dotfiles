@@ -97,6 +97,7 @@ export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden -g '!.git/' -g '
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export DOTFILES_PATH="$HOME/.repos/dotfiles"
 export DEFAULT_USER=`whoami`
+export COMPOSE_HTTP_TIMEOUT=3600
 
 RPROMPT='%D{%K:%M:%S}'
 zstyle ':completion:*' menu select
@@ -106,6 +107,7 @@ alias tnew="\tmux -u new-session -t main"
 alias spacevim="nvim -u ~/.SpaceVim/init.vim"
 alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias vimrc="cd $DOTFILES_PATH/vim; $EDITOR $DOTFILES_PATH/vim/lua/plugins/init.lua; cd -"
+alias minivimrc="cd $DOTFILES_PATH/vim; $EDITOR $DOTFILES_PATH/minimal_vimrc.lua; cd -"
 alias lazyvimrc="cd $HOME/.config/nvim; $EDITOR"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
 alias coderc="code $DOTFILES_PATH/vscode/settings.json $DOTFILES_PATH/vscode/keybindings.json"
@@ -116,6 +118,7 @@ alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
 alias n='asdf shell nodejs 17.3.0 && nvim'
+alias minivim='asdf shell nodejs 17.3.0 && nvim -u ~/.repos/dotfiles/minimal_vimrc.lua'
 alias oldvim='nvim -u $DOTFILES_PATH/vim/vimrc'
 
 alias -g F='| fzf --exact'
@@ -197,3 +200,4 @@ PERL5LIB="/Users/bartoszmaka/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export P
 PERL_LOCAL_LIB_ROOT="/Users/bartoszmaka/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/bartoszmaka/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/bartoszmaka/perl5"; export PERL_MM_OPT;
+PATH=$PATH:~/.ht/bin

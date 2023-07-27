@@ -1,72 +1,41 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'kyazdani42/nvim-web-devicons' },
-  config = function()
-    local navic = pcall(require, "nvim-navic")
-    local gps = require "nvim-gps"
-    local colors = require('helper.colors').onedark
-    local onedark_custom = {
-      normal = {
-        a = { fg = colors.bg0, bg = colors.green, gui = 'bold' },
-        b = { fg = colors.fg, bg = colors.bg0 },
-        c = { fg = colors.fg, bg = colors.bg0 },
-        y = { fg = colors.fg, bg = colors.bg3 },
-        z = { fg = colors.bg0, bg = colors.green, gui = 'none' },
-      },
-      command = {
-        a = { fg = colors.bg0, bg = colors.yellow, gui = 'bold' },
-        z = { fg = colors.bg0, bg = colors.yellow, gui = 'none' },
-      },
-      insert = {
-        a = { fg = colors.bg0, bg = colors.blue, gui = 'bold' },
-        z = { fg = colors.bg0, bg = colors.blue, gui = 'none' },
-      },
-      visual = {
-        a = { fg = colors.bg0, bg = colors.purple, gui = 'bold' },
-        z = { fg = colors.bg0, bg = colors.purple, gui = 'none' },
-      },
-      terminal = {
-        a = { fg = colors.bg0, bg = colors.cyan, gui = 'bold' },
-        z = { fg = colors.bg0, bg = colors.cyan, gui = 'none' },
-      },
-      replace = {
-        a = { fg = colors.bg0, bg = colors.red, gui = 'bold' },
-        z = { fg = colors.bg0, bg = colors.red, gui = 'none' },
-      },
-      inactive = {
-        a = { fg = colors.bg0, bg = colors.bg, gui = 'bold' },
-        b = { fg = colors.fg, bg = colors.bg },
-        c = { fg = colors.grey, bg = colors.bg },
-        z = { fg = colors.grey, bg = colors.bg, gui = 'none' },
-      },
+  event = "VeryLazy",
+  opts = function()
+    local navicLoaded, navic = pcall(require, "nvim-navic")
+    local gpsLoaded, gps = pcall(require, "nvim-gps")
+    local copilotLoaded, _ = pcall(require, "copilot.api")
+    local helper = require('helper')
+    local colors = helper.colors.onedark
+    local getFlags = helper.lualine.getFlags
+
+    local copilot_colors = {
+      [""] = { fg = colors.green },
+      ["Normal"] = { fg = colors.green },
+      ["Warning"] = { fg = colors.orange },
+      ["InProgress"] = { fg = colors.blue },
     }
 
-    local getFlags = function()
-      local flags = {}
-      if string.len(vim.fn["gutentags#statusline"]()) > 0 then table.insert(flags, '♺') end
-
-      return table.concat(flags, ' ')
-    end
-
-    local configured_sections = {
+    local sections = {
       diagnostics = {
         'diagnostics',
         sources = { 'nvim_lsp' },
         sections = { 'error', 'warn', 'info', 'hint' },
-        color_error = colors.red, -- changes diagnostic's error foreground color
+        color_error = colors.red,   -- changes diagnostic's error foreground color
         color_warn = colors.orange, -- changes diagnostic's warn foreground color
-        color_info = colors.blue, -- Changes diagnostic's info foreground color
-        color_hint = colors.blue, -- Changes diagnostic's hint foreground color
+        color_info = colors.blue,   -- Changes diagnostic's info foreground color
+        color_hint = colors.blue,   -- Changes diagnostic's hint foreground color
         symbols = { error = '  ', warn = '  ', info = '  ', hint = '  ' }
       },
       diff = {
         'diff',
         icon = '  ',
-        colored = false, -- displays diff status in color if set to true
+        colored = false,                                         -- displays diff status in color if set to true
         -- all colors are in format #rrggbb
-        color_added = nil, -- changes diff's added foreground color
-        color_modified = nil, -- changes diff's modified foreground color
-        color_removed = nil, -- changes diff's removed foreground color
+        color_added = nil,                                       -- changes diff's added foreground color
+        color_modified = nil,                                    -- changes diff's modified foreground color
+        color_removed = nil,                                     -- changes diff's removed foreground color
         symbols = { added = '+', modified = '~', removed = '-' } -- changes diff symbols
       },
       location = {
@@ -80,14 +49,29 @@ return {
       },
       filetype = { 'filetype', colored = true, icon_only = true },
       filename = { 'filename', file_status = true, path = 1 },
-      gps = { gps.get_location, cond = gps.is_available, color = { fg = colors.grey } },
+      gps = gpsLoaded and { gps.get_location, cond = gps.is_available, color = { fg = colors.grey } } or {},
       flags = { getFlags, color = { fg = colors.yellow } },
+      copilot = copilotLoaded and {
+        function()
+          local icon = helper.symbols.Copilot
+          local status = require("copilot.api").status.data
+          return icon .. (status.message or "")
+        end,
+        cond = function()
+          local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
+          return ok and #clients > 0
+        end,
+        color = function()
+          local status = require("copilot.api").status.data
+          return copilot_colors[status.status] or colors[""]
+        end,
+      } or {}
     }
 
-    require('lualine').setup({
+    local options = {
       options = {
         icons_enabled = true,
-        theme = onedark_custom,
+        theme = require('helper').lualine.theme.onedark,
         component_separators = { '', '' },
         section_separators = { '', '' },
         disabled_filetypes = {
@@ -104,25 +88,25 @@ return {
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { configured_sections.filetype, configured_sections.filename, },
-        lualine_c = { configured_sections.gps },
-        lualine_x = { configured_sections.flags, configured_sections.diagnostics },
-        lualine_y = { configured_sections.diff, },
-        lualine_z = { configured_sections.location }
+        lualine_b = { sections.filetype, sections.filename, },
+        lualine_c = { sections.gps },
+        lualine_x = { sections.flags, sections.diagnostics, sections.copilot },
+        lualine_y = { sections.diff, },
+        lualine_z = { sections.location }
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = { configured_sections.filetype, configured_sections.filename, },
+        lualine_b = { sections.filetype, sections.filename, },
         lualine_c = {},
         lualine_x = {},
-        lualine_y = { configured_sections.diff },
-        lualine_z = { configured_sections.location }
+        lualine_y = { sections.diff },
+        lualine_z = { sections.location }
       },
       tabline = {},
       -- winbar = {
       --   lualine_a = {},
       --   lualine_b = {},
-      --   lualine_c = { configured_sections.gps },
+      --   lualine_c = { sections.gps },
       --   lualine_x = {},
       --   lualine_y = {},
       --   lualine_z = {},
@@ -130,89 +114,101 @@ return {
       -- inactive_winbar = {
       --   lualine_a = {},
       --   lualine_b = {},
-      --   lualine_c = { configured_sections.gps },
+      --   lualine_c = { sections.gps },
       --   lualine_x = {},
       --   lualine_y = {},
       --   lualine_z = {},
       -- },
-      extensions = { 'quickfix', 'fzf', 'nvim-tree', 'fugitive', 'man', 'mundo', 'symbols-outline' }
-    })
+      extensions = {
+        'quickfix',
+        'fzf',
+        'nvim-tree',
+        'fugitive',
+        'man',
+        'mundo',
+        'symbols-outline',
+        'neo-tree',
+        'lazy',
+      }
+    }
+
+    return options
   end
 }
-  -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   event = "VeryLazy",
-  --   opts = function()
-  --     local icons = require("lazyvim.config").icons
-  --     local Util = require("lazyvim.util")
+-- {
+--   "nvim-lualine/lualine.nvim",
+--   event = "VeryLazy",
+--   opts = function()
+--     local icons = require("lazyvim.config").icons
+--     local Util = require("lazyvim.util")
 
-  --     return {
-  --       options = {
-  --         theme = "auto",
-  --         globalstatus = true,
-  --         disabled_filetypes = { statusline = { "dashboard", "alpha" } },
-  --       },
-  --       sections = {
-  --         lualine_a = { "mode" },
-  --         lualine_b = { "branch" },
-  --         lualine_c = {
-  --           {
-  --             "diagnostics",
-  --             symbols = {
-  --               error = icons.diagnostics.Error,
-  --               warn = icons.diagnostics.Warn,
-  --               info = icons.diagnostics.Info,
-  --               hint = icons.diagnostics.Hint,
-  --             },
-  --           },
-  --           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-  --           { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
-  --           -- stylua: ignore
-  --           {
-  --             function() return require("nvim-navic").get_location() end,
-  --             cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
-  --           },
-  --         },
-  --         lualine_x = {
-  --           -- stylua: ignore
-  --           {
-  --             function() return require("noice").api.status.command.get() end,
-  --             cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-  --             color = Util.fg("Statement"),
-  --           },
-  --           -- stylua: ignore
-  --           {
-  --             function() return require("noice").api.status.mode.get() end,
-  --             cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-  --             color = Util.fg("Constant"),
-  --           },
-  --           -- stylua: ignore
-  --           {
-  --             function() return "  " .. require("dap").status() end,
-  --             cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-  --             color = Util.fg("Debug"),
-  --           },
-  --           { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = Util.fg("Special") },
-  --           {
-  --             "diff",
-  --             symbols = {
-  --               added = icons.git.added,
-  --               modified = icons.git.modified,
-  --               removed = icons.git.removed,
-  --             },
-  --           },
-  --         },
-  --         lualine_y = {
-  --           { "progress", separator = " ", padding = { left = 1, right = 0 } },
-  --           { "location", padding = { left = 0, right = 1 } },
-  --         },
-  --         lualine_z = {
-  --           function()
-  --             return " " .. os.date("%R")
-  --           end,
-  --         },
-  --       },
-  --       extensions = { "neo-tree", "lazy" },
-  --     }
-  --   end,
-  -- },
+--     return {
+--       options = {
+--         theme = "auto",
+--         globalstatus = true,
+--         disabled_filetypes = { statusline = { "dashboard", "alpha" } },
+--       },
+--       sections = {
+--         lualine_a = { "mode" },
+--         lualine_b = { "branch" },
+--         lualine_c = {
+--           {
+--             "diagnostics",
+--             symbols = {
+--               error = icons.diagnostics.Error,
+--               warn = icons.diagnostics.Warn,
+--               info = icons.diagnostics.Info,
+--               hint = icons.diagnostics.Hint,
+--             },
+--           },
+--           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+--           { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
+--           -- stylua: ignore
+--           {
+--             function() return require("nvim-navic").get_location() end,
+--             cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
+--           },
+--         },
+--         lualine_x = {
+--           -- stylua: ignore
+--           {
+--             function() return require("noice").api.status.command.get() end,
+--             cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+--             color = Util.fg("Statement"),
+--           },
+--           -- stylua: ignore
+--           {
+--             function() return require("noice").api.status.mode.get() end,
+--             cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+--             color = Util.fg("Constant"),
+--           },
+--           -- stylua: ignore
+--           {
+--             function() return "  " .. require("dap").status() end,
+--             cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
+--             color = Util.fg("Debug"),
+--           },
+--           { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = Util.fg("Special") },
+--           {
+--             "diff",
+--             symbols = {
+--               added = icons.git.added,
+--               modified = icons.git.modified,
+--               removed = icons.git.removed,
+--             },
+--           },
+--         },
+--         lualine_y = {
+--           { "progress", separator = " ", padding = { left = 1, right = 0 } },
+--           { "location", padding = { left = 0, right = 1 } },
+--         },
+--         lualine_z = {
+--           function()
+--             return " " .. os.date("%R")
+--           end,
+--         },
+--       },
+--       extensions = { "neo-tree", "lazy" },
+--     }
+--   end,
+-- },

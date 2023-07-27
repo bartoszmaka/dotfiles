@@ -23,8 +23,8 @@ return {
     }
 
     vim.cmd [[
-      nnoremap <leader>iT :IndentBlanklineToggle<CR>
-      nnoremap <leader>it :lua ToggleIndentMarks()<CR>
+      nnoremap <leader>uI :IndentBlanklineToggle<CR>
+      nnoremap <leader>ui :lua ToggleIndentMarks()<CR>
 
       augroup indent_blankline_overrides
         autocmd!

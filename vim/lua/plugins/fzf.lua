@@ -138,7 +138,7 @@ return {
           file_icons   = true, -- show file icons?
           color_icons  = true, -- colorize file|git icons
           rg_opts      = "--color=never --no-ignore-vcs --files --hidden --follow -g '!.git' -g '!node_modules' -g '!.next/'",
-          fd_opts      = "--color=never --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude tmp --exclude .idea --exclude node_modules --exclude .next",
+          fd_opts      = "--color=never --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude tmp --exclude .idea --exclude node_modules --exclude .next --exclude vendor",
           actions      = {
             ["default"] = actions.file_edit,
             ["ctrl-s"]  = actions.file_split,
