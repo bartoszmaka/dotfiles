@@ -48,6 +48,8 @@ vim.cmd [[
     highlight! link @lsp.type.property @property
     highlight! link @lsp.type.namespace @namespace
     highlight! link @lsp.type.parameter @parameter
+    highlight! link @lsp.typemod.function.declaration.typescriptreact @type
+    highlight! link @lsp.typemod.function.readonly.typescriptreact @type
   augroup END
 
   augroup color_scheme_tweaks

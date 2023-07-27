@@ -36,60 +36,31 @@ return {
       panel = { enabled = false },
     },
   },
-  {
-    'tzachar/cmp-tabnine',
-    build = './install.sh',
-    dependencies = 'hrsh7th/nvim-cmp',
-    config = function()
-      local tabnine = require('cmp_tabnine.config')
-      tabnine:setup({
-        max_lines = 1000,
-        max_num_results = 20,
-        sort = true,
-        run_on_every_keystroke = true,
-        snippet_placeholder = '..',
-        ignored_file_types = {},
-        show_prediction_strength = false
-      })
-      local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
-
-      vim.api.nvim_create_autocmd('BufRead', {
-        group = prefetch,
-        pattern = '*.py',
-        callback = function()
-          require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
-        end
-      })
-    end
-  },
   -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   optional = true,
-  --   event = "VeryLazy",
-  --   opts = function(_, opts)
-  --     local helper = require("helper")
-  --     local colors = {
-  --       [""] = helper.fg("Special"),
-  --       ["Normal"] = helper.fg("Special"),
-  --       ["Warning"] = helper.fg("DiagnosticError"),
-  --       ["InProgress"] = helper.fg("DiagnosticWarn"),
-  --     }
-  --     table.insert(opts.sections.lualine_x, 2, {
-  --       function()
-  --         local icon = helper.symbols.Copilot
-  --         local status = require("copilot.api").status.data
-  --         return icon .. (status.message or "")
-  --       end,
-  --       cond = function()
-  --         local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
-  --         return ok and #clients > 0
-  --       end,
-  --       color = function()
-  --         local status = require("copilot.api").status.data
-  --         return colors[status.status] or colors[""]
-  --       end,
+  --   'tzachar/cmp-tabnine',
+  --   build = './install.sh',
+  --   dependencies = 'hrsh7th/nvim-cmp',
+  --   config = function()
+  --     local tabnine = require('cmp_tabnine.config')
+  --     tabnine:setup({
+  --       max_lines = 1000,
+  --       max_num_results = 20,
+  --       sort = true,
+  --       run_on_every_keystroke = true,
+  --       snippet_placeholder = '..',
+  --       ignored_file_types = {},
+  --       show_prediction_strength = false
   --     })
-  --   end,
+  --     local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
+
+  --     vim.api.nvim_create_autocmd('BufRead', {
+  --       group = prefetch,
+  --       pattern = '*.py',
+  --       callback = function()
+  --         require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
+  --       end
+  --     })
+  --   end
   -- },
   {
     'hrsh7th/nvim-cmp',
@@ -121,8 +92,6 @@ return {
         config = function(_, opts)
           local copilot_cmp = require("copilot_cmp")
           copilot_cmp.setup(opts)
-          -- attach cmp source whenever copilot attaches
-          -- fixes lazy-loading issues with the copilot cmp source
           require("helper").on_attach(function(client)
             if client.name == "copilot" then
               copilot_cmp._on_insert_enter({})
@@ -133,9 +102,10 @@ return {
     },
     opts = function()
       local cmp = require('cmp')
-      local symbols = require('helper').symbols
-      local lspkind = require('lspkind')
-      local t = require('helper').cmp.t
+      local helper = require('helper')
+      local cmp_helper = require('helper.cmp')
+      local get = helper.get
+      local t = cmp_helper.t
       local mappings = {
         next_or_open_popup = function()
           if cmp.visible() then
@@ -158,8 +128,6 @@ return {
             vim.api.nvim_feedkeys(t('<Plug>(ultisnips_expand)'), 'm', true)
           elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
             return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_forward)'), 'm', true)
-            -- elseif copilot_suggestion.is_visible() then
-            --   copilot_suggestion.accept()
           else
             vim.fn.feedkeys(t('<tab>'), 'n')
           end
@@ -222,8 +190,8 @@ return {
         window = {
           completion = {
             winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:Visual,Search:None',
-            -- col_offset = -4,
-            -- side_padding = 0,
+            col_offset = -3,
+            side_padding = 0,
             -- border = 'rounded',
           },
           documentation = {
@@ -233,7 +201,7 @@ return {
         },
         sources = cmp.config.sources({
           { name = 'copilot',     priority = 150, group_index = 2 },
-          { name = 'cmp_tabnine', priority = 145, group_index = 2 },
+          -- { name = 'cmp_tabnine', priority = 145, group_index = 2 },
           { name = 'ultisnips',   priority = 120 },
           { name = "nvim_lsp" },
           { name = "buffer" },
@@ -243,36 +211,7 @@ return {
 
         formatting = {
           fields = { 'kind', 'abbr', 'menu' },
-          format = function(entry, vim_item)
-            local menu = ({
-              buffer = '[Buf]',
-              omni = '[Omni]',
-              ultisnips = '[Snip]',
-              spell = '[Spell]',
-              cmp_tabnine = '[TN]',
-              copilot = '[AI]',
-              cmdline = '[CMD]',
-              nvim_lsp_signature_help = '~ [Sign]',
-            })[entry.source.name] or entry.source.name
-
-            if entry.source.name == 'nvim_lsp_signature_help' then
-              vim_item.kind = string.format('%s %s', symbols.Function, 'Args')
-            elseif entry.source.name == 'cmp_tabnine' then
-              vim_item.kind = 'T TabNine'
-            else
-              vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = 'symbol_text' })
-            end
-
-            local strings = vim.split(vim_item.kind, '%s', { trimempty = true })
-            vim_item.kind = ' ' .. strings[1] .. ' '
-            if entry.source.name ~= "nvim_lsp" and strings[2] == "Text" then
-              vim_item.menu = ' ' .. entry.source.name
-            else
-              vim_item.menu = ' ' .. strings[2]
-            end
-
-            return vim_item
-          end
+          format = cmp_helper.format_entry
         },
         experimental = {
           ghost_text = {
@@ -283,7 +222,7 @@ return {
           priority_weight = 2,
           comparators = {
             require("copilot_cmp.comparators").prioritize,
-            require('cmp_tabnine.compare'),
+            -- require('cmp_tabnine.compare'),
             -- Below is the default comparitor list and order for nvim-cmp
             cmp.config.compare.offset,
             -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
@@ -337,20 +276,6 @@ return {
           { name = 'spell' },
         },
       })
-      vim.cmd [[
-        augroup cmp_overrides
-        autocmd!
-        highlight! CmpItemAbbr guifg=#6c7d9c
-        highlight! CmpItemAbbrMatch guifg=#f2cc81
-        highlight! CmpItemAbbrMatchFuzzy guifg=#f2cc81 gui=NONE
-        highlight! CmpItemKindDefault guifg=#dd9046
-        highlight! CmpItemKindSnippet guifg=#f65866
-        highlight! CmpItemKindKeyword guifg=#bfbd5d
-        highlight! CmpItemAbbrDeprecated guifg=#455574
-        highlight! CmpItemKindText guifg=#93a4c3
-        highlight! CmpItemKindCopilot guifg=#6CC644
-        augroup END
-      ]]
     end
   }
 }

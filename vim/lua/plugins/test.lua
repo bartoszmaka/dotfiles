@@ -1,7 +1,7 @@
 return {
   'janko/vim-test',
   config = function()
-    nmap = require('helper').nmap
+    local nmap = require('helper').nmap
 
     if vim.fn.exists('$TMUX') == 1 then
       vim.g["test#strategy"] = "vimux"
@@ -24,7 +24,7 @@ return {
 
     vim.cmd [[
   let test#ruby#cucumber#executable = 'bundle exec cucumber'
-  let test#ruby#rspec#executable = 'bundle exec rspec'
+  let test#ruby#rspec#executable = 'ht rspec'
 ]]
 
     nmap('TT', ':TestNearest<CR>')

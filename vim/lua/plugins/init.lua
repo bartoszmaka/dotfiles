@@ -1,6 +1,5 @@
 return {
   { 'folke/trouble.nvim',      config = function() require('lsp.plugins.trouble') end },
-  { 'j-hui/fidget.nvim',       config = function() require('lsp.plugins.fidget') end },
 
   -- lsp/code integration
   { 'onsails/lspkind-nvim',    config = function() require('lsp.plugins.lspkind') end },           -- lsp and completion icons

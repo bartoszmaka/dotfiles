@@ -83,6 +83,7 @@ nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]])       -- replace und
 vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]])         -- replace under cursor
 nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]]) -- replace under cursor and paste same word into target
 vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]])   -- replace under cursor and paste same word into target
+nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]])
 
 vnoremap('<C-m><C-s>', ':sort<CR>')
 vnoremap('<CR><C-s>', ':sort<CR>')
@@ -91,3 +92,16 @@ vim.cmd([[command! FindDuplicates :g/^\(.*\)$\n\1$/p]])
 
 nnoremap('g]', '<C-]>')
 nnoremap('<C-]>', 'g]')
+
+if vim.fn.has("nvim-0.9.0") == 1 then
+  nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect Pos" })
+else
+  nnoremap([[<leader>uh]], [[:TSHighlightCapturesUnderCursor<CR>]])
+end
+
+vim.cmd [[
+  nnoremap <leader>uH :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
+  \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
+  \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+  \ . ">"<CR>
+]]

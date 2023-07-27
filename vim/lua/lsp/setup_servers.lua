@@ -100,7 +100,7 @@ M.setup_servers = function()
   })
   require("typescript").setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false, -- enable debug logging for commands
+    debug = false,            -- enable debug logging for commands
     server = {
       capabilities = capabilities,
       on_attach = on_attach,
@@ -150,10 +150,15 @@ M.setup_servers = function()
         },
       }
     elseif server_name == "jsonls" then
+      opts.on_new_config = function(new_config)
+        new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+        vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+      end
       opts.settings = {
         json = {
           schemas = require("schemastore").json.schemas(),
           validate = { enable = true },
+          format = { enable = true }
         },
       }
     elseif server_name == "yamlls" then
