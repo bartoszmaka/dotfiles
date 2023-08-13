@@ -23,13 +23,11 @@ return {
     end
 
     vim.cmd [[
-  let test#ruby#cucumber#executable = 'bundle exec cucumber'
-  let test#ruby#rspec#executable = 'ht rspec'
-]]
+      let test#ruby#cucumber#executable = 'bundle exec cucumber'
+      let test#ruby#rspec#executable = 'ht rspec'
+    ]]
 
-    nmap('TT', ':TestNearest<CR>')
     nmap('<leader>tt', ':TestNearest<CR>')
-    nmap('TF', ':TestFile<CR>')
     nmap('<leader>tf', ':TestFile<CR>')
   end,
 }

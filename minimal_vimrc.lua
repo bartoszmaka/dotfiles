@@ -27,6 +27,12 @@ local enabled_plugins = {
   'lualine.nvim',
   'vim-abolish',
   'nvim-treesitter',
+  'nvim-treesitter-context',
+  'hlargs.nvim',
+
+  'nvim-cmp',
+  'copilot.lua',
+  'copilot-cmp',
 }
 
 require('disable_builtin')

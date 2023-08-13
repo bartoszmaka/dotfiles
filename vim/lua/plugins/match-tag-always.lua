@@ -1,3 +1,4 @@
+-- TODO: Check if this is still needed
 return {
   'Valloric/MatchTagAlways',
   config = function()

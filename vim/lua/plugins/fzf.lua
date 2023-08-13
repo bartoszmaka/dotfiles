@@ -316,12 +316,12 @@ return {
       }
 
       nnoremap('<C-p><C-p>', ':FzfLua files<CR>')
-      -- nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
+      nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
       nnoremap('<C-p><C-f>', ':FzfLua grep<CR><CR>')
       vnoremap('<C-p><C-f>', '<esc>:FzfLua grep_visual<CR>')
       nnoremap('<leader>fw', ':FzfLua grep_cword<CR>')
       nnoremap('<leader>fW', ':FzfLua grep_cWORD<CR>')
-      nnoremap('<C-p><C-g>', ':FzfLua git_status<CR>')
+      -- nnoremap('<C-p><C-g>', ':FzfLua git_status<CR>')
 
       nnoremap('<leader>pa', ':FzfLua<CR>')
       nnoremap('<leader>pp', ':FzfLua files<CR>')

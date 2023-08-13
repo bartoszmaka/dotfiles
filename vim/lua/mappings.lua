@@ -56,11 +56,12 @@ vnoremap('<', '<gv')
 vnoremap('<Tab>', '>gv')
 vnoremap('<S-Tab>', '<gv')
 
+
 -- save on cmd + s (mapped to f13-14 in alacritty config)
 nnoremap('<F13>', '<esc>:w<CR>')
-nnoremap('<F14>', '<esc>:wa<CR>')
 inoremap('<F13>', '<esc>:w<CR>')
-inoremap('<F14>', '<esc>:wa<CR>')
+nnoremap('<C-_>s', '<esc>:w<CR>')
+inoremap('<C-_>s', '<esc>:w<CR>')
 
 -- alt + hjkl to jump windows (cmd + hjkl mapped in alacritty config)
 tnoremap('<C-w>h', [[<C-\><C-n><C-w>h]])
@@ -90,8 +91,8 @@ vnoremap('<CR><C-s>', ':sort<CR>')
 
 vim.cmd([[command! FindDuplicates :g/^\(.*\)$\n\1$/p]])
 
-nnoremap('g]', '<C-]>')
-nnoremap('<C-]>', 'g]')
+-- nnoremap('g]', '<C-]>')
+-- nnoremap('<C-]>', 'g]')
 
 if vim.fn.has("nvim-0.9.0") == 1 then
   nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect Pos" })

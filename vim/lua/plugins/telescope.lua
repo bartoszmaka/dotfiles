@@ -1,10 +1,11 @@
 return {
   {
     'nvim-telescope/telescope.nvim',
-    version = '0.1.0',
+    tag = '0.1.2',
     dependencies = {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       { 'fhill2/telescope-ultisnips.nvim' },
+      { 'nvim-lua/plenary.nvim' },
     },
     config = function()
       local telescope = require('telescope')
@@ -23,7 +24,10 @@ return {
             i = {
               ["<esc"] = actions.close,
               ["<C-u>"] = false,
-              ["<F4>"] = action_layout.toggle_preview
+              ["<C-e>"] = false,
+              ["<F4>"] = action_layout.toggle_preview,
+              ["<C-[>"] = actions.cycle_previewers_next,
+              ["<C-]>"] = actions.cycle_previewers_prev,
             },
             n = {
               ["<F4>"] = action_layout.toggle_preview
@@ -48,17 +52,17 @@ return {
       telescope.load_extension('ultisnips')
       -- telescope.load_extension("media_files")
 
-      -- vim.g.mapleader = ' '
-      -- nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
-      -- nnoremap('<leader>pr', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
-      -- nnoremap('<leader>pg', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
-      -- nnoremap('<leader>pb', [[<Cmd>lua require('telescope.builtin').find_buffers()<CR>]])
-      -- nnoremap('<leader>pf', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
-      -- nnoremap('<leader>pv', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
-      -- nnoremap('<leader>pm', [[<Cmd>lua require('telescope.builtin').marks()<CR>]])
-      -- nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
-      -- nnoremap('<leader>pt', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]])
-      -- nnoremap('<leader>pq', [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]])
+      vim.g.mapleader = ' '
+      -- nnoremap('<C-p><C-p>', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
+      -- nnoremap('<C-p><C-r>', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+      -- nnoremap('<C-p><C-g>', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
+      -- nnoremap('<C-p><C-b>', [[<Cmd>lua require('telescope.builtin').find_buffers()<CR>]])
+      -- nnoremap('<C-p><C-f>', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
+      nnoremap('<leader>pv', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
+      nnoremap('<leader>pm', [[<Cmd>lua require('telescope.builtin').marks()<CR>]])
+      nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
+      nnoremap('<leader>pt', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]])
+      nnoremap('<leader>pq', [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]])
 
       vim.cmd [[
         autocmd FileType TelescopePrompt imap <esc> <c-c>
