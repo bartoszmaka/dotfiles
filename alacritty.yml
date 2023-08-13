@@ -953,8 +953,7 @@ key_bindings:
   - { key: A,         mods: Command|Shift,           chars: "\x10\x12" } # <C-p><C-r>
   - { key: F,         mods: Command|Shift,           chars: "\x10\x06" } # <C-p><C-f>
   - { key: F,         mods: Alt|Shift,               chars: "\x0d\x06" } # <C-m><C-f>
-  - { key: S,         mods: Command,                 chars: "\x1b[25~" } # <F13>
-  - { key: S,         mods: Command|Shift,           chars: "\x1b[26~" } # <F14>
+  - { key: S,         mods: Command,                 chars: "\x1f\x73" } # <C-_>s
   - { key: LBracket,  mods: Command      ,           chars: "\x20\x5b" } # <space>[
   - { key: RBracket,  mods: Command      ,           chars: "\x20\x5d" } # <space>]
   - { key: LBracket,  mods: Command|Shift,           chars: "\x20\x7b" } # <space>{
