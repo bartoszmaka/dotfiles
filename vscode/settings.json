@@ -14,9 +14,9 @@
   "workbench.colorCustomizations": {
     "editorGroup.emptyBackground": "#1A212E",
     "editor.selectionBackground": "#401437",
-    "statusBar.background": "#5f00af",
-    "statusBar.noFolderBackground": "#5f00af",
-    "statusBar.debuggingBackground": "#5f00af",
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f",
     "errorLens.errorBackground": "#e4545412",
     "errorLens.warningBackground": "#ff942f12",
     "errorLens.infoBackground": "#00b7e406",
@@ -88,7 +88,7 @@
   },
   // Language integration
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
