@@ -129,7 +129,7 @@ return {
       throttle = true,
     }
 
-    -- nnoremap([[<leader>uH]], [[:TSHighlightCapturesUnderCursor<CR>]])
+    nnoremap([[<leader>uH]], [[:TSHighlightCapturesUnderCursor<CR>]])
 
     require('hlargs').setup()
 

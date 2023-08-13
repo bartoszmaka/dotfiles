@@ -15,13 +15,12 @@ return {
 
   -- utils
   { 'tpope/vim-abolish' },                 -- swap case
-  { 'windwp/nvim-autopairs' },             -- automatically add matching parentheses
   { 'windwp/nvim-ts-autotag' },            -- automatically add matching tags
   { 'tpope/vim-surround' },                -- surround motion
-  { 'simonefranza/nvim-conv' },            -- convert units
   { 'dominikduda/vim_yank_with_context' }, -- yank with file name and line numbers
   -- { 'lmeijvogel/vim-yaml-helper', lazy = false },
   { 'mogelbrod/vim-jsonpath' },
   -- UI
   { 'ldelossa/gh.nvim' },
+  { 'jacquesbh/vim-showmarks' }
 }

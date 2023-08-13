@@ -16,17 +16,17 @@ return {
     -- add space after
     npairs.add_rules {
       Rule(' ', ' ')
-      :with_pair(function(opts)
-        local pair = opts.line:sub(opts.col - 1, opts.col)
-        return vim.tbl_contains({ '()', '[]', '{}' }, pair)
-      end),
+        :with_pair(function(opts)
+          local pair = opts.line:sub(opts.col - 1, opts.col)
+          return vim.tbl_contains({ '()', '[]', '{}' }, pair)
+        end),
     }
 
     npairs.add_rules {
       Rule('( ', ' )')
-      :with_pair(function() return false end)
-      :with_move(function() return true end)
-      :use_key(")")
+        :with_pair(function() return false end)
+        :with_move(function() return true end)
+        :use_key(")")
     }
 
     npairs.add_rules {
@@ -35,9 +35,9 @@ return {
 
     npairs.add_rules({
       Rule("%", "%", "lua")
-      :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
+        :with_pair(ts_conds.is_ts_node({ 'string', 'comment' })),
       Rule("$", "$", "lua")
-      :with_pair(ts_conds.is_not_ts_node({ 'function' }))
+        :with_pair(ts_conds.is_not_ts_node({ 'function' }))
     })
 
     npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
