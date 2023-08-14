@@ -51,14 +51,4 @@ return {
       require('onedark').load()
     end
   },
-  {
-    "folke/tokyonight.nvim",
-    lazy = true,
-    opts = { style = "moon" },
-  },
-  {
-    "catppuccin/nvim",
-    lazy = true,
-    name = "catppuccin",
-  },
 }

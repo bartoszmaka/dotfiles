@@ -1,22 +1,27 @@
 return {
   'romgrk/barbar.nvim',
-  lazy=false,
-  config = function()
+  dependencies = {
+    'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+    { "nvim-tree/nvim-web-devicons", name = "tree-nvim-web-devicons" }, -- OPTIONAL: for file icons
+  },
+  init = function() vim.g.barbar_auto_setup = false end,
+  opts = {
+    animation = true,
+    auto_hide = false,
+    tabpages = true,
+    maximum_padding = 2,
+    minimum_padding = 2,
+    maximum_length = 100,
+    no_name_title = ' - ',
+    icons = {
+      button = '',
+    }
+  },
+  config = function(_, opts)
     local nnoremap = require('helper').nnoremap
     vim.g.mapleader = ' '
 
-    require('barbar').setup({
-      animation = true,
-      auto_hide = false,
-      tabpages = true,
-      maximum_padding = 2,
-      minimum_padding = 2,
-      maximum_length = 100,
-      no_name_title = ' - ',
-      icons = {
-        button = '',
-      }
-    })
+    require('barbar').setup(opts)
 
     nnoremap('<leader>[', ':BufferPrevious<CR>')
     nnoremap('<leader>]', ':BufferNext<CR>')
@@ -50,50 +55,3 @@ return {
     ]]
   end
 }
-
--- return {
---   "akinsho/bufferline.nvim",
---   event = "VeryLazy",
---   keys = {
---     { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
---     { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
---     { "<leader>[", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
---     { "<leader>]", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
---     { "<leader>{", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer left" },
---     { "<leader>}", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer right" },
---     { "<leader>1", "<cmd>BufferLineGoToBuffer 1<cr>", desc = "Pick buffer 1" },
---     { "<leader>2", "<cmd>BufferLineGoToBuffer 2<cr>", desc = "Pick buffer 2" },
---     { "<leader>3", "<cmd>BufferLineGoToBuffer 3<cr>", desc = "Pick buffer 3" },
---     { "<leader>4", "<cmd>BufferLineGoToBuffer 4<cr>", desc = "Pick buffer 4" },
---     { "<leader>5", "<cmd>BufferLineGoToBuffer 5<cr>", desc = "Pick buffer 5" },
---     { "<leader>6", "<cmd>BufferLineGoToBuffer 6<cr>", desc = "Pick buffer 6" },
---     { "<leader>7", "<cmd>BufferLineGoToBuffer 7<cr>", desc = "Pick buffer 7" },
---     { "<leader>8", "<cmd>BufferLineGoToBuffer 8<cr>", desc = "Pick buffer 8" },
---     { "<leader>9", "<cmd>BufferLineGoToBuffer 9<cr>", desc = "Pick buffer 9" },
---   },
---   opts = {
---     options = {
---       -- stylua: ignore
---       close_command = function(n) require("mini.bufremove").delete(n, false) end,
---       -- stylua: ignore
---       right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
---       diagnostics = "nvim_lsp",
---       always_show_bufferline = false,
---       diagnostics_indicator = function(_, _, diag)
---         local icons = require("lazyvim.config").icons.diagnostics
---         local ret = (diag.error and icons.Error .. diag.error .. " " or "")
---           .. (diag.warning and icons.Warn .. diag.warning or "")
---         return vim.trim(ret)
---       end,
---       offsets = {
---         {
---           filetype = "neo-tree",
---           text = "Neo-tree",
---           highlight = "Directory",
---           text_align = "left",
---         },
---       },
---     },
---   },
--- }
-

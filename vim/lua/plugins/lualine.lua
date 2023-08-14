@@ -90,7 +90,7 @@ return {
         lualine_a = { 'mode' },
         lualine_b = { sections.filetype, sections.filename, },
         lualine_c = { sections.gps },
-        lualine_x = { sections.flags, sections.diagnostics, sections.copilot },
+        lualine_x = { sections.flags, sections.diagnostics, sections.copilot, 'filetype' },
         lualine_y = { sections.diff, },
         lualine_z = { sections.location }
       },

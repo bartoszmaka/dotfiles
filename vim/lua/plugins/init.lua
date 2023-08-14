@@ -1,8 +1,6 @@
 return {
-  { 'folke/trouble.nvim',      config = function() require('lsp.plugins.trouble') end },
-
   -- lsp/code integration
-  { 'onsails/lspkind-nvim',    config = function() require('lsp.plugins.lspkind') end },           -- lsp and completion icons
+  -- { 'onsails/lspkind-nvim',    config = function() require('lsp.plugins.lspkind') end },           -- lsp and completion icons
   { 'RishabhRD/nvim-lsputils', dependencies = { 'RishabhRD/popfix' } },                            -- lsp integration utils (better go to def etc)
   {
     'jose-elias-alvarez/null-ls.nvim',                                                             -- null ls
@@ -22,5 +20,16 @@ return {
   { 'mogelbrod/vim-jsonpath' },
   -- UI
   { 'ldelossa/gh.nvim' },
-  { 'jacquesbh/vim-showmarks' }
+  { 'jacquesbh/vim-showmarks' },
+  {
+    'ivanjermakov/troublesum.nvim', opts ={
+      enabled = true,
+      autocmd = true,
+      lazy = false,
+      severity_format = { "E", "W", "I", "H" },
+      severity_highlight = { "DiagnosticError", "DiagnosticWarn", "DiagnosticInfo", "DiagnosticHint" },
+      format = function(counts) end,
+      display_summary = function(bufnr, ns, text) end
+    }
+  }
 }
