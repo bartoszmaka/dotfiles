@@ -8,19 +8,15 @@ vim.cmd [[
 
 require('disable_builtin')
 require('setup_lazy')
-require('lazy').setup({
-  spec = { import = 'plugins'},
-  install = {
-    colorscheme = { 'onedark' },
-  },
-})
-
 require('options')
-require('mappings')
-require('abbrevations')
-require('autocmds')
-require('colorscheme_overrides')
-require('gui')
-require('lsp')
--- local loadedLsp, _ = pcall(require, 'lsp')
--- if not loadedLsp then print('Error in lsp config') end
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    require('mappings')
+    require('abbrevations')
+    require('autocmds')
+    require('colorscheme_overrides')
+    require('gui')
+  end,
+})

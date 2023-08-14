@@ -1,6 +1,7 @@
 local helper = require('helper')
 local native_capabilities = vim.lsp.protocol.make_client_capabilities()
 local loaded_cmp, capabilities = pcall(require, "cmp_nvim_lsp")
+local efm = require('lsp/efm')
 
 if loaded_cmp then
   capabilities = capabilities.default_capabilities(native_capabilities)
@@ -68,7 +69,7 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = servers,
-  automatic_installation = { exclude = { "solargraph", "ruby_ls" } },
+  automatic_installation = { exclude = { "solargraph", "ruby_ls", "efm" } },
 })
 local lspconfig = require("lspconfig")
 
@@ -98,6 +99,16 @@ M.setup_servers = function()
       },
     },
   })
+  lspconfig["efm"].setup {
+    settings = {
+      rootMarkers = {".git/"},
+      languages = efm.languages
+    },
+    filetypes = vim.tbl_keys(efm.languages),
+    init_options = { documentFormatting = true, codeAction = true },
+    on_attach = on_attach,
+    root_dir = vim.loop.cwd
+  }
   require("typescript").setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
     debug = false,            -- enable debug logging for commands
