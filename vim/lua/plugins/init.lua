@@ -2,11 +2,11 @@ return {
   -- lsp/code integration
   -- { 'onsails/lspkind-nvim',    config = function() require('lsp.plugins.lspkind') end },           -- lsp and completion icons
   { 'RishabhRD/nvim-lsputils', dependencies = { 'RishabhRD/popfix' } },                            -- lsp integration utils (better go to def etc)
-  {
-    'jose-elias-alvarez/null-ls.nvim',                                                             -- null ls
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function() require('lsp.plugins.null-ls') end,
-  },
+  -- {
+  --   'jose-elias-alvarez/null-ls.nvim',                                                             -- null ls
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   config = function() require('lsp.plugins.null-ls') end,
+  -- },
 
   -- syntax
   { 'jparise/vim-graphql' },

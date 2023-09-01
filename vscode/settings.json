@@ -21,8 +21,13 @@
     "errorLens.warningBackground": "#ff942f12",
     "errorLens.infoBackground": "#00b7e406",
     "errorLens.hintBackground": "#17a2a206",
-    "editorIndentGuide.background": "#3B404800",
-    "editorInfo.background": "#00000000"
+    "editorIndentGuide.background1": "#3B404800",
+    "editorInfo.background": "#00000000",
+    "editorInfo.foreground": "#00000000",
+    "editorWarning.foreground": "#da8a0000",
+    "editorWarning.background": "#00000000",
+    "editorError.background": "#00000000",
+    "editorError.foreground": "#ff000066"
   },
   "editor.tokenColorCustomizations": {
     "[onedark.nvim]": {
@@ -56,7 +61,6 @@
   "editor.renderWhitespace": "trailing",
   "editor.cursorStyle": "block",
   "editor.minimap.scale": 2,
-  "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.panel.defaultLocation": "bottom",
@@ -889,4 +893,7 @@
     "info"
   ],
   "git.openRepositoryInParentFolders": "always",
+  "vscode-run-rspec-file.custom-command": "ht rspec",
+  "workbench.editor.enablePreview": false,
+  "ruby.linter.run": "onSave"
 }
