@@ -35,8 +35,8 @@ local servers = {
   "vuels",
   "yamlls",
   'cssls',
-  -- 'ruby_ls',
-  -- 'solargraph',
+  'ruby_ls',
+  'solargraph',
   'lua_ls',
 }
 
@@ -61,47 +61,25 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { noremap = true, silent = true }
 
-  helper.set_default_formatter_for_filetypes('solargraph', { 'ruby' })
-  helper.set_default_formatter_for_filetypes('null-ls', { 'javascript', 'vue' })
-  helper.set_default_formatter_for_filetypes('sumneko_lua', { 'lua' })
+  -- helper.set_default_formatter_for_filetypes('solargraph', { 'ruby' })
+  -- helper.set_default_formatter_for_filetypes('null-ls', { 'javascript', 'vue' })
+  -- helper.set_default_formatter_for_filetypes('sumneko_lua', { 'lua' })
 end
 
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = servers,
-  automatic_installation = { exclude = { "solargraph", "ruby_ls", "efm" } },
+  -- automatic_installation = { exclude = { "solargraph", "ruby_ls", "efm" } },
+  automatic_installation = true,
 })
 local lspconfig = require("lspconfig")
 
 local M = {}
 
 M.setup_servers = function()
-  lspconfig["ruby_ls"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    root_dir = vim.loop.cwd,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    -- cmd = { "bundle", "exec", "ruby-lsp" }
-  })
-
-  lspconfig["solargraph"].setup({
-    capabilities = capabilities,
-    on_attach = on_attach,
-    root_dir = vim.loop.cwd,
-    flags = {
-      debounce_text_changes = 150,
-    },
-    settings = {
-      solargraph = {
-        diagnostics = true,
-      },
-    },
-  })
   lspconfig["efm"].setup {
     settings = {
-      rootMarkers = {".git/"},
+      rootMarkers = { ".git/" },
       languages = efm.languages
     },
     filetypes = vim.tbl_keys(efm.languages),
@@ -109,6 +87,7 @@ M.setup_servers = function()
     on_attach = on_attach,
     root_dir = vim.loop.cwd
   }
+
   require("typescript").setup({
     disable_commands = false, -- prevent the plugin from creating Vim commands
     debug = false,            -- enable debug logging for commands
@@ -127,9 +106,9 @@ M.setup_servers = function()
       capabilities = capabilities,
       on_attach = on_attach,
       root_dir = vim.loop.cwd,
-      flags = {
-        debounce_text_changes = 150,
-      },
+      -- flags = {
+      --   debounce_text_changes = 150,
+      -- },
     }
 
     --     if server_name == "solargraph" then
@@ -176,6 +155,12 @@ M.setup_servers = function()
       opts.settings = {
         yaml = {
           keyOrdering = false,
+        },
+      }
+    elseif server_name == "solargraph" then
+      opts.settings = {
+        solargraph = {
+          diagnostics = true,
         },
       }
     end

@@ -1,6 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  branch = "v2.x",
+  branch = "v3.x",
   cmd = "Neotree",
   keys = {
     {
@@ -23,7 +23,7 @@ return {
     { "MunifTanjim/nui.nvim" },
     {
       's1n7ax/nvim-window-picker',
-      tag = "v1.*",
+      version = "v1.*",
       opts = function()
         local colors = require('helper').colors
         return {
@@ -56,18 +56,40 @@ return {
   opts = {
     filesystem = {
       bind_to_cwd = false,
-      follow_current_file = false,
+      follow_current = { enabled = false },
       use_libuv_file_watcher = true,
+    },
+    buffers = {
+      mappings = {
+        ["<BS>"] = "noop",
+        ["o"] = { "open_with_window_picker", nowait = true },
+        ["O"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "O" }},
+        ["Oc"] = { "order_by_created", nowait = false },
+        ["Od"] = { "order_by_diagnostics", nowait = false },
+        ["Om"] = { "order_by_modified", nowait = false },
+        ["On"] = { "order_by_name", nowait = false },
+        ["Os"] = { "order_by_size", nowait = false },
+        ["Ot"] = { "order_by_type", nowait = false },
+      }
     },
     window = {
       width = 60,
       mappings = {
-        ["<space>"] = "none",
+        ["<BS>"] = "noop",
+        ["<leader>U"] = "navigate_up",
+        ["<space>"] = "noop",
         ["<leader>f"] = "fuzzy_finder",
         ["/"] = false,
         ["S"] = "split_with_window_picker",
         ["s"] = "vsplit_with_window_picker",
-        ["o"] = "open_with_window_picker",
+        ["o"] = { "open_with_window_picker", nowait = true },
+        ["O"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "O" }},
+        ["Oc"] = { "order_by_created", nowait = false },
+        ["Od"] = { "order_by_diagnostics", nowait = false },
+        ["Om"] = { "order_by_modified", nowait = false },
+        ["On"] = { "order_by_name", nowait = false },
+        ["Os"] = { "order_by_size", nowait = false },
+        ["Ot"] = { "order_by_type", nowait = false },
       },
     },
     default_component_configs = {

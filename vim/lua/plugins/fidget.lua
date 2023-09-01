@@ -1,7 +1,7 @@
 return {
   'j-hui/fidget.nvim',
   tag = "legacy",
-  event = "VeryLazy",
+  event = "LspAttach",
   opts = {
     text = {
       spinner = "bouncing_ball",        -- animation shown when tasks are ongoing
