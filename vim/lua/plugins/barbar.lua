@@ -11,7 +11,7 @@ return {
     tabpages = true,
     maximum_padding = 2,
     minimum_padding = 2,
-    maximum_length = 100,
+    maximum_length = 50,
     no_name_title = ' - ',
     icons = {
       button = '',
