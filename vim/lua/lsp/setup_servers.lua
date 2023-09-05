@@ -69,107 +69,92 @@ end
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = servers,
-  -- automatic_installation = { exclude = { "solargraph", "ruby_ls", "efm" } },
   automatic_installation = true,
 })
 local lspconfig = require("lspconfig")
 
 local M = {}
 
-M.setup_servers = function()
-  lspconfig["efm"].setup {
-    settings = {
-      rootMarkers = { ".git/" },
-      languages = efm.languages
-    },
-    filetypes = vim.tbl_keys(efm.languages),
-    init_options = { documentFormatting = true, codeAction = true },
+-- M.setup_servers = function()
+require("typescript").setup({
+  disable_commands = false, -- prevent the plugin from creating Vim commands
+  debug = false,            -- enable debug logging for commands
+  server = {
+    capabilities = capabilities,
     on_attach = on_attach,
-    root_dir = vim.loop.cwd
+    root_dir = vim.loop.cwd,
+    flags = {
+      debounce_text_changes = 150,
+    },
+  },
+})
+
+for _, server_name in ipairs(servers) do
+  local opts = {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    root_dir = vim.loop.cwd,
   }
 
-  require("typescript").setup({
-    disable_commands = false, -- prevent the plugin from creating Vim commands
-    debug = false,            -- enable debug logging for commands
-    server = {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      root_dir = vim.loop.cwd,
-      flags = {
-        debounce_text_changes = 150,
+  if server_name == "lua_ls" then
+    opts.root_dir = function()
+      return vim.loop.cwd()
+    end
+    opts.settings = {
+      Lua = {
+        diagnostics = {
+          globals = { "vim" },
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+          },
+        },
+        telemetry = {
+          enable = false,
+        },
       },
-    },
-  })
-
-  for _, server_name in ipairs(servers) do
-    local opts = {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      root_dir = vim.loop.cwd,
-      -- flags = {
-      --   debounce_text_changes = 150,
-      -- },
     }
-
-    --     if server_name == "solargraph" then
-    --       opts.settings = {
-    --         solargraph = {
-    --           diagnostics = true
-    --         }
-    --       }
-    --     end
-
-    if server_name == "lua_ls" then
-      opts.root_dir = function()
-        return vim.loop.cwd()
-      end
-      opts.settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-            },
-          },
-          telemetry = {
-            enable = false,
-          },
-        },
-      }
-    elseif server_name == "jsonls" then
-      opts.on_new_config = function(new_config)
-        new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-        vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-      end
-      opts.settings = {
-        json = {
-          schemas = require("schemastore").json.schemas(),
-          validate = { enable = true },
-          format = { enable = true }
-        },
-      }
-    elseif server_name == "yamlls" then
-      opts.settings = {
-        yaml = {
-          keyOrdering = false,
-        },
-      }
-    elseif server_name == "solargraph" then
-      opts.settings = {
-        solargraph = {
-          diagnostics = true,
-        },
-      }
+  elseif server_name == "jsonls" then
+    opts.on_new_config = function(new_config)
+      new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+      vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
     end
-
-    if server_name ~= "tsserver" then
-      lspconfig[server_name].setup(opts)
-    end
+    opts.settings = {
+      json = {
+        schemas = require("schemastore").json.schemas(),
+        validate = { enable = true },
+        format = { enable = true }
+      },
+    }
+  elseif server_name == "yamlls" then
+    opts.settings = {
+      yaml = {
+        keyOrdering = false,
+      },
+    }
+  elseif server_name == "solargraph" then
+    opts.settings = {
+      solargraph = {
+        diagnostics = true,
+      },
+    }
+  elseif server_name == "efm" then
+    opts.settings = {
+      rootMarkers = { ".git/" },
+      languages = efm.languages
+    }
+    opts.filetypes = vim.tbl_keys(efm.languages)
+    opts.init_options = { documentFormatting = true, codeAction = true }
   end
-  vim.cmd([[ do User LspAttach Buffers ]])
+
+  if server_name ~= "tsserver" then
+    lspconfig[server_name].setup(opts)
+  end
 end
 
-return M
+  -- vim.cmd([[ do User LspAttach Buffers ]])
+-- end
+
+-- return M

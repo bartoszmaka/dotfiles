@@ -9,13 +9,13 @@ function M.map(from, to, mode, opts)
   local options = { noremap = true }
   mode = mode or ''
   if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, from, to, options)
+  vim.keymap.set(mode, from, to, options)
 end
 
 function M.remap(from, to, mode, opts)
   opts = opts or {}
   mode = mode or ''
-  vim.api.nvim_set_keymap(mode, from, to, opts)
+  vim.keymap.set(mode, from, to, opts)
 end
 
 function M.unmap(keymapping, mode)

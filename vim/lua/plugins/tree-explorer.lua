@@ -54,6 +54,11 @@ return {
     end
   end,
   opts = {
+    sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+    source_selector = {
+      winbar = true,
+      statusline = true
+    },
     filesystem = {
       bind_to_cwd = false,
       follow_current = { enabled = false },
