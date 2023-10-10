@@ -208,7 +208,7 @@ return {
           prompt         = 'Rg❯ ',
           input_prompt   = 'Grep For❯ ',
           rg_opts        = "--hidden --column --line-number --no-heading " ..
-          "--color=always --smart-case -g '!{.git,node_modules,storybook/storybook-static}/*'",
+          "--color=always --smart-case -g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
           git_icons      = true, -- show git icons?
           file_icons     = true, -- show file icons?
           color_icons    = true, -- colorize file|git icons

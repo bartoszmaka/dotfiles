@@ -6,6 +6,7 @@ return {
     require('filetype').setup({
       overrides = {
         extensions = {
+          html = 'html',
           yml = 'yaml',
           sh = 'sh',
           snippets = 'snippets'

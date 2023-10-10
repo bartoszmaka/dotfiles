@@ -4,24 +4,34 @@ return {
     event = "BufReadPre",
     keys = {
       { "<leader>cl", ":LspInfo<CR>", desc = "Lsp Info" },
-      { "<leader>cm", ":Mason<CR>", desc = "Mason" }
+      { "<leader>cm", ":Mason<CR>",   desc = "Mason" }
     },
     dependencies = {
-      { 'williamboman/mason.nvim', build = ":MasonUpdate", },
+      { 'williamboman/mason.nvim',           build = ":MasonUpdate", },
       { 'williamboman/mason-lspconfig.nvim', },
       { 'jose-elias-alvarez/typescript.nvim' },
       { 'nvim-lua/lsp-status.nvim' },
       { 'b0o/schemastore.nvim' }, -- schemas for jsonls (common rc files)
-      { 'RishabhRD/nvim-lsputils', dependencies = { 'RishabhRD/popfix' } },
+      { 'RishabhRD/nvim-lsputils',           dependencies = { 'RishabhRD/popfix' } },
       {
         'ivanjermakov/troublesum.nvim',
         opts = function()
           local symbols = require('helper').symbols
           return {
-            severity_format = { symbols.error, symbols.warning, symbols.information, symbols.hint, }
+            severity_format = { symbols.error, symbols.warning, symbols.information, symbols.hint },
+            display_summary = function(bufnr, ns, text)
+              local line = vim.fn.line("w0") - 1
+              vim.api.nvim_buf_set_extmark(bufnr, ns, line, 0, {
+                virt_text = text,
+                virt_text_pos = "right_align",
+                -- right_gravity = false,
+                -- end_right_gravity = false,
+                -- end_col = vim.api.nvim_win_get_width
+              })
+            end
           }
         end
-      }
+      },
     },
     config = function()
       require('lsp.setup_servers')

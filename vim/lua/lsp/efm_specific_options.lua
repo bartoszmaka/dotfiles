@@ -50,6 +50,13 @@ local stylelint = {
   formatStdin = true,
 }
 
+local html_beautifier = {
+  lintCommand = 'erb -x -T - | ruby -c',
+  lintStdin = true,
+  lintOffset = 1,
+  formatCommand = 'htmlbeautifier',
+}
+
 local computeLanguages = function()
   local languages = {
     typescript = { prettier, eslint },
@@ -65,7 +72,7 @@ local computeLanguages = function()
     markdown = { prettier },
     graphql = { prettier },
     vue = { prettier },
-    -- eruby = { rubocop },
+    -- eruby = { html_beautifier },
     -- ruby = { rubocop },
   }
 

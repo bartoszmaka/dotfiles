@@ -53,59 +53,93 @@ return {
       end
     end
   end,
-  opts = {
-    sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-    source_selector = {
-      winbar = true,
-      statusline = true
-    },
-    filesystem = {
-      bind_to_cwd = false,
-      follow_current = { enabled = false },
-      use_libuv_file_watcher = true,
-    },
-    buffers = {
-      mappings = {
-        ["<BS>"] = "noop",
-        ["o"] = { "open_with_window_picker", nowait = true },
-        ["O"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "O" }},
-        ["Oc"] = { "order_by_created", nowait = false },
-        ["Od"] = { "order_by_diagnostics", nowait = false },
-        ["Om"] = { "order_by_modified", nowait = false },
-        ["On"] = { "order_by_name", nowait = false },
-        ["Os"] = { "order_by_size", nowait = false },
-        ["Ot"] = { "order_by_type", nowait = false },
-      }
-    },
-    window = {
-      width = 60,
-      mappings = {
-        ["<BS>"] = "noop",
-        ["<leader>U"] = "navigate_up",
-        ["<space>"] = "noop",
-        ["<leader>f"] = "fuzzy_finder",
-        ["/"] = false,
-        ["S"] = "split_with_window_picker",
-        ["s"] = "vsplit_with_window_picker",
-        ["o"] = { "open_with_window_picker", nowait = true },
-        ["O"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "O" }},
-        ["Oc"] = { "order_by_created", nowait = false },
-        ["Od"] = { "order_by_diagnostics", nowait = false },
-        ["Om"] = { "order_by_modified", nowait = false },
-        ["On"] = { "order_by_name", nowait = false },
-        ["Os"] = { "order_by_size", nowait = false },
-        ["Ot"] = { "order_by_type", nowait = false },
+  opts = function()
+    local symbols = require('helper.symbols')
+    local shared_mappings = {
+      ["/"] = "noop",
+      ["<BS>"] = "noop",
+      ["U"] = "navigate_up",
+      ["F"] = "fuzzy_finder",
+      ["<space>"] = "noop",
+      ["O"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "O" }},
+      ["Oc"] = { "order_by_created", nowait = false },
+      ["Od"] = { "order_by_diagnostics", nowait = false },
+      ["Om"] = { "order_by_modified", nowait = false },
+      ["On"] = { "order_by_name", nowait = false },
+      ["Os"] = { "order_by_size", nowait = false },
+      ["Ot"] = { "order_by_type", nowait = false },
+      ["S"] = "split_with_window_picker",
+      ["o"] = { "open_with_window_picker", nowait = true },
+      ["s"] = "vsplit_with_window_picker",
+    }
+
+    return {
+      sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+      source_selector = {
+        winbar = true,
+        statusline = false,
+        sources = {
+          { source = "filesystem", display_name = "  Files "  },
+          { source = "buffers", display_name = "  Buffers " },
+          { source = "git_status", display_name = "  Git " },
+          { source = "document_symbols", display_name = "  Symbols " },
+        },
       },
-    },
-    default_component_configs = {
-      indent = {
-        with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-        expander_collapsed = "",
-        expander_expanded = "",
-        expander_highlight = "NeoTreeExpander",
+      default_component_configs = {
+        git_status = {
+          symbols = {
+            added     = "",
+            modified  = "",
+            deleted   = "",
+            renamed   = "",
+            untracked = "",
+            ignored   = "",
+            unstaged  = "",
+            staged    = "",
+            conflict  = "",
+          }
+        },
+        icon = {
+          folder_closed = symbols.FolderClosed,
+          folder_open = symbols.FolderOpen,
+          folder_empty = symbols.FolderEmpty,
+        },
+        indent = {
+          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+          expander_collapsed = "",
+          expander_expanded = "",
+          expander_highlight = "NeoTreeExpander",
+        },
       },
-    },
-  },
+      window = {
+        width = 60,
+      },
+      filesystem = {
+        bind_to_cwd = false,
+        follow_current = { enabled = false },
+        use_libuv_file_watcher = true,
+        window = {
+          mappings = shared_mappings
+        }
+      },
+      buffers = {
+        window = {
+          mappings = shared_mappings
+        }
+      },
+      git_status = {
+        window = {
+          mappings = shared_mappings
+        }
+      },
+      document_symbols = {
+        follow_cursor = true,
+        client_filters = {
+          ignore = { "solargraph", "ruby_ls" }
+        }
+      },
+    }
+  end,
   config = function(_, opts)
     require("neo-tree").setup(opts)
     vim.api.nvim_create_autocmd("TermClose", {
@@ -118,3 +152,11 @@ return {
     })
   end,
 }
+
+    -- " vim.cmd [[
+    -- "     highlight_tab = "NeoTreeTabInactive",                     -- string
+    -- "     highlight_tab_active = "NeoTreeTabActive",                -- string
+    -- "     highlight_background = "NeoTreeTabInactive",              -- string
+    -- "     highlight_separator = "NeoTreeTabSeparatorInactive",      -- string
+    -- "     highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
+    -- " ]]

@@ -3,15 +3,19 @@ return {
   lazy=false,
   config = function()
     local nmap = require('helper').nmap
+
+    vim.g.VM_theme = 'purplegray'
+    vim.g.VM_mouse_mappings = 1
     vim.g.VM_maps = {
       ["Skip Region"]        = '<C-x>',
+      ["Add Cursor At Pos"]  = '<leader>gm',
       -- ["Select Cursor Down"] = [[∆]], -- Option+J,
       -- ["Select Cursor Up"]   = [[Ż]], -- Option+K
       ["Add Cursor Down"] = [[∆]], -- Option+J,
       ["Add Cursor Up"]   = [[Ż]], -- Option+K
+
     }
-    vim.g.VM_theme = 'purplegray'
-    nmap('∆', [[\\\∆]])
-    nmap('Ż', [[\\\Ż]])
+    -- nmap('∆', [[\\\∆]])
+    -- nmap('Ż', [[\\\Ż]])
   end,
 }
