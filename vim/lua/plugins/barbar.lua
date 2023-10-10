@@ -11,8 +11,11 @@ return {
     tabpages = true,
     maximum_padding = 2,
     minimum_padding = 2,
-    maximum_length = 50,
+    maximum_length = 30,
+    minimum_length = 10,
     no_name_title = ' - ',
+    highlight_alternate = true,
+    highlight_inactive_file_icons = true,
     icons = {
       button = '',
     }
@@ -55,3 +58,31 @@ return {
     ]]
   end
 }
+-- 3. Highlights                                              *barbar-highlights*
+-- ~
+-- Highlight groups are created in this way: `Buffer<STATUS><PART>`.
+
+-- `<STATUS>`   Meaning
+-- ---------  --------------------------------------------------
+-- `Alternate`  The |alternate-file|.
+-- `Current`    The current buffer.
+-- `Inactive`   |hidden-buffer|s and |inactive-buffer|s.
+-- `Visible`    |active-buffer|s which are not alternate or current.
+
+-- `<PART>`       Meaning
+-- ------       -----------------------
+-- `ADDED`        Git status added.
+-- `CHANGED`      Git status changed.
+-- `DELETED`      Git status deleted.
+-- `ERROR`        Diagnostic errors.
+-- `HINT`         Diagnostic hints.
+-- `Icon`         The filetype icon
+--              (when `icons.filetype == {custom_colors = true, enabled = true}`).
+-- `Index`        The buffer's position in the tabline.
+-- `INFO`         Diagnostic info.
+-- `Mod`          When the buffer is modified.
+-- `Number`       The |bufnr()|.
+-- `Sign`         The separator between buffers.
+-- `SignRight`    The separator between buffers.
+-- `Target`       The letter in buffer-pick mode.
+-- `WARN`         Diagnostic warnings.

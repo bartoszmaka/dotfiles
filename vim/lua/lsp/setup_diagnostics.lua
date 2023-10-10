@@ -4,11 +4,11 @@ vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 vim.diagnostic.config({
   update_in_insert = false,
   underline = {
-    severity = { min = vim.diagnostic.severity.INFO },
+    severity = { min = vim.diagnostic.severity.HINT },
   },
   virtual_text = {
     source = "always",
-    severity = { min = vim.diagnostic.severity.INFO },
+    severity = { min = vim.diagnostic.severity.HINT },
     spacing = 4,
     prefix = "●",
   },
@@ -16,7 +16,7 @@ vim.diagnostic.config({
   severity_sort = true,
   float = {
     show_header = false,
-    border = "rounded",
+    border = "single",
     focusable = false,
     source = "always",
     format = function(diagnostic)

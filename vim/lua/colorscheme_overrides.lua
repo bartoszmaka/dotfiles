@@ -28,6 +28,8 @@ vim.cmd [[
 
   augroup treesitter_overrides
     autocmd!
+    highlight! @error.ruby guibg=NONE guifg=NONE gui=NONE
+
     highlight! link @parameter   @variable.builtin
     highlight! link vueTSMethod TSBoolean
     highlight! link TSTagAttribute TSBoolean
@@ -50,6 +52,8 @@ vim.cmd [[
     highlight! link @lsp.type.parameter @parameter
     highlight! link @lsp.typemod.function.declaration.typescriptreact @type
     highlight! link @lsp.typemod.function.readonly.typescriptreact @type
+    highlight! link @lsp.typemod.variable.readonly.javascript @type
+    " highlight! link @type.javascript @type set prio to 200
   augroup END
 
   augroup color_scheme_tweaks

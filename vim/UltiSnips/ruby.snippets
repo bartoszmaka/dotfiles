@@ -304,13 +304,18 @@ $0
 Timecop.return
 endsnippet
 
-snippet res "graphql resolve" b
+snippet res
+rescue ${1:StandardError} => _e
+	$0
+endsnippet
+
+snippet gres "graphql resolve" b
 resolve ->(obj, _args, _ctx) {
 	$0
 }
 endsnippet
 
-snippet resb "graphql resolve block" w
+snippet gresb "graphql resolve block" w
 do
 	resolve ->(obj, _args, _ctx) {
 		$0

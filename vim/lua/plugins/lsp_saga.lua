@@ -5,9 +5,9 @@ return {
     require("lspsaga").setup({
       ui = {
         theme = 'round',
-        title = false,
+        title = true,
         -- border type can be single,double,rounded,solid,shadow.
-        border = 'rounded',
+        border = 'single',
         winblend = 0,
         expand = '',
         collapse = '',
@@ -36,12 +36,12 @@ return {
       },
       symbol_in_winbar = {
         enable = false,
-        show_file = false,
-        separator = '  ',
+        show_file = true,
+        separator = ' > ',
         hide_keyword = true,
         folder_level = 2,
-        respect_root = false,
-        color_mode = true,
+        respect_root = true,
+        color_mode = false,
         -- in_custom = true,
         -- click_support = false,
       },
@@ -67,7 +67,7 @@ return {
     ]]
 
     -- local keymap = vim.keymap.set
-    -- keymap("n", "gr", "<cmd>Lspsaga lsp_finder<CR>")
+    -- keymap("n", "gr", "<cmd>Lspsaga finder<CR>")
     -- keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
     -- keymap("n", "<leader>gh", "<cmd>Lspsaga peek_definition<CR>")
     -- keymap("n", "<leader>gr", "<cmd>Lspsaga rename<CR>")

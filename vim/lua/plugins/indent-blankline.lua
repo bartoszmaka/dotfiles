@@ -1,36 +1,46 @@
 return {
   'lukas-reineke/indent-blankline.nvim',
+  main = "ibl",
   event = { "BufReadPost", "BufNewFile" },
-  config = function()
+  opts = {
+    scope = {
+      show_start = false,
+      show_end = true,
+      char = '│'
+    },
+    indent = {
+      char = ' '
+    },
+    exclude = {
+      filetypes = { "fzf", "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+    }
+
+  },
+  config = function(_, opts)
+    local ibl = require('ibl')
+    vim.g.indent_highlight_toggled_visible = 1
+
     function ToggleIndentMarks()
       if vim.g.indent_highlight_toggled_visible == 1 then
         vim.g.indent_highlight_toggled_visible = 0
-        vim.g.indent_blankline_char = ' '
+        ibl.update({ indent = { char = ' ' } })
       else
         vim.g.indent_highlight_toggled_visible = 1
-        vim.g.indent_blankline_char = '│'
+        ibl.update({ indent = { char = '│' } })
       end
     end
 
-    require("indent_blankline").setup {
-      char = ' ',
-      context_char = '│',
-      show_current_context = true,
-      show_current_context_start = false,
-      use_treesitter = false,
-      filetype_exclude = { "fzf", "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
-      show_trailing_blankline_indent = false,
-    }
+    ibl.setup(opts)
 
     vim.cmd [[
-      nnoremap <leader>uI :IndentBlanklineToggle<CR>
+      nnoremap <leader>uI :IBLToggle<CR>
       nnoremap <leader>ui :lua ToggleIndentMarks()<CR>
 
       augroup indent_blankline_overrides
-        autocmd!
-        highlight! IndentBlanklineChar guifg=#283347
-        highlight! IndentBlanklineContextChar guifg=#455574 gui=nocombine
+      autocmd!
+      highlight! IblIndent guifg=#283347
+      highlight! IblScope guifg=#455574 gui=nocombine
       augroup END
-    ]]
+      ]]
   end,
 }
