@@ -52,3 +52,19 @@ return {
     end
   },
 }
+
+-- highlight! IblRainbowColOrange guibg=#dd9046
+-- highlight! IblRainbowColGreen guibg=#8bcd5b
+-- highlight! IblRainbowColViolet guibg=#c75ae8
+-- highlight! IblRainbowColCyan guibg=#34bfd0
+-- highlight! IblRainbowColRed guibg=#f65866
+-- highlight! IblRainbowColYellow guibg=#efbd5d
+-- highlight! IblRainbowColBlue guibg=#41a7fc
+-- Dimmed 70%
+-- highlight! IblRainbowColOrange guifg=#492b0d
+-- highlight! IblRainbowColGreen guifg=#284414
+-- highlight! IblRainbowColViolet guifg=#430b54
+-- highlight! IblRainbowColCyan guifg=#0e3a3f
+-- highlight! IblRainbowColRed guifg=#5f050d
+-- highlight! IblRainbowColYellow guifg=#5a3e08
+-- highlight! IblRainbowColBlue guifg=#01335d

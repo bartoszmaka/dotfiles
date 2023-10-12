@@ -8,7 +8,6 @@ return {
     },
     lazy = false,
     config = function()
-      local nnoremap = require('helper').nnoremap
       vim.cmd [[
         let $FZF_DEFAULT_OPTS='--layout=reverse'
         let g:fzf_command_prefix = 'Fzf'
@@ -19,8 +18,6 @@ return {
 
         autocmd FileType fzf tnoremap <buffer> <esc> <esc>
       ]]
-
-      nnoremap('<C-p><C-r>', ':FZFFreshMruPreview<CR>')
     end
   },
   { 'ibhagwan/fzf-lua',
@@ -37,6 +34,7 @@ return {
       local helper = require('helper')
       local nnoremap = helper.nnoremap
       local vnoremap = helper.vnoremap
+      local symbols = helper.symbols
 
       vim.g.mapleader = ' '
       local actions = require "fzf-lua.actions"
@@ -275,7 +273,15 @@ return {
           file_icons   = true,
           git_icons    = true,
         },
-        lsp                 = {
+        diagnostics ={
+          winopts      = {
+            win_row    = 1, -- window row position (0=top, 1=bottom)
+            win_col    = 0, -- window col position (0=left, 1=right)
+            win_height = 0.20,
+            win_width  = 1,
+          },
+        },
+        lsp                = {
           multiprocess     = true,
           prompt           = '❯ ',
           cwd_only         = false, -- LSP/diagnostics for cwd only?
@@ -290,8 +296,57 @@ return {
             ["Information"] = { icon = "", color = "blue" }, -- info
             ["Hint"]        = { icon = "", color = "magenta" }, -- hint
           },
+          winopts      = {
+            win_row    = 0, -- window row position (0=top, 1=bottom)
+            win_col    = 1, -- window col position (0=left, 1=right)
+            win_height = 0.20,
+            win_width  = 0.4,
+          },
+          symbols = {
+            async_or_timeout  = true,       -- symbols are async by default
+            symbol_style      = 1,          -- style for document/workspace symbols
+            -- symbol_icons = symbols,
+            symbol_icons = {
+              File          = "󰈙",
+              Module        = "",
+              Namespace     = "󰦮",
+              Package       = "",
+              Class         = "󰆧",
+              Method        = "ƒ",
+              Property      = "",
+              Field         = "",
+              Constructor   = "",
+              Enum          = "",
+              Interface     = "",
+              Function      = "󰊕",
+              Variable      = "󰀫",
+              Constant      = "󰏿",
+              String        = "",
+              Number        = "󰎠",
+              Boolean       = "󰨙",
+              Array         = "󱡠",
+              Object        = "",
+              Key           = "󰌋",
+              Null          = "󰟢",
+              EnumMember    = "",
+              Struct        = "󰆼",
+              Event         = "",
+              Operator      = "󰆕",
+              TypeParameter = "󰗴",
+            },
+            winopts      = {
+              win_row    = 0.60, -- window row position (0=top, 1=bottom)
+              win_col    = 0.50, -- window col position (0=left, 1=right)
+              win_height = 0.20,
+              win_width  = 0.20,
+            },
+            symbol_hl         = function(s) return "@" .. s:lower() end,
+            symbol_fmt        = function(s, opts) return "[" .. s .. "]" end,
+            child_prefix      = true,
+          },
         },
-        tags                = {
+
+        tags           = {
           prompt       = 'Tags❯ ',
           ctags_file   = "tags",
           multiprocess = true,
@@ -319,7 +374,8 @@ return {
       nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
       nnoremap('<C-p><C-f>', ':FzfLua grep<CR><CR>')
       vnoremap('<C-p><C-f>', '<esc>:FzfLua grep_visual<CR>')
-      nnoremap('<leader>fw', ':FzfLua grep_cword<CR>')
+      nnoremap('<C-p><C-r>', ':FZFFreshMruPreview<CR>')
+      -- nnoremap('<leader>fw', ':FzfLua grep_cword<CR>')
       nnoremap('<leader>fW', ':FzfLua grep_cWORD<CR>')
       -- nnoremap('<C-p><C-g>', ':FzfLua git_status<CR>')
 
@@ -344,6 +400,7 @@ return {
       nnoremap('<leader>ps', ':FzfLua lsp_document_symbols<CR>')
       nnoremap('<leader>pS', ':FzfLua lsp_workspace_symbols<CR>')
       nnoremap('z=', ':FzfLua spell_suggest<CR>')
+
     end
   },
 }

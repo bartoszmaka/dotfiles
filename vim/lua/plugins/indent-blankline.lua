@@ -2,35 +2,33 @@ return {
   'lukas-reineke/indent-blankline.nvim',
   main = "ibl",
   event = { "BufReadPost", "BufNewFile" },
-  opts = {
-    scope = {
-      show_start = false,
-      show_end = true,
-      char = '│'
-    },
-    indent = {
-      char = ' '
-    },
-    exclude = {
-      filetypes = { "fzf", "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
-    }
-
-  },
-  config = function(_, opts)
+  config = function()
     local ibl = require('ibl')
-    vim.g.indent_highlight_toggled_visible = 1
-
+    local hooks = require "ibl.hooks"
+    local rainbow_colors = {
+      "RainbowDelimiterRed",
+      "RainbowDelimiterYellow",
+      "RainbowDelimiterBlue",
+      "RainbowDelimiterOrange",
+      "RainbowDelimiterGreen",
+      "RainbowDelimiterViolet",
+      "RainbowDelimiterCyan",
+    }
     function ToggleIndentMarks()
-      if vim.g.indent_highlight_toggled_visible == 1 then
-        vim.g.indent_highlight_toggled_visible = 0
-        ibl.update({ indent = { char = ' ' } })
+      if vim.g.indent_config_index == 0 then
+        vim.g.indent_config_index = 1
+        ibl.update({
+          indent = { char = '│' },
+          scope = { highlight = rainbow_colors }
+        })
       else
-        vim.g.indent_highlight_toggled_visible = 1
-        ibl.update({ indent = { char = '│' } })
+        vim.g.indent_config_index = 0
+        ibl.update({
+          indent = { char = ' ' },
+          scope = { highlight = 'IblScope' }
+        })
       end
     end
-
-    ibl.setup(opts)
 
     vim.cmd [[
       nnoremap <leader>uI :IBLToggle<CR>
@@ -40,7 +38,37 @@ return {
       autocmd!
       highlight! IblIndent guifg=#283347
       highlight! IblScope guifg=#455574 gui=nocombine
+      highlight! IblRainbowColOrange guifg=#492b0d
+      highlight! IblRainbowColGreen guifg=#284414
+      highlight! IblRainbowColViolet guifg=#430b54
+      highlight! IblRainbowColCyan guifg=#0e3a3f
+      highlight! IblRainbowColRed guifg=#5f050d
+      highlight! IblRainbowColYellow guifg=#5a3e08
+      highlight! IblRainbowColBlue guifg=#01335d
       augroup END
-      ]]
+    ]]
+
+    -- vim.g.rainbow_delimiters = { highlight = highlight_background }
+    vim.g.indent_config_index = 0
+    ibl.setup({
+      scope = {
+        show_start = false,
+        show_end = true,
+        char = '│',
+        include = { node_type = { ["*"] = { "*" } } },
+        highlight = 'IblScope',
+      },
+      indent = {
+        char = ' ',
+        highlight = 'IblIndent',
+      },
+      exclude = {
+        filetypes = { "fzf", "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy", "mason" },
+      }
+    })
+    hooks.register(
+      hooks.type.SCOPE_HIGHLIGHT,
+      hooks.builtin.scope_highlight_from_extmark
+    )
   end,
 }
