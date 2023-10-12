@@ -7,6 +7,7 @@ return {}
 --       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 --       { 'fhill2/telescope-ultisnips.nvim' },
 --       { 'nvim-lua/plenary.nvim' },
+--       { 'pbogut/fzf-mru.vim' }
 --     },
 --     config = function()
 --       local telescope = require('telescope')
@@ -59,25 +60,25 @@ return {}
 --             override_generic_sorter = true, -- override the generic sorter
 --             override_file_sorter = true,    -- override the file sorter
 --             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
---             -- the default case_mode is "smart_case"
 --           },
 --         }
 --       }
 --       telescope.load_extension('fzf')
+--       telescope.load_extension('fzf_mru')
 --       telescope.load_extension('ultisnips')
 
---       nnoremap('<C-p><C-p>', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
---       nnoremap('<C-p><C-r>', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+--       -- nnoremap('<C-p><C-p>', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
+--       -- nnoremap('<C-p><C-r>', ':Telescope fzf_mru')
 
---       nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
---       nnoremap('<leader>pr', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
---       nnoremap('<leader>pf', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
---       nnoremap('<leader>pv', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
---       nnoremap('<leader>pm', [[<Cmd>lua require('telescope.builtin').marks()<CR>]])
---       nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
+--       -- nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
+--       -- nnoremap('<leader>pr', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
+--       -- nnoremap('<leader>pf', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
+--       -- nnoremap('<leader>pv', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
+--       -- nnoremap('<leader>pm', [[<Cmd>lua require('telescope.builtin').marks()<CR>]])
+--       -- nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
 
---       nnoremap('<C-p><C-g>', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
---       nnoremap('<C-p><C-b>', [[<Cmd>lua require('telescope.builtin').find_buffers()<CR>]])
+--       -- nnoremap('<C-p><C-g>', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
+--       -- nnoremap('<C-p><C-b>', [[<Cmd>lua require('telescope.builtin').find_buffers()<CR>]])
 --     end
 --   },
 -- }
