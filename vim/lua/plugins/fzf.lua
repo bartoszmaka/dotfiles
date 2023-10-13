@@ -7,9 +7,6 @@ return {
     },
     lazy = false,
     config = function()
-      vim.cmd [[
-        autocmd FileType fzf tnoremap <buffer> <esc> <esc>
-      ]]
       local function setup(str, opts)
         return vim.tbl_deep_extend("keep", opts or {},
           {
@@ -49,13 +46,18 @@ return {
             win_col    = 0.50,
             win_height = 0.25,
             win_width  = 0.15,
-            preview = { hidden = 'hidden' }
+            preview = {
+              hidden = 'hidden',
+            }
           },
           medium_window = {
             win_row    = 0.30,
             win_col    = 0.50,
             win_height = 0.45,
             win_width  = 0.45,
+            preview = {
+              horizontal = "right:50%"
+            },
           }
         }
       }
@@ -68,7 +70,13 @@ return {
           preview = {
             border = 'noborder',
             layout = 'flex',
+            horizontal = "right:40%"
           },
+          -- on_create = function()
+          --   vim.cmd [[
+          --     set winhighlight=Normal:Error,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+          --   ]]
+          -- end
         }),
         keymap                    = {
           builtin                 = {
@@ -98,23 +106,26 @@ return {
         fzf_opts                  = {
           ['--ansi']              = '',
           ['--prompt']            = ' >',
-          ['--info']              = 'inline',
+          ['--info']              = 'inline-right',
           ['--height']            = '100%',
           ['--layout']            = 'reverse',
+          ['--no-separator']      = '',
+          ['--border']            = 'none',
+          ['--preview-window']    = 'border-sharp',
         },
         fzf_colors                = {
-          ["bg"]                  = { "bg", "Normal" },
-          ["gutter"]              = { "bg", "Normal" },
+          ["bg"]                  = { "bg", "NormalDarker" },
+          ["gutter"]              = { "bg", "NormalDarker" },
         },
         hls = {
-          normal = "Normal",
-          border = "Normal",
-          title = "Normal",
-          preview_normal = "Normal",
-          preview_border = "Normal",
-          preview_title = "Normal",
-          help_normal = "Normal",
-          help_border = "Normal",
+          normal = "NormalDarker",
+          border = "NormalDarker",
+          title = "NormalDarker",
+          preview_normal = "NormalDarker",
+          preview_border = "NormalDarker",
+          preview_title = "NormalDarker",
+          help_normal = "NormalDarker",
+          help_border = "NormalDarker",
         },
         previewers                = {
           git_diff                = { cmd = 'git diff', args = "--color", pager = "delta" },
@@ -123,8 +134,6 @@ return {
             title                 = true, -- preview title?
             scrollbar             = true, -- scrollbar?
             scrollchar            = '▋', -- scrollbar character
-            hl_cursor             = 'Cursor', -- cursor highlight
-            hl_cursorline         = 'CursorLine', -- cursor line highlight
           },
         },
         files                     = setup("Files",
@@ -135,7 +144,10 @@ return {
               ["default"]         = actions.file_edit,
               ["ctrl-s"]          = actions.file_split,
               ["ctrl-v"]          = actions.file_vsplit,
-            }
+            },
+            winopts = vim.tbl_deep_extend("force", presets.winopts.big_window, {
+              preview = { horizontal = "right:60%" },
+            })
           }
         ),
         buffers                   = setup("Buffers"),
@@ -145,10 +157,21 @@ return {
         grep                      = setup("Search", {
           rg_glob                 = true,
           rg_opts                 = "--hidden --column --line-number --no-heading --color=always --smart-case -g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
+          git_icons      = true, -- show git icons?
+          file_icons     = true, -- show file icons?
+          color_icons    = true, -- colorize file|git icons
+          experimental   = false,
+          glob_flag      = "--iglob", -- for case sensitive globs use '--glob'
+          glob_separator = "%s%-%-" -- query separator pattern (lua): ' --'
         }),
         git                       = {
           files                   = setup("Git Files"),
-          status                  = setup("Git Status", { previewer = "git_diff" }),
+          status                  = setup("Git Status", {
+            previewer = "git_diff",
+            winopts = vim.tbl_deep_extend("force", presets.winopts.big_window, {
+              preview = { horizontal = "right:50%" },
+            })
+          }),
           commits                 = setup("Git Commits"),
           bcommits                = setup("Git BCommits", {
             cmd                   = "git log --pretty=oneline --abbrev-commit --color",
