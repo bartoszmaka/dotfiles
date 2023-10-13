@@ -55,7 +55,26 @@ return {
         show_start = false,
         show_end = true,
         char = '│',
-        include = { node_type = { ["*"] = { "*" } } },
+        include = {
+          node_type = {
+            ["*"] = {
+              "return_statement",
+              "table_constructor",
+              "block",
+              "chunk",
+              "function_call",
+              "body_statement",
+              "hash",
+              "array",
+              "singleton_method",
+              "method",
+              "method_parameters",
+              "argument_list",
+              "then",
+              "else",
+            },
+          },
+        },
         highlight = 'IblScope',
       },
       indent = {
