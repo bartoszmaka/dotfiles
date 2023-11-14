@@ -40,7 +40,7 @@ return  {
     }
   },
   ruby_ls = {
-    filetypes = { 'ruby', 'eruby' }
+    filetypes = { 'ruby' }
   },
   solargraph = {
     filetypes = { 'ruby', 'eruby' },

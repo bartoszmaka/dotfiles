@@ -150,13 +150,22 @@ return {
         end
       end,
     })
+
+    vim.cmd [[
+      highlight NeoTreeTabInactive guibg=#141b24
+      highlight NeoTreeTabSeparatorInactive guibg=#141b24 guifg=#141b24
+      " highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
+      highlight NeoTreeWinSeparator guibg=#1a212e guifg=#1a212e
+    ]]
+
+--     vim.cmd [[
+--         highlight_tab = "NeoTreeTabInactive",                     -- string
+--         highlight_tab_active = "NeoTreeTabActive",                -- string
+--         highlight_background = "NeoTreeTabInactive",              -- string
+--         highlight_separator = "NeoTreeTabSeparatorInactive",      -- string
+--         highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
+--     ]]
+
   end,
 }
 
-    -- " vim.cmd [[
-    -- "     highlight_tab = "NeoTreeTabInactive",                     -- string
-    -- "     highlight_tab_active = "NeoTreeTabActive",                -- string
-    -- "     highlight_background = "NeoTreeTabInactive",              -- string
-    -- "     highlight_separator = "NeoTreeTabSeparatorInactive",      -- string
-    -- "     highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
-    -- " ]]

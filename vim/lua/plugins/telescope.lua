@@ -2,7 +2,7 @@ return {}
 -- return {
 --   {
 --     'nvim-telescope/telescope.nvim',
---     tag = '0.1.3',
+--     tag = '0.1.4',
 --     dependencies = {
 --       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 --       { 'fhill2/telescope-ultisnips.nvim' },
@@ -12,47 +12,41 @@ return {}
 --     config = function()
 --       local telescope = require('telescope')
 --       local helper = require('helper')
---       local nnoremap = helper.nnoremap
 --       local actions = require('telescope.actions')
 --       local action_layout = require("telescope.actions.layout")
 
 --       telescope.setup {
 --         defaults = {
+--           borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
 --           sorting_strategy = 'ascending',
+--           scroll_strategy = 'limit',
+--           layout_strategy = 'horizontal',
 --           layout_config = {
 --             height = 0.68,
 --             width = 0.9,
 --             prompt_position = 'top',
---             preview_cutoff = 150,
---           },
---           cycle_layout_list = {
---             'cursor',
---             {
---               layout_strategy = '',
---               previewer = true,
---               layout_config = {
---                 height = 1,
---                 preview_cutoff = 40,
---                 prompt_position = "top",
---                 width = 1
---               }
---             }
+--             preview_cutoff = 15,
 --           },
 --           mappings = {
 --             i = {
 --               ["<esc>"] = actions.close,
 --               ["<C-u>"] = false,
 --               ["<C-e>"] = false,
+--               ["<C-s>"] = actions.file_split,
+--               ["<C-v>"] = actions.file_vsplit,
 --               ["<F4>"] = action_layout.toggle_preview,
---               ["<C-[>"] = actions.cycle_previewers_next,
---               ["<C-]>"] = actions.cycle_previewers_prev,
 --               ["<F2>"] = action_layout.cycle_layout_next,
 --             },
 --             n = {
 --               ["<esc>"] = actions.close,
---               ["<F4>"] = action_layout.toggle_preview
+--               ["<F4>"] = action_layout.toggle_preview,
+--               ["<C-s>"] = actions.file_split,
+--               ["<C-v>"] = actions.file_vsplit,
 --             },
 --           },
+--         },
+--         pickers = {
+
 --         },
 --         extensions = {
 --           fzf = {
@@ -68,17 +62,28 @@ return {}
 --       telescope.load_extension('ultisnips')
 
 --       -- nnoremap('<C-p><C-p>', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
---       -- nnoremap('<C-p><C-r>', ':Telescope fzf_mru')
+--       -- nnoremap('<C-p><C-f>', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
+--       -- vnoremap('<C-p><C-f>', [[<Cmd>lua require('telescope.builtin').grep_string()<CR>]])
+--       -- nnoremap('<C-p><C-r>', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 
---       -- nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]])
---       -- nnoremap('<leader>pr', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]])
---       -- nnoremap('<leader>pf', [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]])
---       -- nnoremap('<leader>pv', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
---       -- nnoremap('<leader>pm', [[<Cmd>lua require('telescope.builtin').marks()<CR>]])
---       -- nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits()<CR>]])
-
---       -- nnoremap('<C-p><C-g>', [[<Cmd>lua require('telescope.builtin').git_status()<CR>]])
---       -- nnoremap('<C-p><C-b>', [[<Cmd>lua require('telescope.builtin').find_buffers()<CR>]])
+--       -- nnoremap('<leader>pr', [[<Cmd>lua require('telescope.builtin')<CR>]])
+--       -- nnoremap('<leader>pg', [[<Cmd>lua require('telescope.builtin').git_status<CR>]])
+--       -- nnoremap('<leader>pb', [[<Cmd>lua require('telescope.builtin').git_branches<CR>]])
+--       -- nnoremap('<leader>pf', [[<Cmd>lua require('telescope.builtin').live_grep<CR>]])
+--       -- nnoremap('<leader>pP', [[<Cmd>lua require('telescope.builtin').resume<CR>]])
+--       -- nnoremap('<leader>pq', [[<Cmd>lua require('telescope.builtin').quickfix<CR>]])
+--       -- -- nnoremap('<leader>pl', [[<Cmd>lua require('telescope.builtin').git_status<CR>]])
+--       -- nnoremap('<leader>pc', [[<Cmd>lua require('telescope.builtin').git_bcommits<CR>]])
+--       -- nnoremap('<leader>p;', [[<Cmd>lua require('telescope.builtin').commands<CR>]])
+--       -- nnoremap('<leader>pK', [[<Cmd>lua require('telescope.builtin').keymaps<CR>]])
+--       -- nnoremap('<leader>pd', [[<Cmd>lua require('telescope.builtin').lsp_definitions<CR>]])
+--       -- -- nnoremap('<leader>pD', [[<Cmd>lua require('telescope.builtin').git_status<CR>]])
+--       -- nnoremap('<leader>pR', [[<Cmd>lua require('telescope.builtin').lsp_references<CR>]])
+--       -- -- nnoremap('<leader>pe', [[<Cmd>lua require('telescope.builtin').diagnostics<CR>]])
+--       -- nnoremap('<leader>pE', [[<Cmd>lua require('telescope.builtin').diagnostics<CR>]])
+--       -- nnoremap('<leader>ps', [[<Cmd>lua require('telescope.builtin').lsp_document_symbols<CR>]])
+--       -- nnoremap('<leader>pS', [[<Cmd>lua require('telescope.builtin').lsp_workspace_symbols<CR>]])
+--       -- nnoremap('z=', [[<Cmd>lua require('telescope.builtin').spell_suggest<CR>]])
 --     end
 --   },
 -- }

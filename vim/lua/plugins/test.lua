@@ -24,7 +24,7 @@ return {
 
     vim.cmd [[
       let test#ruby#cucumber#executable = 'bundle exec cucumber'
-      let test#ruby#rspec#executable = 'ht rspec'
+      let test#ruby#rspec#executable = 'bundle exec rspec'
     ]]
 
     nmap('<leader>tt', ':TestNearest<CR>')
