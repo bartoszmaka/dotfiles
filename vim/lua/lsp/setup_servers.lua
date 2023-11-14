@@ -34,7 +34,7 @@ local servers = {
   "vuels",
   "yamlls",
   'cssls',
-  -- 'ruby_ls', -- restore once gems are fixed
+  'ruby_ls', -- restore once gems are fixed
   'solargraph',
   'lua_ls',
   'efm',

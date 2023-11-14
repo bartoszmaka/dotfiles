@@ -3,7 +3,8 @@ return {
     'ibhagwan/fzf-lua',
     dependencies = {
       'kyazdani42/nvim-web-devicons',
-      { 'junegunn/fzf', build = './install --bin' }
+      { 'junegunn/fzf', build = './install --bin' },
+      { 'pbogut/fzf-mru.vim' },
     },
     lazy = false,
     config = function()
@@ -22,8 +23,18 @@ return {
       local nnoremap = helper.nnoremap
       local vnoremap = helper.vnoremap
       local symbols = helper.symbols
-      vim.g.mapleader = ' '
+      local actions = require "fzf-lua.actions"
       local presets = {
+        fzf_opts = {
+          -- ['--ansi']              = '',
+          ['--prompt']            = ' >',
+          ['--info']              = 'inline-right',
+          ['--height']            = '100%',
+          ['--layout']            = 'reverse',
+          ['--no-separator']      = '',
+          ['--border']            = 'none',
+          ['--preview-window']    = 'border-sharp',
+        },
         winopts = {
           big_window = {
             win_height = 0.60,     -- window height
@@ -40,12 +51,14 @@ return {
             win_col    = 0,
             win_height = 0.20,
             win_width  = 1,
+            win_border = symbols.corners.none,
           },
           small_window = {
             win_row    = 0.25,
             win_col    = 0.50,
-            win_height = 0.25,
+            win_height = 0.35,
             win_width  = 0.15,
+            win_border = symbols.corners.none,
             preview = {
               hidden = 'hidden',
             }
@@ -55,14 +68,38 @@ return {
             win_col    = 0.50,
             win_height = 0.45,
             win_width  = 0.45,
+            win_border = symbols.corners.none,
             preview = {
               horizontal = "right:50%"
             },
           }
         }
       }
+      vim.g.fzf_command_prefix = 'Fzf'
+      vim.g.fzf_mru_relative = 1
+      vim.g.fzf_mru_no_sort = 1
+      vim.g.fzf_colors = { bg = { 'bg', 'NormalDarker' } }
+      vim.g.fzf_layout = { window = { width = 0.90, height = 0.62 } }
+      vim.g.fzf_action = { ['ctrl-s'] = 'split', ['ctrl-v'] = 'vsplit' }
+      vim.cmd [[
+        command! -bang -nargs=? FZFFreshMruPreview call fzf_mru#actions#mru(<q-args>,
+          \{
+            \'options': [
+              \'--preview', 'bat {}',
+              \'--preview-window', 'right:40%',
+              \'--reverse',
+              \'--preview-window', 'border-sharp',
+              \'--border', 'sharp',
+              \'--info', 'inline-right',
+              \'--prompt', '> ',
+              \'--ansi',
+              \'--color', 'gutter:#141b24,border:#93a4c3',
+              \'--bind', 'ctrl-_:toggle-preview'
+            \]
+          \}
+        \)
+      ]]
 
-      local actions = require "fzf-lua.actions"
       require('fzf-lua').setup {
         global_resume             = true,
         global_resume_query       = true,
@@ -103,16 +140,7 @@ return {
             ["shift-up"]          = "preview-page-up",
           },
         },
-        fzf_opts                  = {
-          ['--ansi']              = '',
-          ['--prompt']            = ' >',
-          ['--info']              = 'inline-right',
-          ['--height']            = '100%',
-          ['--layout']            = 'reverse',
-          ['--no-separator']      = '',
-          ['--border']            = 'none',
-          ['--preview-window']    = 'border-sharp',
-        },
+        fzf_opts                  = presets.fzf_opts,
         fzf_colors                = {
           ["bg"]                  = { "bg", "NormalDarker" },
           ["gutter"]              = { "bg", "NormalDarker" },
@@ -134,12 +162,21 @@ return {
             title                 = true, -- preview title?
             scrollbar             = true, -- scrollbar?
             scrollchar            = '▋', -- scrollbar character
+            extensions      = {
+              ["png"]       = { "viu", "-b" },
+              ["jpg"]       = { "viu", "-b" },
+              ["gif"]       = { "viu", "-b" },
+              -- ["svg"]       = { "chafa", "<file>" },
+              -- ["jpg"]       = { "ueberzug" },
+            },
+
           },
         },
         files                     = setup("Files",
           {
             rg_opts               = "--color=never --no-ignore-vcs --files --hidden --follow -g '!.git' -g '!node_modules' -g '!.next/'",
             fd_opts               = "--color=never --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude tmp --exclude .idea --exclude node_modules --exclude .next --exclude vendor",
+            fzf_opts              = presets.fzf_opts,
             actions               = {
               ["default"]         = actions.file_edit,
               ["ctrl-s"]          = actions.file_split,
@@ -150,13 +187,14 @@ return {
             })
           }
         ),
-        buffers                   = setup("Buffers"),
+        buffers                   = setup("Buffers", { winopts = presets.winopts.medium_window }),
         tabs                      = setup("Tabs"),
         lines                     = setup("Lines"),
-        blines                    = setup("Buffer Lines"),
+        blines                    = setup("Buffer Lines", { winopts = presets.winopts.bottom_pane }),
         grep                      = setup("Search", {
+          fzf_opts                = presets.fzf_opts,
           rg_glob                 = true,
-          rg_opts                 = "--hidden --column --line-number --no-heading --color=always --smart-case -g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
+          rg_opts                 = "--hidden --column --line-number --no-heading --color=always --smart-case -g '!{*.min.js,*.js.map}' -g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
           git_icons      = true, -- show git icons?
           file_icons     = true, -- show file icons?
           color_icons    = true, -- colorize file|git icons
@@ -195,7 +233,6 @@ return {
         oldfiles                  = setup("Oldfiles", {
           cwd_only                = true,
           include_current_session = true,
-          -- cwd                     = vim.loop.cwd()
         }),
         quickfix                  = setup("Quickfix List", { winopts = presets.winopts.bottom_pane }),
         quickfix_stack            = setup("Quickfix List Stack"),
@@ -211,7 +248,7 @@ return {
           winopts                 = presets.winopts.bottom_pane,
           async_or_timeout        = true, -- timeout(ms) or false for blocking calls
           symbols                 = setup("LSP", { symbol_icons = symbols, winopts = presets.winopts.medium_window, }),
-          finder                  = setup("LSP Finder"),
+          finder                  = setup("LSP Finder", { fzf_opts = presets.fzf_opts, winopts = presets.winopts.bottom_pane }),
           code_actions            = setup("Code Actions"),
           icons                   = {
             ["Error"]             = { icon = symbols.Error, color = "red" },    -- error
@@ -245,36 +282,46 @@ return {
         },
       }
 
-      nnoremap('<C-p><C-p>', ':FzfLua files<CR>')
-      -- nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
-      nnoremap('<C-p><C-f>', ':FzfLua grep<CR><CR>')
-      vnoremap('<C-p><C-f>', '<esc>:FzfLua grep_visual<CR>')
-      nnoremap('<C-p><C-r>', ':FzfLua oldfiles<CR>')
-      -- nnoremap('<leader>fw', ':FzfLua grep_cword<CR>')
-      nnoremap('<leader>fW', ':FzfLua grep_cWORD<CR>')
-      -- nnoremap('<C-p><C-g>', ':FzfLua git_status<CR>')
+      -- nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>')
 
-      nnoremap('<leader>pa', ':FzfLua<CR>')
-      nnoremap('<leader>pp', ':FzfLua files<CR>')
-      -- nnoremap('<leader>pr', ':FZFFreshMruPreview<CR>')
-      nnoremap('<leader>pr', ':FzfLua oldfiles<CR>')
-      nnoremap('<leader>pg', ':FzfLua git_status<CR>')
-      nnoremap('<leader>pb', ':FzfLua git_branches<CR>')
-      nnoremap('<leader>pf', ':FzfLua grep<CR><CR>')
-      nnoremap('<leader>pF', ':FzfLua live_grep_resume<CR>')
-      nnoremap('<leader>pq', ':FzfLua quickfix<CR>')
-      nnoremap('<leader>pl', ':FzfLua blines<CR>')
-      nnoremap('<leader>pc', ':FzfLua git_bcommits<CR>')
-      nnoremap('<leader>p;', ':FzfLua commands<CR>')
-      nnoremap('<leader>pK', ':FzfLua keymaps<CR>')
-      nnoremap('<leader>pd', ':FzfLua lsp_definitions<CR>')
-      nnoremap('<leader>pD', ':FzfLua lsp_finder<CR>')
-      nnoremap('<leader>pR', ':FzfLua lsp_references<CR>')
-      nnoremap('<leader>pe', ':FzfLua lsp_document_diagnostics<CR>')
-      nnoremap('<leader>pE', ':FzfLua lsp_workspace_diagnostics<CR>')
-      nnoremap('<leader>ps', ':FzfLua lsp_document_symbols<CR>')
+      nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]])
+      vnoremap('<C-p><C-p>', [[y<esc>:lua require("fzf-lua").files()<CR>p]])
+      nnoremap('<C-p><C-f>', [[:lua require("fzf-lua").live_grep()<CR>]])
+      vnoremap('<C-p><C-f>', [[<esc>:lua require("fzf-lua").grep_visual()<CR>]])
+      nnoremap('<C-p><C-r>', [[:lua require("fzf-lua").oldfiles()<CR>]])
+      nnoremap('<leader>fW', [[:lua require("fzf-lua").grep_cWORD()<CR>]])
+
+      nnoremap('<leader>pa', [[:lua require("fzf-lua").builtin()<CR>]])
+      nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]])
+      nnoremap('<leader>pr', [[:lua require("fzf-lua").oldfiles()<CR>]])
+      nnoremap('<leader>pg', [[:lua require("fzf-lua").git_status()<CR>]])
+      nnoremap('<leader>pb', [[:lua require("fzf-lua").buffers()<CR>]])
+      nnoremap('<leader>pB', [[:lua require("fzf-lua").git_branches()<CR>]])
+      nnoremap('<leader>pf', [[:lua require("fzf-lua").live_grep()<CR>]])
+      nnoremap('<leader>pF', [[:lua require("fzf-lua").live_grep_resume()<CR>]])
+      nnoremap('<leader>pq', [[:lua require("fzf-lua").quickfix()<CR>]])
+      nnoremap('<leader>/', [[:lua require("fzf-lua").blines()<CR>]])
+      nnoremap('<leader>pc', [[:lua require("fzf-lua").git_bcommits()<CR>]])
+      nnoremap('<leader>p;', [[:lua require("fzf-lua").commands()<CR>]])
+      nnoremap('<leader>pK', [[:lua require("fzf-lua").keymaps()<CR>]])
+      nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]])
+      nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]])
+      nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]])
+      nnoremap('<leader>pe', [[:lua require("fzf-lua").lsp_document_diagnostics()<CR>]])
+      nnoremap('<leader>pE', [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]])
+      nnoremap('<leader>ps', [[:lua require("fzf-lua").lsp_document_symbols()<CR>]])
       nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {win_height = 0.60, win_width = 0.90, win_row = 0.40, win_col = 0.50}})<CR>]])
-      nnoremap('z=', ':FzfLua spell_suggest<CR>')
+      nnoremap('z=', [[:lua require("fzf-lua").spell_suggest()<CR>]])
+      nnoremap('<leader>p.', [[:lua require("fzf-lua").filetypes()<CR>]])
+
+
+      -- vim.keymap.set({ "i" }, "<C-x><C-f>",
+      --   function()
+      --     require("fzf-lua").complete_file({
+      --       cmd = "rg --files",
+      --       winopts = { preview = { hidden = "nohidden" } }
+      --     })
+      --   end, { silent = true, desc = "Fuzzy complete file" })
     end
   },
 }

@@ -26,25 +26,25 @@ return {
       autopairs = { enable = true, },
       autotag = {
         enable = true,
-        filetypes = {
-          'html',
-          'javascript',
-          'typescript',
-          'javascriptreact',
-          'typescriptreact',
-          'svelte',
-          'vue',
-          'tsx',
-          'jsx',
-          'rescript',
-          'xml',
-          'php',
-          'markdown',
-          'glimmer',
-          'handlebars',
-          'hbs',
-          'eruby',
-        }
+        -- filetypes = {
+        --   'html',
+        --   'javascript',
+        --   'typescript',
+        --   'javascriptreact',
+        --   'typescriptreact',
+        --   'svelte',
+        --   'vue',
+        --   'tsx',
+        --   'jsx',
+        --   'rescript',
+        --   'xml',
+        --   'php',
+        --   'markdown',
+        --   'glimmer',
+        --   'handlebars',
+        --   'hbs',
+        --   'eruby',
+        -- }
       },
       -- matchup = { enable = true },
       context_commentstring = {
@@ -137,10 +137,19 @@ return {
 
     require('hlargs').setup()
 
+    -- vim.cmd [[
+    --   augroup hlargs_overrides
+    --     autocmd!
+    --     highlight! Hlargs gui=italic
+    --   augroup END
+    -- ]]
+
     vim.cmd [[
-      augroup hlargs_overrides
-      autocmd!
-      highlight! Hlargs gui=italic
+      augroup fix_autotag_for_eruby_not_setting_up_for_some_reason
+        autocmd!
+        autocmd FileType eruby lua require('nvim-ts-autotag').setup()
+        autocmd FileType * call v:lua.require('nvim-ts-autotag.internal').attach()
+        autocmd BufDelete * lua require('nvim-ts-autotag.internal').detach(vim.fn.expand('<abuf>'))
       augroup END
     ]]
   end

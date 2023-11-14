@@ -53,7 +53,7 @@ return {
     ibl.setup({
       scope = {
         show_start = false,
-        show_end = true,
+        show_end = false,
         char = '│',
         include = {
           node_type = {

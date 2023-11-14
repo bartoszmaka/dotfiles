@@ -38,7 +38,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 vim.cmd [[
   filetype plugin on
-  command! CopyPath execute 'let @+ = expand("%")'
+  command! CopyPath execute 'let @+ = expand("%:.")'
 
   function! ClearRegisters()
     let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
@@ -50,7 +50,7 @@ vim.cmd [[
   endfunction
   command! ClearRegisters call ClearRegisters()
 
-  autocmd BufEnter,BufNewFile,BufWritePost * call system("tmux rename-window " . expand("%"))
+  autocmd BufEnter,BufNewFile,BufWritePost * call system("tmux rename-window " . expand("%:."))
   autocmd VimLeave * call system("tmux rename-window `pwd`")
 
   " augroup remember_cursor_position

@@ -3,14 +3,18 @@ local nnoremap = helper.nnoremap
 local vnoremap = helper.vnoremap
 
 local opts = { noremap = true, silent = true }
-nnoremap("gd", "<cmd>Lspsaga goto_definition<CR>")
-nnoremap("gr", "<cmd>Lspsaga finder<CR>")
+      -- nnoremap('gd', [[:FzfLua lsp_definitions<CR>]])
+      -- nnoremap('gD', [[:FzfLua lsp_finder<CR>]])
+      -- nnoremap('gr', [[:FzfLua lsp_references<CR>]])
+
+-- nnoremap("gd", "<cmd>Lspsaga goto_definition<CR>")
+-- nnoremap("gr", "<cmd>Lspsaga finder<CR>")
 nnoremap("<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
 vnoremap("<C-m><C-f>", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 nnoremap("<C-m><C-f>", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
 
-nnoremap('gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+-- nnoremap('gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 nnoremap('<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 
 nnoremap("<leader>gh", "<cmd>Lspsaga peek_definition<CR>")

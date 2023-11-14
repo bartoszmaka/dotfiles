@@ -33,8 +33,46 @@ return {
     build = ":Copilot auth",
     opts = {
       suggestion = { enabled = false },
-      panel = { enabled = false },
+      panel = {
+        enabled = false,
+        layout = {
+          position = "right",
+          ratio = 0.2
+        },
+      },
+      filetypes = {
+        yaml = false,
+        markdown = true,
+        help = false,
+        gitcommit = false,
+        gitrebase = false,
+        hgcommit = false,
+        svn = false,
+        cvs = false,
+        sh = function ()
+          if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
+            return false
+          end
+          return true
+        end,
+        ["."] = false,
+      },
     },
+    config = function(_, opts)
+      local nnoremap = require("helper").nnoremap
+      local inoremap = require("helper").inoremap
+
+      require("copilot").setup(opts)
+
+      inoremap("<M-l>", "<cmd>Copilot panel open<CR>")
+      nnoremap("<M-l>", "<cmd>Copilot panel open<CR>")
+      inoremap("<M-[>", "<cmd>Copilot panel jump_prev<CR>")
+      inoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
+      nnoremap("<M-[>", "<cmd>Copilot panel jump_prev<CR>")
+      nnoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
+      inoremap("<M-a>", "<cmd>Copilot panel accept<CR>")
+      nnoremap("<M-a>", "<cmd>Copilot panel accept<CR>")
+    end
   },
   -- {
   --   'tzachar/cmp-tabnine',
@@ -181,6 +219,13 @@ return {
             i = function(fallback) mappings.insert_shift_tab_mapping(fallback) end,
             s = function(fallback) mappings.snippet_shift_tab_mapping(fallback) end
           }),
+          ['<C-x><C-a>'] = cmp.mapping.complete({
+            config = {
+              sources = {
+                { name = 'copilot' }
+              }
+            }
+          })
         },
         snippet = {
           expand = function(args)
@@ -200,7 +245,7 @@ return {
           },
         },
         sources = cmp.config.sources({
-          { name = 'copilot',     priority = 150, group_index = 2 },
+          { name = 'copilot',     priority = 150 },
           -- { name = 'cmp_tabnine', priority = 145, group_index = 2 },
           { name = 'ultisnips',   priority = 120 },
           { name = "nvim_lsp" },
@@ -279,6 +324,7 @@ return {
     end
   }
 }
+
 
 -- require('copilot_cmp').setup()
 -- cmp.event:on("menu_opened", function() vim.b.copilot_suggestion_hidden = true end)

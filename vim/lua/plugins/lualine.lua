@@ -8,6 +8,7 @@ return {
     local copilotLoaded, _ = pcall(require, "copilot.api")
     local helper = require('helper')
     local colors = helper.colors.onedark
+    local symbols = helper.symbols
     local getFlags = helper.lualine.getFlags
 
     local copilot_colors = {
@@ -26,7 +27,12 @@ return {
         color_warn = colors.orange, -- changes diagnostic's warn foreground color
         color_info = colors.blue,   -- Changes diagnostic's info foreground color
         color_hint = colors.blue,   -- Changes diagnostic's hint foreground color
-        symbols = { error = '  ', warn = '  ', info = '  ', hint = '  ' }
+        symbols = {
+          error = ' '.. symbols.Error .. ' ',
+          warn = ' '.. symbols.Warn .. ' ',
+          info = ' '.. symbols.Info .. ' ',
+          hint = ' '.. symbols.Hint .. ' ',
+        }
       },
       diff = {
         'diff',
