@@ -105,7 +105,7 @@ window:
   #   - OnlyRight
   #   - Both
   #   - None (default)
-  #option_as_alt: None
+  option_as_alt: OnlyLeft
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -472,6 +472,8 @@ working_directory: None
 #ipc_socket: true
 
 mouse:
+  bindings:
+    - { mouse: Middle, action: PasteSelection }
   # Click settings
   #
   # The `double_click` and `triple_click` settings control the time
@@ -585,8 +587,6 @@ hints:
 # And optionally:
 #
 # - `mods` (see key bindings)
-mouse_bindings:
-  - { mouse: Middle, action: PasteSelection }
 #mouse_bindings:
 #  - { mouse: Right,                 action: ExpandSelection }
 #  - { mouse: Right,  mods: Control, action: ExpandSelection }
