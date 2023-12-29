@@ -9,15 +9,17 @@ return {
     animation = true,
     auto_hide = false,
     tabpages = true,
+    focus_on_close = 'previous',
     maximum_padding = 2,
     minimum_padding = 2,
     maximum_length = 30,
     minimum_length = 10,
     no_name_title = ' - ',
-    highlight_alternate = true,
+    highlight_alternate = false,
     highlight_inactive_file_icons = true,
     icons = {
       button = '',
+      separator = {left = '▏', right = '▕'}
     }
   },
   config = function(_, opts)
@@ -46,14 +48,19 @@ return {
     vim.cmd[[
       augroup barbar_overrides
         autocmd!
-        highlight! BufferCurrent        guifg=#f2cc81 guibg=#1a212e
-        highlight! BufferCurrentMod     guifg=#8bcd5b guibg=#1a212e
-        highlight! BufferVisible        guifg=#93a4c3 guibg=#1a212e
-        highlight! BufferVisibleMod     guifg=#1b6a73 guibg=#1a212e
-        highlight! BufferVisibleSign    guifg=#93a4c3 guibg=#1a212e
-        highlight! BufferInactive       guifg=#93a4c3 guibg=#2a324a
-        highlight! BufferInactiveMod    guifg=#34bfd0 guibg=#2a324a
-        highlight! BufferInactiveSign   guifg=#93a4c3 guibg=#2a324a
+        highlight! BufferCurrent          guifg=#ccd3df guibg=#1a212ea gui=NONE
+        highlight! BufferCurrentMod       guifg=#f2cc81 guibg=#1a212ea gui=NONE
+        highlight! BufferCurrentSign      guifg=#f2cc81 guibg=#1a212ea gui=NONE
+
+        highlight! BufferVisible          guifg=#93a4c3 guibg=#1a212ea gui=NONE
+        highlight! BufferVisibleMod       guifg=#f2cc81 guibg=#1a212ea gui=NONE
+        highlight! BufferVisibleSign      guifg=#1a212e guibg=#1a212ea gui=NONE
+
+        highlight! BufferInactive         guifg=#455574 guibg=#141b24a gui=NONE
+        highlight! BufferInactiveMod      guifg=#8f610d guibg=#141b24a gui=NONE
+        highlight! BufferInactiveSign     guifg=#141b24 guibg=#141b24a gui=NONE
+
+        highlight! BufferTabpageFill      guifg=#93a4c3 guibg=#141b24a gui=NONE
       augroup END
     ]]
   end
