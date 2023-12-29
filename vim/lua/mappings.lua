@@ -106,3 +106,8 @@ vim.cmd [[
   \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
   \ . ">"<CR>
 ]]
+
+-- VSCode like keymaps
+nmap('<F3>', '*')
+nmap('<S-F3>', '#')
+nmap('<C-G>', '<C-k><C-g>')

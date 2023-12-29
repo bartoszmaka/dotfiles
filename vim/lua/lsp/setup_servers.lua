@@ -38,7 +38,8 @@ local servers = {
   'solargraph',
   'lua_ls',
   'efm',
-  'emmet_language_server'
+  'emmet_language_server',
+  'prismals',
 }
 
 local on_attach = function(client, bufnr)

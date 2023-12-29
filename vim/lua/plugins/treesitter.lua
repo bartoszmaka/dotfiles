@@ -11,6 +11,26 @@ return {
   build = ':TSUpdate',
   config = function()
     local nnoremap = require('helper').nnoremap
+    vim.g.skip_ts_context_commentstring_module = true
+    require('ts_context_commentstring').setup({
+      javascript = {
+        __default = '// %s',
+        jsx_element = '{/* %s */}',
+        jsx_fragment = '{/* %s */}',
+        jsx_attribute = '// %s',
+        comment = '// %s'
+      },
+      typescriptreact = {
+        __default = '// %s',
+        jsx_element = '{/* %s */}',
+        jsx_fragment = '{/* %s */}',
+        jsx_attribute = '// %s',
+        comment = '// %s'
+      },
+      toml = {
+        __default = '# %s'
+      },
+    })
 
     require 'nvim-treesitter.configs'.setup {
       -- rainbow = {
@@ -47,29 +67,29 @@ return {
         -- }
       },
       -- matchup = { enable = true },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-        config = {
-          javascript = {
-            __default = '// %s',
-            jsx_element = '{/* %s */}',
-            jsx_fragment = '{/* %s */}',
-            jsx_attribute = '// %s',
-            comment = '// %s'
-          },
-          typescriptreact = {
-            __default = '// %s',
-            jsx_element = '{/* %s */}',
-            jsx_fragment = '{/* %s */}',
-            jsx_attribute = '// %s',
-            comment = '// %s'
-          },
-          toml = {
-            __default = '# %s'
-          },
-        }
-      },
+      -- context_commentstring = {
+      --   enable = true,
+      --   enable_autocmd = false,
+      --   config = {
+      --     javascript = {
+      --       __default = '// %s',
+      --       jsx_element = '{/* %s */}',
+      --       jsx_fragment = '{/* %s */}',
+      --       jsx_attribute = '// %s',
+      --       comment = '// %s'
+      --     },
+      --     typescriptreact = {
+      --       __default = '// %s',
+      --       jsx_element = '{/* %s */}',
+      --       jsx_fragment = '{/* %s */}',
+      --       jsx_attribute = '// %s',
+      --       comment = '// %s'
+      --     },
+      --     toml = {
+      --       __default = '# %s'
+      --     },
+      --   }
+      -- },
       incremental_selection = {
         enable = false,
         -- keymaps = {
