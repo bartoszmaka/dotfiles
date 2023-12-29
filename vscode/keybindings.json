@@ -37,6 +37,15 @@
     "when": "vim.active"
   },
   {
+    "key": "shift+cmd+c",
+    "command": "-workbench.action.terminal.openNativeConsole",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "shift+cmd+c",
+    "command": "workbench.panel.chatSidebar"
+  },
+  {
     "key": "cmd+q",
     "command": "workbench.action.closeEditorsInGroup",
     "when": "editorFocus && vim.active && vim.mode == 'Normal'"
@@ -79,7 +88,7 @@
   },
   // Terminal
   {
-    "key": "ctrl+`",
+    "key": "ctrl+shift+`",
     "command": "workbench.action.togglePanel"
   },
   // NERDTree like mappings for explorer
@@ -335,92 +344,28 @@
     "command": "list.expand",
     "when": "listFocus && !inputFocus && activeViewlet =! 'workbench.view.explorer"
   },
-  // {
-  //   "key": "ctrl+e",
-  //   "command": "editor.emmet.action.expandAbbreviation",
-  //   "when": "editorFocus && vim.active && !inDebugRepl && vim.mode == 'Insert'"
-  // },
-  // // Errors
-  // {
-  //   "key": "ctrl+l ctrl+e",
-  //   "command": "workbench.action.tasks.toggleProblems",
-  // },
-  // {
-  //   "key": "ctrl+l ctrl+e",
-  //   "command": "workbench.action.tasks.toggleProblems",
-  //   "when": "searchViewletVisible && sideBarFocus"
-  // },
-  // // Git
-  // {
-  //   "key": "ctrl+k ctrl+g",
-  //   "command": "workbench.view.scm"
-  // },
-  // {
-  //   "key": "ctrl+k ctrl+g",
-  //   "command": "workbench.action.toggleSidebarVisibility",
-  //   "when": "activeViewlet == 'workbench.view.scm' && sideBarFocus"
-  // },
-  // // Explorer
-  // {
-  //   "key": "ctrl+k ctrl+e",
-  //   "command": "workbench.view.explorer",
-  // },
-  // {
-  //   "key": "ctrl+k ctrl+e",
-  //   "command": "workbench.action.toggleSidebarVisibility",
-  //   "when": "explorerViewletVisible"
-  // },
-  // use default cmd+shift+1 for now 
-  // {
-  //   "key": "ctrl+m",
-  //   "command": "editor.action.replaceOne",
-  //   "when": "!inputFocus && editorFocus && findWidgetVisible && vim.mode =! 'Input'"
-  // },
-  // {
-  //   "key": "ctrl+m",
-  //   "command": "search.action.replace",
-  //   "when": "!inputFocus && matchFocus && replaceActive && searchViewletVisible && vim.mode == 'Normal'"
-  // },
-  // Make
-  // {
-  //   "key": "ctrl+m ctrl+d",
-  //   "command": "workbench.action.debug.start",
-  //   "when": "!inDebugMode"
-  // },
-  // {
-  //   "key": "ctrl+m ctrl+d",
-  //   "command": "workbench.action.debug.continue",
-  //   "when": "inDebugMode"
-  // },
-  // {
-  //   "key": "ctrl+m ctrl+s",
-  //   "command": "workbench.action.debug.stop",
-  //   "when": "inDebugMode"
-  // },
-  // {
-  //   "key": "ctrl+m ctrl+r",
-  //   "command": "workbench.action.debug.restart",
-  //   "when": "inDebugMode"
-  // },
-  // Other
-  // {
-  //   "key": "cmd+r",
-  //   "command": "multiCommand.replaceWordUnderCursor",
-  //   "when": "editorFocus"
-  // },
-  // {
-  //   "key": "cmd+h",
-  //   "command": "multiCommand.resetAndGoToExplorer",
-  //   "when": "vim.active && activeEditorGroupIndex == 1"
-  // },
-  // {
-  //   "key": "ctrl+m ctrl+f",
-  //   "command": "eslint.executeAutofix",
-  //   "when": "editorFocus && editorLangId == 'javascript'"
-  // },
-  // {
-  //   "key": "ctrl+m ctrl+f",
-  //   "command": "eslint.executeAutofix",
-  //   "when": "editorFocus && editorLangId == 'javascriptreact'"
-  // },
+  {
+    "key": "ctrl+`",
+    "command": "terminal.focus"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "ctrl+shift+`",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "-workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "cmd+n",
+    "command": "workbench.action.terminal.new",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
 ]

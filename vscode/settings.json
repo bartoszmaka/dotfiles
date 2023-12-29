@@ -1,16 +1,4 @@
 {
-  "ruby.useBundler": true, //run non-lint commands with bundle exec
-  "ruby.useLanguageServer": true, // use the internal language server (see below)
-  "ruby.lint": {
-    "rubocop": {
-      "useBundler": true, // enable rubocop via bundler
-      "forceExclusion": true
-    },
-    "reek": {
-      "useBundler": true // enable reek via bundler
-    }
-  },
-  "ruby.format": "rubocop", // use rubocop for formatting
   "workbench.colorCustomizations": {
     "editorGroup.emptyBackground": "#1A212E",
     "editor.selectionBackground": "#401437",
@@ -27,61 +15,50 @@
     "editorWarning.foreground": "#da8a0000",
     "editorWarning.background": "#00000000",
     "editorError.background": "#00000000",
-    "editorError.foreground": "#ff000066"
+    "editorError.foreground": "#ff000066",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.debuggingForeground": "#ffffff",
+    "tab.inactiveBackground": "#141A24",
+    "tab.border": "#141A24",
+    "editor.lineHighlightBackground": "#21283b"
   },
-  "editor.tokenColorCustomizations": {
-    "[onedark.nvim]": {
-      "textMateRules": [
-        {
-          "name": "variable",
-          "scope": "variable.other.ruby",
-          "settings": {
-            "foreground": "#93a4c3",
-            "fontStyle": ""
-          }
-        }
-      ]
-    }
-  },
-  "files.insertFinalNewline": true,
-  "cSpell.enabled": false,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.settings.openDefaultKeybindings": false,
+  "workbench.settings.openDefaultSettings": false,
   "workbench.commandPalette.preserveInput": true,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "onedark.nvim",
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.panel.defaultLocation": "bottom",
   "debug.console.fontSize": 14,
+  "debug.internalConsoleOptions": "neverOpen",
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', monospace",
   "editor.tabSize": 2,
   "editor.formatOnSave": false,
   "editor.mouseWheelZoom": false,
-  "editor.fontSize": 14,
-  "terminal.integrated.fontSize": 14,
-  "editor.lineHeight": 22,
-  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', monospace",
+  "editor.fontSize": 16,
   "editor.fontFamily": "'Hasklug Nerd Font Mono',  monospace",
   "editor.fontLigatures": false,
   "editor.renderWhitespace": "trailing",
   "editor.cursorStyle": "block",
   "editor.minimap.scale": 2,
-  "explorer.confirmDelete": false,
-  "workbench.startupEditor": "newUntitledFile",
-  "workbench.panel.defaultLocation": "bottom",
-  "material-icon-theme.hidesExplorerArrows": true,
   "editor.cursorSurroundingLines": 4,
   "editor.autoClosingQuotes": "always",
   "editor.autoSurround": "languageDefined",
   "editor.snippetSuggestions": "top",
-  "editor.acceptSuggestionOnEnter": "off",
-  "emmet.showSuggestionsAsSnippets": true,
-  "emmet.triggerExpansionOnTab": false,
-  "emmet.showAbbreviationSuggestions": false,
-  "emmet.showExpandedAbbreviation": "always",
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact",
-    "razor": "html",
-    "plaintext": "pug"
-  },
+  "editor.acceptSuggestionOnEnter": "smart",
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.suggest.insertMode": "replace",
+  "editor.inlineSuggest.enabled": true,
+  "editor.rulers": [
+    81,
+    121
+  ],
   "editor.suggest.localityBonus": true,
   "editor.suggestOnTriggerCharacters": true,
-  "editor.wordBasedSuggestions": true,
+  "editor.wordBasedSuggestions": "matchingDocuments",
   "editor.parameterHints.cycle": true,
   "editor.parameterHints.enabled": true,
   "editor.tabCompletion": "on",
@@ -90,6 +67,39 @@
     "comments": true,
     "strings": true
   },
+  "files.insertFinalNewline": true,
+  "files.hotExit": "off",
+  "files.associations": {
+    "*rc": "shellscript"
+  },
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "material-icon-theme.hidesExplorerArrows": true,
+  "errorLens.messageTemplate": "$source $message $code",
+  // "errorLens.enabledDiagnosticLevels": [
+  //   "warning",
+  //   "info"
+  // ],
+  "emmet.showSuggestionsAsSnippets": true,
+  "emmet.triggerExpansionOnTab": false,
+  "emmet.showAbbreviationSuggestions": false,
+  "emmet.showExpandedAbbreviation": "always",
+  "git.openDiffOnClick": false,
+  "git.openRepositoryInParentFolders": "always",
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": false,
+    "yaml": false
+  },
+  "vscode-run-rspec-file.custom-command": "ht rspec",
+  "search.showLineNumbers": true,
+  "search.smartCase": true,
+  "search.useGlobalIgnoreFiles": false,
+  "window.title": "${dirty}${rootPath} ${activeEditorMedium}",
   // Language integration
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -100,51 +110,16 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  // "[ruby]": {
-  //   "editor.defaultFormatter": "misogi.ruby-rubocop"
-  // },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "git.autofetch": true,
-  "editor.inlineSuggest.enabled": true,
-  "github.copilot.enable": {
-    "*": true,
-    "plaintext": true,
-    "markdown": true,
-    "scminput": false,
-    "yaml": false
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
   },
-  "liveServer.settings.donotShowInfoMsg": true,
-  "ruby.locate": {
-    "exclude": "{**/@(test|spec|tmp|.*),**/@(test|spec|tmp|.*)/**,**/*_spec.rb}",
-    "include": "{**/*.rb,/Users/bartoszmaka/.asdf/installs/ruby/**/*.rb}"
-  },
-  "errorLens.messageTemplate": "$source $message $code",
-  "editor.minimap.enabled": false,
-  "workbench.editor.highlightModifiedTabs": true,
-  "workbench.settings.openDefaultKeybindings": false,
-  "workbench.settings.openDefaultSettings": false,
-  "search.showLineNumbers": true,
-  "search.smartCase": true,
-  "search.useGlobalIgnoreFiles": false,
-  "files.hotExit": "off",
-  "debug.internalConsoleOptions": "neverOpen",
-  "window.title": "${dirty}${rootPath} ${activeEditorMedium}",
-  "editor.rulers": [
-    81,
-    121
-  ],
-  "files.associations": {
-    "*rc": "shellscript"
-  },
-  "sync.autoUpload": true,
-  "sync.quietSync": true,
-  "sync.gist": "d3178992e34a264ccfbbe5a26dca40e2",
-  // Vim
+  "ruby.linter.run": "onSave",
   "vim.enableNeovim": true,
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
   "vim.disableExtension": false,
@@ -153,17 +128,17 @@
   "vim.showcmd": true,
   "vim.easymotion": true,
   "vim.incsearch": true,
+  "vim.inccommand": "append",
   "vim.highlightedyank.enable": true,
   "vim.useSystemClipboard": true,
   "vim.easymotionMarkerBackgroundColor": "#5f0000",
   "vim.history": 1000,
   "vim.statusBarColorControl": true,
+  "vim.cursorStylePerMode.insert": "line",
   "vim.handleKeys": {
     "<C-d>": false,
     "<C-e>": false,
   },
-  "vim.debug.loggingLevelForConsole": "debug",
-  // Macros
   "multiCommand.commands": [
     {
       "command": "multiCommand.replaceWordUnderCursor",
@@ -884,16 +859,5 @@
       ]
     },
   ],
-  "editor.unicodeHighlight.nonBasicASCII": false,
-  "[ruby]": {
-    "editor.defaultFormatter": "Shopify.ruby-lsp"
-  },
-  "errorLens.enabledDiagnosticLevels": [
-    "warning",
-    "info"
-  ],
-  "git.openRepositoryInParentFolders": "always",
-  "vscode-run-rspec-file.custom-command": "ht rspec",
-  "workbench.editor.enablePreview": false,
-  "ruby.linter.run": "onSave"
+  "editor.minimap.enabled": false,
 }
