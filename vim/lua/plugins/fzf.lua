@@ -297,6 +297,7 @@ return {
       nnoremap('<leader>fW', [[:lua require("fzf-lua").grep_cWORD()<CR>]])
 
       nnoremap('<leader>pa', [[:lua require("fzf-lua").builtin()<CR>]])
+      nnoremap('<C-p><C-a>', [[:lua require("fzf-lua").builtin()<CR>]]) -- Mapped to Cmd + Shift + P in alacritty
       nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]])
       -- nnoremap('<leader>pr', [[:lua require("fzf-lua").oldfiles()<CR>]])
       nnoremap('<leader>pg', [[:lua require("fzf-lua").git_status()<CR>]])
@@ -314,6 +315,7 @@ return {
       nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]])
       nnoremap('<leader>pe', [[:lua require("fzf-lua").lsp_document_diagnostics()<CR>]])
       nnoremap('<leader>pE', [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]])
+      nnoremap('<C-f><C-f><C-h>', [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]]) -- Mapped to Cmd + Shift + M in alacritty
       nnoremap('<leader>ps', [[:lua require("fzf-lua").lsp_document_symbols()<CR>]])
       nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {win_height = 0.60, win_width = 0.90, win_row = 0.40, win_col = 0.50}})<CR>]])
       nnoremap('z=', [[:lua require("fzf-lua").spell_suggest()<CR>]])

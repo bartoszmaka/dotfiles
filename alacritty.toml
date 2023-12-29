@@ -80,6 +80,43 @@ style = "Regular"
 x = 0
 y = 6
 
+# Vim mapping hacks
+# Toggle console
+[[keyboard.bindings]]
+chars = "\u0006\u0006\u0060"
+key = "`"
+mods = "Control"
+
+# Hide side panel
+[[keyboard.bindings]]
+chars = "\u0006\u0006\u0062"
+key = "b"
+mods = "Command"
+
+# Show diagnostics panel
+[[keyboard.bindings]]
+chars = "\u0006\u0006\u0008"
+key = "m"
+mods = "Command|Shift"
+
+# Show git changed files
+[[keyboard.bindings]]
+chars = "\u0006\u0006\u0067"
+key = "g"
+mods = "Control|Shift"
+
+# Show files panel
+[[keyboard.bindings]]
+chars = "\u0006\u0006\u0065"
+key = "e"
+mods = "Command|Shift"
+
+# Open fuzzy actions picker
+[[keyboard.bindings]]
+chars = "\u0010\u0001"
+key = "p"
+mods = "Command|Shift"
+
 [[keyboard.bindings]]
 action = "None"
 key = "Q"
