@@ -4,13 +4,30 @@ return {
   cmd = "Neotree",
   keys = {
     {
+      "<C-f><C-f>b", -- Mapped to Cmd-b in alacritty
+      "<cmd>Neotree close<CR>",
+      desc = "Close NeoTree panel",
+    },
+    {
+      "<C-f><C-f>g", -- Mapped to ctrl-shift-g in alacritty
+      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true, source =
+        "git_status" }) end,
+      desc = "Git changed files tree",
+    },
+    {
+      "<C-f><C-f>e", -- Mapped to cmd+shift+e in alacritty
+      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true }) end,
+      desc = "Explorer NeoTree",
+    },
+    {
       "<C-k><C-e>",
       function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true }) end,
       desc = "Explorer NeoTree",
     },
     {
       "<C-k><C-g>",
-      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true, source = "git_status" }) end,
+      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true, source =
+        "git_status" }) end,
       desc = "GitStatus NeoTree",
     },
   },
@@ -61,7 +78,7 @@ return {
       ["U"] = "navigate_up",
       ["F"] = "fuzzy_finder",
       ["<space>"] = "noop",
-      ["O"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "O" }},
+      ["O"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "O" } },
       ["Oc"] = { "order_by_created", nowait = false },
       ["Od"] = { "order_by_diagnostics", nowait = false },
       ["Om"] = { "order_by_modified", nowait = false },
@@ -79,7 +96,7 @@ return {
         winbar = true,
         statusline = false,
         sources = {
-          { source = "filesystem", display_name = "  Files "  },
+          { source = "filesystem", display_name = "  Files " },
           { source = "buffers", display_name = "  Buffers " },
           { source = "git_status", display_name = "  Git " },
           { source = "document_symbols", display_name = "  Symbols " },
@@ -158,14 +175,12 @@ return {
       highlight NeoTreeWinSeparator guibg=#1a212e guifg=#1a212e
     ]]
 
---     vim.cmd [[
---         highlight_tab = "NeoTreeTabInactive",                     -- string
---         highlight_tab_active = "NeoTreeTabActive",                -- string
---         highlight_background = "NeoTreeTabInactive",              -- string
---         highlight_separator = "NeoTreeTabSeparatorInactive",      -- string
---         highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
---     ]]
-
+    --     vim.cmd [[
+    --         highlight_tab = "NeoTreeTabInactive",                     -- string
+    --         highlight_tab_active = "NeoTreeTabActive",                -- string
+    --         highlight_background = "NeoTreeTabInactive",              -- string
+    --         highlight_separator = "NeoTreeTabSeparatorInactive",      -- string
+    --         highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
+    --     ]]
   end,
 }
-

@@ -52,13 +52,23 @@ return {
     local greeting = getGreeting(userName)
     dashboard.section.header.val = vim.split(logo .. "\n" .. greeting, "\n")
     dashboard.section.buttons.val = {
-      dashboard.button("n", "  New file", ":enew <CR>"),
-      dashboard.button("⌘ p", "  Fuzzy find file", ":FzfLua files<CR>"),
-      dashboard.button("⌘ ⇧ f", "  Find in project"),
-      dashboard.button("^p ^r", "  Recently opened files", ":FzfLua oldfiles<CR>"),
-      dashboard.button("SPC p g", "  Fuzzy browse git changes", ":FzfLua git_status<CR>"),
-      dashboard.button("^k ^e", "  Open file explorer", ":Neotree filesystem<CR>"),
-      dashboard.button("^k ^g", "  Open git changed files explorer", ":Neotree git_status<CR>"),
+      dashboard.button("n"            , "  New file"                        , [[:enew <CR>]])                                              ,
+      dashboard.button("⌘ p"          , "  Fuzzy finder file"               , [[:FzfLua files<CR>]])                                       ,
+      dashboard.button("^p ^r"        , "  Recently opened files"           , [[:FzfLua oldfiles<CR>]])                                    ,
+      dashboard.button("⌘ ⇧ p"        , "  Fuzzy finder actions"            , [[:FzfLua<CR>]])                                             ,
+      dashboard.button("⌘ ⇧ e"        , "  Open files tree"                 , [[:Neotree filesystem<CR>]])                                 ,
+      dashboard.button("^ ⇧ g"        , "  Open git changed files explorer" , [[:Neotree git_status<CR>]])                                 ,
+      dashboard.button("⌘ ⇧ f"        , "  Show finder"                     , [[:lua require("fzf-lua").live_grep()<CR>]])                 ,
+      dashboard.button("⌘ ⇧ m"        , "  Show errors"                     , [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]]) ,
+      dashboard.button("⌘ b"          , "  Toggle side panel"               , [[:Neotree close<CR>]])                                      ,
+      dashboard.button("^ `"          , "  Show terminal"                   , [[:FloatermToggle<CR>]])                                     ,
+      dashboard.button("SPC p g"      , "  Fuzzy browse git changes"        , [[:FzfLua git_status<CR>]])                                  ,
+      -- dashboard.button("^k ^e    " , "  Open file explorer"              , [[:Neotree filesystem<CR>]])                                 ,
+      -- dashboard.button("⌘ + ⇧ + c" , "  Show copilot chat (custom)"      , [[]])                                                        ,
+      -- dashboard.button("^ + ⇧ + `" , "Toggle bottom terminal"             , [[]])                                                        ,
+      -- dashboard.button("⌥ + [    " , "Previous Copilot suggestion  "      , [[]])                                                        ,
+      -- dashboard.button("⌥ + ]    " , "Previous Copilot suggestion  "      , [[]])                                                        ,
+      -- dashboard.button("⌘ + ⇧ + t" , "Go to latest tab (or buffer)"       , [[]])                                                        ,
     }
 
 
