@@ -1,15 +1,15 @@
 return {
 
-  -- copilot
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    build = ":Copilot auth",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    },
-  },
+  -- copilot - Already in lua/plugins/cmp.lua
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   build = ":Copilot auth",
+  --   opts = {
+  --     suggestion = { enabled = false },
+  --     panel = { enabled = false },
+  --   },
+  -- },
   {
     "nvim-lualine/lualine.nvim",
     optional = true,

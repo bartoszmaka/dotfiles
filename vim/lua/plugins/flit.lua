@@ -25,6 +25,13 @@ return {
       leap.add_default_mappings(false)
       vim.keymap.del({ "x", "o" }, "x")
       vim.keymap.del({ "x", "o" }, "X")
+
+
+      vim.cmd [[
+        highlight! link LeapLabelPrimary IncSearch
+        highlight! link LeapLabelSecondary IncSearch
+        " highlight! link LeapMatch IncSearch
+      ]]
     end,
   },
 }

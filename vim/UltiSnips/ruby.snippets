@@ -24,14 +24,14 @@ def toPascalCase(string):
 	return string.replace("_", " ").title().replace(" ", "")
 
 def getClassFromPath():
-	parts = path.split('.')[0].split('/')
+	parts = vim.eval('expand("%:.")').split('.')[0].split('/')
 	last = parts.pop()
 	if last.endswith('_spec'): last = last[:-5]
 
 	return last
 
 def getModulesFromPath():
-	parts = path.split('.')[0].split('/')
+	parts = vim.eval('expand("%:.")').split('.')[0].split('/')
 	return parts[2:-1]
 
 def buildShortClassWithModules():

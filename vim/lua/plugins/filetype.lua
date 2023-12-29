@@ -6,6 +6,7 @@ return {
     require('filetype').setup({
       overrides = {
         extensions = {
+          prisma = 'prisma',
           html = 'html',
           yml = 'yaml',
           sh = 'sh',

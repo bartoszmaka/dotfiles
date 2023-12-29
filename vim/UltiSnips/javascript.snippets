@@ -106,12 +106,18 @@ snippet ex "export" w
 export ${1}
 endsnippet
 
-snippet exd "export default" w
+snippet ed "export default" w
 export default ${1}
 endsnippet
 
-snippet exc "export const" w
+snippet ec "export const" w
 export const ${1}
+endsnippet
+
+snippet edf "export default function" w
+export default function ${1}(${2}) {
+  return ${3:null}
+}
 endsnippet
 
 snippet cl "console.log" w

@@ -79,8 +79,9 @@ return {
       vim.g.fzf_mru_relative = 1
       vim.g.fzf_mru_no_sort = 1
       vim.g.fzf_colors = { bg = { 'bg', 'NormalDarker' } }
-      vim.g.fzf_layout = { window = { width = 0.90, height = 0.62 } }
+      vim.g.fzf_layout = { window = { width = 0.90, height = 0.66 } }
       vim.g.fzf_action = { ['ctrl-s'] = 'split', ['ctrl-v'] = 'vsplit' }
+
       vim.cmd [[
         command! -bang -nargs=? FZFFreshMruPreview call fzf_mru#actions#mru(<q-args>,
           \{
@@ -93,11 +94,14 @@ return {
               \'--info', 'inline-right',
               \'--prompt', '> ',
               \'--ansi',
-              \'--color', 'gutter:#141b24,border:#93a4c3',
-              \'--bind', 'ctrl-_:toggle-preview'
+              \'--color', 'dark,gutter:#141b24,border:#93a4c3',
+              \'--bind', 'f3:toggle-preview-wrap,f4:toggle-preview',
             \]
           \}
         \)
+      ]]
+      vim.cmd [[
+        autocmd FileType fzf tnoremap <buffer> <esc> <esc>
       ]]
 
       require('fzf-lua').setup {
@@ -194,7 +198,8 @@ return {
         grep                      = setup("Search", {
           fzf_opts                = presets.fzf_opts,
           rg_glob                 = true,
-          rg_opts                 = "--hidden --column --line-number --no-heading --color=always --smart-case -g '!{*.min.js,*.js.map}' -g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
+          -- rg_opts                 = "--hidden --column --line-number --no-heading --color=always --smart-case -g '!{*.min.js,*.js.map}' -g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
+          rg_opts                 = "--hidden --column --line-number --no-heading --color=always --fixed-strings --smart-case -g '!{*.min.js,*.js.map}' -g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
           git_icons      = true, -- show git icons?
           file_icons     = true, -- show file icons?
           color_icons    = true, -- colorize file|git icons
@@ -282,7 +287,7 @@ return {
         },
       }
 
-      -- nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>')
+      nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>')
 
       nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]])
       vnoremap('<C-p><C-p>', [[y<esc>:lua require("fzf-lua").files()<CR>p]])
@@ -293,7 +298,7 @@ return {
 
       nnoremap('<leader>pa', [[:lua require("fzf-lua").builtin()<CR>]])
       nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]])
-      nnoremap('<leader>pr', [[:lua require("fzf-lua").oldfiles()<CR>]])
+      -- nnoremap('<leader>pr', [[:lua require("fzf-lua").oldfiles()<CR>]])
       nnoremap('<leader>pg', [[:lua require("fzf-lua").git_status()<CR>]])
       nnoremap('<leader>pb', [[:lua require("fzf-lua").buffers()<CR>]])
       nnoremap('<leader>pB', [[:lua require("fzf-lua").git_branches()<CR>]])

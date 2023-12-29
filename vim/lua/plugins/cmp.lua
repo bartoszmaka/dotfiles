@@ -32,12 +32,12 @@ return {
     cmd = "Copilot",
     build = ":Copilot auth",
     opts = {
-      suggestion = { enabled = false },
+      suggestion = { enabled = true },
       panel = {
-        enabled = false,
+        enabled = true,
         layout = {
           position = "right",
-          ratio = 0.2
+          ratio = 0.3
         },
       },
       filetypes = {
@@ -70,8 +70,8 @@ return {
       inoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
       nnoremap("<M-[>", "<cmd>Copilot panel jump_prev<CR>")
       nnoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
-      inoremap("<M-a>", "<cmd>Copilot panel accept<CR>")
-      nnoremap("<M-a>", "<cmd>Copilot panel accept<CR>")
+      inoremap("<M-o>", "<cmd>Copilot panel accept<CR>")
+      nnoremap("<M-o>", "<cmd>Copilot panel accept<CR>")
     end
   },
   -- {
