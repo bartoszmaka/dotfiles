@@ -2,6 +2,7 @@ mkdir -p ~/.config/nvim
 mkdir -p ~/.config/alacritty
 
 # vim files
+ln -vsf ~/.repos/dotfiles/vim/nvim-logo.sh ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/init.lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/UltiSnips ~/.config/nvim/
@@ -13,7 +14,7 @@ ln -vsf ~/.repos/dotfiles/resources/global_gitignore ~/.gitignore
 ln -vsf ~/.repos/dotfiles/resources/gitconfig ~/.gitconfig
 ln -vsf ~/.repos/dotfiles/resources/rubocop.yml ~/.rubocop.yml
 ln -vsf ~/.repos/dotfiles/resources/pryrc ~/.pryrc
-ln -vsf ~/.repos/dotfiles/alacritty.yml ~/.config/alacritty/alacritty.yml
+ln -vsf ~/.repos/dotfiles/alacritty.toml ~/.config/alacritty/alacritty.toml
 ln -vsf ~/.repos/dotfiles/jetbrains/ideavimrc ~/.ideavimrc
 ln -vsf ~/.repos/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 ln -vsf ~/.repos/dotfiles/kitty/macos-launch-serviecs-cmdline ~/.config/kitty/macos-launch-serviecs-cmdline
