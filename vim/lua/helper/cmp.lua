@@ -1,4 +1,5 @@
 local symbols = require('helper').symbols
+local tailwind_formatter = require("tailwindcss-colorizer-cmp").formatter
 local get = require('helper').get
 
 local M = {}
@@ -32,7 +33,6 @@ end
 
 M.format_entry = function(entry, vim_item)
   local source = ''
-  local formatted_source = ''
   local lsp_name_shorthand = ({
     emmet_language_server = 'emmet',
   })
@@ -47,13 +47,21 @@ M.format_entry = function(entry, vim_item)
     nvim_lsp_signature_help = '[Arg]',
   })[entry.source.name] or entry.source.name or ''
 
+  local icon = symbols[vim_item.kind]
+
   if entry.source.name == 'nvim_lsp' then
     local ls_name = get(entry, 'source.source.client.config.name')
     source = lsp_name_shorthand[ls_name] or ls_name or ''
     source_tag = '(' .. source .. ')'
-  end
 
-  local icon = symbols[vim_item.kind]
+    if ls_name == 'tailwindcss' and vim_item.kind == 'Color' then
+      local formatted = tailwind_formatter(entry, vim_item)
+
+      if formatted.kind == "X" then
+        formatted.kind = formatted.kind
+      end
+    end
+  end
 
   vim_item.kind = ' ' .. icon .. ' '
   vim_item.menu = ' ' .. source_tag

@@ -137,6 +137,14 @@ return {
           end)
         end,
       },
+      {
+        "roobert/tailwindcss-colorizer-cmp.nvim",
+        config = function()
+          require("tailwindcss-colorizer-cmp").setup({
+            color_square_width = 1,
+          })
+        end
+      }
     },
     opts = function()
       local cmp = require('cmp')
@@ -160,12 +168,12 @@ return {
           end
         end,
         insert_tab_mapping = function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-          elseif vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
+          if vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
             vim.api.nvim_feedkeys(t('<Plug>(ultisnips_expand)'), 'm', true)
           elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
             return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_forward)'), 'm', true)
+          elseif cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
           else
             vim.fn.feedkeys(t('<tab>'), 'n')
           end

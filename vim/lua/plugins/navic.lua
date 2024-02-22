@@ -3,20 +3,20 @@ return {
   lazy = true,
   opts = function()
     return {
-      separator = " ",
+      separator = ' > ',
       highlight = true,
       depth_limit = 5,
       icons = require("helper.symbols")
     }
   end,
-  init = function()
-    vim.g.navic_silence = true
-    require("helper").on_attach(function(client, buffer)
-      if client.server_capabilities.documentSymbolProvider then
-        require("nvim-navic").attach(client, buffer)
-      end
-    end)
-  end
+  -- init = function()
+  --   vim.g.navic_silence = true
+  --   require("helper").on_attach(function(client, buffer)
+  --     if client.server_capabilities.documentSymbolProvider then
+  --       require("nvim-navic").attach(client, buffer)
+  --     end
+  --   end)
+  -- end
 }
 
 -- vim.api.nvim_set_hl(0, "NavicIconsFile",          {default = true, bg = "#000000", fg = "#ffffff"})

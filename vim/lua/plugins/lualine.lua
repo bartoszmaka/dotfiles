@@ -4,7 +4,7 @@ return {
   event = "VeryLazy",
   opts = function()
     local navicLoaded, navic = pcall(require, "nvim-navic")
-    local gpsLoaded, gps = pcall(require, "nvim-gps")
+    -- local gpsLoaded, gps = pcall(require, "nvim-gps")
     local copilotLoaded, _ = pcall(require, "copilot.api")
     local helper = require('helper')
     local colors = helper.colors.onedark
@@ -55,7 +55,8 @@ return {
       },
       filetype = { 'filetype', colored = true, icon_only = true },
       filename = { 'filename', file_status = true, path = 1 },
-      gps = gpsLoaded and { gps.get_location, cond = gps.is_available, color = { fg = colors.grey } } or {},
+      -- gps = gpsLoaded and { gps.get_location, cond = gps.is_available, color = { fg = colors.grey } } or {},
+      navic = navicLoaded and { navic.get_location, cond = navic.is_available, color = { fg = colors.grey } } or {},
       flags = { getFlags, color = { fg = colors.yellow } },
       copilot = copilotLoaded and {
         function()
@@ -95,7 +96,7 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { sections.filetype, sections.filename, },
-        lualine_c = { sections.gps },
+        lualine_c = { sections.navic },
         lualine_x = { sections.flags, sections.diagnostics, sections.copilot, 'filetype' },
         lualine_y = { sections.diff, },
         lualine_z = { sections.location }
@@ -112,7 +113,7 @@ return {
       -- winbar = {
       --   lualine_a = {},
       --   lualine_b = {},
-      --   lualine_c = { sections.gps },
+      --   lualine_c = { sections.navic },
       --   lualine_x = {},
       --   lualine_y = {},
       --   lualine_z = {},
@@ -120,7 +121,7 @@ return {
       -- inactive_winbar = {
       --   lualine_a = {},
       --   lualine_b = {},
-      --   lualine_c = { sections.gps },
+      --   lualine_c = { sections.navic },
       --   lualine_x = {},
       --   lualine_y = {},
       --   lualine_z = {},

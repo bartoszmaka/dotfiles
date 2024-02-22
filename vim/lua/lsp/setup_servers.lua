@@ -1,6 +1,7 @@
-local helper = require('helper')
+-- local helper = require('helper')
 local native_capabilities = vim.lsp.protocol.make_client_capabilities()
 local loaded_cmp, capabilities = pcall(require, "cmp_nvim_lsp")
+local navic = require('nvim-navic')
 
 if loaded_cmp then
   capabilities = capabilities.default_capabilities(native_capabilities)
@@ -34,24 +35,26 @@ local servers = {
   "vuels",
   "yamlls",
   'cssls',
-  'ruby_ls', -- restore once gems are fixed
+  'ruby_ls',
   'solargraph',
   'lua_ls',
   'efm',
   'emmet_language_server',
   'prismals',
+  'pyright',
 }
 
 local on_attach = function(client, bufnr)
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   require('lsp-status').on_attach(client)
+  navic.attach(client, bufnr)
 
-  if helper.set_contains({ 'css', 'scss', 'sass' }, vim.bo.filetype) then
-    buf_set_option('omnifunc', 'csscomplete#CompleteCSS')
-  else
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-  end
+  -- if helper.set_contains({ 'css', 'scss', 'sass' }, vim.bo.filetype) then
+  --   buf_set_option('omnifunc', 'csscomplete#CompleteCSS')
+  -- else
+  --   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- end
 
   -- helper.set_default_formatter_for_filetypes('solargraph', { 'ruby' })
   -- helper.set_default_formatter_for_filetypes('null-ls', { 'javascript', 'vue' })

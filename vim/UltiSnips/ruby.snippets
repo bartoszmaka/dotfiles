@@ -98,12 +98,6 @@ snippet ysbp "yield_self binding.pry" w
 .yield_self { |object| binding.pry }
 endsnippet
 
-snippet de "spec describe" w
-describe '${1}' do
-  ${2}
-end
-endsnippet
-
 snippet desc "spec describe" w
 describe '${1}' do
   ${2}
@@ -117,14 +111,6 @@ end
 endsnippet
 
 snippet cont "spec context" w
-context 'when ${1}' do
-	it '${2}' do
-		${3}
-	end
-end
-endsnippet
-
-snippet context "spec context" w
 context 'when ${1}' do
 	it '${2}' do
 		${3}
@@ -295,7 +281,7 @@ snippet doc "yard doc" b
 endsnippet
 
 snippet nowm "now time mock" b
-now = DateTime.new(2017, 1, 27, 12, 30)
+DateTime.new(2017, 1, 27, 12, 30)
 endsnippet
 
 snippet tcf "Timecop.freeze(now)" b
