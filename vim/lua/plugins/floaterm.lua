@@ -12,6 +12,7 @@ return {
 
     vim.cmd [[
       autocmd User FloatermOpen setlocal nonumber
+      highlight Floaterm guibg=#141b24 guifg=#93a4c3
     ]]
 
     nnoremap('<C-f><C-f>`', [[:FloatermToggle<CR>]]) -- Mapped to C-` in alactirry

@@ -26,6 +26,7 @@ vim.cmd [[
     autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
     autocmd FileType vista_kind setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
     autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
+    autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
   augroup END
 
   augroup treesitter_overrides
@@ -55,6 +56,11 @@ vim.cmd [[
     highlight! link @lsp.typemod.function.declaration.typescriptreact @type
     highlight! link @lsp.typemod.function.readonly.typescriptreact @type
     highlight! link @lsp.typemod.variable.readonly.javascript @type
+    highlight! link @lsp.typemod.variable.readonly.javascript @type
+    highlight! link @variable.member.ruby Special
+    highlight! link @variable.parameter.ruby Special
+    highlight! link @string.special.symbol.ruby Constant
+
     " highlight! link @type.javascript @type set prio to 200
   augroup END
 

@@ -86,7 +86,7 @@ return {
         command! -bang -nargs=? FZFFreshMruPreview call fzf_mru#actions#mru(<q-args>,
           \{
             \'options': [
-              \'--preview', 'bat {}',
+              \'--preview', 'bat --color=always --plain {}',
               \'--preview-window', 'right:40%',
               \'--reverse',
               \'--preview-window', 'border-sharp',
@@ -288,12 +288,13 @@ return {
       }
 
       nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>')
+      nnoremap('<C-p><c-r>', ':FZFFreshMruPreview()<CR>')
 
       nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]])
       vnoremap('<C-p><C-p>', [[y<esc>:lua require("fzf-lua").files()<CR>p]])
       nnoremap('<C-p><C-f>', [[:lua require("fzf-lua").live_grep()<CR>]])
       vnoremap('<C-p><C-f>', [[<esc>:lua require("fzf-lua").grep_visual()<CR>]])
-      nnoremap('<C-p><C-r>', [[:lua require("fzf-lua").oldfiles()<CR>]])
+      -- nnoremap('<C-p><c-r>', [[:lua require("fzf-lua").oldfiles()<CR>]])
       nnoremap('<leader>fW', [[:lua require("fzf-lua").grep_cWORD()<CR>]])
 
       nnoremap('<leader>pa', [[:lua require("fzf-lua").builtin()<CR>]])
