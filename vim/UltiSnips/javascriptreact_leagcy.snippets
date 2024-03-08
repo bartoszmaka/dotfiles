@@ -1,0 +1,94 @@
+snippet cwm "componentWillMount" w
+componentWillMount(${1}) {${2}}
+endsnippet
+
+snippet cdm "componentDidMount" w
+componentDidMount(${1}) {${2}}
+endsnippet
+
+snippet cwr "componentWillReceiveProps" w
+componentWillReceiveProps(${1}) {${2}}
+endsnippet
+
+snippet scu "shouldComponentUpdate" w
+shouldComponentUpdate(${1}) {${2}}
+endsnippet
+
+snippet cwup "componnetWillUpdate" w
+componnetWillUpdate(${1}) {${2}}
+endsnippet
+
+snippet cdup "componentDidUpdate" w
+componentDidUpdate(${1}) {${2}}
+endsnippet
+
+snippet cwun "componentWillUnmount" w
+componentWillUnmount(${1}) {${2}}
+endsnippet
+
+snippet cdc "componentDidCatch" w
+componentDidCatch(error, info) {${1}}
+endsnippet
+
+snippet sdp "static defaultProps" w
+static defaultProps = {
+  ${1}
+}
+endsnippet
+
+snippet tss "this.setState" w
+this.setState({${1}})
+endsnippet
+
+snippet tssp "setState prevState" w
+this.setState((prevState) => ${1})
+endsnippet
+
+snippet tsspp "setState full" w
+this.setState((prevState, prevProps) => ${1})
+endsnippet
+
+snippet sccl
+import React, { Component } from 'react'
+
+export class ${1} extends Component {
+  render() {
+    return (
+      ${2}
+    )
+  }
+}
+
+export default $1
+endsnippet
+
+snippet scsnap "Description" b
+import React from 'react';
+import { shallow } from 'enzyme';
+import { MockedProvider } from '@apollo/client/testing';
+
+import { $1 } from '../$1';
+
+describe('$1', () => {
+  const setup = (additionalProps) => {
+    const props = {${2}, ...additionalProps};
+
+    const wrapper = shallow(
+      <MockedProvider>
+        <${1} {...props} />
+      </MockedProvider>,
+      ,
+    );
+
+    return {
+      props,
+      wrapper,
+    };
+  };
+
+  test('render', () => {
+    expect(setup().wrapper).toMatchSnapshot();
+  });
+});
+endsnippet
+

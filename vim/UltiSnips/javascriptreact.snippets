@@ -18,77 +18,12 @@ def toPascalCase(string):
 
 endglobal
 
-snippet rcla "component class" w
-class ${1} extends Component {
-  render() {
-    return (
-      ${2}
-    )
-  }
-}
-endsnippet
-
 snippet msp "mapStateToProps" w
 mapStateToProps
 endsnippet
 
 snippet mdp "mapDispatchToProps" w
 mapDispatchToProps
-endsnippet
-
-snippet cwm "componentWillMount" w
-componentWillMount(${1}) {${2}}
-endsnippet
-
-snippet cdm "componentDidMount" w
-componentDidMount(${1}) {${2}}
-endsnippet
-
-snippet cwr "componentWillReceiveProps" w
-componentWillReceiveProps(${1}) {${2}}
-endsnippet
-
-snippet scu "shouldComponentUpdate" w
-shouldComponentUpdate(${1}) {${2}}
-endsnippet
-
-snippet cwup "componnetWillUpdate" w
-componnetWillUpdate(${1}) {${2}}
-endsnippet
-
-snippet cdup "componentDidUpdate" w
-componentDidUpdate(${1}) {${2}}
-endsnippet
-
-snippet cwun "componentWillUnmount" w
-componentWillUnmount(${1}) {${2}}
-endsnippet
-
-snippet cdc "componentDidCatch" w
-componentDidCatch(error, info) {${1}}
-endsnippet
-
-snippet ren "render" w
-render() {
-  ${1}
-  return (
-    <div>
-      ${2}
-    </div>
-  )
-}
-endsnippet
-
-snippet spt "static propTypes" w
-static propTypes = {
-  ${1}
-}
-endsnippet
-
-snippet sdp "static defaultProps" w
-static defaultProps = {
-  ${1}
-}
 endsnippet
 
 snippet pt "PropTypes" w
@@ -175,18 +110,6 @@ snippet ptcr "PropTypes.node.isRequired" w
 PropTypes.node.isRequired
 endsnippet
 
-snippet tss "this.setState" w
-this.setState({${1}})
-endsnippet
-
-snippet tssp "setState prevState" w
-this.setState((prevState) => ${1})
-endsnippet
-
-snippet tsspp "setState full" w
-this.setState((prevState, prevProps) => ${1})
-endsnippet
-
 snippet us "useState" w
 const [$1, set`!p snip.rv=upperfirst(t[1])`] = useState($2)
 endsnippet
@@ -210,8 +133,6 @@ const ${1} = useCallback(${2})
 endsnippet
 
 snippet scfn
-import React from 'react'
-
 const ${1} = (${2:props}) => {
   return (
     <pre>{JSON.stringify(props, null, 2)}</pre>
@@ -222,7 +143,6 @@ export default $1
 endsnippet
 
 snippet scfnpt
-import React from 'react'
 import PropTypes from 'prop-types'
 
 const ${1} = (${2:props}) => {
@@ -233,20 +153,6 @@ const ${1} = (${2:props}) => {
 
 $1.propTypes = {
 
-}
-
-export default $1
-endsnippet
-
-snippet sccl
-import React, { Component } from 'react'
-
-export class ${1} extends Component {
-  render() {
-    return (
-      ${2}
-    )
-  }
 }
 
 export default $1
@@ -274,46 +180,12 @@ export default connect(
 )($1)
 endsnippet
 
-snippet scrcl
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-
-export class ${1} extends Component {
-  render() {
-    return (
-      ${2}
-    )
-  }
-}
-
-const mapStateToProps = state => ({
-
-})
-
-const mapDispatchToProps = {}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(${1})
-endsnippet
-
 snippet edn
 // eslint-disable-next-line ${1}
 endsnippet
 
 snippet esd
 // eslint-disable ${1}
-endsnippet
-
-snippet clcl
-console.log({ props: this.props, state: this.state })
-endsnippet
-
-snippet btn
-<button>
-  $0
-</button>
 endsnippet
 
 snippet cn
@@ -330,44 +202,4 @@ endsnippet
 
 snippet imy "import yup" w
 import * as yup from 'yup';
-endsnippet
-
-snippet scenzyme "scaffold enzyme test" w
-import React from 'react';
-import { mount } from 'enzyme';
-import { MemoryRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-
-import ${1} from '../$1';
-
-const mockedStore = {
-  subscribe: () => {},
-  getState: () => {},
-  dispatch: () => {},
-};
-
-const setup = (additionalProps = {}) => {
-  const props = {
-		${2}
-    ...additionalProps,
-  };
-
-  const wrapper = mount(
-    <Provider store={mockedStore}>
-      <Router>
-        <$1 {...props} />
-      </Router>
-    </Provider>,
-  );
-
-  return { wrapper, props };
-};
-
-describe('$1', () => {
-  it('matches the snapshot', () => {
-    const { wrapper } = setup();
-
-    expect(wrapper.find('$1')).toMatchSnapshot();
-  });
-});
 endsnippet
