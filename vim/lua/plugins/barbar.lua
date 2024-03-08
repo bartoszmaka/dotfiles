@@ -18,7 +18,7 @@ return {
     highlight_alternate = false,
     highlight_inactive_file_icons = true,
     icons = {
-      button = '',
+      button = '󰖭',
       separator = {left = '▏', right = '▕'}
     }
   },

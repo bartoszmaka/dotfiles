@@ -43,8 +43,8 @@ vim.cmd [[
     highlight! link htmlBold Normal
     highlight! link htmlBoldItalic Normal
     highlight! link htmlBoldItalicUnderline Normal
-    highlight! link tsxTSTag TSConstructor
-    highlight! link tsxTSTag TSConstructor
+    " highlight! link tsxTSTag TSConstructor
+    " highlight! link tsxTSTag TSConstructor
     highlight! link @lsp.type.type @type
     highlight! link @lsp.type.macro @macro
     highlight! link @lsp.type.method @method
@@ -53,13 +53,25 @@ vim.cmd [[
     highlight! link @lsp.type.property @property
     highlight! link @lsp.type.namespace @namespace
     highlight! link @lsp.type.parameter @parameter
-    highlight! link @lsp.typemod.function.declaration.typescriptreact @type
-    highlight! link @lsp.typemod.function.readonly.typescriptreact @type
-    highlight! link @lsp.typemod.variable.readonly.javascript @type
-    highlight! link @lsp.typemod.variable.readonly.javascript @type
+
+    " ruby 
     highlight! link @variable.member.ruby Special
     highlight! link @variable.parameter.ruby Special
     highlight! link @string.special.symbol.ruby Constant
+
+    " typescript
+    highlight! link @tag.delimiter.tsx Normal
+    highlight! link @tag.tsx Type
+    highlight! link @lsp.typemod.function.declaration.typescriptreact @type
+    highlight! link @lsp.typemod.function.readonly.typescriptreact @type
+    highlight! link @lsp.type.variable.typescriptreact Special
+
+    " javascript
+    highlight! link @lsp.typemod.variable.readonly.javascript @type
+    highlight! link @lsp.typemod.variable.readonly.javascript @type
+    highlight! link @tag.delimiter.javascript Normal
+    highlight! link @lsp.type.variable.javascript Special
+    highlight! link @tag.javascript @type
 
     " highlight! link @type.javascript @type set prio to 200
   augroup END
@@ -88,6 +100,7 @@ vim.cmd [[
     highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE
     highlight! DiagnosticUnderlineInfo   guibg=NONE gui=NONE
     highlight! DiagnosticUnderlineHint   guibg=NONE gui=NONE
+    " highlight! DiagnosticUnnecessary
   augroup END
 
   augroup hlargs_overrides

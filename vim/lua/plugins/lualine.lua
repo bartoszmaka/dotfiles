@@ -54,9 +54,16 @@ return {
         end
       },
       filetype = { 'filetype', colored = true, icon_only = true },
-      filename = { 'filename', file_status = true, path = 1 },
-      -- gps = gpsLoaded and { gps.get_location, cond = gps.is_available, color = { fg = colors.grey } } or {},
-      navic = navicLoaded and { navic.get_location, cond = navic.is_available, color = { fg = colors.grey } } or {},
+      filename = { 'filename', file_status = true, path = 1, color = { fg = colors.grey }},
+      navic = {
+        function()
+          return " " .. navic.get_location()
+        end,
+        cond = function()
+          return navicLoaded and navic.is_available()
+        end,
+        padding = { left_padding = 2, right_padding = 0 }
+      },
       flags = { getFlags, color = { fg = colors.yellow } },
       copilot = copilotLoaded and {
         function()
@@ -83,10 +90,10 @@ return {
         section_separators = { '', '' },
         disabled_filetypes = {
           statusline = {},
-          winbar = {}
+          winbar = { 'neo-tree' }
         },
         ignore_focus = {},
-        globalstatus = false,
+        globalstatus = true,
         refresh = {
           statusline = 1000,
           tabline = 1000,
@@ -95,9 +102,11 @@ return {
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { sections.filetype, sections.filename, },
+        -- lualine_b = { sections.filetype, sections.filename, },
+        lualine_b = {},
         lualine_c = { sections.navic },
-        lualine_x = { sections.flags, sections.diagnostics, sections.copilot, 'filetype' },
+        -- lualine_x = { sections.flags, sections.diagnostics, sections.copilot, 'filetype' },
+        lualine_x = { sections.flags, sections.diagnostics, 'filetype' },
         lualine_y = { sections.diff, },
         lualine_z = { sections.location }
       },
@@ -109,29 +118,27 @@ return {
         lualine_y = { sections.diff },
         lualine_z = { sections.location }
       },
+      inactive_winbar = {
+        lualine_c = {
+          { 'filetype', colored = false, icon_only = true },
+          { 'filename', path = 1, file_status = true, color = { fg = colors.grey } },
+        }
+      },
+      winbar = {
+        -- For some reason coloring breaks stuff only in winbar
+        lualine_c = {
+          { 'filetype', colored = false, icon_only = true },
+          { 'filename', path = 1, file_status = true },
+        }
+      },
       tabline = {},
-      -- winbar = {
-      --   lualine_a = {},
-      --   lualine_b = {},
-      --   lualine_c = { sections.navic },
-      --   lualine_x = {},
-      --   lualine_y = {},
-      --   lualine_z = {},
-      -- },
-      -- inactive_winbar = {
-      --   lualine_a = {},
-      --   lualine_b = {},
-      --   lualine_c = { sections.navic },
-      --   lualine_x = {},
-      --   lualine_y = {},
-      --   lualine_z = {},
-      -- },
       extensions = {
         'quickfix',
         'fzf',
-        'nvim-tree',
+        'neo-tree',
         'fugitive',
         'man',
+        'mason',
         'mundo',
         'symbols-outline',
         'neo-tree',
@@ -142,80 +149,3 @@ return {
     return options
   end
 }
--- {
---   "nvim-lualine/lualine.nvim",
---   event = "VeryLazy",
---   opts = function()
---     local icons = require("lazyvim.config").icons
---     local Util = require("lazyvim.util")
-
---     return {
---       options = {
---         theme = "auto",
---         globalstatus = true,
---         disabled_filetypes = { statusline = { "dashboard", "alpha" } },
---       },
---       sections = {
---         lualine_a = { "mode" },
---         lualine_b = { "branch" },
---         lualine_c = {
---           {
---             "diagnostics",
---             symbols = {
---               error = icons.diagnostics.Error,
---               warn = icons.diagnostics.Warn,
---               info = icons.diagnostics.Info,
---               hint = icons.diagnostics.Hint,
---             },
---           },
---           { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
---           { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } },
---           -- stylua: ignore
---           {
---             function() return require("nvim-navic").get_location() end,
---             cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
---           },
---         },
---         lualine_x = {
---           -- stylua: ignore
---           {
---             function() return require("noice").api.status.command.get() end,
---             cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
---             color = Util.fg("Statement"),
---           },
---           -- stylua: ignore
---           {
---             function() return require("noice").api.status.mode.get() end,
---             cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
---             color = Util.fg("Constant"),
---           },
---           -- stylua: ignore
---           {
---             function() return "  " .. require("dap").status() end,
---             cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
---             color = Util.fg("Debug"),
---           },
---           { require("lazy.status").updates, cond = require("lazy.status").has_updates, color = Util.fg("Special") },
---           {
---             "diff",
---             symbols = {
---               added = icons.git.added,
---               modified = icons.git.modified,
---               removed = icons.git.removed,
---             },
---           },
---         },
---         lualine_y = {
---           { "progress", separator = " ", padding = { left = 1, right = 0 } },
---           { "location", padding = { left = 0, right = 1 } },
---         },
---         lualine_z = {
---           function()
---             return " " .. os.date("%R")
---           end,
---         },
---       },
---       extensions = { "neo-tree", "lazy" },
---     }
---   end,
--- },

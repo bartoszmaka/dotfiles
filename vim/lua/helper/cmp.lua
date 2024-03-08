@@ -53,6 +53,9 @@ M.format_entry = function(entry, vim_item)
     local ls_name = get(entry, 'source.source.client.config.name')
     source = lsp_name_shorthand[ls_name] or ls_name or ''
     source_tag = '(' .. source .. ')'
+    if source == "emmet" and vim_item.kind == "Text" then
+      icon = symbols.Emmet
+    end
 
     if ls_name == 'tailwindcss' and vim_item.kind == 'Color' then
       local formatted = tailwind_formatter(entry, vim_item)
@@ -63,8 +66,8 @@ M.format_entry = function(entry, vim_item)
     end
   end
 
+  vim_item.menu = ' ' .. vim_item.kind .. ' ' .. source_tag
   vim_item.kind = ' ' .. icon .. ' '
-  vim_item.menu = ' ' .. source_tag
 
   return vim_item
 end

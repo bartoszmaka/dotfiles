@@ -9,6 +9,19 @@ M.getFlags = function()
   return table.concat(flags, ' ')
 end
 
+M.isOnlySplitOpen = function()
+  if vim.fn.winnr('$') == 1 then
+    return true
+  end
+
+  local excluded_filetypes = {}
+  return false
+end
+
+M.isNotOnlySplitOpen = function()
+  return not M.isOnlySplitOpen()
+end
+
 M.theme = {
   onedark = {
     normal = {
