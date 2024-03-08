@@ -45,20 +45,11 @@ local servers = {
 }
 
 local on_attach = function(client, bufnr)
-  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
   require('lsp-status').on_attach(client)
-  navic.attach(client, bufnr)
 
-  -- if helper.set_contains({ 'css', 'scss', 'sass' }, vim.bo.filetype) then
-  --   buf_set_option('omnifunc', 'csscomplete#CompleteCSS')
-  -- else
-  --   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-  -- end
-
-  -- helper.set_default_formatter_for_filetypes('solargraph', { 'ruby' })
-  -- helper.set_default_formatter_for_filetypes('null-ls', { 'javascript', 'vue' })
-  -- helper.set_default_formatter_for_filetypes('sumneko_lua', { 'lua' })
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
 end
 
 require("mason").setup()

@@ -20,7 +20,10 @@
 return {
   "RRethy/vim-illuminate",
   event = { "BufReadPost", "BufNewFile" },
-  opts = { delay = 200 },
+  opts = {
+    delay = 200,
+    filetypes_denylist = { 'lua' }
+  },
   config = function(_, opts)
     require("illuminate").configure(opts)
 

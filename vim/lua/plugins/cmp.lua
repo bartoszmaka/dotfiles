@@ -16,6 +16,7 @@ return {
       augroup setup_snippet_aliases
         autocmd!
 
+        autocmd FileType eruby UltiSnipsAddFiletypes eruby
         autocmd FileType javascript UltiSnipsAddFiletypes javascriptreact
         autocmd FileType typescript UltiSnipsAddFiletypes javascript.javascriptreact
         autocmd FileType javascriptreact UltiSnipsAddFiletypes javascript
@@ -27,6 +28,15 @@ return {
     ]]
     end
   },
+  -- {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     vim.keymap.set('i', '<C-h>', '<Plug>(copilot-accept-word)')
+  --     vim.keymap.set('i', '<C-l>', '<Plug>(copilot-suggest)')
+      
+  --     vim.g.copilot_no_tab_map = true
+  --   end
+  -- },
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -123,20 +133,22 @@ return {
       'f3fora/cmp-spell',
       'hrsh7th/cmp-omni',
       'hrsh7th/cmp-cmdline',
-      {
-        "zbirenbaum/copilot-cmp",
-        dependencies = "copilot.lua",
-        opts = {},
-        config = function(_, opts)
-          local copilot_cmp = require("copilot_cmp")
-          copilot_cmp.setup(opts)
-          require("helper").on_attach(function(client)
-            if client.name == "copilot" then
-              copilot_cmp._on_insert_enter({})
-            end
-          end)
-        end,
-      },
+      -- {
+      --   "zbirenbaum/copilot-cmp",
+      --   dependencies = "copilot.lua",
+      --   opts = {
+      --     fix_pairs = true,
+      --   },
+      --   config = function(_, opts)
+      --     local copilot_cmp = require("copilot_cmp")
+      --     copilot_cmp.setup(opts)
+      --     require("helper").on_attach(function(client)
+      --       if client.name == "copilot" then
+      --         copilot_cmp._on_insert_enter({})
+      --       end
+      --     end)
+      --   end,
+      -- },
       {
         "roobert/tailwindcss-colorizer-cmp.nvim",
         config = function()
@@ -227,13 +239,6 @@ return {
             i = function(fallback) mappings.insert_shift_tab_mapping(fallback) end,
             s = function(fallback) mappings.snippet_shift_tab_mapping(fallback) end
           }),
-          ['<C-x><C-a>'] = cmp.mapping.complete({
-            config = {
-              sources = {
-                { name = 'copilot' }
-              }
-            }
-          })
         },
         snippet = {
           expand = function(args)
@@ -253,13 +258,13 @@ return {
           },
         },
         sources = cmp.config.sources({
-          { name = 'copilot',     priority = 150 },
+          -- { name = 'copilot',    priority = 150, group_index = 2 },
           -- { name = 'cmp_tabnine', priority = 145, group_index = 2 },
-          { name = 'ultisnips',   priority = 120 },
-          { name = "nvim_lsp" },
-          { name = "buffer" },
-          { name = "path" },
-          { name = 'spell' },
+          { name = 'ultisnips', priority = 120, group_index = 2 },
+          { name = "nvim_lsp",  priority = 100, group_index = 2 },
+          { name = "buffer",    priority = 55,  group_index = 2 },
+          { name = "path",      priority = 50,  group_index = 2 },
+          { name = 'spell',     priority = 45,  group_index = 2 },
         }),
 
         formatting = {
@@ -267,14 +272,15 @@ return {
           format = cmp_helper.format_entry
         },
         experimental = {
-          ghost_text = {
-            hl_group = "LspCodeLens",
-          },
+          ghost_text = false
+          -- ghost_text = {
+          --   hl_group = "LspCodeLens",
+          -- },
         },
         sorting = {
           priority_weight = 2,
           comparators = {
-            require("copilot_cmp.comparators").prioritize,
+            -- require("copilot_cmp.comparators").prioritize,
             -- require('cmp_tabnine.compare'),
             -- Below is the default comparitor list and order for nvim-cmp
             cmp.config.compare.offset,
@@ -292,6 +298,9 @@ return {
       }
 
       return options
+    end,
+    config = function(_, opts)
+      require('cmp').setup(opts)
     end,
     init = function()
       local cmp = require('cmp')
@@ -316,18 +325,6 @@ return {
         }, {
           { name = 'cmdline' }
         })
-      })
-
-      cmp.setup.filetype({ 'css', 'scss', 'sass' }, {
-        sources = {
-          { name = 'ultisnips' },
-          { name = 'copilot' },
-          { name = 'nvim_lsp' },
-          { name = 'omni' },
-          { name = 'path' },
-          { name = 'buffer',   get_bufnrs = function() return vim.api.nvim_list_bufs() end },
-          { name = 'spell' },
-        },
       })
     end
   }

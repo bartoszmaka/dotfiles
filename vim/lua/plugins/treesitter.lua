@@ -46,50 +46,8 @@ return {
       autopairs = { enable = true, },
       autotag = {
         enable = true,
-        -- filetypes = {
-        --   'html',
-        --   'javascript',
-        --   'typescript',
-        --   'javascriptreact',
-        --   'typescriptreact',
-        --   'svelte',
-        --   'vue',
-        --   'tsx',
-        --   'jsx',
-        --   'rescript',
-        --   'xml',
-        --   'php',
-        --   'markdown',
-        --   'glimmer',
-        --   'handlebars',
-        --   'hbs',
-        --   'eruby',
-        -- }
       },
       -- matchup = { enable = true },
-      -- context_commentstring = {
-      --   enable = true,
-      --   enable_autocmd = false,
-      --   config = {
-      --     javascript = {
-      --       __default = '// %s',
-      --       jsx_element = '{/* %s */}',
-      --       jsx_fragment = '{/* %s */}',
-      --       jsx_attribute = '// %s',
-      --       comment = '// %s'
-      --     },
-      --     typescriptreact = {
-      --       __default = '// %s',
-      --       jsx_element = '{/* %s */}',
-      --       jsx_fragment = '{/* %s */}',
-      --       jsx_attribute = '// %s',
-      --       comment = '// %s'
-      --     },
-      --     toml = {
-      --       __default = '# %s'
-      --     },
-      --   }
-      -- },
       incremental_selection = {
         enable = false,
         -- keymaps = {
@@ -156,13 +114,6 @@ return {
     nnoremap([[<leader>uH]], [[:TSHighlightCapturesUnderCursor<CR>]])
 
     require('hlargs').setup()
-
-    -- vim.cmd [[
-    --   augroup hlargs_overrides
-    --     autocmd!
-    --     highlight! Hlargs gui=italic
-    --   augroup END
-    -- ]]
 
     vim.cmd [[
       augroup fix_autotag_for_eruby_not_setting_up_for_some_reason
