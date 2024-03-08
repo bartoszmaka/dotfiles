@@ -32,16 +32,12 @@ endglobal
 #		endsnippet
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
-snippet afn "arrow function" w
-(${1}) => {${2}}
-endsnippet
-
 snippet fn "arrow function" w
 (${1}) => {${2}}
 endsnippet
 
 snippet fun "function" w
-(${1}) {${2}}
+function ${1}(${2}) {${3}}
 endsnippet
 
 snippet switch "switch statement" w
@@ -98,10 +94,6 @@ snippet imp "import module from " w
 import ${2:moduleName} from '${1:module}';
 endsnippet
 
-snippet c "const" w
-const ${1}
-endsnippet
-
 snippet ex "export" w
 export ${1}
 endsnippet
@@ -118,6 +110,14 @@ snippet edf "export default function" w
 export default function ${1}(${2}) {
   return ${3:null}
 }
+endsnippet
+
+snippet ef "export function" w
+export function 
+endsnippet
+
+snippet eaf "export async function" w
+export async function 
 endsnippet
 
 snippet cl "console.log" w
@@ -191,42 +191,8 @@ snippet jfn "jest.fn()" w
 jest.fn()
 endsnippet
 
-snippet scsnap "Description" b
-import React from 'react';
-import { shallow } from 'enzyme';
-import { MockedProvider } from '@apollo/client/testing';
-
-import { $1 } from '../$1';
-
-describe('$1', () => {
-  const setup = (additionalProps) => {
-    const props = {${2}, ...additionalProps};
-
-    const wrapper = shallow(
-      <MockedProvider>
-        <${1} {...props} />
-      </MockedProvider>,
-      ,
-    );
-
-    return {
-      props,
-      wrapper,
-    };
-  };
-
-  test('render', () => {
-    expect(setup().wrapper).toMatchSnapshot();
-  });
-});
-endsnippet
-
 snippet jstr "JSON.stringify" w
 JSON.stringify(${1}, null, 2)
-endsnippet
-
-snippet idb "inline debugger" w
-(() => { debugger })()
 endsnippet
 
 snippet tc "try-catch" w
@@ -267,18 +233,16 @@ try {
 }
 endsnippet
 
-
-
-snippet ef "export function" w
-export function 
-endsnippet
-
-snippet eaf "export async function" w
-export async function 
-endsnippet
-
 snippet oc "onClick" w
 onClick={$0}
+endsnippet
+
+snippet op "onPress" w
+onPress={$0}
+endsnippet
+
+snippet oce "onClose" w
+onClose={$0}
 endsnippet
 
 snippet yst "yup string" w
@@ -361,4 +325,8 @@ snippet fin "for in" w
 for(let ${1:item} in ${2:object}) {
 	${0}
 }
+endsnippet
+
+snippet to "ternary operator" w
+${1:true} ? (${2}) : (${3:null})
 endsnippet
