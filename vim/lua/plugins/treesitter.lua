@@ -2,7 +2,6 @@ return {
   'nvim-treesitter/nvim-treesitter', -- syntax highlighting
   dependencies = {
     { 'nvim-treesitter/playground' },
-    -- { 'p00f/nvim-ts-rainbow' },
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
     { 'nvim-treesitter/nvim-treesitter-context' },
@@ -33,10 +32,6 @@ return {
     })
 
     require 'nvim-treesitter.configs'.setup {
-      -- rainbow = {
-      --   enable = true,
-      --   extended_mode = false,
-      -- },
       ensure_installed = "all",
       highlight = {
         enable = true,

@@ -54,10 +54,11 @@ render_timer = false
 TERM = "xterm-256color"
 
 [font]
-size = 14.0
+size = 15.0
 
 [font.bold]
-family = "HasklugNerdFontCM Nerd Font"
+family = "Hasklug Nerd Font"
+# family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.bold_italic]
@@ -73,7 +74,8 @@ family = "OperatorMono Nerd Font"
 style = "Book Italic"
 
 [font.normal]
-family = "HasklugNerdFontCM Nerd Font"
+family = "Hasklug Nerd Font"
+# family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.offset]
@@ -194,22 +196,22 @@ mods = "Command"
 
 [[keyboard.bindings]]
 chars = " {"
-key = "LBracket"
+key = "{"
 mods = "Command|Shift"
 
 [[keyboard.bindings]]
 chars = " }"
-key = "RBracket"
+key = "}"
 mods = "Command|Shift"
 
 [[keyboard.bindings]]
 chars = "\u0000p"
-key = "LBracket"
+key = "["
 mods = "Command|Control"
 
 [[keyboard.bindings]]
 chars = "\u0000n"
-key = "RBracket"
+key = "]"
 mods = "Command|Control"
 
 [[keyboard.bindings]]

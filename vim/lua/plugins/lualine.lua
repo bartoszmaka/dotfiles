@@ -106,7 +106,7 @@ return {
         lualine_b = {},
         lualine_c = { sections.navic },
         -- lualine_x = { sections.flags, sections.diagnostics, sections.copilot, 'filetype' },
-        lualine_x = { sections.flags, sections.diagnostics, 'filetype' },
+        lualine_x = { sections.flags, sections.diagnostics, 'tabnine', 'filetype' },
         lualine_y = { sections.diff, },
         lualine_z = { sections.location }
       },

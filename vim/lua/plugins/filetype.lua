@@ -10,7 +10,8 @@ return {
           html = 'html',
           yml = 'yaml',
           sh = 'sh',
-          snippets = 'snippets'
+          snippets = 'snippets',
+          xml = 'xml'
         },
         literal = {
           gitconfig = 'gitconfig',

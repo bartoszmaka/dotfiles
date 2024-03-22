@@ -152,7 +152,7 @@ return {
       document_symbols = {
         follow_cursor = true,
         client_filters = {
-          ignore = { "solargraph", "ruby_ls" }
+          ignore = { "solargraph" }
         }
       },
     }
@@ -169,10 +169,11 @@ return {
     })
 
     vim.cmd [[
+      highlight NeoTreeTabActive guibg=#141b24
       highlight NeoTreeTabInactive guibg=#141b24
       highlight NeoTreeTabSeparatorInactive guibg=#141b24 guifg=#141b24
-      " highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
-      highlight NeoTreeWinSeparator guibg=#1a212e guifg=#1a212e
+      highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
+      highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
     ]]
 
     --     vim.cmd [[

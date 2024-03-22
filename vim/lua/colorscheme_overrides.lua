@@ -54,7 +54,10 @@ vim.cmd [[
     highlight! link @lsp.type.namespace @namespace
     highlight! link @lsp.type.parameter @parameter
 
-    " ruby 
+    " html | eruby"
+    highlight! link @string.special.url.html Normal
+
+    " ruby
     highlight! link @variable.member.ruby Special
     highlight! link @variable.parameter.ruby Special
     highlight! link @string.special.symbol.ruby Constant

@@ -10,15 +10,17 @@ return {
     auto_hide = false,
     tabpages = true,
     focus_on_close = 'previous',
-    maximum_padding = 2,
-    minimum_padding = 2,
-    maximum_length = 30,
-    minimum_length = 10,
+    maximum_padding = 1,
+    minimum_padding = 1,
+    maximum_length = 25,
+    minimum_length = 25,
     no_name_title = ' - ',
     highlight_alternate = false,
     highlight_inactive_file_icons = true,
     icons = {
-      button = '󰖭',
+      -- button = '󰖭',
+      button = false,
+      pinned = {button = '', filename = true},
       separator = {left = '▏', right = '▕'}
     }
   },
@@ -56,11 +58,11 @@ return {
         highlight! BufferVisibleMod       guifg=#f2cc81 guibg=#1a212ea gui=NONE
         highlight! BufferVisibleSign      guifg=#1a212e guibg=#1a212ea gui=NONE
 
-        highlight! BufferInactive         guifg=#455574 guibg=#141b24a gui=NONE
-        highlight! BufferInactiveMod      guifg=#8f610d guibg=#141b24a gui=NONE
-        highlight! BufferInactiveSign     guifg=#141b24 guibg=#141b24a gui=NONE
+        highlight! BufferInactive         guifg=#455574 guibg=#141b24 gui=NONE
+        highlight! BufferInactiveMod      guifg=#8f610d guibg=#141b24 gui=NONE
+        highlight! BufferInactiveSign     guifg=#141b24 guibg=#141b24 gui=NONE
 
-        highlight! BufferTabpageFill      guifg=#93a4c3 guibg=#141b24a gui=NONE
+        highlight! BufferTabpageFill      guifg=#141b24 guibg=#141b24 gui=NONE
       augroup END
     ]]
   end
