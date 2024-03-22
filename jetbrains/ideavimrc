@@ -3,8 +3,22 @@ let mapleader = " "
 
 " Plugins
 set easymotion
+map ;j <Plug>(easymotion-j)
+map ;k <Plug>(easymotion-k)
+map ;w <Plug>(easymotion-w)
+map ;W <Plug>(easymotion-W)
+map ;b <Plug>(easymotion-b)
+map ;B <Plug>(easymotion-B)
+map ;e <Plug>(easymotion-e)
+map ;E <Plug>(easymotion-E)
+map ;f <Plug>(easymotion-f)
+map ;n <Plug>(easymotion-n)
+map ;N <Plug>(easymotion-N)
+map ;s <Plug>(easymotion-s)
+map ;f <Plug>(easymotion-jumptoanywhere)
 
 set surround
+" ysiw<char>, ds<char> cs<from><to>"
 
 set multiple-cursors
 
@@ -13,8 +27,8 @@ set commentary
 set ideajoin
 
 set highlightedyank
-let g:highlightedyank_highlight_duration = "400"
-let g:highlightedyank_highlight_color = "rgba(160, 160, 160, 155)"
+let g:highlightedyank_highlight_duration = "200"
+let g:highlightedyank_highlight_color = "rgba(240, 240, 160, 40)"
 
 set NERDTree
 
@@ -38,6 +52,7 @@ set clipboard+=unnamedplus              " use system clipboard
 
 map <leader>h ^
 map <leader>l $
+
 inoremap jk <esc>
 nnoremap K 5k
 nnoremap J 5j
@@ -49,6 +64,8 @@ nnoremap <Bs> :noh<CR>
 nnoremap <C-]> g]
 nnoremap g] <C-]>
 vnoremap * y<Esc>/<C-r>"
+nmap gj yygccp
+vmap gj ygvgcgv<esc>p
 
 " sort selected lines
 vnoremap <C-m><C-s> :action EditorSortLines<CR>
@@ -81,6 +98,10 @@ nnoremap <M-h> <C-w>h
 nnoremap <M-j> <C-w>j
 nnoremap <M-k> <C-w>k
 nnoremap <M-l> <C-w>l
+nnoremap <D-h> <C-w>h
+nnoremap <D-j> <C-w>j
+nnoremap <D-k> <C-w>k
+nnoremap <D-l> <C-w>l
 
 " file movement
 nnoremap ]e :action GotoNextError<CR>
@@ -89,6 +110,8 @@ nnoremap ]g :action VcsShowNextChangeMarker<CR>
 nnoremap [g :action VcsShowPrevChangeMarker<CR>
 nnoremap ]f :action MethodDown<CR>
 nnoremap [f :action MethodUp<CR>
+nnoremap ]b :action GotoNextBookmarkInEditor<CR>
+nnoremap [b :action GotoPreviousBookmarkInEditor<CR>
 
 " Tabs
 nnoremap <leader>1 :action GoToTab1<CR>
@@ -110,15 +133,14 @@ nnoremap <leader>pu :action RecentChanges<CR>
 nnoremap <leader>ps :action FileStructurePopup<CR>
 nnoremap <C-p><C-s> :action FileStructurePopup<CR>
 nnoremap <leader>pg :action ActivateCommitToolWindow<CR>
-nnoremap <leader>pb :action Git.Branches<CR>
-nnoremap <leader>pf :action SearchEverywhere<CR>
+nnoremap <leader>pB :action Git.Branches<CR>
+nnoremap <leader>pb :action ShowBookmarks<CR>
 
 " Bookmarks
-nnoremap <leader>mt <action>(ToggleBookmark)
-nnoremap <leader>ms <action>(ShowBookmarks)
+nnoremap <leader>mb :action ToggleBookmark<CR>
 
 " Code Actions
-nnoremap <C-m><C-a> :action CodeMenu<CR>
+nnoremap <C-m><C-m> :action CodeMenu<CR>
 nnoremap <C-m><C-r> :action Refactorings.QuickListPopupAction<CR>
 nnoremap <C-m><C-f> :action ReformatCode<CR>
 nnoremap <C-m><C-i> :action OptimizeImports<CR>
@@ -128,17 +150,17 @@ nnoremap <C-m><C-g> :action Generate<CR>
 nnoremap <C-g><C-g> :action Git.Menu<CR>
 nnoremap gr :action FindUsages<CR>
 nnoremap gd :action GotoDeclaration<CR>
-nnoremap <leader>gh :action QuickImplementations<CR>
-nnoremap <C-g><C-d> :action Compare.SameVersion<CR>
+nnoremap <leader>gh :action QuickImplementations<CR> " Option + Space
+nnoremap <C-g><C-d> :action Compare.SameVersion<CR> " Does it work?
 
 " Panes
 nnoremap <leader><esc> :action HideAllWindows<CR>
 nnoremap <C-l><C-e> :action ActivateProblemsViewToolWindow<CR>
 nnoremap <C-g><C-b> :action Annotate<CR>
 nnoremap <C-k><C-u> :action LocalHistory.ShowHistory<CR>
-nnoremap <C-k><C-e> :action SelectInProjectView<CR>
+"nnoremap <C-k><C-e> :action ActivateProjectToolWindow<CR>
 nnoremap <C-p><C-b> :action Git.Branches<CR>
-nnoremap <C-k><C-g> :action ActivateCommitToolWindow<CR>
+"nnoremap <C-k><C-g> :action ActivateCommitToolWindow<CR>
 
 nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
