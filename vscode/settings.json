@@ -1,32 +1,69 @@
 {
+  // "editor.selectionBackground": "#401437",
+  // "statusBar.background": "#005f87",
+  // "statusBar.noFolderBackground": "#005f87",
+  // "statusBar.debuggingBackground": "#005f87",
+  // "errorLens.errorBackground": "#e4545412",
+  // "errorLens.warningBackground": "#ff942f12",
+  // "errorLens.infoBackground": "#00b7e406",
+  // "errorLens.hintBackground": "#17a2a206",
+  // "editorInfo.background": "#00000000",
+  // "editorInfo.foreground": "#00000000",
+  // "editorWarning.foreground": "#da8a0000",
+  // "editorWarning.background": "#00000000",
+  // "editorError.background": "#00000000",
+  // "editorError.foreground": "#ff000066",
+  // "statusBar.foreground": "#ffffff",
+  // "statusBar.debuggingForeground": "#ffffff",
+  // "editor.lineHighlightBackground": "#21283b",
+  // "editorIndentGuide.background1": "#0E1116",
+  // "editorIndentGuide.activeBackground1": "#212937"
+  "terminal.integrated.inheritEnv": true,
+  "search.exclude": {
+    "tags": true
+  },
   "workbench.colorCustomizations": {
-    "editorGroup.emptyBackground": "#1A212E",
-    "editor.selectionBackground": "#401437",
     "statusBar.background": "#005f5f",
     "statusBar.noFolderBackground": "#005f5f",
     "statusBar.debuggingBackground": "#005f5f",
-    "errorLens.errorBackground": "#e4545412",
-    "errorLens.warningBackground": "#ff942f12",
-    "errorLens.infoBackground": "#00b7e406",
-    "errorLens.hintBackground": "#17a2a206",
-    "editorIndentGuide.background1": "#3B404800",
-    "editorInfo.background": "#00000000",
-    "editorInfo.foreground": "#00000000",
-    "editorWarning.foreground": "#da8a0000",
-    "editorWarning.background": "#00000000",
-    "editorError.background": "#00000000",
-    "editorError.foreground": "#ff000066",
     "statusBar.foreground": "#ffffff",
     "statusBar.debuggingForeground": "#ffffff",
-    "tab.inactiveBackground": "#141A24",
-    "tab.border": "#141A24",
-    "editor.lineHighlightBackground": "#21283b"
+    "editorIndentGuide.background1": "#1C212D",
+    "editorIndentGuide.activeBackground1": "#333b48",
+    "errorLens.hintBackground": "#00000000",
+    "errorLens.hintForeground": "#862aa1",
+    "errorLens.hintRangeBackground": "#862aa1",
+    "errorLens.infoBackground": "#00000000",
+    "errorLens.infoForeground": "#1b6a73",
+    "errorLens.infoRangeBackground": "#1b6a73",
+    "errorLens.warningBackground": "#00000000",
+    "errorLens.warningForeground": "#8f610d",
+    "errorLens.errorBackground": "#00000000",
+    "errorLens.errorForeground": "#992525",
+    "editorInfo.foreground": "#00000000"
   },
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "invalid.illegal",
+          "invalid.deprecated",
+          "invalid.illegal.deprecated"
+        ],
+        "settings": {
+          "foreground": "#ff0000" // Change this to your desired color
+        }
+      }
+    ]
+  },
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.gutterIconSet": "borderless",
   "workbench.editor.enablePreview": false,
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.settings.openDefaultKeybindings": false,
   "workbench.settings.openDefaultSettings": false,
   "workbench.commandPalette.preserveInput": true,
+  
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "onedark.nvim",
   "workbench.startupEditor": "newUntitledFile",
@@ -34,12 +71,12 @@
   "debug.console.fontSize": 14,
   "debug.internalConsoleOptions": "neverOpen",
   "terminal.integrated.fontSize": 16,
-  "terminal.integrated.fontFamily": "'Hasklug Nerd Font Mono', monospace",
+  "terminal.integrated.fontFamily": "'Hasklug Nerd Font', monospace",
   "editor.tabSize": 2,
   "editor.formatOnSave": false,
   "editor.mouseWheelZoom": false,
   "editor.fontSize": 16,
-  "editor.fontFamily": "'Hasklug Nerd Font Mono',  monospace",
+  "editor.fontFamily": "'Hasklug Nerd Font',  monospace",
   "editor.fontLigatures": false,
   "editor.renderWhitespace": "trailing",
   "editor.cursorStyle": "block",
@@ -104,6 +141,9 @@
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  // "[snippets]": {
+  //   "editor.defaultFormatter": "vscode.json-language-features"
+  // },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
@@ -117,9 +157,13 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[ruby]": {
-    "editor.defaultFormatter": "Shopify.ruby-lsp"
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": false,
+    "files.trimTrailingWhitespace": true,
+    "editor.semanticHighlighting.enabled": true
   },
-  "ruby.linter.run": "onSave",
+  // "ruby.linter.run": "onSave",
   "vim.enableNeovim": true,
   "vim.neovimPath": "/opt/homebrew/bin/nvim",
   "vim.disableExtension": false,
@@ -207,42 +251,42 @@
         "editor.emmet.action.matchTag"
       ]
     },
-    {
-      "before": [
-        "v"
-      ],
-      "commands": [
-        "editor.action.smartSelect.expand"
-      ],
-    },
-    {
-      "before": [
-        "V"
-      ],
-      "commands": [
-        "editor.action.smartSelect.shrink"
-      ],
-    },
-    {
-      "before": [
-        "v",
-        "<leader>",
-        "h"
-      ],
-      "after": [
-        "^"
-      ]
-    },
-    {
-      "before": [
-        "v",
-        "<leader>",
-        "l"
-      ],
-      "after": [
-        "$"
-      ]
-    },
+    // {
+    //   "before": [
+    //     "v"
+    //   ],
+    //   "commands": [
+    //     "editor.action.smartSelect.expand"
+    //   ],
+    // },
+    // {
+    //   "before": [
+    //     "V"
+    //   ],
+    //   "commands": [
+    //     "editor.action.smartSelect.shrink"
+    //   ],
+    // },
+    // {
+    //   "before": [
+    //     "v",
+    //     "<leader>",
+    //     "h"
+    //   ],
+    //   "after": [
+    //     "^"
+    //   ]
+    // },
+    // {
+    //   "before": [
+    //     "v",
+    //     "<leader>",
+    //     "l"
+    //   ],
+    //   "after": [
+    //     "$"
+    //   ]
+    // },
     {
       "before": [
         "<leader>",
@@ -417,38 +461,38 @@
         "<esc>"
       ]
     },
-    {
-      "before": [
-        "<C-e>"
-      ],
-      "commands": [
-        "editor.emmet.action.expandAbbreviation"
-      ]
-    }
+    // {
+    //   "before": [
+    //     "<C-e>"
+    //   ],
+    //   "commands": [
+    //     "editor.emmet.action.expandAbbreviation"
+    //   ]
+    // }
   ],
   "vim.normalModeKeyBindings": [
-    {
-      "before": [ // set easymotion prefix to ;
-        "V",
-        ";",
-      ],
-      "after": [
-        "V",
-        "leader",
-        "leader",
-      ]
-    },
-    {
-      "before": [ // set easymotion prefix to ;
-        "v",
-        ";",
-      ],
-      "after": [
-        "v",
-        "leader",
-        "leader",
-      ]
-    },
+    // {
+    //   "before": [ // set easymotion prefix to ;
+    //     "V",
+    //     ";",
+    //   ],
+    //   "after": [
+    //     "V",
+    //     "leader",
+    //     "leader",
+    //   ]
+    // },
+    // {
+    //   "before": [ // set easymotion prefix to ;
+    //     "v",
+    //     ";",
+    //   ],
+    //   "after": [
+    //     "v",
+    //     "leader",
+    //     "leader",
+    //   ]
+    // },
     {
       "before": [ // set easymotion prefix to ;
         ";",
@@ -579,14 +623,14 @@
         "editor.action.startFindReplaceAction"
       ]
     },
-    {
-      "before": [
-        "v"
-      ],
-      "after": [
-        "v"
-      ],
-    },
+    // {
+    //   "before": [
+    //     "v"
+    //   ],
+    //   "after": [
+    //     "v"
+    //   ],
+    // },
     {
       "before": [
         "*"
@@ -860,4 +904,12 @@
     },
   ],
   "editor.minimap.enabled": false,
+  "workbench.activityBar.location": "top",
+  "errorLens.enabledDiagnosticLevels": [
+    "warning",
+    "info"
+  ],
+  "errorLens.enabled": true,
+  "githubPullRequests.pullBranch": "never",
+  "redhat.telemetry.enabled": true,
 }
