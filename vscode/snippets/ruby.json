@@ -12,25 +12,53 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+			// "${RELATIVE_FILEPATH/\\/([a-zA-Z0-9_]+)/module ${1:/pascalcase}|/gm}",
+			// "${RELATIVE_FILEPATH/app(.*).rb/${1:/camelcase}/}"
+	 "Create Class": {
+		"description": "Create a new Ruby class",
+		"prefix": "cla",
+		"body": [
+			"class ${1:${RELATIVE_FILEPATH/.*\\/(.*).rb/${1:/pascalcase}/g}}",
+			"  $0",
+			"end"
+		],
+	},
+	//  "Create Class": {
+	// 	"description": "Create a new Ruby class",
+	// 	"prefix": "cla",
+	// 	"body": [
+	// 		"${RELATIVE_FILEPATH/^[^\\/]+\\/[^\\/]+\\/(.+?)\\/([^\\/]+)\\/(?:[^\\/]+)$/module ${1:/pascalcase}|/gm}",
+	// 		"class ${1:${RELATIVE_FILEPATH/.*\\/(.*).rb/${1:/pascalcase}/g}}",
+	// 		"  $0",
+	// 		"end"
+	// 	],
+	// },
+  // "Create Dynamic Module Structure": {
+  //   "description": "Create dynamic Ruby modules based on file path",
+  //   "prefix": "myclass",
+  //   "body": [
+  //     "${TM_FILEPATH/.*\\/\\w+\\/\\w+\\/(\\w+)\\.rb$/$1/g}",
+  //     "${1} ${2:${TM_FILEPATH/(.*\\/\\w+\\/\\w+\\/)\\w+\\.rb$/$1/g}}",
+  //     "$0",
+  //     "${2/\\/(\\w+)/.${1:/downcase}/g}"
+  //   ],
+  // },
 	"binding.pry": {
 		"prefix": "bp",
-		"description": "Put pry binding here",
 		"body": [
 			"binding.pry"
 		]
 	},
 	"binding.remote_pry": {
 		"prefix": "brp",
-		"description": "Put pry remote binding here",
 		"body": [
 			"binding.remote_pry"
 		]
 	},
-	"yield_self binding.pry": {
+	"yield_self { |object| binding.pry }": {
 		"prefix": "ysbp",
-		"description": ".yield_self { |object|  binding.pry }",
 		"body": [
-			".yield_self { |object|  binding.pry }"
+			".yield_self { |object| binding.pry }"
 		]
 	},
 	"spec describe": {
@@ -70,22 +98,26 @@
 		]
 	},
 	"attr_reader": {
-		"description": "attr_reader",
-		"prefix": "aa",
+		"prefix": "ar",
 		"body": ["attr_reader"]
 	},
 	"attr_writer": {
-		"description": "attr_writer",
-		"prefix": "aa",
+		"prefix": "aw",
 		"body": ["attr_writer"]
 	},
 	"attr_accessor": {
-		"description": "attr_accessor",
 		"prefix": "aa",
 		"body": ["attr_accessor"]
 	},
+	"res": {
+		"description": "rescue block",
+		"prefix": "res",
+		"body": [
+			"rescue ${1:StandardError} => ${2:_e}",
+			"  $3",
+		]
+	},
 	"factory scaffold": {
-		"description": "factory scaffold",
 		"prefix": "fact",
 		"body": [
 			"FactoryBot.define do",
@@ -96,7 +128,6 @@
 		]
 	},
 	"spec scaffold": {
-		"description": "spec scaffold",
 		"prefix": "spec",
 		"body": [
 			"require 'rails_helper'",
@@ -107,7 +138,6 @@
 		]
 	},
 	"if": {
-		"description": "if",
 		"prefix": "if",
 		"body": [
 			"if $1",
@@ -116,8 +146,7 @@
 		]
 	},
 	"if-else": {
-		"description": "if",
-		"prefix": "if",
+		"prefix": "ife",
 		"body": [
 			"if $1",
 			"  $2",
@@ -126,20 +155,16 @@
 			"end",
 		]
 	},
-	"switch": {
-		"description": "case-when",
-		"prefix": "switch",
+	"comment-block": {
+		"prefix": "###",
 		"body": [
-			"case $1",
-			"when $2",
-			"else $3",
-			"  $4",
-			"end",
+			"=begin",
+			"  $0",
+			"=end",
 		]
 	},
-	"case": {
-		"description": "case-when",
-		"prefix": "case",
+	"switch": {
+		"prefix": ["switch", "case"],
 		"body": [
 			"case $1",
 			"when $2",
@@ -159,5 +184,60 @@
 	"rubocop disable abc": {
 		"prefix": "abc",
 		"body": "Metrics/AbcSize",
+	},
+	"JSON.parse(response.body)": {
+		"description": "JSON.parse(response.body)",
+		"prefix": "jprb",
+		"body": ["JSON.parse(response.body)"]
+	},
+	"to eq(true)": {
+		"prefix": "tet",
+		"body": ["to eq(true)"]
+	},
+	"to eq(false)": {
+		"prefix": "tef",
+		"body": ["to eq(false)"]
+	},
+	"to eq(nil)": {
+		"prefix": "ten",
+		"body": ["to eq(nil)"]
+	},
+	"to eq()": {
+		"prefix": "teq",
+		"body": ["to eq($1)"]
+	},
+	"to have_attributes()": {
+		"prefix": "tha",
+		"body": ["to have_attributes($1)"]
+	},
+	"to match_array()": {
+		"prefix": "tma",
+		"body": [
+			"to match_array(",
+			"  [",
+			"    $1",
+			"  ]",
+			")"
+		]
+	},
+	"to have_received()": {
+		"prefix": "thr",
+		"body": ["to have_received($1)"]
+	},
+	"to receive()": {
+		"prefix": "tr",
+		"body": ["to receive($1)"]
+	},
+	"DateTime.new(2017, 1, 27, 12, 30)nowm": {
+		"prefix": "nowm",
+		"body": ["DateTime.new(2017, 1, 27, 12, 30)"]
+	},
+	"Timecop.freeze()": {
+		"prefix": "tcf",
+		"body": [
+			"Timecop.freeze(${1:now})",
+			"$2",
+			"Timecop.return",
+		]
 	},
 }
