@@ -28,88 +28,24 @@ return {
     ]]
     end
   },
-  -- {
-  --   "github/copilot.vim",
-  --   config = function()
-  --     vim.keymap.set('i', '<C-h>', '<Plug>(copilot-accept-word)')
-  --     vim.keymap.set('i', '<C-l>', '<Plug>(copilot-suggest)')
-      
-  --     vim.g.copilot_no_tab_map = true
-  --   end
-  -- },
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    build = ":Copilot auth",
-    opts = {
-      suggestion = { enabled = true },
-      panel = {
-        enabled = true,
-        layout = {
-          position = "right",
-          ratio = 0.3
-        },
-      },
-      filetypes = {
-        yaml = false,
-        markdown = true,
-        help = false,
-        gitcommit = false,
-        gitrebase = false,
-        hgcommit = false,
-        svn = false,
-        cvs = false,
-        sh = function ()
-          if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
-            return false
-          end
-          return true
-        end,
-        ["."] = false,
-      },
-    },
-    config = function(_, opts)
+    'codota/tabnine-nvim',
+    build = "./dl_binaries.sh",
+    config = function()
+      require('tabnine').setup({
+        disable_auto_comment = true,
+        accept_keymap = "<M-o>",
+        dismiss_keymap = "<C-]>",
+        debounce_ms = 800,
+        suggestion_color = { gui = "#808080", cterm = 244 },
+        exclude_filetypes = { "TelescopePrompt", "NvimTree" },
+        log_file_path = nil, -- absolute path to Tabnine log file
+      })
+
       local nnoremap = require("helper").nnoremap
-      local inoremap = require("helper").inoremap
-
-      require("copilot").setup(opts)
-
-      inoremap("<M-l>", "<cmd>Copilot panel open<CR>")
-      nnoremap("<M-l>", "<cmd>Copilot panel open<CR>")
-      inoremap("<M-[>", "<cmd>Copilot panel jump_prev<CR>")
-      inoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
-      nnoremap("<M-[>", "<cmd>Copilot panel jump_prev<CR>")
-      nnoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
-      inoremap("<M-o>", "<cmd>Copilot panel accept<CR>")
-      nnoremap("<M-o>", "<cmd>Copilot panel accept<CR>")
+      nnoremap("<C-k><C-a>", require("tabnine.chat").open)
     end
   },
-  -- {
-  --   'tzachar/cmp-tabnine',
-  --   build = './install.sh',
-  --   dependencies = 'hrsh7th/nvim-cmp',
-  --   config = function()
-  --     local tabnine = require('cmp_tabnine.config')
-  --     tabnine:setup({
-  --       max_lines = 1000,
-  --       max_num_results = 20,
-  --       sort = true,
-  --       run_on_every_keystroke = true,
-  --       snippet_placeholder = '..',
-  --       ignored_file_types = {},
-  --       show_prediction_strength = false
-  --     })
-  --     local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
-
-  --     vim.api.nvim_create_autocmd('BufRead', {
-  --       group = prefetch,
-  --       pattern = '*.py',
-  --       callback = function()
-  --         require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
-  --       end
-  --     })
-  --   end
-  -- },
   {
     'hrsh7th/nvim-cmp',
     version = false,
@@ -133,22 +69,6 @@ return {
       'f3fora/cmp-spell',
       'hrsh7th/cmp-omni',
       'hrsh7th/cmp-cmdline',
-      -- {
-      --   "zbirenbaum/copilot-cmp",
-      --   dependencies = "copilot.lua",
-      --   opts = {
-      --     fix_pairs = true,
-      --   },
-      --   config = function(_, opts)
-      --     local copilot_cmp = require("copilot_cmp")
-      --     copilot_cmp.setup(opts)
-      --     require("helper").on_attach(function(client)
-      --       if client.name == "copilot" then
-      --         copilot_cmp._on_insert_enter({})
-      --       end
-      --     end)
-      --   end,
-      -- },
       {
         "roobert/tailwindcss-colorizer-cmp.nvim",
         config = function()
@@ -361,3 +281,101 @@ return {
 --   preview = require("copilot_cmp.format").deindent,
 -- },
 -- })
+  -- {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     vim.keymap.set('i', '<C-h>', '<Plug>(copilot-accept-word)')
+  --     vim.keymap.set('i', '<C-l>', '<Plug>(copilot-suggest)')
+
+  --     vim.g.copilot_no_tab_map = true
+  --   end
+  -- },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   build = ":Copilot auth",
+  --   opts = {
+  --     suggestion = { enabled = true },
+  --     panel = {
+  --       enabled = true,
+  --       layout = {
+  --         position = "right",
+  --         ratio = 0.3
+  --       },
+  --     },
+  --     filetypes = {
+  --       yaml = false,
+  --       markdown = true,
+  --       help = false,
+  --       gitcommit = false,
+  --       gitrebase = false,
+  --       hgcommit = false,
+  --       svn = false,
+  --       cvs = false,
+  --       sh = function()
+  --         if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
+  --           return false
+  --         end
+  --         return true
+  --       end,
+  --       ["."] = false,
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     local nnoremap = require("helper").nnoremap
+  --     local inoremap = require("helper").inoremap
+
+  --     require("copilot").setup(opts)
+
+  --     inoremap("<M-l>", "<cmd>Copilot panel open<CR>")
+  --     nnoremap("<M-l>", "<cmd>Copilot panel open<CR>")
+  --     inoremap("<M-[>", "<cmd>Copilot panel jump_prev<CR>")
+  --     inoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
+  --     nnoremap("<M-[>", "<cmd>Copilot panel jump_prev<CR>")
+  --     nnoremap("<M-]>", "<cmd>Copilot panel jump_next<CR>")
+  --     inoremap("<M-o>", "<cmd>Copilot panel accept<CR>")
+  --     nnoremap("<M-o>", "<cmd>Copilot panel accept<CR>")
+  --   end
+  -- },
+  -- {
+  --   'tzachar/cmp-tabnine',
+  --   build = './install.sh',
+  --   dependencies = 'hrsh7th/nvim-cmp',
+  --   config = function()
+  --     local tabnine = require('cmp_tabnine.config')
+  --     tabnine:setup({
+  --       max_lines = 1000,
+  --       max_num_results = 20,
+  --       sort = true,
+  --       run_on_every_keystroke = true,
+  --       snippet_placeholder = '..',
+  --       ignored_file_types = {},
+  --       show_prediction_strength = false
+  --     })
+  --     local prefetch = vim.api.nvim_create_augroup("prefetch", { clear = true })
+
+  --     vim.api.nvim_create_autocmd('BufRead', {
+  --       group = prefetch,
+  --       pattern = '*.py',
+  --       callback = function()
+  --         require('cmp_tabnine'):prefetch(vim.fn.expand('%:p'))
+  --       end
+  --     })
+  --   end
+  -- },
+      -- {
+      --   "zbirenbaum/copilot-cmp",
+      --   dependencies = "copilot.lua",
+      --   opts = {
+      --     fix_pairs = true,
+      --   },
+      --   config = function(_, opts)
+      --     local copilot_cmp = require("copilot_cmp")
+      --     copilot_cmp.setup(opts)
+      --     require("helper").on_attach(function(client)
+      --       if client.name == "copilot" then
+      --         copilot_cmp._on_insert_enter({})
+      --       end
+      --     end)
+      --   end,
+      -- },

@@ -42,6 +42,7 @@ local servers = {
   'emmet_language_server',
   'prismals',
   'pyright',
+  'lemminx',
 }
 
 local on_attach = function(client, bufnr)
