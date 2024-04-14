@@ -1,7 +1,6 @@
 return {
   -- utils
   { 'tpope/vim-abolish' },      -- swap case
-  { 'windwp/nvim-ts-autotag' }, -- automatically add matching tags
   { 'tpope/vim-surround' },     -- surround motion
   {
     'dominikduda/vim_yank_with_context',

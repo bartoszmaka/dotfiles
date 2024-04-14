@@ -5,6 +5,7 @@ return {
     { "nvim-tree/nvim-web-devicons", name = "tree-nvim-web-devicons" }, -- OPTIONAL: for file icons
   },
   init = function() vim.g.barbar_auto_setup = false end,
+  commit = "1d6b1386abe97d1d8cba47eb9afa8a9f2d1bbe66",
   opts = {
     animation = true,
     auto_hide = false,
@@ -22,13 +23,36 @@ return {
       button = false,
       pinned = {button = '', filename = true},
       separator = {left = '▏', right = '▕'}
-    }
+    },
+    -- sidebar_filetypes = {
+    --   ['neo-tree'] = {event = 'BufWipeout'},
+    -- }
   },
   config = function(_, opts)
     local nnoremap = require('helper').nnoremap
     vim.g.mapleader = ' '
 
     require('barbar').setup(opts)
+
+    local close_matchup_window_and_then_close_buffer = function()
+      local open_windows = vim.api.nvim_list_wins()
+      print(vim.inspect(open_windows))
+
+      for _, value in pairs(open_windows) do
+        local config = vim.api.nvim_win_get_config(value)
+        local is_matchup_popup_window = config.anchor == "NW" and
+        config.external == false and
+        config.focusable == false and
+        config.zindex == 50 and
+        config.relative == "win"
+
+        print(vim.inspect({value, is_matchup_popup_window}))
+        if is_matchup_popup_window then
+          vim.api.nvim_win_close(value, true)
+        end
+      end
+      vim.cmd [[ BufferClose ]]
+    end
 
     nnoremap('<leader>[', ':BufferPrevious<CR>')
     nnoremap('<leader>]', ':BufferNext<CR>')
@@ -43,8 +67,10 @@ return {
     nnoremap('<leader>7', ':BufferGoto 7<CR>')
     nnoremap('<leader>8', ':BufferGoto 8<CR>')
     nnoremap('<leader>9', ':BufferLast<CR>')
+
     nnoremap('<leader>q', ':close<CR>')
-    nnoremap('<leader>w', ':BufferClose<CR>')
+    nnoremap('<leader>w', close_matchup_window_and_then_close_buffer)
+    nnoremap('<leader>`', ':BufferRestore<CR>')
     nnoremap('<leader><leader>!', ':BufferCloseAllButCurrent<CR>')
 
     vim.cmd[[
