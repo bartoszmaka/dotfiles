@@ -5,12 +5,15 @@ return {
     { 'nvim-treesitter/nvim-treesitter-textobjects' },
     { 'JoosepAlviste/nvim-ts-context-commentstring' },
     { 'nvim-treesitter/nvim-treesitter-context' },
-    { 'm-demare/hlargs.nvim' }
+    { 'm-demare/hlargs.nvim' },
+    { 'windwp/nvim-ts-autotag' }, -- automatically add matching tags
+    { 'windwp/nvim-autopairs' }
   },
   build = ':TSUpdate',
   config = function()
     local nnoremap = require('helper').nnoremap
     vim.g.skip_ts_context_commentstring_module = true
+
     require('ts_context_commentstring').setup({
       javascript = {
         __default = '// %s',
@@ -105,6 +108,41 @@ return {
       enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
       throttle = true,
     }
+
+    local npairs   = require('nvim-autopairs')
+    local Rule     = require 'nvim-autopairs.rule'
+    -- local endwise  = require('nvim-autopairs.ts-rule').endwise
+    -- local ts_conds = require('nvim-autopairs.ts-conds')
+
+    npairs.setup({
+      check_ts = true,
+      ts_config = {
+        lua = { 'string' }, -- it will not add pair on that treesitter node
+      }
+    })
+
+    -- add space after
+    npairs.add_rules {
+      Rule(' ', ' ')
+        :with_pair(function(opts)
+          local pair = opts.line:sub(opts.col - 1, opts.col)
+          return vim.tbl_contains({ '()', '[]', '{}' }, pair)
+        end),
+    }
+
+    npairs.add_rules {
+      Rule('( ', ' )')
+        :with_pair(function() return false end)
+        :with_move(function() return true end)
+        :use_key(")")
+    }
+
+    npairs.add_rules {
+      Rule('<%', ' %>', 'eruby'),
+    }
+
+    npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
+    npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))
 
     nnoremap([[<leader>uH]], [[:TSHighlightCapturesUnderCursor<CR>]])
 

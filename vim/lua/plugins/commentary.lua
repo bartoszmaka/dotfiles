@@ -1,10 +1,12 @@
 return {
   'tpope/vim-commentary',
   config = function()
-    local nnoremap = require('helper').nnoremap
-    local vnoremap = require('helper').vnoremap
+    -- local nmap = require('helper').nmap
+    -- local vmap = require('helper').vmap
 
-    nnoremap('gj', 'yygccp')
-    vnoremap('gj', 'ygvgcgv<esc>p')
+    vim.cmd [[
+      nmap gj yygccp
+      vmap gj ygvgcgv<esc>p
+    ]]
   end,
 }

@@ -88,6 +88,15 @@ return {
       ["S"] = "split_with_window_picker",
       ["o"] = { "open_with_window_picker", nowait = true },
       ["s"] = "vsplit_with_window_picker",
+      ["oc"] = "noop",
+      ["od"] = "noop",
+      ["og"] = "noop",
+      ["om"] = "noop",
+      ["on"] = "noop",
+      ["os"] = "noop",
+      ["ot"] = "noop",
+      ["z"] = "noop",
+      ["t"] = "noop",
     }
 
     return {
@@ -174,6 +183,10 @@ return {
       highlight NeoTreeTabSeparatorInactive guibg=#141b24 guifg=#141b24
       highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
       highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
+    ]]
+
+    vim.cmd [[
+      autocmd FileType neo-tree nnoremap <buffer> <leader>q :lua require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true })<CR>
     ]]
 
     --     vim.cmd [[

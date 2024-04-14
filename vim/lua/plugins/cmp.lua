@@ -82,6 +82,7 @@ return {
       local cmp = require('cmp')
       local helper = require('helper')
       local cmp_helper = require('helper.cmp')
+      local tabnine_loaded, tabnine_keymaps = pcall(require,'tabnine.keymaps')
       local get = helper.get
       local t = cmp_helper.t
       local mappings = {
@@ -100,12 +101,15 @@ return {
           end
         end,
         insert_tab_mapping = function(fallback)
+          print(vim.inspect({tabnine_loaded, tabnine_keymaps.has_suggestion()}))
           if vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
             vim.api.nvim_feedkeys(t('<Plug>(ultisnips_expand)'), 'm', true)
           elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
             return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_forward)'), 'm', true)
           elseif cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+          elseif tabnine_loaded and tabnine_keymaps.has_suggestion() then
+            tabnine_keymaps.accept_suggestion()
           else
             vim.fn.feedkeys(t('<tab>'), 'n')
           end
