@@ -10,6 +10,7 @@ M.onedark = {
       bg_blue = '#54b0fd',
     bg_yellow = '#f2cc81',
            fg = '#93a4c3',
+        white = '#ffffff',
        purple = '#c75ae8',
         green = '#8bcd5b',
        orange = '#dd9046',

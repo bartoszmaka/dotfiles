@@ -35,7 +35,7 @@ local servers = {
   "vuels",
   "yamlls",
   'cssls',
-  'ruby_ls',
+  -- 'ruby_ls',
   'solargraph',
   'lua_ls',
   'efm',

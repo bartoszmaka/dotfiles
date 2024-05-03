@@ -172,6 +172,7 @@ return {
         window = {
           completion = {
             winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:Visual,Search:None',
+            -- winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:CursorColumn,Search:None',
             col_offset = -3,
             side_padding = 0,
             -- border = 'rounded',

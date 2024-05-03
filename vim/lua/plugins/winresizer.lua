@@ -1,10 +1,10 @@
 return {
   'simeji/winresizer',
+  keys = {
+    { "<C-w>m", "<cmd>MaximizerToggle<CR>", desc = "Maximize" },
+    { "<C-w>e", "<cmd>WinResizerStartResize<CR>", desc = "Resize" }
+  },
   config = function()
-    vim.cmd[[
-      let g:winresizer_start_key = ''
-      nnoremap <C-w>m :MaximizerToggle<CR>
-      nnoremap <C-w>e :WinResizerStartResize<CR>
-    ]]
+    vim.g.winresizer_start_key = ''
   end,
 }

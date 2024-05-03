@@ -74,17 +74,17 @@ tnoremap('<C-w>l', [[<C-\><C-n><C-w>l]])
 -- nnoremap('<M-l>', '<C-w>l')
 
 -- split and join lines
-nnoremap('<leader>j', 'i<CR><Esc>')
-nnoremap('<leader>k', '<esc>kJ')
+nnoremap('<leader>j', 'i<CR><Esc>', { desc = "Split line" })
+nnoremap('<leader>k', '<esc>kJ', { desc = "Join to prev line" })
 
 nnoremap('/', [[/\V]])                                          -- search with nomagic flag
 nnoremap('?', '/')                                              -- search with magic flag (default)
 nnoremap('<Bs>', ':noh<CR>')                                    -- turn off highlight
-nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]])       -- replace under cursor
-vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]])         -- replace under cursor
-nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]]) -- replace under cursor and paste same word into target
-vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]])   -- replace under cursor and paste same word into target
-nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]])
+nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })       -- replace under cursor
+vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })         -- replace under cursor
+nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" }) -- replace under cursor and paste same word into target
+vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" })   -- replace under cursor and paste same word into target
+nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]], { desc = "Peek spec structure" })
 
 vnoremap('<C-m><C-s>', ':sort<CR>')
 vnoremap('<CR><C-s>', ':sort<CR>')
@@ -95,9 +95,9 @@ vim.cmd([[command! FindDuplicates :g/^\(.*\)$\n\1$/p]])
 -- nnoremap('<C-]>', 'g]')
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-  nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect Pos" })
+  nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect highlights" })
 else
-  nnoremap([[<leader>uh]], [[:TSHighlightCapturesUnderCursor<CR>]])
+  nnoremap([[<leader>uh]], [[:TSHighlightCapturesUnderCursor<CR>]], { desc = "Inspect highlights" })
 end
 
 vim.cmd [[

@@ -25,6 +25,7 @@ return {
           DiffText                  = { bg = colors.diff_text, fg = "none" },
           DiffAdd                   = { bg = colors.diff_add, fg = "none" },
           DiffDelete                = { bg  = colors.diff_delete, fg = "none" },
+          MsgArea                   = { bg  = colors.bg_d },
           ['@boolean']              = { fmt = 'italic' },
           ['@constant.builtin']     = { fmt = 'italic', fg           = colors.red },
           ['@include']              = { fmt = 'italic' },
