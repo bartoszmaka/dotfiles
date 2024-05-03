@@ -1,3 +1,4 @@
+-- To be removed once comments are native in neovim?
 return {
   'tpope/vim-commentary',
   config = function()

@@ -1,9 +1,7 @@
 return {
   'simnalamburt/vim-mundo',
+  keys = { { "<C-k><C-u>", "<cmd>MundoToggle<CR>", desc = { "Undo tree" } } },
   config = function()
-    vim.cmd [[
-      let g:mundo_right = 1
-      nnoremap <C-k><C-u> :MundoToggle<CR>
-    ]]
+    vim.g.mundo_right = 1
   end,
 }

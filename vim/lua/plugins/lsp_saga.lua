@@ -2,11 +2,12 @@ return {
   "glepnir/lspsaga.nvim",
   event = "LspAttach",
   config = function()
+    local colors = require('helper.colors').onedark
+
     require("lspsaga").setup({
       ui = {
         theme = 'round',
         title = true,
-        -- border type can be single,double,rounded,solid,shadow.
         border = 'single',
         winblend = 0,
         expand = '',
@@ -62,9 +63,8 @@ return {
       },
     })
 
-    vim.cmd [[
-      highlight! link SagaBorder NormalDarker
-    ]]
+
+    -- vim.cmd [[ highlight! link SagaBorder NormalDarker ]]
   end,
   dependencies = {
     -- { "nvim-tree/nvim-web-devicons" },

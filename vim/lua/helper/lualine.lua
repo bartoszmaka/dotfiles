@@ -26,8 +26,8 @@ M.theme = {
   onedark = {
     normal = {
       a = { fg = colors.bg0, bg = colors.green, gui = 'bold' },
-      b = { fg = colors.fg, bg = colors.bg0 },
-      c = { fg = colors.fg, bg = colors.bg0 },
+      b = { fg = colors.fg, bg = colors.bg_d },
+      c = { fg = colors.fg, bg = colors.bg_d },
       y = { fg = colors.fg, bg = colors.bg3 },
       z = { fg = colors.bg0, bg = colors.green, gui = 'none' },
     },

@@ -33,17 +33,15 @@ return {
           ['--layout']            = 'reverse',
           ['--no-separator']      = '',
           ['--border']            = 'none',
-          ['--preview-window']    = 'border-sharp',
+          ['--preview-window']    = 'border-left',
         },
         winopts = {
           big_window = {
             win_height = 0.60,     -- window height
-            win_width  = 0.90,     -- window width
-            win_row    = 0.40,     -- window row position (0=top, 1=bottom)
+            win_width  = 0.80,     -- window width
+            win_row    = 0.50,     -- window row position (0=top, 1=bottom)
             win_col    = 0.50,     -- window col position (0=left, 1=right)
-            win_border = symbols.corners.sharp,
-            -- hl_normal  = 'Normal', -- window normal color
-            -- hl_border  = 'Normal', -- change to 'FloatBorder' if exists
+            win_border = symbols.corners.none,
             fullscreen = false,
           },
           bottom_pane = {
@@ -56,7 +54,7 @@ return {
           small_window = {
             win_row    = 0.25,
             win_col    = 0.50,
-            win_height = 0.35,
+            win_height = 0.25,
             win_width  = 0.15,
             win_border = symbols.corners.none,
             preview = {
@@ -73,33 +71,45 @@ return {
               horizontal = "right:50%"
             },
           }
+        },
+        fzf_colors = {
+          ["gutter"] = { "bg", "NormalDarker" },
+          ["bg"]     = { "bg", "NormalDarker" },
+          ["bg+"]    = { "bg", "CursorLine" },
+          ["fg+"]    = { "fg", "CursorLine" },
+          ["hl"]    = { "fg", "CmpItemAbbrMatch" },
+          ["hl+"]    = { "fg", "CmpItemAbbrMatch" },
         }
       }
       vim.g.fzf_command_prefix = 'Fzf'
       vim.g.fzf_mru_relative = 1
       vim.g.fzf_mru_no_sort = 1
-      vim.g.fzf_colors = { bg = { 'bg', 'NormalDarker' } }
-      vim.g.fzf_layout = { window = { width = 0.90, height = 0.66 } }
+      vim.g.fzf_colors = presets.fzf_colors
+      vim.g.fzf_layout = { window = { width = 0.80, height = 0.59 } }
       vim.g.fzf_action = { ['ctrl-s'] = 'split', ['ctrl-v'] = 'vsplit' }
 
-      vim.cmd [[
-        command! -bang -nargs=? FZFFreshMruPreview call fzf_mru#actions#mru(<q-args>,
-          \{
-            \'options': [
-              \'--preview', 'bat --color=always --plain {}',
-              \'--preview-window', 'right:40%',
-              \'--reverse',
-              \'--preview-window', 'border-sharp',
-              \'--border', 'sharp',
-              \'--info', 'inline-right',
-              \'--prompt', '> ',
-              \'--ansi',
-              \'--color', 'dark,gutter:#141b24,border:#93a4c3',
-              \'--bind', 'f3:toggle-preview-wrap,f4:toggle-preview',
-            \]
-          \}
-        \)
-      ]]
+
+
+
+
+      -- vim.cmd [[
+      --   command! -bang -nargs=? FZFFreshMruPreview call fzf_mru#actions#mru(<q-args>,
+      --     \{
+      --       \'options': [
+      --         \'--preview', 'bat --color=always --plain {}',
+      --         \'--preview-window', 'right:40%',
+      --         \'--preview-window', 'border-left',
+      --         \'--reverse',
+      --         \'--border', 'sharp',
+      --         \'--info', 'inline-right',
+      --         \'--prompt', '> ',
+      --         \'--ansi',
+      --         \'--color', 'dark,gutter:#141b24,border:#93a4c3',
+      --         \'--bind', 'f3:toggle-preview-wrap,f4:toggle-preview',
+      --       \]
+      --     \}
+      --   \)
+      -- ]]
       vim.cmd [[
         autocmd FileType fzf tnoremap <buffer> <esc> <esc>
       ]]
@@ -113,11 +123,6 @@ return {
             layout = 'flex',
             horizontal = "right:40%"
           },
-          -- on_create = function()
-          --   vim.cmd [[
-          --     set winhighlight=Normal:Error,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker
-          --   ]]
-          -- end
         }),
         keymap                    = {
           builtin                 = {
@@ -145,19 +150,18 @@ return {
           },
         },
         fzf_opts                  = presets.fzf_opts,
-        fzf_colors                = {
-          ["bg"]                  = { "bg", "NormalDarker" },
-          ["gutter"]              = { "bg", "NormalDarker" },
-        },
+        fzf_colors                = presets.fzf_colors,
         hls = {
           normal = "NormalDarker",
           border = "NormalDarker",
           title = "NormalDarker",
+          search = "Search",
           preview_normal = "NormalDarker",
           preview_border = "NormalDarker",
           preview_title = "NormalDarker",
           help_normal = "NormalDarker",
           help_border = "NormalDarker",
+          scrollfloat_f = "Search"
         },
         previewers                = {
           git_diff                = { cmd = 'git diff', args = "--color", pager = "delta" },
@@ -287,49 +291,36 @@ return {
         },
       }
 
-      nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>')
-      nnoremap('<C-p><c-r>', ':FZFFreshMruPreview()<CR>')
-
-      nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]])
-      vnoremap('<C-p><C-p>', [[y<esc>:lua require("fzf-lua").files()<CR>p]])
-      nnoremap('<C-p><C-f>', [[:lua require("fzf-lua").live_grep()<CR>]])
-      vnoremap('<C-p><C-f>', [[<esc>:lua require("fzf-lua").grep_visual()<CR>]])
-      -- nnoremap('<C-p><c-r>', [[:lua require("fzf-lua").oldfiles()<CR>]])
-      nnoremap('<leader>fW', [[:lua require("fzf-lua").grep_cWORD()<CR>]])
-
-      nnoremap('<leader>pa', [[:lua require("fzf-lua").builtin()<CR>]])
-      nnoremap('<C-p><C-a>', [[:lua require("fzf-lua").builtin()<CR>]]) -- Mapped to Cmd + Shift + P in alacritty
-      nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]])
-      -- nnoremap('<leader>pr', [[:lua require("fzf-lua").oldfiles()<CR>]])
-      nnoremap('<leader>pg', [[:lua require("fzf-lua").git_status()<CR>]])
-      nnoremap('<leader>pb', [[:lua require("fzf-lua").buffers()<CR>]])
-      nnoremap('<leader>pB', [[:lua require("fzf-lua").git_branches()<CR>]])
-      nnoremap('<leader>pf', [[:lua require("fzf-lua").live_grep()<CR>]])
-      nnoremap('<leader>pF', [[:lua require("fzf-lua").live_grep_resume()<CR>]])
-      nnoremap('<leader>pq', [[:lua require("fzf-lua").quickfix()<CR>]])
-      nnoremap('<leader>/', [[:lua require("fzf-lua").blines()<CR>]])
-      nnoremap('<leader>pc', [[:lua require("fzf-lua").git_bcommits()<CR>]])
-      nnoremap('<leader>p;', [[:lua require("fzf-lua").commands()<CR>]])
-      nnoremap('<leader>pK', [[:lua require("fzf-lua").keymaps()<CR>]])
-      nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]])
-      nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]])
-      nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]])
-      nnoremap('<leader>pe', [[:lua require("fzf-lua").lsp_document_diagnostics()<CR>]])
-      nnoremap('<leader>pE', [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]])
-      nnoremap('<C-f><C-f><C-h>', [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]]) -- Mapped to Cmd + Shift + M in alacritty
-      nnoremap('<leader>ps', [[:lua require("fzf-lua").lsp_document_symbols()<CR>]])
-      nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {win_height = 0.60, win_width = 0.90, win_row = 0.40, win_col = 0.50}})<CR>]])
-      nnoremap('z=', [[:lua require("fzf-lua").spell_suggest()<CR>]])
-      nnoremap('<leader>p.', [[:lua require("fzf-lua").filetypes()<CR>]])
-
-
-      -- vim.keymap.set({ "i" }, "<C-x><C-f>",
-      --   function()
-      --     require("fzf-lua").complete_file({
-      --       cmd = "rg --files",
-      --       winopts = { preview = { hidden = "nohidden" } }
-      --     })
-      --   end, { silent = true, desc = "Fuzzy complete file" })
+      -- nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })
+      -- nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>', { desc = "Recent Files" })
+      -- nnoremap('<C-p><c-r>', ':FZFFreshMruPreview()<CR>', { desc = "Recent Files" })
+      -- nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })
+      -- vnoremap('<C-p><C-p>', [[y<esc>:lua require("fzf-lua").files()<CR>p]], { desc = "Files" })
+      nnoremap('<leader>pa', [[:lua require("fzf-lua").builtin()<CR>]], { desc = "Actions (FZF)" })
+      nnoremap('<C-p><C-a>', [[:lua require("fzf-lua").builtin()<CR>]], { desc = "Actions (FZF)" }) -- Mapped to Cmd + Shift + P in alacritty
+      nnoremap('<C-p><C-f>', [[:lua require("fzf-lua").live_grep()<CR>]], { desc = "Find in project" })
+      vnoremap('<C-p><C-f>', [[<esc>:lua require("fzf-lua").grep_visual()<CR>]], { desc = "Find in project" })
+      nnoremap('<leader>fW', [[:lua require("fzf-lua").grep_cWORD()<CR>]], { desc = "Find word in project" })
+      nnoremap('<leader>pf', [[:lua require("fzf-lua").live_grep()<CR>]], { desc = "Find in project" })
+      nnoremap('<leader>pF', [[:lua require("fzf-lua").live_grep_resume()<CR>]], { desc = "Resume find in project" })
+      nnoremap('<leader>pg', [[:lua require("fzf-lua").git_status()<CR>]], { desc = "Git status" })
+      nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]], { desc = "Definitions" })
+      nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]], { desc = "LSP Finder" })
+      nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]], { desc = "References" })
+      nnoremap('<leader>ps', [[:lua require("fzf-lua").lsp_document_symbols()<CR>]], { desc = "File Symbols" })
+      nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {win_height = 0.60, win_width = 0.90, win_row = 0.40, win_col = 0.50}})<CR>]], { desc = "Project Symbols" })
+      nnoremap('<leader>/', [[:lua require("fzf-lua").blines()<CR>]], { desc = "File Lines" })
+      nnoremap('<leader>p.', [[:lua require("fzf-lua").filetypes()<CR>]], { desc = "Filetypes" })
+      nnoremap('<leader>pe', [[:lua require("fzf-lua").lsp_document_diagnostics()<CR>]], { desc = "File Diagnostics" })
+      nnoremap('<leader>pE', [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]], { desc = "Project Diagnostics" })
+      nnoremap('<C-f><C-f><C-h>', [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]], { desc = "Project Diagnostics" }) -- Mapped to Cmd + Shift + M in alacritty
+      nnoremap('z=', [[:lua require("fzf-lua").spell_suggest()<CR>]], { desc = "Spell" })
+      nnoremap('<leader>pb', [[:lua require("fzf-lua").buffers()<CR>]], { desc = "Buffers" })
+      nnoremap('<leader>pB', [[:lua require("fzf-lua").git_branches()<CR>]], { desc = "Branches" })
+      nnoremap('<leader>pq', [[:lua require("fzf-lua").quickfix()<CR>]], { desc = "Quickfix" })
+      nnoremap('<leader>pc', [[:lua require("fzf-lua").git_bcommits()<CR>]], { desc = "File Commits" })
+      nnoremap('<leader>p;', [[:lua require("fzf-lua").commands()<CR>]], { desc = "Commands" })
+      nnoremap('<leader>pK', [[:lua require("fzf-lua").keymaps()<CR>]], { desc = "Keymaps" })
     end
   },
 }

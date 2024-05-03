@@ -1,4 +1,5 @@
 return {
+            -- win_border = symbols.corners.sharp,
   -- utils
   { 'tpope/vim-abolish' },      -- swap case
   { 'tpope/vim-surround' },     -- surround motion
@@ -13,20 +14,20 @@ return {
   -- { 'lmeijvogel/vim-yaml-helper', lazy = false },
   { 'mogelbrod/vim-jsonpath' },
   -- UI
-  { 'ldelossa/gh.nvim' },
+  -- { 'ldelossa/gh.nvim' },
   { 'jacquesbh/vim-showmarks' },
-  {
-    'jackMort/ChatGPT.nvim',
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
-    },
-    opts = function()
-      return {
-        -- api_key_cmd = "head " .. vim.fn.expand("$HOME") .. "/.config/nvim-key.txt | base64 --decode",
-        api_key_cmd = "head " .. vim.fn.expand("$HOME") .. "/.config/nvim-key",
-      }
-    end
-  },
+  -- {
+  --   'jackMort/ChatGPT.nvim',
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim"
+  --   },
+  --   opts = function()
+  --     return {
+  --       -- api_key_cmd = "head " .. vim.fn.expand("$HOME") .. "/.config/nvim-key.txt | base64 --decode",
+  --       api_key_cmd = "head " .. vim.fn.expand("$HOME") .. "/.config/nvim-key",
+  --     }
+  --   end
+  -- },
 }

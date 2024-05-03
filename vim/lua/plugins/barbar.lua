@@ -36,17 +36,17 @@ return {
 
     local close_matchup_window_and_then_close_buffer = function()
       local open_windows = vim.api.nvim_list_wins()
-      print(vim.inspect(open_windows))
+      -- print(vim.inspect(open_windows))
 
       for _, value in pairs(open_windows) do
         local config = vim.api.nvim_win_get_config(value)
-        local is_matchup_popup_window = config.anchor == "NW" and
+        local is_matchup_popup_window = (config.anchor == "NW" or config.anchor == "SW") and
         config.external == false and
         config.focusable == false and
         config.zindex == 50 and
         config.relative == "win"
 
-        print(vim.inspect({value, is_matchup_popup_window}))
+        -- print(vim.inspect({value, is_matchup_popup_window}))
         if is_matchup_popup_window then
           vim.api.nvim_win_close(value, true)
         end

@@ -28,21 +28,22 @@ return {
         color_info = colors.blue,   -- Changes diagnostic's info foreground color
         color_hint = colors.blue,   -- Changes diagnostic's hint foreground color
         symbols = {
-          error = ' '.. symbols.Error .. ' ',
-          warn = ' '.. symbols.Warn .. ' ',
-          info = ' '.. symbols.Info .. ' ',
-          hint = ' '.. symbols.Hint .. ' ',
+          error = ' ' .. symbols.Error .. ' ',
+          warn = ' ' .. symbols.Warn .. ' ',
+          info = ' ' .. symbols.Info .. ' ',
+          hint = ' ' .. symbols.Hint .. ' ',
         }
       },
       diff = {
         'diff',
         icon = '  ',
-        colored = false,                                         -- displays diff status in color if set to true
+        colored = false,                                          -- displays diff status in color if set to true
         -- all colors are in format #rrggbb
-        color_added = nil,                                       -- changes diff's added foreground color
-        color_modified = nil,                                    -- changes diff's modified foreground color
-        color_removed = nil,                                     -- changes diff's removed foreground color
-        symbols = { added = '+', modified = '~', removed = '-' } -- changes diff symbols
+        color_added = nil,                                        -- changes diff's added foreground color
+        color_modified = nil,                                     -- changes diff's modified foreground color
+        color_removed = nil,                                      -- changes diff's removed foreground color
+        symbols = { added = '+', modified = '~', removed = '-' }, -- changes diff symbols
+        color = { bg = colors.bg_d }
       },
       location = {
         'location',
@@ -54,7 +55,7 @@ return {
         end
       },
       filetype = { 'filetype', colored = true, icon_only = true },
-      filename = { 'filename', file_status = true, path = 1, color = { fg = colors.grey }},
+      filename = { 'filename', file_status = true, path = 1, color = { fg = colors.grey } },
       navic = {
         function()
           return " " .. navic.get_location()
@@ -121,14 +122,14 @@ return {
       inactive_winbar = {
         lualine_c = {
           { 'filetype', colored = false, icon_only = true },
-          { 'filename', path = 1, file_status = true, color = { fg = colors.grey } },
+          { 'filename', path = 1,        file_status = true, color = { fg = colors.grey } },
         }
       },
       winbar = {
         -- For some reason coloring breaks stuff only in winbar
         lualine_c = {
-          { 'filetype', colored = false, icon_only = true },
-          { 'filename', path = 1, file_status = true },
+          { 'filetype', colored = false, icon_only = true,   color = { bg = colors.bg0 } },
+          { 'filename', path = 1,        file_status = true, color = { bg = colors.bg0 } },
         }
       },
       tabline = {},
