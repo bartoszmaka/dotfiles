@@ -36,7 +36,7 @@ return {
         disable_auto_comment = true,
         accept_keymap = "<M-o>",
         dismiss_keymap = "<C-]>",
-        debounce_ms = 800,
+        debounce_ms = 400,
         suggestion_color = { gui = "#808080", cterm = 244 },
         exclude_filetypes = { "TelescopePrompt", "NvimTree" },
         log_file_path = nil, -- absolute path to Tabnine log file
@@ -172,13 +172,15 @@ return {
         window = {
           completion = {
             winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:Visual,Search:None',
+            -- winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:Visual,Search:None',
             -- winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:CursorColumn,Search:None',
             col_offset = -3,
             side_padding = 0,
             -- border = 'rounded',
           },
           documentation = {
-            winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
+            winhighlight = 'Search:None',
+            -- winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
             -- border = 'rounded',
           },
         },
@@ -198,9 +200,6 @@ return {
         },
         experimental = {
           ghost_text = false
-          -- ghost_text = {
-          --   hl_group = "LspCodeLens",
-          -- },
         },
         sorting = {
           priority_weight = 2,

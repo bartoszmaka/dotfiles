@@ -29,7 +29,7 @@ return {
         [2] = "  Good morning",
         [3] = "  Good afternoon",
         [4] = "  Good evening",
-        [5] = "󰖔 Good night",
+        [5] = "󰖔  Good night",
       }
       local greetingIndex = 0
       if hour == 23 or hour < 7 then
@@ -57,7 +57,7 @@ return {
       dashboard.button("⌘ ⇧ e"        , "  Open files tree"                 , [[:Neotree filesystem<CR>]])                                 ,
       dashboard.button("⌃ ⇧ g"        , "  Open git changed files explorer" , [[:Neotree git_status<CR>]])                                 ,
       dashboard.button("⌘ ⇧ f"        , "  Show finder"                     , [[:lua require("fzf-lua").live_grep()<CR>]])                 ,
-      dashboard.button("⌘ ⇧ m"        , "  Show errors"                     , [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]]) ,
+      dashboard.button("⌘ ⇧ m"        , "  Show errors"                     , [[:lua require("fzf-lua").lsp_workspace_diagnostics()<CR>]]) ,
       dashboard.button("⌘ b"          , "  Toggle side panel"               , [[:Neotree close<CR>]])                                      ,
       dashboard.button("⌃ `"          , "  Show terminal"                   , [[:FloatermToggle<CR>]])                                     ,
       dashboard.button("SPC p g"      , "  Fuzzy browse git changes"        , [[:FzfLua git_status<CR>]])                                  ,

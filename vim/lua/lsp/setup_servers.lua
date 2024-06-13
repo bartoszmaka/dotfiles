@@ -18,6 +18,10 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     "additionalTextEdits",
   },
 }
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
 
 local servers = {
   "bashls",
@@ -35,7 +39,7 @@ local servers = {
   "vuels",
   "yamlls",
   'cssls',
-  -- 'ruby_ls',
+  'ruby_lsp',
   'solargraph',
   'lua_ls',
   'efm',
@@ -45,11 +49,17 @@ local servers = {
   'lemminx',
 }
 
-local on_attach = function(client, bufnr)
-  require('lsp-status').on_attach(client)
+local build_on_attach = function(callback)
+  return function(client, bufnr)
+    require('lsp-status').on_attach(client)
 
-  if client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
+    if callback then
+      callback(client, bufnr)
+    end
+
+    if client.server_capabilities.documentSymbolProvider then
+      navic.attach(client, bufnr)
+    end
   end
 end
 
@@ -62,7 +72,7 @@ local lspconfig = require("lspconfig")
 
 local ls_shared_options = {
   capabilities = capabilities,
-  on_attach = on_attach,
+  on_attach = build_on_attach(),
   root_dir = vim.loop.cwd,
 }
 local ls_specific_options = require('lsp/ls_specific_options')
@@ -72,7 +82,7 @@ require("typescript").setup({
   debug = false,            -- enable debug logging for commands
   server = {
     capabilities = capabilities,
-    on_attach = on_attach,
+    on_attach = build_on_attach(),
     root_dir = vim.loop.cwd,
     flags = {
       debounce_text_changes = 150,
@@ -85,5 +95,19 @@ for _, server_name in ipairs(servers) do
 
   if server_name ~= "tsserver" then
     lspconfig[server_name].setup(opts)
+  end
+
+  if server_name == "ruby_lsp" then
+    local ruby_lsp_opts = {
+      capabilities = capabilities,
+      on_attach = build_on_attach(
+        function(client, bufnr)
+          -- print("Disabling completion for " .. server_name)
+          client.server_capabilities.completionProvider = false
+        end
+      ),
+      root_dir = vim.loop.cwd,
+    }
+    lspconfig[server_name].setup(ruby_lsp_opts)
   end
 end

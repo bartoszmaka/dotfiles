@@ -111,3 +111,43 @@ vim.cmd [[
 nmap('<F3>', '*')
 nmap('<S-F3>', '#')
 nmap('<C-G>', '<C-k><C-g>')
+-- function MarkFzfColors()
+--   local names = {
+--     "FzfLuaNormal",
+--     "FzfLuaBorder",
+--     "FzfLuaTitle",
+--     "FzfLuaPreviewNormal",
+--     "FzfLuaPreviewBorder",
+--     "FzfLuaPreviewTitle",
+--     "FzfLuaCursor",
+--     "FzfLuaCursorLine",
+--     "FzfLuaCursorLineNr",
+--     "FzfLuaSearch",
+--     "FzfLuaScrollBorderEmpty",
+--     "FzfLuaScrollBorderFull",
+--     "FzfLuaScrollFloatEmpty",
+--     "FzfLuaScrollFloatFull",
+--     "FzfLuaHelpNormal",
+--     "FzfLuaHelpBorder",
+--     "FzfLuaHeaderBind",
+--     "FzfLuaHeaderText",
+--     "FzfLuaPathColNr",
+--     "FzfLuaPathLineNr",
+--     "FzfLuaBufName",
+--     "FzfLuaBufNr",
+--     "FzfLuaBufFlagCur",
+--     "FzfLuaBufFlagAlt",
+--     "FzfLuaTabTitle",
+--     "FzfLuaTabMarker",
+--     "FzfLuaDirIcon",
+--     "FzfLuaDirPart",
+--     "FzfLuaLiveSym"
+--   }
+--   for _, name in ipairs(names) do
+--     vim.cmd(string.format(
+--       "highlight! %s guibg=%s",
+--       name, "#ff0000"
+--     ))
+--   end
+-- end
+

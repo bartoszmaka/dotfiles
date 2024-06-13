@@ -39,7 +39,7 @@ return  {
       },
     }
   },
-  ruby_ls = {
+  ruby_lsp = {
     filetypes = { 'ruby' }
   },
   solargraph = {

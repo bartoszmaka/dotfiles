@@ -11,17 +11,21 @@ vim.cmd [[
 
   augroup make_panels_darker
     autocmd!
-    highlight! NormalFloat        guibg=#141b24 guifg=#93a4c3
-    highlight! FloatBorder        guibg=#141b24 guifg=#93a4c3
+    highlight! link NormalFloat Normal
+    highlight! link FloatBorder Normal
+    " highlight! NormalFloat        guibg=#141b24 guifg=#93a4c3
+    " highlight! FloatBorder        guibg=#141b24 guifg=#93a4c3
     highlight! NormalDarker       guibg=#141b24 guifg=#93a4c3
     highlight! SignColumnDarker   guibg=#141b24 guifg=#93a4c3
     highlight! EndOfBufferDarker  guifg=#141b24 guibg=#141b24
     highlight! WinSeparatorDarker guifg=#2a324a guibg=#141b24
+    highlight! link WhichKeyFloat NormalDarker
+    highlight! link WhichKeyBorder NormalDarker
     autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType help setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType floaterm setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType Trouble setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
-    autocmd FileType fzf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+    " autocmd FileType fzf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType Trouble setlocal colorcolumn=
     autocmd FileType Mundo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker

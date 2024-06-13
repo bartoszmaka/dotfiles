@@ -22,13 +22,21 @@ M.isNotOnlySplitOpen = function()
   return not M.isOnlySplitOpen()
 end
 
+-- Recording Status
+M.recording = function()
+  local reg = vim.fn.reg_recording()
+  if reg == "" then return "" end -- not recording
+  return "󰑊 REC @" .. reg
+end
+
 M.theme = {
   onedark = {
     normal = {
       a = { fg = colors.bg0, bg = colors.green, gui = 'bold' },
-      b = { fg = colors.fg, bg = colors.bg_d },
+      b = { fg = colors.fg, bg = colors.bg0 },
       c = { fg = colors.fg, bg = colors.bg_d },
-      y = { fg = colors.fg, bg = colors.bg3 },
+      x = { fg = colors.fg, bg = colors.bg_d },
+      y = { fg = colors.fg, bg = colors.bg_d },
       z = { fg = colors.bg0, bg = colors.green, gui = 'none' },
     },
     command = {
@@ -36,8 +44,8 @@ M.theme = {
       z = { fg = colors.bg0, bg = colors.yellow, gui = 'none' },
     },
     insert = {
-      a = { fg = colors.bg0, bg = colors.blue, gui = 'bold' },
-      z = { fg = colors.bg0, bg = colors.blue, gui = 'none' },
+      a = { fg = colors.bg0,  bg = colors.blue, gui = 'bold' },
+      z = { fg = colors.bg_d, bg = colors.blue, gui = 'none' },
     },
     visual = {
       a = { fg = colors.bg0, bg = colors.purple, gui = 'bold' },
