@@ -42,6 +42,8 @@ vim.opt.langmenu = 'en_US.UTF-8'
 vim.opt.ignorecase = true         -- ignore case letters when search
 vim.opt.smartcase = true          -- ignore lowercase for the whole pattern
 
+vim.opt.shortmess = vim.opt.shortmess + 'S'
+
 -- for some reason I can't set it via lua api
 vim.cmd [[
   syntax on

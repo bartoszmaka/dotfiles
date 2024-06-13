@@ -75,10 +75,12 @@ return {
         fzf_colors = {
           ["gutter"] = { "bg", "NormalDarker" },
           ["bg"]     = { "bg", "NormalDarker" },
+          ["preview-bg"]     = { "bg", "NormalDarker" },
           ["bg+"]    = { "bg", "CursorLine" },
           ["fg+"]    = { "fg", "CursorLine" },
           ["hl"]    = { "fg", "CmpItemAbbrMatch" },
           ["hl+"]    = { "fg", "CmpItemAbbrMatch" },
+
         }
       }
       vim.g.fzf_command_prefix = 'Fzf'
@@ -88,28 +90,6 @@ return {
       vim.g.fzf_layout = { window = { width = 0.80, height = 0.59 } }
       vim.g.fzf_action = { ['ctrl-s'] = 'split', ['ctrl-v'] = 'vsplit' }
 
-
-
-
-
-      -- vim.cmd [[
-      --   command! -bang -nargs=? FZFFreshMruPreview call fzf_mru#actions#mru(<q-args>,
-      --     \{
-      --       \'options': [
-      --         \'--preview', 'bat --color=always --plain {}',
-      --         \'--preview-window', 'right:40%',
-      --         \'--preview-window', 'border-left',
-      --         \'--reverse',
-      --         \'--border', 'sharp',
-      --         \'--info', 'inline-right',
-      --         \'--prompt', '> ',
-      --         \'--ansi',
-      --         \'--color', 'dark,gutter:#141b24,border:#93a4c3',
-      --         \'--bind', 'f3:toggle-preview-wrap,f4:toggle-preview',
-      --       \]
-      --     \}
-      --   \)
-      -- ]]
       vim.cmd [[
         autocmd FileType fzf tnoremap <buffer> <esc> <esc>
       ]]
@@ -123,6 +103,16 @@ return {
             layout = 'flex',
             horizontal = "right:40%"
           },
+          -- on_create = function()
+          --   vim.cmd [[
+          --      setlocal winhighlight=EndOfBuffer:EndOfBufferDarker
+          --   ]]
+          -- end,
+          -- on_create = function ()
+          --   vim.cmd [[
+          --     setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          --   ]]
+          -- end
         }),
         keymap                    = {
           builtin                 = {
@@ -161,7 +151,6 @@ return {
           preview_title = "NormalDarker",
           help_normal = "NormalDarker",
           help_border = "NormalDarker",
-          scrollfloat_f = "Search"
         },
         previewers                = {
           git_diff                = { cmd = 'git diff', args = "--color", pager = "delta" },
@@ -258,7 +247,7 @@ return {
           async_or_timeout        = true, -- timeout(ms) or false for blocking calls
           symbols                 = setup("LSP", { symbol_icons = symbols, winopts = presets.winopts.medium_window, }),
           finder                  = setup("LSP Finder", { fzf_opts = presets.fzf_opts, winopts = presets.winopts.bottom_pane }),
-          code_actions            = setup("Code Actions"),
+          code_actions            = setup("Code Actions", { winopts = presets.winopts.bottom_pane }),
           icons                   = {
             ["Error"]             = { icon = symbols.Error, color = "red" },    -- error
             ["Warning"]           = { icon = symbols.Warn, color = "yellow" },  -- warning
@@ -291,11 +280,11 @@ return {
         },
       }
 
-      -- nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })
+      nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })
       -- nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>', { desc = "Recent Files" })
       -- nnoremap('<C-p><c-r>', ':FZFFreshMruPreview()<CR>', { desc = "Recent Files" })
-      -- nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })
-      -- vnoremap('<C-p><C-p>', [[y<esc>:lua require("fzf-lua").files()<CR>p]], { desc = "Files" })
+      nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })
+      vnoremap('<C-p><C-p>', [[y<esc>:lua require("fzf-lua").files()<CR>p]], { desc = "Files" })
       nnoremap('<leader>pa', [[:lua require("fzf-lua").builtin()<CR>]], { desc = "Actions (FZF)" })
       nnoremap('<C-p><C-a>', [[:lua require("fzf-lua").builtin()<CR>]], { desc = "Actions (FZF)" }) -- Mapped to Cmd + Shift + P in alacritty
       nnoremap('<C-p><C-f>', [[:lua require("fzf-lua").live_grep()<CR>]], { desc = "Find in project" })
@@ -304,9 +293,9 @@ return {
       nnoremap('<leader>pf', [[:lua require("fzf-lua").live_grep()<CR>]], { desc = "Find in project" })
       nnoremap('<leader>pF', [[:lua require("fzf-lua").live_grep_resume()<CR>]], { desc = "Resume find in project" })
       nnoremap('<leader>pg', [[:lua require("fzf-lua").git_status()<CR>]], { desc = "Git status" })
-      nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]], { desc = "Definitions" })
-      nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]], { desc = "LSP Finder" })
-      nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]], { desc = "References" })
+      -- nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]], { desc = "Definitions" })
+      -- nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]], { desc = "LSP Finder" })
+      -- nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]], { desc = "References" })
       nnoremap('<leader>ps', [[:lua require("fzf-lua").lsp_document_symbols()<CR>]], { desc = "File Symbols" })
       nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {win_height = 0.60, win_width = 0.90, win_row = 0.40, win_col = 0.50}})<CR>]], { desc = "Project Symbols" })
       nnoremap('<leader>/', [[:lua require("fzf-lua").blines()<CR>]], { desc = "File Lines" })
@@ -321,6 +310,7 @@ return {
       nnoremap('<leader>pc', [[:lua require("fzf-lua").git_bcommits()<CR>]], { desc = "File Commits" })
       nnoremap('<leader>p;', [[:lua require("fzf-lua").commands()<CR>]], { desc = "Commands" })
       nnoremap('<leader>pK', [[:lua require("fzf-lua").keymaps()<CR>]], { desc = "Keymaps" })
+
     end
   },
 }

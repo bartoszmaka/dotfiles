@@ -63,6 +63,11 @@ return {
       },
     })
 
+      vim.cmd [[
+        autocmd FileType saga_codeaction nnoremap <buffer> <esc> <esc>
+        autocmd FileType saga_codeaction inoremap <buffer> <esc> <esc>
+      ]]
+
 
     -- vim.cmd [[ highlight! link SagaBorder NormalDarker ]]
   end,

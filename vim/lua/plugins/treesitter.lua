@@ -42,9 +42,9 @@ return {
       },
       indent = { enable = true, },
       autopairs = { enable = true, },
-      autotag = {
-        enable = true,
-      },
+      -- autotag = {
+      --   enable = true,
+      -- },
       -- matchup = { enable = true },
       incremental_selection = {
         enable = false,
@@ -148,13 +148,15 @@ return {
 
     require('hlargs').setup()
 
+    require('nvim-ts-autotag').setup()
+
     vim.cmd [[
       augroup fix_autotag_for_eruby_not_setting_up_for_some_reason
-        autocmd!
-        autocmd FileType eruby lua require('nvim-ts-autotag').setup()
-        autocmd FileType * call v:lua.require('nvim-ts-autotag.internal').attach()
-        autocmd BufDelete * lua require('nvim-ts-autotag.internal').detach(vim.fn.expand('<abuf>'))
+      autocmd!
+      autocmd FileType eruby lua require('nvim-ts-autotag').setup()
+      autocmd FileType * call v:lua.require('nvim-ts-autotag.internal').attach()
+      autocmd BufDelete * lua require('nvim-ts-autotag.internal').detach(vim.fn.expand('<abuf>'))
       augroup END
-    ]]
+      ]]
   end
 }

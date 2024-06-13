@@ -43,7 +43,6 @@ return {
         color_modified = nil,                                     -- changes diff's modified foreground color
         color_removed = nil,                                      -- changes diff's removed foreground color
         symbols = { added = '+', modified = '~', removed = '-' }, -- changes diff symbols
-        color = { bg = colors.bg_d }
       },
       location = {
         'location',
@@ -55,7 +54,7 @@ return {
         end
       },
       filetype = { 'filetype', colored = true, icon_only = true },
-      filename = { 'filename', file_status = true, path = 1, color = { fg = colors.grey } },
+      filename = { 'filename', file_status = true, path = 1 },
       navic = {
         function()
           return " " .. navic.get_location()
@@ -103,33 +102,36 @@ return {
       },
       sections = {
         lualine_a = { 'mode' },
-        -- lualine_b = { sections.filetype, sections.filename, },
         lualine_b = {},
         lualine_c = { sections.navic },
-        -- lualine_x = { sections.flags, sections.diagnostics, sections.copilot, 'filetype' },
-        lualine_x = { sections.flags, sections.diagnostics, 'tabnine', 'filetype' },
-        lualine_y = { sections.diff, },
+        lualine_x = { 'lsp_progress', helper.lualine.recording, 'searchcount' , sections.flags, sections.diagnostics },
+        lualine_y = { 'tabnine', 'filetype', sections.diff, },
         lualine_z = { sections.location }
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = { sections.filetype, sections.filename, },
+        lualine_b = {},
         lualine_c = {},
         lualine_x = {},
-        lualine_y = { sections.diff },
-        lualine_z = { sections.location }
+        lualine_y = {},
+        lualine_z = {}
+        -- lualine_b = { sections.filetype, sections.filename, },
+        -- lualine_y = { sections.diff },
+        -- lualine_z = { sections.location }
       },
       inactive_winbar = {
-        lualine_c = {
+        lualine_b = {
           { 'filetype', colored = false, icon_only = true },
           { 'filename', path = 1,        file_status = true, color = { fg = colors.grey } },
         }
       },
       winbar = {
         -- For some reason coloring breaks stuff only in winbar
-        lualine_c = {
-          { 'filetype', colored = false, icon_only = true,   color = { bg = colors.bg0 } },
-          { 'filename', path = 1,        file_status = true, color = { bg = colors.bg0 } },
+        lualine_b = {
+          { 'filetype', colored = false, icon_only = true },
+          { 'filename', path = 1,        file_status = true },
+          -- { 'filetype', colored = false, icon_only = true,   color = { bg = colors.bg0 } },
+          -- { 'filename', path = 1,        file_status = true, color = { bg = colors.bg0 } },
         }
       },
       tabline = {},
@@ -148,5 +150,13 @@ return {
     }
 
     return options
+  end,
+  config = function(_, opts)
+    local colors = require('helper').colors.onedark
+
+    require('lualine').setup(opts)
+
+    vim.cmd(string.format("highlight! BufferTabpages guibg=%s", colors.bg_d))
+    vim.cmd(string.format("highlight! BufferTabpagesSep guibg=%s", colors.bg_d))
   end
 }

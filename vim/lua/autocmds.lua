@@ -76,46 +76,6 @@ vim.cmd [[
   augroup END
 ]]
 
-vim.cmd [[
-  function ApplyLargeFileOptimisations()
-    echo("Big file, disabling syntax, treesitter and folding")
-    if exists(':IndentBlanklineDisable')
-      exec 'IndentBlanklineDisable'
-    endif
-    if exists(':TSBufDisable')
-      exec 'TSBufDisable autotag'
-      exec 'TSBufDisable highlight'
-      exec 'TSBufDisable indent'
-      exec 'TSBufDisable rainbow'
-      exec 'TSBufDisable matchup'
-      exec 'TSBufDisable context_commentstring'
-      exec 'TSBufDisable nvimGPS'
-      exec 'TSBufDisable illuminate'
-      exec 'TSBufDisable query_linter'
-      exec 'TSBufDisable playground'
-      exec 'TSBufDisable textobjects.swap'
-      exec 'TSBufDisable textobjects.move'
-      exec 'TSBufDisable textobjects.select'
-      exec 'TSBufDisable incremental_selection'
-      exec 'TSBufDisable textobjects.lsp_interop'
-    endif
-
-    set foldmethod=manual
-    syntax clear
-    syntax off
-    filetype off
-    set noundofile
-    set noswapfile
-    set noloadplugins
-    set nocursorline
-  endfunction
-
-  augroup BigFileDisable
-    autocmd!
-    autocmd BufWinEnter * if getfsize(expand("%")) > 512 * 1024 | exec ApplyLargeFileOptimisations() | endif
-  augroup END
-]]
-
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("Closeq"),
   pattern = {

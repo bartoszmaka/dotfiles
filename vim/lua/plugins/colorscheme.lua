@@ -21,6 +21,7 @@ return {
           variables = 'none'
         },
         highlights = {
+              -- EndOfBuffer                = { bg = "#000000" },
           DiffChange                = { bg = colors.diff_change, fg = "none" },
           DiffText                  = { bg = colors.diff_text, fg = "none" },
           DiffAdd                   = { bg = colors.diff_add, fg = "none" },

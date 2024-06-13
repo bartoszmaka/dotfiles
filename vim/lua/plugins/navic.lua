@@ -16,9 +16,10 @@ return {
       highlight = true,
       depth_limit = 8,
       icons = icons,
+      click = true,
       lsp = {
         preference = {
-          'ruby_ls',
+          'ruby_lsp',
           'tsserver',
           'solargraph',
           'tailwindcss',

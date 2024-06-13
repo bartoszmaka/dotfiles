@@ -89,6 +89,12 @@ M.corners = {
   none = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
   single_no_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 }
+-- M.separators = {
+--   round = {
+--     component = { left = '', right = '' },
+--     section = { left = '', right = '' }
+--   }
+-- }
 
 
 return M

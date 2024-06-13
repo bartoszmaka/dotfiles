@@ -169,20 +169,20 @@ return {
       for hl, col in pairs(TelescopePrompt) do
         vim.api.nvim_set_hl(0, hl, col)
       end
-      vim.cmd [[
-        augroup telescope_fixes
-          autocmd!
-          autocmd User TelescopeFindPre highlight! CursorLineNR guibg=#21283b | echom('FindPre')
-          autocmd User TelescopePreviewerLoaded highlight! CursorLineNR guibg=#21283b | echom("Previewer Loaded")
-          autocmd User TelescopeResumePost echom("Resume post")
-        augroup END
-      ]]
+      -- vim.cmd [[
+      --   augroup telescope_fixes
+      --     autocmd!
+      --     autocmd User TelescopeFindPre highlight! CursorLineNR guibg=#21283b | echom('FindPre')
+      --     autocmd User TelescopePreviewerLoaded highlight! CursorLineNR guibg=#21283b | echom("Previewer Loaded")
+      --     autocmd User TelescopeResumePost echom("Resume post")
+      --   augroup END
+      -- ]]
 
       nnoremap('<C-p><C-r>', [[<Cmd>Telescope fzf_mru<CR>]], {                                           desc = "Recent files" })
       nnoremap('<leader>pr', [[<Cmd>Telescope fzf_mru<CR>]], {                                           desc = "Recent files" })
       nnoremap('<leader>pA', [[<Cmd>lua require('telescope.builtin').builtin()<CR>]], {                  desc = "Actions (Telescope)" })
-      nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]], {               desc = "Files" })
-      nnoremap('<C-p><C-p>', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]], {               desc = "Files" })
+      -- nnoremap('<leader>pp', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]], {               desc = "Files" })
+      -- nnoremap('<C-p><C-p>', [[<Cmd>lua require('telescope.builtin').find_files()<CR>]], {               desc = "Files" })
       -- nnoremap('<leader>pe', [[:lua require('telescope.builtin').diagnostics({ bufnr = 0 })<CR>]], {     desc = "File Diagnostics" })
       -- nnoremap('<leader>pE', [[:lua require('telescope.builtin').diagnostics()<CR>]], {                  desc = "Project Diagnostics" })
       -- nnoremap('<C-f><C-f><C-h>', [[:lua require('telescope.builtin').diagnostics()<CR>]], {             desc = "Project Diagnostics" })
