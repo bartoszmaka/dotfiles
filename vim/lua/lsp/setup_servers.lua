@@ -1,27 +1,6 @@
--- local helper = require('helper')
-local native_capabilities = vim.lsp.protocol.make_client_capabilities()
-local loaded_cmp, capabilities = pcall(require, "cmp_nvim_lsp")
+local helper = require('helper')
 local navic = require('nvim-navic')
-
-if loaded_cmp then
-  capabilities = capabilities.default_capabilities(native_capabilities)
-else
-  print("cmp_nvim_lsp not installed")
-  capabilities = native_capabilities
-end
-
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    "documentation",
-    "detail",
-    "additionalTextEdits",
-  },
-}
-capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true
-}
+local capabilities = require('lsp.setup_capabilities').setup_capabilities()
 
 local servers = {
   "bashls",
@@ -49,6 +28,13 @@ local servers = {
   'lemminx',
 }
 
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = servers,
+  automatic_installation = true,
+})
+local lspconfig = require("lspconfig")
+
 local build_on_attach = function(callback)
   return function(client, bufnr)
     require('lsp-status').on_attach(client)
@@ -63,19 +49,6 @@ local build_on_attach = function(callback)
   end
 end
 
-require("mason").setup()
-require("mason-lspconfig").setup({
-  ensure_installed = servers,
-  automatic_installation = true,
-})
-local lspconfig = require("lspconfig")
-
-local ls_shared_options = {
-  capabilities = capabilities,
-  on_attach = build_on_attach(),
-  root_dir = vim.loop.cwd,
-}
-local ls_specific_options = require('lsp/ls_specific_options')
 
 require("typescript").setup({
   disable_commands = false, -- prevent the plugin from creating Vim commands
@@ -90,24 +63,33 @@ require("typescript").setup({
   },
 })
 
-for _, server_name in ipairs(servers) do
-  local opts = vim.tbl_extend("force", ls_shared_options, ls_specific_options[server_name] or {})
+local servers_with_custom_config = { 'tsserver', 'ruby_lsp' }
 
-  if server_name ~= "tsserver" then
-    lspconfig[server_name].setup(opts)
-  end
+for _, server_name in ipairs(servers) do
+  local ls_shared_options = {
+    capabilities = capabilities,
+    on_attach = build_on_attach(),
+    root_dir = vim.loop.cwd,
+  }
+  local ls_specific_options = require('lsp/ls_specific_options')
+  local opts = vim.tbl_extend("force", vim.deepcopy(ls_shared_options), ls_specific_options[server_name] or {})
 
   if server_name == "ruby_lsp" then
     local ruby_lsp_opts = {
       capabilities = capabilities,
       on_attach = build_on_attach(
-        function(client, bufnr)
-          -- print("Disabling completion for " .. server_name)
+        function(client, _bufnr)
           client.server_capabilities.completionProvider = false
+          client.server_capabilities.definitionProvider = false
+          client.server_capabilities.documentLinkProvider = false
         end
       ),
       root_dir = vim.loop.cwd,
     }
     lspconfig[server_name].setup(ruby_lsp_opts)
+  end
+
+  if not helper.set_contains(servers_with_custom_config, server_name) then
+    lspconfig[server_name].setup(opts)
   end
 end
