@@ -67,8 +67,10 @@ vim.cmd [[
     autocmd!
     autocmd InsertEnter * if index(['TelescopePrompt'], &ft) < 0 | highlight! CursorLine   guibg=#512121 | endif
     autocmd InsertEnter * if index(['TelescopePrompt'], &ft) < 0 | highlight! CursorLineNR guibg=#512121 | endif
+    autocmd InsertEnter * if index(['TelescopePrompt'], &ft) < 0 | highlight! CursorLineSign guibg=#512121 | endif
     autocmd InsertLeave * if index(['TelescopePrompt'], &ft) < 0 | highlight! CursorLine   guibg=#21283b | endif
     autocmd InsertLeave * if index(['TelescopePrompt'], &ft) < 0 | highlight! CursorLineNR guibg=#21283b | endif
+    autocmd InsertLeave * if index(['TelescopePrompt'], &ft) < 0 | highlight! CursorLineSign guibg=#21283b | endif
   augroup END
 
   augroup fix_filetype

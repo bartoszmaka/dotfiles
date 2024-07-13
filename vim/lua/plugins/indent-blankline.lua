@@ -5,6 +5,8 @@ return {
   config = function()
     local ibl = require('ibl')
     local hooks = require "ibl.hooks"
+    local symbols = require('helper.symbols')
+
     local rainbow_colors = {
       "RainbowDelimiterRed",
       "RainbowDelimiterYellow",
@@ -18,7 +20,7 @@ return {
       if vim.g.indent_config_index == 0 then
         vim.g.indent_config_index = 1
         ibl.update({
-          indent = { char = '│' },
+          indent = { char = symbols.bar },
           scope = { highlight = rainbow_colors }
         })
       else
@@ -37,7 +39,7 @@ return {
       augroup indent_blankline_overrides
       autocmd!
       highlight! IblIndent guifg=#283347
-      highlight! IblScope guifg=#455574 gui=nocombine
+      highlight! IblScope guifg=#2a324a gui=nocombine
       highlight! IblRainbowColOrange guifg=#492b0d
       highlight! IblRainbowColGreen guifg=#284414
       highlight! IblRainbowColViolet guifg=#430b54
@@ -48,13 +50,13 @@ return {
       augroup END
     ]]
 
-    -- vim.g.rainbow_delimiters = { highlight = highlight_background }
+    vim.g.rainbow_delimiters = {}
     vim.g.indent_config_index = 0
     ibl.setup({
       scope = {
         show_start = false,
         show_end = false,
-        char = '│',
+        char = symbols.bar,
         include = {
           node_type = {
             ["*"] = {

@@ -12,9 +12,12 @@ vim.opt.listchars = {tab='>-',trail='~',extends='>',precedes='<'}
 vim.opt.list = true               -- show whitespaces
 vim.opt.cursorline = true
 vim.opt.inccommand = 'nosplit'    -- live preview replace
-vim.opt.signcolumn = 'yes:1'      -- always display column for signs left to numbers
+-- vim.opt.signcolumn = 'yes:2'      -- always display column for signs left to numbers
+vim.opt.signcolumn = 'yes'      -- always display column for signs left to numbers
 vim.opt.termguicolors = true
 vim.opt.pumheight = 10
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- vim.opt.fillchars = "fold: ,foldopen:, foldclose:, foldsep: "
 
 -- Meta
 vim.g.mapleader = ' '
@@ -53,7 +56,6 @@ vim.cmd [[
   set showtabline=2
   set noshowmode
   set foldmethod=indent
-  set nofoldenable
   set wildignore+=*node_modules
 ]]
 

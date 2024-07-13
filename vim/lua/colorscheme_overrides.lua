@@ -24,14 +24,18 @@ vim.cmd [[
     autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType help setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType floaterm setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
-    autocmd FileType Trouble setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+    " autocmd FileType Trouble setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     " autocmd FileType fzf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType Trouble setlocal colorcolumn=
     autocmd FileType Mundo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
     autocmd FileType vista_kind setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+    autocmd FileType vista_kind setlocal foldcolumn=0
     autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+    autocmd FileType lspsagaoutline setlocal foldcolumn=0
     autocmd FileType sagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+    autocmd FileType sagaoutline setlocal foldcolumn=0
+    autocmd FileType neo-tree setlocal foldcolumn=0
   augroup END
 
   augroup treesitter_overrides
@@ -90,13 +94,15 @@ vim.cmd [[
     " highlight! DiffText        guibg=#3e3e23 guifg=NONE gui=NONE
     " highlight! DiffAdd         guibg=#1a2e1b guifg=NONE gui=NONE
     " highlight! DiffDelete      guibg=#2e201a guifg=NONE gui=NONE
-    highlight! CursorLine      guibg=#21283b
-    highlight! CursorLineNR    guibg=#21283b gui=bold
-    highlight! CursorColumn    guibg=#21283b
-    highlight! ColorColumn     guibg=#21283b
-    highlight! Warning         guibg=#443333
-    highlight! Error           guibg=#512121
-    highlight! Visual          guibg=#401437
+    " highlight! CursorLine      guibg=#21283b
+    " highlight! CursorLineNR    guibg=#21283b gui=bold
+    " highlight! CursorColumn    guibg=#21283b
+    " highlight! ColorColumn     guibg=#21283b
+    " highlight! SignColumn      guibg=#1a212e
+    " highlight! CursorLineSign  guibg=#21283b
+    " highlight! Warning         guibg=#443333
+    " highlight! Error           guibg=#512121
+    " highlight! Visual          guibg=#401437
     highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
     highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
     " highlight! Comment         gui=italic
@@ -108,6 +114,7 @@ vim.cmd [[
     highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE
     highlight! DiagnosticUnderlineInfo   guibg=NONE gui=NONE
     highlight! DiagnosticUnderlineHint   guibg=NONE gui=NONE
+    highlight! WinBar                    gui=NONE
     " highlight! DiagnosticUnnecessary
   augroup END
 

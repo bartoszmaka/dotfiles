@@ -281,6 +281,7 @@ return {
       }
 
       nnoremap('<leader>pp', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })
+      -- nnoremap('<leader>pr', [[:lua require("fzf-lua").oldfiles()<CR>]], { desc = "OldFiles" })
       -- nnoremap('<leader>pr', ':FZFFreshMruPreview()<CR>', { desc = "Recent Files" })
       -- nnoremap('<C-p><c-r>', ':FZFFreshMruPreview()<CR>', { desc = "Recent Files" })
       nnoremap('<C-p><C-p>', [[:lua require("fzf-lua").files()<CR>]], { desc = "Files" })

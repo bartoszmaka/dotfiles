@@ -1,29 +1,53 @@
 local M = {}
 
+-- LSP
 M.action = "󰛩"
-M.Error = ""
-M.error = ""
-M.Warn = ""
-M.warning = ""
-M.Info = ""
-M.information = ""
+M.Error = ""
+M.Warn = ""
+M.Info = ""
 M.Hint = ""
-M.hint = ""
+M.error = M.Error
+M.warning = M.Warn
+M.warn = M.Warn
+M.information = M.Info
+M.info = M.Info
+M.hint = M.Hint
 
--- error = '  ',
--- warn = '  ',
--- info = '  ',
+-- UI
+M.ArrowLeft = ""
+M.ArrowRight = ""
+M.Search = ""
+M.InProgress = ""
+M.Ellipsis = "…"
+M.FolderClosed = ""
+M.FolderOpen = ""
+M.FolderEmpty = ""
+M.Close = "󰅖"
+M.FileModified = ""
+M.FileReadOnly = ""
+M.FoldClosed = ""
+M.FoldOpened = ""
+M.FoldSeparator = " "
+M.bar = "▎"
+M.bar_right = "🮇"
+M.bar_full = "█"
+M.bar_transparent = "▒"
 
+-- Git
 M.branch = ""
 M.added = ""
 M.modified = ""
 M.removed = ""
-M.renamed   = ""
+M.deleted = M.removed
+M.renamed   = "➜"
 M.untracked = ""
-M.ignored   = ""
+M.ignored   = "◌"
 M.unstaged  = ""
-M.staged    = ""
-M.conflict  = ""
+M.staged    = "✓"
+M.conflict  = "✗"
+M.git_bar = "▎"
+M.git_deleted_below = "▎"
+M.git_deleted_above = "▎"
 
 M.Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" }
 M.Breakpoint = ""
@@ -31,10 +55,8 @@ M.BreakpointCondition = ""
 M.BreakpointRejected = { "", "DiagnosticError" }
 M.LogPoint = ".>"
 
-M.FolderClosed = ""
-M.FolderOpen = ""
-M.FolderEmpty = ""
 
+-- Types
 M.Array = "󰅪"
 M.Boolean = "◩"
 M.Class = ""
@@ -47,7 +69,7 @@ M.EnumMember = ""
 M.Event = ""
 M.Field = ""
 M.File = "󰈙"
-M.Folder = ""
+M.Folder = M.FolderEmpty
 M.Function = "󰊕"
 M.Interface = ""
 M.Key = ""
@@ -75,6 +97,8 @@ M.TabNine = "T"
 M.Value = ""
 M.Emmet = ""
 M.Time = ''
+
+-- Borders
 M.corners = {
   round = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
   sharp = { '┌', '─', '┐', '│', '┘', '─', '└', '│' },
@@ -89,39 +113,5 @@ M.corners = {
   none = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
   single_no_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 }
--- M.separators = {
---   round = {
---     component = { left = '', right = '' },
---     section = { left = '', right = '' }
---   }
--- }
-
 
 return M
--- [0] = "Root",
--- [1] = "File",
--- [2] = "Module",
--- [3] = "Namespace",
--- [4] = "Package",
--- [5] = "Class",
--- [6] = "Method",
--- [7] = "Property",
--- [8] = "Field",
--- [9] = "Constructor",
--- [10] = "Enum",
--- [11] = "Interface",
--- [12] = "Function",
--- [13] = "Variable",
--- [14] = "Constant",
--- [15] = "String",
--- [16] = "Number",
--- [17] = "Boolean",
--- [18] = "Array",
--- [19] = "Object",
--- [20] = "Key",
--- [21] = "Null",
--- [22] = "EnumMember",
--- [23] = "Struct",
--- [24] = "Event",
--- [25] = "Operator",
--- [26] = "TypeParameter",

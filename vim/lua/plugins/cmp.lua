@@ -29,24 +29,6 @@ return {
     end
   },
   {
-    'codota/tabnine-nvim',
-    build = "./dl_binaries.sh",
-    config = function()
-      require('tabnine').setup({
-        disable_auto_comment = true,
-        accept_keymap = "<M-o>",
-        dismiss_keymap = "<C-]>",
-        debounce_ms = 400,
-        suggestion_color = { gui = "#808080", cterm = 244 },
-        exclude_filetypes = { "TelescopePrompt", "NvimTree" },
-        log_file_path = nil, -- absolute path to Tabnine log file
-      })
-
-      local nnoremap = require("helper").nnoremap
-      nnoremap("<C-k><C-a>", require("tabnine.chat").open)
-    end
-  },
-  {
     'hrsh7th/nvim-cmp',
     version = false,
     event = "InsertEnter",
@@ -171,17 +153,12 @@ return {
         },
         window = {
           completion = {
-            winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:Visual,Search:None',
-            -- winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:Visual,Search:None',
-            -- winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,CursorLine:CursorColumn,Search:None',
+            winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
             col_offset = -3,
             side_padding = 0,
-            -- border = 'rounded',
           },
           documentation = {
-            winhighlight = 'Search:None',
-            -- winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
-            -- border = 'rounded',
+            winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
           },
         },
         sources = cmp.config.sources({
@@ -228,20 +205,6 @@ return {
     end,
     init = function()
       local cmp = require('cmp')
-      cmp.setup.cmdline('/', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' }
-        }
-      })
-
-      cmp.setup.cmdline([[/\V]], {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = 'buffer' }
-        }
-      })
-
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({

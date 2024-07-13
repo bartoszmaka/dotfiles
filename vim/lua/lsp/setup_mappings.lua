@@ -27,7 +27,7 @@ nnoremap("<leader>K", "<cmd>Lspsaga hover_doc<CR>", { desc = "Hover" })
 -- nnoremap("<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>", { desc = "Incoming calls" })
 -- nnoremap("<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>", { desc = "Outgoing calls" })
 nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]], { desc = "Definitions" })
--- nnoremap('gd', function() vim.lsp.buf.definition() end, { desc = "Definitions" })
+nnoremap('gD', function() vim.lsp.buf.definition() end, { desc = "Definitions" })
 nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]], { desc = "LSP Finder" })
 nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]], { desc = "References" })
 

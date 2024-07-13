@@ -63,6 +63,11 @@ inoremap('<F13>', '<esc>:w<CR>')
 nnoremap('<C-_>s', '<esc>:w<CR>')
 inoremap('<C-_>s', '<esc>:w<CR>')
 
+nnoremap('<F15>', '<esc>:w<CR>')
+inoremap('<F15>', '<esc>:w<CR>')
+nnoremap('<F16>', '<esc>:w<CR>')
+inoremap('<F16>', '<esc>:w<CR>')
+
 -- alt + hjkl to jump windows (cmd + hjkl mapped in alacritty config)
 tnoremap('<C-w>h', [[<C-\><C-n><C-w>h]])
 tnoremap('<C-w>j', [[<C-\><C-n><C-w>j]])
