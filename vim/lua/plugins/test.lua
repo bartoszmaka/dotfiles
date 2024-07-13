@@ -3,6 +3,7 @@ return {
   config = function()
     local nmap = require('helper').nmap
 
+    vim.g["test#preserve_screen"] = 1
     if vim.fn.exists('$TMUX') == 1 then
       vim.g["test#strategy"] = "vimux"
       vim.g.VimuxHeight = 40

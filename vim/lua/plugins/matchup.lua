@@ -1,6 +1,7 @@
 return {
   'andymass/vim-matchup',
   config = function()
+    -- vim.g.matchup_matchparen_offscreen           = { method = 'popup', highlight = "MatchupPopupWindow"}
     vim.g.matchup_matchparen_offscreen           = { method = 'popup' }
     vim.g.matchup_matchparen_deferred            = 1
     vim.g.matchup_matchparen_hi_surround_always  = 0
@@ -14,8 +15,9 @@ return {
 
       augroup matchup_overrides
         autocmd!
-        highlight! MatchParen        guifg=NONE    guibg=NONE gui=bold,underline
-        highlight! MatchParenCur     guifg=NONE    guibg=NONE gui=bold,underline
+        highlight! MatchParen         guifg=NONE    guibg=NONE gui=bold,underline
+        highlight! MatchParenCur      guifg=NONE    guibg=NONE gui=bold,underline
+        " highlight! MatchupPopupWindow guibg=#141b24
       augroup END
     ]]
   end,

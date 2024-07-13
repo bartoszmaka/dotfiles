@@ -22,10 +22,11 @@ M.setup_capabilities = function()
     capabilities = native_capabilities
   end
 
-  -- capabilities.textDocument.foldingRange = {
-  --   dynamicRegistration = false,
-  --   lineFoldingOnly = true
-  -- }
+  -- Required by ufo.nvim
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+  }
 
 end
 

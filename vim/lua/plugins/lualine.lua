@@ -119,21 +119,21 @@ return {
         -- lualine_y = { sections.diff },
         -- lualine_z = { sections.location }
       },
-      inactive_winbar = {
-        lualine_b = {
-          { 'filetype', colored = false, icon_only = true },
-          { 'filename', path = 1,        file_status = true, color = { fg = colors.grey } },
-        }
-      },
-      winbar = {
-        -- For some reason coloring breaks stuff only in winbar
-        lualine_b = {
-          { 'filetype', colored = false, icon_only = true },
-          { 'filename', path = 1,        file_status = true },
-          -- { 'filetype', colored = false, icon_only = true,   color = { bg = colors.bg0 } },
-          -- { 'filename', path = 1,        file_status = true, color = { bg = colors.bg0 } },
-        }
-      },
+      -- inactive_winbar = {
+      --   lualine_b = {
+      --     { 'filetype', colored = false, icon_only = true },
+      --     { 'filename', path = 1,        file_status = true, color = { fg = colors.grey } },
+      --   }
+      -- },
+      -- winbar = {
+      --   -- For some reason coloring breaks stuff only in winbar
+      --   lualine_b = {
+      --     { 'filetype', colored = false, icon_only = true },
+      --     { 'filename', path = 1,        file_status = true },
+      --     -- { 'filetype', colored = false, icon_only = true,   color = { bg = colors.bg0 } },
+      --     -- { 'filename', path = 1,        file_status = true, color = { bg = colors.bg0 } },
+      --   }
+      -- },
       tabline = {},
       extensions = {
         'quickfix',

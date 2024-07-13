@@ -10,8 +10,15 @@ return {
     },
     {
       "<C-f><C-f>g", -- Mapped to ctrl-shift-g in alacritty
-      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true, source =
-        "git_status" }) end,
+      function()
+        require("neo-tree.command").execute({
+          toggle = true,
+          dir = vim.loop.cwd(),
+          reveal = true,
+          source =
+          "git_status"
+        })
+      end,
       desc = "Git changed files tree",
     },
     {
@@ -26,8 +33,15 @@ return {
     },
     {
       "<C-k><C-g>",
-      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true, source =
-        "git_status" }) end,
+      function()
+        require("neo-tree.command").execute({
+          toggle = true,
+          dir = vim.loop.cwd(),
+          reveal = true,
+          source =
+          "git_status"
+        })
+      end,
       desc = "GitStatus NeoTree",
     },
   },
@@ -112,17 +126,25 @@ return {
         },
       },
       default_component_configs = {
+        diagnostics = {
+          symbols = {
+            hint  = symbols.hint,
+            info  = symbols.info,
+            warn  = symbols.warn,
+            error = symbols.error,
+          },
+        },
         git_status = {
           symbols = {
-            added     = "",
-            modified  = "",
-            deleted   = "",
-            renamed   = "",
-            untracked = "",
-            ignored   = "",
-            unstaged  = "",
-            staged    = "",
-            conflict  = "",
+            added     = symbols.added,
+            modified  = symbols.modified,
+            deleted   = symbols.deleted,
+            renamed   = symbols.renamed,
+            untracked = symbols.untracked,
+            ignored   = symbols.ignored,
+            unstaged  = symbols.unstaged,
+            staged    = symbols.staged,
+            conflict  = symbols.conflict,
           }
         },
         icon = {
