@@ -45,9 +45,9 @@ M.ignored   = "◌"
 M.unstaged  = ""
 M.staged    = "✓"
 M.conflict  = "✗"
-M.git_bar = "▎"
-M.git_deleted_below = "▎"
-M.git_deleted_above = "▎"
+M.git_bar = M.bar_right
+M.git_deleted_below = M.bar_right
+M.git_deleted_above = M.bar_right
 
 M.Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" }
 M.Breakpoint = ""

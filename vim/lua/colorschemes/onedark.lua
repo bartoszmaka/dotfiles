@@ -83,24 +83,51 @@ return {
       })
       require('onedark').load()
       vim.cmd [[
-        highlight! FoldColumn guibg=#1a212e guifg=#455574
+        augroup make_panels_darker
+          autocmd!
+          highlight! link NormalFloat Normal
+          highlight! link FloatBorder Normal
+          " highlight! NormalFloat        guibg=#141b24 guifg=#93a4c3
+          " highlight! FloatBorder        guibg=#1a212e guifg=#efbd5d
+          highlight! NormalDarker       guibg=#141b24 guifg=#93a4c3
+          highlight! SignColumnDarker   guibg=#141b24 guifg=#93a4c3
+          highlight! EndOfBufferDarker  guifg=#141b24 guibg=#141b24
+          highlight! WinSeparatorDarker guifg=#2a324a guibg=#141b24
+          highlight! link WhichKeyNormal NormalDarker
+          highlight! link WhichKeyBorder NormalDarker
+          autocmd FileType Mundo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType floaterm setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType help setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType sagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType vista_kind setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
+          autocmd FileType Trouble setlocal colorcolumn=
+          autocmd FileType lspsagaoutline setlocal foldcolumn=0
+          " autocmd FileType neo-tree setlocal foldcolumn=0
+          autocmd FileType sagaoutline setlocal foldcolumn=0
+          autocmd FileType vista_kind setlocal foldcolumn=0
+        augroup END
+
+
+        augroup color_scheme_tweaks
+          autocmd!
+          highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
+          highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
+
+          highlight! DiagnosticVirtualTextHint guifg=#1b6a73 guibg=NONE
+          highlight! DiagnosticVirtualTextInfo guifg=#1b6a73 guibg=NONE
+
+          highlight! DiagnosticUnderlineError  guibg=#512121 gui=NONE
+          highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE
+          highlight! DiagnosticUnderlineInfo   guibg=NONE gui=NONE
+          highlight! DiagnosticUnderlineHint   guibg=NONE gui=NONE
+          highlight! WinBar                    gui=NONE
+          highlight! FoldColumn guibg=#1a212e guifg=#455574
+        augroup END
       ]]
     end
   },
 }
 
--- highlight! IblRainbowColOrange guibg=#dd9046
--- highlight! IblRainbowColGreen guibg=#8bcd5b
--- highlight! IblRainbowColViolet guibg=#c75ae8
--- highlight! IblRainbowColCyan guibg=#34bfd0
--- highlight! IblRainbowColRed guibg=#f65866
--- highlight! IblRainbowColYellow guibg=#efbd5d
--- highlight! IblRainbowColBlue guibg=#41a7fc
--- Dimmed 70%
--- highlight! IblRainbowColOrange guifg=#492b0d
--- highlight! IblRainbowColGreen guifg=#284414
--- highlight! IblRainbowColViolet guifg=#430b54
--- highlight! IblRainbowColCyan guifg=#0e3a3f
--- highlight! IblRainbowColRed guifg=#5f050d
--- highlight! IblRainbowColYellow guifg=#5a3e08
--- highlight! IblRainbowColBlue guifg=#01335d

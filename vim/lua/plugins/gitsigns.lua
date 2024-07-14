@@ -32,18 +32,18 @@ return {
         end)
 
         -- Actions
-        map('n', '<leader>hs', gitsigns.stage_hunk)
-        map('n', '<leader>hr', gitsigns.reset_hunk)
-        map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-        map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
-        map('n', '<leader>hS', gitsigns.stage_buffer)
-        map('n', '<leader>hu', gitsigns.undo_stage_hunk)
-        map('n', '<leader>hR', gitsigns.reset_buffer)
-        map('n', '<leader>hp', gitsigns.preview_hunk)
-        map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
+        map('n', '<leader>gs', gitsigns.stage_hunk)
+        map('n', '<leader>gs', gitsigns.reset_hunk)
+        map('v', '<leader>gr', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+        map('v', '<leader>gr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+        map('n', '<leader>gS', gitsigns.stage_buffer)
+        map('n', '<leader>gu', gitsigns.undo_stage_hunk)
+        map('n', '<leader>gR', gitsigns.reset_buffer)
+        map('n', '<leader>gp', gitsigns.preview_hunk)
+        map('n', '<leader>gb', function() gitsigns.blame_line{full=true} end)
         map('n', '<leader>tb', gitsigns.toggle_current_line_blame)
-        map('n', '<leader>hd', gitsigns.diffthis)
-        map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
+        map('n', '<leader>gd', gitsigns.diffthis)
+        map('n', '<leader>gD', function() gitsigns.diffthis('~') end)
         map('n', '<leader>td', gitsigns.toggle_deleted)
 
         -- Text object
@@ -51,6 +51,13 @@ return {
       end,
 
       signs = {
+        add = { text = symbols.git_bar, },
+        change = { text = symbols.git_bar, },
+        delete = { text = symbols.git_deleted_below, },
+        topdelete = { text = symbols.git_deleted_above, },
+        changedelete = { text = symbols.git_bar, },
+      },
+      signs_staged = {
         add = { text = symbols.git_bar, },
         change = { text = symbols.git_bar, },
         delete = { text = symbols.git_deleted_below, },
@@ -70,6 +77,16 @@ return {
 
       augroup gitsigns_overrides
       autocmd!
+        highlight! GitSignsStagedAdd guifg=#284414
+        highlight! GitSignsStagedChange guifg=#5a3e08
+        highlight! GitSignsStagedChangeLn guifg=#5a3e08
+        highlight! GitSignsStagedChangeNr guifg=#5a3e08
+        highlight! GitSignsStagedChangedelete guifg=#5a3e08
+        highlight! GitSignsStagedChangedeleteLn guifg=#5a3e08
+        highlight! GitSignsStagedChangedeleteN guifg=#5a3e08
+        highlight! GitGutterChange guifg=#5a3e08 guibg=NONE
+        highlight! GitGutterAdd guifg=#284414 guibg=NONE
+        highlight! GitGutterDelete guifg=#5f050d guibg=NONE
         highlight! GitSignsChange guifg=#5a3e08 guibg=NONE
         highlight! GitSignsChangeNr guifg=#5a3e08 guibg=NONE
         highlight! GitSignsChangeLn guifg=#5a3e08 guibg=NONE
