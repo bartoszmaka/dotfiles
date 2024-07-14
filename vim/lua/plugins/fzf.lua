@@ -32,7 +32,7 @@ return {
           ['--height']            = '100%',
           ['--layout']            = 'reverse',
           ['--no-separator']      = '',
-          ['--border']            = 'none',
+          -- ['--border']            = 'none',
           ['--preview-window']    = 'border-left',
         },
         winopts = {
@@ -41,7 +41,7 @@ return {
             win_width  = 0.80,     -- window width
             win_row    = 0.50,     -- window row position (0=top, 1=bottom)
             win_col    = 0.50,     -- window col position (0=left, 1=right)
-            win_border = symbols.corners.none,
+            win_border = symbols.corners.sharp,
             fullscreen = false,
           },
           bottom_pane = {
@@ -49,14 +49,14 @@ return {
             win_col    = 0,
             win_height = 0.20,
             win_width  = 1,
-            win_border = symbols.corners.none,
+            win_border = symbols.corners.sharp,
           },
           small_window = {
             win_row    = 0.25,
             win_col    = 0.50,
             win_height = 0.25,
             win_width  = 0.15,
-            win_border = symbols.corners.none,
+            win_border = symbols.corners.sharp,
             preview = {
               hidden = 'hidden',
             }
@@ -66,16 +66,16 @@ return {
             win_col    = 0.50,
             win_height = 0.45,
             win_width  = 0.45,
-            win_border = symbols.corners.none,
+            win_border = symbols.corners.sharp,
             preview = {
               horizontal = "right:50%"
             },
           }
         },
         fzf_colors = {
-          ["gutter"] = { "bg", "NormalDarker" },
-          ["bg"]     = { "bg", "NormalDarker" },
-          ["preview-bg"]     = { "bg", "NormalDarker" },
+          ["gutter"] = { "bg", "Normal" },
+          ["bg"]     = { "bg", "Normal" },
+          ["preview-bg"]     = { "bg", "Normal" },
           ["bg+"]    = { "bg", "CursorLine" },
           ["fg+"]    = { "fg", "CursorLine" },
           ["hl"]    = { "fg", "CmpItemAbbrMatch" },
@@ -142,15 +142,15 @@ return {
         fzf_opts                  = presets.fzf_opts,
         fzf_colors                = presets.fzf_colors,
         hls = {
-          normal = "NormalDarker",
-          border = "NormalDarker",
-          title = "NormalDarker",
+          normal = "Normal",
+          border = "Normal",
+          title = "Normal",
           search = "Search",
-          preview_normal = "NormalDarker",
-          preview_border = "NormalDarker",
-          preview_title = "NormalDarker",
-          help_normal = "NormalDarker",
-          help_border = "NormalDarker",
+          preview_normal = "Normal",
+          preview_border = "Normal",
+          preview_title = "Normal",
+          help_normal = "Normal",
+          help_border = "Normal",
         },
         previewers                = {
           git_diff                = { cmd = 'git diff', args = "--color", pager = "delta" },

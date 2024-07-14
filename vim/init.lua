@@ -16,7 +16,6 @@ vim.api.nvim_create_autocmd("User", {
     require('mappings')
     require('abbrevations')
     require('autocmds')
-    require('colorscheme_overrides')
     require('gui')
   end,
 })

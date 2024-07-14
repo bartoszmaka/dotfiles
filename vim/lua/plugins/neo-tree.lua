@@ -210,13 +210,5 @@ return {
     vim.cmd [[
       autocmd FileType neo-tree nnoremap <buffer> <leader>q :lua require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true })<CR>
     ]]
-
-    --     vim.cmd [[
-    --         highlight_tab = "NeoTreeTabInactive",                     -- string
-    --         highlight_tab_active = "NeoTreeTabActive",                -- string
-    --         highlight_background = "NeoTreeTabInactive",              -- string
-    --         highlight_separator = "NeoTreeTabSeparatorInactive",      -- string
-    --         highlight_separator_active = "NeoTreeTabSeparatorActive", -- string
-    --     ]]
   end,
 }

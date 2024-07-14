@@ -5,8 +5,8 @@ return {
     local symbols = require('helper.symbols')
 
     return {
-      ft_ignore = { "neo-tree", "neotree", "sagaoutline" },
-      bt_ignore = { "neo-tree", "neotree", "sagaoutline" },
+      ft_ignore = { "neo-tree", "neotree", "sagaoutline", "help" },
+      bt_ignore = { "neo-tree", "neotree", "sagaoutline", "help" },
       segments = {
         {
           text = { builtin.foldfunc },
@@ -29,7 +29,6 @@ return {
             wrap = true,
           },
         },
-        { text = { " " } },
       },
     }
   end,

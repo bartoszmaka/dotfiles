@@ -7,7 +7,7 @@ vim.diagnostic.config({
     severity = { min = vim.diagnostic.severity.HINT },
   },
   virtual_text = {
-    source = "always",
+    source = true,
     severity = { min = vim.diagnostic.severity.HINT },
     spacing = 4,
     prefix = "●",
@@ -18,7 +18,7 @@ vim.diagnostic.config({
     show_header = false,
     border = "single",
     focusable = false,
-    source = "always",
+    source = true,
     format = function(diagnostic)
       -- See null-ls.nvim#632, neovim#17222 for how to pick up `code`
       local user_data

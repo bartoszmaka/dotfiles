@@ -16,6 +16,7 @@ return {
       local nnoremap = helper.nnoremap
       local vnoremap = helper.vnoremap
       local colors = helper.colors.onedark
+      local symbols = helper.symbols
       -- local dropdown_theme = require('telescope.themes').get_dropdown
 
       local mappings = {
@@ -96,23 +97,17 @@ return {
       telescope.setup {
         defaults = {
           border = true,
-          borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+          borderchars = {
+            { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
+            prompt = {"─", "│", " ", "│", '┌', '┐', "│", "│"},
+            results = {" ", "│", "─", "│", "│", "│", "┘", "└"},
+            preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'}
+          },
+          results_title = '',
           sorting_strategy = 'ascending',
           scroll_strategy = 'limit',
           layout_strategy = 'horizontal',
           cycle_layout_list = { 'horizontal', 'vertical', 'center', 'bottom_pane', 'cursor' },
-          -- vimgrep_arguments = {
-          --   "rg",
-          --   "--color=always",
-          --   "--no-heading",
-          --   "--column",
-          --   "--smart-case",
-          --   "--hidden",
-          --   "--line-number",
-          --   "--fixed-strings",
-          --   "-g '!{*.min.js,*.js.map}'",
-          --   "-g '!{.git,node_modules,storybook/storybook-static,vendor/assets}/*'",
-          -- },
           layout_config = layouts,
           mappings = { i = mappings, n = mappings, },
         },
@@ -154,15 +149,15 @@ return {
       telescope.load_extension('ultisnips')
 
       local TelescopePrompt = {
-        TelescopePromptNormal = { bg = colors.bg_d, },
-        TelescopePreviewNormal = { bg = colors.bg_d, },
-        TelescopeResultsNormal = { bg = colors.bg_d, },
-        TelescopePromptBorder = { bg = colors.bg_d, },
-        TelescopePreviewBorder = { bg = colors.bg_d, },
-        TelescopeResultsBorder = { bg = colors.bg_d, },
-        TelescopePromptTitle = { bg = colors.bg_d, },
-        TelescopePreviewTitle = { bg = colors.bg_d, },
-        TelescopeResultsTitle = { bg = colors.bg_d, },
+        TelescopePromptNormal = { bg = colors.bg0, },
+        TelescopePreviewNormal = { bg = colors.bg0, },
+        TelescopeResultsNormal = { bg = colors.bg0, },
+        TelescopePromptBorder = { bg = colors.bg0, },
+        TelescopePreviewBorder = { bg = colors.bg0, },
+        TelescopeResultsBorder = { bg = colors.bg0, },
+        TelescopePromptTitle = { bg = colors.bg0, },
+        TelescopePreviewTitle = { bg = colors.bg0, },
+        TelescopeResultsTitle = { bg = colors.bg0, },
         TelescopeMatching = { fg = colors.bg_yellow },
         TelescopeSelection = { fg = colors.white, bg = colors.bg1, bold = true },
       }

@@ -1,0 +1,14 @@
+return {}
+-- return {
+--   "folke/tokyonight.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     require("tokyonight").setup({
+--       transparent = false,
+--       on_colors = function(colors)
+--       end,
+--     })
+--     vim.cmd.colorscheme("tokyonight-moon")
+--   end,
+-- }
