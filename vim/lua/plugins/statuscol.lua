@@ -5,14 +5,14 @@ return {
     local symbols = require('helper.symbols')
 
     return {
-      ft_ignore = { "neo-tree", "neotree", "sagaoutline", "help" },
-      bt_ignore = { "neo-tree", "neotree", "sagaoutline", "help" },
+      ft_ignore = { "neo-tree", "neotree", "sagaoutline", "help", "Mundo", "floaterm", "ctrlsf" },
+      bt_ignore = { "neo-tree", "neotree", "sagaoutline", "help", "Mundo", "floaterm", "ctrlsf" },
       segments = {
         {
           text = { builtin.foldfunc },
         },
         {
-          sign = { namespace = { "diagnostic/signs" }, maxwidth = 1, colwidth = 2 },
+          sign = { namespace = { "diagnostic/signs" }, name = { ".*" }, maxwidth = 1, colwidth = 2 },
           click = "v:lua.ScSa"
         },
         {

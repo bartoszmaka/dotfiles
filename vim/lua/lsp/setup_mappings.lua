@@ -1,8 +1,12 @@
 local helper = require('helper')
 local nnoremap = helper.nnoremap
 local vnoremap = helper.vnoremap
+local actions = require('helper.actions')
 
 local opts = { noremap = true, silent = true }
+
+nnoremap("<leader>uH", function() actions.toggle_inlay_hints() end)
+nnoremap("<leader>ud", function() actions.toggle_diagnostics() end)
 
 -- nnoremap("<leader>ca", "<cmd>Lspsaga code_action<CR>", { desc = "Code Actions" })
 nnoremap("<leader>ca", [[:lua require("fzf-lua").lsp_code_actions()<CR>]], { desc = "Code Actions" })

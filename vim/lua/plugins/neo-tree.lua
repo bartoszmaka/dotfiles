@@ -109,7 +109,8 @@ return {
       ["on"] = "noop",
       ["os"] = "noop",
       ["ot"] = "noop",
-      ["z"] = "noop",
+      ["z"] = "close_node",
+      ["Z"] = "close_all_nodes",
       ["t"] = "noop",
     }
 

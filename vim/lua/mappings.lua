@@ -105,17 +105,10 @@ else
   nnoremap([[<leader>uh]], [[:TSHighlightCapturesUnderCursor<CR>]], { desc = "Inspect highlights" })
 end
 
-vim.cmd [[
-  nnoremap <leader>uH :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
-  \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
-  \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
-  \ . ">"<CR>
-]]
-
 -- VSCode like keymaps
 nmap('<F3>', '*')
 nmap('<S-F3>', '#')
-nmap('<C-G>', '<C-k><C-g>')
+-- nmap('<C-G>', '<C-k><C-g>')
 -- function MarkFzfColors()
 --   local names = {
 --     "FzfLuaNormal",

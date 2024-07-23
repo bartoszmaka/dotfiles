@@ -28,10 +28,17 @@ M.FileReadOnly = ""
 M.FoldClosed = ""
 M.FoldOpened = ""
 M.FoldSeparator = " "
+M.bar_thin = "▏"
 M.bar = "▎"
 M.bar_right = "🮇"
+M.bar_right_thin = "▕"
+M.bar_right_big = "▐"
 M.bar_full = "█"
 M.bar_transparent = "▒"
+M.pin = ""
+M.dot = "•"
+M.checkmark = ""
+M.fire = ""
 
 -- Git
 M.branch = ""
@@ -45,9 +52,9 @@ M.ignored   = "◌"
 M.unstaged  = ""
 M.staged    = "✓"
 M.conflict  = "✗"
-M.git_bar = M.bar_right
-M.git_deleted_below = M.bar_right
-M.git_deleted_above = M.bar_right
+M.git_bar = M.bar_right_big
+M.git_deleted_below = M.bar_right_big
+M.git_deleted_above = M.bar_right_big
 
 M.Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" }
 M.Breakpoint = ""

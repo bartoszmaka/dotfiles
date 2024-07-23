@@ -19,4 +19,10 @@ require('lazy').setup({
   install = {
     colorscheme = { 'onedark' },
   },
+  -- ui = {
+  --   custom_keys = {
+  --     ["<leader>cL"] = ":Lazy sync<CR>",
+  --     ["K"] = false
+  --   }
+  -- }
 })

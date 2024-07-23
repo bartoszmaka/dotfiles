@@ -2,31 +2,25 @@ return {
   {
     'romgrk/barbar.nvim',
     dependencies = {
-      'lewis6991/gitsigns.nvim',                                          -- OPTIONAL: for git status
-      { "nvim-tree/nvim-web-devicons", name = "tree-nvim-web-devicons" }, -- OPTIONAL: for file icons
+      'lewis6991/gitsigns.nvim',
+      { "nvim-tree/nvim-web-devicons", name = "tree-nvim-web-devicons" },
     },
     init = function() vim.g.barbar_auto_setup = false end,
-    -- commit = "1d6b1386abe97d1d8cba47eb9afa8a9f2d1bbe66",
-    opts = {
-      tabpages = true,
-      focus_on_close = 'previous',
-      -- maximum_padding = 7,
-      -- minimum_padding = 1,
-      -- maximum_length = 25,
-      -- minimum_length = 15,
-      no_name_title = ' - ',
-      highlight_alternate = false,
-      highlight_inactive_file_icons = true,
-      icons = {
-        -- button = '󰖭',
-        button = false,
-        pinned = { button = '', filename = true },
-        separator = { left = '▏', right = '▕' }
-      },
-      -- sidebar_filetypes = {
-      --   ['neo-tree'] = {event = 'BufWipeout'},
-      -- }
-    },
+    opts = function()
+      local symbols = require('helper.symbols')
+      return {
+        tabpages = true,
+        focus_on_close = 'previous',
+        no_name_title = ' - ',
+        highlight_alternate = false,
+        highlight_inactive_file_icons = true,
+        icons = {
+          button = false,
+          pinned = { button = symbols.pin, filename = true },
+          separator = { left = symbols.bar, right = symbols.bar_right }
+        },
+      }
+    end,
     config = function(_, opts)
       local nnoremap = require('helper').nnoremap
       vim.g.mapleader = ' '
@@ -53,19 +47,19 @@ return {
         vim.cmd [[ silent! BufferClose ]]
       end
 
-      nnoremap('<leader>[', ':BufferPrevious<CR>')
-      nnoremap('<leader>]', ':BufferNext<CR>')
-      nnoremap('<leader>{', ':BufferMovePrevious<CR>')
-      nnoremap('<leader>}', ':BufferMoveNext<CR>')
-      nnoremap('<leader>1', ':BufferGoto 1<CR>')
-      nnoremap('<leader>2', ':BufferGoto 2<CR>')
-      nnoremap('<leader>3', ':BufferGoto 3<CR>')
-      nnoremap('<leader>4', ':BufferGoto 4<CR>')
-      nnoremap('<leader>5', ':BufferGoto 5<CR>')
-      nnoremap('<leader>6', ':BufferGoto 6<CR>')
-      nnoremap('<leader>7', ':BufferGoto 7<CR>')
-      nnoremap('<leader>8', ':BufferGoto 8<CR>')
-      nnoremap('<leader>9', ':BufferLast<CR>')
+      nnoremap('<leader>[', ':BufferPrevious<CR>', { silent = true} )
+      nnoremap('<leader>]', ':BufferNext<CR>', { silent = true} )
+      nnoremap('<leader>{', ':BufferMovePrevious<CR>', { silent = true} )
+      nnoremap('<leader>}', ':BufferMoveNext<CR>', { silent = true} )
+      nnoremap('<leader>1', ':BufferGoto 1<CR>', { silent = true} )
+      nnoremap('<leader>2', ':BufferGoto 2<CR>', { silent = true} )
+      nnoremap('<leader>3', ':BufferGoto 3<CR>', { silent = true} )
+      nnoremap('<leader>4', ':BufferGoto 4<CR>', { silent = true} )
+      nnoremap('<leader>5', ':BufferGoto 5<CR>', { silent = true} )
+      nnoremap('<leader>6', ':BufferGoto 6<CR>', { silent = true} )
+      nnoremap('<leader>7', ':BufferGoto 7<CR>', { silent = true} )
+      nnoremap('<leader>8', ':BufferGoto 8<CR>', { silent = true} )
+      nnoremap('<leader>9', ':BufferLast<CR>', { silent = true} )
 
       nnoremap('<leader>q', ':close<CR>')
       nnoremap('<leader>w', close_matchup_window_and_then_close_buffer)
@@ -77,7 +71,7 @@ return {
         autocmd!
         highlight! BufferCurrent          guifg=#93a4c3 guibg=#1a212ea gui=bold
         highlight! BufferCurrentMod       guifg=#f2cc81 guibg=#1a212ea gui=NONE
-        highlight! BufferCurrentSign      guifg=#f2cc81 guibg=#1a212ea gui=NONE
+        highlight! BufferCurrentSign      guifg=#93a4c3 guibg=#1a212ea gui=NONE
 
         highlight! BufferVisible          guifg=#93a4c3 guibg=#1a212ea gui=NONE
         highlight! BufferVisibleMod       guifg=#f2cc81 guibg=#1a212ea gui=NONE
@@ -92,36 +86,5 @@ return {
     ]]
     end
   },
-  {
-    'tiagovla/scope.nvim',
-
-  }
+  -- { 'tiagovla/scope.nvim', }
 }
--- 3. Highlights                                              *barbar-highlights*
--- ~
--- Highlight groups are created in this way: `Buffer<STATUS><PART>`.
-
--- `<STATUS>`   Meaning
--- ---------  --------------------------------------------------
--- `Alternate`  The |alternate-file|.
--- `Current`    The current buffer.
--- `Inactive`   |hidden-buffer|s and |inactive-buffer|s.
--- `Visible`    |active-buffer|s which are not alternate or current.
-
--- `<PART>`       Meaning
--- ------       -----------------------
--- `ADDED`        Git status added.
--- `CHANGED`      Git status changed.
--- `DELETED`      Git status deleted.
--- `ERROR`        Diagnostic errors.
--- `HINT`         Diagnostic hints.
--- `Icon`         The filetype icon
---              (when `icons.filetype == {custom_colors = true, enabled = true}`).
--- `Index`        The buffer's position in the tabline.
--- `INFO`         Diagnostic info.
--- `Mod`          When the buffer is modified.
--- `Number`       The |bufnr()|.
--- `Sign`         The separator between buffers.
--- `SignRight`    The separator between buffers.
--- `Target`       The letter in buffer-pick mode.
--- `WARN`         Diagnostic warnings.

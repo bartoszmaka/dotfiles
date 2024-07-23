@@ -19,6 +19,35 @@ return  {
       },
     }
   },
+  vtsls = {
+    settings = {
+      typescript = {
+        updateImportsOnFileMove = { enabled = "always" },
+        inlayHints = {
+          parameterNames = { enabled = "all" },
+          parameterTypes = { enabled = true },
+          variableTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          enumMemberValues = { enabled = true },
+        },
+      },
+      javascript = {
+        updateImportsOnFileMove = { enabled = "always" },
+        inlayHints = {
+          parameterNames = { enabled = "literals" },
+          parameterTypes = { enabled = true },
+          variableTypes = { enabled = true },
+          propertyDeclarationTypes = { enabled = true },
+          functionLikeReturnTypes = { enabled = true },
+          enumMemberValues = { enabled = true },
+        },
+      },
+      vtsls = {
+        enableMoveToFileCodeAction = true,
+      },
+    },
+  },
   jsonls = {
     on_new_config = function(new_config)
       new_config.settings.json.schemas = new_config.settings.json.schemas or {}

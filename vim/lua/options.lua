@@ -26,6 +26,7 @@ vim.opt.foldenable = true
 
 -- Meta
 vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 vim.opt.hidden = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.swapfile = false          -- don't use swapfile

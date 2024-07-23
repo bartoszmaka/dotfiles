@@ -17,7 +17,7 @@ return {
 
     nnoremap('<C-f><C-f>`', [[:FloatermToggle<CR>]]) -- Mapped to C-` in alactirry
     tnoremap('<C-f><C-f>`', [[<C-\><C-n>:FloatermToggle<CR>]]) -- Mapped to C-` in alactirry
-    nnoremap('<C-l><C-n>', [[:FloatermToggle<CR>]])
-    tnoremap('<C-l><C-n>', [[<C-\><C-n>:FloatermToggle<CR>]])
+    -- nnoremap('<C-l><C-n>', [[:FloatermToggle<CR>]])
+    -- tnoremap('<C-l><C-n>', [[<C-\><C-n>:FloatermToggle<CR>]])
   end
 }

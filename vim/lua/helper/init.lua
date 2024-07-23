@@ -48,6 +48,9 @@ function M.cmap(from, to, opts) return M.remap(from, to, 'c', opts) end
 function M.smap(from, to, opts) return M.remap(from, to, 's', opts) end
 
 local vim_variable_scopes = { g = vim.api.nvim_set_var }
+
+function M.bool2str(bool) return bool and "on" or "off" end
+
 function M.let(scope, key, value)
   vim_variable_scopes[scope](key, value)
 end
