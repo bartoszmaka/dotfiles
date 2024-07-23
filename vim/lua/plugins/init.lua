@@ -1,6 +1,5 @@
 return {
   { 'tpope/vim-abolish' },      -- swap case
-  { 'tpope/vim-surround' },     -- surround motion
   {
     'dominikduda/vim_yank_with_context',
     config = function()

@@ -1,6 +1,16 @@
+local navicLoaded, navic = pcall(require, 'nvim-navic')
+
 local colors = require('helper.colors').onedark
+local symbols = require('helper.symbols')
 
 local M = {}
+
+local copilot_colors = {
+  [""] = { fg = colors.green },
+  ["Normal"] = { fg = colors.green },
+  ["Warning"] = { fg = colors.orange },
+  ["InProgress"] = { fg = colors.blue },
+}
 
 M.getFlags = function()
   local flags = {}
@@ -66,6 +76,78 @@ M.theme = {
       z = { fg = colors.grey, bg = colors.bg, gui = 'none' },
     },
   }
+}
+
+M.components = {
+  recording = { M.recording },
+  diagnostics = {
+    'diagnostics',
+    sources = { 'nvim_lsp' },
+    sections = { 'error', 'warn', 'info', 'hint' },
+    color_error = colors.red,   -- changes diagnostic's error foreground color
+    color_warn = colors.orange, -- changes diagnostic's warn foreground color
+    color_info = colors.blue,   -- Changes diagnostic's info foreground color
+    color_hint = colors.blue,   -- Changes diagnostic's hint foreground color
+    symbols = {
+      error = ' ' .. symbols.Error .. ' ',
+      warn = ' ' .. symbols.Warn .. ' ',
+      info = ' ' .. symbols.Info .. ' ',
+      hint = ' ' .. symbols.Hint .. ' ',
+    }
+  },
+  diff = {
+    'diff',
+    icon = '  ',
+    colored = false,                                          -- displays diff status in color if set to true
+    -- all colors are in format #rrggbb
+    color_added = nil,                                        -- changes diff's added foreground color
+    color_modified = nil,                                     -- changes diff's modified foreground color
+    color_removed = nil,                                      -- changes diff's removed foreground color
+    symbols = { added = '+', modified = '~', removed = '-' }, -- changes diff symbols
+  },
+  location = {
+    'location',
+    fmt = function()
+      local max_lines = vim.fn.line('$')
+      local line = vim.fn.line('.')
+      local column = vim.fn.col('.')
+      return string.format(" %3d/%d:%2d ", line, max_lines, column)
+    end
+  },
+  filetype = { 'filetype', colored = true, icon_only = true },
+  filename = { 'filename', file_status = true, path = 1 },
+  navic = {
+    function()
+      return " " .. navic.get_location()
+    end,
+    cond = function()
+      return navicLoaded and navic.is_available()
+    end,
+    padding = { left_padding = 2, right_padding = 0 }
+  },
+  flags = { M.getFlags, color = { fg = colors.yellow } },
+  copilot = {
+    function()
+      local icon = symbols.Copilot
+      local status = require("copilot.api").status.data
+      return icon .. (status.message or "")
+    end,
+    cond = function()
+      local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
+      return ok and #clients > 0
+    end,
+    color = function()
+      local status = require("copilot.api").status.data
+      return copilot_colors[status.status] or colors[""]
+    end,
+  },
+  winbar_filetype = { 'filetype', colored = false, icon_only = true },
+  winbar_filename = { 'filename', path = 1,        file_status = true },
+  winbar_filetype_inactive = { 'filetype', colored = false, icon_only = true },
+  winbar_filename_inactive = { 'filename', path = 1,        file_status = true, color = { fg = colors.grey } },
+  -- dropbar = {
+  --   function() return require('dropbar.utils').bar.get_current() end
+  -- },
 }
 
 return M

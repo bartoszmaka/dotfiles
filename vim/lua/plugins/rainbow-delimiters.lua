@@ -1,5 +1,8 @@
 return {
   'HiPhish/rainbow-delimiters.nvim',
+  keys = {
+    { '<leader>ur', function() require('rainbow-delimiters').toggle() end },
+  },
   config = function()
     local rainbow_delimiters = require 'rainbow-delimiters'
 
@@ -12,15 +15,15 @@ return {
         'javascript',
         'javascript.jsx',
         'javascriptreact',
-        -- 'typecript',
-        -- 'typecript.jsx',
-        -- 'typecriptreact',
+        'typecript',
+        'typecript.jsx',
+        'typecriptreact',
       },
       strategy = {
         [''] = rainbow_delimiters.strategy['global'],
       },
       query = {
-        [''] = 'rainbow-delimiters',
+        [''] = 'rainbow-parens',
         javascript = 'rainbow-tag-brackets-react',
         xml = 'rainbow-tag-brackets-delimiters',
         html = 'rainbow-delimiters-tag-brackets',
@@ -29,13 +32,13 @@ return {
         [''] = 110,
       },
       highlight = {
-        'RainbowColOrange',
-        'RainbowColGreen',
-        'RainbowColViolet',
-        'RainbowColCyan',
-        'RainbowColRed',
-        'RainbowColYellow',
-        'RainbowColBlue',
+        "RainbowDelimiterRed",
+        "RainbowDelimiterYellow",
+        "RainbowDelimiterBlue",
+        "RainbowDelimiterOrange",
+        "RainbowDelimiterGreen",
+        "RainbowDelimiterViolet",
+        "RainbowDelimiterCyan",
       },
     }
   end

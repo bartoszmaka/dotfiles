@@ -144,7 +144,7 @@ return {
     npairs.add_rules(require('nvim-autopairs.rules.endwise-lua'))
     npairs.add_rules(require('nvim-autopairs.rules.endwise-ruby'))
 
-    nnoremap([[<leader>uH]], [[:TSHighlightCapturesUnderCursor<CR>]])
+    -- nnoremap([[<leader>uH]], [[:TSHighlightCapturesUnderCursor<CR>]])
 
     require('hlargs').setup()
 
@@ -200,6 +200,7 @@ return {
         highlight! link @variable.member.ruby Special
         highlight! link @variable.parameter.ruby Special
         highlight! link @string.special.symbol.ruby Constant
+        highlight! link @function.builtin.ruby @keyword
 
         " typescript
         highlight! link @tag.delimiter.tsx Normal

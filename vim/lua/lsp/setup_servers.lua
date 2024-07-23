@@ -26,7 +26,9 @@ local servers = {
   'prismals',
   'pyright',
   'lemminx',
+  'vtsls'
 }
+
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -50,19 +52,6 @@ local build_on_attach = function(callback)
 end
 
 
-require("typescript").setup({
-  disable_commands = false, -- prevent the plugin from creating Vim commands
-  debug = false,            -- enable debug logging for commands
-  server = {
-    capabilities = capabilities,
-    on_attach = build_on_attach(),
-    root_dir = vim.loop.cwd,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  },
-})
-
 local servers_with_custom_config = { 'tsserver', 'ruby_lsp' }
 
 for _, server_name in ipairs(servers) do
@@ -73,6 +62,21 @@ for _, server_name in ipairs(servers) do
   }
   local ls_specific_options = require('lsp/ls_specific_options')
   local opts = vim.tbl_extend("force", vim.deepcopy(ls_shared_options), ls_specific_options[server_name] or {})
+
+  -- if server_name == "ruby_lsp" then
+  --   local solargraphq_opts = {
+  --     capabilities = capabilities,
+  --     on_attach = build_on_attach(
+  --       function(client, _bufnr)
+  --         -- client.server_capabilities.completionProvider = false
+  --         -- client.server_capabilities.definitionProvider = false
+  --         -- client.server_capabilities.documentLinkProvider = false
+  --       end
+  --     ),
+  --     root_dir = vim.loop.cwd,
+  --   }
+  --   lspconfig[server_name].setup(solargraphq_opts)
+  -- end
 
   if server_name == "ruby_lsp" then
     local ruby_lsp_opts = {
