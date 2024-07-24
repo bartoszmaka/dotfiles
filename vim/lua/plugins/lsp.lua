@@ -12,6 +12,18 @@ return {
       { 'nvim-lua/lsp-status.nvim' },
       { 'b0o/schemastore.nvim' }, -- schemas for jsonls (common rc files)
       { 'RishabhRD/nvim-lsputils',           dependencies = { 'RishabhRD/popfix' } },
+      {
+        "ray-x/lsp_signature.nvim",
+        event = "BufRead",
+        opts = {
+          hint_enable = true,
+          hint_scheme = "Comment",
+          hint_prefix = "   ",
+          -- hint_inline = function() return true end,
+          doc_lines = 0,
+          handler_opts = { "single" }
+        }
+      },
     },
     config = function()
       require('lsp.setup_servers')

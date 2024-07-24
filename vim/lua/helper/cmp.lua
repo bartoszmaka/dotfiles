@@ -66,8 +66,8 @@ M.format_entry = function(entry, vim_item)
     end
   end
 
-  vim_item.menu = ' ' .. vim_item.kind .. ' ' .. source_tag
-  vim_item.kind = ' ' .. icon .. ' '
+  vim_item.menu = ' ' .. (vim_item.kind or '') .. ' ' .. source_tag
+  vim_item.kind = ' ' .. (icon or '') .. ' '
 
   return vim_item
 end

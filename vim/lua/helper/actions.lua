@@ -3,7 +3,7 @@ local diagnostics_config = require('lsp.config').diagnostics
 
 local M = {}
 
-function M.inlay_hints()
+function M.toggle_inlay_hints()
   if vim.lsp.inlay_hint then
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
     vim.notify(("Global inlay hints %s"):format(helper.bool2str(vim.lsp.inlay_hint.is_enabled())))

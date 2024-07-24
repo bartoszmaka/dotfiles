@@ -1,4 +1,5 @@
 local navicLoaded, navic = pcall(require, 'nvim-navic')
+-- local gpsLoaded, gps = pcall(require, 'nvim-gps')
 
 local colors = require('helper.colors').onedark
 local symbols = require('helper.symbols')
@@ -118,10 +119,10 @@ M.components = {
   filename = { 'filename', file_status = true, path = 1 },
   navic = {
     function()
-      return " " .. navic.get_location()
+      return " " .. (navic.get_location() or require('nvim-gps').get_location())
     end,
     cond = function()
-      return navicLoaded and navic.is_available()
+      return (navicLoaded and navic.is_available()) or (require('nvim-gps').is_available())
     end,
     padding = { left_padding = 2, right_padding = 0 }
   },
