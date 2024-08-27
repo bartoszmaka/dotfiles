@@ -21,9 +21,9 @@ return {
         local colors = require("helper.colors").onedark
 
         hl.tabline_bg = colors.bg0
-        -- hl.tabline_fg = "#ffff00"
-        -- hl.tab = "#00ff00"
-        -- hl.tab = "#0000ff"
+        hl.tabline_fg = "#ffff00"
+        hl.tab = "#00ff00"
+        hl.tab = "#0000ff"
         return hl
       end,
     },
