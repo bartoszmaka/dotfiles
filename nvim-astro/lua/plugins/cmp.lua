@@ -8,7 +8,19 @@ return { -- override nvim-cmp plugin
           color_square_width = 1,
         })
       end
-    }
+    },
+    {
+      'quangnguyen30192/cmp-nvim-ultisnips',
+      config = function()
+        require('cmp_nvim_ultisnips').setup {
+          filetype_source = 'treesitter',
+          show_snippets = 'expandable',
+          documentation = function(snippet)
+            return snippet.description
+          end
+        }
+      end
+    },
   },
   opts = function(_, opts)
     local cmp = require("cmp")
@@ -75,6 +87,7 @@ return { -- override nvim-cmp plugin
 
     opts.sources = cmp.config.sources({
       { name = "nvim_lsp", priority = 1000 },
+      { name = 'ultisnips', priority = 770 },
       { name = "luasnip", priority = 750 },
       { name = "buffer", priority = 500 },
       { name = "path", priority = 250 },
