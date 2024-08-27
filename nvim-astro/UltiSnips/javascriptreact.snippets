@@ -1,0 +1,205 @@
+priority 60
+global !p
+def upperfirst(t):
+	if len(t) < 2:
+		return '' if len(t) < 1 else t.capitalize()
+	return t[0].capitalize() + t[1:]
+
+def lowerdash(t):
+	return '-'.join([ w.lower() for w in re.findall('[a-z]+|[A-Z]+[a-z]*', t) ])
+
+
+def getClassFromPath():
+	parts = path.split('.')[0].split('/')
+	return parts.pop()
+
+def toPascalCase(string):
+	return string.replace("_", " ").title().replace(" ", "")
+
+endglobal
+
+snippet msp "mapStateToProps" w
+mapStateToProps
+endsnippet
+
+snippet mdp "mapDispatchToProps" w
+mapDispatchToProps
+endsnippet
+
+snippet pt "PropTypes" w
+PropTypes.
+endsnippet
+
+snippet pto "PropTypes.shape({})" w
+PropTypes.shape({})
+endsnippet
+
+snippet ptor "PropTypes.shape({}).isRequired" w
+PropTypes.shape({}).isRequired,
+endsnippet
+
+snippet ptobj "PropTypes.object" w
+PropTypes.object
+endsnippet
+
+snippet ptobjr "PropTypes.object.isRequired" w
+PropTypes.object.isRequired,
+endsnippet
+
+snippet pta "PropTypes.arrayOf()" w
+PropTypes.arrayOf(${1})${2}
+endsnippet
+
+snippet ptar "PropTypes.arrayOf().isRequired" w
+PropTypes.arrayOf(${1}).isRequired,${2}
+endsnippet
+
+snippet ptf "PropTypes.func" w
+PropTypes.func
+endsnippet
+
+snippet ptfr "PropTypes.func.isRequired" w
+PropTypes.func.isRequired,
+endsnippet
+
+snippet ptst "PropTypes.string" w
+PropTypes.string
+endsnippet
+
+snippet ptstr "PropTypes.string.isRequired" w
+PropTypes.string.isRequired,
+endsnippet
+
+snippet ptb "PropTypes.bool" w
+PropTypes.bool
+endsnippet
+
+snippet ptbr "PropTypes.bool.isRequired" w
+PropTypes.bool.isRequired,
+endsnippet
+
+snippet ptn "PropTypes.number" w
+PropTypes.number
+endsnippet
+
+snippet ptnr "PropTypes.number.isRequired" w
+PropTypes.number.isRequired,
+endsnippet
+
+snippet ptsy "PropTypes.symbol" w
+PropTypes.symbol
+endsnippet
+
+snippet ptsyr "PropTypes.symbol.isRequired" w
+PropTypes.symbol.isRequired,
+endsnippet
+
+snippet ptsh "PropTypes.shape" w
+PropTypes.shape({${1}})${2}
+endsnippet
+
+snippet ptshr "PropTypes.shape.isRequired" w
+PropTypes.shape({${1}}).isRequired,${2}
+endsnippet
+
+snippet ptc "PropTypes.node" w
+PropTypes.node
+endsnippet
+
+snippet ptcr "PropTypes.node.isRequired" w
+PropTypes.node.isRequired
+endsnippet
+
+snippet us "useState" w
+const [$1, set`!p snip.rv=upperfirst(t[1])`] = useState($2)
+endsnippet
+
+snippet ue "useEffect()" w
+useEffect(() => {
+	$0
+}, [$1])
+endsnippet
+
+snippet um "useMemo" w
+const ${1} = useMemo(() => ${3}, [${2}])
+endsnippet
+
+snippet uct "useContext" w
+const ${1} = useContext(${2})
+endsnippet
+
+snippet ucb "useCallback" w
+const ${1} = useCallback(${2})
+endsnippet
+
+snippet scfn
+const ${1} = (${2:props}) => {
+  return (
+    <pre>{JSON.stringify(props, null, 2)}</pre>
+  )
+}
+
+export default $1
+endsnippet
+
+snippet scfnpt
+import PropTypes from 'prop-types'
+
+const ${1} = (${2:props}) => {
+  return (
+    <pre>{JSON.stringify(props, null, 2)}</pre>
+  )
+}
+
+$1.propTypes = {
+
+}
+
+export default $1
+endsnippet
+
+snippet scrxfn
+import React from 'react'
+import { connect } from 'react-redux'
+
+const ${1} = (${2}) => {
+  return (
+    ${3}
+  )
+}
+
+const mapStateToProps = state => ({
+
+})
+
+const mapDispatchToProps = {}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)($1)
+endsnippet
+
+snippet edn
+// eslint-disable-next-line ${1}
+endsnippet
+
+snippet esd
+// eslint-disable ${1}
+endsnippet
+
+snippet cn
+className=
+endsnippet
+
+snippet imr "import react" w
+import React from 'react';
+endsnippet
+
+snippet impt "import PropTypes" w
+import PropTypes from 'prop-types';
+endsnippet
+
+snippet imy "import yup" w
+import * as yup from 'yup';
+endsnippet
