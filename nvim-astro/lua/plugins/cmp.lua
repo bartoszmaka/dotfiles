@@ -1,5 +1,6 @@
 return { -- override nvim-cmp plugin
   "hrsh7th/nvim-cmp",
+  lazy = false,
   dependencies = {
     {
       "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -22,76 +23,139 @@ return { -- override nvim-cmp plugin
       end
     },
   },
-  opts = function(_, opts)
-    local cmp = require("cmp")
-    local symbols = require("helper.symbols")
-    local tailwind_formatter = require("tailwindcss-colorizer-cmp").formatter
-    local get = require('helper').get
-
-    local format_entry = function(entry, vim_item)
-      local source = ''
-      local lsp_name_shorthand = ({
-        emmet_language_server = 'emmet',
-      })
-      local source_tag = ({
-        buffer = '[Buf]',
-        omni = '[Omni]',
-        ultisnips = '[Snip]',
-        spell = '[Spell]',
-        cmp_tabnine = '[AI]',
-        copilot = '[AI]',
-        cmdline = '[CMD]',
-        nvim_lsp_signature_help = '[Arg]',
-      })[entry.source.name] or entry.source.name or ''
-
-      local icon = symbols[vim_item.kind]
-
-      if entry.source.name == 'nvim_lsp' then
-        local ls_name = get(entry, 'source.source.client.config.name')
-        source = lsp_name_shorthand[ls_name] or ls_name or ''
-        source_tag = '(' .. source .. ')'
-        if source == "emmet" and vim_item.kind == "Text" then
-          icon = symbols.Emmet
+  opts = function()
+    local cmp = require('cmp')
+    local cmp_helper = require('helper.cmp_helper')
+    local tabnine_loaded, tabnine_keymaps = pcall(require,'tabnine.keymaps')
+    local t = cmp_helper.t
+    local mappings = {
+      next_or_open_popup = function()
+        if cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        else
+          cmp.complete()
         end
-
-        if ls_name == 'tailwindcss' and vim_item.kind == 'Color' then
-          local formatted = tailwind_formatter(entry, vim_item)
-
-          if formatted.kind == "X" then
-            formatted.kind = formatted.kind
-          end
+      end,
+      prev_or_open_popup = function()
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        else
+          cmp.complete()
         end
-      end
-
-      vim_item.menu = ' ' .. vim_item.kind .. ' ' .. source_tag
-      vim_item.kind = ' ' .. icon .. ' '
-
-      return vim_item
-    end
-
-    opts.formatting = {
-      fields = { 'kind', 'abbr', 'menu' },
-      format = format_entry
+      end,
+      insert_tab_mapping = function(fallback)
+        print(vim.inspect({tabnine_loaded, tabnine_keymaps.has_suggestion()}))
+        if vim.fn['UltiSnips#CanExpandSnippet']() == 1 then
+          vim.api.nvim_feedkeys(t('<Plug>(ultisnips_expand)'), 'm', true)
+        elseif vim.fn['UltiSnips#CanJumpForwards']() == 1 then
+          return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_forward)'), 'm', true)
+        elseif cmp.visible() then
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif tabnine_loaded and tabnine_keymaps.has_suggestion() then
+          tabnine_keymaps.accept_suggestion()
+        else
+          vim.fn.feedkeys(t('<tab>'), 'n')
+        end
+      end,
+      snippet_tab_mapping = function(fallback)
+        if vim.fn['UltiSnips#CanJumpForwards']() == 1 then
+          return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_forward)'), 'm', true)
+        else
+          fallback()
+        end
+      end,
+      insert_shift_tab_mapping = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+        elseif vim.fn['UltiSnips#CanJumpBackwards']() == 1 then
+          return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_backward)'), 'm', true)
+        else
+          vim.fn.feedkeys(t('<esc><<<left><left>a'), 'n')
+        end
+      end,
+      snippet_shift_tab_mapping = function(fallback)
+        if vim.fn['UltiSnips#CanJumpBackwards']() == 1 then
+          return vim.api.nvim_feedkeys(t('<Plug>(ultisnips_jump_backward)'), 'm', true)
+        else
+          fallback()
+        end
+      end,
     }
 
-    opts.window = {
-      completion = {
-        winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
-        col_offset = -3,
-        side_padding = 0,
+    local options = {
+      completion = {},
+      mapping = {
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
+        ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-j>'] = cmp.mapping(mappings.next_or_open_popup),
+        ['<C-k>'] = cmp.mapping(mappings.prev_or_open_popup),
+        ['<CR>'] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = false,
+        }),
+        ['<Tab>'] = cmp.mapping({
+          c = mappings.next_or_open_popup,
+          i = function(fallback) mappings.insert_tab_mapping(fallback) end,
+          s = function(fallback) mappings.snippet_tab_mapping(fallback) end
+        }),
+        ['<S-Tab>'] = cmp.mapping({
+          c = mappings.prev_or_open_popup,
+          i = function(fallback) mappings.insert_shift_tab_mapping(fallback) end,
+          s = function(fallback) mappings.snippet_shift_tab_mapping(fallback) end
+        }),
       },
-      documentation = {
-        winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
+      snippet = {
+        expand = function(args)
+          vim.fn['UltiSnips#Anon'](args.body)
+        end,
       },
+      window = {
+        completion = {
+          winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
+          col_offset = -3,
+          side_padding = 0,
+        },
+        documentation = {
+          winhighlight = 'Normal:NormalDarker,FloatBorder:NormalDarker,Search:None',
+        },
+      },
+      sources = cmp.config.sources({
+        { name = 'ultisnips', priority = 120, group_index = 2 },
+        { name = "nvim_lsp",  priority = 100, group_index = 2 },
+        { name = "buffer",    priority = 55,  group_index = 2 },
+        { name = "path",      priority = 50,  group_index = 2 },
+        { name = 'spell',     priority = 45,  group_index = 2 },
+      }),
+
+      formatting = {
+        fields = { 'kind', 'abbr', 'menu' },
+        format = cmp_helper.format_entry
+      },
+      experimental = {
+        ghost_text = false
+      },
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
+        },
+      }
     }
 
-    opts.sources = cmp.config.sources({
-      { name = "nvim_lsp", priority = 1000 },
-      { name = 'ultisnips', priority = 770 },
-      { name = "luasnip", priority = 750 },
-      { name = "buffer", priority = 500 },
-      { name = "path", priority = 250 },
-      { name = "spell", priority = 200 },
-    })
+    return options
+  end,
+  config = function(_, opts)
+    require('cmp').setup(opts)
   end,
 }

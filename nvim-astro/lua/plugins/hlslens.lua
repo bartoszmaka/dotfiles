@@ -47,3 +47,4 @@ return {
       ]]
   end,
 }
+-- ~/.local/share/nvim-astro/lazy/AstroNvim/lua/astronvim/plugins/_astrocore_autocmds.lua:289

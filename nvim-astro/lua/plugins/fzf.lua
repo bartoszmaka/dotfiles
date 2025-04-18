@@ -37,39 +37,45 @@ return {
         },
         winopts = {
           big_window = {
-            win_height = 0.60,     -- window height
-            win_width  = 0.80,     -- window width
-            win_row    = 0.50,     -- window row position (0=top, 1=bottom)
-            win_col    = 0.50,     -- window col position (0=left, 1=right)
-            win_border = symbols.corners.none,
+            height = 0.60,     -- window height
+            width  = 0.80,     -- window width
+            row    = 0.50,     -- window row position (0=top, 1=bottom)
+            col    = 0.50,     -- window col position (0=left, 1=right)
+            border = symbols.corners.none,
             fullscreen = false,
           },
           bottom_pane = {
-            win_row    = 1,
-            win_col    = 0,
-            win_height = 0.20,
-            win_width  = 1,
-            win_border = symbols.corners.none,
+            row    = 1,
+            col    = 0,
+            height = 0.20,
+            width  = 1,
+            border = symbols.corners.none,
           },
           small_window = {
-            win_row    = 0.25,
-            win_col    = 0.50,
-            win_height = 0.25,
-            win_width  = 0.15,
-            win_border = symbols.corners.none,
+            row    = 0.25,
+            col    = 0.50,
+            height = 0.25,
+            width  = 0.15,
+            border = symbols.corners.none,
             preview = {
               hidden = 'hidden',
             }
           },
           medium_window = {
-            win_row    = 0.30,
-            win_col    = 0.50,
-            win_height = 0.45,
-            win_width  = 0.45,
-            win_border = symbols.corners.none,
+            row    = 0.30,
+            col    = 0.50,
+            height = 0.45,
+            width  = 0.45,
+            border = symbols.corners.none,
             preview = {
               horizontal = "right:50%"
             },
+          },
+          preview = {
+            delay                 = 100, -- delay(ms) displaying the preview
+            title                 = true, -- preview title?
+            scrollbar             = true, -- scrollbar?
+            scrollchar            = '▋', -- scrollbar character
           }
         },
         fzf_colors = {
@@ -95,6 +101,7 @@ return {
       ]]
 
       require('fzf-lua').setup {
+        "hide",
         global_resume             = true,
         global_resume_query       = true,
         winopts                   = vim.tbl_deep_extend("force", presets.winopts.big_window, {
@@ -146,10 +153,6 @@ return {
         previewers                = {
           git_diff                = { cmd = 'git diff', args = "--color", pager = "delta" },
           builtin                 = {
-            delay                 = 100, -- delay(ms) displaying the preview
-            title                 = true, -- preview title?
-            scrollbar             = true, -- scrollbar?
-            scrollchar            = '▋', -- scrollbar character
             extensions      = {
               ["png"]       = { "viu", "-b" },
               ["jpg"]       = { "viu", "-b" },
@@ -288,7 +291,7 @@ return {
       -- nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]], { desc = "LSP Finder" })
       -- nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]], { desc = "References" })
       nnoremap('<leader>ps', [[:lua require("fzf-lua").lsp_document_symbols()<CR>]], { desc = "File Symbols" })
-      nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {win_height = 0.60, win_width = 0.90, win_row = 0.40, win_col = 0.50}})<CR>]], { desc = "Project Symbols" })
+      nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {height = 0.60, width = 0.90, row = 0.40, col = 0.50}})<CR>]], { desc = "Project Symbols" })
       nnoremap('<leader>/', [[:lua require("fzf-lua").blines()<CR>]], { desc = "File Lines" })
       nnoremap('<leader>p.', [[:lua require("fzf-lua").filetypes()<CR>]], { desc = "Filetypes" })
       nnoremap('<leader>pe', [[:lua require("fzf-lua").lsp_document_diagnostics()<CR>]], { desc = "File Diagnostics" })
