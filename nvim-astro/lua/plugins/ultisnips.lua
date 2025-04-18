@@ -11,6 +11,7 @@ return {
       augroup setup_snippet_aliases
       autocmd!
 
+      autocmd FileType ruby UltiSnipsAddFiletypes ruby
       autocmd FileType eruby UltiSnipsAddFiletypes eruby
       autocmd FileType javascript UltiSnipsAddFiletypes javascriptreact
       autocmd FileType typescript UltiSnipsAddFiletypes javascript.javascriptreact

@@ -42,8 +42,12 @@ return {
     -- customize language server configuration options passed to `lspconfig`
     ---@diagnostic disable: missing-fields
     config = {
+      rubocop = {
+        cmd = { "bundle", "exec", "rubocop", "--lsp", "--config", "/Users/bartoszmaka/projects/helpling/h2/.rubocop_strict.yml", "--force-exclusion" },
+        filetypes = { "ruby", "eruby" },
+      }
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
-      ruby_lsp = { capabilities = { completionProvider = true } },
+      -- ruby_lsp = { capabilities = { completionProvider = true } },
     },
     -- customize how language servers are attached
     handlers = {
@@ -102,7 +106,10 @@ return {
         ["<C-m><C-f>"] = {
           function() vim.lsp.buf.format { async = true } end,
           desc = "Format document",
+          silent = true,
         },
+        ["<leader>cl"] = { ":LspInfo<CR>", desc = "Lsp Info" },
+        ["<leader>cm"] = { ":Mason<CR>",   desc = "Mason" },
         ["<Leader>ca"] = false,
         ["<Leader>lG"] = false,
         ["<Leader>li"] = false,
@@ -125,6 +132,10 @@ return {
           function() vim.lsp.buf.rename() end,
           desc = "Rename symbol",
         },
+        ["<leader>K"] = {
+          function() vim.lsp.buf.hover() end,
+          desc = "Hover"
+        }
       },
     },
     -- A custom `on_attach` function to be run after the default `on_attach` function
