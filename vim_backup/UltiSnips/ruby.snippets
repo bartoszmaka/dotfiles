@@ -1,0 +1,310 @@
+priority -50
+
+#
+# Global functions
+#
+global !p
+def buildVariablesFromConstructor(string):
+	if len(string) == 0: return ''
+	parts = string.split(',')
+	buildInstanceVariable = lambda x: "  @{name} = {name}".format(name=x.removesuffix(':').strip())
+	instanceVariables = map(buildInstanceVariable, parts)
+	return "\n".join(instanceVariables)
+
+def buildAttributeReaderFromConstructor(string):
+	if len(string) == 0: return ''
+	parts = string.split(',')
+	buildInstanceVariable = lambda x: ":{}".format(x.removesuffix(':').strip())
+	instanceVariables = map(buildInstanceVariable, parts)
+	staticCode = "\n    private\n\n    attr_reader "
+	
+	return staticCode + ", ".join(instanceVariables)
+
+def toPascalCase(string):
+	return string.replace("_", " ").title().replace(" ", "")
+
+def getClassFromPath():
+	parts = vim.eval('expand("%:.")').split('.')[0].split('/')
+	last = parts.pop()
+	if last.endswith('_spec'): last = last[:-5]
+
+	return last
+
+def getModulesFromPath():
+	parts = vim.eval('expand("%:.")').split('.')[0].split('/')
+	return parts[2:-1]
+
+def buildShortClassWithModules():
+	parts = getModulesFromPath() + [getClassFromPath()]
+	return "::".join(map(toPascalCase, parts))
+
+def buildClassWithModules():
+	result = ''
+
+	for part in getModulesFromPath():
+		result += snip.mkline('module ' + toPascalCase(part) + '\n')
+		snip.shift()
+
+	result += snip.mkline('class ${1:' + toPascalCase(getClassFromPath()) + '} \n')
+	snip.shift()
+	result += snip.mkline('${2}\n')
+	snip.unshift()
+	result += snip.mkline('end\n')
+
+	for part in getModulesFromPath():
+		snip.unshift()
+		result += snip.mkline('end\n')
+
+	return result
+
+def expandPlaceholders(snip):
+	anon_snippet_body = ""
+	# Get start and end line number of expanded snippet
+	start = snip.snippet_start[0]
+	end = snip.snippet_end[0]
+
+  # Append current line into anonymous snippet
+	for i in range(start, end + 1):
+		anon_snippet_body += snip.buffer[i]
+		anon_snippet_body += "" if i == end else "\n"
+
+	# Delete expanded snippet line till second to last line
+	for i in range(start, end):
+		del snip.buffer[start]
+
+	# Empty last expanded snippet line while preserving the line
+	snip.buffer[start] = ''
+
+	snip.expand_anon(anon_snippet_body)
+endglobal
+#
+# Snippets
+#
+
+post_jump "expandPlaceholders(snip)"
+snippet cla "class" w
+`!p snip.rv = buildClassWithModules()`
+endsnippet
+
+snippet bp "binding.pry" w
+binding.pry
+endsnippet
+
+snippet brp "binding.remote_pry" w
+binding.remote_pry
+endsnippet
+
+snippet ysbp "yield_self binding.pry" w
+.yield_self { |object| binding.pry }
+endsnippet
+
+snippet desc "spec describe" w
+describe '${1}' do
+  ${2}
+end
+endsnippet
+
+snippet sce "spec scenario" w
+scenario '${1}' do
+  ${2}
+end
+endsnippet
+
+snippet cont "spec context" w
+context 'when ${1}' do
+	it '${2}' do
+		${3}
+	end
+end
+endsnippet
+
+snippet it "spec it" w
+it '${1}' do
+  ${2}
+end
+endsnippet
+
+snippet aa "attr_accessor" w
+attr_accessor ${1}
+endsnippet
+
+snippet aw "attr_writer" w
+attr_writer ${1}
+endsnippet
+
+snippet ar "attr_reader" w
+attr_reader ${1}
+endsnippet
+
+snippet factory "FactoryBot scaffold"
+FactoryBot.define do
+  factory :${1} do
+    ${0}
+  end
+end
+endsnippet
+
+snippet if "if block" w
+if ${1}
+  ${VISUAL}
+end
+endsnippet
+
+snippet ife "if-else block" w
+if ${1}
+  ${VISUAL}
+else
+  ${3}
+end
+endsnippet
+
+snippet inc "include" w
+include 
+endsnippet
+
+snippet req "require" w
+require '${1}'
+endsnippet
+
+snippet def "function template" w
+def ${1}
+  ${2}
+end
+endsnippet
+
+snippet defm "memoized function template" w
+def ${1}
+  @$1 ||= ${2}
+end
+endsnippet
+
+snippet defi "constructor" w
+def initialize(${1})
+`!p snip.rv = buildVariablesFromConstructor(t[1])`
+end
+`!p snip.rv = buildAttributeReaderFromConstructor(t[1])`
+endsnippet
+
+snippet spec "spec scaffold" w
+require 'rails_helper'
+
+RSpec.describe `!p snip.rv = buildShortClassWithModules()` do
+  ${2}
+end
+endsnippet
+
+snippet "\b(case|sw(itch)?)" "case <variable> when <expression> ... end" r
+case ${1:variable}
+when ${2:expression}
+  $0
+end
+endsnippet
+
+snippet ###
+=begin
+	$0
+=end
+endsnippet
+
+snippet priv "private"
+private
+
+$0
+endsnippet
+
+snippet prot "protected"
+protected
+
+$0
+endsnippet
+
+snippet abc "Metrics/AbcSize"
+Metrics/AbcSize
+endsnippet
+
+snippet rd "# rubocop:disable"
+# rubocop:disable
+endsnippet
+
+snippet rda "# rubocop:disable Metrics/AbcSize"
+# rubocop:disable Metrics/AbcSize
+endsnippet
+
+snippet jprb "JSON.parse(response.body)" w
+JSON.parse(response.body)
+endsnippet
+
+snippet tet "to eq(true)" w
+to eq(true)
+endsnippet
+
+snippet tef "to eq(false)" w
+to eq(false)
+endsnippet
+
+snippet ten "to eq(nil)" w
+to eq(nil)
+endsnippet
+
+snippet teq "to eq()" w
+to eq($1)
+endsnippet
+
+snippet tha "to have_attributes" w
+to have_attributes(
+  ${0}
+)
+endsnippet
+
+snippet tma "to match_array" w
+to match_array(
+	[
+		${0}
+	]
+)
+endsnippet
+
+snippet thr "to have_received" w
+to have_received(:${1})
+endsnippet
+
+snippet scgqltype "graphql type scaffold" w
+Types::${1}Type = GraphQL::ObjectType.define do
+  name '$1'
+
+	${0}
+end
+endsnippet
+
+snippet doc "yard doc" b
+# ${1}
+endsnippet
+
+snippet nowm "now time mock" b
+DateTime.new(2017, 1, 27, 12, 30)
+endsnippet
+
+snippet tcf "Timecop.freeze(now)" b
+Timecop.freeze(${1:now})
+$0
+Timecop.return
+endsnippet
+
+snippet res
+rescue ${1:StandardError} => _e
+	$0
+endsnippet
+
+snippet gres "graphql resolve" b
+resolve ->(obj, _args, _ctx) {
+	$0
+}
+endsnippet
+
+snippet gresb "graphql resolve block" w
+do
+	resolve ->(obj, _args, _ctx) {
+		$0
+	}
+end
+endsnippet

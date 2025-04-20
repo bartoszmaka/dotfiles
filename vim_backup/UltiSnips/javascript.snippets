@@ -1,0 +1,332 @@
+priority 50
+global !p
+def upperfirst(t):
+	if len(t) < 2:
+		return '' if len(t) < 1 else t.capitalize()
+	return t[0].capitalize() + t[1:]
+def lowerdash(t):
+	return '-'.join([ w.lower() for w in re.findall('[a-z]+|[A-Z]+[a-z]*', t) ])
+endglobal
+# A valid snippet should starts with:
+#
+#		snippet trigger_w ["description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-w expansion.
+#		w - w boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter"emitter properties" b
+#		private readonly ${1} = new Emitter<${2}>()
+#		public readonly ${1/^_(.*)/${1}/}: Event<${2}> = this.${1}.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet fn "arrow function" w
+(${1}) => {${2}}
+endsnippet
+
+snippet fun "function" w
+function ${1}(${2}) {${3}}
+endsnippet
+
+snippet switch "switch statement" w
+switch (${1}) {
+  case ${2}:
+}
+endsnippet
+
+snippet if "if statement" w
+if (${1}) {
+  ${2}
+}
+endsnippet
+
+snippet ita "jest it async" w
+it('${1}', async () => {
+  ${2}
+});
+endsnippet
+
+snippet it "jest it" w
+it('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet test "jest test" w
+test('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet de  "jest describe" w
+describe('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet desc  "jest describe" w
+describe('${1}', () => {
+  ${2}
+});
+endsnippet
+
+snippet con "desctucture object" w
+const { ${1} } = ${2}
+endsnippet
+
+snippet re "require()" w
+const ${1} = require('${2}');
+endsnippet
+
+snippet imp "import module from " w
+import ${2:moduleName} from '${1:module}';
+endsnippet
+
+snippet ex "export" w
+export ${1}
+endsnippet
+
+snippet ed "export default" w
+export default ${1}
+endsnippet
+
+snippet ec "export const" w
+export const ${1}
+endsnippet
+
+snippet edf "export default function" w
+export default function ${1}(${2}) {
+  return ${3:null}
+}
+endsnippet
+
+snippet ef "export function" w
+export function 
+endsnippet
+
+snippet eaf "export async function" w
+export async function 
+endsnippet
+
+snippet cl "console.log" w
+console.log(${1})
+endsnippet
+
+snippet ct "constructor" w
+constructor(${1}) {
+  ${2}
+}
+endsnippet
+
+snippet ctr "component constructor" w
+constructor(props) {
+  super(props);
+  ${1}
+}
+endsnippet
+
+snippet teao "to eq array containing obj matching" w
+toEqual(
+  expect.arrayContaining([
+    expect.objectContaining({
+      ${1}
+    })
+  ])
+)
+endsnippet
+
+snippet tea "to eq array containing" w
+toEqual(
+  expect.arrayContaining([
+    ${1}
+  ])
+)
+endsnippet
+
+snippet teo "to eq object containing" w
+toEqual(
+  expect.objectContaining({
+    ${1}
+  })
+)
+endsnippet
+
+snippet sctr "Scaffold test react component" w
+import React from 'react';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
+
+import { ${1} } from '../${1}';
+
+const setup = (newProps = {}, rendering = shallow) => {
+  const props = {
+    ${2}
+    ...newProps,
+  };
+
+  const wrapper = rendering(<${1} {...props} />);
+
+  return { wrapper, props };
+};
+${3}
+endsnippet
+
+snippet etms "expect to match snapshot" w
+expect(${1:toJson(wrapper)}).toMatchSnapshot()
+endsnippet
+
+snippet jfn "jest.fn()" w
+jest.fn()
+endsnippet
+
+snippet jstr "JSON.stringify" w
+JSON.stringify(${1}, null, 2)
+endsnippet
+
+snippet tc "try-catch" w
+try {
+	${1}
+} catch (error) {
+	${2}
+}
+endsnippet
+
+snippet tcf "try-catch-finally" w
+try {
+	${1}
+} catch (error) {
+	${2}
+} finally {
+	${3}
+}
+endsnippet
+
+snippet tcd "try-catch data" w
+try {
+	${1}
+	return [result, null]
+} catch (error) {
+	return [null, error]
+}
+endsnippet
+
+snippet tcfd "try-catch-finally data" w
+try {
+	${1}
+	return [result, null]
+} catch (error) {
+	return [null, error]
+} finally {
+	${2}
+}
+endsnippet
+
+snippet oc "onClick" w
+onClick={$0}
+endsnippet
+
+snippet op "onPress" w
+onPress={$0}
+endsnippet
+
+snippet oce "onClose" w
+onClose={$0}
+endsnippet
+
+snippet yst "yup string" w
+yup.string()
+endsnippet
+
+snippet ystr "yup string required" w
+yup.string().required()
+endsnippet
+
+snippet ystm "yup string matches" w
+yup.string().matches(${1})
+endsnippet
+
+snippet ystmr "yup string matches required" w
+yup.string().matches(${1}).required()
+endsnippet
+
+snippet yn "yup number" w
+yup.number()
+endsnippet
+
+snippet ynr "yup number required" w
+yup.number().required()
+endsnippet
+
+snippet yd "yup date" w
+yup.date()
+endsnippet
+
+snippet ydr "yup date required" w
+yup.date().required()
+endsnippet
+
+snippet ysh "yup shape" w
+yup.object().shape({${1}})
+endsnippet
+
+snippet yshr "yup shape required" w
+yup.object().shape({${1}}).required()
+endsnippet
+
+snippet yar "yup array" w
+yup.array()
+endsnippet
+
+snippet yarr "yup array required" w
+yup.array().required()
+endsnippet
+
+snippet thc "then...catch" w
+then((${1}) => {${2}}).catch((${3}) => {${4}})
+endsnippet
+
+snippet iml "import ... lodash" w
+import { ${1} } from 'lodash';
+endsnippet
+
+snippet ttime "sample test time" w
+2021-01-27T12:30+00:00
+endsnippet
+
+snippet docl "jsdoc one line" b
+/** ${1} */
+endsnippet
+
+snippet doc "jsdoc" b
+/**
+ * ${1}
+ */
+endsnippet
+
+snippet fof "for in" w
+for(let ${1:item} of ${2:object}) {
+	${0}
+}
+endsnippet
+
+snippet fin "for in" w
+for(let ${1:item} in ${2:object}) {
+	${0}
+}
+endsnippet
+
+snippet to "ternary operator" w
+${1:true} ? (${2}) : (${3:null})
+endsnippet
