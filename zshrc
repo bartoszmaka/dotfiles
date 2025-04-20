@@ -104,23 +104,22 @@ zstyle ':completion:*' menu select
 
 alias tmux="tmux -u"
 alias tnew="\tmux -u new-session -t main"
-alias spacevim="nvim -u ~/.SpaceVim/init.vim"
-alias svimrc="$EDITOR ~/.SpaceVim.d/init.toml"
-alias vimrc="cd $DOTFILES_PATH/vim; $EDITOR $DOTFILES_PATH/vim/lua/plugins/init.lua; cd -"
-alias vvimrc="$EDITOR $HOME/.vimrc"
-alias minivimrc="cd $DOTFILES_PATH/vim; $EDITOR $DOTFILES_PATH/minimal_vimrc.lua; cd -"
+alias vimrc="cd $DOTFILES_PATH/vim; $EDITOR;  cd -"
+alias oldvimrc="cd $DOTFILES_PATH/nvim-old; $EDITOR;  cd -"
+alias astrovimrc="cd $DOTFILES_PATH/nvim-astro; astrovim;  cd -"
 alias lazyvimrc="cd $HOME/.config/nvim; $EDITOR"
+alias spacevimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
-alias coderc="code $DOTFILES_PATH/vscode/settings.json $DOTFILES_PATH/vscode/keybindings.json"
 alias alacrittyrc="$EDITOR $DOTFILES_PATH/alacritty.toml"
 alias kittyrc="$EDITOR $DOTFILES_PATH/kitty/kitty.conf"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
-alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
-alias n='asdf shell nodejs 17.3.0 && nvim'
-alias minivim='asdf shell nodejs 17.3.0 && nvim -u ~/.repos/dotfiles/minimal_vimrc.lua'
-alias oldvim='nvim -u $DOTFILES_PATH/vim/vimrc'
+
+alias n='nvim'
+alias astrovim='NVIM_APPNAME=nvim-astro nvim'
+alias oldvim='NVIM_APPNAME=nvim-old nvim'
+alias spacevim="NVIM_APPNAME=spacevim nvim"
 
 alias -g F='| fzf --exact'
 alias -g N='| nvim -'
@@ -138,7 +137,6 @@ alias brp="echo 'pry-remote -w';pry-remote -w"
 alias ys="yarn start"
 alias mailcatcher='echo "running mailcatcher --foreground. If you want to use default mailcatcher - escape the alias"; mailcatcher --foreground'
 alias tf="terraform"
-alias ls="exa"
 alias cat="bat"
 alias lsplog="tail -f ~/.local/state/nvim/lsp.log"
 alias nulllslog="tail -f ~/.cache/nvim/null-ls.log"
@@ -150,6 +148,7 @@ alias helpling="tmuxinator start helpling"
 alias sublime="./Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias intel="arch -x86_64"
 alias m1="arch -arm64"
+alias l="ls --color=auto -lFh"
 
 alias :wq=exit
 alias :qa=exit
@@ -180,7 +179,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
 export PATH="~/.emacs.d/bin:$PATH" # make sure homebrew bins are before osx bins
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 typeset -g POWERLEVEL9K_BACKGROUND=236
@@ -203,3 +201,9 @@ PERL_LOCAL_LIB_ROOT="/Users/bartoszmaka/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCA
 PERL_MB_OPT="--install_base \"/Users/bartoszmaka/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/bartoszmaka/perl5"; export PERL_MM_OPT;
 PATH=$PATH:~/.ht/bin
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/bartoszmaka/.apps/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bartoszmaka/.apps/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/bartoszmaka/.apps/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bartoszmaka/.apps/google-cloud-sdk/completion.zsh.inc'; fi
