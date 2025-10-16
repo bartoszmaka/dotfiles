@@ -1,0 +1,852 @@
+{
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "workbench.editor.enablePreviewFromCodeNavigation": true,
+    "workbench.colorCustomizations": {
+        "editorIndentGuide.background1": "#1C212D",
+        "editorIndentGuide.activeBackground1": "#333b48",
+        "errorLens.hintBackground": "#00000000",
+        "errorLens.hintForeground": "#1b6a73",
+        "errorLens.hintRangeBackground": "#1b6a73",
+        "errorLens.infoBackground": "#00000000",
+        "errorLens.infoForeground": "#1b6a73",
+        "errorLens.infoRangeBackground": "#1b6a73",
+        "errorLens.warningBackground": "#00000000",
+        "errorLens.warningForeground": "#8f610d",
+        "errorLens.errorBackground": "#00000000",
+        "errorLens.errorForeground": "#992525",
+        "editorInfo.foreground": "#00000000",
+        "statusBar.foreground": "#ffffff",
+        "statusBar.debuggingForeground": "#ffffff"
+    },
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.settings.openDefaultKeybindings": false,
+    "workbench.settings.openDefaultSettings": false,
+    "workbench.commandPalette.preserveInput": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "onedark.nvim",
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.panel.defaultLocation": "bottom",
+    "workbench.editor.tabSizing": "shrink",
+    // "workbench.editor.tabSizingFixedMaxWidth": 140,
+    // "workbench.editor.tabSizingFixedMinWidth": 40,
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.svg": "default"
+    },
+    "editor.suggest.preview": true,
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "invalid.illegal",
+                    "invalid.deprecated",
+                    "invalid.illegal.deprecated"
+                ],
+                "settings": {
+                    "foreground": "#ff0000"
+                }
+            }
+        ]
+    },
+    "editor.tabSize": 2,
+    "editor.formatOnSave": false,
+    "editor.mouseWheelZoom": false,
+    "editor.fontSize": 14,
+    "editor.fontFamily": "'Hasklug Nerd Font',  monospace",
+    "editor.fontLigatures": false,
+    "editor.renderWhitespace": "trailing",
+    "editor.cursorStyle": "block",
+    "editor.minimap.scale": 2,
+    "editor.cursorSurroundingLines": 4,
+    "editor.autoClosingQuotes": "always",
+    "editor.autoSurround": "languageDefined",
+    "editor.snippetSuggestions": "top",
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.suggest.insertMode": "replace",
+    "editor.inlineSuggest.enabled": true,
+    "editor.rulers": [
+        81,
+        121
+    ],
+    "editor.suggest.localityBonus": true,
+    "editor.suggestOnTriggerCharacters": true,
+    "editor.wordBasedSuggestions": "matchingDocuments",
+    "editor.parameterHints.cycle": true,
+    "editor.parameterHints.enabled": true,
+    "editor.tabCompletion": "on",
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "git.openDiffOnClick": false,
+    "git.openRepositoryInParentFolders": "always",
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "vscode-run-rspec-file.custom-command": "ht rspec",
+    "search.showLineNumbers": true,
+    "search.smartCase": true,
+    "search.useGlobalIgnoreFiles": false,
+    "window.title": "${dirty}${rootPath} ${activeEditorMedium}",
+    "files.insertFinalNewline": true,
+    "files.hotExit": "off",
+    "files.associations": {
+        "*rc": "shellscript"
+    },
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "debug.console.fontSize": 14,
+    "debug.internalConsoleOptions": "neverOpen",
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "'Hasklug Nerd Font', monospace",
+    "terminal.integrated.inheritEnv": true,
+    "material-icon-theme.hidesExplorerArrows": true,
+    "errorLens.enabled": true,
+    "errorLens.messageTemplate": "$source $message $code",
+    "errorLens.gutterIconsEnabled": true,
+    "errorLens.gutterIconSet": "borderless",
+    "errorLens.enabledDiagnosticLevels": [
+        "warning",
+        "info",
+        "hint"
+    ],
+    "emmet.showSuggestionsAsSnippets": true,
+    "emmet.triggerExpansionOnTab": false,
+    "emmet.showAbbreviationSuggestions": false,
+    "emmet.showExpandedAbbreviation": "always",
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[ruby]": {
+        "editor.defaultFormatter": "Shopify.ruby-lsp",
+        "editor.insertSpaces": true,
+        "files.trimTrailingWhitespace": true,
+        "editor.formatOnSave": false
+    },
+    "rubyLsp.erbSupport": true,
+    "rubyLsp.formatter": "rubocop_internal",
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "asdf"
+    },
+    "rubyLsp.featuresConfiguration": {
+        "inlayHint": {
+            "enableAll": false,
+            "implicitHashValue": false,
+            "implicitRescue": true
+        },
+        "codeLens": {
+            "enableTestCodeLens": false
+        },
+    },
+    "rubyLsp.bundleGemfile": "$HOME/.ruby-lsp-tools-3-3-3/Gemfile",
+    "solargraph.logLevel": "debug",
+    "solargraph.useBundler": false,
+    "solargraph.completion": false,
+    // "solargraph.references": false,
+    "[xml]": {
+        "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
+    "[svg]": {
+        "editor.defaultFormatter": "jock.svg"
+    },
+    "xml.server.vmargs": "-Xmx256M",
+    "githubPullRequests.pullBranch": "never",
+    "redhat.telemetry.enabled": true,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "testing.automaticallyOpenTestResults": "neverOpen",
+    "testing.showCoverageInExplorer": false,
+    "testing.automaticallyOpenPeekView": "never",
+    "testing.showAllMessages": false,
+    // Vim configuration below
+    "vim.foldfix": true,
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/opt/homebrew/bin/nvim",
+    "vim.disableExtension": false,
+    "vim.hlsearch": true,
+    "vim.leader": "<space>",
+    "vim.showcmd": true,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.inccommand": "append",
+    "vim.highlightedyank.enable": true,
+    "vim.useSystemClipboard": true,
+    "vim.easymotionMarkerBackgroundColor": "#5f0000",
+    "vim.history": 1000,
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.statusBarColorControl": false,
+    "vim.handleKeys": {
+        "<C-d>": false,
+        "<C-e>": false
+    },
+    "multiCommand.commands": [
+        {
+            "command": "multiCommand.replaceWordUnderCursor",
+            "sequence": [
+                "actions.find",
+                "editor.action.startFindReplaceAction"
+            ]
+        },
+        {
+            "command": "multiCommand.resetAndGoUp",
+            "sequence": [
+                "closeFindWidget",
+                "extension.vim_escape",
+                "workbench.action.focusAboveGroup"
+            ]
+        },
+        {
+            "command": "multiCommand.resetAndGoRight",
+            "sequence": [
+                "closeFindWidget",
+                "extension.vim_escape",
+                "workbench.action.focusRightGroup"
+            ]
+        },
+        {
+            "command": "multiCommand.resetAndGoDown",
+            "sequence": [
+                "closeFindWidget",
+                "extension.vim_escape",
+                "workbench.action.focusBelowGroup"
+            ]
+        },
+        {
+            "command": "multiCommand.resetAndGoToConsole",
+            "sequence": [
+                "closeFindWidget",
+                "extension.vim_escape",
+                "workbench.action.focusBelowGroup"
+            ]
+        },
+        {
+            "command": "multiCommand.resetAndGoLeft",
+            "sequence": [
+                "closeFindWidget",
+                "extension.vim_escape",
+                "workbench.action.focusLeftGroup"
+            ]
+        },
+        {
+            "command": "multiCommand.resetAndGoToExplorer",
+            "sequence": [
+                "closeFindWidget",
+                "extension.vim_escape",
+                "workbench.view.explorer"
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "%"
+            ],
+            "commands": [
+                "editor.emmet.action.matchTag"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "h"
+            ],
+            "after": [
+                "^"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l"
+            ],
+            "after": [
+                "$"
+            ]
+        },
+        {
+            "before": [
+                "<S-tab>"
+            ],
+            "after": [
+                "<",
+                "g",
+                "v"
+            ]
+        },
+        {
+            "before": [
+                "<tab>"
+            ],
+            "after": [
+                ">",
+                "g",
+                "v"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "after": [
+                "5",
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "J"
+            ],
+            "after": [
+                "5",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "-"
+            ],
+            "commands": [
+                "extension.changeCase.kebab"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "."
+            ],
+            "commands": [
+                "extension.changeCase.dot"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "u"
+            ],
+            "commands": [
+                "extension.changeCase.constant"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "s"
+            ],
+            "commands": [
+                "extension.changeCase.snake"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "_"
+            ],
+            "commands": [
+                "extension.changeCase.snake"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "c"
+            ],
+            "commands": [
+                "extension.changeCase.camel"
+            ]
+        },
+        {
+            "before": [
+                "n"
+            ],
+            "commands": [
+                "extension.vim_escape",
+                "editor.action.nextMatchFindAction",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "N"
+            ],
+            "commands": [
+                "extension.vim_escape",
+                "editor.action.previousMatchFindAction",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "<BS>"
+            ],
+            "commands": [
+                ":nohl",
+                "closeFindWidget"
+            ]
+        }
+    ],
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "j",
+                "k"
+            ],
+            "after": [
+                "<esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                ";"
+            ],
+            "after": [
+                "leader",
+                "leader"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "leader",
+                "c",
+                "p"
+            ],
+            "commands": [
+                "copyRelativeFilePath"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "-"
+            ],
+            "commands": [
+                "extension.changeCase.kebab"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "."
+            ],
+            "commands": [
+                "extension.changeCase.dot"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "u"
+            ],
+            "commands": [
+                "extension.changeCase.constant"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "s"
+            ],
+            "commands": [
+                "extension.changeCase.snake"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "_"
+            ],
+            "commands": [
+                "extension.changeCase.snake"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "c",
+                "c"
+            ],
+            "commands": [
+                "extension.changeCase.camel"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "w"
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "w"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "b"
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "b"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "e"
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "b"
+            ]
+        },
+        {
+            "before": [
+                "u"
+            ],
+            "commands": [
+                "undo"
+            ]
+        },
+        {
+            "before": [
+                "<C-r>"
+            ],
+            "commands": [
+                "redo"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "r"
+            ],
+            "commands": [
+                "actions.find",
+                "editor.action.startFindReplaceAction"
+            ]
+        },
+        {
+            "before": [
+                "*"
+            ],
+            "commands": [
+                "actions.find",
+                "workbench.action.focusActiveEditorGroup"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "F"
+            ],
+            "commands": [
+                "actions.find"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "f"
+            ],
+            "commands": [
+                "actions.find"
+            ]
+        },
+        {
+            "before": [
+                "/"
+            ],
+            "commands": [
+                "actions.find"
+            ]
+        },
+        {
+            "before": [
+                "n"
+            ],
+            "commands": [
+                "extension.vim_escape",
+                "editor.action.nextMatchFindAction",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "N"
+            ],
+            "commands": [
+                "extension.vim_escape",
+                "editor.action.previousMatchFindAction",
+                "extension.vim_escape"
+            ]
+        },
+        {
+            "before": [
+                "<BS>"
+            ],
+            "commands": [
+                ":nohl",
+                "closeFindWidget"
+            ]
+        },
+        {
+            "before": [
+                "g",
+                "r"
+            ],
+            "commands": [
+                "editor.action.referenceSearch.trigger"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "after": [
+                "5",
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "J"
+            ],
+            "after": [
+                "5",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "%"
+            ],
+            "commands": [
+                "editor.emmet.action.matchTag"
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "e"
+            ],
+            "commands": [
+                "editor.action.marker.prev"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "e"
+            ],
+            "commands": [
+                "editor.action.marker.next"
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "g"
+            ],
+            "commands": [
+                "workbench.action.compareEditor.previousChange",
+                "workbench.action.editor.previousChange"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "g"
+            ],
+            "commands": [
+                "workbench.action.compareEditor.nextChange",
+                "workbench.action.editor.nextChange"
+            ]
+        },
+        {
+            "before": [
+                ":"
+            ],
+            "commands": [
+                "vim.showQuickpickCmdLine"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "K"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        },
+        {
+            "before": [
+                "<C-w>",
+                "m"
+            ],
+            "commands": [
+                "workbench.action.maximizeEditor"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "h"
+            ],
+            "after": [
+                "^"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "l"
+            ],
+            "after": [
+                "$"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "j"
+            ],
+            "after": [
+                "i",
+                "<CR>",
+                "<Esc>"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "k"
+            ],
+            "after": [
+                "k",
+                "J"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "a"
+            ],
+            "commands": [
+                {
+                    "command": "alternate.createAlternateFile"
+                }
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "s"
+            ],
+            "commands": [
+                {
+                    "command": "alternate.createAlternateFileInSplit"
+                }
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "t",
+                "t"
+            ],
+            "commands": [
+                "extension.runLineOnRspec"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "t",
+                "f"
+            ],
+            "commands": [
+                "extension.runFileOnRspec"
+            ]
+        },
+        {
+            "before": [
+                "∆"
+            ],
+            "commands": [
+                "editor.action.insertCursorBelow"
+            ]
+        },
+        {
+            "before": [
+                "Ż"
+            ],
+            "commands": [
+                "editor.action.insertCursorAbove"
+            ]
+        },
+        {
+            "before": [
+                "leader",
+                "g",
+                "h"
+            ],
+            "commands": [
+                "editor.action.peekDefinition"
+            ]
+        },
+        {
+            "before": [
+                "z",
+                "a"
+            ],
+            "commands": [
+                "editor.toggleFold"
+            ]
+        }
+    ],
+    "search.searchEditor.defaultNumberOfContextLines": 3,
+    "search.searchEditor.focusResultsOnSearch": true,
+    "testing.gutterEnabled": false,
+    "scm.diffDecorationsGutterPattern": {
+        "added": true
+    },
+    "gitlens.codeLens.includeSingleLineSymbols": true,
+    
+    // end of Vim configuration
+}
