@@ -35,15 +35,15 @@ return {
           ['@conditional']              = { fmt = 'none' },
           ['@constructor']              = { fmt = 'none' },
           ['@lsp.type.variable']        = { fmt = 'none' },
-          ['BlinkCmpLabelMatch']        = { fg = '#f2cc81' },
+          ['BlinkCmpLabelMatch']        = { fg = colors.bg_yellow },
           ['CmpItemAbbr']               = { fg = '#6c7d9c' },
-          ['CmpItemAbbrMatch']          = { fg = '#f2cc81' },
-          ['CmpItemAbbrMatchFuzzy']     = { fg = '#f2cc81', fmt = 'none' },
+          ['CmpItemAbbrMatch']          = { fg = colors.bg_yellow },
+          ['CmpItemAbbrMatchFuzzy']     = { fg = colors.bg_yellow, fmt = 'none' },
           ['CmpItemAbbrDeprecated']     = { fg = '#455574' },
-          ['CmpItemKindDefault']        = { fg = '#dd9046' },
-          ['CmpItemKindSnippet']        = { fg = '#f65866' },
+          ['CmpItemKindDefault']        = { fg = colors.orange },
+          ['CmpItemKindSnippet']        = { fg = colors.red },
           ['CmpItemKindKeyword']        = { fg = '#bfbd5d' },
-          ['CmpItemKindText']           = { fg = '#93a4c3' },
+          ['CmpItemKindText']           = { fg = colors.fg },
           ['CmpItemKindCopilot']        = { fg = '#6CC644' },
           ['RainbowParenBlue']          = { fg = colors.blue },
           ['RainbowParenCyan']          = { fg = colors.cyan },
@@ -60,44 +60,44 @@ return {
           ['RainbowIndentPurple']       = { fg = colors.dimmed_purple },
           ['RainbowIndentYellow']       = { fg = colors.dimmed_yellow },
           ['Winbar']                    = { fmt = 'none' },
-          ['NormalDarker']              = { bg = '#141b24', fg = '#93a4c3' },
-          ['SignColumnDarker']          = { bg = '#141b24', fg = '#93a4c3' },
-          ['EndOfBufferDarker']         = { bg = '#141b24', fg = '#141b24' },
-          ['WinSeparatorDarker']        = { bg = '#141b24', fg = '#2a324a' },
-          ['CursorLine']                = { bg = '#21283b' },
-          ['CursorLineNR']              = { bg = '#21283b', fmt = 'bold' },
-          ['CursorColumn']              = { bg = '#21283b' },
-          ['ColorColumn']               = { bg = '#21283b' },
+          ['NormalDarker']              = { bg = colors.bg_d, fg = colors.fg },
+          ['SignColumnDarker']          = { bg = colors.bg_d, fg = colors.fg },
+          ['EndOfBufferDarker']         = { bg = colors.bg_d, fg = colors.bg_d },
+          ['WinSeparatorDarker']        = { bg = colors.bg_d, fg = colors.bg3 },
+          ['CursorLine']                = { bg = colors.bg1 },
+          ['CursorLineNR']              = { bg = colors.bg1, fmt = 'bold' },
+          ['CursorColumn']              = { bg = colors.bg1 },
+          ['ColorColumn']               = { bg = colors.bg1 },
           ['Warning']                   = { bg = '#443333' },
           ['Error']                     = { bg = '#512121' },
           ['Visual']                    = { bg = '#401437' },
-          ['DiagnosticVirtualTextHint'] = { fg = '#1b6a73', bg = 'NONE' },
-          ['DiagnosticVirtualTextInfo'] = { fg = '#1b6a73', bg = 'NONE' },
+          ['DiagnosticVirtualTextHint'] = { fg = colors.dark_cyan, bg = 'NONE' },
+          ['DiagnosticVirtualTextInfo'] = { fg = colors.dark_cyan, bg = 'NONE' },
           ['DiagnosticUnderlineError']  = { bg = '#512121', fmt = 'NONE' },
           ['DiagnosticUnderlineWarn']   = { bg = '#443333', fmt = 'NONE' },
           ['DiagnosticUnderlineInfo']   = { bg = 'NONE', fmt = 'NONE' },
           ['DiagnosticUnderlineHint']   = { bg = 'NONE', fmt = 'NONE' },
-          ['FoldColumn']                = { bg = '#1a212e', fg = '#455574' },
-          ['SignColumn']                = { fg = '#21283b' },
-          ['CursorLineSign']            = { fg = '#21283b' },
+          ['FoldColumn']                = { bg = colors.bg0, fg = colors.grey },
+          ['SignColumn']                = { fg = colors.bg1 },
+          ['TreesitterContext']         = { bg = colors.bg_d },
+          ['TreesitterContextLineNumber'] = { bg = colors.bg_d },
+          ['CursorLineSign']            = { fg = colors.bg1 },
           ['IncSearch']                 = { fg = '#FF0000', bg = 'NONE', fmt = 'bold,nocombine' },
           ['CurSearch']                 = { fg = '#FF0000', bg = 'NONE', fmt = 'bold,nocombine' },
-          ['Search']                    = { fg = '#FFFFFF', bg = 'NONE', fmt = 'bold,nocombine' },
+          ['Search']                    = { fg = colors.white, bg = 'NONE', fmt = 'bold,nocombine' },
         },
       })
       require('onedark').load()
 
-      vim.cmd [[
-        highlight! link NormalFloat Normal
-        highlight! link FloatBorder Normal
-        highlight! NormalDarker       guibg=#141b24 guifg=#93a4c3
-        highlight! SignColumnDarker   guibg=#141b24 guifg=#93a4c3
-        highlight! EndOfBufferDarker  guifg=#141b24 guibg=#141b24
-        highlight! WinSeparatorDarker guifg=#2a324a guibg=#141b24
-        highlight! link WhichKeyNormal NormalDarker
-        highlight! link WhichKeyBorder NormalDarker
-        highlight! link LazyNormal NormalDarker
-      ]]
+      vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
+      vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Normal' })
+      vim.api.nvim_set_hl(0, 'NormalDarker', { bg = colors.bg_d, fg = colors.fg })
+      vim.api.nvim_set_hl(0, 'SignColumnDarker', { bg = colors.bg_d, fg = colors.fg })
+      vim.api.nvim_set_hl(0, 'EndOfBufferDarker', { bg = colors.bg_d, fg = colors.bg_d })
+      vim.api.nvim_set_hl(0, 'WinSeparatorDarker', { bg = colors.bg_d, fg = colors.bg3 })
+      vim.api.nvim_set_hl(0, 'WhichKeyNormal', { link = 'NormalDarker' })
+      vim.api.nvim_set_hl(0, 'WhichKeyBorder', { link = 'NormalDarker' })
+      vim.api.nvim_set_hl(0, 'LazyNormal', { link = 'NormalDarker' })
 
       vim.cmd [[
         augroup make_panels_darker

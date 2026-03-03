@@ -33,8 +33,6 @@ return {
         "graphql",
       }
 
-      vim.lsp.enable(lsps)
-
       local capabilities = require("blink.cmp").get_lsp_capabilities(nil, true)
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
@@ -103,7 +101,16 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = lsps,
         automatic_installation = true,
+        automatic_enable = false,
       })
+
+      vim.lsp.config("ruby_lsp", {
+        reuse_client = function(client, config)
+          return client.config.root_dir == config.root_dir
+        end,
+      })
+
+      vim.lsp.enable(lsps)
 
       vim.diagnostic.config({
         severity_sort = true,
