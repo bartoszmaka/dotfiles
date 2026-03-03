@@ -1,0 +1,81 @@
+{
+  "cdc": {
+    "prefix": "cdc",
+    "body": "componentDidCatch(error, info) {${1}}",
+    "description": "componentDidCatch"
+  },
+  "sdp": {
+    "prefix": "sdp",
+    "body": [
+      "static defaultProps = {",
+      "  ${1}",
+      "}"
+    ],
+    "description": "static defaultProps"
+  },
+  "tss": {
+    "prefix": "tss",
+    "body": "this.setState({${1}})",
+    "description": "this.setState"
+  },
+  "tssp": {
+    "prefix": "tssp",
+    "body": "this.setState((prevState) => ${1})",
+    "description": "setState prevState"
+  },
+  "tsspp": {
+    "prefix": "tsspp",
+    "body": "this.setState((prevState, prevProps) => ${1})",
+    "description": "setState full"
+  },
+  "sccl": {
+    "prefix": "sccl",
+    "body": [
+      "import React, { Component } from 'react'",
+      "",
+      "export class ${1} extends Component {",
+      "  render() {",
+      "    return (",
+      "      ${2}",
+      "    )",
+      "  }",
+      "}",
+      "",
+      "export default $1"
+    ],
+    "description": "javascriptreact_leagcy snippet: sccl"
+  },
+  "scsnap": {
+    "prefix": "scsnap",
+    "body": [
+      "import React from 'react';",
+      "import { shallow } from 'enzyme';",
+      "import { MockedProvider } from '@apollo/client/testing';",
+      "",
+      "import { $1 } from '../$1';",
+      "",
+      "describe('$1', () => {",
+      "  const setup = (additionalProps) => {",
+      "    const props = {${2}, ...additionalProps};",
+      "",
+      "    const wrapper = shallow(",
+      "      <MockedProvider>",
+      "        <${1} {...props} />",
+      "      </MockedProvider>,",
+      "      ,",
+      "    );",
+      "",
+      "    return {",
+      "      props,",
+      "      wrapper,",
+      "    };",
+      "  };",
+      "",
+      "  test('render', () => {",
+      "    expect(setup().wrapper).toMatchSnapshot();",
+      "  });",
+      "});"
+    ],
+    "description": "Description"
+  }
+}

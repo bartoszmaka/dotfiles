@@ -35,14 +35,14 @@ return {
         support_paste_from_clipboard = false,
       },
       mappings = {
-        ask = "<leader>aa",
-        edit = "<leader>ae",
-        refresh = "<leader>ar",
+        ask = "<leader>Aa",
+        edit = "<leader>Ae",
+        refresh = "<leader>Ar",
         toggle = {
-          default = "<leader>at",
-          debug = "<leader>ad",
-          hint = "<leader>ah",
-          suggestion = "<leader>as",
+          default = "<leader>At",
+          debug = "<leader>Ad",
+          hint = "<leader>Ah",
+          suggestion = "<leader>As",
         },
       },
       windows = {

@@ -1,0 +1,154 @@
+{
+  "msp": {
+    "prefix": "msp",
+    "body": "mapStateToProps",
+    "description": "mapStateToProps"
+  },
+  "mdp": {
+    "prefix": "mdp",
+    "body": "mapDispatchToProps",
+    "description": "mapDispatchToProps"
+  },
+  "pt": {
+    "prefix": "pt",
+    "body": "PropTypes.",
+    "description": "PropTypes"
+  },
+  "ptobj": {
+    "prefix": "ptobj",
+    "body": "PropTypes.object",
+    "description": "PropTypes.object"
+  },
+  "ptobjr": {
+    "prefix": "ptobjr",
+    "body": "PropTypes.object.isRequired,",
+    "description": "PropTypes.object.isRequired"
+  },
+  "ptst": {
+    "prefix": "ptst",
+    "body": "PropTypes.string",
+    "description": "PropTypes.string"
+  },
+  "ptstr": {
+    "prefix": "ptstr",
+    "body": "PropTypes.string.isRequired,",
+    "description": "PropTypes.string.isRequired"
+  },
+  "ptsy": {
+    "prefix": "ptsy",
+    "body": "PropTypes.symbol",
+    "description": "PropTypes.symbol"
+  },
+  "ptsyr": {
+    "prefix": "ptsyr",
+    "body": "PropTypes.symbol.isRequired,",
+    "description": "PropTypes.symbol.isRequired"
+  },
+  "ptc": {
+    "prefix": "ptc",
+    "body": "PropTypes.node",
+    "description": "PropTypes.node"
+  },
+  "ptcr": {
+    "prefix": "ptcr",
+    "body": "PropTypes.node.isRequired",
+    "description": "PropTypes.node.isRequired"
+  },
+  "um": {
+    "prefix": "um",
+    "body": "const ${1} = useMemo(() => ${3}, [${2}])",
+    "description": "useMemo"
+  },
+  "uct": {
+    "prefix": "uct",
+    "body": "const ${1} = useContext(${2})",
+    "description": "useContext"
+  },
+  "scfn": {
+    "prefix": "scfn",
+    "body": [
+      "const ${1} = (${2:props}) => {",
+      "  return (",
+      "    <pre>{JSON.stringify(props, null, 2)}</pre>",
+      "  )",
+      "}",
+      "",
+      "export default $1"
+    ],
+    "description": "javascriptreact snippet: scfn"
+  },
+  "scfnpt": {
+    "prefix": "scfnpt",
+    "body": [
+      "import PropTypes from 'prop-types'",
+      "",
+      "const ${1} = (${2:props}) => {",
+      "  return (",
+      "    <pre>{JSON.stringify(props, null, 2)}</pre>",
+      "  )",
+      "}",
+      "",
+      "$1.propTypes = {",
+      "",
+      "}",
+      "",
+      "export default $1"
+    ],
+    "description": "javascriptreact snippet: scfnpt"
+  },
+  "scrxfn": {
+    "prefix": "scrxfn",
+    "body": [
+      "import React from 'react'",
+      "import { connect } from 'react-redux'",
+      "",
+      "const ${1} = (${2}) => {",
+      "  return (",
+      "    ${3}",
+      "  )",
+      "}",
+      "",
+      "const mapStateToProps = state => ({",
+      "",
+      "})",
+      "",
+      "const mapDispatchToProps = {}",
+      "",
+      "export default connect(",
+      "  mapStateToProps,",
+      "  mapDispatchToProps,",
+      ")($1)"
+    ],
+    "description": "javascriptreact snippet: scrxfn"
+  },
+  "edn": {
+    "prefix": "edn",
+    "body": "// eslint-disable-next-line ${1}",
+    "description": "javascriptreact snippet: edn"
+  },
+  "esd": {
+    "prefix": "esd",
+    "body": "// eslint-disable ${1}",
+    "description": "javascriptreact snippet: esd"
+  },
+  "cn": {
+    "prefix": "cn",
+    "body": "className=",
+    "description": "javascriptreact snippet: cn"
+  },
+  "imr": {
+    "prefix": "imr",
+    "body": "import React from 'react';",
+    "description": "import react"
+  },
+  "impt": {
+    "prefix": "impt",
+    "body": "import PropTypes from 'prop-types';",
+    "description": "import PropTypes"
+  },
+  "imy": {
+    "prefix": "imy",
+    "body": "import * as yup from 'yup';",
+    "description": "import yup"
+  }
+}

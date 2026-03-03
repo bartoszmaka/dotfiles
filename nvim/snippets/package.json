@@ -1,0 +1,43 @@
+{
+  "name": "local-ultisnips-migrated",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "eruby",
+        "path": "./eruby.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./javascript.json"
+      },
+      {
+        "language": "javascriptreact",
+        "path": "./javascriptreact.json"
+      },
+      {
+        "language": "javascriptreact",
+        "path": "./javascriptreact_leagcy.json"
+      },
+      {
+        "language": "lua",
+        "path": "./lua.json"
+      },
+      {
+        "language": "ruby",
+        "path": "./ruby.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./typescript.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./typescriptreact.json"
+      },
+      {
+        "language": "vue",
+        "path": "./vue.json"
+      }
+    ]
+  }
+}

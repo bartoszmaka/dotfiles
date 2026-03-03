@@ -1,0 +1,21 @@
+{
+  "ei": {
+    "prefix": "ei",
+    "body": "export interface",
+    "description": "export interface"
+  },
+  "imt": {
+    "prefix": "imt",
+    "body": "import type { ${2} } from \"${1}\"",
+    "description": "import type"
+  },
+  "edf": {
+    "prefix": "edf",
+    "body": [
+      "export default function ${1}(${2}) {",
+      "  return ${3:null}",
+      "}"
+    ],
+    "description": "export default function"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "scvue": {
+    "prefix": "scvue",
+    "body": [
+      "<template>",
+      "${1}",
+      "</template>",
+      "",
+      "<script>",
+      "${2}",
+      "</script>",
+      "",
+      "<style>",
+      "${3}",
+      "</style>"
+    ],
+    "description": "scaffold vue file"
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": "function(${1}) {${2}}",
+    "description": "function"
+  },
+  "fun": {
+    "prefix": "fun",
+    "body": "(${1}) {${2}}",
+    "description": "function"
+  },
+  "pto": {
+    "prefix": "pto",
+    "body": [
+      "{",
+      "  type: Object,",
+      "},"
+    ],
+    "description": "prop object"
+  },
+  "ptor": {
+    "prefix": "ptor",
+    "body": [
+      "{",
+      "  type: Object,",
+      "  required: true,",
+      "},"
+    ],
+    "description": "prop object required"
+  },
+  "ptf": {
+    "prefix": "ptf",
+    "body": [
+      "{",
+      "  type: Function,",
+      "},"
+    ],
+    "description": "prop function"
+  },
+  "ptfr": {
+    "prefix": "ptfr",
+    "body": [
+      "{",
+      "  type: Function,",
+      "  required: true,",
+      "},"
+    ],
+    "description": "prop function required"
+  },
+  "ptst": {
+    "prefix": "ptst",
+    "body": [
+      "{",
+      "  type: String,",
+      "},"
+    ],
+    "description": "prop string"
+  },
+  "ptstr": {
+    "prefix": "ptstr",
+    "body": [
+      "{",
+      "  type: String,",
+      "  required: true,",
+      "},"
+    ],
+    "description": "prop string required"
+  },
+  "ptn": {
+    "prefix": "ptn",
+    "body": [
+      "{",
+      "  type: Number,",
+      "},"
+    ],
+    "description": "prop number"
+  },
+  "ptnr": {
+    "prefix": "ptnr",
+    "body": [
+      "{",
+      "  type: Number,",
+      "  required: true,",
+      "},"
+    ],
+    "description": "prop number required"
+  },
+  "ptb": {
+    "prefix": "ptb",
+    "body": [
+      "{",
+      "  type: Boolean,",
+      "},"
+    ],
+    "description": "prop bool"
+  },
+  "ptbr": {
+    "prefix": "ptbr",
+    "body": [
+      "{",
+      "  type: Boolean,",
+      "  required: true,",
+      "},"
+    ],
+    "description": "prop bool required"
+  }
+}

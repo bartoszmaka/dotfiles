@@ -16,7 +16,7 @@ return {
     wk.setup(opts)
 
     wk.add({
-      { "<leader>a", group = "AI (Avante)" },
+      { "<leader>A", group = "AI (Avante)" },
       { "<leader>c", group = "Code" },
       { "<leader>g", group = "Git" },
       { "<leader>p", group = "Picker (FZF)" },

@@ -14,6 +14,7 @@ vim.opt.signcolumn = "yes:2"
 vim.opt.showmode = false
 vim.opt.termguicolors = true
 vim.g.mapleader = " "
+vim.opt.swapfile = false
 vim.opt.undofile = true
 vim.opt.wildignorecase = true
 vim.opt.undodir = vim.fn.stdpath("cache") .. "/nvim/undo"
@@ -23,6 +24,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.winborder = 'rounded'
 vim.opt.updatetime = 300
+vim.opt.conceallevel = 0
 
 vim.cmd("cabbrev W   w")
 vim.cmd("cabbrev Wa  wa")

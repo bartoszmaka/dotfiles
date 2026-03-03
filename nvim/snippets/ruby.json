@@ -1,0 +1,207 @@
+{
+  "bp": {
+    "prefix": "bp",
+    "body": "binding.pry",
+    "description": "binding.pry"
+  },
+  "brp": {
+    "prefix": "brp",
+    "body": "binding.remote_pry",
+    "description": "binding.remote_pry"
+  },
+  "ysbp": {
+    "prefix": "ysbp",
+    "body": ".yield_self { |object| binding.pry }",
+    "description": "yield_self binding.pry"
+  },
+  "sce": {
+    "prefix": "sce",
+    "body": [
+      "scenario '${1}' do",
+      "  ${2}",
+      "end"
+    ],
+    "description": "spec scenario"
+  },
+  "aa": {
+    "prefix": "aa",
+    "body": "attr_accessor ${1}",
+    "description": "attr_accessor"
+  },
+  "aw": {
+    "prefix": "aw",
+    "body": "attr_writer ${1}",
+    "description": "attr_writer"
+  },
+  "ar": {
+    "prefix": "ar",
+    "body": "attr_reader ${1}",
+    "description": "attr_reader"
+  },
+  "factory": {
+    "prefix": "factory",
+    "body": [
+      "FactoryBot.define do",
+      "  factory :${1} do",
+      "    ${0}",
+      "  end",
+      "end"
+    ],
+    "description": "FactoryBot scaffold"
+  },
+  "inc": {
+    "prefix": "inc",
+    "body": "include ",
+    "description": "include"
+  },
+  "defm": {
+    "prefix": "defm",
+    "body": [
+      "def ${1}",
+      "  @$1 ||= ${2}",
+      "end"
+    ],
+    "description": "memoized function template"
+  },
+  "priv": {
+    "prefix": "priv",
+    "body": [
+      "private",
+      "",
+      "$0"
+    ],
+    "description": "private"
+  },
+  "prot": {
+    "prefix": "prot",
+    "body": [
+      "protected",
+      "",
+      "$0"
+    ],
+    "description": "protected"
+  },
+  "abc": {
+    "prefix": "abc",
+    "body": "Metrics/AbcSize",
+    "description": "Metrics/AbcSize"
+  },
+  "rd": {
+    "prefix": "rd",
+    "body": "# rubocop:disable",
+    "description": "# rubocop:disable"
+  },
+  "rda": {
+    "prefix": "rda",
+    "body": "# rubocop:disable Metrics/AbcSize",
+    "description": "# rubocop:disable Metrics/AbcSize"
+  },
+  "jprb": {
+    "prefix": "jprb",
+    "body": "JSON.parse(response.body)",
+    "description": "JSON.parse(response.body)"
+  },
+  "tet": {
+    "prefix": "tet",
+    "body": "to eq(true)",
+    "description": "to eq(true)"
+  },
+  "tef": {
+    "prefix": "tef",
+    "body": "to eq(false)",
+    "description": "to eq(false)"
+  },
+  "ten": {
+    "prefix": "ten",
+    "body": "to eq(nil)",
+    "description": "to eq(nil)"
+  },
+  "teq": {
+    "prefix": "teq",
+    "body": "to eq($1)",
+    "description": "to eq()"
+  },
+  "tha": {
+    "prefix": "tha",
+    "body": [
+      "to have_attributes(",
+      "  ${0}",
+      ")"
+    ],
+    "description": "to have_attributes"
+  },
+  "tma": {
+    "prefix": "tma",
+    "body": [
+      "to match_array(",
+      "\t[",
+      "\t\t${0}",
+      "\t]",
+      ")"
+    ],
+    "description": "to match_array"
+  },
+  "thr": {
+    "prefix": "thr",
+    "body": "to have_received(:${1})",
+    "description": "to have_received"
+  },
+  "scgqltype": {
+    "prefix": "scgqltype",
+    "body": [
+      "Types::${1}Type = GraphQL::ObjectType.define do",
+      "  name '$1'",
+      "",
+      "\t${0}",
+      "end"
+    ],
+    "description": "graphql type scaffold"
+  },
+  "doc": {
+    "prefix": "doc",
+    "body": "# ${1}",
+    "description": "yard doc"
+  },
+  "nowm": {
+    "prefix": "nowm",
+    "body": "DateTime.new(2017, 1, 27, 12, 30)",
+    "description": "now time mock"
+  },
+  "tcf": {
+    "prefix": "tcf",
+    "body": [
+      "Timecop.freeze(${1:now})",
+      "$0",
+      "Timecop.return"
+    ],
+    "description": "Timecop.freeze(now)"
+  },
+  "res": {
+    "prefix": "res",
+    "body": [
+      "rescue ${1:StandardError} => _e",
+      "\t$0"
+    ],
+    "description": "ruby snippet: res"
+  },
+  "gres": {
+    "prefix": "gres",
+    "body": [
+      "resolve ->(obj, _args, _ctx) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "graphql resolve"
+  },
+  "gresb": {
+    "prefix": "gresb",
+    "body": [
+      "do",
+      "\tresolve ->(obj, _args, _ctx) {",
+      "\t\t$0",
+      "\t}",
+      "end"
+    ],
+    "description": "graphql resolve block"
+  }
+}

@@ -92,6 +92,60 @@ vim.keymap.set('n', '<leader>cp', function()
   print('Copied path: ' .. result)
 end, { desc = 'Copy relative path with line number to clipboard' })
 
+vim.keymap.set('n', '<leader>cs', function()
+  local ok, ls = pcall(require, 'luasnip')
+  if not ok then
+    vim.notify('LuaSnip is not available', vim.log.levels.WARN)
+    return
+  end
+
+  local filetype = vim.bo.filetype
+  local snippets = ls.get_snippets(filetype) or {}
+  local autosnippets = ls.get_snippets(filetype, { type = 'autosnippets' }) or {}
+  local triggers = {}
+  local seen = {}
+
+  for _, snippet in ipairs(snippets) do
+    if not seen[snippet.trigger] then
+      seen[snippet.trigger] = true
+      table.insert(triggers, snippet.trigger)
+    end
+  end
+
+  for _, snippet in ipairs(autosnippets) do
+    local trigger = snippet.trigger .. ' [A]'
+    if not seen[trigger] then
+      seen[trigger] = true
+      table.insert(triggers, trigger)
+    end
+  end
+
+  table.sort(triggers)
+
+  if #triggers == 0 then
+    vim.notify(('No LuaSnip snippets loaded for `%s`'):format(filetype), vim.log.levels.INFO)
+    return
+  end
+
+  local lines = {
+    ('LuaSnip snippets for `%s` (%d)'):format(filetype, #triggers),
+    '',
+  }
+  vim.list_extend(lines, triggers)
+
+  vim.cmd('vnew')
+  local buf = vim.api.nvim_get_current_buf()
+  vim.bo[buf].buftype = 'nofile'
+  vim.bo[buf].bufhidden = 'wipe'
+  vim.bo[buf].swapfile = false
+  vim.bo[buf].modifiable = true
+  vim.bo[buf].filetype = 'snippets'
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.bo[buf].modifiable = false
+  vim.bo[buf].readonly = true
+  vim.api.nvim_buf_set_name(buf, ('snippets://%s'):format(filetype))
+end, { desc = 'Inspect LuaSnip snippets' })
+
 nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect highlights" })
 
 function FoldDeeperThanCursor()

@@ -1,0 +1,21 @@
+{
+  "bp": {
+    "prefix": "bp",
+    "body": "<% binding.pry %>",
+    "description": "binding.pry"
+  },
+  "brp": {
+    "prefix": "brp",
+    "body": "<% binding.remote_pry %>",
+    "description": "binding.pry_remote"
+  },
+  "do": {
+    "prefix": "do",
+    "body": [
+      "do |${1}|",
+      "  ${2}",
+      "<% end %>"
+    ],
+    "description": "do block"
+  }
+}

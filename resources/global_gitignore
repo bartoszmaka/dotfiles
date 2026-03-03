@@ -4,8 +4,6 @@ tags.lock
 tags.temp
 .env
 
-node_modules
-
 .sass-cache
 .tern-port
 
@@ -21,3 +19,5 @@ dump.rdb
 personal_notes.txt
 .yardoc
 doc
+
+.ai_local/

@@ -2,17 +2,8 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     lazy = false,
-    build = ':TSUpdate',
+    build = ':TSUpdate maintained',
     config = function()
-      require('nvim-treesitter').install {
-        "bash", "comment", "css", "scss", "diff", "dockerfile",
-        "eruby", "git_config", "gitcommit", "gitignore",
-        "graphql", "html", "javascript", "jsdoc", "json", "json5",
-        "lua", "make", "markdown", "markdown_inline", "python",
-        "regex", "ruby", "rust", "sql", "toml", "tsx", "typescript",
-        "vim", "vimdoc", "yaml",
-      }
-
       vim.treesitter.language.register("bash", "env.local")
       vim.treesitter.language.register("yaml", "eruby.yaml")
     end,

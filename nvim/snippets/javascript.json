@@ -1,0 +1,242 @@
+{
+  "fun": {
+    "prefix": "fun",
+    "body": "function ${1}(${2}) {${3}}",
+    "description": "function"
+  },
+  "ita": {
+    "prefix": "ita",
+    "body": [
+      "it('${1}', async () => {",
+      "  ${2}",
+      "});"
+    ],
+    "description": "jest it async"
+  },
+  "de": {
+    "prefix": "de",
+    "body": [
+      "describe('${1}', () => {",
+      "  ${2}",
+      "});"
+    ],
+    "description": "jest describe"
+  },
+  "con": {
+    "prefix": "con",
+    "body": "const { ${1} } = ${2}",
+    "description": "desctucture object"
+  },
+  "re": {
+    "prefix": "re",
+    "body": "const ${1} = require('${2}');",
+    "description": "require()"
+  },
+  "ex": {
+    "prefix": "ex",
+    "body": "export ${1}",
+    "description": "export"
+  },
+  "eaf": {
+    "prefix": "eaf",
+    "body": "export async function ",
+    "description": "export async function"
+  },
+  "ct": {
+    "prefix": "ct",
+    "body": [
+      "constructor(${1}) {",
+      "  ${2}",
+      "}"
+    ],
+    "description": "constructor"
+  },
+  "teao": {
+    "prefix": "teao",
+    "body": [
+      "toEqual(",
+      "  expect.arrayContaining([",
+      "    expect.objectContaining({",
+      "      ${1}",
+      "    })",
+      "  ])",
+      ")"
+    ],
+    "description": "to eq array containing obj matching"
+  },
+  "tea": {
+    "prefix": "tea",
+    "body": [
+      "toEqual(",
+      "  expect.arrayContaining([",
+      "    ${1}",
+      "  ])",
+      ")"
+    ],
+    "description": "to eq array containing"
+  },
+  "teo": {
+    "prefix": "teo",
+    "body": [
+      "toEqual(",
+      "  expect.objectContaining({",
+      "    ${1}",
+      "  })",
+      ")"
+    ],
+    "description": "to eq object containing"
+  },
+  "sctr": {
+    "prefix": "sctr",
+    "body": [
+      "import React from 'react';",
+      "import { shallow } from 'enzyme';",
+      "import toJson from 'enzyme-to-json';",
+      "",
+      "import { ${1} } from '../${1}';",
+      "",
+      "const setup = (newProps = {}, rendering = shallow) => {",
+      "  const props = {",
+      "    ${2}",
+      "    ...newProps,",
+      "  };",
+      "",
+      "  const wrapper = rendering(<${1} {...props} />);",
+      "",
+      "  return { wrapper, props };",
+      "};",
+      "${3}"
+    ],
+    "description": "Scaffold test react component"
+  },
+  "etms": {
+    "prefix": "etms",
+    "body": "expect(${1:toJson(wrapper)}).toMatchSnapshot()",
+    "description": "expect to match snapshot"
+  },
+  "jfn": {
+    "prefix": "jfn",
+    "body": "jest.fn()",
+    "description": "jest.fn()"
+  },
+  "jstr": {
+    "prefix": "jstr",
+    "body": "JSON.stringify(${1}, null, 2)",
+    "description": "JSON.stringify"
+  },
+  "tcd": {
+    "prefix": "tcd",
+    "body": [
+      "try {",
+      "\t${1}",
+      "\treturn [result, null]",
+      "} catch (error) {",
+      "\treturn [null, error]",
+      "}"
+    ],
+    "description": "try-catch data"
+  },
+  "tcfd": {
+    "prefix": "tcfd",
+    "body": [
+      "try {",
+      "\t${1}",
+      "\treturn [result, null]",
+      "} catch (error) {",
+      "\treturn [null, error]",
+      "} finally {",
+      "\t${2}",
+      "}"
+    ],
+    "description": "try-catch-finally data"
+  },
+  "oce": {
+    "prefix": "oce",
+    "body": "onClose={$0}",
+    "description": "onClose"
+  },
+  "yst": {
+    "prefix": "yst",
+    "body": "yup.string()",
+    "description": "yup string"
+  },
+  "ystr": {
+    "prefix": "ystr",
+    "body": "yup.string().required()",
+    "description": "yup string required"
+  },
+  "ystm": {
+    "prefix": "ystm",
+    "body": "yup.string().matches(${1})",
+    "description": "yup string matches"
+  },
+  "ystmr": {
+    "prefix": "ystmr",
+    "body": "yup.string().matches(${1}).required()",
+    "description": "yup string matches required"
+  },
+  "yn": {
+    "prefix": "yn",
+    "body": "yup.number()",
+    "description": "yup number"
+  },
+  "ynr": {
+    "prefix": "ynr",
+    "body": "yup.number().required()",
+    "description": "yup number required"
+  },
+  "yd": {
+    "prefix": "yd",
+    "body": "yup.date()",
+    "description": "yup date"
+  },
+  "ydr": {
+    "prefix": "ydr",
+    "body": "yup.date().required()",
+    "description": "yup date required"
+  },
+  "ysh": {
+    "prefix": "ysh",
+    "body": "yup.object().shape({${1}})",
+    "description": "yup shape"
+  },
+  "yshr": {
+    "prefix": "yshr",
+    "body": "yup.object().shape({${1}}).required()",
+    "description": "yup shape required"
+  },
+  "yar": {
+    "prefix": "yar",
+    "body": "yup.array()",
+    "description": "yup array"
+  },
+  "yarr": {
+    "prefix": "yarr",
+    "body": "yup.array().required()",
+    "description": "yup array required"
+  },
+  "thc": {
+    "prefix": "thc",
+    "body": "then((${1}) => {${2}}).catch((${3}) => {${4}})",
+    "description": "then...catch"
+  },
+  "ttime": {
+    "prefix": "ttime",
+    "body": "2021-01-27T12:30+00:00",
+    "description": "sample test time"
+  },
+  "docl": {
+    "prefix": "docl",
+    "body": "/** ${1} */",
+    "description": "jsdoc one line"
+  },
+  "doc": {
+    "prefix": "doc",
+    "body": [
+      "/**",
+      " * ${1}",
+      " */"
+    ],
+    "description": "jsdoc"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "aug": {
+    "prefix": "aug",
+    "body": [
+      "augroup ${1}",
+      "  autocmd!",
+      "",
+      "\t${2}",
+      "augroup END"
+    ],
+    "description": "augroup"
+  },
+  "plug": {
+    "prefix": "plug",
+    "body": "use { '${1}', config = function() require('plugins.${2}') end }",
+    "description": "use"
+  },
+  "fn": {
+    "prefix": "fn",
+    "body": "function() ${1} end",
+    "description": "use"
+  }
+}
