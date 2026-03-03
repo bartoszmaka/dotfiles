@@ -14,5 +14,5 @@ return {
       nnoremap <leader>md :SplitjoinJoin<cr>
       nnoremap <leader>ms :SplitjoinSplit<cr>
     ]]
-  end
+  end,
 }

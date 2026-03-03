@@ -3,24 +3,24 @@ vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
-vim.opt.scrolloff = 4 -- show at least 4 lines when scrolling horizontaly
+vim.opt.scrolloff = 4
 vim.opt.sidescrolloff = 12
-vim.opt.colorcolumn = "81,121" -- line lenght marker at 80 columns
-vim.opt.wrap = false -- don't wrap lines by default
+vim.opt.colorcolumn = "81,121"
+vim.opt.wrap = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = "a"
-vim.opt.inccommand = "nosplit" -- live preview replace
-vim.opt.signcolumn = "yes:2" -- always display column for signs left to numbers
+vim.opt.inccommand = "nosplit"
+vim.opt.signcolumn = "yes:2"
 vim.opt.showmode = false
 vim.opt.termguicolors = true
 vim.g.mapleader = " "
 vim.opt.undofile = true
 vim.opt.wildignorecase = true
 vim.opt.undodir = vim.fn.stdpath("cache") .. "/nvim/undo"
-vim.opt.hlsearch = true               -- Highlight results
-vim.opt.incsearch = true              -- Show results as you type
-vim.opt.ignorecase = true             -- Ignore case
-vim.opt.smartcase = true              -- unless uppercase chars are given
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.opt.winborder = 'rounded'
 vim.opt.updatetime = 300
 
@@ -38,7 +38,7 @@ vim.cmd("cabbrev Qa! qa")
 
 local symbols = require("helper.symbols")
 vim.diagnostic.config({
-	signs = {
+  signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = symbols.Error,
       [vim.diagnostic.severity.WARN] = symbols.Warn,
@@ -46,7 +46,7 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = symbols.Info,
     }
   },
-	underline = true,
-	update_in_insert = false,
-	virtual_text = true,
+  underline = true,
+  update_in_insert = false,
+  virtual_text = true,
 })

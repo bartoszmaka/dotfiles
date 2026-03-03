@@ -36,35 +36,4 @@ M.onedark = {
   dimmed_yellow = '#5a3e08',
 }
 
-M.github_dark_default = {
-  white         = '#ffffff',
-  black         = '#0d1117',
-  black_bright  = '#161b22',
-  grey          = '#6e7681',
-  grey_bright   = '#6e7681',
-  blue          = '#388bfd',
-  blue_bright   = '#58a6ff',
-  green         = '#2ea043',
-  green_bright  = '#3fb950',
-  yellow        = '#bb8009',
-  yellow_bright = '#d29922',
-  red           = '#f85149',
-  red_bright    = '#ff7b72',
-  purple        = '#a371f7',
-  purple_bright = '#bc8cff',
-  pink          = '#db61a2',
-  pink_bright   = '#f778ba',
-  bg_tmux       = '#141b24',
-  bg            = '#0d1117',
-  fg            = '#e6edf3',
-}
-
 return M
-
--- vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
--- vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
--- vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
--- vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
--- vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
--- vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
--- vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })

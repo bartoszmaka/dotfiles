@@ -45,9 +45,6 @@ return {
           ['CmpItemKindKeyword']        = { fg = '#bfbd5d' },
           ['CmpItemKindText']           = { fg = '#93a4c3' },
           ['CmpItemKindCopilot']        = { fg = '#6CC644' },
-          -- ['IlluminatedWordText']       = { fmt = 'none', bg = colors.bg3 },
-          -- ['IlluminatedWordRead']       = { fmt = 'none', bg = colors.bg2 },
-          -- ['illuminatedwordwrite']      = { fmt = 'none', bg = colors.diff_add },
           ['RainbowParenBlue']          = { fg = colors.blue },
           ['RainbowParenCyan']          = { fg = colors.cyan },
           ['RainbowParenGreen']         = { fg = colors.green },
@@ -83,88 +80,68 @@ return {
           ['FoldColumn']                = { bg = '#1a212e', fg = '#455574' },
           ['SignColumn']                = { fg = '#21283b' },
           ['CursorLineSign']            = { fg = '#21283b' },
-          -- ['Hlargs']                    = { bg = 'none', fg = 'none', fmt = 'italic' }
           ['IncSearch']                 = { fg = '#FF0000', bg = 'NONE', fmt = 'bold,nocombine' },
           ['CurSearch']                 = { fg = '#FF0000', bg = 'NONE', fmt = 'bold,nocombine' },
           ['Search']                    = { fg = '#FFFFFF', bg = 'NONE', fmt = 'bold,nocombine' },
-          ["NavicIconsFile"]            = { bg = colors.bg_d },
-          ["NavicIconsModule"]          = { bg = colors.bg_d },
-          ["NavicIconsNamespace"]       = { bg = colors.bg_d },
-          ["NavicIconsPackage"]         = { bg = colors.bg_d },
-          ["NavicIconsClass"]           = { bg = colors.bg_d },
-          ["NavicIconsMethod"]          = { bg = colors.bg_d },
-          ["NavicIconsProperty"]        = { bg = colors.bg_d },
-          ["NavicIconsField"]           = { bg = colors.bg_d },
-          ["NavicIconsConstructor"]     = { bg = colors.bg_d },
-          ["NavicIconsEnum"]            = { bg = colors.bg_d },
-          ["NavicIconsInterface"]       = { bg = colors.bg_d },
-          ["NavicIconsFunction"]        = { bg = colors.bg_d },
-          ["NavicIconsVariable"]        = { bg = colors.bg_d },
-          ["NavicIconsConstant"]        = { bg = colors.bg_d },
-          ["NavicIconsString"]          = { bg = colors.bg_d },
-          ["NavicIconsNumber"]          = { bg = colors.bg_d },
-          ["NavicIconsBoolean"]         = { bg = colors.bg_d },
-          ["NavicIconsArray"]           = { bg = colors.bg_d },
-          ["NavicIconsObject"]          = { bg = colors.bg_d },
-          ["NavicIconsKey"]             = { bg = colors.bg_d },
-          ["NavicIconsNull"]            = { bg = colors.bg_d },
-          ["NavicIconsEnumMember"]      = { bg = colors.bg_d },
-          ["NavicIconsStruct"]          = { bg = colors.bg_d },
-          ["NavicIconsEvent"]           = { bg = colors.bg_d },
-          ["NavicIconsOperator"]        = { bg = colors.bg_d },
-          ["NavicIconsTypeParameter"]   = { bg = colors.bg_d },
-          ["NavicText"]                 = { bg = colors.bg_d },
-          ["NavicSeparator"]            = { bg = colors.bg_d },
-
         },
       })
       require('onedark').load()
+
+      vim.cmd [[
+        highlight! link NormalFloat Normal
+        highlight! link FloatBorder Normal
+        highlight! NormalDarker       guibg=#141b24 guifg=#93a4c3
+        highlight! SignColumnDarker   guibg=#141b24 guifg=#93a4c3
+        highlight! EndOfBufferDarker  guifg=#141b24 guibg=#141b24
+        highlight! WinSeparatorDarker guifg=#2a324a guibg=#141b24
+        highlight! link WhichKeyNormal NormalDarker
+        highlight! link WhichKeyBorder NormalDarker
+        highlight! link LazyNormal NormalDarker
+      ]]
+
       vim.cmd [[
         augroup make_panels_darker
           autocmd!
-          highlight! link NormalFloat Normal
-          highlight! link FloatBorder Normal
-          " highlight! NormalFloat        guibg=#141b24 guifg=#93a4c3
-          " highlight! FloatBorder        guibg=#1a212e guifg=#efbd5d
-          highlight! NormalDarker       guibg=#141b24 guifg=#93a4c3
-          highlight! SignColumnDarker   guibg=#141b24 guifg=#93a4c3
-          highlight! EndOfBufferDarker  guifg=#141b24 guibg=#141b24
-          highlight! WinSeparatorDarker guifg=#2a324a guibg=#141b24
-          highlight! link WhichKeyNormal NormalDarker
-          highlight! link WhichKeyBorder NormalDarker
-          highlight! link LazyNormal NormalDarker
           autocmd FileType Mundo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
           autocmd FileType MundoDiff setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
-          autocmd FileType ctrlsf setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
           autocmd FileType floaterm setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
           autocmd FileType help setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
-          autocmd FileType lspsagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
-          autocmd FileType sagaoutline setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
-          autocmd FileType vista_kind setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
           autocmd FileType lspinfo setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
           autocmd FileType mason setlocal winhighlight=Normal:NormalDarker,SignColumn:SignColumnDarker,EndOfBuffer:EndOfBufferDarker,WinSeparator:WinSeparatorDarker
           autocmd FileType Trouble setlocal colorcolumn=
-          autocmd FileType lspsagaoutline setlocal foldcolumn=0
-          " autocmd FileType neo-tree setlocal foldcolumn=0
-          autocmd FileType sagaoutline setlocal foldcolumn=0
-          autocmd FileType vista_kind setlocal foldcolumn=0
         augroup END
 
-
-        augroup color_scheme_tweaks
+        augroup treesitter_hl_overrides
           autocmd!
-          highlight! IncSearch       guifg=#FF0000 guibg=NONE gui=bold,nocombine
-          highlight! Search          guifg=#FFFFFF guibg=NONE gui=bold,nocombine
-
-          highlight! DiagnosticVirtualTextHint guifg=#1b6a73 guibg=NONE
-          highlight! DiagnosticVirtualTextInfo guifg=#1b6a73 guibg=NONE
-
-          highlight! DiagnosticUnderlineError  guibg=#512121 gui=NONE
-          highlight! DiagnosticUnderlineWarn   guibg=#443333 gui=NONE
-          highlight! DiagnosticUnderlineInfo   guibg=NONE gui=NONE
-          highlight! DiagnosticUnderlineHint   guibg=NONE gui=NONE
-          highlight! WinBar                    gui=NONE
-          highlight! FoldColumn guibg=#1a212e guifg=#455574
+          highlight! @error.ruby guibg=NONE guifg=NONE gui=NONE
+          highlight! link @parameter   @variable.builtin
+          highlight! link @tag.attribute @boolean
+          highlight! link @tag Special
+          highlight! link @tag.delimiter Special
+          highlight! link @keyword.function @keyword
+          highlight! link htmlBold Normal
+          highlight! link @lsp.type.type @type
+          highlight! link @lsp.type.macro @macro
+          highlight! link @lsp.type.method @method
+          highlight! link @lsp.type.comment @comment
+          highlight! link @lsp.type.function @function
+          highlight! link @lsp.type.property @property
+          highlight! link @lsp.type.namespace @namespace
+          highlight! link @lsp.type.parameter @parameter
+          highlight! link @string.special.url.html Normal
+          highlight! link @variable.member.ruby Special
+          highlight! link @variable.parameter.ruby Special
+          highlight! link @string.special.symbol.ruby Constant
+          highlight! link @function.builtin.ruby @keyword
+          highlight! link @tag.delimiter.tsx Normal
+          highlight! link @tag.tsx Type
+          highlight! link @lsp.typemod.function.declaration.typescriptreact @type
+          highlight! link @lsp.typemod.function.readonly.typescriptreact @type
+          highlight! link @lsp.type.variable.typescriptreact Special
+          highlight! link @lsp.typemod.variable.readonly.javascript @type
+          highlight! link @tag.delimiter.javascript Normal
+          highlight! link @lsp.type.variable.javascript Special
+          highlight! link @tag.javascript @type
         augroup END
       ]]
     end

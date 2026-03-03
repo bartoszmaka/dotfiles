@@ -22,7 +22,6 @@ return {
           graphql = { "prettierd", "prettier" },
           lua = { "stylua" },
           sh = { "beautysh" },
-          zig = { "zigfmt" },
         },
         format_on_save = false,
       })
@@ -30,10 +29,6 @@ return {
       vim.keymap.set("n", "<C-m><C-f>", function()
         conform.format({ async = true })
       end, { desc = "Format buffer" })
-
-      vim.api.nvim_create_user_command("FormatConform", function(_)
-        vim.lsp.buf.format()
-      end, { desc = "Format current buffer with LSP" })
     end,
   },
   {

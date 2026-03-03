@@ -31,5 +31,5 @@ return {
     })
 
     vim.notify = require('notify')
-  end
+  end,
 }

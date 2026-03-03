@@ -1,35 +1,38 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
-  lazy=false,
+  lazy = false,
   cmd = "Neotree",
   keys = {
     {
-      "<C-f><C-f>b", -- Mapped to Cmd-b in alacritty
+      "<C-f><C-f>b",
       "<cmd>Neotree close<CR>",
       desc = "Close NeoTree panel",
     },
     {
-      "<C-f><C-f>g", -- Mapped to ctrl-shift-g in alacritty
+      "<C-f><C-f>g",
       function()
         require("neo-tree.command").execute({
           toggle = true,
           dir = vim.loop.cwd(),
           reveal = true,
-          source =
-          "git_status"
+          source = "git_status",
         })
       end,
       desc = "Git changed files tree",
     },
     {
-      "<C-f><C-f>e", -- Mapped to cmd+shift+e in alacritty
-      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true }) end,
+      "<C-f><C-f>e",
+      function()
+        require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true })
+      end,
       desc = "Explorer NeoTree",
     },
     {
       "<C-k><C-e>",
-      function() require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true }) end,
+      function()
+        require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true })
+      end,
       desc = "Explorer NeoTree",
     },
     {
@@ -39,8 +42,7 @@ return {
           toggle = true,
           dir = vim.loop.cwd(),
           reveal = true,
-          source =
-          "git_status"
+          source = "git_status",
         })
       end,
       desc = "GitStatus NeoTree",
@@ -51,7 +53,7 @@ return {
   end,
   dependencies = {
     { "nvim-lua/plenary.nvim" },
-    { "nvim-tree/nvim-web-devicons", name = "tree-nvim-web-devicons" }, -- not strictly required, but recommended
+    { "nvim-tree/nvim-web-devicons", name = "tree-nvim-web-devicons" },
     { "MunifTanjim/nui.nvim" },
     {
       's1n7ax/nvim-window-picker',
@@ -64,10 +66,7 @@ return {
           include_current = false,
           filter_rules = {
             bo = {
-              -- if the file type is one of following, the window will be ignored
               filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-
-              -- if the buffer type is one of following, the window will be ignored
               buftype = { 'terminal', "quickfix" },
             },
           },
@@ -88,31 +87,31 @@ return {
   opts = function()
     local symbols = require('helper.symbols')
     local shared_mappings = {
-      ["/"] = "noop",
-      ["<BS>"] = "noop",
-      ["U"] = "navigate_up",
-      ["F"] = "fuzzy_finder",
+      ["/"]      = "noop",
+      ["<BS>"]   = "noop",
+      ["U"]      = "navigate_up",
+      ["F"]      = "fuzzy_finder",
       ["<space>"] = "noop",
-      ["O"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "O" } },
-      ["Oc"] = { "order_by_created", nowait = false },
-      ["Od"] = { "order_by_diagnostics", nowait = false },
-      ["Om"] = { "order_by_modified", nowait = false },
-      ["On"] = { "order_by_name", nowait = false },
-      ["Os"] = { "order_by_size", nowait = false },
-      ["Ot"] = { "order_by_type", nowait = false },
-      ["S"] = "split_with_window_picker",
-      ["o"] = { "open_with_window_picker", nowait = true },
-      ["s"] = "vsplit_with_window_picker",
-      ["oc"] = "noop",
-      ["od"] = "noop",
-      ["og"] = "noop",
-      ["om"] = "noop",
-      ["on"] = "noop",
-      ["os"] = "noop",
-      ["ot"] = "noop",
-      ["z"] = "close_node",
-      ["Z"] = "close_all_nodes",
-      ["t"] = "noop",
+      ["O"]      = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "O" } },
+      ["Oc"]     = { "order_by_created", nowait = false },
+      ["Od"]     = { "order_by_diagnostics", nowait = false },
+      ["Om"]     = { "order_by_modified", nowait = false },
+      ["On"]     = { "order_by_name", nowait = false },
+      ["Os"]     = { "order_by_size", nowait = false },
+      ["Ot"]     = { "order_by_type", nowait = false },
+      ["S"]      = "split_with_window_picker",
+      ["o"]      = { "open_with_window_picker", nowait = true },
+      ["s"]      = "vsplit_with_window_picker",
+      ["oc"]     = "noop",
+      ["od"]     = "noop",
+      ["og"]     = "noop",
+      ["om"]     = "noop",
+      ["on"]     = "noop",
+      ["os"]     = "noop",
+      ["ot"]     = "noop",
+      ["z"]      = "close_node",
+      ["Z"]      = "close_all_nodes",
+      ["t"]      = "noop",
     }
 
     return {
@@ -121,10 +120,10 @@ return {
         winbar = true,
         statusline = false,
         sources = {
-          { source = "filesystem", display_name = "  Files " },
-          { source = "buffers", display_name = "  Buffers " },
-          { source = "git_status", display_name = "  Git " },
-          { source = "document_symbols", display_name = "  Symbols " },
+          { source = "filesystem", display_name = "  Files " },
+          { source = "buffers", display_name = "  Buffers " },
+          { source = "git_status", display_name = "  Git " },
+          { source = "document_symbols", display_name = "  Symbols " },
         },
       },
       default_component_configs = {
@@ -155,38 +154,28 @@ return {
           folder_empty = symbols.FolderEmpty,
         },
         indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-          expander_collapsed = "",
-          expander_expanded = "",
+          with_expanders = true,
+          expander_collapsed = "",
+          expander_expanded = "",
           expander_highlight = "NeoTreeExpander",
         },
       },
-      window = {
-        width = 60,
-      },
+      window = { width = 60 },
       filesystem = {
         bind_to_cwd = false,
         follow_current = { enabled = false },
         use_libuv_file_watcher = true,
-        window = {
-          mappings = shared_mappings
-        }
+        window = { mappings = shared_mappings },
       },
       buffers = {
-        window = {
-          mappings = shared_mappings
-        }
+        window = { mappings = shared_mappings },
       },
       git_status = {
-        window = {
-          mappings = shared_mappings
-        }
+        window = { mappings = shared_mappings },
       },
       document_symbols = {
         follow_cursor = true,
-        client_filters = {
-          ignore = { "solargraph" }
-        }
+        client_filters = { ignore = { "solargraph" } },
       },
     }
   end,
@@ -205,7 +194,6 @@ return {
       highlight NeoTreeTabActive guibg=#141b24
       highlight NeoTreeTabInactive guibg=#141b24
       highlight NeoTreeTabSeparatorInactive guibg=#141b24 guifg=#141b24
-      highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
       highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
     ]]
 

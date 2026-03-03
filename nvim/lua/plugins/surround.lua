@@ -1,8 +1,9 @@
 return {
   'tpope/vim-surround',
+  event = "VeryLazy",
   config = function()
-    vim.cmd[[
-      unmap yS
-    ]]
-  end
+    vim.schedule(function()
+      pcall(vim.cmd, 'unmap yS')
+    end)
+  end,
 }

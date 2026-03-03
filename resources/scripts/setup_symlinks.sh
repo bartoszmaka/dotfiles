@@ -30,6 +30,7 @@ ln -vsf ~/.repos/dotfiles/asdfrc ~/.asdfrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/tmuxinator ~/
 ln -vsf ~/.repos/dotfiles/tmuxinator ~/.config/
+ln -vsf ~/.repos/dotfiles/opencode ~/.config/
 
 case "$(uname -s)" in
   Darwin)

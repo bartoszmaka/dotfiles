@@ -1,6 +1,5 @@
 local helper = require('helper')
 
--- aliases
 local map = helper.map
 local vmap = helper.vmap
 local tmap = helper.tmap
@@ -12,12 +11,11 @@ local inoremap = helper.inoremap
 local nnoremap = helper.nnoremap
 local cnoremap = helper.cnoremap
 local tnoremap = helper.tnoremap
-local unmap = helper.unmap
 
 -- unmaps
-nnoremap('Q', '<NOP>')  -- disable ex mode
-nnoremap('q:', '<NOP>') -- disable command line
-nnoremap('ZZ', '<NOP>') -- disable quit with ZZ
+nnoremap('Q', '<NOP>')
+nnoremap('q:', '<NOP>')
+nnoremap('ZZ', '<NOP>')
 
 -- better movement
 inoremap('jk', '<ESC>')
@@ -53,42 +51,34 @@ nnoremap('g;', 'g;zz')
 nnoremap('``', '``zz')
 vnoremap('>', '>gv')
 vnoremap('<', '<gv')
-vnoremap('<Tab>', '>gv')
-vnoremap('<S-Tab>', '<gv')
-
 
 -- save on cmd + s (mapped to f13-14 in alacritty config)
 nnoremap('<F13>', '<esc>:w<CR>')
 inoremap('<F13>', '<esc>:w<CR>')
 nnoremap('<C-_>s', '<esc>:w<CR>')
 inoremap('<C-_>s', '<esc>:w<CR>')
-
 nnoremap('<F15>', '<esc>:w<CR>')
 inoremap('<F15>', '<esc>:w<CR>')
 nnoremap('<F16>', '<esc>:w<CR>')
 inoremap('<F16>', '<esc>:w<CR>')
 
--- alt + hjkl to jump windows (cmd + hjkl mapped in alacritty config)
+-- terminal window navigation
 tnoremap('<C-w>h', [[<C-\><C-n><C-w>h]])
 tnoremap('<C-w>j', [[<C-\><C-n><C-w>j]])
 tnoremap('<C-w>k', [[<C-\><C-n><C-w>k]])
 tnoremap('<C-w>l', [[<C-\><C-n><C-w>l]])
--- nnoremap('<M-h>', '<C-w>h')
--- nnoremap('<M-j>', '<C-w>j')
--- nnoremap('<M-k>', '<C-w>k')
--- nnoremap('<M-l>', '<C-w>l')
 
 -- split and join lines
 nnoremap('<leader>j', 'i<CR><Esc>', { desc = "Split line" })
 nnoremap('<leader>k', '<esc>kJ', { desc = "Join to prev line" })
 
-nnoremap('/', [[/\V]])                                          -- search with nomagic flag
-nnoremap('?', '/')                                              -- search with magic flag (default)
-nnoremap('<Bs>', ':noh<CR>')                                    -- turn off highlight
-nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })       -- replace under cursor
-vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })         -- replace under cursor
-nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" }) -- replace under cursor and paste same word into target
-vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" })   -- replace under cursor and paste same word into target
+nnoremap('/', [[/\V]])
+nnoremap('?', '/')
+nnoremap('<Bs>', ':noh<CR>')
+nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })
+vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })
+nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" })
+vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" })
 nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]], { desc = "Peek spec structure" })
 
 vnoremap('<C-m><C-s>', ':sort<CR>')
@@ -102,19 +92,11 @@ vim.keymap.set('n', '<leader>cp', function()
   print('Copied path: ' .. result)
 end, { desc = 'Copy relative path with line number to clipboard' })
 
--- nnoremap('g]', '<C-]>')
--- nnoremap('<C-]>', 'g]')
-
-if vim.fn.has("nvim-0.9.0") == 1 then
-  nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect highlights" })
-else
-  nnoremap([[<leader>uh]], [[:TSHighlightCapturesUnderCursor<CR>]], { desc = "Inspect highlights" })
-end
+nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect highlights" })
 
 function FoldDeeperThanCursor()
   local cursor_line = vim.fn.line('.')
   local current_fold_level = vim.fn.foldlevel(cursor_line)
-
   local total_lines = vim.fn.line('$')
   for lnum = 1, total_lines do
     local fold_level = vim.fn.foldlevel(lnum)
@@ -130,44 +112,3 @@ vim.keymap.set('n', '<leader>zF', ':lua FoldDeeperThanCursor()<CR>', { noremap =
 -- VSCode like keymaps
 nmap('<F3>', '*')
 nmap('<S-F3>', '#')
--- nmap('<C-G>', '<C-k><C-g>')
--- function MarkFzfColors()
---   local names = {
---     "FzfLuaNormal",
---     "FzfLuaBorder",
---     "FzfLuaTitle",
---     "FzfLuaPreviewNormal",
---     "FzfLuaPreviewBorder",
---     "FzfLuaPreviewTitle",
---     "FzfLuaCursor",
---     "FzfLuaCursorLine",
---     "FzfLuaCursorLineNr",
---     "FzfLuaSearch",
---     "FzfLuaScrollBorderEmpty",
---     "FzfLuaScrollBorderFull",
---     "FzfLuaScrollFloatEmpty",
---     "FzfLuaScrollFloatFull",
---     "FzfLuaHelpNormal",
---     "FzfLuaHelpBorder",
---     "FzfLuaHeaderBind",
---     "FzfLuaHeaderText",
---     "FzfLuaPathColNr",
---     "FzfLuaPathLineNr",
---     "FzfLuaBufName",
---     "FzfLuaBufNr",
---     "FzfLuaBufFlagCur",
---     "FzfLuaBufFlagAlt",
---     "FzfLuaTabTitle",
---     "FzfLuaTabMarker",
---     "FzfLuaDirIcon",
---     "FzfLuaDirPart",
---     "FzfLuaLiveSym"
---   }
---   for _, name in ipairs(names) do
---     vim.cmd(string.format(
---       "highlight! %s guibg=%s",
---       name, "#ff0000"
---     ))
---   end
--- end
-

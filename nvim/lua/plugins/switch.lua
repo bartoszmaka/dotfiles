@@ -25,7 +25,6 @@ return {
           \     'className="\([a-zA-Z0-9-_]*\)"': 'className={classNames("\1")}',
           \   },
           \ ]
-      ]]
-    -- \     'let!\?(:\([a-zA-Z0-9_]\+\))\W\?{\(.\+\)}': '\1 =\2',
+    ]]
   end,
 }
