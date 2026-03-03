@@ -17,11 +17,18 @@ return {
       },
     },
     opts = {
-      provider = "claude",
+      provider = "openai",
       providers = {
         claude = {
           endpoint = "https://api.anthropic.com",
           model = "claude-sonnet-4-20250514",
+          extra_request_body = {
+            max_tokens = 4096,
+          },
+        },
+        openai = {
+          endpoint = "https://api.openai.com/v1",
+          model = "gpt-4o-mini",
           extra_request_body = {
             max_tokens = 4096,
           },
