@@ -225,6 +225,7 @@ return {
         oldfiles                  = setup("Oldfiles", {
           cwd_only                = true,
           include_current_session = true,
+          multiprocess            = false,
         }),
         quickfix                  = setup("Quickfix List", { winopts = presets.winopts.bottom_pane }),
         quickfix_stack            = setup("Quickfix List Stack"),
@@ -290,6 +291,7 @@ return {
       -- nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]], { desc = "Definitions" })
       -- nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]], { desc = "LSP Finder" })
       -- nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]], { desc = "References" })
+      nnoremap('<leader>ca', [[:lua require("fzf-lua").lsp_code_actions()<CR>]], { desc = "Code actions" })
       nnoremap('<leader>ps', [[:lua require("fzf-lua").lsp_document_symbols()<CR>]], { desc = "File Symbols" })
       nnoremap('<leader>pS', [[<cmd>lua require('fzf-lua').lsp_workspace_symbols({winopts = {height = 0.60, width = 0.90, row = 0.40, col = 0.50}})<CR>]], { desc = "Project Symbols" })
       nnoremap('<leader>/', [[:lua require("fzf-lua").blines()<CR>]], { desc = "File Lines" })

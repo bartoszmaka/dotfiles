@@ -21,7 +21,7 @@ require('lazy').setup({
   install = {
     colorscheme = { 'onedark' },
   },
-  checker = { enabled = true },
+  checker = { enabled = false },
   ui = {
     icons = {
       cmd = "⌘",

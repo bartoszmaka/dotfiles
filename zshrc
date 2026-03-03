@@ -104,7 +104,7 @@ zstyle ':completion:*' menu select
 
 alias tmux="tmux -u"
 alias tnew="\tmux -u new-session -t main"
-alias vimrc="cd $DOTFILES_PATH/vim; $EDITOR;  cd -"
+alias vimrc="cd $DOTFILES_PATH/nvim; $EDITOR;  cd -"
 alias oldvimrc="cd $DOTFILES_PATH/nvim-old; $EDITOR;  cd -"
 alias astrovimrc="cd $DOTFILES_PATH/nvim-astro; astrovim;  cd -"
 alias lazyvimrc="cd $HOME/.config/nvim; $EDITOR"
@@ -115,6 +115,7 @@ alias kittyrc="$EDITOR $DOTFILES_PATH/kitty/kitty.conf"
 alias tmuxrc="$EDITOR ~/.tmux.conf"
 alias dotfiles="cd $DOTFILES_PATH"
 alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
+alias ghosttyrc="cd '$HOME/.config/ghostty/'; n config; cd -"
 
 alias n='nvim'
 alias astrovim='NVIM_APPNAME=nvim-astro nvim'
@@ -207,3 +208,15 @@ if [ -f '$HOME/.apps/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/.apps/googl
 
 # The next line enables shell command completion for gcloud.
 if [ -f '$HOME/.apps/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/.apps/google-cloud-sdk/completion.zsh.inc'; fi
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:$HOME/.lmstudio/bin"
+# End of LM Studio CLI section
+

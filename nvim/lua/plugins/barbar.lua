@@ -47,10 +47,10 @@ return {
         vim.cmd [[ silent! BufferClose ]]
       end
 
-      nnoremap('<leader>[', ':BufferPrevious<CR>', { silent = true} )
-      nnoremap('<leader>]', ':BufferNext<CR>', { silent = true} )
-      nnoremap('<leader>{', ':BufferMovePrevious<CR>', { silent = true} )
-      nnoremap('<leader>}', ':BufferMoveNext<CR>', { silent = true} )
+      nnoremap('<leader>{', ':BufferPrevious<CR>', { silent = true} )
+      nnoremap('<leader>}', ':BufferNext<CR>', { silent = true} )
+      -- nnoremap('<leader>{', ':BufferMovePrevious<CR>', { silent = true} )
+      -- nnoremap('<leader>}', ':BufferMoveNext<CR>', { silent = true} )
       nnoremap('<leader>1', ':BufferGoto 1<CR>', { silent = true} )
       nnoremap('<leader>2', ':BufferGoto 2<CR>', { silent = true} )
       nnoremap('<leader>3', ':BufferGoto 3<CR>', { silent = true} )
@@ -70,12 +70,12 @@ return {
       augroup barbar_overrides
         autocmd!
         highlight! BufferCurrent          guifg=#93a4c3 guibg=#1a212ea gui=bold
-        highlight! BufferCurrentMod       guifg=#f2cc81 guibg=#1a212ea gui=bold
-        highlight! BufferCurrentSign      guifg=#93a4c3 guibg=#1a212ea gui=bold
+        highlight! BufferCurrentMod       guifg=#f2cc81 guibg=#1a212ea gui=NONE
+        highlight! BufferCurrentSign      guifg=#93a4c3 guibg=#1a212ea gui=NONE
 
-        highlight! BufferVisible          guifg=#93a4c3 guibg=#141b24 gui=bold
-        highlight! BufferVisibleMod       guifg=#f2cc81 guibg=#141b24 gui=bold
-        highlight! BufferVisibleSign      guifg=#1a212e guibg=#141b24 gui=bold
+        highlight! BufferVisible          guifg=#93a4c3 guibg=#1a212ea gui=NONE
+        highlight! BufferVisibleMod       guifg=#f2cc81 guibg=#1a212ea gui=NONE
+        highlight! BufferVisibleSign      guifg=#1a212e guibg=#1a212ea gui=NONE
 
         highlight! BufferInactive         guifg=#455574 guibg=#141b24 gui=NONE
         highlight! BufferInactiveMod      guifg=#8f610d guibg=#141b24 gui=NONE

@@ -46,11 +46,6 @@
     "command": "workbench.panel.chatSidebar"
   },
   {
-    "key": "cmd+q",
-    "command": "workbench.action.closeEditorsInGroup",
-    "when": "editorFocus && vim.active && vim.mode == 'Normal'"
-  },
-  {
     "key": "cmd+w",
     "command": "-workbench.action.closeWindow",
     "when": "!editorIsOpen && !multipleEditorGroups"
@@ -375,5 +370,48 @@
   {
     "key": "alt+cmd+b",
     "command": "-workbench.action.toggleAuxiliaryBar"
+  },
+  {
+    "key": "cmd+-",
+    "command": "editor.action.fontZoomOut"
+  },
+  {
+    "key": "cmd+=",
+    "command": "editor.action.fontZoomIn"
+  },
+  {
+    "key": "alt+space",
+    "command": "editor.action.peekDefinition",
+    "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
+  },
+  {
+    "key": "alt+o",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "inlineSuggestionVisible && tabnine.tab-override && !editorTabMovesFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "search.action.focusNextSearchResult",
+    "when": "hasSearchResult && searchViewletVisible"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "search.action.focusPreviousSearchResult",
+    "when": "hasSearchResult && searchViewletVisible"
+  },
+  {
+    "key": "cmd+q",
+    "command": "-workbench.action.quit"
+  },
+  {
+    "key": "%",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "editor.emmet.action.matchTag",
+        "editor.action.jumpToBracket"
+      ]
+    },
+    "when": "editorTextFocus && (vim.mode =~ /Normal|Visual.*/) && editorLangId =~ /html|xml|php|handlebars|vue|svelte|javascriptreact|typescriptreact/"
   }
 ]

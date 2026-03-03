@@ -62,7 +62,7 @@ return {
       }
     }
 
-   -- nnoremap('<leader>a', ':A<CR>')
-    nnoremap('<leader>a', ':silent! :A<CR>') -- ignore E315
+   nnoremap('<leader>a', ':A<CR>')
+    -- nnoremap('<leader>a', ':silent! :A<CR>') -- ignore E315
   end,
 }

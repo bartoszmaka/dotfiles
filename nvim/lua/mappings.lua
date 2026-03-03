@@ -94,7 +94,13 @@ nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]], { desc = "Peek 
 vnoremap('<C-m><C-s>', ':sort<CR>')
 vnoremap('<CR><C-s>', ':sort<CR>')
 
-vim.cmd([[command! FindDuplicates :g/^\(.*\)$\n\1$/p]])
+vim.keymap.set('n', '<leader>cp', function()
+  local path = vim.fn.expand('%')
+  local line = vim.fn.line('.')
+  local result = path .. ':' .. line
+  vim.fn.setreg('+', result)
+  print('Copied path: ' .. result)
+end, { desc = 'Copy relative path with line number to clipboard' })
 
 -- nnoremap('g]', '<C-]>')
 -- nnoremap('<C-]>', 'g]')
@@ -104,6 +110,22 @@ if vim.fn.has("nvim-0.9.0") == 1 then
 else
   nnoremap([[<leader>uh]], [[:TSHighlightCapturesUnderCursor<CR>]], { desc = "Inspect highlights" })
 end
+
+function FoldDeeperThanCursor()
+  local cursor_line = vim.fn.line('.')
+  local current_fold_level = vim.fn.foldlevel(cursor_line)
+
+  local total_lines = vim.fn.line('$')
+  for lnum = 1, total_lines do
+    local fold_level = vim.fn.foldlevel(lnum)
+    if fold_level > current_fold_level then
+      vim.cmd(lnum .. 'foldclose')
+    else
+      vim.cmd(lnum .. 'foldopen')
+    end
+  end
+end
+vim.keymap.set('n', '<leader>zF', ':lua FoldDeeperThanCursor()<CR>', { noremap = true, silent = true })
 
 -- VSCode like keymaps
 nmap('<F3>', '*')

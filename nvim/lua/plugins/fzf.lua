@@ -225,6 +225,7 @@ return {
         oldfiles                  = setup("Oldfiles", {
           cwd_only                = true,
           include_current_session = true,
+          multiprocess            = false,
         }),
         quickfix                  = setup("Quickfix List", { winopts = presets.winopts.bottom_pane }),
         quickfix_stack            = setup("Quickfix List Stack"),
@@ -237,7 +238,6 @@ return {
         helptags                  = setup("Neovim Help"),
         manpages                  = setup("Man Pages"),
         lsp                       = setup("LSP", {
-          jump1                   = 1,
           winopts                 = presets.winopts.bottom_pane,
           async_or_timeout        = true, -- timeout(ms) or false for blocking calls
           symbols                 = setup("LSP", { symbol_icons = symbols, winopts = presets.winopts.medium_window, }),
@@ -306,7 +306,7 @@ return {
       nnoremap('<leader>p;', [[:lua require("fzf-lua").commands()<CR>]], { desc = "Commands" })
       nnoremap('<leader>pK', [[:lua require("fzf-lua").keymaps()<CR>]], { desc = "Keymaps" })
 
-      nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions()<CR>]], { desc = "Definitions" })
+      nnoremap('gd', [[:lua require("fzf-lua").lsp_definitions({ jump_to_single_result = true })<CR>]], { desc = "Definitions" })
       nnoremap('gD', function() vim.lsp.buf.definition() end, { desc = "Definitions" })
       nnoremap('gF', [[:lua require("fzf-lua").lsp_finder()<CR>]], { desc = "LSP Finder" })
       nnoremap('gr', [[:lua require("fzf-lua").lsp_references({ ignore_current_line = true })<CR>]], { desc = "References" })

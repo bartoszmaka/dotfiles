@@ -89,6 +89,7 @@ return {
           topdelete = { text = symbols.git_deleted_above, },
           changedelete = { text = symbols.git_bar, },
         },
+        sign_priority = 500,
         signs_staged_enable = true,
         numhl = false,
         linehl = false,

@@ -45,9 +45,10 @@ return {
       rubocop = {
         cmd = { "bundle", "exec", "rubocop", "--lsp", "--config", "$HOME/projects/work/h2/.rubocop_strict.yml", "--force-exclusion" },
         filetypes = { "ruby", "eruby" },
-      }
+      },
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
-      -- ruby_lsp = { capabilities = { completionProvider = true } },
+      ruby_lsp = { capabilities = { completionProvider = true } },
+      -- solargraph = { capabilities = { completionProvider = true } },
     },
     -- customize how language servers are attached
     handlers = {

@@ -1,9 +1,12 @@
 mkdir -p ~/.config/nvim
 mkdir -p ~/.config/alacritty
 
+ln -vsf ~/.repos/dotfiles/nvim-astro ~/.config/nvim-astro/
+
 # vim files
 ln -vsf ~/.repos/dotfiles/vim/nvim-logo.sh ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/init.lua ~/.config/nvim/
+ln -vsf ~/.repos/dotfiles/vim/after ~/.config/nvim/after
 ln -vsf ~/.repos/dotfiles/vim/lua ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/UltiSnips ~/.config/nvim/
 ln -vsf ~/.repos/dotfiles/vim/vsnip ~/.vsnip
@@ -18,6 +21,7 @@ ln -vsf ~/.repos/dotfiles/alacritty.toml ~/.config/alacritty/alacritty.toml
 ln -vsf ~/.repos/dotfiles/jetbrains/ideavimrc ~/.ideavimrc
 ln -vsf ~/.repos/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 ln -vsf ~/.repos/dotfiles/kitty/macos-launch-serviecs-cmdline ~/.config/kitty/macos-launch-serviecs-cmdline
+ln -vsf ~/.repos/dotfiles/helix/config.toml ~/.config/helix/config.toml
 
 ln -vsf ~/.repos/dotfiles/asdf/default-npm-packages ~/.default-npm-packages
 ln -vsf ~/.repos/dotfiles/asdf/default-gems ~/.default-gems

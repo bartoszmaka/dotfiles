@@ -4,12 +4,13 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.scrolloff = 4 -- show at least 4 lines when scrolling horizontaly
+vim.opt.sidescrolloff = 12
 vim.opt.colorcolumn = "81,121" -- line lenght marker at 80 columns
 vim.opt.wrap = false -- don't wrap lines by default
 vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = "a"
 vim.opt.inccommand = "nosplit" -- live preview replace
-vim.opt.signcolumn = "yes" -- always display column for signs left to numbers
+vim.opt.signcolumn = "yes:2" -- always display column for signs left to numbers
 vim.opt.showmode = false
 vim.opt.termguicolors = true
 vim.g.mapleader = " "
@@ -20,6 +21,8 @@ vim.opt.hlsearch = true               -- Highlight results
 vim.opt.incsearch = true              -- Show results as you type
 vim.opt.ignorecase = true             -- Ignore case
 vim.opt.smartcase = true              -- unless uppercase chars are given
+vim.opt.winborder = 'rounded'
+vim.opt.updatetime = 300
 
 vim.cmd("cabbrev W   w")
 vim.cmd("cabbrev Wa  wa")

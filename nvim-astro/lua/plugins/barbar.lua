@@ -47,10 +47,10 @@ return {
         vim.cmd [[ silent! BufferClose ]]
       end
 
-      nnoremap('<leader>[', ':BufferPrevious<CR>', { silent = true} )
-      nnoremap('<leader>]', ':BufferNext<CR>', { silent = true} )
-      nnoremap('<leader>{', ':BufferMovePrevious<CR>', { silent = true} )
-      nnoremap('<leader>}', ':BufferMoveNext<CR>', { silent = true} )
+      nnoremap('<leader>{', ':BufferPrevious<CR>', { silent = true} )
+      nnoremap('<leader>}', ':BufferNext<CR>', { silent = true} )
+      -- nnoremap('<leader>{', ':BufferMovePrevious<CR>', { silent = true} )
+      -- nnoremap('<leader>}', ':BufferMoveNext<CR>', { silent = true} )
       nnoremap('<leader>1', ':BufferGoto 1<CR>', { silent = true} )
       nnoremap('<leader>2', ':BufferGoto 2<CR>', { silent = true} )
       nnoremap('<leader>3', ':BufferGoto 3<CR>', { silent = true} )

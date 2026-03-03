@@ -1,6 +1,6 @@
 # To make it easier to find descriptions and add exceptions
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.3
   DisplayCopNames: true
   Exclude:
     - 'bin/**/*'
@@ -55,8 +55,8 @@ Metrics/BlockLength:
 # https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/LineLength
 # To fit Github review window
 # Migration names tend to be long
-Metrics/LineLength:
-  Max: 80
+Layout/LineLength:
+  Max: 120
   Exclude:
     - 'db/migrate/**/*'
     - 'spec/**/*_spec.rb'

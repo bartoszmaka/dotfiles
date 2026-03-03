@@ -25,14 +25,23 @@ set multiple-cursors
 set commentary
 
 set ideajoin
+nmap <C-m><C-d> <Action>(EditorJoinLines)
+nmap <C-m><C-s> <Action>(EditorSplitLine)
 
-set highlightedyank
+set switch
+nnoremap <leader>x :Switch<CR>
+nnoremap <leader>X :SwitchReverse<CR>
+let g:switch_definitions = 'group:basic,group:java,group:rspec'
+
+set highlightedyan
 let g:highlightedyank_highlight_duration = "200"
 let g:highlightedyank_highlight_color = "rgba(240, 240, 160, 40)"
 
 set NERDTree
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='h'
 
-set which-key
+" set which-key
 " End of Plugins
 
 packadd matchit
@@ -49,6 +58,8 @@ set scrolloff=4                         " show at least 4 lines above or under c
 set sidescrolloff=5
 set idearefactormode=keep
 set clipboard+=unnamedplus              " use system clipboard
+set visualbell
+set noerrorbells
 
 map <leader>h ^
 map <leader>l $
@@ -70,6 +81,8 @@ vmap gj ygvgcgv<esc>p
 " sort selected lines
 vnoremap <C-m><C-s> :action EditorSortLines<CR>
 
+nnoremap <leader>K :action ShowHoverInfo<CR>
+
 " replace selected word in file
 nnoremap <leader>r \"zyiw:%s/\V<C-r>z//g<Left><Left>
 vnoremap <leader>r \"zy:%s/\V<C-r>z//g<Left><Left>
@@ -79,6 +92,10 @@ vnoremap <leader>R \"zy:%s/\V<C-r>z/<C-r>"/g<Left><Left>
 " split and merge lines
 nnoremap <leader>j i<CR><Esc>
 nnoremap <leader>k <esc>kJ
+
+" nnoremap <leader>fi :set lazyredraw<CR>:g/it '/normal za<CR>:g/it "/normal za<CR>:set nolazyredraw<CR>
+nnoremap <leader>fi :set lazyredraw<CR>:g/it '/normal za<CR>:g/it "/normal za<CR>:g/def /normal za<CR>:g/def /let za<CR>:set nolazyredraw<CR>
+nnoremap <leader>fd :set lazyredraw<CR>:g/def /normal za<CR>:set nolazyredraw<CR>
 
 " always focus after cursor jump
 nnoremap <C-o> <C-o>zz
@@ -123,6 +140,19 @@ nnoremap <leader>6 :action GoToTab6<CR>
 nnoremap <leader>7 :action GoToTab7<CR>
 nnoremap <leader>8 :action GoToTab8<CR>
 nnoremap <leader>9 :action GoToTab9<CR>
+nnoremap <leader>w :action CloseContent<CR>
+
+" Multiple cursors
+lnoremap <M-k> :action EditorCloneCaretAbove<CR>
+nnoremap <M-j> :action EditorCloneCaretBelow<CR>
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+nmap <C-x> <Plug>SkipOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+nmap <C-p> <Plug>RemoveOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
 
 " Fuzzy
 nnoremap <C-p><C-p> :action GotoFile<CR>
@@ -140,24 +170,39 @@ nnoremap <leader>pb :action ShowBookmarks<CR>
 nnoremap <leader>mb :action ToggleBookmark<CR>
 
 " Code Actions
+nnoremap <leader>ca :action ShowIntentionActions<CR>
 nnoremap <C-m><C-m> :action CodeMenu<CR>
 nnoremap <C-m><C-r> :action Refactorings.QuickListPopupAction<CR>
 nnoremap <C-m><C-f> :action ReformatCode<CR>
 nnoremap <C-m><C-i> :action OptimizeImports<CR>
 nnoremap <leader>a :action GotoTest<CR>
-nnoremap <leader>s :action GotoRelated<CR>
+nnoremap <leader>e :action GotoRelated<CR>
 nnoremap <C-m><C-g> :action Generate<CR>
-nnoremap <C-g><C-g> :action Git.Menu<CR>
 nnoremap gr :action FindUsages<CR>
 nnoremap gd :action GotoDeclaration<CR>
-nnoremap <leader>gh :action QuickImplementations<CR> " Option + Space
-nnoremap <C-g><C-d> :action Compare.SameVersion<CR> " Does it work?
+nnoremap gS :action GotoSuperMethod<CR>
+nnoremap gV :action org.jetbrains.plugins.ruby.rails.actions.navigation.SwitchToView<CR>
+nnoremap <leader>gh :action QuickImplementations<CR>
+nnoremap <C-g><C-d> :action Compare.SameVersion<CR>
+
+" Folds
+nnoremap za :action ExpandCollapseToggleAction<CR>
+
+" Copy relative path with line line_number
+nnoremap <leader>cp :action CopyPathWithLineNumber<CR>
+nnoremap <leader>y :action CopyReference<CR>
+vnoremap <leader>y :action CopyReference<CR>
+
+" Tests
+"nnoremap <leader>tt :action CopyReference \| action ActivateTerminalToolWindow<CR>
+"nnoremap <leader>tr :action CopyReference \| action ActivateTerminalToolWindow<CR>
 
 " Panes
 nnoremap <leader><esc> :action HideAllWindows<CR>
 nnoremap <C-l><C-e> :action ActivateProblemsViewToolWindow<CR>
 nnoremap <C-g><C-b> :action Annotate<CR>
 nnoremap <C-k><C-u> :action LocalHistory.ShowHistory<CR>
+"nnoremap <C-k><C-f> :action ActivateFindToolWindow<CR> - changed in keymaps
 "nnoremap <C-k><C-e> :action ActivateProjectToolWindow<CR>
 nnoremap <C-p><C-b> :action Git.Branches<CR>
 "nnoremap <C-k><C-g> :action ActivateCommitToolWindow<CR>
@@ -166,15 +211,6 @@ nnoremap \e :e ~/.ideavimrc<CR>
 nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
 nnoremap <C-w>w :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <Leader>q :action CloseContent<CR>
-
-nmap <C-n> <Plug>NextWholeOccurrence
-xmap <C-n> <Plug>NextWholeOccurrence
-nmap g<C-n> <Plug>NextOccurrence
-xmap g<C-n> <Plug>NextOccurrence
-nmap <C-x> <Plug>SkipOccurrence
-xmap <C-x> <Plug>SkipOccurrence
-nmap <C-p> <Plug>RemoveOccurrence
-xmap <C-p> <Plug>RemoveOccurrence
 
 nnoremap <C-q><C-r> :action RestartIde<CR>
 
@@ -522,7 +558,6 @@ nnoremap <C-q><C-r> :action RestartIde<CR>
 " CompileCoffeeScript
 " ConfigureEditorTabs
 " ConfigureSoftWraps
-" ConnectToRemoteFromHost
 " Console.AggregateView.PopupGroup
 " Console.DbmsOutput                                 <F9>
 " Console.Dialect.SpecificGroup

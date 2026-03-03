@@ -88,7 +88,27 @@
     "vscode-run-rspec-file.custom-command": "ht rspec",
     "search.showLineNumbers": true,
     "search.smartCase": true,
-    "search.useGlobalIgnoreFiles": false,
+    "search.useGlobalIgnoreFiles": true,
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/vendor/**": true,
+        "**/.bundle/**": true,
+        "**/tmp/**": true,
+        "**/log/**": true,
+        "**/coverage/**": true,
+        "**/storage/**": true,
+        "**/sorbet/**": true
+    },
+    "search.exclude": {
+        "**/node_modules/**": true,
+        "**/vendor/**": true,
+        "**/.bundle/**": true,
+        "**/tmp/**": true,
+        "**/log/**": true,
+        "**/coverage/**": true,
+        "**/storage/**": true,
+        "**/sorbet/**": true
+    },
     "window.title": "${dirty}${rootPath} ${activeEditorMedium}",
     "files.insertFinalNewline": true,
     "files.hotExit": "off",
@@ -139,6 +159,7 @@
     },
     "rubyLsp.erbSupport": true,
     "rubyLsp.formatter": "rubocop_internal",
+    "rubyLsp.trace.server": "verbose",
     "rubyLsp.rubyVersionManager": {
         "identifier": "asdf"
     },
@@ -153,9 +174,6 @@
         },
     },
     "rubyLsp.bundleGemfile": "$HOME/.ruby-lsp-tools-3-3-3/Gemfile",
-    "solargraph.logLevel": "debug",
-    "solargraph.useBundler": false,
-    "solargraph.completion": false,
     // "solargraph.references": false,
     "[xml]": {
         "editor.defaultFormatter": "DotJoshJohnson.xml"
@@ -166,9 +184,6 @@
     "xml.server.vmargs": "-Xmx256M",
     "githubPullRequests.pullBranch": "never",
     "redhat.telemetry.enabled": true,
-    "extensions.experimental.affinity": {
-        "asvetliakov.vscode-neovim": 1
-    },
     "testing.automaticallyOpenTestResults": "neverOpen",
     "testing.showCoverageInExplorer": false,
     "testing.automaticallyOpenPeekView": "never",
