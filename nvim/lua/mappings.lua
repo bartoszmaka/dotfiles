@@ -148,7 +148,7 @@ end, { desc = 'Inspect LuaSnip snippets' })
 
 nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect highlights" })
 
-function FoldDeeperThanCursor()
+local function fold_deeper_than_cursor()
   local cursor_line = vim.fn.line('.')
   local current_fold_level = vim.fn.foldlevel(cursor_line)
   local total_lines = vim.fn.line('$')
@@ -161,7 +161,10 @@ function FoldDeeperThanCursor()
     end
   end
 end
-vim.keymap.set('n', '<leader>zF', ':lua FoldDeeperThanCursor()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>zF', fold_deeper_than_cursor, { noremap = true, silent = true })
+
+nnoremap('<leader>fi', [[:set lazyredraw<CR>:silent! g/^\s*it ['"]/normal! zc<CR>:silent! g/^\s*def\>/normal! zc<CR>:silent! g/^\s*let\>/normal! zc<CR>:set nolazyredraw<CR>]], { desc = 'Fold it/def/let blocks' })
+nnoremap('<leader>fd', [[:set lazyredraw<CR>:silent! g/^\s*def\>/normal! zc<CR>:set nolazyredraw<CR>]], { desc = 'Fold def blocks' })
 
 -- VSCode like keymaps
 nmap('<F3>', '*')

@@ -2,7 +2,6 @@ return {
   'AndrewRadev/splitjoin.vim',
   config = function()
     vim.cmd [[
-      let mapleader="\<Space>"
       let g:splitjoin_split_mapping     = ''
       let g:splitjoin_join_mapping      = ''
       let g:splitjoin_ruby_curly_braces = 0

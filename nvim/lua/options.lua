@@ -35,20 +35,5 @@ vim.cmd("cabbrev Wqa wqa")
 vim.cmd("cabbrev WQa wqa")
 vim.cmd("cabbrev Q   q")
 vim.cmd("cabbrev Qa  qa")
-vim.cmd("cabbrev Q!  q")
-vim.cmd("cabbrev Qa! qa")
-
-local symbols = require("helper.symbols")
-vim.diagnostic.config({
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = symbols.Error,
-      [vim.diagnostic.severity.WARN] = symbols.Warn,
-      [vim.diagnostic.severity.HINT] = symbols.Hint,
-      [vim.diagnostic.severity.INFO] = symbols.Info,
-    }
-  },
-  underline = true,
-  update_in_insert = false,
-  virtual_text = true,
-})
+vim.cmd("cabbrev Q!  q!")
+vim.cmd("cabbrev Qa! qa!")

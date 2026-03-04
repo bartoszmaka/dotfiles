@@ -17,7 +17,7 @@ return {
       "RainbowDelimiterCyan",
     }
 
-    function ToggleIndentMarks()
+    local function toggle_indent_marks()
       if vim.g.indent_config_index == 0 then
         vim.g.indent_config_index = 1
         ibl.update({ scope = { highlight = rainbow_colors } })
@@ -28,15 +28,15 @@ return {
     end
 
     vim.cmd [[
-      nnoremap <leader>uI :IBLToggle<CR>
-      nnoremap <leader>ui :lua ToggleIndentMarks()<CR>
-
       augroup indent_blankline_overrides
         autocmd!
         highlight! IblIndent guifg=#283347
         highlight! IblScope guifg=#2a324a gui=nocombine
       augroup END
     ]]
+
+    vim.keymap.set('n', '<leader>uI', '<cmd>IBLToggle<CR>', { desc = 'Toggle indent guides' })
+    vim.keymap.set('n', '<leader>ui', toggle_indent_marks, { desc = 'Toggle indent scope colors' })
 
     vim.g.indent_config_index = 0
     ibl.setup({

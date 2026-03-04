@@ -18,6 +18,8 @@ return {
       },
     },
     config = function()
+      local symbols = require("helper.symbols")
+
       local lsps = {
         "ruby_lsp",
         "vtsls",
@@ -117,7 +119,7 @@ return {
         underline = true,
         virtual_lines = false,
         virtual_text = true,
-        update_in_insert = true,
+        update_in_insert = false,
         float = {
           show_header = true,
           border = "rounded",
@@ -126,10 +128,10 @@ return {
         signs = {
           priority = 10,
           text = {
-            [vim.diagnostic.severity.ERROR] = " ",
-            [vim.diagnostic.severity.WARN] = " ",
-            [vim.diagnostic.severity.INFO] = " ",
-            [vim.diagnostic.severity.HINT] = "󰠠 ",
+            [vim.diagnostic.severity.ERROR] = symbols.Error,
+            [vim.diagnostic.severity.WARN] = symbols.Warn,
+            [vim.diagnostic.severity.INFO] = symbols.Info,
+            [vim.diagnostic.severity.HINT] = symbols.Hint,
           },
         },
       })

@@ -14,7 +14,7 @@ return {
       function()
         require("neo-tree.command").execute({
           toggle = true,
-          dir = vim.loop.cwd(),
+          dir = vim.uv.cwd(),
           reveal = true,
           source = "git_status",
         })
@@ -24,14 +24,14 @@ return {
     {
       "<C-f><C-f>e",
       function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true })
+        require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), reveal = true })
       end,
       desc = "Explorer NeoTree",
     },
     {
       "<C-k><C-e>",
       function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true })
+        require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), reveal = true })
       end,
       desc = "Explorer NeoTree",
     },
@@ -40,7 +40,7 @@ return {
       function()
         require("neo-tree.command").execute({
           toggle = true,
-          dir = vim.loop.cwd(),
+          dir = vim.uv.cwd(),
           reveal = true,
           source = "git_status",
         })
@@ -53,7 +53,7 @@ return {
   end,
   dependencies = {
     { "nvim-lua/plenary.nvim" },
-    { "nvim-tree/nvim-web-devicons", name = "tree-nvim-web-devicons" },
+    "nvim-tree/nvim-web-devicons",
     { "MunifTanjim/nui.nvim" },
     {
       's1n7ax/nvim-window-picker',
@@ -78,7 +78,7 @@ return {
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
     if vim.fn.argc() == 1 then
-      local stat = vim.loop.fs_stat(vim.fn.argv(0))
+      local stat = vim.uv.fs_stat(vim.fn.argv(0))
       if stat and stat.type == "directory" then
         require("neo-tree")
       end
@@ -198,7 +198,7 @@ return {
     ]]
 
     vim.cmd [[
-      autocmd FileType neo-tree nnoremap <buffer> <leader>q :lua require("neo-tree.command").execute({ toggle = true, dir = vim.loop.cwd(), reveal = true })<CR>
+      autocmd FileType neo-tree nnoremap <buffer> <leader>q :lua require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), reveal = true })<CR>
     ]]
   end,
 }
