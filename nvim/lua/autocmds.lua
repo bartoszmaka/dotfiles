@@ -37,3 +37,30 @@ augroup remember_folds
   autocmd BufWinEnter * if expand('%') != '' | silent! loadview | endif
 augroup END
 ]]
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("autotag_eruby"),
+  pattern = "eruby",
+  callback = function()
+    local ok, autotag = pcall(require, "nvim-ts-autotag")
+    if ok then autotag.setup() end
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("autotag_attach"),
+  pattern = "*",
+  callback = function()
+    local ok, autotag_internal = pcall(require, "nvim-ts-autotag.internal")
+    if ok then autotag_internal.attach() end
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufDelete", {
+  group = augroup("autotag_detach"),
+  pattern = "*",
+  callback = function(args)
+    local ok, autotag_internal = pcall(require, "nvim-ts-autotag.internal")
+    if ok then autotag_internal.detach(args.buf) end
+  end,
+})
