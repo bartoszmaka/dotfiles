@@ -90,6 +90,9 @@ return {
         linehl = false,
         current_line_blame = true,
         current_line_blame_formatter = '   <author>, <author_time:%R> • <summary>',
+        current_line_blame_opts = {
+          delay = 200
+        }
       })
 
       vim.cmd [[

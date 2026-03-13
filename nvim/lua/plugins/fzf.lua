@@ -61,9 +61,6 @@ return {
           prompt       = "❯ ",
           multiprocess = true,
         },
-        no_hide             = true,
-        global_resume       = true,
-        global_resume_query = true,
         winopts             = vim.tbl_deep_extend("force", winopts.big_window, {
           backdrop = 100,
           preview = {
@@ -123,6 +120,7 @@ return {
           git_diff = { cmd = 'git diff', args = "--color", pager = "delta" },
         },
         files = {
+          async = true,
           rg_opts = "--color=never --no-ignore-vcs --files --hidden --follow -g '!.git' -g '!node_modules' -g '!.next/'",
           fd_opts = "--color=never --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude tmp --exclude .idea --exclude node_modules --exclude .next --exclude vendor",
           actions = {

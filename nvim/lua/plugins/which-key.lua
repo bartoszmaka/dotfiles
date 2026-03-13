@@ -8,7 +8,7 @@ return {
       spelling = { enabled = true, suggestions = 20 },
     },
     win = {
-      border = "rounded",
+      border = "single",
     },
   },
   config = function(_, opts)

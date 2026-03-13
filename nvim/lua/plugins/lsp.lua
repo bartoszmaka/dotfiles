@@ -122,7 +122,7 @@ return {
         update_in_insert = false,
         float = {
           show_header = true,
-          border = "rounded",
+          border = "single",
           focusable = true,
         },
         signs = {

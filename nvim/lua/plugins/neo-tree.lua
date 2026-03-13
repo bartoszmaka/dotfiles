@@ -198,6 +198,7 @@ return {
     ]]
 
     vim.cmd [[
+      autocmd FileType neo-tree setlocal statuscolumn=
       autocmd FileType neo-tree nnoremap <buffer> <leader>q :lua require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), reveal = true })<CR>
     ]]
   end,

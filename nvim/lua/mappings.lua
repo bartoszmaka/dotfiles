@@ -68,6 +68,9 @@ tnoremap('<C-w>j', [[<C-\><C-n><C-w>j]])
 tnoremap('<C-w>k', [[<C-\><C-n><C-w>k]])
 tnoremap('<C-w>l', [[<C-\><C-n><C-w>l]])
 
+nnoremap('<C-w>s', '<C-w>s<C-w>j', { desc = 'Split and focus new window' })
+nnoremap('<C-w>v', '<C-w>v<C-w>l', { desc = 'Vsplit and focus new window' })
+
 -- split and join lines
 nnoremap('<leader>j', 'i<CR><Esc>', { desc = "Split line" })
 nnoremap('<leader>k', '<esc>kJ', { desc = "Join to prev line" })

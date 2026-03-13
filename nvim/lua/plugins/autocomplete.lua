@@ -26,7 +26,7 @@ return {
         enabled = true,
         window = {
           direction_priority = { "n", "s" },
-          border = "rounded",
+          border = "single",
         },
       },
       completion = {
