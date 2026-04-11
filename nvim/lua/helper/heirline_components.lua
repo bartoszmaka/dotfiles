@@ -91,6 +91,28 @@ M.statusline = {
 		end,
 		update = { "ModeChanged", pattern = "*:*" },
 	},
+	{
+		condition = function()
+			local ok, navic = pcall(require, "nvim-navic")
+			return ok and navic.is_available()
+		end,
+		update = { "CursorMoved", "CursorMovedI", "BufEnter" },
+		{
+			provider = function()
+				local navic = require("nvim-navic")
+				local location = navic.get_location()
+				if location == "" then
+					return ""
+				end
+				return " " .. location
+			end,
+			hl = { fg = colors.fg, bg = colors.bg_d },
+		},
+		{
+			provider = " ",
+			hl = { bg = colors.bg_d },
+		},
+	},
 	{ provider = "%=", hl = { bg = colors.bg_d } },
 	{
 		condition = conditions.lsp_attached,

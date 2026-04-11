@@ -1,4 +1,3 @@
-local colors = require "helper.colors"
 return {
   {
     "SmiteshP/nvim-navic",
@@ -10,7 +9,24 @@ return {
     },
     config = function(_, opts)
       local navic = require("nvim-navic")
+      local colors = require("helper.colors").onedark
       navic.setup(opts)
+
+      local navic_hls = {
+        "NavicText", "NavicSeparator",
+        "NavicIconsFile", "NavicIconsModule", "NavicIconsNamespace", "NavicIconsPackage",
+        "NavicIconsClass", "NavicIconsMethod", "NavicIconsProperty", "NavicIconsField",
+        "NavicIconsConstructor", "NavicIconsEnum", "NavicIconsInterface", "NavicIconsFunction",
+        "NavicIconsVariable", "NavicIconsConstant", "NavicIconsString", "NavicIconsNumber",
+        "NavicIconsBoolean", "NavicIconsArray", "NavicIconsObject", "NavicIconsKey",
+        "NavicIconsNull", "NavicIconsEnumMember", "NavicIconsStruct", "NavicIconsEvent",
+        "NavicIconsOperator", "NavicIconsTypeParameter",
+      }
+      for _, hl_name in ipairs(navic_hls) do
+        local existing = vim.api.nvim_get_hl(0, { name = hl_name, link = false })
+        existing.bg = tonumber(colors.bg_d:sub(2), 16)
+        vim.api.nvim_set_hl(0, hl_name, existing)
+      end
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("nvim_navic_attach", { clear = true }),
@@ -26,23 +42,6 @@ return {
   {
     "utilyre/barbecue.nvim",
     name = "barbecue",
-    version = "*",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
-    },
-    opts = {
-      show_modified = true,
-      show_navic = true,
-      show_dirname = false,
-      show_basename = false,
-      theme = {
-        normal = { bg = colors.onedark.bg_d }
-      }
-    },
-    config = function(_, opts)
-      require("barbecue").setup(opts)
-    end,
+    enabled = false,
   },
 }
