@@ -84,6 +84,8 @@ nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Pref
 vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" })
 nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]], { desc = "Peek spec structure" })
 
+vim.cmd [[nmap gj yygccp]]
+
 vnoremap('<C-m><C-s>', ':sort<CR>')
 vnoremap('<CR><C-s>', ':sort<CR>')
 

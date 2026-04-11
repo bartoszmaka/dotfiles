@@ -5,6 +5,7 @@ return {
 		build = ":TSUpdate",
 		config = function(_, opts)
 			local ts = require("nvim-treesitter")
+			local ts_parsers = require("nvim-treesitter.parsers")
 
 			-- State tracking for async parser loading
 			local parsers_loaded = {}
@@ -46,7 +47,6 @@ return {
 						"make",
 						"markdown",
 						"markdown_inline",
-						"norg",
 						"python",
 						"query",
 						"regex",
@@ -108,6 +108,10 @@ return {
 
 					local lang = vim.treesitter.language.get_lang(event.match) or event.match
 					local buf = event.buf
+
+					if not ts_parsers[lang] then
+						return
+					end
 
 					if parsers_failed[lang] then
 						return

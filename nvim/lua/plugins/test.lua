@@ -4,16 +4,16 @@ return {
     local nmap = require('helper').nmap
     local h2_root = '$HOME/projects/work/h2'
 
-    local function set_rspec_executable()
-      local cwd = vim.fn.getcwd()
-      local root = vim.fs.root(cwd, { '.git' }) or cwd
-
-      if root == h2_root then
-        vim.g['test#ruby#rspec#executable'] = 'ht rspec'
-      else
-        vim.g['test#ruby#rspec#executable'] = 'bundle exec rspec'
-      end
-    end
+    -- local function set_rspec_executable()
+    --   local cwd = vim.fn.getcwd()
+    --   local root = vim.fs.root(cwd, { '.git' }) or cwd
+    --
+    --   if root == h2_root then
+    --     vim.g['test#ruby#rspec#executable'] = 'ht rspec'
+    --   else
+    --     vim.g['test#ruby#rspec#executable'] = 'bundle exec rspec'
+    --   end
+    -- end
 
     vim.g["test#preserve_screen"] = 1
     if vim.fn.exists('$TMUX') == 1 then
@@ -27,12 +27,13 @@ return {
 
     vim.cmd [[
       let test#ruby#cucumber#executable = 'bundle exec cucumber'
+      let test#ruby#rspec#executable = 'bundle exec rspec'
     ]]
 
-    set_rspec_executable()
-    vim.api.nvim_create_autocmd({ 'DirChanged' }, {
-      callback = set_rspec_executable,
-    })
+    -- set_rspec_executable()
+    -- vim.api.nvim_create_autocmd({ 'DirChanged' }, {
+    --   callback = set_rspec_executable,
+    -- })
 
     nmap('<leader>tt', ':TestNearest<CR>')
     nmap('<leader>tf', ':TestFile<CR>')

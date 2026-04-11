@@ -136,6 +136,52 @@ return {
         },
       })
 
+      -- local original_signs_handler = vim.diagnostic.handlers.signs
+      -- local diagnostic_signs_namespace = vim.api.nvim_create_namespace("diagnostic_signs")
+      -- local diagnostics_by_buffer = {}
+      -- local signs_opts_by_buffer = {}
+      --
+      -- local function show_collapsed_signs(bufnr, opts)
+      --   opts = opts or signs_opts_by_buffer[bufnr] or {}
+      --   opts.signs = opts.signs or {}
+      --
+      --   local highest_per_line = {}
+      --   local by_namespace = diagnostics_by_buffer[bufnr]
+      --   if by_namespace then
+      --     for _, diagnostics in pairs(by_namespace) do
+      --       for _, diagnostic in ipairs(diagnostics) do
+      --         local current = highest_per_line[diagnostic.lnum]
+      --         if not current or diagnostic.severity < current.severity then
+      --           highest_per_line[diagnostic.lnum] = diagnostic
+      --         end
+      --       end
+      --     end
+      --   end
+      --
+      --   original_signs_handler.show(diagnostic_signs_namespace, bufnr, vim.tbl_values(highest_per_line), opts)
+      -- end
+      --
+      -- vim.diagnostic.handlers.signs = {
+      --   show = function(namespace, bufnr, diagnostics, opts)
+      --     diagnostics_by_buffer[bufnr] = diagnostics_by_buffer[bufnr] or {}
+      --     diagnostics_by_buffer[bufnr][namespace] = diagnostics
+      --     signs_opts_by_buffer[bufnr] = opts
+      --     show_collapsed_signs(bufnr, opts)
+      --   end,
+      --   hide = function(namespace, bufnr)
+      --     if diagnostics_by_buffer[bufnr] then
+      --       diagnostics_by_buffer[bufnr][namespace] = nil
+      --       if vim.tbl_isempty(diagnostics_by_buffer[bufnr]) then
+      --         diagnostics_by_buffer[bufnr] = nil
+      --         signs_opts_by_buffer[bufnr] = nil
+      --         original_signs_handler.hide(diagnostic_signs_namespace, bufnr)
+      --         return
+      --       end
+      --     end
+      --     show_collapsed_signs(bufnr)
+      --   end,
+      -- }
+
       vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
       vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
       vim.keymap.set("n", "<leader>E", vim.diagnostic.open_float, { desc = "Show diagnostics" })

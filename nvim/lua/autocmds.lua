@@ -30,14 +30,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
-vim.cmd [[
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave * if expand('%') != '' | mkview | endif
-  autocmd BufWinEnter * if expand('%') != '' | silent! loadview | endif
-augroup END
-]]
-
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("autotag_eruby"),
   pattern = "eruby",

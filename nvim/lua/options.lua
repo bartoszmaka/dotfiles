@@ -28,6 +28,7 @@ vim.opt.smartcase = true
 vim.opt.winborder = 'single'
 vim.opt.updatetime = 300
 vim.opt.conceallevel = 0
+vim.opt.viewoptions = { "cursor", "slash", "unix" }
 vim.opt.fillchars = {
   foldopen = symbols.FoldOpened,
   foldclose = symbols.FoldClosed,
