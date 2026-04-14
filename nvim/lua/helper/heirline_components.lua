@@ -5,6 +5,187 @@ local utils = require("heirline.utils")
 local colors = require("helper.colors").onedark
 local symbols = require("helper.symbols")
 
+local function get_node(bufnr)
+	local ok, node = pcall(vim.treesitter.get_node, { bufnr = bufnr })
+	if ok and node then
+		return node
+	end
+
+	local parser_ok, parser = pcall(vim.treesitter.get_parser, bufnr)
+	if not parser_ok or not parser then
+		return nil
+	end
+
+	local tree = parser:parse()[1]
+	if not tree then
+		return nil
+	end
+
+	local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return tree:root():named_descendant_for_range(row - 1, col, row - 1, col)
+end
+
+local function truncate_text(text, max_len)
+	if not text or text == "" then
+		return ""
+	end
+	if #text <= max_len then
+		return text
+	end
+	return text:sub(1, max_len - 3) .. "..."
+end
+
+local function parse_tag_name(text)
+	if not text or text == "" then
+		return nil
+	end
+	return text:match("<%s*([%w%._:-]+)")
+end
+
+local function get_react_breadcrumb(bufnr)
+	local node = get_node(bufnr)
+	if not node then
+		return ""
+	end
+
+	local function first_child_text_by_types(current, wanted_types)
+		for child in current:iter_children() do
+			if wanted_types[child:type()] then
+				return vim.treesitter.get_node_text(child, bufnr)
+			end
+		end
+	end
+
+	local function collect_tag(current)
+		local node_type = current:type()
+		if node_type == "jsx_element" then
+			local opening_text = first_child_text_by_types(current, {
+				jsx_opening_element = true,
+			})
+			return parse_tag_name(opening_text)
+		end
+		if node_type == "element" then
+			local start_text = first_child_text_by_types(current, {
+				start_tag = true,
+				self_closing_tag = true,
+			})
+			return parse_tag_name(start_text)
+		end
+		if node_type == "jsx_self_closing_element" or node_type == "self_closing_tag" then
+			return parse_tag_name(vim.treesitter.get_node_text(current, bufnr))
+		end
+	end
+
+	local tags = {}
+	while node do
+		local tag = collect_tag(node)
+		if tag and tag ~= "" then
+			table.insert(tags, 1, tag)
+		end
+		node = node:parent()
+	end
+
+	if #tags == 0 then
+		return ""
+	end
+
+	return table.concat(tags, " > ")
+end
+
+local function is_rspec_target(bufnr)
+	if vim.bo[bufnr].filetype ~= "ruby" then
+		return false
+	end
+	local name = vim.api.nvim_buf_get_name(bufnr)
+	if name:match("_spec%.rb$") then
+		return true
+	end
+	return name:match("/spec/") ~= nil
+end
+
+local function parse_rspec_segment(line)
+	if not line or line == "" then
+		return nil
+	end
+
+	local method
+	for _, keyword in ipairs({ "describe", "context", "it", "specify", "feature", "scenario" }) do
+		if line:match("%f[%w_]" .. keyword .. "%f[^%w_]") then
+			method = keyword
+			break
+		end
+	end
+
+	if not method then
+		return nil
+	end
+
+	local desc = line:match(method .. "%s*%(%s*['\"]([^'\"]+)")
+		or line:match(method .. "%s+['\"]([^'\"]+)")
+		or line:match(method .. "%s*%(%s*([^,%)%s]+)")
+		or line:match(method .. "%s+([^,%s]+)")
+
+	if not desc or desc == "" then
+		return method
+	end
+
+	desc = desc:gsub("^:", ""):gsub("^described_class$", "described_class")
+	return method .. " " .. truncate_text(desc, 40)
+end
+
+local function get_rspec_breadcrumb(bufnr)
+	if not is_rspec_target(bufnr) then
+		return ""
+	end
+
+	local node = get_node(bufnr)
+	if not node then
+		return ""
+	end
+
+	local segments = {}
+	while node do
+		local node_type = node:type()
+		if node_type == "block" or node_type == "do_block" then
+			local row = node:start() + 1
+			local line = vim.api.nvim_buf_get_lines(bufnr, row - 1, row, false)[1]
+			local segment = parse_rspec_segment(line)
+			if segment then
+				table.insert(segments, 1, segment)
+			end
+		end
+		node = node:parent()
+	end
+
+	if #segments == 0 then
+		return ""
+	end
+
+	return table.concat(segments, " > ")
+end
+
+local function get_context_breadcrumb(bufnr)
+	local ft = vim.bo[bufnr].filetype
+	if ft == "javascript" or ft == "javascriptreact" or ft == "typescriptreact" or ft == "html" then
+		local react = get_react_breadcrumb(bufnr)
+		if react ~= "" then
+			return react
+		end
+	end
+
+	local rspec = get_rspec_breadcrumb(bufnr)
+	if rspec ~= "" then
+		return rspec
+	end
+
+	local ok, navic = pcall(require, "nvim-navic")
+	if ok and navic.is_available() then
+		return navic.get_location() or ""
+	end
+
+	return ""
+end
+
 local function lpad(s, width)
 	s = s or ""
 	if #s >= width then
@@ -93,14 +274,12 @@ M.statusline = {
 	},
 	{
 		condition = function()
-			local ok, navic = pcall(require, "nvim-navic")
-			return ok and navic.is_available()
+			return get_context_breadcrumb(0) ~= ""
 		end,
-		update = { "CursorMoved", "CursorMovedI", "BufEnter" },
+		update = { "CursorMoved", "CursorMovedI", "BufEnter", "LspAttach", "LspDetach" },
 		{
 			provider = function()
-				local navic = require("nvim-navic")
-				local location = navic.get_location()
+				local location = get_context_breadcrumb(0)
 				if location == "" then
 					return ""
 				end
