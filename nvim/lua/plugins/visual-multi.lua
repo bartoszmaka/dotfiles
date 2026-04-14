@@ -1,6 +1,6 @@
 return {
   'mg979/vim-visual-multi',
-  lazy = false,
+  -- lazy = false,
   config = function()
     local nnoremap = require('helper').nnoremap
 

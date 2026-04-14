@@ -181,14 +181,6 @@ return {
           folder_open = symbols.FolderOpen,
           folder_empty = symbols.FolderEmpty,
         },
-        indent = {
-          indent_size = 2,
-          padding = 0,
-          with_expanders = true,
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
-        },
       },
       window = { width = 60 },
       filesystem = {

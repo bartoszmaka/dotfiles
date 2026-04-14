@@ -177,6 +177,7 @@ return {
 			vim.keymap.set({ "n", "x", "o" }, "[C", function()
 				move.goto_previous_start("@class.outer", "textobjects")
 			end)
+      vim.keymap.set('n', '<leader>ut', ':TSContext toggle<CR>')
 		end,
 	},
 	{
