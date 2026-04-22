@@ -17,6 +17,5 @@ return {
   -- { import = 'astrocommunity.colorscheme.github-nvim-theme' },
   { import = 'astrocommunity.editing-support.nvim-treesitter-endwise' },
   { import = 'astrocommunity.completion.nvim-cmp' },
-  { import = 'astrocommunity.completion.avante-nvim' },
   -- { import = 'astrocommunity.completion.copilot-lua-cmp' },
 }

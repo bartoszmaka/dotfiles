@@ -20,6 +20,24 @@ return {
     config = function()
       local symbols = require("helper.symbols")
 
+      local function is_real_file_buffer(bufnr)
+        if not vim.api.nvim_buf_is_valid(bufnr) then
+          return false
+        end
+
+        if vim.bo[bufnr].buftype ~= "" then
+          return false
+        end
+
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        if bufname == "" then
+          return false
+        end
+
+        local stat = vim.uv.fs_stat(bufname)
+        return stat ~= nil and stat.type == "file"
+      end
+
       local lsps = {
         "ruby_lsp",
         "vtsls",
@@ -107,12 +125,50 @@ return {
       })
 
       vim.lsp.config("ruby_lsp", {
+        filetypes = { "ruby", "eruby" },
         reuse_client = function(client, config)
           return client.config.root_dir == config.root_dir
         end,
       })
 
       vim.lsp.enable(lsps)
+
+      local ruby_lsp_auto_start_group = vim.api.nvim_create_augroup("ruby_lsp_auto_start", { clear = true })
+
+      local function start_ruby_lsp_for_project(bufnr)
+        if not is_real_file_buffer(bufnr) then
+          return
+        end
+
+        local bufname = vim.api.nvim_buf_get_name(bufnr)
+        local filetype = vim.bo[bufnr].filetype
+        if filetype ~= "ruby" and filetype ~= "eruby" then
+          return
+        end
+
+        local search_path = bufname ~= "" and vim.fs.dirname(bufname) or vim.fn.getcwd()
+        local gemfile = vim.fs.find("Gemfile", { upward = true, path = search_path })[1]
+        if not gemfile then
+          return
+        end
+
+        vim.lsp.start(vim.lsp.config["ruby_lsp"], { bufnr = bufnr })
+      end
+
+      vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter", "BufNewFile" }, {
+        group = ruby_lsp_auto_start_group,
+        callback = function(args)
+          start_ruby_lsp_for_project(args.buf)
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = ruby_lsp_auto_start_group,
+        pattern = { "ruby", "eruby" },
+        callback = function(args)
+          start_ruby_lsp_for_project(args.buf)
+        end,
+      })
 
       vim.diagnostic.config({
         severity_sort = true,
@@ -206,7 +262,7 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           local bufnr = args.buf
 
-          if client and client.server_capabilities.documentHighlightProvider then
+          if client and client.server_capabilities.documentHighlightProvider and is_real_file_buffer(bufnr) then
             vim.api.nvim_create_autocmd("CursorHold", {
               group = "LspDocumentHighlight",
               buffer = bufnr,

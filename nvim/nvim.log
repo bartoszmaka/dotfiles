@@ -1,0 +1,6 @@
+WRN 2026-04-17T09:59:34.701 ?.23435    server_start:197: Failed to start server: operation not permitted: /var/folders/0t/97q_xmlj5dlbw4kk7b1t5vbc0000gn/T/nvim.bartoszmaka/Gh2RSV/nvim.23435.0
+WRN 2026-04-17T09:59:34.776 ?.23435    server_start:197: Failed to start server: operation not permitted: /var/folders/0t/97q_xmlj5dlbw4kk7b1t5vbc0000gn/T/nvim.bartoszmaka/Gh2RSV/fzf-lua.1776412774.23435.1
+WRN 2026-04-17T12:03:19.127 ?.56311    server_start:197: Failed to start server: operation not permitted: /var/folders/0t/97q_xmlj5dlbw4kk7b1t5vbc0000gn/T/nvim.bartoszmaka/yNALix/nvim.56311.0
+WRN 2026-04-17T12:03:19.127 ?.56310    server_start:197: Failed to start server: operation not permitted: /var/folders/0t/97q_xmlj5dlbw4kk7b1t5vbc0000gn/T/nvim.bartoszmaka/5FOOJm/nvim.56310.0
+WRN 2026-04-17T12:03:19.232 ?.56310    server_start:197: Failed to start server: operation not permitted: /var/folders/0t/97q_xmlj5dlbw4kk7b1t5vbc0000gn/T/nvim.bartoszmaka/5FOOJm/fzf-lua.1776420199.56310.1
+WRN 2026-04-17T12:03:19.251 ?.56311    server_start:197: Failed to start server: operation not permitted: /var/folders/0t/97q_xmlj5dlbw4kk7b1t5vbc0000gn/T/nvim.bartoszmaka/yNALix/fzf-lua.1776420199.56311.1

@@ -62,6 +62,17 @@ return {
         statuscolumn = components.statuscolumn,
       })
 
+      -- vim.api.nvim_create_autocmd("User", {
+      --   group = vim.api.nvim_create_augroup("heirline_gitsigns_redraw", { clear = true }),
+      --   pattern = { "GitSignsUpdate", "GitSignsChanged", "GitSignsChangedTick" },
+      --   callback = function()
+      --     local ok = pcall(vim.api.nvim__redraw, { statuscolumn = true, valid = false })
+      --     if not ok then
+      --       vim.cmd("redrawstatus")
+      --     end
+      --   end,
+      -- })
+
       -- nnoremap("<leader>{", "<cmd>bprevious<CR>", { silent = true })
       -- nnoremap("<leader>}", "<cmd>bnext<CR>", { silent = true })
       -- nnoremap("<leader>1", function() goto_buffer(1) end, { silent = true })

@@ -11,16 +11,36 @@ return {
   {
     'akinsho/git-conflict.nvim',
     version = "*",
-    opts = {
-      default_mappings = false,
-      default_commands = true,
-      disable_diagnostics = true,
-      list_opener = 'copen',
-      highlights = {
-        incoming = 'DiffAdd',
-        current = 'DiffText',
-      },
-    },
+    opts = function()
+      local group = vim.api.nvim_create_augroup('git_conflict_diagnostics', { clear = true })
+
+      vim.api.nvim_create_autocmd('User', {
+        group = group,
+        pattern = 'GitConflictDetected',
+        callback = function(args)
+          vim.diagnostic.enable(false, { bufnr = args.buf })
+        end,
+      })
+
+      vim.api.nvim_create_autocmd('User', {
+        group = group,
+        pattern = 'GitConflictResolved',
+        callback = function(args)
+          vim.diagnostic.enable(true, { bufnr = args.buf })
+        end,
+      })
+
+      return {
+        default_mappings = false,
+        default_commands = true,
+        disable_diagnostics = false,
+        list_opener = 'copen',
+        highlights = {
+          incoming = 'DiffAdd',
+          current = 'DiffText',
+        },
+      }
+    end,
   },
   {
     'lewis6991/gitsigns.nvim',

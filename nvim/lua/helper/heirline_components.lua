@@ -199,6 +199,129 @@ local function mouse_line()
 	return (pos and pos.line) or vim.v.lnum
 end
 
+-- local diff_state_rank = {
+-- 	none = 0,
+-- 	added = 1,
+-- 	changed = 2,
+-- 	removed = 3,
+-- }
+--
+-- local function stronger_diff_state(current, candidate)
+-- 	local current_rank = diff_state_rank[current or "none"] or 0
+-- 	local candidate_rank = diff_state_rank[candidate or "none"] or 0
+-- 	if candidate_rank > current_rank then
+-- 		return candidate
+-- 	end
+-- 	return current
+-- end
+--
+-- local function diff_state_from_sign_name(name)
+-- 	if type(name) ~= "string" or name == "" then
+-- 		return nil
+-- 	end
+-- 	local lname = name:lower()
+-- 	if not lname:find("gitsigns", 1, true) then
+-- 		return nil
+-- 	end
+-- 	if lname:find("changedelete", 1, true) or lname:find("topdelete", 1, true) or lname:find("delete", 1, true) then
+-- 		return "removed"
+-- 	end
+-- 	if lname:find("change", 1, true) then
+-- 		return "changed"
+-- 	end
+-- 	if lname:find("add", 1, true) then
+-- 		return "added"
+-- 	end
+-- 	return nil
+-- end
+--
+-- local function placed_signs_on_line(bufnr, lnum)
+-- 	local target_bufnr = bufnr == 0 and vim.api.nvim_get_current_buf() or bufnr
+-- 	if type(target_bufnr) ~= "number" or target_bufnr < 1 or not vim.api.nvim_buf_is_valid(target_bufnr) then
+-- 		return {}
+-- 	end
+-- 	local ok, placed = pcall(vim.fn.sign_getplaced, target_bufnr, { group = "*", lnum = lnum })
+-- 	if not ok then
+-- 		return {}
+-- 	end
+-- 	local row = placed and placed[1]
+-- 	return (row and row.signs) or {}
+-- end
+--
+-- local function line_diff_state(bufnr, lnum)
+-- 	local function state_from_hunk(hunk)
+-- 		if type(hunk) ~= "table" or type(hunk.type) ~= "string" or type(hunk.added) ~= "table" then
+-- 			return nil
+-- 		end
+--
+-- 		local start = tonumber(hunk.added.start) or 0
+-- 		local vend = tonumber(hunk.vend) or start
+-- 		local hunk_type = hunk.type
+--
+-- 		if hunk_type == "delete" then
+-- 			local delete_line = start <= 0 and 1 or start
+-- 			return lnum == delete_line and "removed" or nil
+-- 		end
+--
+-- 		if lnum < start or lnum > vend then
+-- 			return nil
+-- 		end
+--
+-- 		if hunk_type == "add" then
+-- 			return "added"
+-- 		end
+--
+-- 		if hunk_type == "change" then
+-- 			local added_count = tonumber(hunk.added.count) or 0
+-- 			local removed_count = tonumber(hunk.removed and hunk.removed.count) or 0
+-- 			local change_end = start + math.max(0, math.min(added_count, removed_count) - 1)
+--
+-- 			if removed_count > added_count and lnum == math.max(start, change_end) then
+-- 				return "removed"
+-- 			end
+-- 			if lnum <= change_end then
+-- 				return "changed"
+-- 			end
+-- 			return "added"
+-- 		end
+--
+-- 		return nil
+-- 	end
+--
+-- 	local function state_from_gitsigns_hunks()
+-- 		local ok, cache_mod = pcall(require, "gitsigns.cache")
+-- 		if not ok or type(cache_mod) ~= "table" or type(cache_mod.cache) ~= "table" then
+-- 			return nil
+-- 		end
+--
+-- 		local bcache = cache_mod.cache[bufnr]
+-- 		if type(bcache) ~= "table" then
+-- 			return nil
+-- 		end
+--
+-- 		local state = "none"
+-- 		for _, hunk in ipairs(bcache.hunks or {}) do
+-- 			state = stronger_diff_state(state, state_from_hunk(hunk))
+-- 		end
+-- 		for _, hunk in ipairs(bcache.hunks_staged or {}) do
+-- 			state = stronger_diff_state(state, state_from_hunk(hunk))
+-- 		end
+--
+-- 		return state ~= "none" and state or nil
+-- 	end
+--
+-- 	local state_from_hunks = state_from_gitsigns_hunks()
+-- 	if state_from_hunks then
+-- 		return state_from_hunks
+-- 	end
+--
+-- 	local state = "none"
+-- 	for _, sign in ipairs(placed_signs_on_line(bufnr, lnum)) do
+-- 		state = stronger_diff_state(state, diff_state_from_sign_name(sign.name))
+-- 	end
+-- 	return state
+-- end
+--
 local mode_colors = {
 	n = colors.green,
 	i = colors.blue,
@@ -426,6 +549,29 @@ local FoldColumn = {
 
 local SignColumn = {
 	provider = "%s",
+	-- init = function(self)
+	-- 	self.bufnr = vim.api.nvim_get_current_buf()
+	-- 	self.lnum = vim.v.lnum
+	-- 	self.virtnum = vim.v.virtnum
+	-- end,
+	-- provider = function(self)
+	-- 	if self.virtnum ~= 0 then
+	-- 		return "  "
+	-- 	end
+	--
+	-- 	for _, sign in ipairs(placed_signs_on_line(self.bufnr, self.lnum)) do
+	-- 		local sign_name = sign.name or ""
+	-- 		if not sign_name:match("^GitSigns") then
+	-- 			local defs = vim.fn.sign_getdefined(sign_name)
+	-- 			local text = defs and defs[1] and defs[1].text or ""
+	-- 			if type(text) == "string" and text ~= "" then
+	-- 				return text .. " "
+	-- 			end
+	-- 		end
+	-- 	end
+	--
+	-- 	return "  "
+	-- end,
 	on_click = {
 		name = "heirline_sign_click",
 		callback = function()
@@ -445,6 +591,8 @@ local NumberColumn = {
 		self.relnum = vim.v.relnum
 		self.virtnum = vim.v.virtnum
 		self.width = vim.wo.numberwidth
+		-- self.bufnr = vim.api.nvim_get_current_buf()
+		-- self.diff_state = line_diff_state(self.bufnr, self.lnum)
 	end,
 
 	provider = function(self)
@@ -462,6 +610,19 @@ local NumberColumn = {
 		return lpad(show, self.width) .. " "
 	end,
 
+	-- hl = function(self)
+	-- 	if self.diff_state == "removed" then
+	-- 		return { fg = colors.fg, bg = colors.diff_delete }
+	-- 	end
+	-- 	if self.diff_state == "changed" then
+	-- 		return { fg = colors.fg, bg = colors.diff_change }
+	-- 	end
+	-- 	if self.diff_state == "added" then
+	-- 		return { fg = colors.fg, bg = colors.diff_add }
+	-- 	end
+	-- 	return {}
+	-- end,
+	--
 	on_click = {
 		name = "heirline_number_click",
 		callback = function()

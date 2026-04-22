@@ -40,16 +40,19 @@ return {
       "stevearc/dressing.nvim",
       "MunifTanjim/nui.nvim",
       "echasnovski/mini.icons",
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = { file_types = { "markdown", "codecompanion" } },
+        ft = { "markdown", "codecompanion" },
+      },
     },
     opts = {
       adapters = {
         http = {
           openai_responses = function()
-            local api_key = os.getenv("AVANTE_OPENAI_API_KEY")
-
             return require("codecompanion.adapters").extend("openai_responses", {
               env = {
-                api_key = api_key,
+                api_key = "AVANTE_OPENAI_API_KEY",
               },
               schema = {
                 model = {
@@ -69,11 +72,6 @@ return {
         },
         cmd = {
           adapter = "openai_responses",
-        },
-      },
-      display = {
-        action_palette = {
-          provider = "default",
         },
       },
     },
