@@ -5,6 +5,26 @@ local utils = require("heirline.utils")
 local colors = require("helper.colors").onedark
 local symbols = require("helper.symbols")
 
+local diagnostic_line_colors = {
+	[vim.diagnostic.severity.ERROR] = colors.red,
+	[vim.diagnostic.severity.WARN] = colors.yellow,
+	[vim.diagnostic.severity.INFO] = colors.cyan,
+	[vim.diagnostic.severity.HINT] = colors.dark_cyan,
+}
+
+local function highest_diagnostic_severity(bufnr, lnum)
+	local diagnostics = vim.diagnostic.get(bufnr, { lnum = lnum - 1 })
+	local severity
+
+	for _, diagnostic in ipairs(diagnostics) do
+		if not severity or diagnostic.severity < severity then
+			severity = diagnostic.severity
+		end
+	end
+
+	return severity
+end
+
 local function get_node(bufnr)
 	local ok, node = pcall(vim.treesitter.get_node, { bufnr = bufnr })
 	if ok and node then
@@ -591,6 +611,8 @@ local NumberColumn = {
 		self.relnum = vim.v.relnum
 		self.virtnum = vim.v.virtnum
 		self.width = vim.wo.numberwidth
+		self.bufnr = vim.api.nvim_get_current_buf()
+		self.diagnostic_severity = highest_diagnostic_severity(self.bufnr, self.lnum)
 		-- self.bufnr = vim.api.nvim_get_current_buf()
 		-- self.diff_state = line_diff_state(self.bufnr, self.lnum)
 	end,
@@ -610,18 +632,14 @@ local NumberColumn = {
 		return lpad(show, self.width) .. " "
 	end,
 
-	-- hl = function(self)
-	-- 	if self.diff_state == "removed" then
-	-- 		return { fg = colors.fg, bg = colors.diff_delete }
-	-- 	end
-	-- 	if self.diff_state == "changed" then
-	-- 		return { fg = colors.fg, bg = colors.diff_change }
-	-- 	end
-	-- 	if self.diff_state == "added" then
-	-- 		return { fg = colors.fg, bg = colors.diff_add }
-	-- 	end
-	-- 	return {}
-	-- end,
+	hl = function(self)
+		local fg = diagnostic_line_colors[self.diagnostic_severity]
+		if not fg then
+			return {}
+		end
+
+		return { fg = fg }
+	end,
 	--
 	on_click = {
 		name = "heirline_number_click",

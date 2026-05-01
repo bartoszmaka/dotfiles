@@ -209,6 +209,7 @@ return {
 		opts = {
 			max_lines = 3,
 			multiline_threshold = 2,
+      enable = false,
 		},
 	},
 	{ "windwp/nvim-ts-autotag", event = "InsertEnter", opts = {} },

@@ -62,9 +62,9 @@ return {
       vim.cmd [[
         augroup barbar_overrides
           autocmd!
-          highlight! BufferCurrent          guifg=#93a4c3 guibg=#1a212e gui=bold
-          highlight! BufferCurrentMod       guifg=#f2cc81 guibg=#1a212e gui=NONE
-          highlight! BufferCurrentSign      guifg=#93a4c3 guibg=#1a212e gui=NONE
+          highlight! BufferCurrent          guifg=#93a4c3 guibg=#21283b gui=bold
+          highlight! BufferCurrentMod       guifg=#f2cc81 guibg=#21283b gui=NONE
+          highlight! BufferCurrentSign      guifg=#93a4c3 guibg=#21283b gui=NONE
 
           highlight! BufferVisible          guifg=#93a4c3 guibg=#1a212e gui=NONE
           highlight! BufferVisibleMod       guifg=#f2cc81 guibg=#1a212e gui=NONE

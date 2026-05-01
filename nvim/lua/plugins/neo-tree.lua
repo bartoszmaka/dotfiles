@@ -5,12 +5,12 @@ return {
   cmd = "Neotree",
   keys = {
     {
-      "<C-f><C-f>b",
+      "<C-f><C-f>b", -- Cmd + Shift + e in kitty config
       "<cmd>Neotree close<CR>",
       desc = "Close NeoTree panel",
     },
     {
-      "<C-f><C-f>g",
+      "<C-f><C-f>g", -- Ctrl + Shift + g in kitty config
       function()
         require("neo-tree.command").execute({
           toggle = true,
@@ -126,6 +126,7 @@ return {
         ["o"]      = { "open_with_window_picker", nowait = true },
         ["s"]      = "vsplit_with_window_picker",
         ["za"]     = "toggle_node",
+        ["<BS>"]   = "noop",
         -- ["z"]      = "close_node",
         -- ["Z"]      = "close_all_nodes",
         -- ["NeoTreeFileNameOpenedt"]      = "noop",
@@ -147,11 +148,13 @@ return {
       source_selector = {
         winbar = true,
         statusline = false,
+        separator = { left = " ", right= " " },
+        separator_active = { left = " ", right= " " },
         sources = {
           { source = "filesystem", display_name = "  Files " },
-          { source = "buffers", display_name = "  Buffers " },
+          -- { source = "buffers", display_name = "  Buffers " },
           { source = "git_status", display_name = "  Git " },
-          { source = "document_symbols", display_name = "  Symbols " },
+          -- { source = "document_symbols", display_name = "  Symbols " },
         },
       },
       default_component_configs = {
@@ -236,10 +239,11 @@ return {
     })
 
     vim.cmd [[
-      highlight NeoTreeTabActive guibg=#141b24
-      highlight NeoTreeTabInactive guibg=#141b24
-      highlight NeoTreeTabSeparatorInactive guibg=#141b24 guifg=#141b24
-      highlight NeoTreeWinSeparator guibg=#141b24 guifg=#141b24
+      highlight NeoTreeTabActive            guifg=#93a4c3 guibg=#21283b gui=bold
+      highlight NeoTreeTabInactive          guibg=#141b24
+      highlight NeoTreeTabSeparatorActive   guifg=#21283b guibg=#21283b
+      highlight NeoTreeTabSeparatorInactive guifg=#141b24 guibg=#141b24
+      highlight NeoTreeWinSeparator         guifg=#141b24 guibg=#141b24
     ]]
 
     local neo_tree_augroup = vim.api.nvim_create_augroup("NeoTreeLocalConfig", { clear = true })

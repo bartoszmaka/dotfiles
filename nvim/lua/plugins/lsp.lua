@@ -170,27 +170,19 @@ return {
         end,
       })
 
-      vim.diagnostic.config({
-        severity_sort = true,
-        underline = true,
-        virtual_lines = false,
-        virtual_text = true,
-        update_in_insert = false,
-        float = {
-          show_header = true,
-          border = "single",
-          focusable = true,
-        },
-        signs = {
-          priority = 10,
-          text = {
-            [vim.diagnostic.severity.ERROR] = symbols.Error,
-            [vim.diagnostic.severity.WARN] = symbols.Warn,
-            [vim.diagnostic.severity.INFO] = symbols.Info,
-            [vim.diagnostic.severity.HINT] = symbols.Hint,
-          },
-        },
-      })
+		vim.diagnostic.config({
+			severity_sort = true,
+			underline = true,
+			virtual_lines = false,
+			virtual_text = true,
+			update_in_insert = false,
+			float = {
+				show_header = true,
+				border = "single",
+				focusable = true,
+			},
+			signs = false,
+		})
 
       -- local original_signs_handler = vim.diagnostic.handlers.signs
       -- local diagnostic_signs_namespace = vim.api.nvim_create_namespace("diagnostic_signs")
