@@ -14,6 +14,17 @@ return {
       'AvanteSwitchProvider',
       'AvanteModels',
     },
+    keys = {
+      { '<C-k><C-o>', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n', 'v' } },
+      { '<leader>Ac', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n' } },
+      { '<leader>Aa', '<cmd>AvanteAsk<cr>',            desc = 'AI: ask',             mode = { 'n', 'v' } },
+      { '<leader>Ae', '<cmd>AvanteEdit<cr>',           desc = 'AI: edit selection',  mode = { 'v' } },
+      { '<leader>Ar', '<cmd>AvanteRefresh<cr>',        desc = 'AI: refresh',         mode = { 'n' } },
+      { '<leader>Ap', '<cmd>AvanteSwitchProvider<cr>', desc = 'AI: switch provider', mode = { 'n' } },
+      { '<leader>Am', '<cmd>AvanteModels<cr>',         desc = 'AI: switch model',    mode = { 'n' } },
+      { '<leader>An', '<cmd>AvanteChat<cr>',           desc = 'AI: new chat',        mode = { 'n' } },
+      { '<leader>Ah', '<cmd>AvanteHistory<cr>',        desc = 'AI: chat history',    mode = { 'n' } },
+    },
     dependencies = {
       'nvim-lua/plenary.nvim',
       'MunifTanjim/nui.nvim',
