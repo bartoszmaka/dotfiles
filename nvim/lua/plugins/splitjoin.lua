@@ -1,17 +1,17 @@
 return {
   'AndrewRadev/splitjoin.vim',
-  config = function()
-    vim.cmd [[
-      let g:splitjoin_split_mapping     = ''
-      let g:splitjoin_join_mapping      = ''
-      let g:splitjoin_ruby_curly_braces = 0
-      let g:splitjoin_ruby_hanging_args = 0
-      nnoremap <C-m><C-d> :SplitjoinJoin<cr>
-      nnoremap <C-m><C-s> :SplitjoinSplit<cr>
-      nnoremap <CR><C-d> :SplitjoinJoin<cr>
-      nnoremap <CR><C-s> :SplitjoinSplit<cr>
-      nnoremap <leader>md :SplitjoinJoin<cr>
-      nnoremap <leader>ms :SplitjoinSplit<cr>
-    ]]
+  keys = {
+    { '<C-m><C-d>', '<cmd>SplitjoinJoin<CR>',  desc = 'Splitjoin: join' },
+    { '<C-m><C-s>', '<cmd>SplitjoinSplit<CR>', desc = 'Splitjoin: split' },
+    { '<CR><C-d>',  '<cmd>SplitjoinJoin<CR>',  desc = 'Splitjoin: join' },
+    { '<CR><C-s>',  '<cmd>SplitjoinSplit<CR>', desc = 'Splitjoin: split' },
+    { '<leader>md', '<cmd>SplitjoinJoin<CR>',  desc = 'Splitjoin: join' },
+    { '<leader>ms', '<cmd>SplitjoinSplit<CR>', desc = 'Splitjoin: split' },
+  },
+  init = function()
+    vim.g.splitjoin_split_mapping     = ''
+    vim.g.splitjoin_join_mapping      = ''
+    vim.g.splitjoin_ruby_curly_braces = 0
+    vim.g.splitjoin_ruby_hanging_args = 0
   end,
 }

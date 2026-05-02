@@ -3,7 +3,7 @@ return {
     'romgrk/barbar.nvim',
     dependencies = {
       'lewis6991/gitsigns.nvim',
-      "nvim-tree/nvim-web-devicons",
+      'nvim-tree/nvim-web-devicons',
     },
     init = function() vim.g.barbar_auto_setup = false end,
     opts = function()
@@ -23,6 +23,7 @@ return {
     end,
     config = function(_, opts)
       local nnoremap = require('helper').nnoremap
+      local colors = require('helper.colors').onedark
 
       require('barbar').setup(opts)
 
@@ -30,16 +31,16 @@ return {
         local open_windows = vim.api.nvim_list_wins()
         for _, value in pairs(open_windows) do
           local config = vim.api.nvim_win_get_config(value)
-          local is_matchup_popup_window = (config.anchor == "NW" or config.anchor == "SW") and
+          local is_matchup_popup_window = (config.anchor == 'NW' or config.anchor == 'SW') and
               config.external == false and
               config.focusable == false and
               config.zindex == 50 and
-              config.relative == "win"
+              config.relative == 'win'
           if is_matchup_popup_window then
             vim.api.nvim_win_close(value, true)
           end
         end
-        vim.cmd [[ silent! BufferClose ]]
+        vim.cmd('silent! BufferClose')
       end
 
       nnoremap('<leader>{', ':BufferPrevious<CR>', { silent = true })
@@ -59,24 +60,20 @@ return {
       nnoremap('<leader>`', ':BufferRestore<CR>')
       nnoremap('<leader><leader>!', ':BufferCloseAllButCurrent<CR>')
 
-      vim.cmd [[
-        augroup barbar_overrides
-          autocmd!
-          highlight! BufferCurrent          guifg=#93a4c3 guibg=#21283b gui=bold
-          highlight! BufferCurrentMod       guifg=#f2cc81 guibg=#21283b gui=NONE
-          highlight! BufferCurrentSign      guifg=#93a4c3 guibg=#21283b gui=NONE
+      local hl = function(name, val) vim.api.nvim_set_hl(0, name, val) end
+      hl('BufferCurrent',      { fg = colors.fg,        bg = colors.bg1,  bold = true })
+      hl('BufferCurrentMod',   { fg = colors.bg_yellow, bg = colors.bg1 })
+      hl('BufferCurrentSign',  { fg = colors.fg,        bg = colors.bg1 })
 
-          highlight! BufferVisible          guifg=#93a4c3 guibg=#1a212e gui=NONE
-          highlight! BufferVisibleMod       guifg=#f2cc81 guibg=#1a212e gui=NONE
-          highlight! BufferVisibleSign      guifg=#1a212e guibg=#1a212e gui=NONE
+      hl('BufferVisible',      { fg = colors.fg,        bg = colors.bg0 })
+      hl('BufferVisibleMod',   { fg = colors.bg_yellow, bg = colors.bg0 })
+      hl('BufferVisibleSign',  { fg = colors.bg0,       bg = colors.bg0 })
 
-          highlight! BufferInactive         guifg=#455574 guibg=#141b24 gui=NONE
-          highlight! BufferInactiveMod      guifg=#8f610d guibg=#141b24 gui=NONE
-          highlight! BufferInactiveSign     guifg=#141b24 guibg=#141b24 gui=NONE
+      hl('BufferInactive',     { fg = colors.grey,         bg = colors.bg_d })
+      hl('BufferInactiveMod',  { fg = colors.dark_yellow,  bg = colors.bg_d })
+      hl('BufferInactiveSign', { fg = colors.bg_d,         bg = colors.bg_d })
 
-          highlight! BufferTabpageFill      guifg=#141b24 guibg=#141b24 gui=NONE
-        augroup END
-      ]]
+      hl('BufferTabpageFill',  { fg = colors.bg_d,         bg = colors.bg_d })
     end,
   },
 }

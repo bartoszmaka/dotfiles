@@ -1,9 +1,9 @@
 return {
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		ft = { "markdown", "codecompanion" },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown', 'codecompanion' },
     opts = {
-      file_types = { "markdown", "codecompanion" },
+      file_types = { 'markdown', 'codecompanion' },
       bullet = { enabled = false },
       code = {
         enabled = false,
@@ -11,5 +11,5 @@ return {
       },
       quote = { enabled = false },
     },
-	},
+  },
 }

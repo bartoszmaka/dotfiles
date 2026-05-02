@@ -33,18 +33,20 @@ vim.opt.viewoptions = { "cursor", "slash", "unix" }
 vim.opt.fillchars = {
   foldopen = symbols.FoldOpened,
   foldclose = symbols.FoldClosed,
-  foldsep = " ",
-  fold = " ",
+  foldsep = ' ',
+  fold = ' ',
 }
 
-vim.cmd("cabbrev W   w")
-vim.cmd("cabbrev Wa  wa")
-vim.cmd("cabbrev WA  wa")
-vim.cmd("cabbrev Wq  wq")
-vim.cmd("cabbrev WQ  wq")
-vim.cmd("cabbrev Wqa wqa")
-vim.cmd("cabbrev WQa wqa")
-vim.cmd("cabbrev Q   q")
-vim.cmd("cabbrev Qa  qa")
-vim.cmd("cabbrev Q!  q!")
-vim.cmd("cabbrev Qa! qa!")
+-- Folding (kept here so it stays in effect even when ufo loads later)
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
+local cabbrevs = {
+  { 'W',   'w' },   { 'Wa',  'wa' },  { 'WA',  'wa' },
+  { 'Wq',  'wq' },  { 'WQ',  'wq' },  { 'Wqa', 'wqa' }, { 'WQa', 'wqa' },
+  { 'Q',   'q' },   { 'Qa',  'qa' },  { 'Q!',  'q!' },  { 'Qa!', 'qa!' },
+}
+for _, ab in ipairs(cabbrevs) do
+  vim.cmd(('cabbrev %s %s'):format(ab[1], ab[2]))
+end

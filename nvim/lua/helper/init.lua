@@ -35,7 +35,7 @@ function M.vmap(from, to, opts) return M.remap(from, to, 'v', opts) end
 function M.cmap(from, to, opts) return M.remap(from, to, 'c', opts) end
 function M.smap(from, to, opts) return M.remap(from, to, 's', opts) end
 
-function M.bool2str(bool) return bool and "on" or "off" end
+function M.bool2str(bool) return bool and 'on' or 'off' end
 
 function M.is_buffer_empty()
   return vim.fn.empty(vim.fn.expand('%:t')) == 1
@@ -54,12 +54,12 @@ end
 
 function M.safe_require(package_name)
   local loaded, package = pcall(require, package_name)
-  if not loaded then print("Error loading " .. package_name) end
+  if not loaded then print('Error loading ' .. package_name) end
   return package
 end
 
 function M.on_attach(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
+  vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
       local buffer = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -71,7 +71,7 @@ end
 function M.fg(name)
   local hl = vim.api.nvim_get_hl(0, { name = name })
   local fg = hl and hl.fg
-  return fg and { fg = string.format("#%06x", fg) }
+  return fg and { fg = string.format('#%06x', fg) }
 end
 
 function M.keys(object)
@@ -85,11 +85,11 @@ end
 function M.get(object, path)
   local value = object
   local segments = {}
-  for segment in string.gmatch(path, "[^%.]+") do
+  for segment in string.gmatch(path, '[^%.]+') do
     table.insert(segments, segment)
   end
   for _, segment in ipairs(segments) do
-    if type(value) == "table" and value[segment] then
+    if type(value) == 'table' and value[segment] then
       value = value[segment]
     else
       return nil

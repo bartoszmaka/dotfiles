@@ -17,6 +17,8 @@ return {
       ["Switch Mode"]       = '<Tab>'
     }
 
+    -- Warm up visual-multi after startup so the first <M-j>/<M-k> doesn't lag.
+    -- Lazy-loaded VM otherwise initialises on the first cursor add, which is jarring.
     vim.api.nvim_create_autocmd('VimEnter', {
       once = true,
       callback = function()

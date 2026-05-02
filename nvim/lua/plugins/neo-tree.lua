@@ -1,8 +1,7 @@
 return {
-  "nvim-neo-tree/neo-tree.nvim",
-  branch = "v3.x",
-  lazy = false,
-  cmd = "Neotree",
+  'nvim-neo-tree/neo-tree.nvim',
+  branch = 'v3.x',
+  cmd = 'Neotree',
   keys = {
     {
       "<C-f><C-f>b", -- Cmd + Shift + e in kitty config
@@ -49,7 +48,7 @@ return {
     },
   },
   deactivate = function()
-    vim.cmd([[Neotree close]])
+    vim.cmd('Neotree close')
   end,
   dependencies = {
     { "nvim-lua/plenary.nvim" },
@@ -238,13 +237,12 @@ return {
       end,
     })
 
-    vim.cmd [[
-      highlight NeoTreeTabActive            guifg=#93a4c3 guibg=#21283b gui=bold
-      highlight NeoTreeTabInactive          guibg=#141b24
-      highlight NeoTreeTabSeparatorActive   guifg=#21283b guibg=#21283b
-      highlight NeoTreeTabSeparatorInactive guifg=#141b24 guibg=#141b24
-      highlight NeoTreeWinSeparator         guifg=#141b24 guibg=#141b24
-    ]]
+    local colors = require('helper.colors').onedark
+    vim.api.nvim_set_hl(0, 'NeoTreeTabActive', { fg = colors.fg, bg = colors.bg1, bold = true })
+    vim.api.nvim_set_hl(0, 'NeoTreeTabInactive', { bg = colors.bg_d })
+    vim.api.nvim_set_hl(0, 'NeoTreeTabSeparatorActive', { fg = colors.bg1, bg = colors.bg1 })
+    vim.api.nvim_set_hl(0, 'NeoTreeTabSeparatorInactive', { fg = colors.bg_d, bg = colors.bg_d })
+    vim.api.nvim_set_hl(0, 'NeoTreeWinSeparator', { fg = colors.bg_d, bg = colors.bg_d })
 
     local neo_tree_augroup = vim.api.nvim_create_augroup("NeoTreeLocalConfig", { clear = true })
 

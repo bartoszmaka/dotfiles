@@ -1,13 +1,13 @@
 return {
   'rcarriga/nvim-notify',
-  event = "VeryLazy",
+  event = 'VeryLazy',
   keys = {
     {
-      "<leader>un",
+      '<leader>un',
       function()
-        require("notify").dismiss({ silent = true, pending = true })
+        require('notify').dismiss({ silent = true, pending = true })
       end,
-      desc = "Dismiss all Notifications",
+      desc = 'Dismiss all Notifications',
     },
   },
   config = function()

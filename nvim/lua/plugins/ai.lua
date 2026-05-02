@@ -1,81 +1,92 @@
-return {
-  {
-    "olimorris/codecompanion.nvim",
-    tag = "v18.3.2",
-    cmd = {
-      "CodeCompanion",
-      "CodeCompanionActions",
-      "CodeCompanionChat",
-      "CodeCompanionCmd",
-    },
-    keys = {
-      {
-        "<C-k><C-o>",
-        "<cmd>CodeCompanionChat Toggle<cr>",
-        desc = "Toggle CodeCompanion chat",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>Aa",
-        "<cmd>CodeCompanionChat Toggle<cr>",
-        desc = "AI chat",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>Ae",
-        "<cmd>CodeCompanionActions<cr>",
-        desc = "AI actions",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>Ar",
-        "<cmd>CodeCompanionCmd<cr>",
-        desc = "AI command",
-        mode = { "n", "v" },
-      },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "MunifTanjim/nui.nvim",
-      "echasnovski/mini.icons",
-    },
-    opts = {
-      adapters = {
-        http = {
-          openai_responses = function()
-            local api_key = os.getenv("AVANTE_OPENAI_API_KEY")
-
-            return require("codecompanion.adapters").extend("openai_responses", {
-              env = {
-                api_key = api_key,
-              },
-              schema = {
-                model = {
-                  default = "codex",
-                },
-              },
-            })
-          end,
-        },
-      },
-      interactions = {
-        chat = {
-          adapter = "openai_responses",
-        },
-        inline = {
-          adapter = "openai_responses",
-        },
-        cmd = {
-          adapter = "openai_responses",
-        },
-      },
-      display = {
-        action_palette = {
-          provider = "default",
-        },
-      },
-    },
-  },
-}
+return {}
+-- return {
+--   {
+--     "olimorris/codecompanion.nvim",
+--     tag = "v18.3.2",
+--     build = function() 
+--       if vim.fn.executable("npx") == 1 then
+--         vim.fn.system("npx @zed-industries/codex-acp && npx @agentclientprotocol/claude-agent-acp")
+--       else
+--         vim.notify("npx not found — install Node.js to use codex-acp", vim.log.levels.WARN)
+--       end
+--     end,
+--     cmd = {
+--       "CodeCompanion",
+--       "CodeCompanionActions",
+--       "CodeCompanionChat",
+--       "CodeCompanionCmd",
+--     },
+--     keys = {
+--       {
+--         "<C-k><C-o>",
+--         "<cmd>CodeCompanionChat Toggle<cr>",
+--         desc = "Toggle CodeCompanion chat",
+--         mode = { "n", "v" },
+--       },
+--       {
+--         "<leader>Aa",
+--         "<cmd>CodeCompanionChat Toggle<cr>",
+--         desc = "AI chat",
+--         mode = { "n", "v" },
+--       },
+--       {
+--         "<leader>Ae",
+--         "<cmd>CodeCompanionActions<cr>",
+--         desc = "AI actions",
+--         mode = { "n", "v" },
+--       },
+--       {
+--         "<leader>Ar",
+--         "<cmd>CodeCompanionCmd<cr>",
+--         desc = "AI command",
+--         mode = { "n", "v" },
+--       },
+--     },
+--     dependencies = {
+--       "nvim-lua/plenary.nvim",
+--       "nvim-treesitter/nvim-treesitter",
+--       "stevearc/dressing.nvim",
+--       "MunifTanjim/nui.nvim",
+--       "echasnovski/mini.icons",
+--     },
+--     opts = {
+--       interactions = {
+--         chat = {
+--           adapter = "codex",
+--         },
+--         inline = {
+--           adapter = "codex",
+--         },
+--         cmd = {
+--           adapter = "codex",
+--         },
+--       },
+--       adapters = {
+--         acp = {
+--           claude_code = function()
+--             return require("codecompanion.adapters").extend("claude_code", {
+--               env = {
+--                 CLAUDE_CODE_OAUTH_TOKEN = vim.env.CLAUDE_CODE_OAUTH_TOKEN,
+--               },
+--             })
+--           end,
+--           codex = function()
+--             return require("codecompanion.adapters").extend("codex", {
+--               defaults = {
+--                 auth_method = "openai-api-key", -- "openai-api-key"|"codex-api-key"|"chatgpt"
+--               },
+--               env = {
+--                 OPENAI_API_KEY = vim.env.OPENAI_API_KEY,
+--               },
+--             })
+--           end,
+--         },
+--       },
+--       display = {
+--         action_palette = {
+--           provider = "default",
+--         },
+--       },
+--     },
+--   },
+-- }

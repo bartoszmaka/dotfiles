@@ -1,20 +1,19 @@
 return {
   {
-    "christoomey/vim-tmux-navigator",
-    lazy = false,
+    'christoomey/vim-tmux-navigator',
+    event = 'VeryLazy',
     dependencies = {
       'roxma/vim-tmux-clipboard',
       'preservim/vimux',
     },
     cond = function() return vim.fn.exists('$TMUX') == 1 end,
     config = function()
-      vim.cmd [[
-        let g:tmux_navigator_no_mappings = 1
-        nnoremap <silent><C-w>h :TmuxNavigateLeft<CR>
-        nnoremap <silent><C-w>j :TmuxNavigateDown<CR>
-        nnoremap <silent><C-w>k :TmuxNavigateUp<CR>
-        nnoremap <silent><C-w>l :TmuxNavigateRight<CR>
-      ]]
+      vim.g.tmux_navigator_no_mappings = 1
+      local map = vim.keymap.set
+      map('n', '<C-w>h', '<cmd>TmuxNavigateLeft<CR>', { silent = true })
+      map('n', '<C-w>j', '<cmd>TmuxNavigateDown<CR>', { silent = true })
+      map('n', '<C-w>k', '<cmd>TmuxNavigateUp<CR>', { silent = true })
+      map('n', '<C-w>l', '<cmd>TmuxNavigateRight<CR>', { silent = true })
     end,
   },
 }

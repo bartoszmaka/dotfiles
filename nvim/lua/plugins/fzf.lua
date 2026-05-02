@@ -4,7 +4,7 @@ return {
     dependencies = {
       'nvim-tree/nvim-web-devicons',
     },
-    lazy = false,
+    event = 'VeryLazy',
     config = function()
       local helper = require('helper')
       local nnoremap = helper.nnoremap

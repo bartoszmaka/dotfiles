@@ -1,16 +1,15 @@
 return {
   {
     'tpope/vim-fugitive',
-    config = function()
-      vim.cmd [[
-        nnoremap <C-g><C-b> :Git blame<CR>
-        nnoremap <C-g><C-d> :Gvdiffsplit!<CR>
-      ]]
-    end,
+    cmd = { 'Git', 'Gvdiffsplit', 'Gdiffsplit', 'Gread', 'Gwrite', 'Gedit' },
+    keys = {
+      { '<C-g><C-b>', '<cmd>Git blame<CR>',     desc = 'Git blame' },
+      { '<C-g><C-d>', '<cmd>Gvdiffsplit!<CR>',  desc = 'Git diff (vertical)' },
+    },
   },
   {
     'akinsho/git-conflict.nvim',
-    version = "*",
+    version = '*',
     opts = function()
       local group = vim.api.nvim_create_augroup('git_conflict_diagnostics', { clear = true })
 
@@ -47,6 +46,7 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local symbols = require('helper.symbols')
+      local colors = require('helper.colors').onedark
 
       require('gitsigns').setup({
         on_attach = function(bufnr)
@@ -115,26 +115,22 @@ return {
         }
       })
 
-      vim.cmd [[
-        augroup gitsigns_overrides
-          autocmd!
-          highlight! GitSignsStagedAdd guifg=#284414
-          highlight! GitSignsStagedChange guifg=#5a3e08
-          highlight! GitSignsStagedChangeLn guifg=#5a3e08
-          highlight! GitSignsStagedChangeNr guifg=#5a3e08
-          highlight! GitSignsStagedChangedelete guifg=#5a3e08
-          highlight! GitSignsStagedChangedeleteLn guifg=#5a3e08
-          highlight! GitSignsStagedChangedeleteN guifg=#5a3e08
-          highlight! GitGutterChange guifg=#5a3e08
-          highlight! GitGutterAdd guifg=#284414
-          highlight! GitGutterDelete guifg=#5f050d
-          highlight! GitSignsChange guifg=#5a3e08
-          highlight! GitSignsChangeNr guifg=#5a3e08
-          highlight! GitSignsChangeLn guifg=#5a3e08
-          highlight! GitSignsAdd guifg=#284414
-          highlight! GitSignsDelete guifg=#5f050d
-        augroup END
-      ]]
+      local hl = function(name, val) vim.api.nvim_set_hl(0, name, val) end
+      hl('GitSignsStagedAdd',              { fg = colors.dimmed_green })
+      hl('GitSignsStagedChange',           { fg = colors.dimmed_yellow })
+      hl('GitSignsStagedChangeLn',         { fg = colors.dimmed_yellow })
+      hl('GitSignsStagedChangeNr',         { fg = colors.dimmed_yellow })
+      hl('GitSignsStagedChangedelete',     { fg = colors.dimmed_yellow })
+      hl('GitSignsStagedChangedeleteLn',   { fg = colors.dimmed_yellow })
+      hl('GitSignsStagedChangedeleteN',    { fg = colors.dimmed_yellow })
+      hl('GitGutterChange',                { fg = colors.dimmed_yellow })
+      hl('GitGutterAdd',                   { fg = colors.dimmed_green })
+      hl('GitGutterDelete',                { fg = colors.dimmed_red })
+      hl('GitSignsChange',                 { fg = colors.dimmed_yellow })
+      hl('GitSignsChangeNr',               { fg = colors.dimmed_yellow })
+      hl('GitSignsChangeLn',               { fg = colors.dimmed_yellow })
+      hl('GitSignsAdd',                    { fg = colors.dimmed_green })
+      hl('GitSignsDelete',                 { fg = colors.dimmed_red })
     end,
   },
 }

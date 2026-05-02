@@ -1,8 +1,8 @@
 return {
   'NvChad/nvim-colorizer.lua',
-  event = { "BufReadPost", "BufNewFile" },
+  event = { 'BufReadPost', 'BufNewFile' },
   opts = {
-    filetypes = { "*" },
+    filetypes = { '*' },
     user_default_options = {
       RGB = true,
       RRGGBB = true,
@@ -10,7 +10,7 @@ return {
       RRGGBBAA = true,
       css = true,
       css_fn = true,
-      mode = "background",
+      mode = 'background',
       tailwind = true,
     },
   },

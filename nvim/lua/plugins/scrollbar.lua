@@ -1,6 +1,6 @@
 return {
   'petertriho/nvim-scrollbar',
-  lazy = false,
+  event = { 'BufReadPost', 'BufNewFile' },
   config = function()
     local colors = require('helper.colors').onedark
     local symbols = require('helper.symbols')
@@ -32,13 +32,11 @@ return {
       },
     })
 
-    vim.cmd [[
-      highlight! ScrollBarGitAdd guifg=#284414
-      highlight! ScrollBarGitChange guifg=#5a3e08
-      highlight! ScrollBarGitDelete guifg=#5f050d
-      highlight! ScrollBarGitAddHandle guifg=#284414
-      highlight! ScrollBarGitChangeHandle guifg=#5a3e08
-      highlight! ScrollBarGitDeleteHandle guifg=#5f050d
-    ]]
+    vim.api.nvim_set_hl(0, 'ScrollBarGitAdd', { fg = colors.dimmed_green })
+    vim.api.nvim_set_hl(0, 'ScrollBarGitChange', { fg = colors.dimmed_yellow })
+    vim.api.nvim_set_hl(0, 'ScrollBarGitDelete', { fg = colors.dimmed_red })
+    vim.api.nvim_set_hl(0, 'ScrollBarGitAddHandle', { fg = colors.dimmed_green })
+    vim.api.nvim_set_hl(0, 'ScrollBarGitChangeHandle', { fg = colors.dimmed_yellow })
+    vim.api.nvim_set_hl(0, 'ScrollBarGitDeleteHandle', { fg = colors.dimmed_red })
   end,
 }

@@ -31,6 +31,8 @@ vnoremap('K', '5k')
 vnoremap('J', '5j')
 nnoremap('j', 'gj')
 nnoremap('k', 'gk')
+vnoremap('j', 'gj')
+vnoremap('k', 'gk')
 
 vnoremap('<Tab>', '>gv')
 vnoremap('<S-Tab>', '<gv')
@@ -72,19 +74,19 @@ nnoremap('<C-w>s', '<C-w>s<C-w>j', { desc = 'Split and focus new window' })
 nnoremap('<C-w>v', '<C-w>v<C-w>l', { desc = 'Vsplit and focus new window' })
 
 -- split and join lines
-nnoremap('<leader>j', 'i<CR><Esc>', { desc = "Split line" })
-nnoremap('<leader>k', '<esc>kJ', { desc = "Join to prev line" })
+nnoremap('<leader>j', 'i<CR><Esc>', { desc = 'Split line' })
+nnoremap('<leader>k', '<esc>kJ', { desc = 'Join to prev line' })
 
 nnoremap('/', [[/\V]])
 nnoremap('?', '/')
 nnoremap('<Bs>', ':noh<CR>')
-nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })
-vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]], { desc = "Replace in file" })
-nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" })
-vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = "Prefilled replace in file" })
-nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]], { desc = "Peek spec structure" })
+nnoremap('<leader>r', [["zyiw:%s/\V<C-r>z//g<Left><Left>]], { desc = 'Replace in file' })
+vnoremap('<leader>r', [["zy:%s/\V<C-r>z//g<Left><Left>]], { desc = 'Replace in file' })
+nnoremap('<leader>R', [["zyiw:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = 'Prefilled replace in file' })
+vnoremap('<leader>R', [["zy:%s/\V<C-r>z/<C-r>z/g<Left><Left>]], { desc = 'Prefilled replace in file' })
+nnoremap('<C-k><C-k>', [[:g/\(context \|it \|describe\)/p<CR>]], { desc = 'Peek spec structure' })
 
-vim.cmd [[nmap gj yygccp]]
+vim.keymap.set('n', 'gj', 'yygccp', { remap = true })
 
 vnoremap('<C-m><C-s>', ':sort<CR>')
 vnoremap('<CR><C-s>', ':sort<CR>')
@@ -151,7 +153,7 @@ vim.keymap.set('n', '<leader>cs', function()
   vim.api.nvim_buf_set_name(buf, ('snippets://%s'):format(filetype))
 end, { desc = 'Inspect LuaSnip snippets' })
 
-nnoremap("<leader>uh", [[:lua vim.show_pos()<CR>]], { desc = "Inspect highlights" })
+vim.keymap.set('n', '<leader>uh', vim.show_pos, { desc = 'Inspect highlights' })
 
 local function fold_deeper_than_cursor()
   local cursor_line = vim.fn.line('.')
