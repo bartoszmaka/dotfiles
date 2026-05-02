@@ -401,6 +401,50 @@ local function mode_color(self)
   return mode_colors[key] or colors.blue
 end
 
+local function avante_provider_label()
+  local ok_cfg, cfg = pcall(require, 'avante.config')
+  if not ok_cfg or type(cfg.get) ~= 'function' then
+    return ''
+  end
+  local ok_get, settings = pcall(cfg.get)
+  if not ok_get or type(settings) ~= 'table' then
+    return ''
+  end
+
+  local provider = settings.provider
+  if type(provider) ~= 'string' or provider == '' then
+    return ''
+  end
+
+  local model = ''
+  local providers = settings.providers
+  if type(providers) == 'table' and type(providers[provider]) == 'table' then
+    model = providers[provider].model or ''
+  end
+  if model == '' then
+    local acp = settings.acp_providers
+    if type(acp) == 'table' and type(acp[provider]) == 'table' then
+      model = acp[provider].model or ''
+    end
+  end
+
+  if model == '' then
+    return string.format(' 󰚩 %s ', provider)
+  end
+  return string.format(' 󰚩 %s:%s ', provider, model)
+end
+
+local AvanteStatus = {
+  condition = function()
+    return package.loaded['avante.config'] ~= nil
+  end,
+  provider = function()
+    return avante_provider_label()
+  end,
+  hl = { fg = colors.purple, bg = colors.bg_d },
+  update = { 'BufEnter', 'WinEnter', 'User' },
+}
+
 M.statusline = {
   hl = { bg = colors.bg_d, fg = colors.fg },
   init = function(self)
@@ -436,6 +480,7 @@ M.statusline = {
     },
   },
   { provider = "%=", hl = { bg = colors.bg_d } },
+  AvanteStatus,
   {
     condition = conditions.lsp_attached,
     provider = function()
