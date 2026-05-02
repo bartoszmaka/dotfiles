@@ -53,7 +53,7 @@ provider = "claude",
 providers = {
   claude = {
     endpoint = "https://api.anthropic.com",
-    model = "claude-sonnet-4-7",
+    model = "claude-sonnet-4-6",
     auth_type = "max",                       -- Claude Pro/Max OAuth
     timeout = 30000,
     extra_request_body = { temperature = 0.2 },
@@ -136,9 +136,9 @@ sources = {
 
 ### Statusline (heirline) component
 
-Reads avante's current provider and model. Renders only when avante module is loaded; otherwise empty (zero cost). Updates on `User AvanteProviderChanged` and `User AvanteModelChanged` autocmds emitted by avante. Inserted to the right of the LSP block, before filetype.
+Reads avante's current provider and model on each statusline redraw via a `pcall`-wrapped `require("avante.config").get()`. Renders only when avante module is loaded; otherwise empty (zero cost). Heirline already redraws on `BufEnter`/`WinEnter`/`ModeChanged`, so the component picks up provider/model changes within a normal interaction without needing a dedicated autocmd. Inserted to the right of the LSP block, before filetype.
 
-Display format: `󰚩 claude:sonnet-4-7` — icon is a static glyph (Nerd Font `nf-md-robot`, codepoint U+F06A9), provider/model strings come from `require("avante.config").get().provider` and the resolved model in the active provider config. No icon-pack dependency.
+Display format: `󰚩 claude:sonnet-4-6` — icon is a static glyph (Nerd Font `nf-md-robot`, codepoint U+F06A9), provider/model strings come from `require("avante.config").get().provider` and the resolved model in the active provider config. No icon-pack dependency.
 
 ### Which-key
 
