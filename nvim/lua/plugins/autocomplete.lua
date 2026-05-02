@@ -4,6 +4,7 @@ return {
     version = '1.*',
     dependencies = {
       'echasnovski/mini.icons',
+      'fang2hou/blink-copilot',
     },
     opts = {
       enabled = function()
@@ -57,7 +58,7 @@ return {
         ghost_text = { enabled = true },
       },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'copilot' },
         providers = {
           lsp = {
             override = {
@@ -67,6 +68,12 @@ return {
                 return trigger_characters
               end,
             },
+          },
+          copilot = {
+            name = 'copilot',
+            module = 'blink-copilot',
+            score_offset = 100,
+            async = true,
           },
         },
       },
