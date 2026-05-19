@@ -862,6 +862,7 @@
         "added": true
     },
     "gitlens.codeLens.includeSingleLineSymbols": true,
+    "window.autoDetectColorScheme": false,
     
     // end of Vim configuration
 }

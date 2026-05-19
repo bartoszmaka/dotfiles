@@ -165,21 +165,13 @@ function compare_branch_commits() {
 }
 function tattach() { tmux new-session -s `uuidgen` -t $1 }
 
-# function prepend_brew_installed_mongo_to_path() {
-#   export PATH="/opt/homebrew/Cellar/mongodb-database-tools/100.7.0/bin:$PATH"
-# }
-
-function prepend_asdf_to_path() {
-  export PATH="$HOME/.asdf/shims:$PATH"
-}
-
 function kill_by_port() {
   kill -9 $(lsof -i:$1 -t)
 }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-. $(brew --prefix asdf)/libexec/asdf.sh
 
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/usr/local/bin:$PATH" # make sure homebrew bins are before osx bins
@@ -226,6 +218,7 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=($HOME/.docker/completions $fpath)
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions

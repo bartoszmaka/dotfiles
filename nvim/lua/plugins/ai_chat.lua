@@ -5,15 +5,7 @@ return {
       and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false'
       or 'make',
     version = false,
-    cmd = {
-      'AvanteAsk',
-      'AvanteChat',
-      'AvanteToggle',
-      'AvanteEdit',
-      'AvanteRefresh',
-      'AvanteSwitchProvider',
-      'AvanteModels',
-    },
+    event = 'VeryLazy',
     keys = {
       { '<C-k><C-o>', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n', 'v' } },
       { '<leader>Ac', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n' } },
@@ -38,15 +30,17 @@ return {
       },
     },
     opts = {
-      provider = 'claude',
+      provider = 'codex',
+      input = { provider = 'dressing' },
+      selector = { provider = 'native' },
       providers = {
-        claude = {
-          endpoint = 'https://api.anthropic.com',
-          model = 'claude-sonnet-4-6',
-          auth_type = 'max',
-          timeout = 30000,
-          extra_request_body = { temperature = 0.2 },
-        },
+        -- claude = {
+        --   endpoint = 'https://api.anthropic.com',
+        --   model = 'claude-sonnet-4-6',
+        --   auth_type = 'max',
+        --   timeout = 30000,
+        --   extra_request_body = { temperature = 0.2 },
+        -- },
       },
       acp_providers = {
         codex = {
