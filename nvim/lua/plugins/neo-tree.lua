@@ -243,6 +243,8 @@ return {
     vim.api.nvim_set_hl(0, 'NeoTreeTabSeparatorActive', { fg = colors.bg1, bg = colors.bg1 })
     vim.api.nvim_set_hl(0, 'NeoTreeTabSeparatorInactive', { fg = colors.bg_d, bg = colors.bg_d })
     vim.api.nvim_set_hl(0, 'NeoTreeWinSeparator', { fg = colors.bg_d, bg = colors.bg_d })
+    vim.api.nvim_set_hl(0, 'NeoTreeDotfile', { fg = colors.mid_grey })
+    vim.api.nvim_set_hl(0, 'NeoTreeGitIgnored', { fg = colors.grey })
 
     local neo_tree_augroup = vim.api.nvim_create_augroup("NeoTreeLocalConfig", { clear = true })
 

@@ -15,6 +15,7 @@ M.onedark = {
   cyan          = '#34bfd0',
   green         = '#8bcd5b',
   grey          = '#455574',
+  mid_grey      = '#6c7c9b',
   orange        = '#dd9046',
   purple        = '#c75ae8',
   red           = '#f65866',

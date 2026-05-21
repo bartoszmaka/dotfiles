@@ -19,17 +19,17 @@ return {
 
     -- Warm up visual-multi after startup so the first <M-j>/<M-k> doesn't lag.
     -- Lazy-loaded VM otherwise initialises on the first cursor add, which is jarring.
-    vim.api.nvim_create_autocmd('VimEnter', {
-      once = true,
-      callback = function()
-        vim.defer_fn(function()
-          pcall(function()
-            vim.fn['vm#init_buffer'](0)
-            vim.fn['vm#reset'](1)
-          end)
-        end, 800)
-      end,
-    })
+    -- vim.api.nvim_create_autocmd('VimEnter', {
+    --   once = true,
+    --   callback = function()
+    --     vim.defer_fn(function()
+    --       pcall(function()
+    --         vim.fn['vm#init_buffer'](0)
+    --         vim.fn['vm#reset'](1)
+    --       end)
+    --     end, 800)
+    --   end,
+    -- })
 
     nnoremap([[<M-j>]], [[<Plug>(VM-Add-Cursor-Down)]])
     nnoremap([[<M-k>]], [[<Plug>(VM-Add-Cursor-Up)]])
