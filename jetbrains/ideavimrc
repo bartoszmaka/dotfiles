@@ -192,6 +192,10 @@ nnoremap <leader>cp :action CopyPathWithLineNumber<CR>
 nnoremap <leader>y :action CopyReference<CR>
 vnoremap <leader>y :action CopyReference<CR>
 
+" Splitjoin
+nnoremap <C-m><C-s> :action Splitjoin.Split<CR>
+nnoremap <C-m><C-d> :action Splitjoin.Join<CR>
+
 " Tests
 
 " Panes
@@ -207,3 +211,4 @@ nnoremap <C-w>w :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <Leader>q :action CloseContent<CR>
 
 nnoremap <C-q><C-r> :action RestartIde<CR>
+
