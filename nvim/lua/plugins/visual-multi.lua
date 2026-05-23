@@ -16,20 +16,23 @@ return {
       ["Goto Next"]         = '',
       ["Switch Mode"]       = '<Tab>'
     }
+    vim.g.VM_custom_remaps = {
+      ['v'] = '<Tab>',
+    }
 
-    -- Warm up visual-multi after startup so the first <M-j>/<M-k> doesn't lag.
-    -- Lazy-loaded VM otherwise initialises on the first cursor add, which is jarring.
-    -- vim.api.nvim_create_autocmd('VimEnter', {
-    --   once = true,
-    --   callback = function()
-    --     vim.defer_fn(function()
-    --       pcall(function()
-    --         vim.fn['vm#init_buffer'](0)
-    --         vim.fn['vm#reset'](1)
-    --       end)
-    --     end, 800)
-    --   end,
-    -- })
+    -- Pre-source VM autoload files so the first <M-j>/<M-k> doesn't pay the parse cost.
+    -- Calling vm#init_buffer / vm#reset here would corrupt state and crash insert mode,
+    -- so we only `runtime!` the script files — no state-mutating function calls.
+    vim.api.nvim_create_autocmd('VimEnter', {
+      once = true,
+      callback = function()
+        vim.defer_fn(function()
+          pcall(vim.cmd, 'silent! runtime! autoload/vm.vim')
+          pcall(vim.cmd, 'silent! runtime! autoload/vm/*.vim')
+          pcall(vim.cmd, 'silent! runtime! autoload/vm/maps/*.vim')
+        end, 200)
+      end,
+    })
 
     nnoremap([[<M-j>]], [[<Plug>(VM-Add-Cursor-Down)]])
     nnoremap([[<M-k>]], [[<Plug>(VM-Add-Cursor-Up)]])

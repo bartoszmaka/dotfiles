@@ -192,6 +192,116 @@ return {
       vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { desc = 'Rename symbol' })
       vim.keymap.set('n', '<C-m><C-e>', vim.diagnostic.setloclist, { desc = 'Diagnostics to loclist' })
 
+      local function attached_client_names(bufnr)
+        local names = {}
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+          table.insert(names, client.name)
+        end
+        return names
+      end
+
+      local function collect_clients(filter, scope)
+        local query = scope == 'buffer' and { bufnr = vim.api.nvim_get_current_buf() } or {}
+        local clients = vim.lsp.get_clients(query)
+        if filter and filter ~= '' then
+          clients = vim.tbl_filter(function(c) return c.name == filter end, clients)
+        end
+        return clients
+      end
+
+      local function reattach_buffer(bufnr, name)
+        if name == 'ruby_lsp' then
+          start_ruby_lsp_for_project(bufnr)
+        else
+          vim.lsp.enable(name)
+        end
+      end
+
+      vim.api.nvim_create_user_command('LspRestart', function(opts)
+        local bufnr = vim.api.nvim_get_current_buf()
+        local clients = collect_clients(opts.args, 'buffer')
+
+        if #clients == 0 then
+          vim.notify('LspRestart: no matching LSP client on this buffer', vim.log.levels.WARN)
+          return
+        end
+
+        local names = {}
+        for _, client in ipairs(clients) do
+          table.insert(names, client.name)
+          client:stop(true)
+        end
+
+        vim.defer_fn(function()
+          for _, name in ipairs(names) do
+            reattach_buffer(bufnr, name)
+          end
+          vim.notify('LspRestart: ' .. table.concat(names, ', '))
+        end, 500)
+      end, {
+        nargs = '?',
+        complete = function() return attached_client_names(vim.api.nvim_get_current_buf()) end,
+        desc = 'Restart LSP server(s) attached to current buffer',
+      })
+
+      vim.api.nvim_create_user_command('LspRestartAll', function(opts)
+        local clients = collect_clients(opts.args, 'all')
+
+        if #clients == 0 then
+          vim.notify('LspRestartAll: no matching LSP clients running', vim.log.levels.WARN)
+          return
+        end
+
+        local seen = {}
+        local names = {}
+        for _, client in ipairs(clients) do
+          if not seen[client.name] then
+            seen[client.name] = true
+            table.insert(names, client.name)
+          end
+          client:stop(true)
+        end
+
+        vim.defer_fn(function()
+          vim.lsp.enable(names)
+          vim.cmd('silent! doautoall FileType')
+          vim.notify('LspRestartAll: ' .. table.concat(names, ', '))
+        end, 500)
+      end, {
+        nargs = '?',
+        complete = function()
+          local seen, names = {}, {}
+          for _, client in ipairs(vim.lsp.get_clients()) do
+            if not seen[client.name] then
+              seen[client.name] = true
+              table.insert(names, client.name)
+            end
+          end
+          return names
+        end,
+        desc = 'Restart every running LSP server (or one by name)',
+      })
+
+      vim.api.nvim_create_user_command('LspStop', function(opts)
+        local clients = collect_clients(opts.args, 'buffer')
+
+        if #clients == 0 then
+          vim.notify('LspStop: no matching LSP client on this buffer', vim.log.levels.WARN)
+          return
+        end
+
+        local names = {}
+        for _, client in ipairs(clients) do
+          table.insert(names, client.name)
+          client:stop(true)
+        end
+        vim.notify('LspStop: ' .. table.concat(names, ', '))
+      end, {
+        nargs = '?',
+        complete = function() return attached_client_names(vim.api.nvim_get_current_buf()) end,
+        desc = 'Stop LSP server(s) attached to current buffer',
+      })
+
       -- vim.api.nvim_create_user_command("Format", function(_)
       --   vim.lsp.buf.format()
       -- end, { desc = "Format current buffer with LSP" })
