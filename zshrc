@@ -125,6 +125,8 @@ alias n='nvim'
 alias astrovim='NVIM_APPNAME=nvim-astro nvim'
 alias oldvim='NVIM_APPNAME=nvim-old nvim'
 alias spacevim="NVIM_APPNAME=spacevim nvim"
+alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal claude'
+alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'
 
 alias -g F='| fzf --exact'
 alias -g N='| nvim -'
@@ -218,7 +220,7 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=($HOME/.docker/completions $fpath)
+# End of Docker CLI completions
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit
 compinit
-# End of Docker CLI completions

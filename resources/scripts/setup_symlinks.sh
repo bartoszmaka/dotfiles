@@ -30,7 +30,9 @@ ln -vsf ~/.repos/dotfiles/asdfrc ~/.asdfrc
 ln -vsf ~/.repos/dotfiles/tmux ~/.tmux
 ln -vsf ~/.repos/dotfiles/tmuxinator ~/
 ln -vsf ~/.repos/dotfiles/tmuxinator ~/.config/
+
 ln -vsf ~/.repos/dotfiles/opencode/opencode.json ~/.config/opencode.json 
+ln -vsf ~/.repos/dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh 
 
 case "$(uname -s)" in
   Darwin)
