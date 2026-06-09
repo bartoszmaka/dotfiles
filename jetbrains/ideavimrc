@@ -196,13 +196,16 @@ vnoremap <leader>y :action CopyReference<CR>
 nnoremap <C-m><C-s> :action Splitjoin.Split<CR>
 nnoremap <C-m><C-d> :action Splitjoin.Join<CR>
 
+nnoremap <leader>x :action dev.bartoszmaka.switch.SwitchAction<CR>
+nnoremap <leader>X :action dev.bartoszmaka.switch.SwitchBackwardsAction<CR>
+
+nnoremap <C-k><C-u> :action UndoTree.ToggleToolWindow<CR>
 " Tests
 
 " Panes
 nnoremap <leader><esc> :action HideAllWindows<CR>
 nnoremap <C-l><C-e> :action ActivateProblemsViewToolWindow<CR>
 nnoremap <C-g><C-b> :action Annotate<CR>
-nnoremap <C-k><C-u> :action LocalHistory.ShowHistory<CR>
 nnoremap <C-p><C-b> :action Git.Branches<CR>
 
 nnoremap \e :e ~/.ideavimrc<CR>
