@@ -2,6 +2,12 @@ local function augroup(name)
   return vim.api.nvim_create_augroup('autocmds_lua' .. name, { clear = true })
 end
 
+vim.filetype.add({
+  extension = {
+    mdc = 'markdown',
+  },
+})
+
 if vim.fn.exists('$TMUX') == 1 then
   vim.api.nvim_create_autocmd({ 'BufEnter', 'BufNewFile', 'BufWritePost' }, {
     group = augroup('tmux_rename_on_enter'),

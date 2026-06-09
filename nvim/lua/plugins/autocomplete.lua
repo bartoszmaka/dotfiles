@@ -22,6 +22,8 @@ return {
         ['<Tab>']   = { 'snippet_forward', 'accept', 'fallback' },
         ['<S-Tab>'] = { 'snippet_backward', 'accept', 'fallback' },
         ['<CR>']    = { 'accept', 'fallback' },
+        ['<Up>']    = { 'select_prev', 'fallback' },
+        ['<Down>']  = { 'select_next', 'fallback' },
       },
       signature = {
         enabled = true,

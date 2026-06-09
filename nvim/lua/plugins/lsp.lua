@@ -184,8 +184,8 @@ return {
         signs = false,
       })
 
-      vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ count = -1 }) end, { desc = 'Prev diagnostic' })
-      vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ count = 1 }) end,  { desc = 'Next diagnostic' })
+      vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Prev diagnostic' })
+      vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ count = 1, float = true }) end,  { desc = 'Next diagnostic' })
       vim.keymap.set('n', '<leader>E', vim.diagnostic.open_float, { desc = 'Show diagnostics' })
       vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, { desc = 'Show hover documentation' })
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code action' })

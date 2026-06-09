@@ -64,6 +64,14 @@ inoremap('<F15>', '<esc>:w<CR>')
 nnoremap('<F16>', '<esc>:w<CR>')
 inoremap('<F16>', '<esc>:w<CR>')
 
+-- Cmd+C / Cmd+V (kitty sends F17 / F18 — see kitty/kitty.conf)
+vim.keymap.set('v', '<F17>', '"+y',                { desc = 'Cmd+C: copy selection to system clipboard' })
+vim.keymap.set('n', '<F18>', '"+p',                { desc = 'Cmd+V: paste from system clipboard' })
+vim.keymap.set('v', '<F18>', '"_d"+P',             { desc = 'Cmd+V: replace selection with system clipboard' })
+vim.keymap.set('i', '<F18>', '<C-r><C-o>+',        { desc = 'Cmd+V: paste from system clipboard' })
+vim.keymap.set('c', '<F18>', '<C-r>+',             { desc = 'Cmd+V: paste from system clipboard' })
+vim.keymap.set('t', '<F18>', [[<C-\><C-n>"+pi]],   { desc = 'Cmd+V: paste from system clipboard' })
+
 -- terminal window navigation
 tnoremap('<C-w>h', [[<C-\><C-n><C-w>h]])
 tnoremap('<C-w>j', [[<C-\><C-n><C-w>j]])

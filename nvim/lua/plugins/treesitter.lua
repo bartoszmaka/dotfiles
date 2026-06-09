@@ -95,6 +95,7 @@ return {
         'snacks_dashboard',
         'snacks_notif',
         'snacks_win',
+        'csv',
       }
 
       -- Auto-install parsers and enable highlighting on FileType
