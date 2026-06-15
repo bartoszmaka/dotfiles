@@ -109,10 +109,6 @@ zstyle ':completion:*' menu select
 alias tmux="tmux -u"
 alias tnew="\tmux -u new-session -t main"
 alias vimrc="cd $DOTFILES_PATH/nvim; $EDITOR;  cd -"
-alias oldvimrc="cd $DOTFILES_PATH/nvim-old; $EDITOR;  cd -"
-alias astrovimrc="cd $DOTFILES_PATH/nvim-astro; astrovim;  cd -"
-alias lazyvimrc="cd $HOME/.config/nvim; $EDITOR"
-alias spacevimrc="$EDITOR ~/.SpaceVim.d/init.toml"
 alias zshrc="$EDITOR $DOTFILES_PATH/zshrc"
 alias alacrittyrc="$EDITOR $DOTFILES_PATH/alacritty.toml"
 alias kittyrc="$EDITOR $DOTFILES_PATH/kitty/kitty.conf"
@@ -122,9 +118,6 @@ alias snippets="cd $DOTFILES_PATH/vim/vimsnippets/"
 alias ghosttyrc="cd '$HOME/.config/ghostty/'; n config; cd -"
 
 alias n='nvim'
-alias astrovim='NVIM_APPNAME=nvim-astro nvim'
-alias oldvim='NVIM_APPNAME=nvim-old nvim'
-alias spacevim="NVIM_APPNAME=spacevim nvim"
 alias claude-personal='CLAUDE_CONFIG_DIR=~/.claude-personal claude'
 alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work claude'
 
