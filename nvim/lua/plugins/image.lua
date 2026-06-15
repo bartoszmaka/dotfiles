@@ -16,6 +16,10 @@ return {
       },
     },
     hijack_file_patterns = { '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp', '*.avif' },
+    -- Hide the kitty-graphics image while another window/float (e.g. fzf) covers
+    -- it, then redraw once uncovered. Without this the image draws on top of
+    -- everything since the terminal renders it above neovim's UI.
+    window_overlap_clear_enabled = true,
     tmux_show_only_in_active_window = true,
     max_width_window_percentage = 80,
     max_height_window_percentage = 80,
