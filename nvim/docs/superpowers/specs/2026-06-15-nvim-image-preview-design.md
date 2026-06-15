@@ -116,6 +116,23 @@ winbar is tagged with a window var (`image_winbar`) and cleared when the window
 later shows a non-image buffer, so it never lingers. Result is cached per buffer
 in `b:image_info`. No config sets a global winbar, so there is no conflict.
 
+### Hiding images under fzf-lua floats
+
+`window_overlap_clear_enabled = true` (in `image.lua`) handles normal split
+windows and well-behaved floats: image.nvim re-evaluates overlap on
+`WinNew`/`WinResized` and clears covered images.
+
+It does NOT cover fzf-lua, because fzf-lua opens its floating windows with
+autocmds suppressed (`vim.o.eventignore = "all"` for the main window,
+`noautocmd = true` for the preview). image.nvim's `WinNew`/`WinResized`
+autocmds therefore never fire, so the (correctly computed) overlap is never
+acted on and the kitty-graphics image stays drawn on top of the fzf float.
+
+Fix (in `fzf.lua`): use fzf-lua's `winopts.on_create` / `winopts.on_close`
+callbacks — plain Lua, unaffected by `eventignore` — to clear all images
+(`img:clear(true)`) when fzf opens and redraw them (`img:render()`, scheduled)
+when it closes.
+
 ## Risks / open points
 
 - Requires a real kitty graphics environment; nothing renders in a plain

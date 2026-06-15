@@ -17,6 +17,29 @@ return {
       -- fzf-lua appends the file path and runs this in a pty so chafa auto-fits.
       local chafa_cmd = { "chafa", "-f", "symbols", "--animate=off" }
 
+      -- image.nvim relies on WinNew/WinResized autocmds to hide kitty-graphics
+      -- images when a window overlaps them, but fzf-lua opens its floats with
+      -- autocmds suppressed (eventignore="all" / noautocmd). So the image would
+      -- stay drawn on top of the fzf float. Manually clear images when fzf opens
+      -- and redraw them when it closes.
+      local function clear_images()
+        local ok, image = pcall(require, 'image')
+        if not ok then return end
+        for _, img in ipairs(image.get_images()) do
+          img:clear(true)
+        end
+      end
+
+      local function restore_images()
+        local ok, image = pcall(require, 'image')
+        if not ok then return end
+        vim.schedule(function()
+          for _, img in ipairs(image.get_images()) do
+            img:render()
+          end
+        end)
+      end
+
       local winopts = {
         big_window = {
           height = 0.60,
@@ -68,6 +91,8 @@ return {
         },
         winopts             = vim.tbl_deep_extend("force", winopts.big_window, {
           backdrop = 100,
+          on_create = clear_images,
+          on_close = restore_images,
           preview = {
             delay      = 100,
             title      = true,
