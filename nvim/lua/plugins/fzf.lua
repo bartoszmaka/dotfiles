@@ -12,6 +12,11 @@ return {
       local symbols = helper.symbols
       local actions = require "fzf-lua.actions"
 
+      -- chafa renders images in the builtin previewer: high quality via kitty's
+      -- graphics protocol when available, unicode block-art fallback otherwise.
+      -- fzf-lua appends the file path and runs this in a pty so chafa auto-fits.
+      local chafa_cmd = { "chafa", "-f", "symbols", "--animate=off" }
+
       local winopts = {
         big_window = {
           height = 0.60,
@@ -118,6 +123,20 @@ return {
         },
         previewers = {
           git_diff = { cmd = 'git diff', args = "--color", pager = "delta" },
+          builtin = {
+            extensions = {
+              ["png"]  = chafa_cmd,
+              ["jpg"]  = chafa_cmd,
+              ["jpeg"] = chafa_cmd,
+              ["gif"]  = chafa_cmd,
+              ["bmp"]  = chafa_cmd,
+              ["webp"] = chafa_cmd,
+              ["avif"] = chafa_cmd,
+              ["svg"]  = chafa_cmd,
+              ["ico"]  = chafa_cmd,
+              ["tiff"] = chafa_cmd,
+            },
+          },
         },
         files = {
           async = true,

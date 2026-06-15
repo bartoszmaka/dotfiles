@@ -95,6 +95,27 @@ Image rendering cannot be asserted headlessly, so verification is manual:
 3. Press `<leader>mi` → confirm rendering toggles off, then on again.
 4. Switch tmux windows → confirm no leftover/ghost images.
 
+## Follow-ups (added same day)
+
+### fzf-lua image preview
+
+`nvim/lua/plugins/fzf.lua` — map image extensions in
+`previewers.builtin.extensions` to `chafa` (already installed). fzf-lua appends
+the file path and runs the command in a pty, so chafa auto-fits the preview pane.
+`-f symbols` keeps output to unicode block-art (renders reliably in the preview
+pty); `--animate=off` stops GIFs from looping. High quality in kitty, graceful
+degradation elsewhere. No new dependencies.
+
+### Image metadata winbar
+
+`nvim/lua/plugins/image.lua` — an autocmd on image-file patterns runs
+`magick identify -format '%wx%h  %m  %b' <file>[0]` asynchronously and shows the
+result (e.g. `800x600  PNG  382B`) in a window-local **winbar** pinned above the
+image. `[0]` reads only the first frame so multi-frame GIFs yield one line. The
+winbar is tagged with a window var (`image_winbar`) and cleared when the window
+later shows a non-image buffer, so it never lingers. Result is cached per buffer
+in `b:image_info`. No config sets a global winbar, so there is no conflict.
+
 ## Risks / open points
 
 - Requires a real kitty graphics environment; nothing renders in a plain
