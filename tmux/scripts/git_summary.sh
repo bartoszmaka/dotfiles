@@ -17,6 +17,13 @@ if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     branch="${branch:0:head}…${branch: -tail}"
   fi
 
-  stats=$(git diff --shortstat | sed -E 's/[^0-9]*([0-9]+) file.* ([0-9]+) insertion.* ([0-9]+) delet.*/ 󰈙 \1  \2  \3/')
+  # `git diff --shortstat` drops the insertions clause when 0 lines were added
+  # and the deletions clause when 0 were removed. Backfill the missing clause
+  # first so the final transform always matches; without this the regex fails
+  # and tmux shows the raw "N files changed, M insertions(+)" text.
+  stats=$(git diff --shortstat | sed -E \
+    -e 's/insertion[^,]*$/&, 0 deletions(-)/' \
+    -e 's/changed, ([0-9]+ deletion)/changed, 0 insertions(+), \1/' \
+    -e 's/[^0-9]*([0-9]+) file.* ([0-9]+) insertion.* ([0-9]+) delet.*/ 󰈙 \1  \2  \3/')
   echo " $branch $stats "
 fi
