@@ -8,6 +8,9 @@ Tested and working on Linux, OSX, and Cygwin.
 
 See list of plugins [here](https://github.com/tmux-plugins/list).
 
+Also, check out [tpack](https://github.com/tmuxpack/tpack), drop-in replacement
+for `tpm` with a TUI, auto-updates and plugins browser.
+
 ### Installation
 
 Requirements: `tmux` version 1.9 (or higher), `git`, `bash`.

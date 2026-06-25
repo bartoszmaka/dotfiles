@@ -100,7 +100,12 @@ return {
             scrollchar = '▋',
             border     = 'noborder',
             layout     = 'flex',
+            -- when the picker is narrower than 150 columns, stack the preview
+            -- below the list instead of beside it (flip_columns is the column
+            -- threshold below which 'flex' switches to the vertical layout)
+            flip_columns = 150,
             horizontal = "right:40%",
+            vertical   = "down:50%",
           },
         }),
         keymap = {

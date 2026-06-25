@@ -41,6 +41,7 @@ return {
 
       local lsps = {
         'ruby_lsp',
+        'pyright',
         'vtsls',
         'eslint',
         'tailwindcss',

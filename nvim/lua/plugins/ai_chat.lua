@@ -1,63 +1,64 @@
-return {
-  {
-    'yetone/avante.nvim',
-    build = vim.fn.has('win32') ~= 0
-      and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false'
-      or 'make',
-    version = false,
-    event = 'VeryLazy',
-    keys = {
-      { '<C-k><C-o>', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n', 'v' } },
-      { '<leader>Ac', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n' } },
-      { '<leader>Aa', '<cmd>AvanteAsk<cr>',            desc = 'AI: ask',             mode = { 'n', 'v' } },
-      { '<leader>Ae', '<cmd>AvanteEdit<cr>',           desc = 'AI: edit selection',  mode = { 'v' } },
-      { '<leader>Ar', '<cmd>AvanteRefresh<cr>',        desc = 'AI: refresh',         mode = { 'n' } },
-      { '<leader>Ap', '<cmd>AvanteSwitchProvider<cr>', desc = 'AI: switch provider', mode = { 'n' } },
-      { '<leader>Am', '<cmd>AvanteModels<cr>',         desc = 'AI: switch model',    mode = { 'n' } },
-      { '<leader>An', '<cmd>AvanteChat<cr>',           desc = 'AI: new chat',        mode = { 'n' } },
-      { '<leader>Ah', '<cmd>AvanteHistory<cr>',        desc = 'AI: chat history',    mode = { 'n' } },
-    },
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      'stevearc/dressing.nvim',
-      'nvim-treesitter/nvim-treesitter',
-      'echasnovski/mini.icons',
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = { file_types = { 'markdown', 'Avante' } },
-        ft = { 'markdown', 'Avante' },
-      },
-    },
-    opts = {
-      provider = 'codex',
-      input = { provider = 'dressing' },
-      selector = { provider = 'native' },
-      providers = {
-        -- claude = {
-        --   endpoint = 'https://api.anthropic.com',
-        --   model = 'claude-sonnet-4-6',
-        --   auth_type = 'max',
-        --   timeout = 30000,
-        --   extra_request_body = { temperature = 0.2 },
-        -- },
-      },
-      acp_providers = {
-        codex = {
-          command = 'npx',
-          args = { '-y', '@zed-industries/codex-acp' },
-          env = {
-            NODE_NO_WARNINGS = '1',
-            -- Intentionally NO OPENAI_API_KEY: forces ChatGPT subscription auth
-            -- via ~/.codex/auth.json populated by `codex login`.
-          },
-        },
-      },
-      windows = {
-        position = 'right',
-        width = 40,
-        sidebar_header = { enabled = true, align = 'center', rounded = false },
-      },
-    },
-  },
-}
+return {}
+-- return {
+--   {
+--     'yetone/avante.nvim',
+--     build = vim.fn.has('win32') ~= 0
+--       and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false'
+--       or 'make',
+--     version = false,
+--     event = 'VeryLazy',
+--     keys = {
+--       { '<C-k><C-o>', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n', 'v' } },
+--       { '<leader>Ac', '<cmd>AvanteToggle<cr>',         desc = 'AI: toggle chat',     mode = { 'n' } },
+--       { '<leader>Aa', '<cmd>AvanteAsk<cr>',            desc = 'AI: ask',             mode = { 'n', 'v' } },
+--       { '<leader>Ae', '<cmd>AvanteEdit<cr>',           desc = 'AI: edit selection',  mode = { 'v' } },
+--       { '<leader>Ar', '<cmd>AvanteRefresh<cr>',        desc = 'AI: refresh',         mode = { 'n' } },
+--       { '<leader>Ap', '<cmd>AvanteSwitchProvider<cr>', desc = 'AI: switch provider', mode = { 'n' } },
+--       { '<leader>Am', '<cmd>AvanteModels<cr>',         desc = 'AI: switch model',    mode = { 'n' } },
+--       { '<leader>An', '<cmd>AvanteChat<cr>',           desc = 'AI: new chat',        mode = { 'n' } },
+--       { '<leader>Ah', '<cmd>AvanteHistory<cr>',        desc = 'AI: chat history',    mode = { 'n' } },
+--     },
+--     dependencies = {
+--       'nvim-lua/plenary.nvim',
+--       'MunifTanjim/nui.nvim',
+--       'stevearc/dressing.nvim',
+--       'nvim-treesitter/nvim-treesitter',
+--       'echasnovski/mini.icons',
+--       {
+--         'MeanderingProgrammer/render-markdown.nvim',
+--         opts = { file_types = { 'markdown', 'Avante' } },
+--         ft = { 'markdown', 'Avante' },
+--       },
+--     },
+--     opts = {
+--       provider = 'codex',
+--       input = { provider = 'dressing' },
+--       selector = { provider = 'native' },
+--       providers = {
+--         -- claude = {
+--         --   endpoint = 'https://api.anthropic.com',
+--         --   model = 'claude-sonnet-4-6',
+--         --   auth_type = 'max',
+--         --   timeout = 30000,
+--         --   extra_request_body = { temperature = 0.2 },
+--         -- },
+--       },
+--       acp_providers = {
+--         codex = {
+--           command = 'npx',
+--           args = { '-y', '@zed-industries/codex-acp' },
+--           env = {
+--             NODE_NO_WARNINGS = '1',
+--             -- Intentionally NO OPENAI_API_KEY: forces ChatGPT subscription auth
+--             -- via ~/.codex/auth.json populated by `codex login`.
+--           },
+--         },
+--       },
+--       windows = {
+--         position = 'right',
+--         width = 40,
+--         sidebar_header = { enabled = true, align = 'center', rounded = false },
+--       },
+--     },
+--   },
+-- }

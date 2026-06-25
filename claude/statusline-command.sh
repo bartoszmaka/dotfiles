@@ -50,6 +50,7 @@ color_model() {
 }
 
 model=$(echo "$input" | jq -r '.model.display_name // "unknown model"')
+effort=$(echo "$input" | jq -r '.effort.level // empty')
 
 # Context window fields
 tokens_used=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
@@ -181,6 +182,7 @@ fi
 
 # Assemble final line
 model_part=$(color_model "$model")
+[ -n "$effort" ] && model_part="${model_part} ${GRAY}[${effort}]${RESET}"
 parts=("$model_part")
 [ -n "$ctx_segment" ]      && parts+=("$ctx_segment")
 [ -n "$rate_segment" ]     && parts+=("$rate_segment")
