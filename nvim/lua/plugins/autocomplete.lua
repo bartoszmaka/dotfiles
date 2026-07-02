@@ -80,6 +80,34 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require('blink.cmp').setup(opts)
+
+      -- Blink has no native option to cap ghost-text width, so long Copilot
+      -- suggestions push the buffer to scroll horizontally. Wrap the ghost-text
+      -- renderer and truncate the inline (first-line) preview.
+      local max_width = 80
+      local gt = require('blink.cmp.completion.windows.ghost_text')
+      local hl_ns = require('blink.cmp.config').appearance.highlight_ns
+      local orig_draw = gt.draw_preview
+      gt.draw_preview = function(...)
+        orig_draw(...)
+        local buf, id = gt.extmark_buf, gt.extmark_id
+        if not buf or not id or not vim.api.nvim_buf_is_valid(buf) then return end
+        local mark = vim.api.nvim_buf_get_extmark_by_id(buf, hl_ns, id, { details = true })
+        local details = mark[3]
+        if not (details and details.virt_text and details.virt_text[1]) then return end
+        local text = details.virt_text[1][1]
+        if vim.fn.strchars(text) <= max_width then return end
+        vim.api.nvim_buf_set_extmark(buf, hl_ns, mark[1], mark[2], {
+          id = id,
+          virt_text_pos = 'inline',
+          virt_text = { { vim.fn.strcharpart(text, 0, max_width) .. '…', 'BlinkCmpGhostText' } },
+          virt_lines = details.virt_lines,
+          hl_mode = 'replace',
+        })
+      end
+    end,
   },
   {
     'L3MON4D3/LuaSnip',

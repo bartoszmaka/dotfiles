@@ -132,7 +132,10 @@ return {
         end,
       })
 
-      vim.lsp.enable(lsps)
+      -- ruby_lsp is started manually (Gemfile-gated) by the autocmds below.
+      -- It must NOT be auto-enabled here too, or it attaches twice (duplicated
+      -- completion items and references).
+      vim.lsp.enable(vim.tbl_filter(function(name) return name ~= 'ruby_lsp' end, lsps))
 
       local ruby_lsp_auto_start_group = vim.api.nvim_create_augroup('ruby_lsp_auto_start', { clear = true })
 
@@ -264,7 +267,9 @@ return {
         end
 
         vim.defer_fn(function()
-          vim.lsp.enable(names)
+          -- ruby_lsp is restarted by the Gemfile-gated FileType autocmd below,
+          -- so keep it out of vim.lsp.enable to avoid a duplicate attach.
+          vim.lsp.enable(vim.tbl_filter(function(name) return name ~= 'ruby_lsp' end, names))
           vim.cmd('silent! doautoall FileType')
           vim.notify('LspRestartAll: ' .. table.concat(names, ', '))
         end, 500)

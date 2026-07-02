@@ -11,6 +11,12 @@
 # you are currently viewing (attached session + active window + active pane),
 # so you only get pinged for background windows. Clicking the notification
 # jumps to that tmux window and brings kitty to the front.
+#
+# 'done' gate: the Stop hook fires on EVERY turn-end, but we only ping when the
+# task is genuinely finished. Claude marks true completion with a final message
+# whose last content line starts with 🏁 (see ~/.claude/CLAUDE.md). Any other
+# turn-end (mid-task report, quick answer) is read from the transcript and
+# stays silent. 'input' notifications are unaffected.
 
 set -uo pipefail
 
@@ -19,6 +25,19 @@ payload="$(cat 2>/dev/null || true)"
 
 # tmux pane Claude is running in (inherited from the parent process env).
 pane="${TMUX_PANE:-}"
+
+# --- 'done' gate: only ping on a genuinely-final (🏁-marked) message ---------
+done_summary=""
+if [ "$event" = "done" ] && command -v jq >/dev/null 2>&1; then
+  transcript="$(printf '%s' "$payload" | jq -r '.transcript_path // empty' 2>/dev/null || true)"
+  last_assistant=""
+  if [ -n "$transcript" ] && [ -f "$transcript" ]; then
+    last_assistant="$(jq -rs '([.[] | select(.type=="assistant")] | last) as $m | (($m.message.content // []) | map(select(.type=="text") | .text) | join("\n"))' "$transcript" 2>/dev/null || true)"
+  fi
+  # No 🏁 marker on the final message => not a task-complete moment => stay quiet.
+  printf '%s' "$last_assistant" | grep -q '^🏁' || exit 0
+  done_summary="$(printf '%s' "$last_assistant" | grep -m1 '^🏁' | sed 's/^🏁[[:space:]]*//')"
+fi
 
 # --- Suppress when you're already looking at this pane -----------------------
 if [ -n "${TMUX:-}" ] && [ -n "$pane" ] && command -v tmux >/dev/null 2>&1; then
@@ -50,7 +69,7 @@ case "$event" in
     ;;
   *)
     title="Claude finished"
-    body="${msg:-Turn complete}"
+    body="${msg:-${done_summary:-Task complete}}"
     ;;
 esac
 [ -n "$where" ] && body="$body — $where"
