@@ -174,6 +174,65 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
   fi
 fi
 
+# Current working directory segment (~-abbreviated path)
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // empty')
+dir_segment=""
+if [ -n "$cwd" ]; then
+  dir_disp="$cwd"
+  case "$dir_disp" in
+    "$HOME")   dir_disp="~" ;;
+    "$HOME"/*) dir_disp="~${dir_disp#"$HOME"}" ;;
+  esac
+  dir_segment="${GRAY}dir: ${RESET}${CYAN}${dir_disp}${RESET}"
+fi
+
+# Account / subscription segment — read from Claude Code's oauthAccount.
+# The statusline JSON carries no account info, so we read the config file directly.
+acct_segment=""
+account_config=""
+if [ -n "$CLAUDE_CONFIG_DIR" ] && [ -f "$CLAUDE_CONFIG_DIR/.claude.json" ]; then
+  account_config="$CLAUDE_CONFIG_DIR/.claude.json"
+elif [ -f "$HOME/.claude.json" ]; then
+  account_config="$HOME/.claude.json"
+fi
+if [ -n "$account_config" ]; then
+  acct_email=$(jq -r '.oauthAccount.emailAddress // empty' "$account_config" 2>/dev/null)
+  if [ -n "$acct_email" ]; then
+    # The email→label mapping lives in a gitignored sibling file so real
+    # addresses stay out of the repo. Resolve this script's real directory
+    # (following symlinks) to find it, then source it if present. It should
+    # define acct_label_for(): given an email, echo a short label.
+    # See statusline-accounts.local.sh.example for the format.
+    _src="${BASH_SOURCE[0]:-$0}"
+    while [ -h "$_src" ]; do
+      _dir=$(cd -P "$(dirname "$_src")" >/dev/null 2>&1 && pwd)
+      _src=$(readlink "$_src")
+      case "$_src" in /*) ;; *) _src="$_dir/$_src" ;; esac
+    done
+    script_dir=$(cd -P "$(dirname "$_src")" >/dev/null 2>&1 && pwd)
+    accounts_file="$script_dir/statusline-accounts.local.sh"
+
+    acct_label=""
+    if [ -f "$accounts_file" ]; then
+      # shellcheck source=/dev/null
+      . "$accounts_file"
+      if command -v acct_label_for >/dev/null 2>&1; then
+        acct_label=$(acct_label_for "$acct_email")
+      fi
+    fi
+    # Fallback with no hardcoded addresses: use the email's local-part.
+    [ -z "$acct_label" ] && acct_label="${acct_email%@*}"
+
+    # Color by label (non-secret, safe to keep in the repo).
+    case "$acct_label" in
+      work)     acct_color="${BOLD}${YELLOW}" ;;
+      personal) acct_color="${GREEN}" ;;
+      *)        acct_color="${CYAN}" ;;
+    esac
+    acct_segment="${GRAY}acct: ${RESET}${acct_color}${acct_label}${RESET}"
+  fi
+fi
+
 # Session duration segment
 duration_segment=""
 if [ -n "$duration_secs" ]; then
@@ -188,10 +247,42 @@ parts=("$model_part")
 [ -n "$rate_segment" ]     && parts+=("$rate_segment")
 [ -n "$git_segment" ]      && parts+=("$git_segment")
 [ -n "$duration_segment" ] && parts+=("$duration_segment")
+[ -n "$acct_segment" ]     && parts+=("$acct_segment")
+[ -n "$dir_segment" ]      && parts+=("$dir_segment")
 
-output=""
-for part in "${parts[@]}"; do
-  [ -z "$output" ] && output="$part" || output="${output}  |  ${part}"
-done
+# Visible length of a string, ignoring ANSI color escapes.
+vlen() {
+  local s=$1 re=$'\e\\[[0-9;]*m'
+  while [[ $s =~ $re ]]; do s=${s/"${BASH_REMATCH[0]}"/}; done
+  printf '%s' "${#s}"
+}
+
+# Assemble into rows. Claude Code provides the terminal width in $COLUMNS; when
+# the full line wouldn't fit, greedy-wrap segments onto extra rows so the status
+# line spans multiple lines instead of being truncated on narrow windows.
+sep="  |  "
+cols="${COLUMNS:-0}"
+case "$cols" in ''|*[!0-9]*) cols=0 ;; esac
+
+if [ "$cols" -gt 0 ]; then
+  output="" line="" line_len=0
+  for part in "${parts[@]}"; do
+    plen=$(vlen "$part")
+    if [ -z "$line" ]; then
+      line="$part"; line_len=$plen
+    elif [ $(( line_len + ${#sep} + plen )) -le "$cols" ]; then
+      line="${line}${sep}${part}"; line_len=$(( line_len + ${#sep} + plen ))
+    else
+      output="${output}${line}"$'\n'
+      line="$part"; line_len=$plen
+    fi
+  done
+  output="${output}${line}"
+else
+  output=""
+  for part in "${parts[@]}"; do
+    [ -z "$output" ] && output="$part" || output="${output}${sep}${part}"
+  done
+fi
 
 printf '%s\n' "$output"

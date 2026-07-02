@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Example account-label mapping for the Claude statusline.
+#
+# Copy this file to `statusline-accounts.local.sh` (same directory) and edit it
+# with your real addresses. The real file is gitignored so your emails stay out
+# of git; this .example is committed only to document the format.
+#
+# acct_label_for(): given a Claude account email ($1), echo a short label shown
+# as "acct: <label>" in the status line. The statusline colors known labels:
+# "work" = yellow, "personal" = green, anything else = cyan.
+acct_label_for() {
+  case "$1" in
+    *@your-company.com) echo "work" ;;
+    *@gmail.com)        echo "personal" ;;
+    *)                  echo "${1%@*}" ;;  # fallback: email local-part
+  esac
+}
