@@ -1,4 +1,4 @@
-# $HOME/.tmuxinator/tetris-saga.yml
+# ~/.tmuxinator/tetris-saga.yml
 
 name: tetris-saga
 root: ~/projects/tetris-saga

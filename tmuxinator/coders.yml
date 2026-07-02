@@ -1,4 +1,4 @@
-# $HOME/.tmuxinator/coders.yml
+# ~/.tmuxinator/coders.yml
 
 name: coders
 root: ~/projects/DevQAHub

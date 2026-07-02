@@ -2,8 +2,8 @@ vim.g.mapleader = ' '
 vim.o.termguicolors = true
 
 vim.cmd [[
-  let g:python3_host_prog = '$HOME/.asdf/shims/python3'
-  let g:python2_host_prog = '$HOME/.asdf/shims/python2'
+  let g:python3_host_prog = expand('$HOME/.asdf/shims/python3')
+  let g:python2_host_prog = expand('$HOME/.asdf/shims/python2')
 ]]
 
 local enabled_plugins = {

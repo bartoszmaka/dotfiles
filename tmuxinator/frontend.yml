@@ -1,4 +1,4 @@
-# $HOME/.tmuxinator/frontend.yml
+# ~/.tmuxinator/frontend.yml
 
 name: frontend
 root: <%= @args[0] %>

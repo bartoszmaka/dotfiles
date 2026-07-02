@@ -143,8 +143,8 @@ alias nulllslog="tail -f ~/.cache/nvim/null-ls.log"
 alias gclean="git clean -fd"
 alias gcof="git checkout \$(git branch -a | fzf)"
 alias ggpush="git push origin \$(git branch --show-current)"
-# alias subster="tmuxinator start subster"
-alias work="tmuxinator start work"
+# Work-specific tmuxinator aliases live in ~/.zsh_secrets (gitignored), e.g.:
+#   alias work="tmuxinator start work"
 alias sublime="./Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias intel="arch -x86_64"
 alias m1="arch -arm64"
@@ -195,10 +195,10 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 PATH=$PATH:~/.ht/bin
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '$HOME/.apps/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/.apps/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/.apps/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/.apps/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '$HOME/.apps/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/.apps/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/.apps/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/.apps/google-cloud-sdk/completion.zsh.inc"; fi
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
@@ -212,7 +212,7 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 # End of LM Studio CLI section
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=($HOME/.docker/completions $fpath)
+fpath=("$HOME/.docker/completions" $fpath)
 # End of Docker CLI completions
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit

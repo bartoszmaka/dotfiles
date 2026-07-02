@@ -9,10 +9,11 @@
 # cache file; tmux's status-right call just prints the cached value, so the
 # status redraw stays fast even though `docker exec` is slow.
 #
-# Override via env (defaults target the h2 project):
-#   DOCKER_SYNC_HOST_DIR        host dir that is synced            (~/projects/work/h2)
-#   DOCKER_SYNC_CONTAINER       container to exec into             (container)
-#   DOCKER_SYNC_CONTAINER_DIR   matching path inside the container (/opt/work)
+# Override via env (set these in ~/.zsh_secrets or your shell rc to match your
+# actual project; the committed defaults below are generic placeholders):
+#   DOCKER_SYNC_HOST_DIR        host dir that is synced            (~/projects/app)
+#   DOCKER_SYNC_CONTAINER       container to exec into             (my-container)
+#   DOCKER_SYNC_CONTAINER_DIR   matching path inside the container (/opt/app)
 #   DOCKER_SYNC_MAX_LAG         max acceptable lag in seconds      (10)
 #   DOCKER_SYNC_ACTIVE_PATH_GLOB  if set, indicator is hidden when the pane path
 #                                 (passed as $1) does not match this glob
@@ -22,9 +23,9 @@
 
 set -u
 
-HOST_DIR="${DOCKER_SYNC_HOST_DIR:-$HOME/projects/work/h2}"
-CONTAINER="${DOCKER_SYNC_CONTAINER:-container}"
-CONTAINER_DIR="${DOCKER_SYNC_CONTAINER_DIR:-/opt/work}"
+HOST_DIR="${DOCKER_SYNC_HOST_DIR:-$HOME/projects/app}"
+CONTAINER="${DOCKER_SYNC_CONTAINER:-my-container}"
+CONTAINER_DIR="${DOCKER_SYNC_CONTAINER_DIR:-/opt/app}"
 MAX_LAG="${DOCKER_SYNC_MAX_LAG:-10}"
 ACTIVE_PATH_GLOB="${DOCKER_SYNC_ACTIVE_PATH_GLOB:-}"
 PANE_PATH="${1:-}"

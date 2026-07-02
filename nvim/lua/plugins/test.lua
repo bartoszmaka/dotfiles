@@ -2,7 +2,7 @@ return {
   'janko/vim-test',
   config = function()
     local nmap = require('helper').nmap
-    local h2_root = '$HOME/projects/work/h2'
+    local h2_root = os.getenv('TEST_PROJECT_ROOT') or vim.fn.expand('~/projects/app/h2')
 
     -- local function set_rspec_executable()
     --   local cwd = vim.fn.getcwd()

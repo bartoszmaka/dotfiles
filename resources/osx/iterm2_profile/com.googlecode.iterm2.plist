@@ -16,29 +16,6 @@
 	<true/>
 	<key>ConservativeURLGuessing</key>
 	<false/>
-	<key>Coprocess MRU</key>
-	<array>
-		<string>echo nvim $HOME/.asdf/installs/ruby/2.3.3/lib/ruby/gems/2.3.0/extensions/x86_64-darwin-18/2.3.0-static/mysql2-0.4.10/mkmf.log + </string>
-		<string>echo nvim $HOME/.asdf/installs/ruby/2.3.3/lib/ruby/gems/2.3.0/extensions/x86_64-darwin-18/2.3.0-static/curb-0.9.4/mkmf.log + </string>
-		<string>echo nvim $HOME/projects/project/yarn-error.log + </string>
-		<string>echo nvim /var/folders/q6/2nd0q7d55mz10gh3z9bgtk400000gn/T/tmphvs_qj0t-ascii.cast + </string>
-		<string>echo nvim $HOME/.asdf/installs/ruby/2.6.2/lib/ruby/gems/2.6.0/gems/activerecord-6.0.0.rc1/lib/active_record/relation/finder_methods.rb + </string>
-		<string>echo nvim $HOME/.asdf/installs/ruby/2.6.2/lib/ruby/gems/2.6.0/gems/railties-6.0.0.rc1/lib/rails/engine.rb + </string>
-		<string>echo nvim $HOME/.asdf/installs/ruby/2.6.2/lib/ruby/gems/2.6.0/gems/actionpack-6.0.0.rc1/lib/action_controller/test_case.rb + </string>
-		<string>echo nvim $HOME/.asdf/installs/ruby/2.6.2/lib/ruby/gems/2.6.0/gems/activemodel-6.0.0.rc1/lib/active_model/attribute_methods.rb + </string>
-		<string>echo nvim $HOME/projects/project/tmp/capybara/screenshot_2019-05-14-16-25-20.878.html + </string>
-		<string>echo nvim $HOME/projects/project/spec/features/admin/form_tests_controller_spec.rb + 7</string>
-		<string>echo nvim /var/folders/q6/2nd0q7d55mz10gh3z9bgtk400000gn/T/python-build.20190508162821.3912.log + </string>
-		<string>echo nvim $HOME/.rvm/gems/ruby-2.5.1/gems/activerecord-5.2.2/lib/active_record/log_subscriber.rb + 98</string>
-		<string>echo nvim $HOME/projects/project/spec/helpers/booking_helper_spec.rb + 92</string>
-		<string>echo nvim $HOME/.rvm/rubies/ruby-2.5.1/lib/ruby/2.5.0/json/common.rb + </string>
-		<string>echo nvim $HOME/.rvm/gems/ruby-2.5.1/bundler/gems/smarter_csv-c0b804bfc5c4/lib/smarter_csv/smarter_csv.rb + 354</string>
-		<string>echo nvim $HOME/.rvm/gems/ruby-2.5.1/gems/activerecord-5.2.1/lib/active_record/connection_adapters/postgresql_adapter.rb + 603</string>
-		<string>echo nvim $HOME/.rvm/gems/ruby-2.5.1/gems/activerecord-5.2.1/lib/active_record/result.rb + </string>
-		<string>echo nvim $HOME/projects/project/backend_app/app/services/file_importer_mapper.rb + 18</string>
-		<string>echo nvim /usr/local/var/postgres/postgresql.conf + </string>
-		<string>echo nvim $HOME/.npm/_logs/2018-10-10T05_51_33_587Z-debug.log + </string>
-	</array>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>Atom</key>
@@ -3506,7 +3483,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>$HOME/.repos/dotfiles/osx/iterm2_profile</string>
+	<string>~/.repos/dotfiles/osx/iterm2_profile</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>QuitWhenAllWindowsClosed</key>

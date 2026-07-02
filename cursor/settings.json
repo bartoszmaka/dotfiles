@@ -173,7 +173,7 @@
             "enableTestCodeLens": false
         },
     },
-    "rubyLsp.bundleGemfile": "$HOME/.ruby-lsp-tools-3-3-3/Gemfile",
+    "rubyLsp.bundleGemfile": "${userHome}/.ruby-lsp-tools-3-3-3/Gemfile",
     // "solargraph.references": false,
     "[xml]": {
         "editor.defaultFormatter": "DotJoshJohnson.xml"

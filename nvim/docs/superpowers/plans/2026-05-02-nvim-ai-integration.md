@@ -23,7 +23,7 @@
 | `nvim/lua/plugins/which-key.lua` | MODIFY | rename `<leader>A` group label to `AI` |
 | `nvim/lua/helper/heirline_components.lua` | MODIFY | add avante provider/model component |
 
-All file paths below are relative to repo root `$HOME/.repos/dotfiles`.
+All file paths below are relative to repo root `~/.repos/dotfiles`.
 
 ---
 
@@ -35,7 +35,7 @@ All file paths below are relative to repo root `$HOME/.repos/dotfiles`.
 - [ ] **Step 1: Delete the file**
 
 ```bash
-git -C $HOME/.repos/dotfiles rm nvim/lua/plugins/ai_old.lua
+git -C ~/.repos/dotfiles rm nvim/lua/plugins/ai_old.lua
 ```
 
 - [ ] **Step 2: Verify nvim still loads cleanly (headless)**
@@ -49,7 +49,7 @@ Expected: prints `OK`, no `E5113` / `E492` errors. lazy.nvim may print plugin in
 - [ ] **Step 3: Commit**
 
 ```bash
-git -C $HOME/.repos/dotfiles commit -m "Remove obsolete ai_old.lua"
+git -C ~/.repos/dotfiles commit -m "Remove obsolete ai_old.lua"
 ```
 
 ---
@@ -145,8 +145,8 @@ Expected: a chat sidebar opens **on the right side** of the editor. If `auth_typ
 - [ ] **Step 4: Commit**
 
 ```bash
-git -C $HOME/.repos/dotfiles add nvim/lua/plugins/ai_chat.lua nvim/lazy-lock.json
-git -C $HOME/.repos/dotfiles commit -m "Add avante.nvim chat with Claude OAuth + Codex ACP"
+git -C ~/.repos/dotfiles add nvim/lua/plugins/ai_chat.lua nvim/lazy-lock.json
+git -C ~/.repos/dotfiles commit -m "Add avante.nvim chat with Claude OAuth + Codex ACP"
 ```
 
 ---
@@ -189,8 +189,8 @@ In a fresh interactive nvim, open a normal buffer and press `<C-k><C-o>`. Expect
 - [ ] **Step 4: Commit**
 
 ```bash
-git -C $HOME/.repos/dotfiles add nvim/lua/plugins/ai_chat.lua
-git -C $HOME/.repos/dotfiles commit -m "Add avante chat keymaps under <leader>A and <C-k><C-o>"
+git -C ~/.repos/dotfiles add nvim/lua/plugins/ai_chat.lua
+git -C ~/.repos/dotfiles commit -m "Add avante chat keymaps under <leader>A and <C-k><C-o>"
 ```
 
 ---
@@ -221,8 +221,8 @@ In a fresh interactive nvim, press `<leader>A` and wait for the which-key popup.
 - [ ] **Step 3: Commit**
 
 ```bash
-git -C $HOME/.repos/dotfiles add nvim/lua/plugins/which-key.lua
-git -C $HOME/.repos/dotfiles commit -m "Rename <leader>A which-key group to AI"
+git -C ~/.repos/dotfiles add nvim/lua/plugins/which-key.lua
+git -C ~/.repos/dotfiles commit -m "Rename <leader>A which-key group to AI"
 ```
 
 ---
@@ -327,8 +327,8 @@ Expected output includes `Online` and `Enabled`.
 - [ ] **Step 4: Commit**
 
 ```bash
-git -C $HOME/.repos/dotfiles add nvim/lua/plugins/ai_complete.lua nvim/lazy-lock.json
-git -C $HOME/.repos/dotfiles commit -m "Add Copilot + blink-copilot plugins (ghost-text disabled)"
+git -C ~/.repos/dotfiles add nvim/lua/plugins/ai_complete.lua nvim/lazy-lock.json
+git -C ~/.repos/dotfiles commit -m "Add Copilot + blink-copilot plugins (ghost-text disabled)"
 ```
 
 ---
@@ -399,8 +399,8 @@ In a fresh interactive nvim, open a `.lua` or `.py` file. Type a function header
 - [ ] **Step 5: Commit**
 
 ```bash
-git -C $HOME/.repos/dotfiles add nvim/lua/plugins/autocomplete.lua
-git -C $HOME/.repos/dotfiles commit -m "Add Copilot as blink.cmp source"
+git -C ~/.repos/dotfiles add nvim/lua/plugins/autocomplete.lua
+git -C ~/.repos/dotfiles commit -m "Add Copilot as blink.cmp source"
 ```
 
 ---
@@ -488,8 +488,8 @@ Launch a fresh interactive nvim and open any file. Run `:AvanteToggle` once to l
 - [ ] **Step 5: Commit**
 
 ```bash
-git -C $HOME/.repos/dotfiles add nvim/lua/helper/heirline_components.lua
-git -C $HOME/.repos/dotfiles commit -m "Show active avante provider:model in statusline"
+git -C ~/.repos/dotfiles add nvim/lua/helper/heirline_components.lua
+git -C ~/.repos/dotfiles commit -m "Show active avante provider:model in statusline"
 ```
 
 ---

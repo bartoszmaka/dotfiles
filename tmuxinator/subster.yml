@@ -1,4 +1,4 @@
-# $HOME/.tmuxinator/subster.yml
+# ~/.tmuxinator/subster.yml
 
 name: subster
 root: ~/projects/subster/subster-api

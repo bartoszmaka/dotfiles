@@ -7,3 +7,7 @@ nvim-astro/undo
 nvim-old/undo
 .claude
 nvim/docs/superpowers/plans
+
+# Accidental logs
+*.log
+nvim.log
