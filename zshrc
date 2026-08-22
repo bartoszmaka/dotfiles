@@ -217,3 +217,20 @@ fpath=("$HOME/.docker/completions" $fpath)
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 autoload -Uz compinit
 compinit
+
+# --- p10k branch-pill self-heal for relative worktrees ------------------------
+# git 2.48+ native worktree tools (Claude Code's EnterWorktree, Codex) create
+# relative-path worktrees, which set extensions.relativeWorktrees and bump the
+# repo format to 1. powerlevel10k's bundled gitstatusd (2021, old libgit2) can't
+# open such a repo and hides the branch pill. Stripping the extension is safe
+# under modern git (2.55 resolves relative worktree links regardless of it), so
+# self-heal it whenever it reappears in the h2 tree.
+autoload -Uz add-zsh-hook
+_heal_h2_relworktree_ext() {
+  [[ $PWD == /Users/bartoszmaka/projects/helpling/h2(|/*) ]] || return
+  git config --get extensions.relativeWorktrees >/dev/null 2>&1 || return
+  git config --unset-all extensions.relativeWorktrees 2>/dev/null
+  git config core.repositoryformatversion 0 2>/dev/null
+}
+add-zsh-hook chpwd _heal_h2_relworktree_ext
+add-zsh-hook precmd _heal_h2_relworktree_ext

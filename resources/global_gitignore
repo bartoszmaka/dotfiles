@@ -23,6 +23,7 @@ doc
 
 .ai_local/
 CLAUDE.local.md
+AGENTS.override.md
 docs/superpowers/
 
 **/.claude/settings.local.json

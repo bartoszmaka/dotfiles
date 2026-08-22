@@ -19,7 +19,7 @@
 [init]
   defaultBranch = master
 [delta]
-  features = decorations
+  features = decorations side-by-side-default
   line-numbers = true
 [delta "interactive"]
   keep-plus-minus-markers = false
@@ -31,7 +31,25 @@
   hunk-header-file-style = red
   hunk-header-line-number-style = "#067a00"
   hunk-header-style = file line-number syntax
+[delta "side-by-side-default"]
+  side-by-side = true
+; used by nvim/lua/plugins/fzf.lua's git_status previewer: `--features=unified`
+; can't just set side-by-side=false there because an option set directly in
+; the main [delta] section (or reused from a feature already listed in
+; `features` above) can't be overridden via --features; needs its own
+; non-overlapping feature name with the decorations settings duplicated in
+[delta "unified"]
+  side-by-side = false
+  commit-decoration-style = blue ol
+  commit-style = raw
+  file-style = omit
+  hunk-header-decoration-style = blue box
+  hunk-header-file-style = red
+  hunk-header-line-number-style = "#067a00"
+  hunk-header-style = file line-number syntax
 [gpg]
 	format = ssh
 [commit]
 	gpgsign = true
+[worktree]
+	useRelativePaths = false

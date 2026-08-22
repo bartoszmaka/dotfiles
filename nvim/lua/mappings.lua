@@ -107,6 +107,16 @@ vim.keymap.set('n', '<leader>cp', function()
   print('Copied path: ' .. result)
 end, { desc = 'Copy relative path with line number to clipboard' })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'ruby',
+  callback = function(args)
+    vim.keymap.set('n', '<leader>y', require('helper.ruby_reference').copy, {
+      buffer = args.buf,
+      desc = 'Copy fully qualified Ruby reference',
+    })
+  end,
+})
+
 vim.keymap.set('n', '<leader>cs', function()
   local ok, ls = pcall(require, 'luasnip')
   if not ok then

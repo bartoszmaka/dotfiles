@@ -152,7 +152,10 @@ return {
           help_border    = "NormalDarker",
         },
         previewers = {
-          git_diff = { cmd = 'git diff', args = "--color", pager = "delta" },
+          -- unified (not side-by-side) since the preview pane is narrow;
+          -- see resources/gitconfig's [delta "unified"] feature for why
+          -- this needs its own feature instead of `--side-by-side=false`
+          git_diff = { cmd = 'git diff', args = "--color", pager = "delta --features=unified" },
           builtin = {
             extensions = {
               ["png"]  = chafa_cmd,

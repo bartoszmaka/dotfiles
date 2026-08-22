@@ -2,6 +2,7 @@ tags*
 .DS_Store
 secrets.sh
 claude/statusline-accounts.local.sh
+tmux/scripts/docker_sync_health.local.sh
 nvim/undo
 nvim-astro/undo
 nvim-old/undo
