@@ -125,54 +125,34 @@ return {
         automatic_enable = false,
       })
 
+      -- ruby_lsp should only come up in projects that actually have a Gemfile.
+      -- A dynamic root_dir() that simply never calls on_dir() is the documented
+      -- way to skip activation (:h lsp-root_dir), and it keeps ruby_lsp on the
+      -- same vim.lsp.enable() path as every other server.
+      --
+      -- The previous hand-rolled `vim.lsp.start(vim.lsp.config['ruby_lsp'], ...)`
+      -- autocmds could not work: vim.lsp.start() only resolves root markers from
+      -- `opts._root_markers`, never from `config.root_markers` (see lsp.lua:745),
+      -- so ruby_lsp always started with root_dir = nil. It then fell back to
+      -- nvim's cwd -- fine when nvim was launched from the project, silently
+      -- broken (or exiting outright) otherwise. nil root_dir also defeated client
+      -- reuse: reuse_client_default treats "no workspace" as matching anything, so
+      -- a second Ruby project reused the first project's client instead of
+      -- starting its own. (The custom reuse_client above was dead code -- lsp.start
+      -- reads opts.reuse_client, not config.reuse_client.)
       vim.lsp.config('ruby_lsp', {
         filetypes = { 'ruby', 'eruby' },
-        reuse_client = function(client, config)
-          return client.config.root_dir == config.root_dir
+        root_dir = function(bufnr, on_dir)
+          local bufname = vim.api.nvim_buf_get_name(bufnr)
+          local search_path = bufname ~= '' and vim.fs.dirname(bufname) or vim.fn.getcwd()
+          local gemfile = vim.fs.find('Gemfile', { upward = true, path = search_path })[1]
+          if gemfile then
+            on_dir(vim.fs.dirname(gemfile))
+          end
         end,
       })
 
-      -- ruby_lsp is started manually (Gemfile-gated) by the autocmds below.
-      -- It must NOT be auto-enabled here too, or it attaches twice (duplicated
-      -- completion items and references).
-      vim.lsp.enable(vim.tbl_filter(function(name) return name ~= 'ruby_lsp' end, lsps))
-
-      local ruby_lsp_auto_start_group = vim.api.nvim_create_augroup('ruby_lsp_auto_start', { clear = true })
-
-      local function start_ruby_lsp_for_project(bufnr)
-        if not is_real_file_buffer(bufnr) then
-          return
-        end
-
-        local bufname = vim.api.nvim_buf_get_name(bufnr)
-        local filetype = vim.bo[bufnr].filetype
-        if filetype ~= 'ruby' and filetype ~= 'eruby' then
-          return
-        end
-
-        local search_path = bufname ~= '' and vim.fs.dirname(bufname) or vim.fn.getcwd()
-        local gemfile = vim.fs.find('Gemfile', { upward = true, path = search_path })[1]
-        if not gemfile then
-          return
-        end
-
-        vim.lsp.start(vim.lsp.config['ruby_lsp'], { bufnr = bufnr })
-      end
-
-      vim.api.nvim_create_autocmd({ 'VimEnter', 'BufEnter', 'BufNewFile' }, {
-        group = ruby_lsp_auto_start_group,
-        callback = function(args)
-          start_ruby_lsp_for_project(args.buf)
-        end,
-      })
-
-      vim.api.nvim_create_autocmd('FileType', {
-        group = ruby_lsp_auto_start_group,
-        pattern = { 'ruby', 'eruby' },
-        callback = function(args)
-          start_ruby_lsp_for_project(args.buf)
-        end,
-      })
+      vim.lsp.enable(lsps)
 
       vim.diagnostic.config({
         severity_sort = true,
@@ -213,12 +193,10 @@ return {
         return clients
       end
 
-      local function reattach_buffer(bufnr, name)
-        if name == 'ruby_lsp' then
-          start_ruby_lsp_for_project(bufnr)
-        else
-          vim.lsp.enable(name)
-        end
+      -- Re-run nvim's own activation logic for one buffer. It re-resolves
+      -- filetypes/root_dir and starts whatever applies and isn't attached yet.
+      local function activate_buffer()
+        vim.cmd('silent! doautocmd nvim.lsp.enable FileType')
       end
 
       vim.api.nvim_create_user_command('LspRestart', function(opts)
@@ -237,9 +215,8 @@ return {
         end
 
         vim.defer_fn(function()
-          for _, name in ipairs(names) do
-            reattach_buffer(bufnr, name)
-          end
+          vim.lsp.enable(names)
+          activate_buffer()
           vim.notify('LspRestart: ' .. table.concat(names, ', '))
         end, 500)
       end, {
@@ -267,10 +244,8 @@ return {
         end
 
         vim.defer_fn(function()
-          -- ruby_lsp is restarted by the Gemfile-gated FileType autocmd below,
-          -- so keep it out of vim.lsp.enable to avoid a duplicate attach.
-          vim.lsp.enable(vim.tbl_filter(function(name) return name ~= 'ruby_lsp' end, names))
-          vim.cmd('silent! doautoall FileType')
+          vim.lsp.enable(names)
+          vim.cmd('silent! doautoall nvim.lsp.enable FileType')
           vim.notify('LspRestartAll: ' .. table.concat(names, ', '))
         end, 500)
       end, {
@@ -286,6 +261,57 @@ return {
           return names
         end,
         desc = 'Restart every running LSP server (or one by name)',
+      })
+
+      vim.api.nvim_create_user_command('LspStart', function(opts)
+        local bufnr = vim.api.nvim_get_current_buf()
+
+        local before = {}
+        for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+          before[client.name] = true
+        end
+
+        if opts.args ~= '' then
+          local ok, err = pcall(vim.lsp.enable, opts.args)
+          if not ok then
+            vim.notify('LspStart: ' .. tostring(err), vim.log.levels.ERROR)
+            return
+          end
+        end
+
+        activate_buffer()
+
+        vim.defer_fn(function()
+          local started = {}
+          for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+            if not before[client.name] then
+              table.insert(started, client.name)
+            end
+          end
+
+          if #started > 0 then
+            vim.notify('LspStart: ' .. table.concat(started, ', '))
+          elseif next(before) then
+            vim.notify('LspStart: already attached (' .. table.concat(vim.tbl_keys(before), ', ') .. ')')
+          else
+            vim.notify(
+              'LspStart: nothing started -- no configured server matches ft=' ..
+              (vim.bo[bufnr].filetype == '' and '(none)' or vim.bo[bufnr].filetype) ..
+              ', or its root_dir did not resolve. :LspInfo / :LspLog for details.',
+              vim.log.levels.WARN
+            )
+          end
+        end, 500)
+      end, {
+        nargs = '?',
+        complete = function()
+          local attached = {}
+          for _, client in ipairs(vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })) do
+            attached[client.name] = true
+          end
+          return vim.tbl_filter(function(name) return not attached[name] end, lsps)
+        end,
+        desc = 'Start configured LSP server(s) for the current buffer',
       })
 
       vim.api.nvim_create_user_command('LspStop', function(opts)
