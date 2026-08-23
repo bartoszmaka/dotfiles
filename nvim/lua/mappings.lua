@@ -29,10 +29,10 @@ nnoremap('K', '5k')
 nnoremap('J', '5j')
 vnoremap('K', '5k')
 vnoremap('J', '5j')
-nnoremap('j', 'gj')
-nnoremap('k', 'gk')
-vnoremap('j', 'gj')
-vnoremap('k', 'gk')
+-- Deliberately no j/k -> gj/gk remap: `wrap` is off globally (options.lua), so
+-- gj/gk behave identically to j/k and the mapping only adds mapping-engine
+-- overhead on the two keys most likely to be held down. If wrap is ever turned
+-- on for a filetype, add these back buffer-locally there instead of globally.
 
 vnoremap('<Tab>', '>gv')
 vnoremap('<S-Tab>', '<gv')

@@ -111,7 +111,10 @@ return {
         current_line_blame = true,
         current_line_blame_formatter = '   <author>, <author_time:%R> • <summary>',
         current_line_blame_opts = {
-          delay = 200
+          -- Upstream default. At 200ms a held j/k restarts a blame on nearly
+          -- every keystroke; blame cost scales with repo size and file history,
+          -- so this is much worse on a large repo than on a small one.
+          delay = 1000
         }
       })
 

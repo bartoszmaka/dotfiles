@@ -1,8 +1,23 @@
 return {
   '3rd/image.nvim',
-  -- Loaded before any buffer content is read so `hijack_file_patterns` reliably
-  -- fires even when an image file is the first thing opened (`nvim foo.png`).
-  event = { 'BufReadPre', 'BufNewFile' },
+  -- Still loaded before buffer content is read so `hijack_file_patterns` fires
+  -- even when an image is the first thing opened (`nvim foo.png`) -- but now only
+  -- for buffers that can actually display something. This previously fired on
+  -- BufReadPre for *every* buffer, paying image.nvim's setup and its terminal
+  -- round-trips (`window_overlap_clear_enabled`, `tmux_show_only_in_active_window`)
+  -- in ordinary code buffers that will never render an image.
+  event = {
+    {
+      event = { 'BufReadPre', 'BufNewFile' },
+      pattern = {
+        '*.png', '*.jpg', '*.jpeg', '*.gif', '*.webp',
+        '*.avif', '*.bmp', '*.tiff', '*.ico',
+      },
+    },
+  },
+  -- The markdown/codecompanion integrations render inside ordinary text buffers,
+  -- which the file patterns above do not match.
+  ft = { 'markdown', 'codecompanion' },
   opts = {
     backend = 'kitty',
     processor = 'magick_cli',

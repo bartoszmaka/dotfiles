@@ -12,7 +12,7 @@ return {
       },
       excluded_filetypes = { 'neo-tree' },
       handlers = {
-        cursor = true,
+        cursor = false, -- hooks CursorMoved; redraws the bar on every keystroke
         diagnostic = true,
         gitsigns = true,
         handle = true,
